@@ -1,11 +1,13 @@
 new_names <- function(x,...) UseMethod("new_names")
 
+#' @export
 new_names.character <- function(x,table=NULL,...) {
   if(rlang::is_named(x)) return(x)
   ans <- cvec_cs(x)
   names(ans) <- ans
   new_names_update_table(ans,table)
 }
+#' @export
 new_names.quosures <- function(x,table=NULL,chr=FALSE,...) {
   x <- map(x,quo_get_expr)
   .names <- names(x)

@@ -5,3 +5,4 @@ test\.R
 inst/test_data\.R
 Makefile
 ^README\.Rmd$
+inst/covr
