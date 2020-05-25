@@ -34,7 +34,7 @@ library(pmplots)
 data <- pmplots_data_id()
 ```
 
-```{r,results = 'asis'}
+```{r,results = 'hide'}
 pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc)) 
 ```
 
