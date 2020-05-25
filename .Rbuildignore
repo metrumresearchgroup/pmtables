@@ -1,0 +1,7 @@
+test\.R
+^.*\.Rproj$
+^\.Rproj\.user$
+\.gitignore
+inst/test_data\.R
+Makefile
+^README\.Rmd$

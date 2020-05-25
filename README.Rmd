@@ -1,0 +1,43 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# pmtables
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Tables for pharmacometrics
+
+## Installation
+
+Installation information to be updated when ready.
+
+
+## Examples
+
+Continuous covariate summary
+
+```{r}
+library(pmtables)
+library(pmplots)
+
+data <- pmplots_data_id()
+
+pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
+```
+
+
+
+

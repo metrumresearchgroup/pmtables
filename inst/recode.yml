@@ -1,0 +1,11 @@
+CP:
+  normal: Score=0
+  Pugh1: Score=1
+  Pugh3: Score=3
+  Pugh2: Score=2
+RF:
+  Normal: normal
+  Mild: mild
+  Moderate: moderate
+  Severe: severe
+
