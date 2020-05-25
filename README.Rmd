@@ -6,10 +6,7 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -30,12 +27,15 @@ Installation information to be updated when ready.
 Continuous covariate summary
 
 ```{r}
+library(dplyr)
 library(pmtables)
 library(pmplots)
 
 data <- pmplots_data_id()
+```
 
-pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
+```{r,results = 'asis'}
+pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc)) 
 ```
 
 

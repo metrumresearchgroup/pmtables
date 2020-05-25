@@ -18,13 +18,33 @@ Installation information to be updated when ready.
 Continuous covariate summary
 
 ``` r
+library(dplyr)
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
 library(pmtables)
 library(pmplots)
-#> Loading required package: ggplot2
+```
 
+    ## Loading required package: ggplot2
+
+``` r
 data <- pmplots_data_id()
+```
 
-pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
+``` r
+pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc)) 
 ```
 
 <!--html_preserve-->
@@ -33,7 +53,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gnyzaufbgd .gt_table {
+#rzairuxffi .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -56,7 +76,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-left-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_heading {
+#rzairuxffi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -68,7 +88,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_title {
+#rzairuxffi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -78,7 +98,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-bottom-width: 0;
 }
 
-#gnyzaufbgd .gt_subtitle {
+#rzairuxffi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -88,13 +108,13 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-top-width: 0;
 }
 
-#gnyzaufbgd .gt_bottom_border {
+#rzairuxffi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_col_headings {
+#rzairuxffi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -109,7 +129,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_col_heading {
+#rzairuxffi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -129,7 +149,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   overflow-x: hidden;
 }
 
-#gnyzaufbgd .gt_column_spanner_outer {
+#rzairuxffi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -141,15 +161,15 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-right: 4px;
 }
 
-#gnyzaufbgd .gt_column_spanner_outer:first-child {
+#rzairuxffi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gnyzaufbgd .gt_column_spanner_outer:last-child {
+#rzairuxffi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gnyzaufbgd .gt_column_spanner {
+#rzairuxffi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -161,7 +181,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   width: 100%;
 }
 
-#gnyzaufbgd .gt_group_heading {
+#rzairuxffi .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -183,7 +203,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   vertical-align: middle;
 }
 
-#gnyzaufbgd .gt_empty_group_heading {
+#rzairuxffi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -198,19 +218,19 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   vertical-align: middle;
 }
 
-#gnyzaufbgd .gt_striped {
+#rzairuxffi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gnyzaufbgd .gt_from_md > :first-child {
+#rzairuxffi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gnyzaufbgd .gt_from_md > :last-child {
+#rzairuxffi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gnyzaufbgd .gt_row {
+#rzairuxffi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -229,7 +249,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   overflow-x: hidden;
 }
 
-#gnyzaufbgd .gt_stub {
+#rzairuxffi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -241,7 +261,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-left: 12px;
 }
 
-#gnyzaufbgd .gt_summary_row {
+#rzairuxffi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -251,7 +271,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-right: 5px;
 }
 
-#gnyzaufbgd .gt_first_summary_row {
+#rzairuxffi .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -261,7 +281,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-top-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_grand_summary_row {
+#rzairuxffi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -271,7 +291,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-right: 5px;
 }
 
-#gnyzaufbgd .gt_first_grand_summary_row {
+#rzairuxffi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -281,7 +301,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-top-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_table_body {
+#rzairuxffi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -290,7 +310,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-bottom-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_footnotes {
+#rzairuxffi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -304,13 +324,13 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_footnote {
+#rzairuxffi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#gnyzaufbgd .gt_sourcenotes {
+#rzairuxffi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -324,47 +344,47 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#gnyzaufbgd .gt_sourcenote {
+#rzairuxffi .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#gnyzaufbgd .gt_left {
+#rzairuxffi .gt_left {
   text-align: left;
 }
 
-#gnyzaufbgd .gt_center {
+#rzairuxffi .gt_center {
   text-align: center;
 }
 
-#gnyzaufbgd .gt_right {
+#rzairuxffi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gnyzaufbgd .gt_font_normal {
+#rzairuxffi .gt_font_normal {
   font-weight: normal;
 }
 
-#gnyzaufbgd .gt_font_bold {
+#rzairuxffi .gt_font_bold {
   font-weight: bold;
 }
 
-#gnyzaufbgd .gt_font_italic {
+#rzairuxffi .gt_font_italic {
   font-style: italic;
 }
 
-#gnyzaufbgd .gt_super {
+#rzairuxffi .gt_super {
   font-size: 65%;
 }
 
-#gnyzaufbgd .gt_footnote_marks {
+#rzairuxffi .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
 
-<div id="gnyzaufbgd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rzairuxffi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
