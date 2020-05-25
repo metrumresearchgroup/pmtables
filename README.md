@@ -15,7 +15,7 @@ Installation information to be updated when ready.
 
 ## Examples
 
-Continuous covariate summary
+Continuous covariate summary\!
 
 ``` r
 library(dplyr)
