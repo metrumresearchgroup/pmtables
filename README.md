@@ -53,7 +53,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#wppueqbzda .gt_table {
+#arvowdlkcn .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -76,7 +76,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-left-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_heading {
+#arvowdlkcn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -88,7 +88,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_title {
+#arvowdlkcn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -98,7 +98,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-bottom-width: 0;
 }
 
-#wppueqbzda .gt_subtitle {
+#arvowdlkcn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -108,13 +108,13 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-top-width: 0;
 }
 
-#wppueqbzda .gt_bottom_border {
+#arvowdlkcn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_col_headings {
+#arvowdlkcn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -129,7 +129,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_col_heading {
+#arvowdlkcn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -149,7 +149,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   overflow-x: hidden;
 }
 
-#wppueqbzda .gt_column_spanner_outer {
+#arvowdlkcn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -161,15 +161,15 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-right: 4px;
 }
 
-#wppueqbzda .gt_column_spanner_outer:first-child {
+#arvowdlkcn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wppueqbzda .gt_column_spanner_outer:last-child {
+#arvowdlkcn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wppueqbzda .gt_column_spanner {
+#arvowdlkcn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -181,7 +181,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   width: 100%;
 }
 
-#wppueqbzda .gt_group_heading {
+#arvowdlkcn .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -203,7 +203,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   vertical-align: middle;
 }
 
-#wppueqbzda .gt_empty_group_heading {
+#arvowdlkcn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -218,19 +218,19 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   vertical-align: middle;
 }
 
-#wppueqbzda .gt_striped {
+#arvowdlkcn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wppueqbzda .gt_from_md > :first-child {
+#arvowdlkcn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wppueqbzda .gt_from_md > :last-child {
+#arvowdlkcn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wppueqbzda .gt_row {
+#arvowdlkcn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -249,7 +249,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   overflow-x: hidden;
 }
 
-#wppueqbzda .gt_stub {
+#arvowdlkcn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -261,7 +261,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-left: 12px;
 }
 
-#wppueqbzda .gt_summary_row {
+#arvowdlkcn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -271,7 +271,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-right: 5px;
 }
 
-#wppueqbzda .gt_first_summary_row {
+#arvowdlkcn .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -281,7 +281,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-top-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_grand_summary_row {
+#arvowdlkcn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -291,7 +291,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   padding-right: 5px;
 }
 
-#wppueqbzda .gt_first_grand_summary_row {
+#arvowdlkcn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -301,7 +301,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-top-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_table_body {
+#arvowdlkcn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -310,7 +310,7 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-bottom-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_footnotes {
+#arvowdlkcn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -324,13 +324,13 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_footnote {
+#arvowdlkcn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#wppueqbzda .gt_sourcenotes {
+#arvowdlkcn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -344,47 +344,47 @@ pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc))
   border-right-color: #D3D3D3;
 }
 
-#wppueqbzda .gt_sourcenote {
+#arvowdlkcn .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#wppueqbzda .gt_left {
+#arvowdlkcn .gt_left {
   text-align: left;
 }
 
-#wppueqbzda .gt_center {
+#arvowdlkcn .gt_center {
   text-align: center;
 }
 
-#wppueqbzda .gt_right {
+#arvowdlkcn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wppueqbzda .gt_font_normal {
+#arvowdlkcn .gt_font_normal {
   font-weight: normal;
 }
 
-#wppueqbzda .gt_font_bold {
+#arvowdlkcn .gt_font_bold {
   font-weight: bold;
 }
 
-#wppueqbzda .gt_font_italic {
+#arvowdlkcn .gt_font_italic {
   font-style: italic;
 }
 
-#wppueqbzda .gt_super {
+#arvowdlkcn .gt_super {
   font-size: 65%;
 }
 
-#wppueqbzda .gt_footnote_marks {
+#arvowdlkcn .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
 
-<div id="wppueqbzda" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="arvowdlkcn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
