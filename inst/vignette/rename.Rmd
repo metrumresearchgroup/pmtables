@@ -1,0 +1,86 @@
+---
+title: "rename"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = '.')
+```
+
+
+```{r}
+library(pmtables)
+vars <- dplyr::vars
+```
+
+# Motivation
+
+I wanted a way to capture column names as a character vector along with a 
+second set of names for renaming those data items. The primary need was
+a vector of names to use rather columns to select from a data set. 
+
+# Solution
+
+`new_names` class with methods for character and quosure.  This is two methods
+and the generic.
+
+```{r}
+pmtables:::new_names("a,b,c")
+```
+
+```{r}
+pmtables:::new_names(c("a", "b", "c"))
+```
+
+```{r}
+pmtables:::new_names(vars(a,b,c))
+```
+```{r}
+pmtables:::new_names(vars(A = a, B = b, C = c))
+```
+
+
+# Also accepts rename as named list
+
+- new names cal also be added through a named list
+- this is the third function 
+
+```{r}
+re <- list(A = "a", B = "b")
+
+pmtables:::new_names("A,B", table = re)
+
+```
+
+This is a little backward from the `rename(new_name = old_name)` syntax; but 
+it is made to handle output from yspec, where things are already keyed by the 
+existing column name. This could easily be modified to invert names / values
+during this lookup process.
+
+
+## Works with select
+
+- My main movitation was to get a character vector along with re-names in a 
+convenient and flexible way. The output can also be used to drive tidyverse
+select and rename functionality:
+
+```{r, message=FALSE}
+library(dplyr)
+x <- pmtables:::new_names(vars(b = B, a = A))
+
+x
+
+tab <- tibble(A = 1, B = 2)
+
+
+tab
+
+select(tab,all_of(x))
+```
+
+## Or rename
+
+```{r}
+rename(tab, all_of(x))
+```
+
