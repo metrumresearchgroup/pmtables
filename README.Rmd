@@ -44,6 +44,15 @@ pt_cont_study(
 ) 
 ```
 
+# Continuous by covariate
+
+```{r}
+pt_cont_long(
+  data, 
+  cols = vars(BMI,ALB,AAG), 
+  panel = vars("Renal function" = RFf)
+) 
+```
 
 # Categorical by study
 
