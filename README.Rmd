@@ -45,7 +45,6 @@ pt_cont_study(
 ```
 
 
-
 # Categorical by study
 ```{r}
 pt_cat_study(
@@ -69,7 +68,7 @@ pt_cat_study(
 # Data disposition
 
 
-```{r,eval=FALSE}
+```{r}
 data <- pmtables:::data("id")
 pt_data_inventory(
   data, 

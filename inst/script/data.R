@@ -2,6 +2,7 @@
 library(tidyverse)
 data <- read_csv("inst/data/analysis1.csv", na = '.')
 data <- select(data, -LDOS,-TAFD,-TAD,-MDV)
+data <- rename(data, BQL = BLQ)
 set.seed(112233)
 id <- data %>% filter(SEQ==0) %>% distinct(ID,STUDY)
 id <- mutate(

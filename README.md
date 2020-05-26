@@ -38,7 +38,7 @@ pt_cont_study(
 
 <!--html_preserve-->
 
-<div id="ehkeplcdmw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="eclovztkkj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -682,7 +682,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="byxfftpnjy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ldpbjqvarq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1036,7 +1036,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="gdywozespa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vfkhjepjhs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1388,3 +1388,324 @@ pt_data_inventory(
   outer = vars(Study = STUDYf)
 )
 ```
+
+<!--html_preserve-->
+
+<div id="cwbpfylulu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+
+<table class="gt_table">
+
+<thead class="gt_col_headings">
+
+<tr>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+Study
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+SUBJ
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+MISS
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+BQL
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="2">
+
+Percent
+
+</th>
+
+</tr>
+
+<tr>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+BQL
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="gt_table_body">
+
+<tr>
+
+<td class="gt_row gt_left">
+
+12-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center">
+
+30
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+30
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+18.8
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+12-DEMO-002
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+50
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+50
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+31.2
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+11-DEMO-005
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+25.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+13-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+25.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+Grand Total
+
+</td>
+
+<td class="gt_row gt_center">
+
+160
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+160
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot class="gt_sourcenotes">
+
+<tr>
+
+<td class="gt_sourcenote" colspan="7">
+
+SUBJ: subjects; OBS: observations; MISS: missing; BQL: below
+quantitation limit
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+<!--/html_preserve-->

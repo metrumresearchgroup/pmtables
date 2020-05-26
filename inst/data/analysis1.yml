@@ -41,7 +41,7 @@ CP:
 SEX:
   values: [0,1]
   decode: [male,female]
-BLQ:
+BQL:
   short: below limit of quantification
   values:
     - above QL: 1
