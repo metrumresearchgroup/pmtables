@@ -90,7 +90,8 @@ data_inventory_data <- function(data,outer,inner=outer,stacked=FALSE,...) {
   ans
 }
 
-data_inventory <- function(data,outer = ".total",inner=outer, ...,
+#' @export
+pt_data_inventory <- function(data,outer = ".total",inner=outer, ...,
                            inner_summary = TRUE, drop_miss = FALSE,
                            stacked = FALSE,table=NULL,subset = TRUE) {
 

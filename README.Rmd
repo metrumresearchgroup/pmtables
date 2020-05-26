@@ -26,18 +26,54 @@ Installation information to be updated when ready.
 
 Continuous covariate summary!
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 library(dplyr)
 library(pmtables)
-library(pmplots)
 
-data <- pmplots_data_id()
+
+data <- pmtables:::data("id") 
+data <- mutate(data, STUDY = STUDYf)
 ```
 
+# Continuous by study
 ```{r}
-pt_cont_study(data, cols = vars(BMI,ALB,AAG), study_col = vars(Study = STUDYc)) 
+pt_cont_study(
+  data, 
+  cols = vars(BMI,ALB,AAG), 
+  study_col = vars(Study = STUDY)
+) 
 ```
 
 
 
+# Categorical by study
+```{r}
+pt_cat_study(
+  data, 
+  cols = vars(Sex = SEXf,"Renal function" = RFf), 
+  study_col = vars(Study = STUDY)
+) 
+```
+
+## Wide version
+```{r}
+pt_cat_study(
+  data, 
+  cols = vars(Sex = SEXf,"Renal function" = RFf), 
+  study_col = vars(Study = STUDY), 
+  wide = TRUE
+) 
+```
+
+
+# Data disposition
+
+
+```{r,eval=FALSE}
+data <- pmtables:::data("id")
+pt_data_inventory(
+  data, 
+  outer = "STUDYf"
+)
+```
 

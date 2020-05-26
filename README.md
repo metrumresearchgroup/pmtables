@@ -19,37 +19,26 @@ Continuous covariate summary\!
 
 ``` r
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(pmtables)
-library(pmplots)
+
+
+data <- pmtables:::data("id") 
+data <- mutate(data, STUDY = STUDYf)
 ```
 
-    ## Loading required package: ggplot2
+# Continuous by study
 
 ``` r
-data <- pmplots_data_id()
-```
-
-``` r
-pt_cont_study(data, cols = vars(BMI,ALB,AAG), study_col = vars(Study = STUDYc)) 
+pt_cont_study(
+  data, 
+  cols = vars(BMI,ALB,AAG), 
+  study_col = vars(Study = STUDY)
+) 
 ```
 
 <!--html_preserve-->
 
-<div id="bvuagparne" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="axzpbgkxpu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -97,7 +86,7 @@ Min / Max
 
 <td colspan="5" class="gt_group_heading">
 
-Study SAD (n=30)
+Study 12-DEMO-001 (n=30)
 
 </td>
 
@@ -209,7 +198,7 @@ AAG
 
 <td colspan="5" class="gt_group_heading">
 
-Study MAD (n=50)
+Study 12-DEMO-002 (n=50)
 
 </td>
 
@@ -321,7 +310,7 @@ AAG
 
 <td colspan="5" class="gt_group_heading">
 
-Study Renal (n=40)
+Study 11-DEMO-005 (n=40)
 
 </td>
 
@@ -433,7 +422,7 @@ AAG
 
 <td colspan="5" class="gt_group_heading">
 
-Study Hepatic (n=40)
+Study 13-DEMO-001 (n=40)
 
 </td>
 
@@ -680,3 +669,722 @@ standard deviation <br />
 </div>
 
 <!--/html_preserve-->
+
+# Categorical by study
+
+``` r
+pt_cat_study(
+  data, 
+  cols = vars(Sex = SEXf,"Renal function" = RFf), 
+  study_col = vars(Study = STUDY)
+) 
+```
+
+<!--html_preserve-->
+
+<div id="slfpfeyouw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+
+<table class="gt_table">
+
+<thead class="gt_col_headings">
+
+<tr>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1">
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="4">
+
+Study
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+All
+studies
+
+</th>
+
+</tr>
+
+<tr>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+12-DEMO-001
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+12-DEMO-002
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+11-DEMO-005
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+13-DEMO-001
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="gt_table_body">
+
+<tr class="gt_group_heading_row">
+
+<td colspan="6" class="gt_group_heading">
+
+Sex
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_stub">
+
+male
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (33.3)
+
+</td>
+
+<td class="gt_row gt_left">
+
+18 (36.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+29 (72.5)
+
+</td>
+
+<td class="gt_row gt_left">
+
+23 (57.5)
+
+</td>
+
+<td class="gt_row gt_left">
+
+80 (50.0)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_stub">
+
+female
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+20 (66.7)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+32 (64.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+11 (27.5)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+17 (42.5)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+80 (50.0)
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="6" class="gt_group_heading">
+
+Renal function
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_stub">
+
+normal
+
+</td>
+
+<td class="gt_row gt_left">
+
+30 (100.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+50 (100.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (25.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+40 (100.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+130 (81.2)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_stub">
+
+mild
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+10 (25.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+10 (6.2)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_stub">
+
+moderate
+
+</td>
+
+<td class="gt_row gt_left">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (25.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (6.2)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_stub">
+
+severe
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+10 (25.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+10 (6.2)
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot class="gt_sourcenotes">
+
+<tr>
+
+<td class="gt_sourcenote" colspan="6">
+
+Summaries are count (percent)
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+<!--/html_preserve-->
+
+## Wide version
+
+``` r
+pt_cat_study(
+  data, 
+  cols = vars(Sex = SEXf,"Renal function" = RFf), 
+  study_col = vars(Study = STUDY), 
+  wide = TRUE
+) 
+```
+
+<!--html_preserve-->
+
+<div id="vxrkhsiovt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+
+<table class="gt_table">
+
+<thead class="gt_col_headings">
+
+<tr>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+Study
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner gt_sep_right" rowspan="1" colspan="2">
+
+Sex
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="4">
+
+Renal
+function
+
+</th>
+
+</tr>
+
+<tr>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+male
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+female
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+normal
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+mild
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+moderate
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+severe
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="gt_table_body">
+
+<tr class="gt_group_heading_row">
+
+<td colspan="7" class="gt_empty_group_heading">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+12-DEMO-001
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (33.3)
+
+</td>
+
+<td class="gt_row gt_left">
+
+20 (66.7)
+
+</td>
+
+<td class="gt_row gt_left">
+
+30 (100.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+0 (0.0)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+12-DEMO-002
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+18 (36.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+32 (64.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+50 (100.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+11-DEMO-005
+
+</td>
+
+<td class="gt_row gt_left">
+
+29 (72.5)
+
+</td>
+
+<td class="gt_row gt_left">
+
+11 (27.5)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (25.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (25.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (25.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (25.0)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+13-DEMO-001
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+23 (57.5)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+17 (42.5)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+40 (100.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0 (0.0)
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="7" class="gt_group_heading">
+
+Total
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+All studies
+
+</td>
+
+<td class="gt_row gt_left">
+
+80 (50.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+80 (50.0)
+
+</td>
+
+<td class="gt_row gt_left">
+
+130 (81.2)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (6.2)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (6.2)
+
+</td>
+
+<td class="gt_row gt_left">
+
+10 (6.2)
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot class="gt_sourcenotes">
+
+<tr>
+
+<td class="gt_sourcenote" colspan="7">
+
+Summaries are count (percent)
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+<!--/html_preserve-->
+
+# Data disposition
+
+``` r
+data <- pmtables:::data("id")
+pt_data_inventory(
+  data, 
+  outer = "STUDYf"
+)
+```
