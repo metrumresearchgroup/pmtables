@@ -38,7 +38,7 @@ pt_cont_study(
 
 <!--html_preserve-->
 
-<div id="axzpbgkxpu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ehkeplcdmw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -682,7 +682,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="slfpfeyouw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="byxfftpnjy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1036,7 +1036,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="vxrkhsiovt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gdywozespa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1385,6 +1385,6 @@ Summaries are count (percent)
 data <- pmtables:::data("id")
 pt_data_inventory(
   data, 
-  outer = "STUDYf"
+  outer = vars(Study = STUDYf)
 )
 ```

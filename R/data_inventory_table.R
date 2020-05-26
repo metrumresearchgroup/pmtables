@@ -1,15 +1,19 @@
 
-data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE, tot=FALSE,
-                                 dv_col = "DV", bq_col = c("BQL", "BLQ"),
-                                 id_col = "ID",...) {
+data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE,
+                                 tot=FALSE, all_name = "all",
+                                 dv_col = "DV",
+                                 bq_col = c("BQL", "BLQ"), id_col = "ID",...) {
 
   if(outer==".total" | inner==".total") {
-    data <- data_total_col(data)
+    data <- data_total_col(data,all_name = all_name)
   }
 
   bq_col <- match.arg(bq_col)
-  by <- c(outer,inner)
+
+  by <- unique(c(outer,inner))
+
   data <- ungroup(data)
+
   if(stacked) {
     data <- group_by(data,!!sym(outer))
     data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
@@ -35,14 +39,14 @@ data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE, tot=FA
     PBQL = digit1(100*NBQL/first(..n)),
     OBQL = digit1(100*NBQL/first(.N))
   )
-  summ <- left_join(body,bq,by = c(outer,inner))
+  summ <- left_join(body,bq,by = unique(c(outer,inner)))
   summ <- select(
     summ,
     !!sym(outer),
     !!sym(inner),
     SUBJ,
-    NOBS,
     NMISS,
+    NOBS,
     NBQL,
     POBS,
     PBQL,
@@ -66,20 +70,36 @@ data_inventory_data_split <- function(data,outer,inner=outer,stacked=FALSE,...) 
 
 }
 
-data_inventory_data <- function(data,outer,inner=outer,stacked=FALSE,...) {
+#' @export
+data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
+                                stacked=FALSE,...) {
   outer <- unname(outer)
   inner <- unname(inner)
   if(stacked) {
     ans <- data_inventory_data_split(data,outer,inner,stacked = FALSE, ...)
     return(ans)
   }
-  data <- data_total_col(data)
-  ans <- data_inventory_chunk(data,outer,inner,stacked,...)
+
+  data <- data_total_col(data, all_name = all_name)
+
+  ans <- data_inventory_chunk(
+    data = data,
+    outer = outer,
+    inner = inner,
+    all_name = all_name,
+    stacked = stacked,
+    ...
+  )
+
   if(outer != ".total") {
-    tot <- data_inventory_chunk(data,outer=".total",inner=".total",stacked=FALSE,...)
+    tot <- data_inventory_chunk(
+      data, outer = ".total", inner=".total", stacked = FALSE,
+      all_name = all_name, ...
+    )
+    tot <- mutate(tot, .total = all_name)
     ans <- bind_rows(ans,tot)
   }
-  ans[[".total"]] <- NULL
+
   if(inner!=outer) {
     ans <- mutate(ans, !!sym(inner) := replace_na(!!sym(inner),".total"))
     ans <- fill(ans, !!sym(outer), .direction = "down")
@@ -91,15 +111,18 @@ data_inventory_data <- function(data,outer,inner=outer,stacked=FALSE,...) {
 }
 
 #' @export
-pt_data_inventory <- function(data,outer = ".total",inner=outer, ...,
-                           inner_summary = TRUE, drop_miss = FALSE,
-                           stacked = FALSE,table=NULL,subset = TRUE) {
+pt_data_inventory <- function(data,outer = ".total", inner=outer, ...,
+                              inner_summary = TRUE, drop_miss = FALSE,
+                              stacked = FALSE,table=NULL,subset = TRUE,
+                              all_name = "all") {
 
   subset <- enquo(subset)
   data <- filter(data, !!subset)
 
   outer <- new_names(outer,table)
   inner <- new_names(inner,table)
+
+  force_all_name <- !missing(all_name) & outer==".total"
 
   if(inner==outer) {
     inner_summary <- FALSE
@@ -113,6 +136,7 @@ pt_data_inventory <- function(data,outer = ".total",inner=outer, ...,
     outer = outer,
     inner = inner,
     stacked = stacked,
+    all_name = all_name,
     ...
   )
 
@@ -122,7 +146,6 @@ pt_data_inventory <- function(data,outer = ".total",inner=outer, ...,
       !!sym(inner) := ifelse(!!sym(inner)==".total", total_name, !!sym(inner))
     )
   }
-
 
   if(inner_summary) {
     ans <- rename(
@@ -138,7 +161,7 @@ pt_data_inventory <- function(data,outer = ".total",inner=outer, ...,
       `Percent.OBS` = OOBS,
       `Percent.BQL` = OBQL
     )
-    ans <- mutate(ans, POBS=NULL,PBQL=NULL)
+    ans <- mutate(ans,POBS=NULL,PBQL=NULL)
   }
 
   ans <- rename(
@@ -158,22 +181,34 @@ pt_data_inventory <- function(data,outer = ".total",inner=outer, ...,
   if(inner!=outer) {
     ans <- mutate(
       ans,
+      .total = NULL,
       !!sym(outer) := paste0(names(outer), ": ", !!sym(outer))
     )
-    ans <- rename(ans,!!!syms(outer))
-    ans <- rename(ans,!!!syms(inner))
+    ans <- rename(ans,inner)
+    ans <- rename(ans,outer)
     out <- gt(ans,groupname_col=names(outer))
-  } else {
-    ans <- rename(ans,!!!syms(outer))
+  }
+  if(inner==outer & outer != ".total") {
+    ans <- rename(ans, outer)
+    ans <- mutate(ans,.total = NULL)
+    out <- gt(ans)
+  }
+  if(inner==outer & outer == ".total") {
+    if(force_all_name) {
+      all_name <- new_names(vars(" " = ".total"))
+      ans <- rename(ans, all_of(all_name))
+    } else {
+      ans <- mutate(ans,.total = NULL)
+    }
     out <- gt(ans)
   }
 
-  out <- cols_align(out, "left")
   out <- tab_sp_delim(out,delim = '.')
 
   out <- tab_source_note(
     out,
-    "SUBJ: subjects; OBS: observations; MISS: missing; BQL: below quantitation limit"
+    "SUBJ: subjects; OBS: observations; MISS: missing;
+     BQL: below quantitation limit"
   )
   out
 }

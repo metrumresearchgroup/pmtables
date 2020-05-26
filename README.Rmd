@@ -73,7 +73,7 @@ pt_cat_study(
 data <- pmtables:::data("id")
 pt_data_inventory(
   data, 
-  outer = "STUDYf"
+  outer = vars(Study = STUDYf)
 )
 ```
 
