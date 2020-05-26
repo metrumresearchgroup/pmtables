@@ -38,7 +38,7 @@ pt_cont_study(
 
 <!--html_preserve-->
 
-<div id="eclovztkkj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ryhkhlffhg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -682,7 +682,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="ldpbjqvarq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ulmjoywcfx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1036,7 +1036,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="vfkhjepjhs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="pztneaqnqu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1381,6 +1381,8 @@ Summaries are count (percent)
 
 # Data disposition
 
+## By study
+
 ``` r
 data <- pmtables:::data("id")
 pt_data_inventory(
@@ -1391,7 +1393,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="cwbpfylulu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="lfuosczirs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1694,6 +1696,1364 @@ Grand Total
 <tr>
 
 <td class="gt_sourcenote" colspan="7">
+
+SUBJ: subjects; OBS: observations; MISS: missing; BQL: below
+quantitation limit
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+<!--/html_preserve-->
+
+## By study and covariate
+
+``` r
+data <- pmtables:::data("obs") %>% filter(SEQ==1)
+pt_data_inventory(
+  data, 
+  outer = vars(Study = STUDYf), 
+  inner = vars(Sex = SEXf)
+)
+```
+
+<!--html_preserve-->
+
+<div id="thendpuafr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+
+<table class="gt_table">
+
+<thead class="gt_col_headings">
+
+<tr>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+Sex
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+SUBJ
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+MISS
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+BQL
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner gt_sep_right" rowspan="1" colspan="2">
+
+Group
+percent
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="2">
+
+Overall
+percent
+
+</th>
+
+</tr>
+
+<tr>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+BQL
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+BQL
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="gt_table_body">
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 12-DEMO-001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+10
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+150
+
+</td>
+
+<td class="gt_row gt_center">
+
+3
+
+</td>
+
+<td class="gt_row gt_left">
+
+33.3
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+4.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+female
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+20
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+300
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+23
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+66.7
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+5.1
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+9.3
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.7
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 12-DEMO-002
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+18
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+432
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+36.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+13.5
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+female
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+32
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+768
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+1
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+64.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.1
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+23.9
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 11-DEMO-005
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+29
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+696
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+72.5
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+21.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+female
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+11
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+264
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+27.5
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+8.2
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 13-DEMO-001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+23
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+345
+
+</td>
+
+<td class="gt_row gt_center">
+
+28
+
+</td>
+
+<td class="gt_row gt_left">
+
+57.5
+
+</td>
+
+<td class="gt_row gt_left">
+
+4.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+10.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.9
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+female
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+17
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+255
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+13
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+42.5
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+2.2
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+7.9
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.4
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+Grand Total
+
+</td>
+
+<td class="gt_row gt_center">
+
+160
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+3210
+
+</td>
+
+<td class="gt_row gt_center">
+
+68
+
+</td>
+
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+2.1
+
+</td>
+
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+2.1
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot class="gt_sourcenotes">
+
+<tr>
+
+<td class="gt_sourcenote" colspan="9">
+
+SUBJ: subjects; OBS: observations; MISS: missing; BQL: below
+quantitation limit
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+<!--/html_preserve-->
+
+## Stacked by endpoint
+
+``` r
+data <- pmtables:::data("obs")
+pt_data_inventory(
+  data, 
+  outer = vars(Endpoint = SEQf), 
+  inner = vars(Study = STUDYf)
+)
+```
+
+<!--html_preserve-->
+
+<div id="nbighlisar" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+
+<table class="gt_table">
+
+<thead class="gt_col_headings">
+
+<tr>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+Study
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+SUBJ
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+MISS
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+BQL
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner gt_sep_right" rowspan="1" colspan="2">
+
+Group
+percent
+
+</th>
+
+<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="2">
+
+Overall
+percent
+
+</th>
+
+</tr>
+
+<tr>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+BQL
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+BQL
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="gt_table_body">
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Endpoint: DEMO PK
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+12-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center">
+
+30
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+450
+
+</td>
+
+<td class="gt_row gt_center">
+
+26
+
+</td>
+
+<td class="gt_row gt_left">
+
+14.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.8
+
+</td>
+
+<td class="gt_row gt_left">
+
+12.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.7
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+12-DEMO-002
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+50
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+1200
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+1
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+37.4
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+34.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+11-DEMO-005
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+960
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+29.9
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+27.2
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+13-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+600
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+41
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+18.7
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+1.3
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+17.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+1.2
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Endpoint: ESTRDIOL
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+11-DEMO-005
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+50.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+1.1
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+13-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+50.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+1.1
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Endpoint: BMD
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+11-DEMO-005
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+120
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+50.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+3.4
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left gt_striped">
+
+13-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+120
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+4
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+50.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+1.7
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+3.4
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+Grand Total
+
+</td>
+
+<td class="gt_row gt_center">
+
+160
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+3530
+
+</td>
+
+<td class="gt_row gt_center">
+
+72
+
+</td>
+
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+2.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+2.0
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot class="gt_sourcenotes">
+
+<tr>
+
+<td class="gt_sourcenote" colspan="9">
 
 SUBJ: subjects; OBS: observations; MISS: missing; BQL: below
 quantitation limit

@@ -67,6 +67,7 @@ pt_cat_study(
 
 # Data disposition
 
+## By study
 
 ```{r}
 data <- pmtables:::data("id")
@@ -76,3 +77,23 @@ pt_data_inventory(
 )
 ```
 
+## By study and covariate
+```{r}
+data <- pmtables:::data("obs") %>% filter(SEQ==1)
+pt_data_inventory(
+  data, 
+  outer = vars(Study = STUDYf), 
+  inner = vars(Sex = SEXf)
+)
+```
+
+## Stacked by endpoint
+
+```{r}
+data <- pmtables:::data("obs")
+pt_data_inventory(
+  data, 
+  outer = vars(Endpoint = SEQf), 
+  inner = vars(Study = STUDYf)
+)
+```
