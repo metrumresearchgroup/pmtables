@@ -38,7 +38,7 @@ pt_cont_study(
 
 <!--html_preserve-->
 
-<div id="ryhkhlffhg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="qaxbjdcsff" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -682,7 +682,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="ulmjoywcfx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="wgqgbjqsor" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1036,7 +1036,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="pztneaqnqu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="mifaxygqdp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1393,7 +1393,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="lfuosczirs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rhazjctedw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1725,7 +1725,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="thendpuafr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rmqvnmqiuv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -2403,13 +2403,14 @@ data <- pmtables:::data("obs")
 pt_data_inventory(
   data, 
   outer = vars(Endpoint = SEQf), 
-  inner = vars(Study = STUDYf)
+  inner = vars(Study = STUDYf), 
+  stacked = TRUE
 )
 ```
 
 <!--html_preserve-->
 
-<div id="nbighlisar" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="xmdtdltumv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -2551,13 +2552,13 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_left">
 
-12.7
+14.0
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.7
+0.8
 
 </td>
 
@@ -2609,7 +2610,7 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_left gt_striped">
 
-34.0
+37.4
 
 </td>
 
@@ -2667,7 +2668,7 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_left">
 
-27.2
+29.9
 
 </td>
 
@@ -2725,13 +2726,71 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_left gt_striped">
 
-17.0
+18.7
 
 </td>
 
 <td class="gt_row gt_left gt_striped">
 
-1.2
+1.3
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+Group Total
+
+</td>
+
+<td class="gt_row gt_center">
+
+160
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+3210
+
+</td>
+
+<td class="gt_row gt_center">
+
+68
+
+</td>
+
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+2.1
+
+</td>
+
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+2.1
 
 </td>
 
@@ -2749,9 +2808,67 @@ Endpoint: ESTRDIOL
 
 <tr>
 
-<td class="gt_row gt_left">
+<td class="gt_row gt_left gt_striped">
 
 11-DEMO-005
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+40
+
+</td>
+
+<td class="gt_row gt_center gt_striped">
+
+0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+50.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+50.0
+
+</td>
+
+<td class="gt_row gt_left gt_striped">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+13-DEMO-001
 
 </td>
 
@@ -2793,7 +2910,7 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_left">
 
-1.1
+50.0
 
 </td>
 
@@ -2809,13 +2926,13 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_left gt_striped">
 
-13-DEMO-001
+Group Total
 
 </td>
 
 <td class="gt_row gt_center gt_striped">
 
-40
+80
 
 </td>
 
@@ -2827,7 +2944,7 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_center gt_striped">
 
-40
+80
 
 </td>
 
@@ -2839,7 +2956,7 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_left gt_striped">
 
-50.0
+100.0
 
 </td>
 
@@ -2851,7 +2968,7 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_left gt_striped">
 
-1.1
+100.0
 
 </td>
 
@@ -2919,7 +3036,7 @@ Endpoint: BMD
 
 <td class="gt_row gt_left">
 
-3.4
+50.0
 
 </td>
 
@@ -2977,13 +3094,13 @@ Endpoint: BMD
 
 <td class="gt_row gt_left gt_striped">
 
-3.4
+50.0
 
 </td>
 
 <td class="gt_row gt_left gt_striped">
 
-0.1
+1.7
 
 </td>
 
@@ -2993,13 +3110,13 @@ Endpoint: BMD
 
 <td class="gt_row gt_left">
 
-Grand Total
+Group Total
 
 </td>
 
 <td class="gt_row gt_center">
 
-160
+80
 
 </td>
 
@@ -3011,13 +3128,13 @@ Grand Total
 
 <td class="gt_row gt_center">
 
-3530
+240
 
 </td>
 
 <td class="gt_row gt_center">
 
-72
+4
 
 </td>
 
@@ -3029,7 +3146,7 @@ Grand Total
 
 <td class="gt_row gt_left">
 
-2.0
+1.7
 
 </td>
 
@@ -3041,7 +3158,7 @@ Grand Total
 
 <td class="gt_row gt_left">
 
-2.0
+1.7
 
 </td>
 
