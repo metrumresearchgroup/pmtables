@@ -1,4 +1,4 @@
-tab_sp_delim <- gt::tab_spanner_delim
+tab_sp_delim <- mrggt::tab_spanner_delim
 
 foot <- function(short,cols) {
   cols <- cvec_cs(cols)

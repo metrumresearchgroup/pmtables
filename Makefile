@@ -1,3 +1,8 @@
+all:
+	make doc
+	make build
+build:
+	R CMD build .
 doc:
 	Rscript -e 'devtools::document()'
 readme:

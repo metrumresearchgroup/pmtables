@@ -7,7 +7,8 @@ Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
-Imports: purrr, dplyr, forcats, tidyr, rlang, gt, mrggt, glue,tibble
+Imports: purrr, dplyr, forcats, tidyr, rlang, mrggt, glue,tibble
+Depends: R (>= 3.5.0)
 Suggests: testthat
 Encoding: UTF-8
 LazyData: true

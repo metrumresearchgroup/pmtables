@@ -141,18 +141,18 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 
   out <- gt(ungroup(ans))
 
-  out <- mrggt::cols_label(
+  out <- cols_label(
     out,
     {{by}} := names(by)[1]
   )
 
   if(nby > 1) {
-    out <- gt::tab_row_group(
+    out <- tab_row_group(
       out,
       group = "Total",
       rows = ans[[1]]==all_name
     )
-    out <- gt::row_group_order(
+    out <- row_group_order(
       out,
       groups = c(NA, "Total")
     )
@@ -161,7 +161,7 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
   out <- tab_sp_delim(out,delim='.')
 
   if(nby==1 & exists(".total", ans)) {
-    out <- mrggt::cols_label(
+    out <- cols_label(
       out,
       .total = ""
     )

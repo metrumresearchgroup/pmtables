@@ -92,12 +92,12 @@ pt_cont_wide <- function(data, cols, by = ".total",
   )
 
   if(all_summary) {
-    out <- gt::tab_row_group(
+    out <- tab_row_group(
       out,
       group = "Total",
       rows = ans[[1]]==all_name
     )
-    out <- gt::row_group_order(
+    out <- row_group_order(
       out,
       groups = c(NA, "Total")
     )
@@ -116,7 +116,7 @@ pt_cont_wide <- function(data, cols, by = ".total",
   out <- cols_align(out,"right")
   if(is.logical(formals(fun)[["footnote"]])) {
     footn <- fun(footnote = TRUE)
-    out <- mrggt::tab_source_note(
+    out <- tab_source_note(
       out,
       footn
     )

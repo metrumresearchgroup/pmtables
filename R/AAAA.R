@@ -7,7 +7,7 @@
 #' @importFrom rlang sym syms quo_get_expr as_string
 #' @importFrom glue glue
 #' @importFrom tibble tibble
-#' @import gt
+#' @import mrggt
 #'
 #'
 NULL
