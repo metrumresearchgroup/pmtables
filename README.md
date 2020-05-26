@@ -38,7 +38,7 @@ pt_cont_study(
 
 <!--html_preserve-->
 
-<div id="qaxbjdcsff" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="lmghrcwcal" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -682,7 +682,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="wgqgbjqsor" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="keznidkgne" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1025,6 +1025,11 @@ Summaries are count (percent)
 
 ## Wide version
 
+  - Both tables look wide; at this point, “wide” means that the
+    covariates are going east to west
+
+<!-- end list -->
+
 ``` r
 pt_cat_study(
   data, 
@@ -1036,7 +1041,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="mifaxygqdp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="qochhocucq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1393,7 +1398,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="rhazjctedw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gfrvzybgsj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1725,7 +1730,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="rmqvnmqiuv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="glbchpddbo" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -2410,7 +2415,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="xmdtdltumv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="fooqporztq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 

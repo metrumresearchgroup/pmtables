@@ -46,6 +46,7 @@ pt_cont_study(
 
 
 # Categorical by study
+
 ```{r}
 pt_cat_study(
   data, 
@@ -55,6 +56,10 @@ pt_cat_study(
 ```
 
 ## Wide version
+
+- Both tables look wide; at this point, "wide" means that the covariates are 
+  going east to west
+
 ```{r}
 pt_cat_study(
   data, 
