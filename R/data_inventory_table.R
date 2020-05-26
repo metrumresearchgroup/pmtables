@@ -164,6 +164,14 @@ pt_data_inventory <- function(data,outer = ".total", inner=outer, ...,
     ans <- mutate(ans,POBS=NULL,PBQL=NULL)
   }
 
+  if(stacked) {
+    ans <- mutate(
+      ans,
+      `Overall percent.OBS` = NULL,
+      `Overall percent.BQL` = NULL
+    )
+  }
+
   ans <- rename(
     ans,
     SUBJ = SUBJ,

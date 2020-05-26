@@ -38,7 +38,7 @@ pt_cont_study(
 
 <!--html_preserve-->
 
-<div id="zpujfpppyf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="meuplxygjy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -682,7 +682,7 @@ pt_cont_long(
 
 <!--html_preserve-->
 
-<div id="ixawefialp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="yegegsmxpn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1326,7 +1326,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="kgzdvnjjmr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="tiefkhvlkv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1685,7 +1685,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="widlcbbsqr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="woqvvmjtah" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -2042,7 +2042,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="glytqymmev" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ztufnabsri" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -2374,7 +2374,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="qwmtzjspap" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uxyuodvtch" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -3059,7 +3059,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="neepnzxjit" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vywamqdzci" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -3097,16 +3097,9 @@ BQL
 
 </th>
 
-<th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner gt_sep_right" rowspan="1" colspan="2">
-
-Group
-percent
-
-</th>
-
 <th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="2">
 
-Overall
+Group
 percent
 
 </th>
@@ -3114,18 +3107,6 @@ percent
 </tr>
 
 <tr>
-
-<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
-
-OBS
-
-</th>
-
-<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
-
-BQL
-
-</th>
 
 <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
 
@@ -3147,7 +3128,7 @@ BQL
 
 <tr class="gt_group_heading_row">
 
-<td colspan="9" class="gt_group_heading">
+<td colspan="7" class="gt_group_heading">
 
 Endpoint: DEMO PK
 
@@ -3184,18 +3165,6 @@ Endpoint: DEMO PK
 <td class="gt_row gt_center">
 
 26
-
-</td>
-
-<td class="gt_row gt_left">
-
-14.0
-
-</td>
-
-<td class="gt_row gt_left">
-
-0.8
 
 </td>
 
@@ -3257,18 +3226,6 @@ Endpoint: DEMO PK
 
 </td>
 
-<td class="gt_row gt_left gt_striped">
-
-37.4
-
-</td>
-
-<td class="gt_row gt_left gt_striped">
-
-0.0
-
-</td>
-
 </tr>
 
 <tr>
@@ -3300,18 +3257,6 @@ Endpoint: DEMO PK
 <td class="gt_row gt_center">
 
 0
-
-</td>
-
-<td class="gt_row gt_left">
-
-29.9
-
-</td>
-
-<td class="gt_row gt_left">
-
-0.0
 
 </td>
 
@@ -3373,18 +3318,6 @@ Endpoint: DEMO PK
 
 </td>
 
-<td class="gt_row gt_left gt_striped">
-
-18.7
-
-</td>
-
-<td class="gt_row gt_left gt_striped">
-
-1.3
-
-</td>
-
 </tr>
 
 <tr>
@@ -3431,23 +3364,11 @@ Group Total
 
 </td>
 
-<td class="gt_row gt_left">
-
-100.0
-
-</td>
-
-<td class="gt_row gt_left">
-
-2.1
-
-</td>
-
 </tr>
 
 <tr class="gt_group_heading_row">
 
-<td colspan="9" class="gt_group_heading">
+<td colspan="7" class="gt_group_heading">
 
 Endpoint: ESTRDIOL
 
@@ -3499,18 +3420,6 @@ Endpoint: ESTRDIOL
 
 </td>
 
-<td class="gt_row gt_left gt_striped">
-
-50.0
-
-</td>
-
-<td class="gt_row gt_left gt_striped">
-
-0.0
-
-</td>
-
 </tr>
 
 <tr>
@@ -3542,18 +3451,6 @@ Endpoint: ESTRDIOL
 <td class="gt_row gt_center">
 
 0
-
-</td>
-
-<td class="gt_row gt_left">
-
-50.0
-
-</td>
-
-<td class="gt_row gt_left">
-
-0.0
 
 </td>
 
@@ -3615,23 +3512,11 @@ Group Total
 
 </td>
 
-<td class="gt_row gt_left gt_striped">
-
-100.0
-
-</td>
-
-<td class="gt_row gt_left gt_striped">
-
-0.0
-
-</td>
-
 </tr>
 
 <tr class="gt_group_heading_row">
 
-<td colspan="9" class="gt_group_heading">
+<td colspan="7" class="gt_group_heading">
 
 Endpoint: BMD
 
@@ -3683,18 +3568,6 @@ Endpoint: BMD
 
 </td>
 
-<td class="gt_row gt_left">
-
-50.0
-
-</td>
-
-<td class="gt_row gt_left">
-
-0.0
-
-</td>
-
 </tr>
 
 <tr>
@@ -3726,18 +3599,6 @@ Endpoint: BMD
 <td class="gt_row gt_center gt_striped">
 
 4
-
-</td>
-
-<td class="gt_row gt_left gt_striped">
-
-50.0
-
-</td>
-
-<td class="gt_row gt_left gt_striped">
-
-1.7
 
 </td>
 
@@ -3799,18 +3660,6 @@ Group Total
 
 </td>
 
-<td class="gt_row gt_left">
-
-100.0
-
-</td>
-
-<td class="gt_row gt_left">
-
-1.7
-
-</td>
-
 </tr>
 
 </tbody>
@@ -3819,7 +3668,7 @@ Group Total
 
 <tr>
 
-<td class="gt_sourcenote" colspan="9">
+<td class="gt_sourcenote" colspan="7">
 
 SUBJ: subjects; OBS: observations; MISS: missing; BQL: below
 quantitation limit
