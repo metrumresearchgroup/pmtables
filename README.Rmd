@@ -49,7 +49,7 @@ pt_cont_study(
 ```{r}
 pt_cont_long(
   data, 
-  cols = vars(BMI,ALB,AAG), 
+  cols = vars(WT,SCR,CRCL), 
   panel = vars("Renal function" = RFf)
 ) 
 ```

@@ -38,7 +38,7 @@ pt_cont_study(
 
 <!--html_preserve-->
 
-<div id="ybwlzhiltp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="zpujfpppyf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -675,14 +675,14 @@ standard deviation <br />
 ``` r
 pt_cont_long(
   data, 
-  cols = vars(BMI,ALB,AAG), 
+  cols = vars(WT,SCR,CRCL), 
   panel = vars("Renal function" = RFf)
 ) 
 ```
 
 <!--html_preserve-->
 
-<div id="iafcauzzfg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ixawefialp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -740,31 +740,31 @@ Renal function normal (n=130)
 
 <td class="gt_row gt_left gt_stub">
 
-BMI
+WT
 
 </td>
 
 <td class="gt_row gt_right">
 
-21.9
+71.3
 
 </td>
 
 <td class="gt_row gt_right">
 
-22.0
+71.5
 
 </td>
 
 <td class="gt_row gt_right">
 
-1.86
+12.7
 
 </td>
 
 <td class="gt_row gt_right">
 
-18.5 / 24.9
+50.5 / 97.2
 
 </td>
 
@@ -774,31 +774,31 @@ BMI
 
 <td class="gt_row gt_left gt_stub">
 
-ALB
+SCR
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-4.13
+0.975
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-4.28
+0.980
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-0.852
+0.162
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-1.28 / 5.39
+0.710 / 1.30
 
 </td>
 
@@ -808,31 +808,31 @@ ALB
 
 <td class="gt_row gt_left gt_stub">
 
-AAG
+CRCL
 
 </td>
 
 <td class="gt_row gt_right">
 
-83.7
+103
 
 </td>
 
 <td class="gt_row gt_right">
 
-87.4
+102
 
 </td>
 
 <td class="gt_row gt_right">
 
-20.8
+8.54
 
 </td>
 
 <td class="gt_row gt_right">
 
-50.1 / 119
+90.6 / 126
 
 </td>
 
@@ -852,31 +852,31 @@ Renal function mild (n=10)
 
 <td class="gt_row gt_left gt_stub">
 
-BMI
+WT
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-22.5
+71.0
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-22.8
+69.0
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-1.44
+11.6
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-19.7 / 24.7
+53.1 / 87.3
 
 </td>
 
@@ -886,31 +886,31 @@ BMI
 
 <td class="gt_row gt_left gt_stub">
 
-ALB
+SCR
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.40
+1.74
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.42
+1.72
 
 </td>
 
 <td class="gt_row gt_right">
 
-0.568
+0.263
 
 </td>
 
 <td class="gt_row gt_right">
 
-3.56 / 5.29
+1.32 / 2.20
 
 </td>
 
@@ -920,31 +920,31 @@ ALB
 
 <td class="gt_row gt_left gt_stub">
 
-AAG
+CRCL
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-87.2
+75.0
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-86.2
+74.9
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-18.5
+7.52
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-59.2 / 118
+65.9 / 85.4
 
 </td>
 
@@ -964,31 +964,31 @@ Renal function moderate (n=10)
 
 <td class="gt_row gt_left gt_stub">
 
-BMI
+WT
 
 </td>
 
 <td class="gt_row gt_right">
 
-21.5
+67.8
 
 </td>
 
 <td class="gt_row gt_right">
 
-21.9
+62.8
 
 </td>
 
 <td class="gt_row gt_right">
 
-1.92
+16.8
 
 </td>
 
 <td class="gt_row gt_right">
 
-18.6 / 23.7
+43.6 / 91.0
 
 </td>
 
@@ -998,31 +998,31 @@ BMI
 
 <td class="gt_row gt_left gt_stub">
 
-ALB
+SCR
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-4.56
+2.83
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-4.51
+2.80
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-0.511
+0.282
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-3.69 / 5.39
+2.46 / 3.23
 
 </td>
 
@@ -1032,31 +1032,31 @@ ALB
 
 <td class="gt_row gt_left gt_stub">
 
-AAG
+CRCL
 
 </td>
 
 <td class="gt_row gt_right">
 
-96.7
+43.2
 
 </td>
 
 <td class="gt_row gt_right">
 
-100
+42.9
 
 </td>
 
 <td class="gt_row gt_right">
 
-19.8
+8.24
 
 </td>
 
 <td class="gt_row gt_right">
 
-53.4 / 117
+32.3 / 56.2
 
 </td>
 
@@ -1076,31 +1076,31 @@ Renal function severe (n=10)
 
 <td class="gt_row gt_left gt_stub">
 
-BMI
+WT
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-23.2
+68.6
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-23.9
+65.0
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-1.53
+13.7
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-19.8 / 24.6
+50.5 / 88.2
 
 </td>
 
@@ -1110,31 +1110,31 @@ BMI
 
 <td class="gt_row gt_left gt_stub">
 
-ALB
+SCR
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.38
+4.58
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.30
+4.16
 
 </td>
 
 <td class="gt_row gt_right">
 
-0.527
+0.657
 
 </td>
 
 <td class="gt_row gt_right">
 
-3.65 / 5.28
+3.92 / 5.59
 
 </td>
 
@@ -1144,31 +1144,31 @@ ALB
 
 <td class="gt_row gt_left gt_stub">
 
-AAG
+CRCL
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-83.3
+22.6
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-86.8
+22.6
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-19.8
+3.77
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-56.0 / 111
+15.4 / 28.9
 
 </td>
 
@@ -1188,31 +1188,31 @@ All data (n=160)
 
 <td class="gt_row gt_left gt_stub">
 
-BMI
+WT
 
 </td>
 
 <td class="gt_row gt_right">
 
-22.0
+70.9
 
 </td>
 
 <td class="gt_row gt_right">
 
-22.2
+70.2
 
 </td>
 
 <td class="gt_row gt_right">
 
-1.84
+12.9
 
 </td>
 
 <td class="gt_row gt_right">
 
-18.5 / 24.9
+43.6 / 97.2
 
 </td>
 
@@ -1222,31 +1222,31 @@ BMI
 
 <td class="gt_row gt_left gt_stub">
 
-ALB
+SCR
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-4.19
+1.36
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-4.31
+1.04
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-0.809
+0.986
 
 </td>
 
 <td class="gt_row gt_right gt_striped">
 
-1.28 / 5.39
+0.710 / 5.59
 
 </td>
 
@@ -1256,31 +1256,31 @@ ALB
 
 <td class="gt_row gt_left gt_stub">
 
-AAG
+CRCL
 
 </td>
 
 <td class="gt_row gt_right">
 
-84.7
+92.4
 
 </td>
 
 <td class="gt_row gt_right">
 
-87.8
+98.8
 
 </td>
 
 <td class="gt_row gt_right">
 
-20.6
+25.2
 
 </td>
 
 <td class="gt_row gt_right">
 
-50.1 / 119
+15.4 / 126
 
 </td>
 
@@ -1326,7 +1326,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="nqgfzctrqf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="kgzdvnjjmr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -1685,7 +1685,7 @@ pt_cat_study(
 
 <!--html_preserve-->
 
-<div id="ooiwnfkdca" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="widlcbbsqr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -2042,7 +2042,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="hnebnnwwss" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="glytqymmev" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -2374,7 +2374,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="lweumhfqry" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="qwmtzjspap" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
@@ -3059,7 +3059,7 @@ pt_data_inventory(
 
 <!--html_preserve-->
 
-<div id="phndlnlgnh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="neepnzxjit" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table">
 
