@@ -44,5 +44,5 @@ data <- pmplots_data_id()
 ```
 
 ``` r
-pt_cont_study(data, cols = "BMI,ALB,AAG", study_col = vars(Study = STUDYc)) 
+pt_cont_study(data, cols = vars(BMI,ALB,AAG), study_col = vars(Study = STUDYc)) 
 ```
