@@ -216,6 +216,23 @@ pt_cont_long <- function(data,cols,
   out
 }
 
+#' Continuous covariate table by study
+#'
+#' @param data the data frame to summarize
+#' @param cols the columns to summarize; may be character vector or quosure
+#' @param study_col character name of the study ID column
+#' @param wide if `TRUE` covariates are rendered west to east; if `FALSE` then
+#' they are rendered north to south
+#' @param ... other arguments passed to [pt_cont_long] or [pt_cont_wide]
+#'
+#' @examples
+#'
+#' data <- pmtables:::data("id")
+#'
+#' pt_cont_study(data,cols = "WT,ALB,SCR", study="STUDYf")
+#'
+#' pt_cont_study(data,cols = "WT,ALB,SCR", study="STUDYf", wide = TRUE)
+#'
 #' @export
 pt_cont_study <- function(data,cols,study_col = "STUDY",wide = FALSE,...) {
   if(wide) {

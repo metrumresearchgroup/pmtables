@@ -12,3 +12,5 @@ test:
 covr:
 	Rscript inst/covr/covr.R
 
+pkgdown:
+	Rscript -e "options(pkdown.internet = FALSE); pkgdown::build_site()"

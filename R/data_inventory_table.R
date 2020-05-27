@@ -75,8 +75,9 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
                                 stacked=FALSE,...) {
   outer <- unname(outer)
   inner <- unname(inner)
+
   if(stacked) {
-    ans <- data_inventory_data_split(data,outer,inner,stacked = FALSE, ...)
+    ans <- data_inventory_data_split(data,outer,inner, stacked = FALSE, ...)
     return(ans)
   }
 
@@ -111,10 +112,10 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
 }
 
 #' @export
-pt_data_inventory <- function(data,outer = ".total", inner=outer, ...,
+pt_data_inventory <- function(data, outer = ".total", inner = outer, ...,
                               inner_summary = TRUE, drop_miss = FALSE,
-                              stacked = FALSE,table=NULL,subset = TRUE,
-                              all_name = "all") {
+                              stacked = FALSE, table = NULL, subset = TRUE,
+                              all_name = "all", skip_total = FALSE) {
 
   subset <- enquo(subset)
   data <- filter(data, !!subset)
@@ -122,11 +123,8 @@ pt_data_inventory <- function(data,outer = ".total", inner=outer, ...,
   outer <- new_names(outer,table)
   inner <- new_names(inner,table)
 
-  force_all_name <- !missing(all_name) & outer==".total"
-
-  if(inner==outer) {
+  if(inner==outer | stacked) {
     inner_summary <- FALSE
-    stacked <- FALSE
   }
 
   total_name <- ifelse(stacked, "Group Total", "Grand Total")
@@ -164,20 +162,12 @@ pt_data_inventory <- function(data,outer = ".total", inner=outer, ...,
     ans <- mutate(ans,POBS=NULL,PBQL=NULL)
   }
 
-  if(stacked) {
-    ans <- mutate(
-      ans,
-      `Overall percent.OBS` = NULL,
-      `Overall percent.BQL` = NULL
-    )
-  }
-
   ans <- rename(
     ans,
-    SUBJ = SUBJ,
-    MISS = NMISS,
-    OBS = NOBS,
-    BQL = NBQL
+    Number.SUBJ = SUBJ,
+    Number.MISS = NMISS,
+    Number.OBS = NOBS,
+    Number.BQL = NBQL
   )
 
   if(drop_miss) {
@@ -201,13 +191,8 @@ pt_data_inventory <- function(data,outer = ".total", inner=outer, ...,
     ans <- mutate(ans,.total = NULL)
     out <- gt(ans)
   }
-  if(inner==outer & outer == ".total") {
-    if(force_all_name) {
-      all_name <- new_names(vars(" " = ".total"))
-      ans <- rename(ans, all_of(all_name))
-    } else {
-      ans <- mutate(ans,.total = NULL)
-    }
+  if(outer==".total" & inner==outer ) {
+    ans <- mutate(ans,.total = NULL)
     out <- gt(ans)
   }
 
