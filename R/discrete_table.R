@@ -48,7 +48,7 @@ pt_cat_long <- function(data,
                         all_name = "All Groups",
                         summarize_all = TRUE,
                         table = NULL,
-                        notes = NULL) {
+                        note = NULL) {
 
   if(by==".total" & missing(all_name)) {
     all_name <- "Summary"
@@ -106,8 +106,8 @@ pt_cat_long <- function(data,
     "Summaries are count (percent)"
   )
 
-  if(is.character(notes)) {
-    tab <- tab_source_note(tab, notes)
+  if(is.character(note)) {
+    tab <- tab_source_note(tab, note)
   }
 
   tab
@@ -115,7 +115,7 @@ pt_cat_long <- function(data,
 
 #' @export
 pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
-                        summarize_all = TRUE, notes = NULL) {
+                        summarize_all = TRUE, note = NULL) {
 
   cols <- new_names(cols,table)
   by <- new_names(by,table)
@@ -167,8 +167,8 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
     )
   }
 
-  if(is.character(notes)) {
-    out <- tab_source_note(out,notes)
+  if(is.character(note)) {
+    out <- tab_source_note(out,note)
   }
 
   out <- tab_source_note(out, "Summaries are count (percent)")
@@ -207,7 +207,7 @@ pt_cat_study<- function(data,
       all_name = all_name,
       summarize_all = summarize_all,
       table = table,
-      notes = notes
+      note = note
     )
   } else {
     tab <- pt_cat_long(
@@ -217,7 +217,7 @@ pt_cat_study<- function(data,
       all_name = all_name,
       summarize_all = summarize_all,
       table = table,
-      notes = notes
+      note = note
     )
   }
   tab
