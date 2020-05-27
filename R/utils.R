@@ -80,3 +80,13 @@ data <- function(domain = c("id", "obs", "all")) {
   file <- system.file("data", file, package = "pmtables")
   readRDS(file)
 }
+
+#' Alias to `dplyr::vars`
+#'
+#' @param ... passed to [dplyr::vars]
+#'
+#' @examples
+#' .cols(a,b,c)
+#'
+#' @export
+.cols <- function(...) dplyr::vars(...)

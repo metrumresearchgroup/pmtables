@@ -149,7 +149,9 @@ pt_cont_wide <- function(data, cols, by = ".total",
 #' @examples
 #' data <- pmtables:::data("id")
 #'
-#' ans <- pt_cont_long(data, cols = "WT,ALB,CRCL")
+#' ans <- pt_cont_long(data, cols = .cols(WT,ALB,CRCL))
+#'
+#' ans <- pt_cont_long(data, cols = "WT,CRCL", panel = "SEXf")
 #'
 #' @export
 pt_cont_long <- function(data,

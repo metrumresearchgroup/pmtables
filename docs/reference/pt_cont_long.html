@@ -168,7 +168,9 @@ to the bottom of the table</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
 
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,ALB,CRCL"</span>)</div></pre>
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='dot-cols.html'>.cols</a></span>(<span class='no'>WT</span>,<span class='no'>ALB</span>,<span class='no'>CRCL</span>))
+
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,CRCL"</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>"SEXf"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

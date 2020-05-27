@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • pmtables</title>
+<title>Data inventory by study — pt_data_study • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Data inventory by study — pt_data_study" />
+<meta property="og:description" content="This is a convenience wrapper around pt_data_inventory" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,72 +101,49 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Data inventory by study</h1>
+    
+    <div class="hidden name"><code>pt_data_study.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This is a convenience wrapper around pt_data_inventory</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDY"</span>, <span class='kw'>inner</span> <span class='kw'>=</span> <span class='no'>outer</span>, <span class='no'>...</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="dot-cols.html">.cols()</a></code> </p>
-        </td>
-        <td><p>Alias to <code>dplyr::vars</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pt_cat_study.html">pt_cat_study()</a></code> </p>
-        </td>
-        <td><p>Discrete covariate table by study</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pt_cont_long.html">pt_cont_long()</a></code> </p>
-        </td>
-        <td><p>Continuous data summary in long format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pt_cont_study.html">pt_cont_study()</a></code> </p>
-        </td>
-        <td><p>Continuous covariate table by study</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pt_data_study.html">pt_data_study()</a></code> </p>
-        </td>
-        <td><p>Data inventory by study</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sig.html">sig()</a></code> </p>
-        </td>
-        <td><p>Significant Digits</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>the data frame to summarize</p></td>
+    </tr>
+    <tr>
+      <th>study_col</th>
+      <td><p>the name of the column containing the study identifier;
+may be characer or quosure (see <a href='https://dplyr.tidyverse.org/reference/vars.html'>dplyr::vars</a>)</p></td>
+    </tr>
+    <tr>
+      <th>inner</th>
+      <td><p>another categorical data set column name to stratify the
+data summary</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other arguments passed to pt_data_inventory</p></td>
+    </tr>
     </table>
-  </div>
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
+
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("new_names"): no applicable method for 'new_names' applied to an object of class "function"</span></div><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

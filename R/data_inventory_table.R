@@ -111,6 +111,28 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
   ans
 }
 
+#' Data inventory by study
+#'
+#' This is a convenience wrapper around [pt_data_inventory]
+#'
+#' @param data the data frame to summarize
+#' @param study_col the name of the column containing the study identifier;
+#' may be characer or quosure (see [dplyr::vars])
+#' @param inner another categorical data set column name to stratify the
+#' data summary
+#' @param ... other arguments passed to [pt_data_inventory]
+#'
+#' @examples
+#' data <- pmtables:::data("id")
+#'
+#' ans <- pt_data_study(data, study_col = "STUDYf")
+#'
+#' @export
+#'
+pt_data_study <- function(data,study_col = "STUDY",inner = outer, ...) {
+  pt_data_inventory(data,outer=study_col,inner=inner,...)
+}
+
 #' @export
 pt_data_inventory <- function(data, outer = ".total", inner = outer, ...,
                               inner_summary = TRUE, drop_miss = FALSE,
