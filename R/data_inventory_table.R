@@ -114,11 +114,8 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
 #' @export
 pt_data_inventory <- function(data, outer = ".total", inner = outer, ...,
                               inner_summary = TRUE, drop_miss = FALSE,
-                              stacked = FALSE, table = NULL, subset = TRUE,
-                              all_name = "all", skip_total = FALSE) {
-
-  subset <- enquo(subset)
-  data <- filter(data, !!subset)
+                              stacked = FALSE, table = NULL,
+                              all_name = "all", note = NULL) {
 
   outer <- new_names(outer,table)
   inner <- new_names(inner,table)
@@ -203,6 +200,10 @@ pt_data_inventory <- function(data, outer = ".total", inner = outer, ...,
     "SUBJ: subjects; OBS: observations; MISS: missing;
      BQL: below quantitation limit"
   )
+  if(is.character(note)) {
+    out <- tab_source_note(out,note)
+  }
+
   out
 }
 

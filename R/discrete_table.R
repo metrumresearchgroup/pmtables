@@ -176,6 +176,20 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
   out
 }
 
+#' Discrete covariate table by study
+#'
+#' @inheritParams pt_cont_study
+#'
+#' @param ... other arguments passed to [pt_cat_long] or [pt_cat_wide]
+#'
+#' @examples
+#'
+#' data <- pmtables:::data("id")
+#'
+#' pt_cat_study(data,cols = "SEXf,FORMf", study="STUDYf")
+#'
+#' pt_cat_study(data,cols = "SEXf,FORMf", study="STUDYf", wide = TRUE)
+#'
 #' @export
 pt_cat_study<- function(data,
                         cols,

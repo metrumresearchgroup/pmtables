@@ -27,4 +27,6 @@ data <- pmtables:::data("id")
 
 pt_cont_study(data,cols = "WT,ALB,SCR", study="STUDYf")
 
+pt_cont_study(data,cols = "WT,ALB,SCR", study="STUDYf", wide = TRUE)
+
 }

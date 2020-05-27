@@ -132,14 +132,35 @@ pt_cont_wide <- function(data, cols, by = ".total",
   out
 }
 
-
+#' Continuous data summary in long format
+#'
+#' @param data the data frame to summarize
+#' @param cols columns to summarize; may be character vector or quosure
+#' @param panel data set column name to stratify the summary
+#' @param table a named list to use for renaming columns (see details and
+#' examples)
+#' @param units a named list to use for unit lookup (see details and examples)
+#' @param note text to append to the bottom of the table using
+#' [mrggt::tab_source_note]
+#' @param summarize_total if `TRUE` then a complete data summary will be appended
+#' to the bottom of the table
+#' @param all_name a name to use for the complete data summary
+#'
+#' @examples
+#' data <- pmtables:::data("id")
+#'
+#' ans <- pt_cont_long(data, cols = "WT,ALB,CRCL")
+#'
 #' @export
-pt_cont_long <- function(data,cols,
-                         panel=".total",
-                         fun = df_sum_2,
-                         table=NULL,
-                         units=NULL, all_name="All data",
-                         summarize_total = TRUE) {
+pt_cont_long <- function(data,
+                         cols,
+                         panel = ".total",
+                         table = NULL,
+                         units = NULL,
+                         note = NULL,
+                         summarize_total = TRUE,
+                         all_name="All data",
+                         fun = df_sum_2) {
 
   by <- panel
   summarize_total <- summarize_total & by != ".total"
@@ -212,6 +233,9 @@ pt_cont_long <- function(data,cols,
         locations = footn$locations
       )
     }
+  }
+  if(is.character(note)) {
+    out <- tab_source_note(out,note)
   }
   out
 }

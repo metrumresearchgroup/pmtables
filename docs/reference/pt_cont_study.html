@@ -136,7 +136,7 @@ they are rendered north to south</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to pt_cont_long or pt_cont_wide</p></td>
+      <td><p>other arguments passed to <a href='pt_cont_long.html'>pt_cont_long</a> or pt_cont_wide</p></td>
     </tr>
     </table>
 
@@ -145,7 +145,7 @@ they are rendered north to south</p></td>
     <pre class="examples"><div class='input'>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
 
-<span class='fu'>pt_cont_study</span>(<span class='no'>data</span>,<span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,ALB,SCR"</span>, <span class='kw'>study</span><span class='kw'>=</span><span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; &lt;div id="mwlefoodfi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;&lt;table class="gt_table"&gt;
+<span class='fu'>pt_cont_study</span>(<span class='no'>data</span>,<span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,ALB,SCR"</span>, <span class='kw'>study</span><span class='kw'>=</span><span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; &lt;div id="kgufivjubq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;&lt;table class="gt_table"&gt;
 #&gt;   
 #&gt;   &lt;thead class="gt_col_headings"&gt;
 #&gt;     &lt;tr&gt;
@@ -293,6 +293,67 @@ they are rendered north to south</p></td>
 #&gt;       &lt;/td&gt;
 #&gt;     &lt;/tr&gt;
 #&gt;   &lt;/tfoot&gt;
+#&gt; &lt;/table&gt;&lt;/div&gt;</div><div class='input'>
+<span class='fu'>pt_cont_study</span>(<span class='no'>data</span>,<span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,ALB,SCR"</span>, <span class='kw'>study</span><span class='kw'>=</span><span class='st'>"STUDYf"</span>, <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;div id="pkzcbwjcfd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;&lt;table class="gt_table"&gt;
+#&gt;   
+#&gt;   &lt;thead class="gt_col_headings"&gt;
+#&gt;     &lt;tr&gt;
+#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;STUDYf&lt;/th&gt;
+#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;n&lt;/th&gt;
+#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;WT&lt;/th&gt;
+#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;ALB&lt;/th&gt;
+#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;SCR&lt;/th&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;   &lt;/thead&gt;
+#&gt;   &lt;tbody class="gt_table_body"&gt;
+#&gt;     &lt;tr class="gt_group_heading_row"&gt;
+#&gt;       &lt;td colspan="5" class="gt_empty_group_heading"&gt;&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;     &lt;tr&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;12-DEMO-001&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;30&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;72.9 (14.6)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;4.27 (0.469)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;1.03 (0.155)&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;     &lt;tr&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;12-DEMO-002&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;50&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;72.4 (11.4)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;4.47 (0.468)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;0.971 (0.161)&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;     &lt;tr&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;11-DEMO-005&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;40&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;69.2 (14.4)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;4.42 (0.536)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;2.52 (1.43)&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;     &lt;tr&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;13-DEMO-001&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;40&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;69.4 (11.6)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;3.53 (1.15)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right gt_striped"&gt;0.950 (0.165)&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;     &lt;tr class="gt_group_heading_row"&gt;
+#&gt;       &lt;td colspan="5" class="gt_group_heading"&gt;Total&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;     &lt;tr&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;All data&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;160&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;70.9 (12.9)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;4.19 (0.809)&lt;/td&gt;
+#&gt;       &lt;td class="gt_row gt_right"&gt;1.36 (0.986)&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;   &lt;/tbody&gt;
+#&gt;   &lt;tfoot class="gt_sourcenotes"&gt;
+#&gt;     &lt;tr&gt;
+#&gt;       &lt;td class="gt_sourcenote" colspan="5"&gt;summary is: mean (standard deviation)&lt;/td&gt;
+#&gt;     &lt;/tr&gt;
+#&gt;   &lt;/tfoot&gt;
+#&gt;   
 #&gt; &lt;/table&gt;&lt;/div&gt;</div><div class='input'>
 </div></pre>
   </div>
