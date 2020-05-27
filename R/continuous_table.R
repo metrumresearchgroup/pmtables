@@ -134,17 +134,18 @@ pt_cont_wide <- function(data, cols, by = ".total",
 
 #' Continuous data summary in long format
 #'
-#' @param data the data frame to summarize
-#' @param cols columns to summarize; may be character vector or quosure
+#'
+#' @inheritParams pt_cont_study
 #' @param panel data set column name to stratify the summary
 #' @param table a named list to use for renaming columns (see details and
 #' examples)
 #' @param units a named list to use for unit lookup (see details and examples)
 #' @param note text to append to the bottom of the table using
 #' [mrggt::tab_source_note]
-#' @param summarize_total if `TRUE` then a complete data summary will be appended
+#' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
 #' @param all_name a name to use for the complete data summary
+#' @param fun the data summary function (see details)
 #'
 #' @examples
 #' data <- pmtables:::data("id")
@@ -160,12 +161,12 @@ pt_cont_long <- function(data,
                          table = NULL,
                          units = NULL,
                          note = NULL,
-                         summarize_total = TRUE,
+                         summarize_all = TRUE,
                          all_name="All data",
                          fun = df_sum_2) {
 
   by <- panel
-  summarize_total <- summarize_total & by != ".total"
+  summarize_all <- summarize_all & by != ".total"
   data <- data_total_col(data)
 
   cols <- new_names(cols,table)
@@ -185,7 +186,7 @@ pt_cont_long <- function(data,
   ans <- mutate(ans,outer=paste(names(by)[1],outer))
   if(by==".total") ans <- mutate(ans,outer=all_name)
 
-  if(summarize_total) {
+  if(summarize_all) {
     ans2 <- cont_table_data(
       data = data,
       cols = unname(cols),
@@ -246,7 +247,8 @@ pt_cont_long <- function(data,
 #'
 #' @param data the data frame to summarize
 #' @param cols the columns to summarize; may be character vector or quosure
-#' @param study_col character name of the study ID column
+#' @param study_col character name of the study ID column; passed to
+#' [pt_cont_long] as `panel` or [pt_cont_wide] as `by`
 #' @param wide if `TRUE` covariates are rendered west to east; if `FALSE` then
 #' they are rendered north to south
 #' @param ... other arguments passed to [pt_cont_long] or [pt_cont_wide]
@@ -277,4 +279,3 @@ pt_cont_study <- function(data,cols,study_col = "STUDY",wide = FALSE,...) {
     )
   }
 }
-

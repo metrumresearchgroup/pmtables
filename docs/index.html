@@ -1098,7 +1098,7 @@
 <h2 class="hasAnchor">
 <a href="#by-study" class="anchor"></a>By study</h2>
 <div class="sourceCode" id="cb6"><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">pmtables</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"id"</span>)
-<span class="fu">pt_data_inventory</span>(
+<span class="fu"><a href="reference/pt_data_inventory.html">pt_data_inventory</a></span>(
   <span class="no">data</span>,
   <span class="kw">outer</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">Study</span> <span class="kw">=</span> <span class="no">STUDYf</span>)
 )</pre></div>
@@ -1268,7 +1268,7 @@
 <h2 class="hasAnchor">
 <a href="#by-study-and-covariate" class="anchor"></a>By study and covariate</h2>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">pmtables</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"obs"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">SEQ</span><span class="kw">==</span><span class="fl">1</span>)
-<span class="fu">pt_data_inventory</span>(
+<span class="fu"><a href="reference/pt_data_inventory.html">pt_data_inventory</a></span>(
   <span class="no">data</span>,
   <span class="kw">outer</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">Study</span> <span class="kw">=</span> <span class="no">STUDYf</span>),
   <span class="kw">inner</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">Sex</span> <span class="kw">=</span> <span class="no">SEXf</span>)
@@ -1614,7 +1614,7 @@
 <h2 class="hasAnchor">
 <a href="#stacked-by-endpoint" class="anchor"></a>Stacked by endpoint</h2>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">pmtables</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"obs"</span>)
-<span class="fu">pt_data_inventory</span>(
+<span class="fu"><a href="reference/pt_data_inventory.html">pt_data_inventory</a></span>(
   <span class="no">data</span>,
   <span class="kw">outer</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">Endpoint</span> <span class="kw">=</span> <span class="no">SEQf</span>),
   <span class="kw">inner</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">Study</span> <span class="kw">=</span> <span class="no">STUDYf</span>),

@@ -128,16 +128,38 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
 #' ans <- pt_data_study(data, study_col = "STUDYf")
 #'
 #' @export
-#'
-pt_data_study <- function(data,study_col = "STUDY",inner = outer, ...) {
-  pt_data_inventory(data,outer=study_col,inner=inner,...)
+pt_data_study <- function(data, study_col = "STUDY", inner = study_col, ...) {
+  pt_data_inventory(data  = data, outer = study_col, inner = inner, ...)
 }
 
+#' Create a data inventory table
+#'
+#' Output columns include counts for subjects, observations, BQL observations,
+#' and missing observations and percentage of observations that are BQL.
+#'
+#' @inheritParams pt_data_study
+#' @inheritParams pt_cont_long
+#'
+#' @param outer the outer grouping variable; may be character or quosure
+#' @param inner the inner grouping variable; may be character or quosure
+#' @param inner_summary if `TRUE`, then a summary of the inner variable will
+#' be provided
+#' @param drop_miss if `TRUE`, then `MISS` will be dropped, but only when all
+#' `MISS` values are equal to zero
+#' @param stacked if `TRUE`, then independent summaries are created by `outer`
+#' and included in a single table (see examples)
+#'
+#' @examples
+#' data <- pmtables:::data("id")
+#'
+#' ans <- pt_data_inventory(data, outer = .cols("Renal function" = RFf))
+#'
+#'
 #' @export
-pt_data_inventory <- function(data, outer = ".total", inner = outer, ...,
+pt_data_inventory <- function(data, outer = ".total", inner = outer,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
-                              all_name = "all", note = NULL) {
+                              all_name = "all", note = NULL, ...) {
 
   outer <- new_names(outer,table)
   inner <- new_names(inner,table)

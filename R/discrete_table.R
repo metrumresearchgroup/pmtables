@@ -194,10 +194,10 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 pt_cat_study<- function(data,
                         cols,
                         study_col = vars("Study ID" = STUDY),
-                        all_name = "All studies",
                         summarize_all = TRUE,
+                        all_name = "All studies",
                         table = NULL,
-                        notes = NULL,
+                        note = NULL,
                         wide = FALSE) {
   if(wide) {
     tab <- pt_cat_wide(

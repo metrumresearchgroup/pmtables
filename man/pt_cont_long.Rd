@@ -11,7 +11,7 @@ pt_cont_long(
   table = NULL,
   units = NULL,
   note = NULL,
-  summarize_total = TRUE,
+  summarize_all = TRUE,
   all_name = "All data",
   fun = df_sum_2
 )
@@ -19,7 +19,7 @@ pt_cont_long(
 \arguments{
 \item{data}{the data frame to summarize}
 
-\item{cols}{columns to summarize; may be character vector or quosure}
+\item{cols}{the columns to summarize; may be character vector or quosure}
 
 \item{panel}{data set column name to stratify the summary}
 
@@ -31,10 +31,12 @@ examples)}
 \item{note}{text to append to the bottom of the table using
 \link[mrggt:tab_source_note]{mrggt::tab_source_note}}
 
-\item{summarize_total}{if \code{TRUE} then a complete data summary will be appended
+\item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
 to the bottom of the table}
 
 \item{all_name}{a name to use for the complete data summary}
+
+\item{fun}{the data summary function (see details)}
 }
 \description{
 Continuous data summary in long format

@@ -8,10 +8,10 @@ pt_cat_study(
   data,
   cols,
   study_col = vars(`Study ID` = STUDY),
-  all_name = "All studies",
   summarize_all = TRUE,
+  all_name = "All studies",
   table = NULL,
-  notes = NULL,
+  note = NULL,
   wide = FALSE
 )
 }
@@ -20,7 +20,8 @@ pt_cat_study(
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
-\item{study_col}{character name of the study ID column}
+\item{study_col}{character name of the study ID column; passed to
+\link{pt_cont_long} as \code{panel} or \link{pt_cont_wide} as \code{by}}
 
 \item{wide}{if \code{TRUE} covariates are rendered west to east; if \code{FALSE} then
 they are rendered north to south}

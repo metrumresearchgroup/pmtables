@@ -4,7 +4,7 @@
 \alias{pt_data_study}
 \title{Data inventory by study}
 \usage{
-pt_data_study(data, study_col = "STUDY", inner = outer, ...)
+pt_data_study(data, study_col = "STUDY", inner = study_col, ...)
 }
 \arguments{
 \item{data}{the data frame to summarize}

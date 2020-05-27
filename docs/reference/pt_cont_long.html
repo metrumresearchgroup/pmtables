@@ -119,7 +119,7 @@
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>note</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>summarize_total</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
   <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>df_sum_2</span>
 )</pre>
@@ -133,7 +133,7 @@
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>columns to summarize; may be character vector or quosure</p></td>
+      <td><p>the columns to summarize; may be character vector or quosure</p></td>
     </tr>
     <tr>
       <th>panel</th>
@@ -154,13 +154,17 @@ examples)</p></td>
 <a href='https://rdrr.io/pkg/mrggt/man/tab_source_note.html'>mrggt::tab_source_note</a></p></td>
     </tr>
     <tr>
-      <th>summarize_total</th>
+      <th>summarize_all</th>
       <td><p>if <code>TRUE</code> then a complete data summary will be appended
 to the bottom of the table</p></td>
     </tr>
     <tr>
       <th>all_name</th>
       <td><p>a name to use for the complete data summary</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>the data summary function (see details)</p></td>
     </tr>
     </table>
 

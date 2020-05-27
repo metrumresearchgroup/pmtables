@@ -109,10 +109,10 @@
     </div>
 
     <div class="ref-description">
-    <p>This is a convenience wrapper around pt_data_inventory</p>
+    <p>This is a convenience wrapper around <a href='pt_data_inventory.html'>pt_data_inventory</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDY"</span>, <span class='kw'>inner</span> <span class='kw'>=</span> <span class='no'>outer</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDY"</span>, <span class='kw'>inner</span> <span class='kw'>=</span> <span class='no'>study_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,7 +133,7 @@ data summary</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to pt_data_inventory</p></td>
+      <td><p>other arguments passed to <a href='pt_data_inventory.html'>pt_data_inventory</a></p></td>
     </tr>
     </table>
 
@@ -141,8 +141,11 @@ data summary</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
 
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("new_names"): no applicable method for 'new_names' applied to an object of class "function"</span></div><div class='input'>
-</div></pre>
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; <span class='error'>Error: Problem with `summarise()` input `POBS`.</span>
+#&gt; <span class='error'><span style='color: #BB0000;'>✖</span><span> could not find function "first"</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Input `POBS` is `digit1(100 * NOBS/first(..n))`.</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> The error occured in group 1: STUDYf = "12-DEMO-001".</span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
