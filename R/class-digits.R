@@ -68,7 +68,7 @@ get_digits_fun <- function(x) x$.fun
 get_digits_list <- function(x) x$.digits
 
 #' @export
-as.list.digits <- function(x,...) as.list(unclass(x))
+as.list.digits <- function(x,...) as.list(structure(x,class=NULL))
 
 #' @export
 print.digits <- function(x,...) {
