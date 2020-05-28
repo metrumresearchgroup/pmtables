@@ -13,7 +13,6 @@ pt_data_inventory(
   stacked = FALSE,
   table = NULL,
   all_name = "all",
-  note = NULL,
   ...
 )
 }
@@ -37,9 +36,6 @@ and included in a single table (see examples)}
 examples)}
 
 \item{all_name}{a name to use for the complete data summary}
-
-\item{note}{text to append to the bottom of the table using
-\link[mrggt:tab_source_note]{mrggt::tab_source_note}}
 
 \item{...}{other arguments passed to \link{pt_data_inventory}}
 }

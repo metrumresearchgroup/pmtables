@@ -20,7 +20,7 @@ cvec_cs <- function(x) {
   }
 }
 
-update_list <- function(left, right) {
+Update_List <- function(left, right) {
   if(!all(is.list(left),is.list(right))) {
     stop("input are not lists")
   }

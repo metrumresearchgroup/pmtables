@@ -10,7 +10,7 @@ pt_cont_long(
   panel = ".total",
   table = NULL,
   units = NULL,
-  note = NULL,
+  digits = NULL,
   summarize_all = TRUE,
   all_name = "All data",
   fun = df_sum_2
@@ -27,9 +27,6 @@ pt_cont_long(
 examples)}
 
 \item{units}{a named list to use for unit lookup (see details and examples)}
-
-\item{note}{text to append to the bottom of the table using
-\link[mrggt:tab_source_note]{mrggt::tab_source_note}}
 
 \item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
 to the bottom of the table}

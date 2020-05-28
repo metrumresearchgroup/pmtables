@@ -11,7 +11,6 @@ pt_cat_study(
   summarize_all = TRUE,
   all_name = "All studies",
   table = NULL,
-  note = NULL,
   wide = FALSE
 )
 }
@@ -35,8 +34,8 @@ Discrete covariate table by study
 
 data <- pmtables:::data("id")
 
-pt_cat_study(data,cols = "SEXf,FORMf", study="STUDYf")
+ans <- pt_cat_study(data, cols = .cols(SEXf,FORMf), study = "STUDYf")
 
-pt_cat_study(data,cols = "SEXf,FORMf", study="STUDYf", wide = TRUE)
+ans <- pt_cat_study(data, cols = .cols(FORMf), study = "STUDYf", wide = TRUE)
 
 }

@@ -1,16 +1,27 @@
-
+#' Create continuous summary data frame
+#'
+#' @inheritParams pt_cont_study
+#' @param digits named list specifing `digits` argument for `digit_fun`
+#' @param fun continuous data summary function
+#'
 #' @export
-cont_table_data <- function(data,cols,by=NULL,by_col=FALSE,fun=df_sum_2,
-                            wide = FALSE, digits = list(), table=NULL) {
+cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
+                            all_name = "all", table = NULL,
+                            digits = NULL,
+                            fun = df_sum_2) {
 
-  cols <- unname(cvec_cs(cols))
-  by <- unname(by)
+  cols <- unname(new_names(cols))
+  by <- unname(new_names(by))
 
-  data <- data_total_col(data)
+  if(is.null(digits)) {
+    digits <- new_digits(sig,3)
+  }
 
-  digit_fun <- getOption("mrg.table.digit.fun", sig)
-  digit_default <- getOption("mrg.table.digits", 3)
-  digits <- update_list(def_digits(cols,digit_default),digits)
+  digits <- update_digits(digits,cols)
+  digit_fun <- get_digits_fun(digits)
+  digit_data <- get_digits_list(digits)
+
+  data <- data_total_col(data, all_name = all_name)
 
   groups <- c("name")
   if(!is.null(by)) groups <- c(by,groups)
@@ -18,7 +29,7 @@ cont_table_data <- function(data,cols,by=NULL,by_col=FALSE,fun=df_sum_2,
   d0 <- select(data, all_of(unname(c(by,cols))))
 
   d1 <- pivot_longer(d0,all_of(cols))
-  d1 <- mutate(d1,digits = digits[name])
+  d1 <- mutate(d1, digitn = unlist(digit_data[name]))
   d1 <- mutate(d1,name = fct_inorder(name))
 
   if(!is.null(by)) {
@@ -33,7 +44,8 @@ cont_table_data <- function(data,cols,by=NULL,by_col=FALSE,fun=df_sum_2,
     d1,
     ~fun(
       value = .$value,
-      digit_fun = partial(digit_fun,digits=digits[[1]]),
+      digit_fun = digit_fun,
+      digits = .$digitn[1],
       name = .$name[1]
     ),
     .keep = TRUE
@@ -50,10 +62,14 @@ cont_table_data <- function(data,cols,by=NULL,by_col=FALSE,fun=df_sum_2,
 }
 
 #' @export
-pt_cont_wide <- function(data, cols, by = ".total",
+pt_cont_wide <- function(data, cols,
+                         by = ".total",
                          panel = NULL,
                          fun = str_sum_2,
-                         table=NULL,units=NULL,all_name="All data") {
+                         table = NULL,
+                         units = NULL,
+                         digits = NULL,
+                         all_name = "All data") {
 
   tst <- fun(rnorm(10))
   assert_that(identical(names(tst),"summary"))
@@ -61,14 +77,17 @@ pt_cont_wide <- function(data, cols, by = ".total",
   cols <- new_names(cols,table)
   by <- new_names(by,table)
 
+  data <- data_total_col(data, all_name = all_name)
+
   check_continuous(data,cols)
   check_discrete(data,by)
 
   ans <- cont_table_data(
-    data=data,
-    cols=cols,
-    by=by,
-    fun=fun,
+    data = data,
+    cols = cols,
+    by = by,
+    fun = fun,
+    digits = digits,
     wide = TRUE
   )
 
@@ -80,16 +99,14 @@ pt_cont_wide <- function(data, cols, by = ".total",
       cols=cols,
       by=".total",
       fun=fun,
+      digits = digits,
       wide = TRUE
     )
     ans2 <- mutate(ans2, outer := all_name)
     ans <- bind_rows(ans,ans2)
   }
 
-  out <- gt(
-    ans,
-    row_group.sep=" "
-  )
+  out <- gt(ans,row_group.sep=" ")
 
   if(all_summary) {
     out <- tab_row_group(
@@ -104,6 +121,7 @@ pt_cont_wide <- function(data, cols, by = ".total",
   }
 
   out <- cols_label(out, outer = names(by)[1])
+
   if(is.list(units)) {
     for(col in cols) {
       if(exists(col,units)) {
@@ -112,23 +130,22 @@ pt_cont_wide <- function(data, cols, by = ".total",
       }
     }
   }
+
   out <- tab_stubhead(out,"Variable")
   out <- cols_align(out,"right")
-  if(is.logical(formals(fun)[["footnote"]])) {
-    footn <- fun(footnote = TRUE)
-    out <- tab_source_note(
-      out,
-      footn
-    )
-  }
+
   if(is.list(table)) {
     out <-
-      tab_footnote(
+      tab_source_note(
         out,
-        footnote = foot(table,unname(cols)),
-        locations = cells_stubhead()
+        source_note = foot(table,unname(cols))
       )
   }
+
+  if(is.logical(formals(fun)[["footnote"]])) {
+    out <- tab_source_note(out, fun(footnote = TRUE))
+  }
+
   out
 }
 
@@ -140,8 +157,6 @@ pt_cont_wide <- function(data, cols, by = ".total",
 #' @param table a named list to use for renaming columns (see details and
 #' examples)
 #' @param units a named list to use for unit lookup (see details and examples)
-#' @param note text to append to the bottom of the table using
-#' [mrggt::tab_source_note]
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
 #' @param all_name a name to use for the complete data summary
@@ -160,7 +175,7 @@ pt_cont_long <- function(data,
                          panel = ".total",
                          table = NULL,
                          units = NULL,
-                         note = NULL,
+                         digits = NULL,
                          summarize_all = TRUE,
                          all_name="All data",
                          fun = df_sum_2) {
@@ -176,10 +191,11 @@ pt_cont_long <- function(data,
   check_discrete(data,by)
 
   ans <- cont_table_data(
-    data=data,
-    cols=unname(cols),
-    by=unname(by),
-    fun=fun,
+    data = data,
+    cols = unname(cols),
+    by = unname(by),
+    fun = fun,
+    digits = digits,
     wide = FALSE
   )
 
@@ -192,6 +208,7 @@ pt_cont_long <- function(data,
       cols = unname(cols),
       by = ".total",
       fun = fun,
+      digits = digits,
       wide = FALSE
     )
     ans2 <- mutate(ans2, outer = all_name)
@@ -199,14 +216,20 @@ pt_cont_long <- function(data,
   }
 
   ans <- mutate(ans, n = n_parens(n))
+  .inner <- as.character(ans$inner)
+  ans <- mutate(ans, inner = as.character(names(cols)[inner]))
 
   if(is.list(units) & rlang::is_named(units)) {
+    has_unit <- .inner %in% names(units)
     ans <- mutate(
       ans,
-      inner = as.character(inner),
-      Unit = as.character(units[inner])
+      inner   = case_when(
+        has_unit ~ paste0(inner, " ", units[.inner]),
+        TRUE ~ inner
+      )
     )
   }
+
   out <- gt(
     ans,
     row_group.sep=" ",
@@ -237,9 +260,7 @@ pt_cont_long <- function(data,
       )
     }
   }
-  if(is.character(note)) {
-    out <- tab_source_note(out,note)
-  }
+
   out
 }
 
@@ -262,7 +283,7 @@ pt_cont_long <- function(data,
 #' pt_cont_study(data,cols = "WT,ALB,SCR", study="STUDYf", wide = TRUE)
 #'
 #' @export
-pt_cont_study <- function(data,cols,study_col = "STUDY",wide = FALSE,...) {
+pt_cont_study <- function(data,cols,study_col = "STUDY", wide = FALSE,...) {
   if(wide) {
     pt_cont_wide(
       data = data,

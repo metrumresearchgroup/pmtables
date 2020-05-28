@@ -1,6 +1,21 @@
+#' Summarize categorical data
+#'
+#' @inheritParams pt_cont_study
+#' @inheritParams pt_cont_long
+#'
+#' @param cols character vector of column names for summary
+#' @param nby number of unique levels for the `by` variable
+#'
+#' @examples
+#' data <- pmtables:::data("id")
+#'
+#' cat_data(data, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
+#'
 #' @export
-cat_data <- function(data,cols,by=".total",wide=FALSE, summarize_all=TRUE,
-                     all_name = "All", table=NULL, nby = NULL) {
+cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
+                     all_name = "All", wide = FALSE, nby = NULL) {
+
+  cols <- new_names(cols)
 
   data <- ungroup(data)
 
@@ -47,16 +62,15 @@ pt_cat_long <- function(data,
                         by = ".total",
                         all_name = "All Groups",
                         summarize_all = TRUE,
-                        table = NULL,
-                        note = NULL) {
+                        table = NULL) {
 
-  if(by==".total" & missing(all_name)) {
+  if(by == ".total" & missing(all_name)) {
     all_name <- "Summary"
   }
 
-  cols <- new_names(cols,table=table)
+  cols <- new_names(cols, table = table)
 
-  data <- data_total_col(data,all_name)
+  data <- data_total_col(data, all_name)
 
   assert_that(length(by)==1)
   by <- new_names(by, table = table)
@@ -64,12 +78,11 @@ pt_cat_long <- function(data,
   bys <- levels(factor(data[[by]]))
   nby <- length(bys)
 
-  check_discrete(data, cols, by)
+  check_discrete(data = data, cols = cols, other = by)
 
   ans <- cat_data(
     data = data,
     cols = cols,
-    table = table,
     by = by,
     nby = nby
   )
@@ -81,14 +94,13 @@ pt_cat_long <- function(data,
       data,
       cols = cols,
       by = ".total",
-      table = table,
       nby = nby,
       all_name = all_name
     )
-    ans <- left_join(ans, all, by=c("name","level"))
+    ans <- left_join(ans, all, by=c("name", "level"))
   }
 
-  tab <- gt(ans, rowname_col="level", groupname_col="name")
+  tab <- gt(ans, rowname_col = "level", groupname_col = "name")
 
   if(nby > 1) {
     span_cols <- intersect(bys,names(ans))
@@ -101,42 +113,37 @@ pt_cat_long <- function(data,
     )
   }
 
-  tab <- tab_source_note(
-    tab,
-    "Summaries are count (percent)"
-  )
+  tab <- tab_source_note(tab, "Summaries are count (percent)")
 
-  if(is.character(note)) {
-    tab <- tab_source_note(tab, note)
-  }
+  if(is.character(note)) tab <- tab_source_note(tab, note)
 
   tab
 }
 
 #' @export
 pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
-                        summarize_all = TRUE, note = NULL) {
+                        summarize_all = TRUE) {
 
-  cols <- new_names(cols,table)
-  by <- new_names(by,table)
+  cols <- new_names(cols, table)
+  by <- new_names(by, table)
 
-  assert_that(length(by)==1)
+  assert_that(length(by) == 1)
 
   data <- data_total_col(data, all_name)
 
   nby <- length(unique(data[[by]]))
 
-  check_discrete(data,cols,by)
+  check_discrete(data = data, cols = cols, other = by)
 
   summarize_all <- summarize_all & nby > 1
 
-  ans <- cat_data(data, cols, by = by, table = table, wide = TRUE)
+  ans <- cat_data(data, cols, by = by, wide = TRUE)
   ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
 
   if(summarize_all) {
-    all <- cat_data(data, cols, by = ".total", table = table, wide = TRUE)
+    all <- cat_data(data, cols, by = ".total", wide = TRUE)
     all <- rename(all, !!sym(by) := .total)
-    ans <- bind_rows(ans,all)
+    ans <- bind_rows(ans, all)
   }
 
   out <- gt(ungroup(ans))
@@ -150,7 +157,7 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
     out <- tab_row_group(
       out,
       group = "Total",
-      rows = ans[[1]]==all_name
+      rows = ans[[1]] == all_name
     )
     out <- row_group_order(
       out,
@@ -158,18 +165,13 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
     )
   }
 
-  out <- tab_sp_delim(out,delim='.')
+  out <- tab_sp_delim(out, delim = '.')
 
   if(nby==1 & exists(".total", ans)) {
-    out <- cols_label(
-      out,
-      .total = ""
-    )
+    out <- cols_label(out, .total = "")
   }
 
-  if(is.character(note)) {
-    out <- tab_source_note(out,note)
-  }
+  if(is.character(note)) out <- tab_source_note(out,note)
 
   out <- tab_source_note(out, "Summaries are count (percent)")
 
@@ -186,9 +188,9 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 #'
 #' data <- pmtables:::data("id")
 #'
-#' pt_cat_study(data,cols = "SEXf,FORMf", study="STUDYf")
+#' ans <- pt_cat_study(data, cols = .cols(SEXf,FORMf), study = "STUDYf")
 #'
-#' pt_cat_study(data,cols = "SEXf,FORMf", study="STUDYf", wide = TRUE)
+#' ans <- pt_cat_study(data, cols = .cols(FORMf), study = "STUDYf", wide = TRUE)
 #'
 #' @export
 pt_cat_study<- function(data,
@@ -197,7 +199,6 @@ pt_cat_study<- function(data,
                         summarize_all = TRUE,
                         all_name = "All studies",
                         table = NULL,
-                        note = NULL,
                         wide = FALSE) {
   if(wide) {
     tab <- pt_cat_wide(
@@ -206,8 +207,7 @@ pt_cat_study<- function(data,
       by = study_col,
       all_name = all_name,
       summarize_all = summarize_all,
-      table = table,
-      note = note
+      table = table
     )
   } else {
     tab <- pt_cat_long(
@@ -216,10 +216,8 @@ pt_cat_study<- function(data,
       by = study_col,
       all_name = all_name,
       summarize_all = summarize_all,
-      table = table,
-      note = note
+      table = table
     )
   }
   tab
 }
-
