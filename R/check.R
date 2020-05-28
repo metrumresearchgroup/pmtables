@@ -63,7 +63,3 @@ check_discrete <- function(data,cols,others = NULL) {
 
   stop("there were problems with input 'data'",call.=FALSE)
 }
-
-
-# check_continuous(data, c("ALT", "CPc", "KYLE"))
-# check_discrete(data, c("ALT", "CPc", "KYLE", "Baron", "a", "b"))
