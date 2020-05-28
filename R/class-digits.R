@@ -19,7 +19,7 @@
 #' as.list(x)
 #'
 #' @export
-new_digits <- function(.fun, .default = 3, ..., .data = NULL) {
+new_digits <- function(.fun = pmtables::sig, .default = 3, ..., .data = NULL) {
   force(.fun)
   force(.default)
   is.func <- is.function(.fun)
@@ -45,7 +45,7 @@ new_digits <- function(.fun, .default = 3, ..., .data = NULL) {
 #' @param cols character vector of column names
 #'
 #' @noRd
-update_digits <- function(x,cols) {
+update_digits <- function(x, cols) {
   diff <- setdiff(cols,names(x$.digits))
   if(length(diff) < 1) return(x)
   nw <- as.list(rep(x$.default,length(cols)))
@@ -89,6 +89,5 @@ print.digits <- function(x,...) {
   }
   return(invisible(NULL))
 }
-
 
 is.digits <- function(x) inherits(x,"digits")
