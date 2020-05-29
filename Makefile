@@ -1,6 +1,9 @@
 all:
 	make doc
+	make install
 	make build
+install:
+	R CMD install .
 build:
 	R CMD build .
 doc:

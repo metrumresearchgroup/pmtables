@@ -15,21 +15,21 @@ data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE,
   data <- ungroup(data)
 
   if(stacked) {
-    data <- group_by(data,!!sym(outer))
+    data <- group_by(data, !!sym(outer))
     data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
     data <- ungroup(data)
   } else {
     data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
   }
-  data <- group_by(data,!!sym(outer))
+  data <- group_by(data, !!sym(outer))
   data <- mutate(data,..n = n_non_missing(!!sym(dv_col)))
   data <- ungroup(data)
-  data <- group_by(data,!!!syms(by))
+  data <- group_by(data, !!!syms(by))
   body <- summarise(
     data,
     SUBJ = n_unique(!!sym(id_col)),
     NOBS = n_non_missing(!!sym(dv_col)),
-    NMISS = n_missing(!!sym(dv_col),!!sym(bq_col)),
+    NMISS = n_missing(!!sym(dv_col), !!sym(bq_col)),
     POBS = digit1(100*NOBS/first(..n)),
     OOBS = digit1(100*NOBS/first(.N))
   )

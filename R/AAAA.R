@@ -1,6 +1,6 @@
 #' @importFrom assertthat validate_that assert_that
 #' @importFrom dplyr mutate bind_rows select ungroup summarise left_join
-#' @importFrom dplyr group_modify rename count vars group_by n
+#' @importFrom dplyr group_modify rename count vars group_by n first
 #' @importFrom purrr map_dfr walk partial map map_chr
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill
 #' @importFrom forcats fct_inorder
