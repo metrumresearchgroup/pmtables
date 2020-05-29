@@ -5,6 +5,8 @@
 #'
 #' @param cols character vector of column names for summary
 #' @param nby number of unique levels for the `by` variable
+#' @param preshape if `TRUE`, returns summarized data prior to reshaping;
+#' this is intended for internal use
 #'
 #' @examples
 #' data <- pmtables:::data("id")
@@ -13,7 +15,8 @@
 #'
 #' @export
 cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
-                     all_name = "All", wide = FALSE, nby = NULL) {
+                     all_name = "All", wide = FALSE, nby = NULL,
+                     preshape = FALSE) {
 
   cols <- new_names(cols)
 
@@ -29,13 +32,15 @@ cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
     }
   }
 
-  data <- group_by(data, !!sym(by))
+  data <- group_by(data, !!!syms(by))
 
   ans <- group_modify(data, ~ summarize_cat_chunk(.,cols))
 
   ans <- ungroup(ans)
 
   ans <- mutate(ans,name=names(cols)[name])
+
+  if(preshape) return(ans)
 
   if(wide) {
     ans <- pivot_wider(
@@ -47,8 +52,7 @@ cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
   } else {
     ans <- pivot_wider(
       ans,
-      id_cols = c("name", "level"),
-      names_from = !!by,
+      names_from = by,
       values_from = "summary",
       names_sep = "."
     )

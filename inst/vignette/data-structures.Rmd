@@ -1,0 +1,63 @@
+---
+title: "R Notebook"
+output: html_document
+---
+
+# Setup and data
+```{r}
+library(dplyr)
+library(pmtables)
+id <- pmtables:::data("id")
+data <- pmtables:::data("obs")
+pk <- filter(data,SEQ==1)
+knitr::opts_chunk$set(comment = '.')
+```
+
+
+# Continuous
+
+```{r}
+cols <- .cols(WT,ALB,SCR)
+
+pmtables:::cont_table_data(id,cols)
+```
+
+- inner is the covariate name
+
+```{r}
+pmtables:::cont_table_data(id,cols,by = "STUDYf")
+```
+
+- no inner here; it was spread in the across direction
+- so we could use another stratification variable here?
+
+```{r}
+pmtables:::cont_table_data(id,cols,wide = TRUE,fun = pmtables:::str_sum_2)
+```
+
+```{r}
+pmtables:::cont_table_data(id,cols,by="STUDYf",wide = TRUE,fun = pmtables:::str_sum_2)
+```
+
+
+# Categorical tables
+
+```{r}
+cols <- .cols(SEXf,CPf,RFf)
+pmtables:::cat_data(id,cols,by="FORMf")
+```
+
+```{r}
+cols <- .cols(SEXf,CPf,RFf)
+pmtables:::cat_data(id,cols,by = "FORMf")
+```
+
+```{r}
+cols <- .cols(SEXf,CPf,RFf)
+pmtables:::cat_data(id,cols,by = "FORMf",wide=TRUE)
+```
+
+```{r}
+cols <- .cols(SEXf,CPf,RFf)
+pmtables:::cat_data(id,cols,by = "FORMf",preshape=TRUE)
+```

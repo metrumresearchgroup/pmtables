@@ -11,7 +11,8 @@ cat_data(
   summarize_all = TRUE,
   all_name = "All",
   wide = FALSE,
-  nby = NULL
+  nby = NULL,
+  preshape = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,9 @@ to the bottom of the table}
 they are rendered north to south}
 
 \item{nby}{number of unique levels for the \code{by} variable}
+
+\item{preshape}{if \code{TRUE}, returns summarized data prior to reshaping;
+this is intended for internal use}
 }
 \description{
 Summarize categorical data
