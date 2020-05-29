@@ -11,6 +11,7 @@ doc:
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
 test:
+	make install
 	Rscript -e 'testthat::test_dir("tests/")'
 covr:
 	Rscript inst/covr/covr.R
