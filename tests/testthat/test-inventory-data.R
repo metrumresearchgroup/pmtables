@@ -11,6 +11,10 @@ test_that("inventory data summary", {
   expect_equal(
     names(ans)[2:9],
     c("SUBJ", "NMISS","NOBS", "NBQL", "POBS", "PBQL", "OOBS", "OBQL")
-    )
+  )
+  ans2 <- pmtables:::data_inventory_chunk(data, outer = ".total")
+  expect_identical(ans,ans2)
 })
+
+
 
