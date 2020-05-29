@@ -24,3 +24,10 @@ test_that("new names - quosure, named", {
   expect_identical(names(x), c("j", "k", "c"))
 })
 
+test_that("new names - quosure, table", {
+  table <- list(c = "d")
+  x <- pmtables:::new_names(dplyr::vars(a,b,c),table)
+  expect_identical(names(x),c("a", "b", "d"))
+  expect_is(x,"character")
+  expect_length(x,3)
+})
