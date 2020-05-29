@@ -114,7 +114,7 @@ data_inventory_data_split <- function(data,outer,inner=outer,stacked=FALSE,...) 
 #'
 #' @inheritParams pt_data_inventory
 #'
-#' @params ... passed to subsequent summary functions
+#' @param ... passed to subsequent summary functions
 #'
 #' @export
 data_inventory_data <- function(data, outer,inner=outer,all_name = "all",

@@ -25,7 +25,7 @@ data_inventory_data(
 \item{stacked}{if \code{TRUE}, then independent summaries are created by \code{outer}
 and included in a single table (see examples)}
 
-\item{...}{other arguments passed to \link{data_inventory_chunk}}
+\item{...}{passed to subsequent summary functions}
 }
 \description{
 Create a summary of endpoint data
