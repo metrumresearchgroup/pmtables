@@ -7,7 +7,7 @@
 pt_cat_study(
   data,
   cols,
-  study_col = vars(`Study ID` = STUDY),
+  study_col = vars(`Study ID` = all_of("STUDY")),
   summarize_all = TRUE,
   all_name = "All studies",
   table = NULL,
@@ -19,11 +19,18 @@ pt_cat_study(
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
-\item{study_col}{character name of the study ID column; passed to
-\link{pt_cont_long} as \code{panel} or \link{pt_cont_wide} as \code{by}}
+\item{study_col}{character name of the data set column containing the study
+identifier}
 
-\item{wide}{if \code{TRUE} covariates are rendered west to east; if \code{FALSE} then
-they are rendered north to south}
+\item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
+to the bottom of the table}
+
+\item{all_name}{label for full data summary}
+
+\item{table}{a named list to use for renaming columns (see details and
+examples)}
+
+\item{wide}{if \code{TRUE} the table will be rendered in a wide format}
 
 \item{...}{other arguments passed to \link{pt_cat_long} or \link{pt_cat_wide}}
 }

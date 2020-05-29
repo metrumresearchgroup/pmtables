@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9002</span>
       </span>
     </div>
 
@@ -119,7 +119,6 @@
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All studies"</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>note</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -155,148 +154,9 @@ they are rendered north to south</p></td>
     <pre class="examples"><div class='input'>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
 
-<span class='fu'>pt_cat_study</span>(<span class='no'>data</span>,<span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"SEXf,FORMf"</span>, <span class='kw'>study</span><span class='kw'>=</span><span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; &lt;div id="mwlefoodfi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;&lt;table class="gt_table"&gt;
-#&gt;   
-#&gt;   &lt;thead class="gt_col_headings"&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1"&gt;&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="4"&gt;STUDYf&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"&gt;All studies&lt;/th&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;12-DEMO-001&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;12-DEMO-002&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;11-DEMO-005&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;13-DEMO-001&lt;/th&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;   &lt;/thead&gt;
-#&gt;   &lt;tbody class="gt_table_body"&gt;
-#&gt;     &lt;tr class="gt_group_heading_row"&gt;
-#&gt;       &lt;td colspan="6" class="gt_group_heading"&gt;SEXf&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_stub"&gt;male&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;10 (33.3)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;18 (36.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;29 (72.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;23 (57.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;80 (50.0)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_stub"&gt;female&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;20 (66.7)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;32 (64.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;11 (27.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;17 (42.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;80 (50.0)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr class="gt_group_heading_row"&gt;
-#&gt;       &lt;td colspan="6" class="gt_group_heading"&gt;FORMf&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_stub"&gt;tablet&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;25 (83.3)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;42 (84.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;30 (75.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;33 (82.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;130 (81.2)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_stub"&gt;capsule&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;3 (10.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;6 (12.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;3 (7.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;3 (7.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;15 (9.4)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_stub"&gt;troche&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;2 (6.7)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;2 (4.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;7 (17.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;4 (10.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;15 (9.4)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;   &lt;/tbody&gt;
-#&gt;   &lt;tfoot class="gt_sourcenotes"&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_sourcenote" colspan="6"&gt;Summaries are count (percent)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;   &lt;/tfoot&gt;
-#&gt;   
-#&gt; &lt;/table&gt;&lt;/div&gt;</div><div class='input'>
-<span class='fu'>pt_cat_study</span>(<span class='no'>data</span>,<span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"SEXf,FORMf"</span>, <span class='kw'>study</span><span class='kw'>=</span><span class='st'>"STUDYf"</span>, <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;div id="eexombwkke" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;&lt;table class="gt_table"&gt;
-#&gt;   
-#&gt;   &lt;thead class="gt_col_headings"&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"&gt;STUDYf&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner gt_sep_right" rowspan="1" colspan="2"&gt;SEXf&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="3"&gt;FORMf&lt;/th&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;male&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;female&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;tablet&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;capsule&lt;/th&gt;
-#&gt;       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"&gt;troche&lt;/th&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;   &lt;/thead&gt;
-#&gt;   &lt;tbody class="gt_table_body"&gt;
-#&gt;     &lt;tr class="gt_group_heading_row"&gt;
-#&gt;       &lt;td colspan="6" class="gt_empty_group_heading"&gt;&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;12-DEMO-001&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;10 (33.3)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;20 (66.7)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;25 (83.3)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;3 (10.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;2 (6.7)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;12-DEMO-002&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;18 (36.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;32 (64.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;42 (84.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;6 (12.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;2 (4.0)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;11-DEMO-005&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;29 (72.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;11 (27.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;30 (75.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;3 (7.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;7 (17.5)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;13-DEMO-001&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;23 (57.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;17 (42.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;33 (82.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;3 (7.5)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left gt_striped"&gt;4 (10.0)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr class="gt_group_heading_row"&gt;
-#&gt;       &lt;td colspan="6" class="gt_group_heading"&gt;Total&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;All studies&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;80 (50.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;80 (50.0)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;130 (81.2)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;15 (9.4)&lt;/td&gt;
-#&gt;       &lt;td class="gt_row gt_left"&gt;15 (9.4)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;   &lt;/tbody&gt;
-#&gt;   &lt;tfoot class="gt_sourcenotes"&gt;
-#&gt;     &lt;tr&gt;
-#&gt;       &lt;td class="gt_sourcenote" colspan="6"&gt;Summaries are count (percent)&lt;/td&gt;
-#&gt;     &lt;/tr&gt;
-#&gt;   &lt;/tfoot&gt;
-#&gt;   
-#&gt; &lt;/table&gt;&lt;/div&gt;</div><div class='input'>
-</div></pre>
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cat_study</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='dot-cols.html'>.cols</a></span>(<span class='no'>SEXf</span>,<span class='no'>FORMf</span>), <span class='kw'>study</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>)
+
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cat_study</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='dot-cols.html'>.cols</a></span>(<span class='no'>FORMf</span>), <span class='kw'>study</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>, <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

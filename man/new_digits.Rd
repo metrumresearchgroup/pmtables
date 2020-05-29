@@ -7,14 +7,14 @@
 new_digits(.fun = pmtables::sig, .default = 3, ..., .data = NULL)
 }
 \arguments{
+\item{.fun}{function for modifying digits on a number}
+
+\item{.default}{the default value for digits}
+
 \item{...}{\code{name=value} pairs, where \code{name} references the data column name
 and \code{value} is the number of digits for that columns}
 
 \item{.data}{a named list to be used in place of \code{...}}
-
-\item{fun}{function for modifying digits on a number}
-
-\item{default}{the default value for digits}
 }
 \description{
 The idea here is to capture three pieces of data: (1) a function
@@ -25,7 +25,7 @@ names and the values are custom digit information.
 }
 \examples{
 
-x <- new_digit(round, default = 2, WT = 1, ALB = 3)
+x <- new_digits(round, default = 2, WT = 1, ALB = 3)
 
 as.list(x)
 

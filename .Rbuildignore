@@ -5,4 +5,9 @@ test\.R
 inst/test_data\.R
 Makefile
 ^README\.Rmd$
+^README\.md$
 inst/covr
+\.drone.yml
+pmtables\.Rcheck
+.*\.tar\.gz
+

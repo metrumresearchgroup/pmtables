@@ -1,13 +1,13 @@
 Package: pmtables
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tables for Pharmacometrics
 Version: 0.0.1.9002
-Author: Who wrote it
+Author: Kyle Baron
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
-Imports: purrr, dplyr, forcats, tidyr, rlang, mrggt, glue,tibble
+Description: Create tables that are commonly used in pharamcometrics analyses.
+License: GPL (>=2)
+Imports: purrr, dplyr, forcats, tidyr, rlang, mrggt, glue, tibble, assertthat, 
+    tidyselect
 Depends: R (>= 3.5.0)
 Suggests: testthat
 Encoding: UTF-8

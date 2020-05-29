@@ -20,8 +20,10 @@ cat_data(
 
 \item{cols}{character vector of column names for summary}
 
-\item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
-to the bottom of the table}
+\item{by}{grouping variable name}
+
+\item{summarize_all}{logical indicating whether or not to include a summary
+of the full data in the output}
 
 \item{all_name}{a name to use for the complete data summary}
 

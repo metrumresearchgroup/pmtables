@@ -1,3 +1,9 @@
+SHELL := /bin/bash
+PACKAGE=pmtables
+VERSION=$(shell grep Version DESCRIPTION |awk '{print $$2}')
+TARBALL=${PACKAGE}_${VERSION}.tar.gz
+PKGDIR=.
+CHKDIR=.
 all:
 	make doc
 	make install
@@ -15,6 +21,9 @@ test:
 	Rscript -e 'testthat::test_dir("tests/")'
 covr:
 	Rscript inst/covr/covr.R
-
+check:
+	make doc
+	make build
+	R CMD check $(TARBALL)
 pkgdown:
 	Rscript -e "options(pkdown.internet = FALSE); pkgdown::build_site()"

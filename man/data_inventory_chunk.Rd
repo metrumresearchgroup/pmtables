@@ -27,6 +27,8 @@ data_inventory_chunk(
 \item{stacked}{if \code{TRUE}, then independent summaries are created by \code{outer}
 and included in a single table (see examples)}
 
+\item{tot}{logical indicating if a summary row should be included}
+
 \item{all_name}{a name to use for the complete data summary}
 
 \item{dv_col}{character name of \code{DV} column}

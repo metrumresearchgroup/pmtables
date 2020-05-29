@@ -2,8 +2,12 @@
 #'
 #' @inheritParams pt_cont_study
 #' @inheritParams pt_cont_long
+#' @inheritParams pt_cat_long
 #'
 #' @param cols character vector of column names for summary
+#' @param by grouping variable name
+#' @param summarize_all logical indicating whether or not to include a summary
+#' of the full data in the output
 #' @param nby number of unique levels for the `by` variable
 #' @param preshape if `TRUE`, returns summarized data prior to reshaping;
 #' this is intended for internal use
@@ -38,7 +42,7 @@ cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
 
   ans <- ungroup(ans)
 
-  ans <- mutate(ans,name=names(cols)[name])
+  ans <- mutate(ans,name=names(cols)[.data[["name"]]])
 
   if(preshape) return(ans)
 
@@ -60,13 +64,16 @@ cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
   ans
 }
 
+#' Create categorical data summary tables
+#'
+#' @inheritParams pt_cont_long
+#'
+#' @param by grouping variable name
+#'
+#'
 #' @export
-pt_cat_long <- function(data,
-                        cols,
-                        by = ".total",
-                        all_name = "All Groups",
-                        summarize_all = TRUE,
-                        table = NULL) {
+pt_cat_long <- function(data, cols, by = ".total", all_name = "All Groups",
+                        summarize_all = TRUE, table = NULL) {
 
   if(by == ".total" & missing(all_name)) {
     all_name <- "Summary"
@@ -82,7 +89,7 @@ pt_cat_long <- function(data,
   bys <- levels(factor(data[[by]]))
   nby <- length(bys)
 
-  check_discrete(data = data, cols = cols, other = by)
+  check_discrete(data = data, cols = cols, others = by)
 
   ans <- cat_data(
     data = data,
@@ -122,6 +129,7 @@ pt_cat_long <- function(data,
   tab
 }
 
+#' @rdname pt_cat_long
 #' @export
 pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
                         summarize_all = TRUE) {
@@ -135,7 +143,7 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 
   nby <- length(unique(data[[by]]))
 
-  check_discrete(data = data, cols = cols, other = by)
+  check_discrete(data = data, cols = cols, others = by)
 
   summarize_all <- summarize_all & nby > 1
 
@@ -144,7 +152,7 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 
   if(summarize_all) {
     all <- cat_data(data, cols, by = ".total", wide = TRUE)
-    all <- rename(all, !!sym(by) := .total)
+    all <- rename(all, !!sym(by) := .data[[".total"]])
     ans <- bind_rows(ans, all)
   }
 
@@ -180,8 +188,14 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 
 #' Discrete covariate table by study
 #'
-#' @inheritParams pt_cont_study
+#' @inheritParams pt_cont_long
 #'
+#' @param study_col character name of the data set column containing the study
+#' identifier
+#' @param all_name label for full data summary
+#' @param table a named list to use for renaming columns (see details and
+#' examples)
+#' @param wide if `TRUE` the table will be rendered in a wide format
 #' @param ... other arguments passed to [pt_cat_long] or [pt_cat_wide]
 #'
 #' @examples
@@ -195,7 +209,7 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 #' @export
 pt_cat_study<- function(data,
                         cols,
-                        study_col = vars("Study ID" = STUDY),
+                        study_col = vars("Study ID" = all_of("STUDY")),
                         summarize_all = TRUE,
                         all_name = "All studies",
                         table = NULL,

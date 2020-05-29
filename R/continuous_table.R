@@ -1,14 +1,14 @@
 #' Create continuous summary data frame
 #'
 #' @inheritParams pt_cont_study
+#' @param by grouping variable name
+#' @param all_name label for full data summary
 #' @param digits named list specifing `digits` argument for `digit_fun`
 #' @param fun continuous data summary function
 #'
 #' @export
 cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
-                            all_name = "all", table = NULL,
-                            digits = NULL,
-                            fun = df_sum_2) {
+                            all_name = "all", digits = NULL, fun = df_sum_2) {
 
   cols <- unname(new_names(cols))
   by <- unname(new_names(by))
@@ -29,8 +29,8 @@ cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
   d0 <- select(data, all_of(unname(c(by,cols))))
 
   d1 <- pivot_longer(d0,all_of(cols))
-  d1 <- mutate(d1, digitn = unlist(digit_data[name]))
-  d1 <- mutate(d1,name = fct_inorder(name))
+  d1 <- mutate(d1, digitn = unlist(digit_data[.data[["name"]]]))
+  d1 <- mutate(d1,name = fct_inorder(.data[["name"]]))
 
   if(!is.null(by)) {
     d1 <- group_by(d1,!!!syms(groups))
@@ -61,6 +61,12 @@ cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
   return(d4)
 }
 
+#' Create a continuous data summary table in wide format
+#'
+#' @inheritParams pt_cont_long
+#'
+#' @param by a grouping variable name
+#'
 #' @export
 pt_cont_wide <- function(data, cols,
                          by = ".total",
@@ -157,6 +163,7 @@ pt_cont_wide <- function(data, cols,
 #' @param table a named list to use for renaming columns (see details and
 #' examples)
 #' @param units a named list to use for unit lookup (see details and examples)
+#' @param digits a `digits` object (see [new_digits])
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
 #' @param all_name a name to use for the complete data summary
@@ -217,15 +224,15 @@ pt_cont_long <- function(data,
 
   ans <- mutate(ans, n = n_parens(n))
   .name <- as.character(ans$name)
-  ans <- mutate(ans, name = as.character(names(cols)[name]))
+  ans <- mutate(ans, name = as.character(names(cols)[.data[["name"]]]))
 
   if(is.list(units) & rlang::is_named(units)) {
     has_unit <- .name %in% names(units)
     ans <- mutate(
       ans,
       name   = case_when(
-        has_unit ~ paste0(name, " ", units[.name]),
-        TRUE ~ name
+        has_unit ~ paste0(.data[["name"]], " ", units[.name]),
+        TRUE ~ .data[["name"]]
       )
     )
   }

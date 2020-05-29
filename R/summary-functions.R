@@ -13,7 +13,7 @@ df_sum_2 <- function(value,digit_fun=sig,digits=3,name=NULL,footnote = FALSE) {
     footn <- list(
       footnote = "standard deviation",
       locations = cells_column_labels(
-        columns = vars(SD)
+        columns = "SD"
       )
     )
     return(footn)

@@ -6,15 +6,15 @@
 #' information; the names correspond to potential future column
 #' names and the values are custom digit information.
 #'
-#' @param fun function for modifying digits on a number
-#' @param default the default value for digits
+#' @param .fun function for modifying digits on a number
+#' @param .default the default value for digits
 #' @param ... `name=value` pairs, where `name` references the data column name
 #' and `value` is the number of digits for that columns
 #' @param .data a named list to be used in place of `...`
 #'
 #' @examples
 #'
-#' x <- new_digit(round, default = 2, WT = 1, ALB = 3)
+#' x <- new_digits(round, default = 2, WT = 1, ALB = 3)
 #'
 #' as.list(x)
 #'
@@ -26,13 +26,15 @@ new_digits <- function(.fun = pmtables::sig, .default = 3, ..., .data = NULL) {
   .function <- deparse(substitute(.fun))
   .digits <- list(...)
   if(is.list(.data)) .digits <- .data
-  if(identical(class(.fun),"function")) {
-    if(!"digits" %in% names(formals(.fun))) {
-      stop(
-        "'digits' must be included as a formal argument for digit fun",
-        call.=FALSE
-      )
-    }
+
+  arg <- capture.output(args(.fun))[1]
+  # need to do this instead of formals for primitive functions
+  has_digit_arg <- grepl(" digits = ", arg, fixed = TRUE)
+  if(!has_digit_arg) {
+    stop(
+      "'digits' must be included as a formal argument for digit fun",
+      call.=FALSE
+    )
   }
   rm(is.func)
   rm(.data)

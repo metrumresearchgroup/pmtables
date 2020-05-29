@@ -72,7 +72,7 @@ n_parens <- function(x) paste0("(n=",x,")")
 data <- function(domain = c("id", "obs", "all")) {
   domain <- match.arg(domain)
   file <- paste0(domain,".RDS")
-  file <- system.file("data", file, package = "pmtables")
+  file <- system.file("datasets", file, package = "pmtables")
   readRDS(file)
 }
 

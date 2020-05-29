@@ -2,15 +2,15 @@
 #' Create a data inventory summary for a data chunk
 #'
 #' @inheritParams pt_data_inventory
+#' @param tot logical indicating if a summary row should be included
 #' @param dv_col character name of `DV` column
 #' @param bq_col character name of `BQL` column
 #' @param id_col character name of `ID` column
 #' @param ... used to absorb other arguments; not used
-data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE,
-                                 tot = FALSE,
-                                 all_name = "all",
-                                 dv_col = "DV",
-                                 bq_col = "BQL", id_col = "ID",...) {
+data_inventory_chunk <- function(data, outer, inner = outer, stacked = FALSE,
+                                 tot = FALSE, all_name = "all",
+                                 dv_col = "DV", bq_col = "BQL", id_col = "ID",
+                                 ...) {
 
   if(outer==".total" | inner==".total") {
     data <- data_total_col(data,all_name = all_name)
@@ -50,7 +50,6 @@ data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE,
     )
   }
 
-
   by <- unique(c(outer,inner))
 
   data <- ungroup(data)
@@ -71,28 +70,28 @@ data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE,
     SUBJ = n_unique(!!sym(id_col)),
     NOBS = n_non_missing(!!sym(dv_col)),
     NMISS = n_missing(!!sym(dv_col), !!sym(bq_col)),
-    POBS = digit1(100*NOBS/first(..n)),
-    OOBS = digit1(100*NOBS/first(.N))
+    POBS = digit1(100*.data[["NOBS"]]/first(.data[["..n"]])),
+    OOBS = digit1(100*.data[["NOBS"]]/first(.data[[".N"]]))
   )
   bq <- summarise(
     data,
     NBQL = sum(!!sym(bq_col) !=0),
-    PBQL = digit1(100*NBQL/first(..n)),
-    OBQL = digit1(100*NBQL/first(.N))
+    PBQL = digit1(100*.data[["NBQL"]]/first(.data[["..n"]])),
+    OBQL = digit1(100*.data[["NBQL"]]/first(.data[[".N"]]))
   )
   summ <- left_join(body,bq,by = unique(c(outer,inner)))
   summ <- select(
     summ,
     !!sym(outer),
     !!sym(inner),
-    SUBJ,
-    NMISS,
-    NOBS,
-    NBQL,
-    POBS,
-    PBQL,
-    OOBS,
-    OBQL
+    .data[["SUBJ"]],
+    .data[["NMISS"]],
+    .data[["NOBS"]],
+    .data[["NBQL"]],
+    .data[["POBS"]],
+    .data[["PBQL"]],
+    .data[["OOBS"]],
+    .data[["OBQL"]]
   )
   summ <- ungroup(summ)
   summ <- mutate(summ, !!sym(outer) := as.character(!!sym(outer)))
@@ -111,9 +110,15 @@ data_inventory_data_split <- function(data,outer,inner=outer,stacked=FALSE,...) 
 
 }
 
+#' Create a summary of endpoint data
+#'
+#' @inheritParams pt_data_inventory
+#'
+#' @params ... passed to subsequent summary functions
+#'
 #' @export
 data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
-                                stacked=FALSE,...) {
+                                stacked=FALSE, ...) {
   outer <- unname(outer)
   inner <- unname(inner)
 
@@ -242,26 +247,26 @@ pt_data_inventory <- function(data, outer = ".total", inner = outer,
   if(inner_summary) {
     ans <- rename(
       ans,
-      `Group percent.OBS` = POBS,
-      `Group percent.BQL` = PBQL,
-      `Overall percent.OBS` = OOBS,
-      `Overall percent.BQL` = OBQL
+      `Group percent.OBS` = .data[["POBS"]],
+      `Group percent.BQL` = .data[["PBQL"]],
+      `Overall percent.OBS` = .data[["OOBS"]],
+      `Overall percent.BQL` = .data[["OBQL"]]
     )
   } else {
     ans <- rename(
       ans,
-      `Percent.OBS` = OOBS,
-      `Percent.BQL` = OBQL
+      `Percent.OBS` = .data[["OOBS"]],
+      `Percent.BQL` = .data[["OBQL"]]
     )
     ans <- mutate(ans,POBS=NULL,PBQL=NULL)
   }
 
   ans <- rename(
     ans,
-    Number.SUBJ = SUBJ,
-    Number.MISS = NMISS,
-    Number.OBS = NOBS,
-    Number.BQL = NBQL
+    Number.SUBJ = .data[["SUBJ"]],
+    Number.MISS = .data[["NMISS"]],
+    Number.OBS = .data[["NOBS"]],
+    Number.BQL = .data[["NBQL"]]
   )
 
   if(drop_miss) {
@@ -302,7 +307,7 @@ pt_data_inventory <- function(data, outer = ".total", inner = outer,
 }
 
 data_inventory_stacked <- function(data,inner,stack_by,...) {
-  data_inventory(
+  pt_data_inventory(
     data,
     outer = outer,
     inner = inner,

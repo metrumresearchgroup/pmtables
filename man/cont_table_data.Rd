@@ -10,7 +10,6 @@ cont_table_data(
   by = ".total",
   wide = FALSE,
   all_name = "all",
-  table = NULL,
   digits = NULL,
   fun = df_sum_2
 )
@@ -20,8 +19,12 @@ cont_table_data(
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
+\item{by}{grouping variable name}
+
 \item{wide}{if \code{TRUE} covariates are rendered west to east; if \code{FALSE} then
 they are rendered north to south}
+
+\item{all_name}{label for full data summary}
 
 \item{digits}{named list specifing \code{digits} argument for \code{digit_fun}}
 

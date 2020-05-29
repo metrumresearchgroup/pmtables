@@ -17,10 +17,10 @@ test_that("inventory data summary", {
 })
 
 test_that("stacked inventory data summary", {
-  ans <- pmtables:::data_inventory_data_split(data, outer = "STUDY")
+  ans <- pmtables:::data_inventory_data_split(data, outer = "STUDYf")
   nstudy <- length(unique(data[["STUDY"]]))
   expect_equal(nrow(ans), 2*nstudy)
-  expect_equal(names(ans)[1],"STUDY")
+  expect_equal(names(ans)[1],"STUDYf")
   expect_equal(ncol(ans),9)
   expect_equal(
     names(ans)[2:9],
