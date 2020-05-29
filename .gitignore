@@ -3,3 +3,6 @@ pmtables.Rcheck
 .Rhistory
 .RData
 .Ruserdata
+inst/vignette/*.html
+*.tar.gz
+README.html

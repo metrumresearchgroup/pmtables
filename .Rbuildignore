@@ -10,4 +10,4 @@ inst/covr
 \.drone.yml
 pmtables\.Rcheck
 .*\.tar\.gz
-
+inst/vignette
