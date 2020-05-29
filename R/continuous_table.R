@@ -53,9 +53,9 @@ cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
 
   d3 <- count(d1,!!!syms(groups))
   d4 <- left_join(d2,d3,by = join_cols)
-  d4 <- rename(d4, outer = !!sym(by), inner = name)
+  d4 <- rename(d4, outer = !!sym(by))
   if(wide) {
-    d4 <- pivot_wider(d4, names_from  = "inner", values_from = "summary")
+    d4 <- pivot_wider(d4, names_from  = "name", values_from = "summary")
   }
   d4 <- ungroup(d4)
   return(d4)
@@ -216,16 +216,16 @@ pt_cont_long <- function(data,
   }
 
   ans <- mutate(ans, n = n_parens(n))
-  .inner <- as.character(ans$inner)
-  ans <- mutate(ans, inner = as.character(names(cols)[inner]))
+  .name <- as.character(ans$name)
+  ans <- mutate(ans, name = as.character(names(cols)[name]))
 
   if(is.list(units) & rlang::is_named(units)) {
-    has_unit <- .inner %in% names(units)
+    has_unit <- .name %in% names(units)
     ans <- mutate(
       ans,
-      inner   = case_when(
-        has_unit ~ paste0(inner, " ", units[.inner]),
-        TRUE ~ inner
+      name   = case_when(
+        has_unit ~ paste0(name, " ", units[.name]),
+        TRUE ~ name
       )
     )
   }
@@ -233,7 +233,7 @@ pt_cont_long <- function(data,
   out <- gt(
     ans,
     row_group.sep=" ",
-    rowname_col = "inner",
+    rowname_col = "name",
     groupname_col = c("outer", "n")
   )
 

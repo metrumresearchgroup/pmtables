@@ -2,11 +2,6 @@ emessage <- function(x) message(paste0("[pmtables] ", x))
 
 digit1 <- function(x) formatC(x,digits=1,format = 'f')
 
-def_digits <- function(cols,default) {
-  x <- as.list(rep(default, length(cols)))
-  setNames(x,cols)
-}
-
 cvec_cs <- function(x) {
   if(is.null(x) | length(x)==0) return(character(0))
   if(!is.null(names(x))) return(x)

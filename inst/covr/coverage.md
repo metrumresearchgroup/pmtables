@@ -1,8 +1,8 @@
-# coverage: 81.35%
+# coverage: 81.77%
 
 |file                     | coverage|
 |:------------------------|--------:|
-|R/utils.R                |    65.00|
+|R/utils.R                |    71.05|
 |R/continuous_table.R     |    72.94|
 |R/discrete_table.R       |    81.58|
 |R/data_inventory_table.R |    83.97|
