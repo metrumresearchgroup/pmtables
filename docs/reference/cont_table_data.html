@@ -118,7 +118,6 @@
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
   <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>df_sum_2</span>
 )</pre>
@@ -135,9 +134,17 @@
       <td><p>the columns to summarize; may be character vector or quosure</p></td>
     </tr>
     <tr>
+      <th>by</th>
+      <td><p>grouping variable name</p></td>
+    </tr>
+    <tr>
       <th>wide</th>
       <td><p>if <code>TRUE</code> covariates are rendered west to east; if <code>FALSE</code> then
 they are rendered north to south</p></td>
+    </tr>
+    <tr>
+      <th>all_name</th>
+      <td><p>label for full data summary</p></td>
     </tr>
     <tr>
       <th>digits</th>

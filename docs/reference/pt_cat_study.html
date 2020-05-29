@@ -115,7 +115,7 @@
     <pre class="usage"><span class='fu'>pt_cat_study</span>(
   <span class='no'>data</span>,
   <span class='no'>cols</span>,
-  <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='kw'>`Study ID`</span> <span class='kw'>=</span> <span class='no'>STUDY</span>),
+  <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='kw'>`Study ID`</span> <span class='kw'>=</span> <span class='fu'>all_of</span>(<span class='st'>"STUDY"</span>)),
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All studies"</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -135,17 +135,30 @@
     </tr>
     <tr>
       <th>study_col</th>
-      <td><p>character name of the study ID column; passed to
-<a href='pt_cont_long.html'>pt_cont_long</a> as <code>panel</code> or pt_cont_wide as <code>by</code></p></td>
+      <td><p>character name of the data set column containing the study
+identifier</p></td>
+    </tr>
+    <tr>
+      <th>summarize_all</th>
+      <td><p>if <code>TRUE</code> then a complete data summary will be appended
+to the bottom of the table</p></td>
+    </tr>
+    <tr>
+      <th>all_name</th>
+      <td><p>label for full data summary</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>a named list to use for renaming columns (see details and
+examples)</p></td>
     </tr>
     <tr>
       <th>wide</th>
-      <td><p>if <code>TRUE</code> covariates are rendered west to east; if <code>FALSE</code> then
-they are rendered north to south</p></td>
+      <td><p>if <code>TRUE</code> the table will be rendered in a wide format</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to pt_cat_long or pt_cat_wide</p></td>
+      <td><p>other arguments passed to <a href='pt_cat_long.html'>pt_cat_long</a> or <a href='pt_cat_long.html'>pt_cat_wide</a></p></td>
     </tr>
     </table>
 
