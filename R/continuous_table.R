@@ -40,16 +40,29 @@ cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
     join_cols <- "name"
   }
 
-  d2 <- group_modify(
-    d1,
-    ~fun(
-      value = .$value,
-      digit_fun = digit_fun,
-      digits = .$digitn[1],
-      name = .$name[1]
-    ),
-    .keep = TRUE
-  )
+  if(packageVersion("dplyr") < '0.8.99') {
+    d2 <- group_modify(
+      d1,
+      ~fun(
+        value = .$value,
+        digit_fun = digit_fun,
+        digits = .$digitn[1],
+        name = .$name[1]
+      ),
+      keep = TRUE
+    )
+  } else {
+    d2 <- group_modify(
+      d1,
+      ~fun(
+        value = .$value,
+        digit_fun = digit_fun,
+        digits = .$digitn[1],
+        name = .$name[1]
+      ),
+      .keep = TRUE
+    )
+  }
 
   d3 <- count(d1,!!!syms(groups))
   d4 <- left_join(d2,d3,by = join_cols)
