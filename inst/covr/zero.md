@@ -86,9 +86,8 @@
 "489","R/data_inventory_table.R","pt_data_inventory",196,0
 "537","R/data_inventory_table.R","pt_data_inventory",215,0
 "539","R/data_inventory_table.R","pt_data_inventory",216,0
-"563","R/data_inventory_table.R","pt_data_inventory",231,0
-"564","R/data_inventory_table.R","pt_data_inventory",232,0
-"566","R/data_inventory_table.R","pt_data_inventory",233,0
+"571","R/data_inventory_table.R","pt_data_inventory",236,0
+"573","R/data_inventory_table.R","pt_data_inventory",237,0
 "592","R/data_inventory_table.R","data_inventory_stacked",252,0
 "593","R/data_inventory_table.R","data_inventory_stacked",253,0
 "595","R/data_inventory_table.R","data_inventory_stacked",254,0
