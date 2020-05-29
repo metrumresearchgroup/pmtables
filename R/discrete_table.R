@@ -115,8 +115,6 @@ pt_cat_long <- function(data,
 
   tab <- tab_source_note(tab, "Summaries are count (percent)")
 
-  if(is.character(note)) tab <- tab_source_note(tab, note)
-
   tab
 }
 
@@ -170,8 +168,6 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
   if(nby==1 & exists(".total", ans)) {
     out <- cols_label(out, .total = "")
   }
-
-  if(is.character(note)) out <- tab_source_note(out,note)
 
   out <- tab_source_note(out, "Summaries are count (percent)")
 
