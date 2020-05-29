@@ -6,3 +6,4 @@ pmtables.Rcheck
 inst/vignette/*.html
 *.tar.gz
 README.html
+test.R
