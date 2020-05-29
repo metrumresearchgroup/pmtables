@@ -32,10 +32,10 @@ check_continuous <- function(data,cols,others = NULL) {
   if(length(msg) > 0) {
     walk(msg,emessage)
   }
-  stop("there were problems with input 'data'",call.=FALSE)
+  stop("there were problems with input data",call.=FALSE)
 }
 
-check_discrete <- function(data,cols,others = NULL) {
+check_discrete <- function(data,cols=NULL,others = NULL) {
   msg <- c()
   a <- validate_that(is.data.frame(data), msg = "'data' must be a data frame")
   if(!isTRUE(a)) msg <- c(msg,a)
@@ -61,5 +61,5 @@ check_discrete <- function(data,cols,others = NULL) {
     walk(msg,emessage)
   }
 
-  stop("there were problems with input 'data'",call.=FALSE)
+  stop("there were problems with input data",call.=FALSE)
 }

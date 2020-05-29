@@ -1,14 +1,55 @@
 
+#' Create a data inventory summary for a data chunk
+#'
+#' @inheritParams pt_data_inventory
+#' @param dv_col character name of `DV` column
+#' @param bq_col character name of `BQL` column
+#' @param id_col character name of `ID` column
+#' @param ... used to absorb other arguments; not used
 data_inventory_chunk <- function(data,outer,inner=outer, stacked = FALSE,
-                                 tot=FALSE, all_name = "all",
+                                 tot = FALSE,
+                                 all_name = "all",
                                  dv_col = "DV",
-                                 bq_col = c("BQL", "BLQ"), id_col = "ID",...) {
+                                 bq_col = "BQL", id_col = "ID",...) {
 
   if(outer==".total" | inner==".total") {
     data <- data_total_col(data,all_name = all_name)
   }
 
   bq_col <- match.arg(bq_col)
+
+  miss <- FALSE
+  miss_required <- function(needed,pass) {
+    x <- c(
+      "couldn't find the {needed} column; ",
+      "set the column name to '{needed}' or ",
+      "pass the name as '{pass}'"
+    )
+    glue::glue(paste0(x,collapse=""))
+  }
+  if(!exists(dv_col,data)) {
+    emessage(miss_required("DV", "dv_col"))
+    miss <- TRUE
+  }
+  if(!exists(bq_col,data)) {
+    emessage(miss_required("BQL", "bq_col"))
+    miss <- TRUE
+  }
+  if(!exists(id_col,data)) {
+    emessage(miss_required("ID", "id_col"))
+    miss <- TRUE
+  }
+
+  if(miss) {
+    stop(
+      "there was a problem finding required columns ",
+      "for the data inventory summary; ",
+      "please see error messages as well as '?data_inventory_chunk' ",
+      "help topic",
+      call.=FALSE
+    )
+  }
+
 
   by <- unique(c(outer,inner))
 
@@ -82,6 +123,7 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
   }
 
   data <- data_total_col(data, all_name = all_name)
+  check_discrete(data,cols = unique(c(outer,inner)))
 
   ans <- data_inventory_chunk(
     data = data,
@@ -105,9 +147,11 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
     ans <- mutate(ans, !!sym(inner) := replace_na(!!sym(inner),".total"))
     ans <- fill(ans, !!sym(outer), .direction = "down")
   }
+
   if(inner==outer) {
     ans <- mutate(ans, !!sym(outer) := replace_na(!!sym(outer),".total"))
   }
+
   ans
 }
 
@@ -120,7 +164,8 @@ data_inventory_data <- function(data, outer,inner=outer,all_name = "all",
 #' may be characer or quosure (see [dplyr::vars])
 #' @param inner another categorical data set column name to stratify the
 #' data summary
-#' @param ... other arguments passed to [pt_data_inventory]
+#' @param ... other arguments passed to [pt_data_inventory] and
+#' [data_inventory_chunk]
 #'
 #' @examples
 #' data <- pmtables:::data("id")
@@ -137,7 +182,6 @@ pt_data_study <- function(data, study_col = "STUDY", inner = study_col, ...) {
 #' Output columns include counts for subjects, observations, BQL observations,
 #' and missing observations and percentage of observations that are BQL.
 #'
-#' @inheritParams pt_data_study
 #' @inheritParams pt_cont_long
 #'
 #' @param outer the outer grouping variable; may be character or quosure
@@ -148,6 +192,15 @@ pt_data_study <- function(data, study_col = "STUDY", inner = study_col, ...) {
 #' `MISS` values are equal to zero
 #' @param stacked if `TRUE`, then independent summaries are created by `outer`
 #' and included in a single table (see examples)
+#' @param ... other arguments passed to [data_inventory_chunk]
+#'
+#' @details
+#'
+#' The summary function is expecting certain columns to be named in a certain
+#' way. This can be modified to suit your need by passing the following
+#' arguments: `dv_col` (for observations), `bq_col` (for BQL observations),
+#' and `id_col` (for ID). See the [data_inventory_chunk] help topic for
+#' a description of these columns.
 #'
 #' @examples
 #' data <- pmtables:::data("id")

@@ -15,7 +15,8 @@ may be characer or quosure (see \link[dplyr:vars]{dplyr::vars})}
 \item{inner}{another categorical data set column name to stratify the
 data summary}
 
-\item{...}{other arguments passed to \link{pt_data_inventory}}
+\item{...}{other arguments passed to \link{pt_data_inventory} and
+\link{data_inventory_chunk}}
 }
 \description{
 This is a convenience wrapper around \link{pt_data_inventory}

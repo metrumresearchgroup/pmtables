@@ -32,7 +32,7 @@ cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
     }
   }
 
-  data <- group_by(data, !!!syms(by))
+  data <- group_by(data, !!!syms(unname(by)))
 
   ans <- group_modify(data, ~ summarize_cat_chunk(.,cols))
 

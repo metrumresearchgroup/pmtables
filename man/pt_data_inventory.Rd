@@ -37,11 +37,18 @@ examples)}
 
 \item{all_name}{a name to use for the complete data summary}
 
-\item{...}{other arguments passed to \link{pt_data_inventory}}
+\item{...}{other arguments passed to \link{data_inventory_chunk}}
 }
 \description{
 Output columns include counts for subjects, observations, BQL observations,
 and missing observations and percentage of observations that are BQL.
+}
+\details{
+The summary function is expecting certain columns to be named in a certain
+way. This can be modified to suit your need by passing the following
+arguments: \code{dv_col} (for observations), \code{bq_col} (for BQL observations),
+and \code{id_col} (for ID). See the \link{data_inventory_chunk} help topic for
+a description of these columns.
 }
 \examples{
 data <- pmtables:::data("id")
