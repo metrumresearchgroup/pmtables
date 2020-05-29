@@ -11,3 +11,4 @@ inst/covr
 pmtables\.Rcheck
 .*\.tar\.gz
 inst/vignette
+docs
