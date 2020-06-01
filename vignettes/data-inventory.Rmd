@@ -1,0 +1,72 @@
+---
+title: "Data Inventory Table"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Inventory Table}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "."
+)
+```
+
+
+The data inventory table counts subjects and observations in your data set. 
+It will also tally missing or BQL observations.
+
+
+# Basic table by study
+
+```{r, message = FALSE, warning = FALSE}
+library(pmtables)
+library(dplyr)
+
+all <- pmtables:::data("obs") 
+pk <- filter(all, SEQ==1)
+```
+
+A summary of PK data by study
+```{r}
+pt_data_inventory(pk, by = vars(Study = STUDYf))
+```
+
+# Paneled summary
+
+We can also panel this summary by another covariate
+
+```{r}
+pt_data_inventory(
+  pk, 
+  by = vars(Study = STUDYf), 
+  panel = vars("Renal function" = RFf)
+)
+```
+
+
+
+
+# Stacked summary
+
+Use this when you want to have a single table that summarizes different 
+endpoints. This is a paneled summary where each panel is a summary only 
+of what is in that panel.
+
+```{r}
+pt_data_inventory(
+  all, 
+  panel = vars(Endpoint = SEQf), 
+  by = vars("Study" = STUDYf), 
+  stacked = TRUE
+)
+```
+
+
+
+
+
