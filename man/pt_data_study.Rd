@@ -12,11 +12,11 @@ pt_data_study(data, study_col = "STUDY", panel = study_col, ...)
 \item{study_col}{the name of the column containing the study identifier;
 may be characer or quosure (see \link[dplyr:vars]{dplyr::vars})}
 
+\item{panel}{another categorical data set column name to stratify the
+data summary}
+
 \item{...}{other arguments passed to \link{pt_data_inventory} and
 \link{data_inventory_chunk}}
-
-\item{inner}{another categorical data set column name to stratify the
-data summary}
 }
 \description{
 This is a convenience wrapper around \link{pt_data_inventory}

@@ -55,5 +55,18 @@ data <- pmtables:::data("id")
 
 ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
 
+ans <- pt_data_inventory(
+   data,
+   by = "STUDYf",
+   panel = "RFf"
+)
+
+ans <- pt_data_inventory(
+   data,
+   by = "STUDYf",
+   panel = "SEQf",
+   stacked = TRUE
+)
+
 
 }

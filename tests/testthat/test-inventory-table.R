@@ -4,7 +4,7 @@ context("test-inventory-table")
 data <- pmtables:::data("id")
 
 test_that("inventory table", {
-  ans <- pt_data_inventory(data,  outer = "STUDYf")
+  ans <- pt_data_inventory(data,  by = "STUDYf")
   tab <- ans[["_data"]]
   nstudy <- length(unique(data[["STUDYf"]]))
   expect_equal(nrow(tab),nstudy + 1)
@@ -20,13 +20,13 @@ test_that("inventory table", {
 
 test_that("inventory table - stacked", {
   data <- pmtables:::data("obs")
-  ans <- pt_data_inventory(data,  outer = "SEQf", inner = "STUDYf",stacked = TRUE)
+  ans <- pt_data_inventory(data,  panel = "SEQf", by = "STUDYf",stacked = TRUE)
   tab <- ans[["_data"]]
   smry <- dplyr::count(data,SEQf,STUDYf)
   nseq <- length(unique(smry[["SEQf"]]))
   expect_equal(nrow(tab), nrow(smry) + nseq)
-  expect_equal(names(tab)[1], "SEQf")
-  expect_equal(names(tab)[2], "STUDYf")
+  expect_equal(names(tab)[1], "STUDYf")
+  expect_equal(names(tab)[2], "SEQf")
   expect_equal(names(tab)[3], "Number.SUBJ")
   expect_equal(names(tab)[4], "Number.MISS")
   expect_equal(names(tab)[5], "Number.OBS")

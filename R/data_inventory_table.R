@@ -171,7 +171,7 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 #' @param data the data frame to summarize
 #' @param study_col the name of the column containing the study identifier;
 #' may be characer or quosure (see [dplyr::vars])
-#' @param inner another categorical data set column name to stratify the
+#' @param panel another categorical data set column name to stratify the
 #' data summary
 #' @param ... other arguments passed to [pt_data_inventory] and
 #' [data_inventory_chunk]
@@ -215,6 +215,19 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' data <- pmtables:::data("id")
 #'
 #' ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
+#'
+#' ans <- pt_data_inventory(
+#'    data,
+#'    by = "STUDYf",
+#'    panel = "RFf"
+#' )
+#'
+#' ans <- pt_data_inventory(
+#'    data,
+#'    by = "STUDYf",
+#'    panel = "SEQf",
+#'    stacked = TRUE
+#' )
 #'
 #'
 #' @export
