@@ -1,7 +1,7 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.0.1.9007
+Version: 0.0.1.9008
 Author: Kyle Baron
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: Create tables that are commonly used in pharamcometrics analyses.
