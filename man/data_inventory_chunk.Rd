@@ -6,8 +6,8 @@
 \usage{
 data_inventory_chunk(
   data,
-  outer,
-  inner = outer,
+  by,
+  panel = by,
   stacked = FALSE,
   tot = FALSE,
   all_name = "all",
@@ -20,9 +20,9 @@ data_inventory_chunk(
 \arguments{
 \item{data}{the data frame to summarize}
 
-\item{outer}{the outer grouping variable; may be character or quosure}
+\item{by}{the outer grouping variable; may be character or quosure}
 
-\item{inner}{the inner grouping variable; may be character or quosure}
+\item{panel}{the panel grouping variable; may be character or quosure}
 
 \item{stacked}{if \code{TRUE}, then independent summaries are created by \code{outer}
 and included in a single table (see examples)}

@@ -4,7 +4,7 @@
 \alias{pt_data_study}
 \title{Data inventory by study}
 \usage{
-pt_data_study(data, study_col = "STUDY", inner = study_col, ...)
+pt_data_study(data, study_col = "STUDY", panel = study_col, ...)
 }
 \arguments{
 \item{data}{the data frame to summarize}
@@ -12,11 +12,11 @@ pt_data_study(data, study_col = "STUDY", inner = study_col, ...)
 \item{study_col}{the name of the column containing the study identifier;
 may be characer or quosure (see \link[dplyr:vars]{dplyr::vars})}
 
-\item{inner}{another categorical data set column name to stratify the
-data summary}
-
 \item{...}{other arguments passed to \link{pt_data_inventory} and
 \link{data_inventory_chunk}}
+
+\item{inner}{another categorical data set column name to stratify the
+data summary}
 }
 \description{
 This is a convenience wrapper around \link{pt_data_inventory}

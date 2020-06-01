@@ -6,8 +6,8 @@
 \usage{
 pt_data_inventory(
   data,
-  outer = ".total",
-  inner = outer,
+  by = ".total",
+  panel = by,
   inner_summary = TRUE,
   drop_miss = FALSE,
   stacked = FALSE,
@@ -19,9 +19,9 @@ pt_data_inventory(
 \arguments{
 \item{data}{the data frame to summarize}
 
-\item{outer}{the outer grouping variable; may be character or quosure}
+\item{by}{the outer grouping variable; may be character or quosure}
 
-\item{inner}{the inner grouping variable; may be character or quosure}
+\item{panel}{the panel grouping variable; may be character or quosure}
 
 \item{inner_summary}{if \code{TRUE}, then a summary of the inner variable will
 be provided}
@@ -53,7 +53,7 @@ a description of these columns.
 \examples{
 data <- pmtables:::data("id")
 
-ans <- pt_data_inventory(data, outer = .cols("Renal function" = RFf))
+ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
 
 
 }

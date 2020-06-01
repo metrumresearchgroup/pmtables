@@ -6,8 +6,8 @@
 \usage{
 data_inventory_data(
   data,
-  outer,
-  inner = outer,
+  by,
+  panel = by,
   all_name = "all",
   stacked = FALSE,
   ...
@@ -16,9 +16,9 @@ data_inventory_data(
 \arguments{
 \item{data}{the data frame to summarize}
 
-\item{outer}{the outer grouping variable; may be character or quosure}
+\item{by}{the outer grouping variable; may be character or quosure}
 
-\item{inner}{the inner grouping variable; may be character or quosure}
+\item{panel}{the panel grouping variable; may be character or quosure}
 
 \item{all_name}{a name to use for the complete data summary}
 
