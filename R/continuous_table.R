@@ -141,7 +141,7 @@ pt_cont_wide <- function(data, cols,
   }
 
   ans[[".total"]] <- NULL
-  ans[["outer"]] <- NULL
+  if(by==panel) ans[["outer"]] <- NULL
 
   if(panel==by) {
     out <- gt(ans,row_group.sep=" ")
