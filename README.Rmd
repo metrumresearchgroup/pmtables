@@ -89,7 +89,7 @@ pt_cat_study(
 data <- pmtables:::data("id")
 pt_data_inventory(
   data, 
-  outer = vars(Study = STUDYf)
+  by = vars(Study = STUDYf)
 )
 ```
 
@@ -98,8 +98,8 @@ pt_data_inventory(
 data <- pmtables:::data("obs") %>% filter(SEQ==1)
 pt_data_inventory(
   data, 
-  outer = vars(Study = STUDYf), 
-  inner = vars(Sex = SEXf)
+  panel = vars(Study = STUDYf), 
+  by = vars(Sex = SEXf)
 )
 ```
 

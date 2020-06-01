@@ -3374,7 +3374,7 @@ Summaries are count (percent)
 data <- pmtables:::data("id")
 pt_data_inventory(
   data, 
-  outer = vars(Study = STUDYf)
+  by = vars(Study = STUDYf)
 )
 ```
 
@@ -3723,6 +3723,12 @@ pt_data_inventory(
 
 <tr>
 
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+Study
+
+</th>
+
 <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4">
 
 <span class="gt_column_spanner">Number</span>
@@ -3783,6 +3789,196 @@ BQL
 
 <tr>
 
+<td class="gt_row gt_left">
+
+12-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center">
+
+30
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+30
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+18.8
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+12-DEMO-002
+
+</td>
+
+<td class="gt_row gt_center">
+
+50
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+50
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+31.2
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+11-DEMO-005
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+25.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+13-DEMO-001
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+40
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+25.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+Grand Total
+
+</td>
+
 <td class="gt_row gt_center">
 
 160
@@ -3827,7 +4023,7 @@ BQL
 
 <tr>
 
-<td class="gt_sourcenote" colspan="6">
+<td class="gt_sourcenote" colspan="7">
 
 SUBJ: subjects; OBS: observations; MISS: missing; BQL: below
 quantitation limit
@@ -3850,8 +4046,8 @@ quantitation limit
 data <- pmtables:::data("obs") %>% filter(SEQ==1)
 pt_data_inventory(
   data, 
-  outer = vars(Study = STUDYf), 
-  inner = vars(Sex = SEXf)
+  panel = vars(Study = STUDYf), 
+  by = vars(Sex = SEXf)
 )
 ```
 
@@ -4200,6 +4396,12 @@ pt_data_inventory(
 
 <tr>
 
+<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">
+
+Sex
+
+</th>
+
 <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4">
 
 <span class="gt_column_spanner">Number</span>
@@ -4208,7 +4410,15 @@ pt_data_inventory(
 
 <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2">
 
-<span class="gt_column_spanner">Percent</span>
+<span class="gt_column_spanner">Group
+percent</span>
+
+</th>
+
+<th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2">
+
+<span class="gt_column_spanner">Overall
+percent</span>
 
 </th>
 
@@ -4252,13 +4462,535 @@ BQL
 
 </th>
 
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+OBS
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
+
+BQL
+
+</th>
+
 </tr>
 
 </thead>
 
 <tbody class="gt_table_body">
 
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 12-DEMO-001
+
+</td>
+
+</tr>
+
 <tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+10
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+150
+
+</td>
+
+<td class="gt_row gt_center">
+
+3
+
+</td>
+
+<td class="gt_row gt_left">
+
+9.2
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.2
+
+</td>
+
+<td class="gt_row gt_left">
+
+4.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+female
+
+</td>
+
+<td class="gt_row gt_center">
+
+20
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+300
+
+</td>
+
+<td class="gt_row gt_center">
+
+23
+
+</td>
+
+<td class="gt_row gt_left">
+
+18.9
+
+</td>
+
+<td class="gt_row gt_left">
+
+1.4
+
+</td>
+
+<td class="gt_row gt_left">
+
+9.3
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.7
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 12-DEMO-002
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+18
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+432
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+26.6
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+13.5
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+female
+
+</td>
+
+<td class="gt_row gt_center">
+
+32
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+768
+
+</td>
+
+<td class="gt_row gt_center">
+
+1
+
+</td>
+
+<td class="gt_row gt_left">
+
+48.4
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.1
+
+</td>
+
+<td class="gt_row gt_left">
+
+23.9
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 11-DEMO-005
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+29
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+696
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+42.9
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+21.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+female
+
+</td>
+
+<td class="gt_row gt_center">
+
+11
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+264
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_left">
+
+16.6
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+8.2
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.0
+
+</td>
+
+</tr>
+
+<tr class="gt_group_heading_row">
+
+<td colspan="9" class="gt_group_heading">
+
+Study: 13-DEMO-001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+male
+
+</td>
+
+<td class="gt_row gt_center">
+
+23
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+345
+
+</td>
+
+<td class="gt_row gt_center">
+
+28
+
+</td>
+
+<td class="gt_row gt_left">
+
+21.3
+
+</td>
+
+<td class="gt_row gt_left">
+
+1.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+10.7
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.9
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+female
+
+</td>
+
+<td class="gt_row gt_center">
+
+17
+
+</td>
+
+<td class="gt_row gt_center">
+
+0
+
+</td>
+
+<td class="gt_row gt_center">
+
+255
+
+</td>
+
+<td class="gt_row gt_center">
+
+13
+
+</td>
+
+<td class="gt_row gt_left">
+
+16.1
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.8
+
+</td>
+
+<td class="gt_row gt_left">
+
+7.9
+
+</td>
+
+<td class="gt_row gt_left">
+
+0.4
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="gt_row gt_left">
+
+Grand Total
+
+</td>
 
 <td class="gt_row gt_center">
 
@@ -4296,6 +5028,18 @@ BQL
 
 </td>
 
+<td class="gt_row gt_left">
+
+100.0
+
+</td>
+
+<td class="gt_row gt_left">
+
+2.1
+
+</td>
+
 </tr>
 
 </tbody>
@@ -4304,7 +5048,7 @@ BQL
 
 <tr>
 
-<td class="gt_sourcenote" colspan="6">
+<td class="gt_sourcenote" colspan="9">
 
 SUBJ: subjects; OBS: observations; MISS: missing; BQL: below
 quantitation limit
