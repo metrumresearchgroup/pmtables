@@ -4,7 +4,7 @@ author: "Kyle Baron"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-%\VignetteIndexEntry{Continuous Table}
+%\VignetteIndexEntry{Continuous Data Table}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   ---
