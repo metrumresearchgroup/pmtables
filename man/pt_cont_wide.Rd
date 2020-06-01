@@ -8,7 +8,7 @@ pt_cont_wide(
   data,
   cols,
   by = ".total",
-  panel = NULL,
+  panel = by,
   fun = str_sum_2,
   table = NULL,
   units = NULL,
@@ -23,7 +23,7 @@ pt_cont_wide(
 
 \item{by}{a grouping variable name}
 
-\item{panel}{data set column name to stratify the summary}
+\item{panel}{a variable for paneling the summary}
 
 \item{fun}{the data summary function (see details)}
 

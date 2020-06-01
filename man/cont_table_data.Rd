@@ -8,6 +8,7 @@ cont_table_data(
   data,
   cols,
   by = ".total",
+  panel = by,
   wide = FALSE,
   all_name = "all",
   digits = NULL,

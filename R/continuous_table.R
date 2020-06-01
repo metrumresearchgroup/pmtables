@@ -7,11 +7,12 @@
 #' @param fun continuous data summary function
 #'
 #' @export
-cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
+cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
                             all_name = "all", digits = NULL, fun = df_sum_2) {
 
   cols <- unname(new_names(cols))
   by <- unname(new_names(by))
+  panel <- unname(new_names(panel))
 
   if(is.null(digits)) {
     digits <- new_digits(sig,3)
@@ -25,8 +26,10 @@ cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
 
   groups <- c("name")
   if(!is.null(by)) groups <- c(by,groups)
+  if(!is.null(panel)) groups <- c(panel,by,groups)
+  groups <- unique(groups)
 
-  d0 <- select(data, all_of(unname(c(by,cols))))
+  d0 <- select(data, all_of(unname(c(panel,by,cols))))
 
   d1 <- pivot_longer(d0,all_of(cols))
   d1 <- mutate(d1, digitn = unlist(digit_data[.data[["name"]]]))
@@ -34,7 +37,7 @@ cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
 
   if(!is.null(by)) {
     d1 <- group_by(d1,!!!syms(groups))
-    join_cols <- c(by,"name")
+    join_cols <- unique(c(panel,by,"name"))
   } else {
     d1 <- group_by(d1,!!!syms(groups))
     join_cols <- "name"
@@ -79,11 +82,12 @@ cont_table_data <- function(data, cols, by = ".total", wide = FALSE,
 #' @inheritParams pt_cont_long
 #'
 #' @param by a grouping variable name
+#' @param panel a variable for paneling the summary
 #'
 #' @export
 pt_cont_wide <- function(data, cols,
                          by = ".total",
-                         panel = NULL,
+                         panel = by,
                          fun = str_sum_2,
                          table = NULL,
                          units = NULL,
@@ -93,8 +97,13 @@ pt_cont_wide <- function(data, cols,
   tst <- fun(rnorm(10))
   assert_that(identical(names(tst),"summary"))
 
+  if(!missing(panel)) {
+    warning("the 'panel' argument is not supported yet.")
+  }
+
   cols <- new_names(cols,table)
   by <- new_names(by,table)
+  panel <- new_names(panel,table)
 
   data <- data_total_col(data, all_name = all_name)
 
@@ -105,6 +114,7 @@ pt_cont_wide <- function(data, cols,
     data = data,
     cols = cols,
     by = by,
+    panel = panel,
     fun = fun,
     digits = digits,
     wide = TRUE
@@ -117,26 +127,27 @@ pt_cont_wide <- function(data, cols,
       data=data,
       cols=cols,
       by=".total",
+      panel = ".total",
       fun=fun,
       digits = digits,
       wide = TRUE
     )
     ans2 <- mutate(ans2, outer := all_name)
+    if(panel != by) {
+      ans2 <- mutate(ans2, !!sym(panel) := "Total")
+      ans <- mutate(
+        ans,
+        !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
+      )
+    }
     ans <- bind_rows(ans,ans2)
   }
 
-  out <- gt(ans,row_group.sep=" ")
+  if(panel==by) {
+    out <- gt(ans,row_group.sep=" ")
+  } else {
 
-  if(all_summary) {
-    out <- tab_row_group(
-      out,
-      group = "Total",
-      rows = ans[[1]]==all_name
-    )
-    out <- row_group_order(
-      out,
-      groups = c(NA, "Total")
-    )
+    out <- gt(ans,row_group.sep=" ",groupname_col=panel)
   }
 
   out <- cols_label(out, outer = names(by)[1])
