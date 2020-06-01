@@ -1,0 +1,75 @@
+---
+title: "Continuous Data Table"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Continuous Table}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "."
+)
+```
+
+
+These functions create summary tables for continuous data. There is a long 
+format and a wide format.
+
+
+# Long format
+
+```{r, message = FALSE, warning = FALSE}
+library(pmtables)
+library(dplyr)
+
+id <- pmtables:::data("id") 
+```
+
+A summary of covariates 
+
+```{r}
+pt_cont_long(id, cols = "WT,ALB,SCR")
+```
+
+# Paneled summary
+
+Use the panel argument to split this by, for example, study 
+
+```{r}
+pt_cont_long(
+  id, 
+  cols = "WT,ALB,SCR",
+  panel = vars(Study = STUDYf)
+)
+```
+
+
+
+
+# Wide format
+
+There is also a wide format, where variable names go across the table.
+
+```{r}
+pt_cont_wide(id, cols = "WT,ALB,SCR")
+```
+
+We can use the by argument here
+```{r}
+pt_cont_wide(id,cols="WT,ALB,SCR",by = "STUDYf")
+```
+
+
+
+Or use by and panel
+
+```{r}
+pt_cont_wide(id,cols="WT,ALB,SCR",by = "STUDYf",panel="SEXf")
+```
+
+
