@@ -12,3 +12,4 @@ pmtables\.Rcheck
 .*\.tar\.gz
 inst/vignette
 docs
+vignettes/data-inventory.Rmd

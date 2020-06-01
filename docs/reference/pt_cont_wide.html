@@ -128,7 +128,7 @@
   <span class='no'>data</span>,
   <span class='no'>cols</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
   <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>str_sum_2</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -153,7 +153,7 @@
     </tr>
     <tr>
       <th>panel</th>
-      <td><p>data set column name to stratify the summary</p></td>
+      <td><p>a variable for paneling the summary</p></td>
     </tr>
     <tr>
       <th>fun</th>
