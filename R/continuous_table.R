@@ -140,7 +140,12 @@ pt_cont_wide <- function(data, cols,
     ans <- bind_rows(ans,ans2)
   }
 
+  if(by != ".total") {
+    ans <- rename(ans,!!sym(names(by)) := outer)
+  }
+
   ans[[".total"]] <- NULL
+
   if(by==panel) ans[["outer"]] <- NULL
 
   if(panel==by) {
