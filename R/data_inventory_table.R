@@ -208,8 +208,10 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' The summary function is expecting certain columns to be named in a certain
 #' way. This can be modified to suit your need by passing the following
 #' arguments: `dv_col` (for observations), `bq_col` (for BQL observations),
-#' and `id_col` (for ID). See the [data_inventory_chunk] help topic for
-#' a description of these columns.
+#' and `id_col` (for ID). For example, if BQL indicator is in a column called
+#' `BELOW` you would pass `bq_col = BELOW`.
+#'
+#' See the [data_inventory_chunk] help topic for a description of these columns.
 #'
 #' @examples
 #' data <- pmtables:::data("id")
@@ -228,6 +230,14 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'    panel = "SEQf",
 #'    stacked = TRUE
 #' )
+#'
+#' # change the expected name of the BQL column
+#'
+#' \dontrun{
+#'
+#' ans <- pt_data_inventory(data, by = "STUDYf", bq_col = "BLQ")
+#'
+#' }
 #'
 #'
 #' @export

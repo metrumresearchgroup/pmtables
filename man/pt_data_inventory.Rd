@@ -47,8 +47,10 @@ and missing observations and percentage of observations that are BQL.
 The summary function is expecting certain columns to be named in a certain
 way. This can be modified to suit your need by passing the following
 arguments: \code{dv_col} (for observations), \code{bq_col} (for BQL observations),
-and \code{id_col} (for ID). See the \link{data_inventory_chunk} help topic for
-a description of these columns.
+and \code{id_col} (for ID). For example, if BQL indicator is in a column called
+\code{BELOW} you would pass \code{bq_col = BELOW}.
+
+See the \link{data_inventory_chunk} help topic for a description of these columns.
 }
 \examples{
 data <- pmtables:::data("id")
@@ -67,6 +69,14 @@ ans <- pt_data_inventory(
    panel = "SEQf",
    stacked = TRUE
 )
+
+# change the expected name of the BQL column
+
+\dontrun{
+
+ans <- pt_data_inventory(data, by = "STUDYf", bq_col = "BLQ")
+
+}
 
 
 }
