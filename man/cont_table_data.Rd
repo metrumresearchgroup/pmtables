@@ -22,6 +22,8 @@ cont_table_data(
 
 \item{by}{grouping variable name}
 
+\item{panel}{paneling variable name}
+
 \item{wide}{if \code{TRUE} covariates are rendered west to east; if \code{FALSE} then
 they are rendered north to south}
 

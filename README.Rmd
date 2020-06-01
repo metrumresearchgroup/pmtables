@@ -109,8 +109,8 @@ pt_data_inventory(
 data <- pmtables:::data("obs")
 pt_data_inventory(
   data, 
-  outer = vars(Endpoint = SEQf), 
-  inner = vars(Study = STUDYf), 
+  panel = vars(Endpoint = SEQf), 
+  by = vars(Study = STUDYf), 
   stacked = TRUE
 )
 ```

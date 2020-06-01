@@ -2,6 +2,7 @@
 #'
 #' @inheritParams pt_cont_study
 #' @param by grouping variable name
+#' @param panel paneling variable name
 #' @param all_name label for full data summary
 #' @param digits named list specifing `digits` argument for `digit_fun`
 #' @param fun continuous data summary function
@@ -97,10 +98,6 @@ pt_cont_wide <- function(data, cols,
   tst <- fun(rnorm(10))
   assert_that(identical(names(tst),"summary"))
 
-  if(!missing(panel)) {
-    warning("the 'panel' argument is not supported yet.")
-  }
-
   cols <- new_names(cols,table)
   by <- new_names(by,table)
   panel <- new_names(panel,table)
@@ -143,14 +140,18 @@ pt_cont_wide <- function(data, cols,
     ans <- bind_rows(ans,ans2)
   }
 
+  ans[[".total"]] <- NULL
+  ans[["outer"]] <- NULL
+
   if(panel==by) {
     out <- gt(ans,row_group.sep=" ")
   } else {
-
     out <- gt(ans,row_group.sep=" ",groupname_col=panel)
   }
 
-  out <- cols_label(out, outer = names(by)[1])
+  if(exists(by,ans)) {
+    out <- cols_label(out, outer = names(by)[1])
+  }
 
   if(is.list(units)) {
     for(col in cols) {

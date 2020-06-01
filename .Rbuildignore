@@ -13,3 +13,4 @@ pmtables\.Rcheck
 inst/vignette
 docs
 vignettes/data-inventory.Rmd
+vignettes/continuous-table.Rmd
