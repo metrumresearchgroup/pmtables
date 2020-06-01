@@ -4,12 +4,12 @@ author: "Kyle Baron"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-%\VignetteIndexEntry{Continuous Data Table}
+  %\VignetteIndexEntry{Continuous Data Table}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   ---
   
-  ```{r setup, include = FALSE, warning = FALSE}
+```{r setup, include = FALSE, warning = FALSE}
 knitr::opts_chunk$set(
 collapse = TRUE,
 comment = "."
