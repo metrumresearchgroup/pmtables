@@ -10,7 +10,7 @@
 #' @importFrom glue glue
 #' @importFrom tibble tibble
 #' @importFrom stats median rnorm sd
-#' @importFrom utils capture.output packageVersion
+#' @importFrom utils capture.output packageVersion str
 #' @import mrggt
 #'
 #'

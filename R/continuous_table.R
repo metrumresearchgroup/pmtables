@@ -68,9 +68,9 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
     )
   }
 
-  d3 <- count(d1,!!!syms(groups))
-  d4 <- left_join(d2,d3,by = join_cols)
-  d4 <- rename(d4, outer = !!sym(by))
+  #d3 <- count(d1,!!!syms(groups))
+  #d4 <- left_join(d2,d3,by = join_cols)
+  d4 <- rename(d2, outer = !!sym(by))
   if(wide) {
     d4 <- pivot_wider(d4, names_from  = "name", values_from = "summary")
   }
@@ -252,7 +252,7 @@ pt_cont_long <- function(data,
     ans <- bind_rows(ans,ans2)
   }
 
-  ans <- mutate(ans, n = n_parens(n))
+  #ans <- mutate(ans, n = n_parens(n))
   .name <- as.character(ans$name)
   ans <- mutate(ans, name = as.character(names(cols)[.data[["name"]]]))
 
@@ -271,7 +271,7 @@ pt_cont_long <- function(data,
     ans,
     row_group.sep=" ",
     rowname_col = "name",
-    groupname_col = c("outer", "n")
+    groupname_col = c("outer")
   )
 
   out <- cols_label(out, outer = names(by)[1])
