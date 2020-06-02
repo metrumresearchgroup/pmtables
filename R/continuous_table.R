@@ -293,11 +293,13 @@ pt_cont_long <- function(data,
   if(is.logical(formals(fun)[["footnote"]])) {
     footn <- fun(footnote = TRUE)
     if(is.list(footn)) {
-      out <- tab_footnote(
-        out,
-        footnote = footn$footnote,
-        locations = footn$locations
-      )
+      for(this_foot in footn) {
+        out <- tab_footnote(
+          out,
+          footnote = this_foot$footnote,
+          locations = this_foot$locations
+        )
+      }
     }
   }
 

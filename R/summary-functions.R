@@ -17,10 +17,17 @@ str_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = 
 
 df_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = FALSE,...) {
   if(footnote) {
-    footn <- list(
+    footn <- list()
+    footn[[1]] <- list(
       footnote = "standard deviation",
       locations = cells_column_labels(
         columns = "SD"
+      )
+    )
+    footn[[2]] <- list(
+      footnote = "subjects with non-missing values",
+      locations = cells_column_labels(
+        columns = "n"
       )
     )
     return(footn)

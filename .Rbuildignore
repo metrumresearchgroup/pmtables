@@ -16,3 +16,4 @@ vignettes/data-inventory.Rmd
 vignettes/continuous-table.Rmd
 vignettes/discrete-table.Rmd
 vignettes/pmtables.Rmd
+vignettes/digits.Rmd

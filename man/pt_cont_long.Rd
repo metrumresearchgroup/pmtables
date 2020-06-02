@@ -10,7 +10,7 @@ pt_cont_long(
   panel = ".total",
   table = NULL,
   units = NULL,
-  digits = NULL,
+  digits = pt_opts$digits,
   summarize_all = TRUE,
   all_name = "All data",
   fun = df_sum_2

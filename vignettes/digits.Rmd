@@ -1,0 +1,100 @@
+---
+title: "Custom Digits"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Custom Digits}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "."
+)
+```
+
+
+For continuous data summaries, the number of digits can be 
+controlled by setting the `digits` option with a `digits` object.
+
+# Digits objects
+
+Create a new digits object
+
+```{r}
+library(pmtables)
+
+x <- new_digits()
+x
+```
+
+By default, pmtables will format numeric summaries with 3 
+significant digits. 
+
+
+## Select number of digits by default
+
+To use a default of 2 significant digits
+
+```{r}
+x <- new_digits(.default = 2)
+x
+```
+
+
+To customize the number of digits for each data summary
+
+```{r}
+x <- new_digits(WT = 3, ALB = 4, SCR = 2)
+
+x
+```
+
+This will use 3 significant digits for `WT`, 4 for `ALB` and 
+2 for `SCR`.
+
+
+## Select the function to use for digits
+
+We can also round digits. It is safest to create your own wrapper
+for round instead of using `round` (a primitive function)
+
+```{r}
+x <- new_digits(.fun = round)
+x
+```
+
+
+# Using custom digits
+
+Use the `digits` option
+
+This should give us 2 digits in all columns except for `WT`, 
+which should be 3 digits
+
+```{r}
+dig <- new_digits(.default = 2, WT = 3)
+dig
+```
+
+```{r}
+pt_opts$set(digits = dig)
+```
+
+```{r}
+data <- pmtables:::data("id")
+```
+
+```{r}
+pt_cont_long(
+  data, 
+  cols = "WT,ALB,SCR,CRCL"
+)
+```
+
+
+
+

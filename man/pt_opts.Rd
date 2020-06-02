@@ -20,7 +20,7 @@ pt_options(
   table = NULL,
   fun.cont.long = pmtables:::df_sum_2,
   fun.cont.wide = pmtables:::str_sum_2,
-  digits = new_digits()
+  digits = NULL
 )
 
 pt_opts
