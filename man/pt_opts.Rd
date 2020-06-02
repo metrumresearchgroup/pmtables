@@ -4,19 +4,28 @@
 \name{pt_opts}
 \alias{pt_opts}
 \alias{pt_options}
-\alias{pt}
+\alias{opts}
 \title{Set global plot options}
 \format{
-An object of class \code{pt_opts} (inherits from \code{environment}) of length 10.
+An object of class \code{pt_opts} (inherits from \code{environment}) of length 15.
 
-An object of class \code{pt_opts} (inherits from \code{environment}) of length 10.
+An object of class \code{pt_opts} (inherits from \code{environment}) of length 15.
 }
 \usage{
-pt_options(id_col = "ID", dv_col = "DV", bq_col = "BQL")
+pt_options(
+  id_col = "ID",
+  dv_col = "DV",
+  bq_col = "BQL",
+  units = NULL,
+  table = NULL,
+  fun.cont.long = pmtables:::df_sum_2,
+  fun.cont.wide = pmtables:::str_sum_2,
+  digits = new_digits()
+)
 
 pt_opts
 
-pt
+opts
 }
 \arguments{
 \item{id_col}{ID column name}
@@ -24,45 +33,49 @@ pt
 \item{dv_col}{DV column name}
 
 \item{bq_col}{BQL column name}
+
+\item{units}{named list of units}
+
+\item{table}{named list of column name transformations}
 }
 \description{
 Set global plot options
 }
 \details{
-\link{pt} and \link{pt_opts} both refer to the same environment.
+\code{pt_opts} is the options environment.
 
 Global options can
-be set in the environment with \code{pt$set(name = value)}.  There is also
-a \code{.list} argument to \code{pt$set} that allows you to pass in a named list of
+be set in the environment with \code{pt_opts$set(name = value)}.  There is also
+a \code{.list} argument to \code{pt_opts$set} that allows you to pass in a named list of
 options to set.
 
-Values can be extracted with \code{pt$get("name")}.
+Values can be extracted with \code{pt_opts$get("name")}.
 
 Because it is an environment, the \code{$} operator can also be used to get and
 set values (see examples).
 
-Other methods in the environment include \code{pt$as.list()}, \code{pt$mget()},
-\code{pt$reset()}.  \code{pt$self} refers to the environment itself. A list of
+Other methods in the environment include \code{pt_opts$as.list()}, \code{pt_opts$mget()},
+\code{pt_opts$reset()}.  \code{pt_opts$self} refers to the environment itself. A list of
 default settings can be obtained with \code{pt$defaults}.  Methods for the
 \code{pt_opts} object include: \link{print.pt_opts}, \link{as.list.pt_opts},
 \code{\link{$<-.pt_opts}}.
 }
 \examples{
 
-pt$set(id_col = "USUBJID")
+pt_opts$set(id_col = "USUBJID")
 
-pt$id_col <- "ID"
+pt_opts$id_col <- "ID"
 
-pt$bq_col
+pt_opts$bq_col
 
-pt$reset()
+pt_opts$reset()
 
-x <- pt$as.list()
+x <- pt_opts$as.list()
 
 \dontrun{
- defs <- pt$defaults
+ defs <- pt_opts$defaults
  defs$dv_col <- "dv"
- pt$set(.list = defs)
+ pt_opts$set(.list = defs)
 }
 
 }

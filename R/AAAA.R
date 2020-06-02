@@ -13,6 +13,9 @@
 #' @importFrom utils capture.output packageVersion str
 #' @import mrggt
 #'
-#'
+#' @include utils.R
+#' @include class-digits.R
+#' @include class-new_names.R
+#' @include summary-functions.R
 #'
 NULL

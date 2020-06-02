@@ -15,3 +15,16 @@ LazyData: true
 RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+Collate: 
+    'summary-functions.R'
+    'class-new_names.R'
+    'class-digits.R'
+    'utils.R'
+    'AAAA.R'
+    'check.R'
+    'continuous_table.R'
+    'data_inventory_table.R'
+    'discrete_table.R'
+    'opts.R'
+    'summarize-cat-chunk.R'
+    'table-functions.R'

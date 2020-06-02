@@ -1,15 +1,21 @@
-str_sum_2 <- function(value,digit_fun=sig,digits=3,name=NULL,footnote = FALSE,...) {
+str_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = FALSE,...) {
   if(footnote) {
     return("summary is: mean (standard deviation) [number non-missng]")
   }
+  if(is.null(id)) {
+    n <- sum(!is.na(value))
+  } else {
+    n <- length(unique(id))
+  }
+  value <- na.omit(value)
+  if(length(value)==0) stop("no non-missing values",call.=FALSE)
   mn <- digit_fun(mean(value),digits=digits)
   sd <- digit_fun(sd(value),digits=digits)
-  n <- sum(!is.na(value))
   ans <- tibble(summary = paste0(mn, " (",sd,")", " [",n,"]"))
   ans
 }
 
-df_sum_2 <- function(value,digit_fun=sig,digits=3,name=NULL,footnote = FALSE) {
+df_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = FALSE,...) {
   if(footnote) {
     footn <- list(
       footnote = "standard deviation",
@@ -19,10 +25,17 @@ df_sum_2 <- function(value,digit_fun=sig,digits=3,name=NULL,footnote = FALSE) {
     )
     return(footn)
   }
+  if(is.null(id)) {
+    n <- sum(!is.na(value))
+  } else {
+    n <- length(unique(id))
+  }
+  value <- na.omit(value)
+  if(length(value)==0) stop("no non-missing values",call.=FALSE)
   rng <- digit_fun(range(value),digits=digits)
   rng <- paste0(rng[1]," / ", rng[2])
   ans <- tibble(
-    n = sum(!is.na(value)),
+    n = n,
     Mean = digit_fun(mean(value),digits = digits),
     Median = digit_fun(median(value),digits = digits),
     SD = digit_fun(sd(value),digits = digits),

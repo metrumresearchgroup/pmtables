@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data inventory by study — pt_data_study • pmtables</title>
+<title>Coerce pt_opts object to a list — as.list.pt_opts • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Data inventory by study — pt_data_study" />
-<meta property="og:description" content="This is a convenience wrapper around pt_data_inventory" />
+<meta property="og:title" content="Coerce pt_opts object to a list — as.list.pt_opts" />
+<meta property="og:description" content="Coerce pt_opts object to a list" />
 
 
 
@@ -124,47 +124,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data inventory by study</h1>
+    <h1>Coerce pt_opts object to a list</h1>
     
-    <div class="hidden name"><code>pt_data_study.Rd</code></div>
+    <div class="hidden name"><code>as.list.pt_opts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This is a convenience wrapper around <a href='pt_data_inventory.html'>pt_data_inventory</a></p>
+    <p>Coerce pt_opts object to a list</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDY"</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>study_col</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for pt_opts</span>
+<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
-    </tr>
-    <tr>
-      <th>study_col</th>
-      <td><p>the name of the column containing the study identifier;
-may be characer or quosure (see <a href='https://dplyr.tidyverse.org/reference/vars.html'>dplyr::vars</a>)</p></td>
-    </tr>
-    <tr>
-      <th>panel</th>
-      <td><p>another categorical data set column name to stratify the
-data summary</p></td>
+      <th>x</th>
+      <td><p>the <code>pt_opts</code> object</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to <a href='pt_data_inventory.html'>pt_data_inventory</a> and
-<a href='data_inventory_chunk.html'>data_inventory_chunk</a></p></td>
+      <td><p>not used</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
-
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; <span class='message'>[pmtables] couldn't find the BQL column; set the column name to 'BQL' or pass the name as 'bq_col'</span></div><div class='output co'>#&gt; <span class='error'>Error: there was a problem finding required columns for the data inventory summary; please see error messages as well as '?data_inventory_chunk' help topic</span></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>pt_opts</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

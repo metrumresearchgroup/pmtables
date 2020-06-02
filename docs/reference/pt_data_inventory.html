@@ -204,21 +204,18 @@ and <code>id_col</code> (for ID). For example, if BQL indicator is in a column c
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
 
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_inventory</span>(<span class='no'>data</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='dot-cols.html'>.cols</a></span>(<span class='st'>"Renal function"</span> <span class='kw'>=</span> <span class='no'>RFf</span>))
-
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_inventory</span>(<span class='no'>data</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='dot-cols.html'>.cols</a></span>(<span class='st'>"Renal function"</span> <span class='kw'>=</span> <span class='no'>RFf</span>))</div><div class='output co'>#&gt; <span class='message'>[pmtables] couldn't find the BQL column; set the column name to 'BQL' or pass the name as 'bq_col'</span></div><div class='output co'>#&gt; <span class='error'>Error: there was a problem finding required columns for the data inventory summary; please see error messages as well as '?data_inventory_chunk' help topic</span></div><div class='input'>
 <span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_inventory</span>(
    <span class='no'>data</span>,
    <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>,
    <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>"RFf"</span>
-)
-
+)</div><div class='output co'>#&gt; <span class='message'>[pmtables] couldn't find the BQL column; set the column name to 'BQL' or pass the name as 'bq_col'</span></div><div class='output co'>#&gt; <span class='error'>Error: there was a problem finding required columns for the data inventory summary; please see error messages as well as '?data_inventory_chunk' help topic</span></div><div class='input'>
 <span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_inventory</span>(
    <span class='no'>data</span>,
    <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>,
    <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>"SEQf"</span>,
    <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
-
+)</div><div class='output co'>#&gt; <span class='message'>[pmtables] couldn't find the BQL column; set the column name to 'BQL' or pass the name as 'bq_col'</span></div><div class='output co'>#&gt; <span class='error'>Error: there was a problem finding required columns for the data inventory summary; please see error messages as well as '?data_inventory_chunk' help topic</span></div><div class='input'>
 <span class='co'># change the expected name of the BQL column</span>
 
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

@@ -1,6 +1,7 @@
 
 
 columns_exist <- function(data,cols,msg) {
+  if(!is.data.frame(data)) return(msg)
   for(col in cols) {
     a <- validate_that(
       exists(col,data),
@@ -10,6 +11,17 @@ columns_exist <- function(data,cols,msg) {
   }
   return(msg)
 }
+
+check_exists <- function(data,cols) {
+  msg <- c()
+  msg <- columns_exist(data,cols,msg)
+  if(length(msg)==0) return(invisible(TRUE))
+  if(length(msg) > 0) {
+    walk(msg,emessage)
+  }
+  stop("there were problems with input data",call.=FALSE)
+}
+
 
 check_continuous <- function(data,cols,others = NULL) {
   msg <- c()

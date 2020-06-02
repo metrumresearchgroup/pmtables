@@ -15,6 +15,6 @@
 Coerce pt_opts object to a list
 }
 \examples{
-x <- as.list(pt)
+x <- as.list(pt_opts)
 
 }

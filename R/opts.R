@@ -4,22 +4,24 @@
 #' @param id_col ID column name
 #' @param dv_col DV column name
 #' @param bq_col BQL column name
+#' @param units named list of units
+#' @param table named list of column name transformations
 #'
 #' @details
-#' [pt] and [pt_opts] both refer to the same environment.
+#' `pt_opts` is the options environment.
 #'
 #' Global options can
-#' be set in the environment with `pt$set(name = value)`.  There is also
-#' a `.list` argument to `pt$set` that allows you to pass in a named list of
+#' be set in the environment with `pt_opts$set(name = value)`.  There is also
+#' a `.list` argument to `pt_opts$set` that allows you to pass in a named list of
 #' options to set.
 #'
-#' Values can be extracted with `pt$get("name")`.
+#' Values can be extracted with `pt_opts$get("name")`.
 #'
 #' Because it is an environment, the `$` operator can also be used to get and
 #' set values (see examples).
 #'
-#' Other methods in the environment include `pt$as.list()`, `pt$mget()`,
-#' `pt$reset()`.  `pt$self` refers to the environment itself. A list of
+#' Other methods in the environment include `pt_opts$as.list()`, `pt_opts$mget()`,
+#' `pt_opts$reset()`.  `pt_opts$self` refers to the environment itself. A list of
 #' default settings can be obtained with `pt$defaults`.  Methods for the
 #' `pt_opts` object include: [print.pt_opts], [as.list.pt_opts],
 #' [`$<-.pt_opts`].
@@ -28,28 +30,34 @@
 #'
 #' @examples
 #'
-#' pt$set(id_col = "USUBJID")
+#' pt_opts$set(id_col = "USUBJID")
 #'
-#' pt$id_col <- "ID"
+#' pt_opts$id_col <- "ID"
 #'
-#' pt$bq_col
+#' pt_opts$bq_col
 #'
-#' pt$reset()
+#' pt_opts$reset()
 #'
-#' x <- pt$as.list()
+#' x <- pt_opts$as.list()
 #'
 #' \dontrun{
-#'  defs <- pt$defaults
+#'  defs <- pt_opts$defaults
 #'  defs$dv_col <- "dv"
-#'  pt$set(.list = defs)
+#'  pt_opts$set(.list = defs)
 #' }
 #'
 #' @md
+#' @include class-digits.R
 #' @name pt_opts
 pt_options <- function(
   id_col = "ID",
   dv_col = "DV",
-  bq_col = "BQL"
+  bq_col = "BQL",
+  units = NULL,
+  table = NULL,
+  fun.cont.long = pmtables:::df_sum_2,
+  fun.cont.wide = pmtables:::str_sum_2,
+  digits = NULL
   ) {
   set <- function(..., .list = NULL) {
     if(is.list(.list)) {
@@ -93,7 +101,7 @@ pt_options <- function(
 #'
 #' @examples
 #'
-#' pt$bq_col <- "BLQ"
+#' pt_opts$bq_col <- "BLQ"
 #'
 #' @export
 `$<-.pt_opts` <- function(x,i,value) {
@@ -128,7 +136,7 @@ pt_options <- function(
 #' @param ... not used
 #'
 #' @examples
-#' x <- as.list(pt)
+#' x <- as.list(pt_opts)
 #'
 #' @export
 as.list.pt_opts <- function(x,...) {
@@ -140,7 +148,7 @@ as.list.pt_opts <- function(x,...) {
 #' @param x the `pt_opts` object
 #' @param ... not used
 #' @examples
-#' pt
+#' pt_opts
 #'
 #' @export
 print.pt_opts <- function(x,...) {
@@ -152,6 +160,5 @@ print.pt_opts <- function(x,...) {
 pt_opts <- pt_options()
 #' @rdname pt_opts
 #' @export
-pt <- pt_opts
 opts <- pt_opts
 

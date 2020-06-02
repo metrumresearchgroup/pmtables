@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data inventory by study — pt_data_study • pmtables</title>
+<title>Set global plot options — pt_opts • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Data inventory by study — pt_data_study" />
-<meta property="og:description" content="This is a convenience wrapper around pt_data_inventory" />
+<meta property="og:title" content="Set global plot options — pt_opts" />
+<meta property="og:description" content="Set global plot options" />
 
 
 
@@ -124,47 +124,91 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data inventory by study</h1>
+    <h1>Set global plot options</h1>
     
-    <div class="hidden name"><code>pt_data_study.Rd</code></div>
+    <div class="hidden name"><code>pt_opts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This is a convenience wrapper around <a href='pt_data_inventory.html'>pt_data_inventory</a></p>
+    <p>Set global plot options</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDY"</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>study_col</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>pt_options</span>(
+  <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='st'>"ID"</span>,
+  <span class='kw'>dv_col</span> <span class='kw'>=</span> <span class='st'>"DV"</span>,
+  <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='st'>"BQL"</span>,
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.cont.long</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>df_sum_2</span>,
+  <span class='kw'>fun.cont.wide</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>str_sum_2</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='new_digits.html'>new_digits</a></span>()
+)
+
+<span class='no'>pt_opts</span>
+
+<span class='no'>opts</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <th>id_col</th>
+      <td><p>ID column name</p></td>
     </tr>
     <tr>
-      <th>study_col</th>
-      <td><p>the name of the column containing the study identifier;
-may be characer or quosure (see <a href='https://dplyr.tidyverse.org/reference/vars.html'>dplyr::vars</a>)</p></td>
+      <th>dv_col</th>
+      <td><p>DV column name</p></td>
     </tr>
     <tr>
-      <th>panel</th>
-      <td><p>another categorical data set column name to stratify the
-data summary</p></td>
+      <th>bq_col</th>
+      <td><p>BQL column name</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>other arguments passed to <a href='pt_data_inventory.html'>pt_data_inventory</a> and
-<a href='data_inventory_chunk.html'>data_inventory_chunk</a></p></td>
+      <th>units</th>
+      <td><p>named list of units</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>named list of column name transformations</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>pt_opts</code> (inherits from <code>environment</code>) of length 15.</p>
+<p>An object of class <code>pt_opts</code> (inherits from <code>environment</code>) of length 15.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>pt_opts</code> is the options environment.</p>
+<p>Global options can
+be set in the environment with <code>pt_opts$set(name = value)</code>.  There is also
+a <code>.list</code> argument to <code>pt_opts$set</code> that allows you to pass in a named list of
+options to set.</p>
+<p>Values can be extracted with <code>pt_opts$get("name")</code>.</p>
+<p>Because it is an environment, the <code>$</code> operator can also be used to get and
+set values (see examples).</p>
+<p>Other methods in the environment include <code>pt_opts$as.list()</code>, <code>pt_opts$mget()</code>,
+<code>pt_opts$reset()</code>.  <code>pt_opts$self</code> refers to the environment itself. A list of
+default settings can be obtained with <code>pt$defaults</code>.  Methods for the
+<code>pt_opts</code> object include: <a href='print.pt_opts.html'>print.pt_opts</a>, <a href='as.list.pt_opts.html'>as.list.pt_opts</a>,
+<code>$&lt;-.pt_opts</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
+    <pre class="examples"><div class='input'>
+<span class='no'>pt_opts</span>$<span class='fu'>set</span>(<span class='kw'>id_col</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>)
 
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_data_study</span>(<span class='no'>data</span>, <span class='kw'>study_col</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>)</div><div class='output co'>#&gt; <span class='message'>[pmtables] couldn't find the BQL column; set the column name to 'BQL' or pass the name as 'bq_col'</span></div><div class='output co'>#&gt; <span class='error'>Error: there was a problem finding required columns for the data inventory summary; please see error messages as well as '?data_inventory_chunk' help topic</span></div><div class='input'>
-</div></pre>
+<span class='no'>pt_opts</span>$<span class='no'>id_col</span> <span class='kw'>&lt;-</span> <span class='st'>"ID"</span>
+
+<span class='no'>pt_opts</span>$<span class='no'>bq_col</span></div><div class='output co'>#&gt; [1] "BLQ"</div><div class='input'>
+<span class='no'>pt_opts</span>$<span class='fu'>reset</span>()
+
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>pt_opts</span>$<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>()
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='no'>defs</span> <span class='kw'>&lt;-</span> <span class='no'>pt_opts</span>$<span class='no'>defaults</span>
+ <span class='no'>defs</span>$<span class='no'>dv_col</span> <span class='kw'>&lt;-</span> <span class='st'>"dv"</span>
+ <span class='no'>pt_opts</span>$<span class='fu'>set</span>(<span class='kw'>.list</span> <span class='kw'>=</span> <span class='no'>defs</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

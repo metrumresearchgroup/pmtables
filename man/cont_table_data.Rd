@@ -12,7 +12,7 @@ cont_table_data(
   wide = FALSE,
   all_name = "all",
   digits = NULL,
-  fun = df_sum_2
+  fun = pt_opts$fun.cont.long
 )
 }
 \arguments{

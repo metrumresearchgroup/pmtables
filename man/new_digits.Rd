@@ -4,7 +4,7 @@
 \alias{new_digits}
 \title{Create a digits object}
 \usage{
-new_digits(.fun = pmtables::sig, .default = 3, ..., .data = NULL)
+new_digits(.fun = sig, .default = 3, ..., .data = NULL)
 }
 \arguments{
 \item{.fun}{function for modifying digits on a number}

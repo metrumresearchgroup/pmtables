@@ -19,7 +19,7 @@
 #' as.list(x)
 #'
 #' @export
-new_digits <- function(.fun = pmtables::sig, .default = 3, ..., .data = NULL) {
+new_digits <- function(.fun = sig, .default = 3, ..., .data = NULL) {
   force(.fun)
   force(.default)
   is.func <- is.function(.fun)

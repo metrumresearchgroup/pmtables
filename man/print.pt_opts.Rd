@@ -15,6 +15,6 @@
 Print the pt_opts object
 }
 \examples{
-pt
+pt_opts
 
 }

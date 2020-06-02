@@ -18,6 +18,6 @@ Assign a pmtables option
 }
 \examples{
 
-pt$bq_col <- "BLQ"
+pt_opts$bq_col <- "BLQ"
 
 }

@@ -9,7 +9,8 @@
 #'
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
-                            all_name = "all", digits = NULL, fun = df_sum_2) {
+                            all_name = "all", digits = NULL,
+                            fun = pt_opts$fun.cont.long) {
 
   cols <- unname(new_names(cols))
   by <- unname(new_names(by))
@@ -18,6 +19,8 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
   if(is.null(digits)) {
     digits <- new_digits(sig,3)
   }
+
+  check_exists(data, pt_opts$id_col)
 
   digits <- update_digits(digits,cols)
   digit_fun <- get_digits_fun(digits)
@@ -51,7 +54,8 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         value = .$value,
         digit_fun = digit_fun,
         digits = .$digitn[1],
-        name = .$name[1]
+        name = .$name[1],
+        id = .[[pm_opts$id_col]]
       ),
       keep = TRUE
     )
@@ -62,14 +66,13 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         value = .$value,
         digit_fun = digit_fun,
         digits = .$digitn[1],
-        name = .$name[1]
+        name = .$name[1],
+        id = .[[pt_opts$id_col]]
       ),
       .keep = TRUE
     )
   }
 
-  #d3 <- count(d1,!!!syms(groups))
-  #d4 <- left_join(d2,d3,by = join_cols)
   d4 <- rename(d2, outer = !!sym(by))
   if(wide) {
     d4 <- pivot_wider(d4, names_from  = "name", values_from = "summary")
@@ -212,7 +215,7 @@ pt_cont_long <- function(data,
                          panel = ".total",
                          table = NULL,
                          units = NULL,
-                         digits = NULL,
+                         digits = pt_opts$digits,
                          summarize_all = TRUE,
                          all_name="All data",
                          fun = df_sum_2) {

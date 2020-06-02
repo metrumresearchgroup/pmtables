@@ -9,7 +9,9 @@
 #' @param ... used to absorb other arguments; not used
 data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
                                  tot = FALSE, all_name = "all",
-                                 dv_col = "DV", bq_col = "BQL", id_col = "ID",
+                                 dv_col = pt_opts$dv_col,
+                                 bq_col = pt_opts$bq_col,
+                                 id_col = pt_opts$id_col,
                                  ...) {
 
   if(by==".total" | panel == ".total") {
