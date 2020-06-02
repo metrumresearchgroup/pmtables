@@ -155,7 +155,7 @@ pt_cont_wide <- function(data, cols,
   }
 
   if(exists(by,ans)) {
-    out <- cols_label(out, outer = names(by)[1])
+    out <- cols_label(out, !!sym(by) := names(by)[1])
   }
 
   if(is.list(units)) {
@@ -315,9 +315,9 @@ pt_cont_long <- function(data,
 #'
 #' data <- pmtables:::data("id")
 #'
-#' pt_cont_study(data,cols = "WT,ALB,SCR", study="STUDYf")
+#' pt_cont_study(data, cols = "WT,ALB,SCR", study_col="STUDYf")
 #'
-#' pt_cont_study(data,cols = "WT,ALB,SCR", study="STUDYf", wide = TRUE)
+#' pt_cont_study(data, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
 #'
 #' @export
 pt_cont_study <- function(data,cols,study_col = "STUDY", wide = FALSE,...) {

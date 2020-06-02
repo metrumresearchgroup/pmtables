@@ -18,9 +18,9 @@
 #' cat_data(data, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
 #'
 #' @export
-cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
-                     all_name = "All", wide = FALSE, nby = NULL,
-                     preshape = FALSE) {
+cat_data <- function(data, cols, by = ".total", panel = by,
+                     summarize_all = TRUE, all_name = "All",
+                     wide = FALSE, nby = NULL, preshape = FALSE) {
 
   cols <- new_names(cols)
 
@@ -36,7 +36,9 @@ cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
     }
   }
 
-  data <- group_by(data, !!!syms(unname(by)))
+  .groups <- unique(c(panel,by))
+
+  data <- group_by(data, !!!syms(unname(.groups)))
 
   ans <- group_modify(data, ~ summarize_cat_chunk(.,cols))
 
@@ -68,12 +70,18 @@ cat_data <- function(data, cols, by = ".total", summarize_all = TRUE,
 #'
 #' @inheritParams pt_cont_long
 #'
-#' @param by grouping variable name
+#' @param by variable name for grouping
+#' @param span variable name for column spanner
 #'
 #'
 #' @export
-pt_cat_long <- function(data, cols, by = ".total", all_name = "All Groups",
-                        summarize_all = TRUE, table = NULL) {
+pt_cat_long <- function(data, cols, span  = by, by = ".total",
+                        all_name = "All Groups", summarize_all = TRUE,
+                        table = NULL) {
+
+  if(missing(by) & !missing(span)) {
+    by <- span
+  }
 
   if(by == ".total" & missing(all_name)) {
     all_name <- "Summary"
@@ -105,6 +113,7 @@ pt_cat_long <- function(data, cols, by = ".total", all_name = "All Groups",
       data,
       cols = cols,
       by = ".total",
+      panel = by,
       nby = nby,
       all_name = all_name
     )
@@ -131,11 +140,13 @@ pt_cat_long <- function(data, cols, by = ".total", all_name = "All Groups",
 
 #' @rdname pt_cat_long
 #' @export
-pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
+pt_cat_wide <- function(data,cols, by = ".total", panel = by,
+                        table = NULL, all_name="All data",
                         summarize_all = TRUE) {
 
   cols <- new_names(cols, table)
   by <- new_names(by, table)
+  panel <- new_names(panel,table)
 
   assert_that(length(by) == 1)
 
@@ -147,39 +158,43 @@ pt_cat_wide <- function(data,cols, by = ".total", table = NULL, all_name="All",
 
   summarize_all <- summarize_all & nby > 1
 
-  ans <- cat_data(data, cols, by = by, wide = TRUE)
+  ans <- cat_data(data, cols, by = by, panel = panel, wide = TRUE)
   ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
 
   if(summarize_all) {
-    all <- cat_data(data, cols, by = ".total", wide = TRUE)
-    all <- rename(all, !!sym(by) := .data[[".total"]])
+
+    all <- cat_data(data, cols, by = ".total", panel = ".total", wide = TRUE)
+
+    if(panel != by) {
+      all <- mutate(all, !!sym(panel) := "Total")
+      ans <- mutate(
+        ans,
+        !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
+      )
+    }
+    all <- mutate(all, !!sym(by) := all_name)
     ans <- bind_rows(ans, all)
   }
 
-  out <- gt(ungroup(ans))
+  ans <- ungroup(ans)
 
-  out <- cols_label(
-    out,
-    {{by}} := names(by)[1]
-  )
+  ans[[".total"]] <- NULL
 
-  if(nby > 1) {
-    out <- tab_row_group(
+  if(panel==by) {
+    out <- gt(ans, row_group.sep = " ")
+  } else {
+    out <- gt(ans, row_group.sep=" ", groupname_col = panel, rowname_col = by)
+    out <- tab_stubhead(out, names(by))
+  }
+
+  if(exists(by,ans)) {
+    out <- cols_label(
       out,
-      group = "Total",
-      rows = ans[[1]] == all_name
-    )
-    out <- row_group_order(
-      out,
-      groups = c(NA, "Total")
+      {{by}} := names(by)[1]
     )
   }
 
   out <- tab_sp_delim(out, delim = '.')
-
-  if(nby==1 & exists(".total", ans)) {
-    out <- cols_label(out, .total = "")
-  }
 
   out <- tab_source_note(out, "Summaries are count (percent)")
 

@@ -8,6 +8,7 @@ cat_data(
   data,
   cols,
   by = ".total",
+  panel = by,
   summarize_all = TRUE,
   all_name = "All",
   wide = FALSE,
@@ -21,6 +22,8 @@ cat_data(
 \item{cols}{character vector of column names for summary}
 
 \item{by}{grouping variable name}
+
+\item{panel}{data set column name to stratify the summary}
 
 \item{summarize_all}{logical indicating whether or not to include a summary
 of the full data in the output}

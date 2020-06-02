@@ -8,6 +8,7 @@
 pt_cat_long(
   data,
   cols,
+  span = by,
   by = ".total",
   all_name = "All Groups",
   summarize_all = TRUE,
@@ -18,8 +19,9 @@ pt_cat_wide(
   data,
   cols,
   by = ".total",
+  panel = by,
   table = NULL,
-  all_name = "All",
+  all_name = "All data",
   summarize_all = TRUE
 )
 }
@@ -28,7 +30,9 @@ pt_cat_wide(
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
-\item{by}{grouping variable name}
+\item{span}{variable name for column spanner}
+
+\item{by}{variable name for grouping}
 
 \item{all_name}{a name to use for the complete data summary}
 
@@ -37,6 +41,8 @@ to the bottom of the table}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
+
+\item{panel}{data set column name to stratify the summary}
 }
 \description{
 Create categorical data summary tables
