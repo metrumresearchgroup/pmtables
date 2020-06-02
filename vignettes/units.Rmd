@@ -41,7 +41,7 @@ data <- pmtables:::data("id")
 
 pt_cont_long(
   data, 
-  cols = "WT,BMI,SCR", 
+  cols = "BMI,SCR,WT", 
   units = units
 )
 ```
