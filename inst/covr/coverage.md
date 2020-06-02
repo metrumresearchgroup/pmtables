@@ -1,14 +1,15 @@
-# coverage: 81.77%
+# coverage: 74.46%
 
 |file                     | coverage|
 |:------------------------|--------:|
-|R/utils.R                |    71.05|
-|R/continuous_table.R     |    72.94|
-|R/discrete_table.R       |    81.58|
-|R/data_inventory_table.R |    83.97|
-|R/class-digits.R         |    84.62|
-|R/check.R                |    92.68|
-|R/summary-functions.R    |    96.30|
+|R/opts.R                 |    20.93|
+|R/utils.R                |    68.42|
+|R/continuous_table.R     |    69.11|
+|R/discrete_table.R       |    75.42|
+|R/data_inventory_table.R |    79.43|
+|R/class-digits.R         |    85.00|
+|R/check.R                |    85.42|
+|R/summary-functions.R    |    88.89|
 |R/class-new_names.R      |   100.00|
 |R/summarize-cat-chunk.R  |   100.00|
 |R/table-functions.R      |   100.00|

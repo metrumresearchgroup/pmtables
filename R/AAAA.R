@@ -9,7 +9,7 @@
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env
 #' @importFrom glue glue
 #' @importFrom tibble tibble
-#' @importFrom stats median rnorm sd
+#' @importFrom stats median rnorm sd na.omit
 #' @importFrom utils capture.output packageVersion str
 #' @import mrggt
 #'

@@ -22,7 +22,7 @@ data summary}
 This is a convenience wrapper around \link{pt_data_inventory}
 }
 \examples{
-data <- pmtables:::data("id")
+data <- pmtables:::data("obs")
 
 ans <- pt_data_study(data, study_col = "STUDYf")
 

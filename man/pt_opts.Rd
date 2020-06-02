@@ -4,11 +4,8 @@
 \name{pt_opts}
 \alias{pt_opts}
 \alias{pt_options}
-\alias{opts}
 \title{Set global plot options}
 \format{
-An object of class \code{pt_opts} (inherits from \code{environment}) of length 15.
-
 An object of class \code{pt_opts} (inherits from \code{environment}) of length 15.
 }
 \usage{
@@ -24,8 +21,6 @@ pt_options(
 )
 
 pt_opts
-
-opts
 }
 \arguments{
 \item{id_col}{ID column name}
@@ -37,6 +32,12 @@ opts
 \item{units}{named list of units}
 
 \item{table}{named list of column name transformations}
+
+\item{fun.cont.long}{data summary function for continuous / long summaries}
+
+\item{fun.cont.wide}{data summary function for continuous / wide summaries}
+
+\item{digits}{a \code{digits} object}
 }
 \description{
 Set global plot options

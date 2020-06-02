@@ -19,5 +19,8 @@ Assign a pmtables option
 \examples{
 
 pt_opts$bq_col <- "BLQ"
+
+pt_opts$reset()
+
 }
 \keyword{internal}

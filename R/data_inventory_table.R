@@ -18,8 +18,6 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
     data <- data_total_col(data,all_name = all_name)
   }
 
-  bq_col <- match.arg(bq_col)
-
   miss <- FALSE
   miss_required <- function(needed,pass) {
     x <- c(
@@ -34,7 +32,7 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
     emessage(miss_required("DV", "dv_col"))
     miss <- TRUE
   }
-
+  print(bq_col)
   if(!exists(bq_col,data)) {
     emessage(miss_required("BQL", "bq_col"))
     miss <- TRUE
@@ -179,7 +177,7 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 #' [data_inventory_chunk]
 #'
 #' @examples
-#' data <- pmtables:::data("id")
+#' data <- pmtables:::data("obs")
 #'
 #' ans <- pt_data_study(data, study_col = "STUDYf")
 #'
@@ -216,7 +214,7 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' See the [data_inventory_chunk] help topic for a description of these columns.
 #'
 #' @examples
-#' data <- pmtables:::data("id")
+#' data <- pmtables:::data("obs")
 #'
 #' ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
 #'
@@ -232,15 +230,6 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'    panel = "SEQf",
 #'    stacked = TRUE
 #' )
-#'
-#' # change the expected name of the BQL column
-#'
-#' \dontrun{
-#'
-#' ans <- pt_data_inventory(data, by = "STUDYf", bq_col = "BLQ")
-#'
-#' }
-#'
 #'
 #' @export
 pt_data_inventory <- function(data, by = ".total", panel = by,

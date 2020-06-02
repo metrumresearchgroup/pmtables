@@ -6,6 +6,9 @@
 #' @param bq_col BQL column name
 #' @param units named list of units
 #' @param table named list of column name transformations
+#' @param fun.cont.long data summary function for continuous / long summaries
+#' @param fun.cont.wide data summary function for continuous / wide summaries
+#' @param digits a `digits` object
 #'
 #' @details
 #' `pt_opts` is the options environment.
@@ -102,6 +105,9 @@ pt_options <- function(
 #' @examples
 #'
 #' pt_opts$bq_col <- "BLQ"
+#'
+#' pt_opts$reset()
+#'
 #' @keywords internal
 #' @export
 `$<-.pt_opts` <- function(x,i,value) {
@@ -121,7 +127,7 @@ pt_options <- function(
 #' @param exact not used
 #'
 #' @examples
-#' pt["id_col", "dv_col"]
+#' pt_opts["id_col", "dv_col"]
 #'
 #' @keywords internal
 #' @export
@@ -129,6 +135,12 @@ pt_options <- function(
   i <- as.character(i)
   dots <- as.character(list(...))
   x$mget(c(i,dots))
+}
+
+#' @keywords internal
+#' @export
+names.pt_opts <- function(x) {
+  names(x$defaults)
 }
 
 #' Coerce pt_opts object to a list
@@ -160,7 +172,5 @@ print.pt_opts <- function(x,...) {
 #' @rdname pt_opts
 #' @export
 pt_opts <- pt_options()
-#' @rdname pt_opts
-#' @export
 opts <- pt_opts
 

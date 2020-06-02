@@ -19,7 +19,7 @@
 Extract multiple pmtables options
 }
 \examples{
-pt["id_col", "dv_col"]
+pt_opts["id_col", "dv_col"]
 
 }
 \keyword{internal}
