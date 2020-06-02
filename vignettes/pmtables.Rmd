@@ -1,0 +1,49 @@
+---
+title: "pmtables"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pmtables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "."
+)
+```
+
+pmtables is a package for R that automates the building and formatting of some
+tables that we commonly create when reporting modeling and simulation results
+in pharmacometrics. 
+
+
+# Tables
+
+pmtable currently supports three main types of tables
+
+1. continuous covariate summary (see [continuous-table.html])
+1. categorical / discrete covariate summary (see [discrete-table.html])
+1. data set inventory summary (number of observations, number of individuals, 
+   etc) (see [data-inventory.html])
+   
+
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
