@@ -102,7 +102,7 @@ pt_options <- function(
 #' @examples
 #'
 #' pt_opts$bq_col <- "BLQ"
-#'
+#' @keywords internal
 #' @export
 `$<-.pt_opts` <- function(x,i,value) {
   if(!(i %in% names(x[["defaults"]]))) {
@@ -123,6 +123,7 @@ pt_options <- function(
 #' @examples
 #' pt["id_col", "dv_col"]
 #'
+#' @keywords internal
 #' @export
 `[.pt_opts` <- function(x,i,...,exact=TRUE) {
   i <- as.character(i)
@@ -150,6 +151,7 @@ as.list.pt_opts <- function(x,...) {
 #' @examples
 #' pt_opts
 #'
+#' @keywords internal
 #' @export
 print.pt_opts <- function(x,...) {
   cat(str(x))

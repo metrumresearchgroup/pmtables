@@ -22,3 +22,4 @@ Extract multiple pmtables options
 pt["id_col", "dv_col"]
 
 }
+\keyword{internal}
