@@ -17,3 +17,5 @@ vignettes/continuous-table.Rmd
 vignettes/discrete-table.Rmd
 vignettes/pmtables.Rmd
 vignettes/digits.Rmd
+vignettes/units.Rmd
+

@@ -1,0 +1,62 @@
+---
+title: "Adding units"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Adding units}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "."
+)
+```
+
+
+For continuous data summaries, we can add units to the data 
+summary tables.
+
+# Unit data
+
+We make a named list with units for each column we are summarizing. 
+```{r}
+units <- list(WT = "(kg)", BMI = "(kg/m2)", SCR = "(g/dL)")
+```
+
+Here we created the list manually; you can also pull this information 
+out of the data specification object.
+
+# Example
+
+We pass this unit list into the continuous covariate table function
+
+```{r}
+library(pmtables)
+
+data <- pmtables:::data("id")
+
+pt_cont_long(
+  data, 
+  cols = "WT,BMI,SCR", 
+  units = units
+)
+```
+
+```{r}
+pt_cont_wide(
+  data, 
+  cols = "WT,BMI,SCR", 
+  units = units
+)
+```
+
+
+
+
+
+
+

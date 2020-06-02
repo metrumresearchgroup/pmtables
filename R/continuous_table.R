@@ -164,7 +164,7 @@ pt_cont_wide <- function(data, cols,
   if(is.list(units)) {
     for(col in cols) {
       if(exists(col,units)) {
-        lab <- paste0(col, " [", units[[col]],"]")
+        lab <- paste0(col," ", units[[col]])
         out <- cols_label(out, !!col := lab)
       }
     }

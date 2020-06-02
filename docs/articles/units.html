@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Custom Digits • pmtables</title>
+<title>Adding units • pmtables</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Custom Digits">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Adding units">
 <meta property="og:description" content="pmtables">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -87,82 +87,44 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Custom Digits</h1>
+      <h1 data-toc-skip>Adding units</h1>
                         <h4 class="author">Kyle Baron</h4>
             
             <h4 class="date">2020-06-02</h4>
       
       
-      <div class="hidden name"><code>digits.Rmd</code></div>
+      <div class="hidden name"><code>units.Rmd</code></div>
 
     </div>
 
     
     
-<p>For continuous data summaries, the number of digits can be controlled by setting the <code>digits</code> option with a <code>digits</code> object.</p>
-<div id="digits-objects" class="section level1">
+<p>For continuous data summaries, we can add units to the data summary tables.</p>
+<div id="unit-data" class="section level1">
 <h1 class="hasAnchor">
-<a href="#digits-objects" class="anchor"></a>Digits objects</h1>
-<p>Create a new digits object</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r">library(pmtables)
-
-x &lt;- new_digits()
-x
-. function: sig 
-. default: 3</pre></body></html></div>
-<p>By default, pmtables will format numeric summaries with 3 significant digits.</p>
-<div id="select-number-of-digits-by-default" class="section level2">
-<h2 class="hasAnchor">
-<a href="#select-number-of-digits-by-default" class="anchor"></a>Select number of digits by default</h2>
-<p>To use a default of 2 significant digits</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">x &lt;- new_digits(.default = 2)
-x
-. function: sig 
-. default: 2</pre></body></html></div>
-<p>To customize the number of digits for each data summary</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r">x &lt;- new_digits(WT = 3, ALB = 4, SCR = 2)
-
-x
-. function: sig 
-. default: 3 
-. customization:
-.   WT: 3 
-.  ALB: 4 
-.  SCR: 2</pre></body></html></div>
-<p>This will use 3 significant digits for <code>WT</code>, 4 for <code>ALB</code> and 2 for <code>SCR</code>.</p>
+<a href="#unit-data" class="anchor"></a>Unit data</h1>
+<p>We make a named list with units for each column we are summarizing.</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">units</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">WT</span> <span class="kw">=</span> <span class="st">"(kg)"</span>, <span class="kw">BMI</span> <span class="kw">=</span> <span class="st">"(kg/m2)"</span>, <span class="kw">SCR</span> <span class="kw">=</span> <span class="st">"(g/dL)"</span>)</pre></body></html></div>
+<p>Here we created the list manually; you can also pull this information out of the data specification object.</p>
 </div>
-<div id="select-the-function-to-use-for-digits" class="section level2">
-<h2 class="hasAnchor">
-<a href="#select-the-function-to-use-for-digits" class="anchor"></a>Select the function to use for digits</h2>
-<p>We can also round digits. It is safest to create your own wrapper for round instead of using <code>round</code> (a primitive function)</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r">x &lt;- new_digits(.fun = round)
-x
-. function: round 
-. default: 3</pre></body></html></div>
-</div>
-</div>
-<div id="using-custom-digits" class="section level1">
+<div id="example" class="section level1">
 <h1 class="hasAnchor">
-<a href="#using-custom-digits" class="anchor"></a>Using custom digits</h1>
-<p>Use the <code>digits</code> option</p>
-<p>This should give us 2 digits in all columns except for <code>WT</code>, which should be 3 digits</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">dig &lt;- new_digits(.default = 2, WT = 3)
-dig
-. function: sig 
-. default: 2 
-. customization:
-.  WT: 3</pre></body></html></div>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">pt_opts</span>$<span class="fu">set</span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="no">dig</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">pmtables</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"id"</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/pt_cont_long.html">pt_cont_long</a></span>(
+<a href="#example" class="anchor"></a>Example</h1>
+<p>We pass this unit list into the continuous covariate table function</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">pmtables</span>)
+
+<span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">pmtables</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"id"</span>)
+
+<span class="fu"><a href="../reference/pt_cont_long.html">pt_cont_long</a></span>(
   <span class="no">data</span>,
-  <span class="kw">cols</span> <span class="kw">=</span> <span class="st">"WT,ALB,SCR,CRCL"</span>
+  <span class="kw">cols</span> <span class="kw">=</span> <span class="st">"WT,BMI,SCR"</span>,
+  <span class="kw">units</span> <span class="kw">=</span> <span class="no">units</span>
 )</pre></body></html></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ogdjzbhfin .gt_table {
+#nbskqhipnj .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -185,7 +147,7 @@ dig
   border-left-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_heading {
+#nbskqhipnj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -197,7 +159,7 @@ dig
   border-right-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_title {
+#nbskqhipnj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -207,7 +169,7 @@ dig
   border-bottom-width: 0;
 }
 
-#ogdjzbhfin .gt_subtitle {
+#nbskqhipnj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -217,13 +179,13 @@ dig
   border-top-width: 0;
 }
 
-#ogdjzbhfin .gt_bottom_border {
+#nbskqhipnj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_col_headings {
+#nbskqhipnj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -238,7 +200,7 @@ dig
   border-right-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_col_heading {
+#nbskqhipnj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -258,7 +220,7 @@ dig
   overflow-x: hidden;
 }
 
-#ogdjzbhfin .gt_column_spanner_outer {
+#nbskqhipnj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -270,15 +232,15 @@ dig
   padding-right: 4px;
 }
 
-#ogdjzbhfin .gt_column_spanner_outer:first-child {
+#nbskqhipnj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ogdjzbhfin .gt_column_spanner_outer:last-child {
+#nbskqhipnj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ogdjzbhfin .gt_column_spanner {
+#nbskqhipnj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -290,7 +252,7 @@ dig
   width: 100%;
 }
 
-#ogdjzbhfin .gt_group_heading {
+#nbskqhipnj .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -312,7 +274,7 @@ dig
   vertical-align: middle;
 }
 
-#ogdjzbhfin .gt_empty_group_heading {
+#nbskqhipnj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -327,19 +289,19 @@ dig
   vertical-align: middle;
 }
 
-#ogdjzbhfin .gt_striped {
+#nbskqhipnj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ogdjzbhfin .gt_from_md > :first-child {
+#nbskqhipnj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ogdjzbhfin .gt_from_md > :last-child {
+#nbskqhipnj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ogdjzbhfin .gt_row {
+#nbskqhipnj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -358,7 +320,7 @@ dig
   overflow-x: hidden;
 }
 
-#ogdjzbhfin .gt_stub {
+#nbskqhipnj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -370,7 +332,7 @@ dig
   padding-left: 12px;
 }
 
-#ogdjzbhfin .gt_summary_row {
+#nbskqhipnj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -380,7 +342,7 @@ dig
   padding-right: 5px;
 }
 
-#ogdjzbhfin .gt_first_summary_row {
+#nbskqhipnj .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -390,7 +352,7 @@ dig
   border-top-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_grand_summary_row {
+#nbskqhipnj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -400,7 +362,7 @@ dig
   padding-right: 5px;
 }
 
-#ogdjzbhfin .gt_first_grand_summary_row {
+#nbskqhipnj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -410,7 +372,7 @@ dig
   border-top-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_table_body {
+#nbskqhipnj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -419,7 +381,7 @@ dig
   border-bottom-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_footnotes {
+#nbskqhipnj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -433,13 +395,13 @@ dig
   border-right-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_footnote {
+#nbskqhipnj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#ogdjzbhfin .gt_sourcenotes {
+#nbskqhipnj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -453,46 +415,46 @@ dig
   border-right-color: #D3D3D3;
 }
 
-#ogdjzbhfin .gt_sourcenote {
+#nbskqhipnj .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#ogdjzbhfin .gt_left {
+#nbskqhipnj .gt_left {
   text-align: left;
 }
 
-#ogdjzbhfin .gt_center {
+#nbskqhipnj .gt_center {
   text-align: center;
 }
 
-#ogdjzbhfin .gt_right {
+#nbskqhipnj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ogdjzbhfin .gt_font_normal {
+#nbskqhipnj .gt_font_normal {
   font-weight: normal;
 }
 
-#ogdjzbhfin .gt_font_bold {
+#nbskqhipnj .gt_font_bold {
   font-weight: bold;
 }
 
-#ogdjzbhfin .gt_font_italic {
+#nbskqhipnj .gt_font_italic {
   font-style: italic;
 }
 
-#ogdjzbhfin .gt_super {
+#nbskqhipnj .gt_super {
   font-size: 65%;
 }
 
-#ogdjzbhfin .gt_footnote_marks {
+#nbskqhipnj .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="ogdjzbhfin" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="nbskqhipnj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_col_headings"><tr>
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n<sup class="gt_footnote_marks">1</sup>
@@ -508,7 +470,7 @@ dig
 <td colspan="6" class="gt_group_heading">All data</td>
     </tr>
 <tr>
-<td class="gt_row gt_left gt_stub">WT</td>
+<td class="gt_row gt_left gt_stub">WT (kg)</td>
       <td class="gt_row gt_right">160</td>
       <td class="gt_row gt_right">70.9</td>
       <td class="gt_row gt_right">70.2</td>
@@ -516,28 +478,20 @@ dig
       <td class="gt_row gt_right">43.6 / 97.2</td>
     </tr>
 <tr>
-<td class="gt_row gt_left gt_stub">ALB</td>
+<td class="gt_row gt_left gt_stub">BMI (kg/m2)</td>
       <td class="gt_row gt_right">160</td>
-      <td class="gt_row gt_right">4.2</td>
-      <td class="gt_row gt_right">4.3</td>
-      <td class="gt_row gt_right">0.81</td>
-      <td class="gt_row gt_right">1.3 / 5.4</td>
+      <td class="gt_row gt_right">22.0</td>
+      <td class="gt_row gt_right">22.2</td>
+      <td class="gt_row gt_right">1.84</td>
+      <td class="gt_row gt_right">18.5 / 24.9</td>
     </tr>
 <tr>
-<td class="gt_row gt_left gt_stub">SCR</td>
+<td class="gt_row gt_left gt_stub">SCR (g/dL)</td>
       <td class="gt_row gt_right">160</td>
-      <td class="gt_row gt_right">1.4</td>
-      <td class="gt_row gt_right">1.0</td>
-      <td class="gt_row gt_right">0.99</td>
-      <td class="gt_row gt_right">0.71 / 5.6</td>
-    </tr>
-<tr>
-<td class="gt_row gt_left gt_stub">CRCL</td>
-      <td class="gt_row gt_right">160</td>
-      <td class="gt_row gt_right">92</td>
-      <td class="gt_row gt_right">99</td>
-      <td class="gt_row gt_right">25</td>
-      <td class="gt_row gt_right">15 / 1.3e+02</td>
+      <td class="gt_row gt_right">1.36</td>
+      <td class="gt_row gt_right">1.04</td>
+      <td class="gt_row gt_right">0.986</td>
+      <td class="gt_row gt_right">0.710 / 5.59</td>
     </tr>
 </tbody>
 <tfoot><tr class="gt_footnotes">
@@ -555,6 +509,360 @@ dig
           standard deviation
           <br></p>
       </td>
+    </tr></tfoot>
+</table></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/pt_cont_wide.html">pt_cont_wide</a></span>(
+  <span class="no">data</span>,
+  <span class="kw">cols</span> <span class="kw">=</span> <span class="st">"WT,BMI,SCR"</span>,
+  <span class="kw">units</span> <span class="kw">=</span> <span class="no">units</span>
+)</pre></body></html></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#kqxnenmgit .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kqxnenmgit .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kqxnenmgit .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kqxnenmgit .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kqxnenmgit .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kqxnenmgit .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kqxnenmgit .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kqxnenmgit .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kqxnenmgit .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kqxnenmgit .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kqxnenmgit .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kqxnenmgit .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kqxnenmgit .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kqxnenmgit .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#kqxnenmgit .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kqxnenmgit .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kqxnenmgit .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#kqxnenmgit .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kqxnenmgit .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#kqxnenmgit .gt_left {
+  text-align: left;
+}
+
+#kqxnenmgit .gt_center {
+  text-align: center;
+}
+
+#kqxnenmgit .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kqxnenmgit .gt_font_normal {
+  font-weight: normal;
+}
+
+#kqxnenmgit .gt_font_bold {
+  font-weight: bold;
+}
+
+#kqxnenmgit .gt_font_italic {
+  font-style: italic;
+}
+
+#kqxnenmgit .gt_super {
+  font-size: 65%;
+}
+
+#kqxnenmgit .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="kqxnenmgit" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">WT (kg)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">BMI (kg/m2)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">SCR (g/dL)</th>
+    </tr></thead>
+<tbody class="gt_table_body"><tr>
+<td class="gt_row gt_right">70.9 (12.9) [160]</td>
+      <td class="gt_row gt_right">22.0 (1.84) [160]</td>
+      <td class="gt_row gt_right">1.36 (0.986) [160]</td>
+    </tr></tbody>
+<tfoot class="gt_sourcenotes"><tr>
+<td class="gt_sourcenote" colspan="3">summary is: mean (standard deviation) [number non-missng]</td>
     </tr></tfoot>
 </table></div>
 </div>
