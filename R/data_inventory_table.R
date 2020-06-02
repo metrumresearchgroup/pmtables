@@ -32,7 +32,7 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
     emessage(miss_required("DV", "dv_col"))
     miss <- TRUE
   }
-  print(bq_col)
+
   if(!exists(bq_col,data)) {
     emessage(miss_required("BQL", "bq_col"))
     miss <- TRUE

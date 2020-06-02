@@ -4,9 +4,10 @@ pkgdown_sha: ~
 articles:
   continuous-table: continuous-table.html
   data-inventory: data-inventory.html
+  data-summaries: data-summaries.html
   digits: digits.html
   discrete-table: discrete-table.html
   pmtables: pmtables.html
   units: units.html
-last_built: 2020-06-02T20:23Z
+last_built: 2020-06-02T20:34Z
 

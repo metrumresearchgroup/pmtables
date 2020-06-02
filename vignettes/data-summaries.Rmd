@@ -1,0 +1,103 @@
+---
+title: "Data Summaries"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Summaries}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "."
+)
+```
+
+
+This vignette shows how to expose the different data summary functions.
+
+
+```{r}
+library(pmtables)
+data <- pmtables:::data("id")
+obs <- pmtables:::data("obs")
+```
+
+
+# Continuous
+
+## Long
+
+```{r}
+cont_table_data(
+ data, 
+ by = "STUDYf",
+ cols = c("WT", "ALB", "SCR"), 
+ digits = new_digits(.default = 3)
+)
+```
+
+
+## Wide
+
+```{r}
+cont_table_data(
+ data, 
+ panel = "STUDYf",
+ cols = c("WT", "ALB", "SCR"), 
+ digits = new_digits(.default = 3), 
+ fun = pt_opts$fun.cont.wide,
+ wide = TRUE
+)
+```
+
+# Categorical
+
+## Long
+
+```{r}
+cat_data(
+  data, 
+  cols = c("SEXf", "FORMf"), 
+  by = "RFf"
+)
+```
+
+
+## Wide
+
+```{r}
+cat_data(
+  data, 
+  cols = c("SEXf", "FORMf"), 
+  by = "RFf", 
+  wide = TRUE
+)
+```
+
+
+# Data inventory
+
+## Unstacked
+
+```{r}
+data_inventory_data(
+  obs, 
+  by = "STUDYf"
+)
+```
+
+## Stacked
+
+```{r}
+pmtables:::data_inventory_data_split(
+  data,
+  by = "STUDYf", 
+  panel = "SEQf",
+  stacked = FALSE
+)
+```
+
