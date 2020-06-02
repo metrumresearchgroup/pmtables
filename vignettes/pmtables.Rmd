@@ -5,8 +5,10 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{pmtables}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
   
 ```{r setup, include = FALSE, warning = FALSE}
@@ -25,11 +27,111 @@ in pharmacometrics.
 
 pmtable currently supports three main types of tables
 
-1. continuous covariate summary (see [continuous-table.html])
-1. categorical / discrete covariate summary (see [discrete-table.html])
+1. continuous covariate summary (see [continuous-table.html]())
+1. categorical / discrete covariate summary (see [discrete-table.html]())
 1. data set inventory summary (number of observations, number of individuals, 
-   etc) (see [data-inventory.html])
+   etc) (see [data-inventory.html]())
    
+pmtables receives your data set along with some options, summarizes the data in 
+a very specific way and creates a very specifically formatted table. In this 
+sense, pmtables is like pmplots: it is not a general grammar of tables 
+(replacing gt or mrggt or kable etc) but the goal is to make a very specific 
+table. We designed pmtables to make some very common tables in a very standard
+way. If pmtables won't / can't make the table that you want, then the user 
+should use tidyverse + mrggt to create a custom data summary and formatted
+table.
+
+
+# Vocabulary
+
+## `cols` / `by`
+
+For most tables, you will specify column names in two of four groups:
+
+* `cols` is a character vector (or quosure) naming columns in the data set that 
+  you would like summarized
+* `by` is one grouping variable for the summary; `by` should be just a single 
+  value
+* `panel` is another grouping variable for the summary in a long format
+* `span` identifies stratification variable for discrete data in long 
+  format (see below)
+
+## `wide` / `long`
+
+You will also see that some tables are "wide" and some are "long": wide 
+indicates that the summarized covariates / values run across the table 
+(west to east) and long indicates that the covariates run along the left hand
+side of the table (north to south).
+
+
+### Example - wide
+
+```{r,echo=FALSE}
+data <- pmtables:::data("id")
+```
+
+```{r,message=FALSE,warning =FALSE}
+library(pmtables)
+library(dplyr)
+```
+
+
+For example, we can use `cols` and `by` to create a summary of continuous 
+covariates (weight, serum creatinine, and albumin) by study ID in wide 
+format:
+
+```{r}
+pt_cont_wide(
+  data, 
+  cols = vars(WT,SCR,ALB), 
+  by = vars("Study ID" = STUDYf)
+)
+```
+
+
+There is also a discrete data table in wide format
+
+```{r}
+pt_cat_wide(
+  data, 
+  cols = vars(Sex = SEXf, Formulation = FORMf), 
+  by = vars("Study ID" = STUDYf)
+)
+```
+
+
+
+
+## Example - long
+
+We can also make these tables in long format. In the long format, the `by` 
+option is used up by the variable names; but you can use the `panel` option 
+to group a continuous summary and the `span` option to group a categorical
+summary
+
+The continuous summary would be:
+
+```{r}
+pt_cont_long(
+  data, 
+  cols = vars(WT,SCR,ALB), 
+  panel = vars("Study ID" = STUDYf)
+)
+```
+
+and the catetgorical summary would be:
+
+```{r}
+pt_cat_long(
+  data, 
+  cols = vars(Sex = SEXf, Formulation = FORMf), 
+  span = vars("Study ID" = STUDYf)
+)
+```
+
+
+
+
 
    
    
