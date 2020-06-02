@@ -14,3 +14,4 @@ inst/vignette
 docs
 vignettes/data-inventory.Rmd
 vignettes/continuous-table.Rmd
+vignettes/discrete-table.Rmd

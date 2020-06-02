@@ -100,6 +100,9 @@
     <li>
       <a href="../articles/data-inventory.html">Data Inventory Table</a>
     </li>
+    <li>
+      <a href="../articles/discrete-table.html">Discrete Data Table</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -131,6 +134,7 @@
   <span class='no'>data</span>,
   <span class='no'>cols</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
+  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All"</span>,
   <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -152,6 +156,10 @@
     <tr>
       <th>by</th>
       <td><p>grouping variable name</p></td>
+    </tr>
+    <tr>
+      <th>panel</th>
+      <td><p>data set column name to stratify the summary</p></td>
     </tr>
     <tr>
       <th>summarize_all</th>

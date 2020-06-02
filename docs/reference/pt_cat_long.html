@@ -100,6 +100,9 @@
     <li>
       <a href="../articles/data-inventory.html">Data Inventory Table</a>
     </li>
+    <li>
+      <a href="../articles/discrete-table.html">Discrete Data Table</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -130,6 +133,7 @@
     <pre class="usage"><span class='fu'>pt_cat_long</span>(
   <span class='no'>data</span>,
   <span class='no'>cols</span>,
+  <span class='kw'>span</span> <span class='kw'>=</span> <span class='no'>by</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All Groups"</span>,
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -140,8 +144,9 @@
   <span class='no'>data</span>,
   <span class='no'>cols</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
+  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All"</span>,
+  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
@@ -157,8 +162,12 @@
       <td><p>the columns to summarize; may be character vector or quosure</p></td>
     </tr>
     <tr>
+      <th>span</th>
+      <td><p>variable name for column spanner</p></td>
+    </tr>
+    <tr>
       <th>by</th>
-      <td><p>grouping variable name</p></td>
+      <td><p>variable name for grouping</p></td>
     </tr>
     <tr>
       <th>all_name</th>
@@ -173,6 +182,10 @@ to the bottom of the table</p></td>
       <th>table</th>
       <td><p>a named list to use for renaming columns (see details and
 examples)</p></td>
+    </tr>
+    <tr>
+      <th>panel</th>
+      <td><p>data set column name to stratify the summary</p></td>
     </tr>
     </table>
 

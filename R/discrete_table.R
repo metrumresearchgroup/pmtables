@@ -113,7 +113,6 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
       data,
       cols = cols,
       by = ".total",
-      panel = by,
       nby = nby,
       all_name = all_name
     )

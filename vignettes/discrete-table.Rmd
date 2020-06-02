@@ -1,0 +1,64 @@
+---
+title: "Discrete Data Table"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Discrete Data Table}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "."
+)
+```
+
+
+These functions create summary tables for discrete data. There is a long 
+format and a wide format.
+
+
+# Long format
+
+```{r, message = FALSE, warning = FALSE}
+library(pmtables)
+library(dplyr)
+
+id <- pmtables:::data("id") 
+
+cols <- vars(Sex = SEXf,"Renal function" = RFf,"Child-Pugh" = CPf)
+by <- vars(Study = STUDYf)
+```
+
+A summary of covariates 
+
+```{r}
+pt_cat_long(id, cols = cols, by = by)
+```
+
+
+# Wide format
+
+There is also a wide format, where variable names go across the table.
+
+```{r}
+pt_cat_wide(id, cols = vars(Sex = SEXf,Renal = RFf), by = by)
+```
+
+
+
+Add panel
+
+```{r}
+pt_cat_wide(
+  id, 
+  cols = vars(SEXf,RFf), 
+  by = vars(Study=STUDYf), 
+  panel = vars(Formulation = FORMf)
+)
+```
+
+
