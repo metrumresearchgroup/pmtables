@@ -387,6 +387,12 @@ Variable
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
+n<sup class="gt_footnote_marks">1</sup>
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
+
 Mean
 
 </th>
@@ -399,7 +405,7 @@ Median
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
-SD<sup class="gt_footnote_marks">1</sup>
+SD<sup class="gt_footnote_marks">2</sup>
 
 </th>
 
@@ -417,9 +423,9 @@ Min / Max
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Study 12-DEMO-001 (n=30)
+Study 12-DEMO-001
 
 </td>
 
@@ -430,6 +436,12 @@ Study 12-DEMO-001 (n=30)
 <td class="gt_row gt_left gt_stub">
 
 BMI
+
+</td>
+
+<td class="gt_row gt_right">
+
+30
 
 </td>
 
@@ -469,6 +481,12 @@ ALB
 
 <td class="gt_row gt_right">
 
+30
+
+</td>
+
+<td class="gt_row gt_right">
+
 4.27
 
 </td>
@@ -503,6 +521,12 @@ AAG
 
 <td class="gt_row gt_right">
 
+30
+
+</td>
+
+<td class="gt_row gt_right">
+
 88.4
 
 </td>
@@ -529,9 +553,9 @@ AAG
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Study 12-DEMO-002 (n=50)
+Study 12-DEMO-002
 
 </td>
 
@@ -542,6 +566,12 @@ Study 12-DEMO-002 (n=50)
 <td class="gt_row gt_left gt_stub">
 
 BMI
+
+</td>
+
+<td class="gt_row gt_right">
+
+50
 
 </td>
 
@@ -581,6 +611,12 @@ ALB
 
 <td class="gt_row gt_right">
 
+50
+
+</td>
+
+<td class="gt_row gt_right">
+
 4.47
 
 </td>
@@ -615,6 +651,12 @@ AAG
 
 <td class="gt_row gt_right">
 
+50
+
+</td>
+
+<td class="gt_row gt_right">
+
 81.9
 
 </td>
@@ -641,9 +683,9 @@ AAG
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Study 11-DEMO-005 (n=40)
+Study 11-DEMO-005
 
 </td>
 
@@ -654,6 +696,12 @@ Study 11-DEMO-005 (n=40)
 <td class="gt_row gt_left gt_stub">
 
 BMI
+
+</td>
+
+<td class="gt_row gt_right">
+
+40
 
 </td>
 
@@ -693,6 +741,12 @@ ALB
 
 <td class="gt_row gt_right">
 
+40
+
+</td>
+
+<td class="gt_row gt_right">
+
 4.42
 
 </td>
@@ -727,6 +781,12 @@ AAG
 
 <td class="gt_row gt_right">
 
+40
+
+</td>
+
+<td class="gt_row gt_right">
+
 84.9
 
 </td>
@@ -753,9 +813,9 @@ AAG
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Study 13-DEMO-001 (n=40)
+Study 13-DEMO-001
 
 </td>
 
@@ -766,6 +826,12 @@ Study 13-DEMO-001 (n=40)
 <td class="gt_row gt_left gt_stub">
 
 BMI
+
+</td>
+
+<td class="gt_row gt_right">
+
+40
 
 </td>
 
@@ -805,6 +871,12 @@ ALB
 
 <td class="gt_row gt_right">
 
+40
+
+</td>
+
+<td class="gt_row gt_right">
+
 3.53
 
 </td>
@@ -839,6 +911,12 @@ AAG
 
 <td class="gt_row gt_right">
 
+40
+
+</td>
+
+<td class="gt_row gt_right">
+
 85.1
 
 </td>
@@ -865,9 +943,9 @@ AAG
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-All data (n=160)
+All data
 
 </td>
 
@@ -878,6 +956,12 @@ All data (n=160)
 <td class="gt_row gt_left gt_stub">
 
 BMI
+
+</td>
+
+<td class="gt_row gt_right">
+
+160
 
 </td>
 
@@ -917,6 +1001,12 @@ ALB
 
 <td class="gt_row gt_right">
 
+160
+
+</td>
+
+<td class="gt_row gt_right">
+
 4.19
 
 </td>
@@ -946,6 +1036,12 @@ ALB
 <td class="gt_row gt_left gt_stub">
 
 AAG
+
+</td>
+
+<td class="gt_row gt_right">
+
+160
 
 </td>
 
@@ -981,11 +1077,19 @@ AAG
 
 <tr class="gt_footnotes">
 
-<td colspan="5">
+<td colspan="6">
 
 <p class="gt_footnote">
 
 <sup class="gt_footnote_marks"> <em>1</em> </sup>
+
+subjects with non-missing values <br />
+
+</p>
+
+<p class="gt_footnote">
+
+<sup class="gt_footnote_marks"> <em>2</em> </sup>
 
 standard deviation <br />
 
@@ -1366,6 +1470,12 @@ Variable
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
+n<sup class="gt_footnote_marks">1</sup>
+
+</th>
+
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
+
 Mean
 
 </th>
@@ -1378,7 +1488,7 @@ Median
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
-SD<sup class="gt_footnote_marks">1</sup>
+SD<sup class="gt_footnote_marks">2</sup>
 
 </th>
 
@@ -1396,9 +1506,9 @@ Min / Max
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Renal function normal (n=130)
+Renal function normal
 
 </td>
 
@@ -1409,6 +1519,12 @@ Renal function normal (n=130)
 <td class="gt_row gt_left gt_stub">
 
 WT
+
+</td>
+
+<td class="gt_row gt_right">
+
+130
 
 </td>
 
@@ -1448,6 +1564,12 @@ SCR
 
 <td class="gt_row gt_right">
 
+130
+
+</td>
+
+<td class="gt_row gt_right">
+
 0.975
 
 </td>
@@ -1482,6 +1604,12 @@ CRCL
 
 <td class="gt_row gt_right">
 
+130
+
+</td>
+
+<td class="gt_row gt_right">
+
 103
 
 </td>
@@ -1508,9 +1636,9 @@ CRCL
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Renal function mild (n=10)
+Renal function mild
 
 </td>
 
@@ -1521,6 +1649,12 @@ Renal function mild (n=10)
 <td class="gt_row gt_left gt_stub">
 
 WT
+
+</td>
+
+<td class="gt_row gt_right">
+
+10
 
 </td>
 
@@ -1560,6 +1694,12 @@ SCR
 
 <td class="gt_row gt_right">
 
+10
+
+</td>
+
+<td class="gt_row gt_right">
+
 1.74
 
 </td>
@@ -1594,6 +1734,12 @@ CRCL
 
 <td class="gt_row gt_right">
 
+10
+
+</td>
+
+<td class="gt_row gt_right">
+
 75.0
 
 </td>
@@ -1620,9 +1766,9 @@ CRCL
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Renal function moderate (n=10)
+Renal function moderate
 
 </td>
 
@@ -1633,6 +1779,12 @@ Renal function moderate (n=10)
 <td class="gt_row gt_left gt_stub">
 
 WT
+
+</td>
+
+<td class="gt_row gt_right">
+
+10
 
 </td>
 
@@ -1672,6 +1824,12 @@ SCR
 
 <td class="gt_row gt_right">
 
+10
+
+</td>
+
+<td class="gt_row gt_right">
+
 2.83
 
 </td>
@@ -1706,6 +1864,12 @@ CRCL
 
 <td class="gt_row gt_right">
 
+10
+
+</td>
+
+<td class="gt_row gt_right">
+
 43.2
 
 </td>
@@ -1732,9 +1896,9 @@ CRCL
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-Renal function severe (n=10)
+Renal function severe
 
 </td>
 
@@ -1745,6 +1909,12 @@ Renal function severe (n=10)
 <td class="gt_row gt_left gt_stub">
 
 WT
+
+</td>
+
+<td class="gt_row gt_right">
+
+10
 
 </td>
 
@@ -1784,6 +1954,12 @@ SCR
 
 <td class="gt_row gt_right">
 
+10
+
+</td>
+
+<td class="gt_row gt_right">
+
 4.58
 
 </td>
@@ -1818,6 +1994,12 @@ CRCL
 
 <td class="gt_row gt_right">
 
+10
+
+</td>
+
+<td class="gt_row gt_right">
+
 22.6
 
 </td>
@@ -1844,9 +2026,9 @@ CRCL
 
 <tr class="gt_group_heading_row">
 
-<td colspan="5" class="gt_group_heading">
+<td colspan="6" class="gt_group_heading">
 
-All data (n=160)
+All data
 
 </td>
 
@@ -1857,6 +2039,12 @@ All data (n=160)
 <td class="gt_row gt_left gt_stub">
 
 WT
+
+</td>
+
+<td class="gt_row gt_right">
+
+160
 
 </td>
 
@@ -1896,6 +2084,12 @@ SCR
 
 <td class="gt_row gt_right">
 
+160
+
+</td>
+
+<td class="gt_row gt_right">
+
 1.36
 
 </td>
@@ -1925,6 +2119,12 @@ SCR
 <td class="gt_row gt_left gt_stub">
 
 CRCL
+
+</td>
+
+<td class="gt_row gt_right">
+
+160
 
 </td>
 
@@ -1960,11 +2160,19 @@ CRCL
 
 <tr class="gt_footnotes">
 
-<td colspan="5">
+<td colspan="6">
 
 <p class="gt_footnote">
 
 <sup class="gt_footnote_marks"> <em>1</em> </sup>
+
+subjects with non-missing values <br />
+
+</p>
+
+<p class="gt_footnote">
+
+<sup class="gt_footnote_marks"> <em>2</em> </sup>
 
 standard deviation <br />
 
@@ -3096,14 +3304,6 @@ severe
 
 <tbody class="gt_table_body">
 
-<tr class="gt_group_heading_row">
-
-<td colspan="7" class="gt_empty_group_heading">
-
-</td>
-
-</tr>
-
 <tr>
 
 <td class="gt_row gt_left">
@@ -3283,16 +3483,6 @@ severe
 <td class="gt_row gt_left">
 
 0 (0.0)
-
-</td>
-
-</tr>
-
-<tr class="gt_group_heading_row">
-
-<td colspan="7" class="gt_group_heading">
-
-Total
 
 </td>
 
