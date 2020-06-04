@@ -6,8 +6,10 @@
 #' @param bq_col BQL column name
 #' @param units named list of units
 #' @param table named list of column name transformations
-#' @param fun.cont.long data summary function for continuous / long summaries
-#' @param fun.cont.wide data summary function for continuous / wide summaries
+#' @param panel.label.add logical; if `TRUE`, panel variable name will be pasted
+#' to the panel variable value
+#' @param cont.long.fun data summary function for continuous / long summaries
+#' @param cont.wide.fun data summary function for continuous / wide summaries
 #' @param digits a `digits` object
 #'
 #' @details
@@ -58,8 +60,9 @@ pt_options <- function(
   bq_col = "BQL",
   units = NULL,
   table = NULL,
-  fun.cont.long = pmtables:::df_sum_2,
-  fun.cont.wide = pmtables:::str_sum_2,
+  panel.label.add = TRUE,
+  cont.long.fun = pmtables:::df_sum_2,
+  cont.wide.fun = pmtables:::str_sum_2,
   digits = NULL
   ) {
   set <- function(..., .list = NULL) {

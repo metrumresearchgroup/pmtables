@@ -159,7 +159,8 @@
   <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
-  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>panel.label.add</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>panel.label_add</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -198,6 +199,11 @@ examples)</p></td>
     <tr>
       <th>panel</th>
       <td><p>data set column name to stratify the summary</p></td>
+    </tr>
+    <tr>
+      <th>panel.label.add</th>
+      <td><p>logical; if <code>TRUE</code>, panel variable name will be pasted
+to the panel variable value</p></td>
     </tr>
     </table>
 

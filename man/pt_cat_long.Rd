@@ -22,7 +22,8 @@ pt_cat_wide(
   panel = by,
   table = NULL,
   all_name = "All data",
-  summarize_all = TRUE
+  summarize_all = TRUE,
+  panel.label.add = pt_opts$panel.label_add
 )
 }
 \arguments{
@@ -43,6 +44,9 @@ to the bottom of the table}
 examples)}
 
 \item{panel}{data set column name to stratify the summary}
+
+\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
+to the panel variable value}
 }
 \description{
 Create categorical data summary tables

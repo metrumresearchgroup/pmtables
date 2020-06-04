@@ -147,11 +147,12 @@
   <span class='no'>cols</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
   <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>str_sum_2</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>
+  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
+  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>str_sum_2</span>,
+  <span class='kw'>panel.label.add</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>panel.label.add</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -174,10 +175,6 @@
       <td><p>a variable for paneling the summary</p></td>
     </tr>
     <tr>
-      <th>fun</th>
-      <td><p>the data summary function (see details)</p></td>
-    </tr>
-    <tr>
       <th>table</th>
       <td><p>a named list to use for renaming columns (see details and
 examples)</p></td>
@@ -193,6 +190,15 @@ examples)</p></td>
     <tr>
       <th>all_name</th>
       <td><p>a name to use for the complete data summary</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>the data summary function (see details)</p></td>
+    </tr>
+    <tr>
+      <th>panel.label.add</th>
+      <td><p>logical; if <code>TRUE</code>, panel variable name will be pasted
+to the panel variable value</p></td>
     </tr>
     </table>
 

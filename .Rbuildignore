@@ -1,4 +1,5 @@
 test\.R
+reprex\.R
 ^.*\.Rproj$
 ^\.Rproj\.user$
 \.gitignore

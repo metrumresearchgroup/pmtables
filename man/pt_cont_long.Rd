@@ -13,7 +13,8 @@ pt_cont_long(
   digits = pt_opts$digits,
   summarize_all = TRUE,
   all_name = "All data",
-  fun = df_sum_2
+  fun = df_sum_2,
+  panel.label.add = pt_opts$panel.label.add
 )
 }
 \arguments{
@@ -36,6 +37,9 @@ to the bottom of the table}
 \item{all_name}{a name to use for the complete data summary}
 
 \item{fun}{the data summary function (see details)}
+
+\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
+to the panel variable value}
 }
 \description{
 Continuous data summary in long format

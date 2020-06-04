@@ -69,6 +69,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' Create categorical data summary tables
 #'
 #' @inheritParams pt_cont_long
+#' @inheritParams pt_opts
 #'
 #' @param by variable name for grouping
 #' @param span variable name for column spanner
@@ -141,7 +142,8 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
 #' @export
 pt_cat_wide <- function(data,cols, by = ".total", panel = by,
                         table = NULL, all_name="All data",
-                        summarize_all = TRUE) {
+                        summarize_all = TRUE,
+                        panel.label.add = pt_opts$panel.label_add) {
 
   cols <- new_names(cols, table)
   by <- new_names(by, table)
@@ -165,11 +167,14 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
     all <- cat_data(data, cols, by = ".total", panel = ".total", wide = TRUE)
 
     if(panel != by) {
+
       all <- mutate(all, !!sym(panel) := "Total")
-      ans <- mutate(
-        ans,
-        !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
-      )
+      if(isTRUE(panel.label.add)) {
+        ans <- mutate(
+          ans,
+          !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
+        )
+      }
     }
     all <- mutate(all, !!sym(by) := all_name)
     ans <- bind_rows(ans, all)

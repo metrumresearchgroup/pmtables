@@ -148,8 +148,9 @@
   <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='st'>"BQL"</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.cont.long</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>df_sum_2</span>,
-  <span class='kw'>fun.cont.wide</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>str_sum_2</span>,
+  <span class='kw'>panel.label.add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>cont.long.fun</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>df_sum_2</span>,
+  <span class='kw'>cont.wide.fun</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>str_sum_2</span>,
   <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )
 
@@ -179,11 +180,16 @@
       <td><p>named list of column name transformations</p></td>
     </tr>
     <tr>
-      <th>fun.cont.long</th>
+      <th>panel.label.add</th>
+      <td><p>logical; if <code>TRUE</code>, panel variable name will be pasted
+to the panel variable value</p></td>
+    </tr>
+    <tr>
+      <th>cont.long.fun</th>
       <td><p>data summary function for continuous / long summaries</p></td>
     </tr>
     <tr>
-      <th>fun.cont.wide</th>
+      <th>cont.wide.fun</th>
       <td><p>data summary function for continuous / wide summaries</p></td>
     </tr>
     <tr>
@@ -194,7 +200,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>pt_opts</code> (inherits from <code>environment</code>) of length 15.</p>
+    <p>An object of class <code>pt_opts</code> (inherits from <code>environment</code>) of length 16.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>pt_opts</code> is the options environment.</p>

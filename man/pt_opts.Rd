@@ -6,7 +6,7 @@
 \alias{pt_options}
 \title{Set global plot options}
 \format{
-An object of class \code{pt_opts} (inherits from \code{environment}) of length 15.
+An object of class \code{pt_opts} (inherits from \code{environment}) of length 16.
 }
 \usage{
 pt_options(
@@ -15,8 +15,9 @@ pt_options(
   bq_col = "BQL",
   units = NULL,
   table = NULL,
-  fun.cont.long = pmtables:::df_sum_2,
-  fun.cont.wide = pmtables:::str_sum_2,
+  panel.label.add = TRUE,
+  cont.long.fun = pmtables:::df_sum_2,
+  cont.wide.fun = pmtables:::str_sum_2,
   digits = NULL
 )
 
@@ -33,9 +34,12 @@ pt_opts
 
 \item{table}{named list of column name transformations}
 
-\item{fun.cont.long}{data summary function for continuous / long summaries}
+\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
+to the panel variable value}
 
-\item{fun.cont.wide}{data summary function for continuous / wide summaries}
+\item{cont.long.fun}{data summary function for continuous / long summaries}
+
+\item{cont.wide.fun}{data summary function for continuous / wide summaries}
 
 \item{digits}{a \code{digits} object}
 }

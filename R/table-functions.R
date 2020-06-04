@@ -5,3 +5,7 @@ foot <- function(short,cols) {
   values <- unlist(short[cols], use.names=FALSE)
   paste0(cols, ": ",values,collapse="; ")
 }
+
+panel_labels <- function(name, value) {
+  value
+}

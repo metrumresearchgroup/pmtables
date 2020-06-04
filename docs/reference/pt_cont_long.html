@@ -151,7 +151,8 @@
   <span class='kw'>digits</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>digits</span>,
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>df_sum_2</span>
+  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>df_sum_2</span>,
+  <span class='kw'>panel.label.add</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>panel.label.add</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -194,6 +195,11 @@ to the bottom of the table</p></td>
     <tr>
       <th>fun</th>
       <td><p>the data summary function (see details)</p></td>
+    </tr>
+    <tr>
+      <th>panel.label.add</th>
+      <td><p>logical; if <code>TRUE</code>, panel variable name will be pasted
+to the panel variable value</p></td>
     </tr>
     </table>
 

@@ -10,7 +10,7 @@
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
                             all_name = "all", digits = NULL,
-                            fun = pt_opts$fun.cont.long) {
+                            fun = pt_opts$cont.long.fun) {
 
   cols <- unname(new_names(cols))
   by <- unname(new_names(by))
@@ -84,6 +84,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 #' Create a continuous data summary table in wide format
 #'
 #' @inheritParams pt_cont_long
+#' @inheritParams pt_opts
 #'
 #' @param by a grouping variable name
 #' @param panel a variable for paneling the summary
@@ -92,11 +93,12 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 pt_cont_wide <- function(data, cols,
                          by = ".total",
                          panel = by,
-                         fun = str_sum_2,
                          table = NULL,
                          units = NULL,
                          digits = NULL,
-                         all_name = "All data") {
+                         all_name = "All data",
+                         fun = str_sum_2,
+                         panel.label.add = pt_opts$panel.label.add) {
 
   tst <- fun(rnorm(10))
   assert_that(identical(names(tst),"summary"))
@@ -128,17 +130,19 @@ pt_cont_wide <- function(data, cols,
       cols=cols,
       by=".total",
       panel = ".total",
-      fun=fun,
+      fun = fun,
       digits = digits,
       wide = TRUE
     )
     ans2 <- mutate(ans2, outer := all_name)
     if(panel != by) {
       ans2 <- mutate(ans2, !!sym(panel) := "Total")
-      ans <- mutate(
-        ans,
-        !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
-      )
+      if(isTRUE(panel.label.add)) {
+        ans <- mutate(
+          ans,
+          !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
+        )
+      }
     }
     ans <- bind_rows(ans,ans2)
   }
@@ -192,6 +196,7 @@ pt_cont_wide <- function(data, cols,
 #'
 #'
 #' @inheritParams pt_cont_study
+#' @inheritParams pt_opts
 #' @param panel data set column name to stratify the summary
 #' @param table a named list to use for renaming columns (see details and
 #' examples)
@@ -218,7 +223,8 @@ pt_cont_long <- function(data,
                          digits = pt_opts$digits,
                          summarize_all = TRUE,
                          all_name="All data",
-                         fun = df_sum_2) {
+                         fun = df_sum_2,
+                         panel.label.add = pt_opts$panel.label.add) {
 
   by <- panel
   summarize_all <- summarize_all & by != ".total"
@@ -239,8 +245,11 @@ pt_cont_long <- function(data,
     wide = FALSE
   )
 
-  ans <- mutate(ans,outer=paste(names(by)[1],outer))
-  if(by==".total") ans <- mutate(ans,outer=all_name)
+  if(isTRUE(panel.label.add)) {
+    ans <- mutate(ans,outer=paste(names(by)[1], outer))
+  }
+
+  if(by==".total") ans <- mutate(ans, outer=all_name)
 
   if(summarize_all) {
     ans2 <- cont_table_data(
@@ -255,7 +264,7 @@ pt_cont_long <- function(data,
     ans <- bind_rows(ans,ans2)
   }
 
-  #ans <- mutate(ans, n = n_parens(n))
+
   .name <- as.character(ans$name)
   ans <- mutate(ans, name = as.character(names(cols)[.data[["name"]]]))
 
@@ -280,6 +289,10 @@ pt_cont_long <- function(data,
   out <- cols_label(out, outer = names(by)[1])
   out <- tab_stubhead(out,"Variable")
   out <- cols_align(out,"right")
+
+  if(exists("Min..Max", ans)) {
+    out <- cols_label(out, Min..Max = "Min / Max")
+  }
 
   if(is.list(table)) {
     out <-

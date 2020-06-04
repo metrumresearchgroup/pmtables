@@ -12,7 +12,7 @@ cont_table_data(
   wide = FALSE,
   all_name = "all",
   digits = NULL,
-  fun = pt_opts$fun.cont.long
+  fun = pt_opts$cont.long.fun
 )
 }
 \arguments{

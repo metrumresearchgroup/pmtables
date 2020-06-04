@@ -9,11 +9,12 @@ pt_cont_wide(
   cols,
   by = ".total",
   panel = by,
-  fun = str_sum_2,
   table = NULL,
   units = NULL,
   digits = NULL,
-  all_name = "All data"
+  all_name = "All data",
+  fun = str_sum_2,
+  panel.label.add = pt_opts$panel.label.add
 )
 }
 \arguments{
@@ -25,8 +26,6 @@ pt_cont_wide(
 
 \item{panel}{a variable for paneling the summary}
 
-\item{fun}{the data summary function (see details)}
-
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
 
@@ -35,6 +34,11 @@ examples)}
 \item{digits}{a \code{digits} object (see \link{new_digits})}
 
 \item{all_name}{a name to use for the complete data summary}
+
+\item{fun}{the data summary function (see details)}
+
+\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
+to the panel variable value}
 }
 \description{
 Create a continuous data summary table in wide format
