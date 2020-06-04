@@ -85,3 +85,11 @@ data <- function(domain = c("id", "obs", "all")) {
 #'
 #' @export
 .cols <- function(...) dplyr::vars(...)
+
+..letters <- c(letters,LETTERS)
+gt_opts_ <- function(x) {
+  mrggt::tab_options(
+    x,
+    footnotes.marks = ..letters
+  )
+}

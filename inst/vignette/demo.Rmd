@@ -11,6 +11,7 @@ editor_options:
   chunk_output_type: console
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 units <- list(WT = "(kg)", BMI = "(kg/m2)", CRCL = "(mL/min)")
@@ -113,5 +114,8 @@ pt_data_inventory(
 ```
 
 
+# Parameter table
 
+
+![](partable.png){width=90%}
 

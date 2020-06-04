@@ -8,9 +8,10 @@
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env
 #' @importFrom glue glue
-#' @importFrom tibble tibble
+#' @importFrom tibble tibble as_tibble
 #' @importFrom stats median rnorm sd na.omit
 #' @importFrom utils capture.output packageVersion str
+#' @importFrom yaml yaml.load_file
 #' @import mrggt
 #'
 #' @include utils.R

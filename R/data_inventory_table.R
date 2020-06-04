@@ -321,7 +321,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
      BQL: below quantitation limit"
   )
 
-  out
+  gt_opts_(out)
 }
 
 # data_inventory_stacked <- function(data,inner,stack_by,...) {

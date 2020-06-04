@@ -135,7 +135,7 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
 
   tab <- tab_source_note(tab, "Summaries are count (percent)")
 
-  tab
+  gt_opts_(tab)
 }
 
 #' @rdname pt_cat_long
@@ -202,7 +202,7 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   out <- tab_source_note(out, "Summaries are count (percent)")
 
-  out
+  gt_opts_(out)
 }
 
 #' Discrete covariate table by study

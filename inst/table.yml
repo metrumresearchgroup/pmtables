@@ -1,0 +1,27 @@
+SETUP__:
+  cols: [study, description, population, subjects, endpoints]
+row1:
+  study: 12-DEMO-222
+  description: single ascending dose PK study
+  population: healthy subjects
+  subjects: 12
+  endpoints: PK
+row2:
+  study: 11-DEMO-221
+  subjects: 30
+  description: multiple ascending dose PK study
+  population: healthy subjects
+  endpoints: PK
+row3:
+  endpoints: PK, E2
+  study: 13-DEMO-311
+  description: phase2a study in patients
+  population: patients with endometriosis
+  subjects: 60
+row4:
+  endpoints: PK, E2, NMPP, BMD
+  study: 18-DEMO-001
+  description: >
+    pivitol phase 3 registration trial in post-menopausal women
+  population: patients with endometriosis
+  subjects: 240

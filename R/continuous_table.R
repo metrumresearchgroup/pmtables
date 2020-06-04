@@ -189,7 +189,7 @@ pt_cont_wide <- function(data, cols,
     out <- tab_source_note(out, fun(footnote = TRUE))
   }
 
-  out
+  gt_opts_(out)
 }
 
 #' Continuous data summary in long format
@@ -316,7 +316,7 @@ pt_cont_long <- function(data,
     }
   }
 
-  out
+  gt_opts_(out)
 }
 
 #' Continuous covariate table by study
