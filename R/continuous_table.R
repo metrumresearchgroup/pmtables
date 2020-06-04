@@ -55,7 +55,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = .[[pm_opts$id_col]]
+        id = .[[pt_opts$id_col]]
       ),
       keep = TRUE
     )
