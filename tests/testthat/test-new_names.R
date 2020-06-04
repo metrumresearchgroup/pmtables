@@ -31,3 +31,9 @@ test_that("new names - quosure, table", {
   expect_is(x,"character")
   expect_length(x,3)
 })
+
+test_that("duplicated values is error", {
+  expect_error(pmtables:::new_names("a,b,c,a"))
+  expect_error(pmtables:::new_names(dplyr::vars(a,b,c,a)))
+})
+

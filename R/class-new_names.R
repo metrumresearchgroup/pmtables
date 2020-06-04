@@ -4,6 +4,13 @@ new_names <- function(x,...) UseMethod("new_names")
 new_names.character <- function(x,table=NULL,...) {
   if(rlang::is_named(x)) return(x)
   ans <- cvec_cs(x)
+  if(any(duplicated(ans))) {
+    dup <- ans[duplicated(ans)]
+    for(d in dup) {
+      message(" duplicate value: ", d)
+    }
+    stop("duplicated values",call.=FALSE)
+  }
   names(ans) <- ans
   new_names_update_table(ans,table)
 }
@@ -12,6 +19,13 @@ new_names.quosures <- function(x,table=NULL,chr=FALSE,...) {
   x <- map(x,quo_get_expr)
   .names <- names(x)
   ans <- map_chr(x,as_string)
+  if(any(duplicated(ans))) {
+    dup <- ans[duplicated(ans)]
+    for(d in dup) {
+      message(" duplicate value: ", d)
+    }
+    stop("duplicated values",call.=FALSE)
+  }
   .names[.names==""] <- ans[.names==""]
   names(ans) <- .names
   new_names_update_table(ans,table)
