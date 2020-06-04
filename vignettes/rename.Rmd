@@ -1,0 +1,94 @@
+---
+title: "(re)naming columns in your table"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{(re)naming columns in your table}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "."
+)
+```
+
+We can re-name the various column names in the output table
+
+
+# Rename via list
+
+We make a named list with re-names for each column we are summarizing or 
+paneling by.
+```{r}
+table <- list(WT = "weight", BMI = "body mass index", SCR = "serum creatinine")
+```
+
+Here we created the list manually; you can also pull this information 
+out of the data specification object.
+
+## Example
+
+We pass this table list into the continuous covariate table function
+
+```{r, message = FALSE, warning = FALSE}
+library(pmtables)
+library(dplyr)
+
+data <- pmtables:::data("id")
+
+pt_cont_long(
+  data, 
+  cols = "BMI,SCR,WT", 
+  table = table
+)
+```
+
+
+
+# Rename inline
+
+Rather than creating that list of renames, we can re-name in line using the 
+vars constructor
+
+
+```{r}
+pt_cat_wide(
+  data, 
+  cols = vars(Sex = SEXf, Formaulation = FORMf), 
+  by = vars("Study ID" = STUDYf)
+)
+```
+
+
+We can also rename the `panel` or `by` variable
+
+```{r}
+obs <- pmtables:::data("obs")
+
+pt_data_inventory(
+  obs, 
+  by = vars(Sex = SEXf), 
+  panel = vars(Formulation = FORMf)
+)
+  
+```
+
+
+## Use R to rename factor levels
+
+Remember, you are on the hook to label or relabel your factors
+
+```{r}
+data2 <- mutate( data, SEXf = factor(SEXf, labels = c("dude", "gal")))
+
+pt_cat_wide(
+  data2, 
+  cols = vars(Sex = SEXf, Formulation = FORMf), 
+  by = vars("Study ID" = STUDYf)
+)
+```
+

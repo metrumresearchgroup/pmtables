@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create continuous summary data frame — cont_table_data • pmtables</title>
+<title>Read yaml input into data frame — yaml_as_df • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create continuous summary data frame — cont_table_data" />
-<meta property="og:description" content="Create continuous summary data frame" />
+<meta property="og:title" content="Read yaml input into data frame — yaml_as_df" />
+<meta property="og:description" content="Read yaml input into data frame" />
 
 
 
@@ -136,65 +136,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create continuous summary data frame</h1>
+    <h1>Read yaml input into data frame</h1>
     
-    <div class="hidden name"><code>cont_table_data.Rd</code></div>
+    <div class="hidden name"><code>yaml_as_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create continuous summary data frame</p>
+    <p>Read yaml input into data frame</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cont_table_data</span>(
-  <span class='no'>data</span>,
-  <span class='no'>cols</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>cont.long.fun</span>
-)</pre>
+    <pre class="usage"><span class='fu'>yaml_as_df</span>(<span class='no'>path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
-    </tr>
-    <tr>
-      <th>cols</th>
-      <td><p>the columns to summarize; may be character vector or quosure</p></td>
-    </tr>
-    <tr>
-      <th>by</th>
-      <td><p>grouping variable name</p></td>
-    </tr>
-    <tr>
-      <th>panel</th>
-      <td><p>paneling variable name</p></td>
-    </tr>
-    <tr>
-      <th>wide</th>
-      <td><p>if <code>TRUE</code> covariates are rendered west to east; if <code>FALSE</code> then
-they are rendered north to south</p></td>
-    </tr>
-    <tr>
-      <th>all_name</th>
-      <td><p>label for full data summary</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p>named list specifing <code>digits</code> argument for <code>digit_fun</code></p></td>
-    </tr>
-    <tr>
-      <th>fun</th>
-      <td><p>continuous data summary function</p></td>
+      <th>path</th>
+      <td><p>to the yaml source file</p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"table.yml"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"pmtables"</span>)
+
+<span class='fu'>yaml_as_df</span>(<span class='no'>path</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
+#&gt;   study    description                     population       subjects endpoints  
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
+#&gt; </span><span style='color: #555555;'>1</span><span> 12-DEMO… </span><span style='color: #555555;'>"</span><span>single ascending dose PK stud… healthy subjects       12 PK         
+#&gt; </span><span style='color: #555555;'>2</span><span> 11-DEMO… </span><span style='color: #555555;'>"</span><span>multiple ascending dose PK st… healthy subjects       30 PK         
+#&gt; </span><span style='color: #555555;'>3</span><span> 13-DEMO… </span><span style='color: #555555;'>"</span><span>phase2a study in patients</span><span style='color: #555555;'>"</span><span>     patients with e…       60 PK, E2     
+#&gt; </span><span style='color: #555555;'>4</span><span> 18-DEMO… </span><span style='color: #555555;'>"</span><span>pivitol phase 3 registration … patients with e…      240 PK, E2, NM…</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -387,7 +387,7 @@ Variable
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
-n<sup class="gt_footnote_marks">1</sup>
+n<sup class="gt_footnote_marks">a</sup>
 
 </th>
 
@@ -405,7 +405,7 @@ Median
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
-SD<sup class="gt_footnote_marks">2</sup>
+SD<sup class="gt_footnote_marks">b</sup>
 
 </th>
 
@@ -1081,7 +1081,7 @@ AAG
 
 <p class="gt_footnote">
 
-<sup class="gt_footnote_marks"> <em>1</em> </sup>
+<sup class="gt_footnote_marks"> <em>a</em> </sup>
 
 subjects with non-missing values <br />
 
@@ -1089,7 +1089,7 @@ subjects with non-missing values <br />
 
 <p class="gt_footnote">
 
-<sup class="gt_footnote_marks"> <em>2</em> </sup>
+<sup class="gt_footnote_marks"> <em>b</em> </sup>
 
 standard deviation <br />
 
@@ -1470,7 +1470,7 @@ Variable
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
-n<sup class="gt_footnote_marks">1</sup>
+n<sup class="gt_footnote_marks">a</sup>
 
 </th>
 
@@ -1488,7 +1488,7 @@ Median
 
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">
 
-SD<sup class="gt_footnote_marks">2</sup>
+SD<sup class="gt_footnote_marks">b</sup>
 
 </th>
 
@@ -2164,7 +2164,7 @@ CRCL
 
 <p class="gt_footnote">
 
-<sup class="gt_footnote_marks"> <em>1</em> </sup>
+<sup class="gt_footnote_marks"> <em>a</em> </sup>
 
 subjects with non-missing values <br />
 
@@ -2172,7 +2172,7 @@ subjects with non-missing values <br />
 
 <p class="gt_footnote">
 
-<sup class="gt_footnote_marks"> <em>2</em> </sup>
+<sup class="gt_footnote_marks"> <em>b</em> </sup>
 
 standard deviation <br />
 

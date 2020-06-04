@@ -49,7 +49,7 @@ cont_table_data(
  panel = "STUDYf",
  cols = c("WT", "ALB", "SCR"), 
  digits = new_digits(.default = 3), 
- fun = pt_opts$fun.cont.wide,
+ fun = pt_opts$cont.wide.fun,
  wide = TRUE
 )
 ```
