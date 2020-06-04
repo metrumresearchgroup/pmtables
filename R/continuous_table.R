@@ -156,9 +156,9 @@ pt_cont_wide <- function(data, cols,
   if(by==panel) ans[["outer"]] <- NULL
 
   if(panel==by) {
-    out <- gt(ans,row_group.sep=" ")
+    out <- gt(ans, row_group.sep=" ")
   } else {
-    out <- gt(ans,row_group.sep=" ",groupname_col=panel)
+    out <- gt(ans, row_group.sep=" ", groupname_col=panel)
   }
 
   if(exists(by,ans)) {
@@ -294,14 +294,14 @@ pt_cont_long <- function(data,
     out <- cols_label(out, Min..Max = "Min / Max")
   }
 
-  if(is.list(table)) {
-    out <-
-      tab_footnote(
-        out,
-        footnote = foot(table,unname(cols)),
-        locations = cells_stubhead()
-      )
-  }
+  # if(is.list(table)) {
+  #   out <-
+  #     tab_footnote(
+  #       out,
+  #       footnote = foot(table,unname(cols)),
+  #       locations = cells_stubhead()
+  #     )
+  # }
 
   if(is.logical(formals(fun)[["footnote"]])) {
     footn <- fun(footnote = TRUE)
