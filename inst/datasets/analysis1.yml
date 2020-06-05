@@ -62,3 +62,6 @@ RF:
 FORM:
   short: formulation
   values: [tablet,capsule,troche]
+ASIAN:
+  short: race indicator
+  values: [Asian, non-Asian]

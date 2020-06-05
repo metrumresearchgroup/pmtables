@@ -11,7 +11,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 units <- list(WT = "(kg)", BMI = "(kg/m2)", CRCL = "(mL/min)")
@@ -57,6 +56,18 @@ pt_cont_wide(
 ```
 
 
+```{r}
+pt_cont_wide(
+  data, 
+  cols = "WT,BMI,CRCL", 
+  by = vars(Study = STUDYf), 
+  panel = vars(Race = ASIANf),
+  units = units, 
+  table = table
+)
+```
+
+
 
 # Categorical covariates
 
@@ -67,7 +78,7 @@ pt_cont_wide(
 pt_cat_long(
   data, 
   cols = vars(Sex = SEXf, "Renal function" = RFf, Formulation = FORMf), 
-  by = vars(Study = STUDYf),
+  span = vars(Study = STUDYf),
   table = table
 )
 ```
@@ -75,10 +86,11 @@ pt_cat_long(
 ## Wide
 
 ```{r}
-pt_cat_long(
+pt_cat_wide(
   data, 
-  cols = vars("Child-Pugh" = CPf, "Renal function" = RFf, Formulation = FORMf), 
-  by = vars(Sex = SEXf),
+  cols = vars(Sex = SEXf, "Renal function" = RFf), 
+  by = vars(Race = ASIANf),
+  panel = vars(Formulation = FORMf),
   table = table
 )
 ```
@@ -86,18 +98,23 @@ pt_cat_long(
 
 # Data inventory
 
+```{r,include=FALSE}
+obs <- pmtables:::data("obs") %>% filter(SEQ==1)
+count(obs,is.na(DV),BQL)
+```
+
 ```{r}
 pt_data_inventory(
-  data, 
+  obs, 
   by = vars(Study = STUDYf)
 )
 ```
 
 ```{r}
 pt_data_inventory(
-  data, 
-  by = vars(Study = STUDYf), 
-  panel = vars(Formulation = FORMf)
+  obs, 
+  panel = vars(Study = STUDYf), 
+  by = vars("Renal function" = RFf)
 )
 ```
 
@@ -115,7 +132,6 @@ pt_data_inventory(
 
 
 # Parameter table
-
 
 ![](partable.png){width=90%}
 

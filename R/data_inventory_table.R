@@ -63,8 +63,9 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
     data <- ungroup(data)
   } else {
     data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
+    data <- ungroup(data)
   }
-  data <- group_by(data, !!sym(by))
+  data <- group_by(data, !!sym(panel))
   data <- mutate(data,..n = n_non_missing(!!sym(dv_col)))
   data <- ungroup(data)
   data <- group_by(data, !!!syms(.groups))
@@ -149,6 +150,13 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
       all_name = all_name, ...
     )
     tot <- mutate(tot, .total = all_name)
+    if(!stacked) {
+      tot <- mutate(
+        tot,
+        POBS = "---",
+        PBQL = "---"
+      )
+    }
     ans <- bind_rows(ans,tot)
   }
 

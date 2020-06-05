@@ -246,7 +246,7 @@ pt_cont_long <- function(data,
   )
 
   if(isTRUE(panel.label.add)) {
-    ans <- mutate(ans,outer=paste(names(by)[1], outer))
+    ans <- mutate(ans,outer=paste(names(by)[1], outer, sep = ": "))
   }
 
   if(by==".total") ans <- mutate(ans, outer=all_name)
@@ -293,15 +293,6 @@ pt_cont_long <- function(data,
   if(exists("Min..Max", ans)) {
     out <- cols_label(out, Min..Max = "Min / Max")
   }
-
-  # if(is.list(table)) {
-  #   out <-
-  #     tab_footnote(
-  #       out,
-  #       footnote = foot(table,unname(cols)),
-  #       locations = cells_stubhead()
-  #     )
-  # }
 
   if(is.logical(formals(fun)[["footnote"]])) {
     footn <- fun(footnote = TRUE)

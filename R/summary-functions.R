@@ -52,7 +52,7 @@ df_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = F
 }
 
 n_missing <- function(x,bql) {
-  sum(is.na(x) & bql ==0)
+  sum(is.na(x) & bql==0)
 }
 
 n_non_missing <- function(x) {

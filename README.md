@@ -425,7 +425,7 @@ Min / Max
 
 <td colspan="6" class="gt_group_heading">
 
-Study 12-DEMO-001
+Study: 12-DEMO-001
 
 </td>
 
@@ -481,13 +481,13 @@ ALB
 
 <td class="gt_row gt_right">
 
-30
+29
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.27
+4.28
 
 </td>
 
@@ -499,7 +499,7 @@ ALB
 
 <td class="gt_row gt_right">
 
-0.469
+0.474
 
 </td>
 
@@ -555,7 +555,7 @@ AAG
 
 <td colspan="6" class="gt_group_heading">
 
-Study 12-DEMO-002
+Study: 12-DEMO-002
 
 </td>
 
@@ -685,7 +685,7 @@ AAG
 
 <td colspan="6" class="gt_group_heading">
 
-Study 11-DEMO-005
+Study: 11-DEMO-005
 
 </td>
 
@@ -741,13 +741,13 @@ ALB
 
 <td class="gt_row gt_right">
 
-40
+39
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.42
+4.41
 
 </td>
 
@@ -759,7 +759,7 @@ ALB
 
 <td class="gt_row gt_right">
 
-0.536
+0.537
 
 </td>
 
@@ -815,7 +815,7 @@ AAG
 
 <td colspan="6" class="gt_group_heading">
 
-Study 13-DEMO-001
+Study: 13-DEMO-001
 
 </td>
 
@@ -871,19 +871,19 @@ ALB
 
 <td class="gt_row gt_right">
 
-40
+38
 
 </td>
 
 <td class="gt_row gt_right">
 
-3.53
+3.58
 
 </td>
 
 <td class="gt_row gt_right">
 
-3.46
+3.65
 
 </td>
 
@@ -1001,25 +1001,25 @@ ALB
 
 <td class="gt_row gt_right">
 
-160
+156
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.19
+4.20
 
 </td>
 
 <td class="gt_row gt_right">
 
-4.31
+4.32
 
 </td>
 
 <td class="gt_row gt_right">
 
-0.809
+0.793
 
 </td>
 
@@ -1508,7 +1508,7 @@ Min / Max
 
 <td colspan="6" class="gt_group_heading">
 
-Renal function normal
+Renal function: normal
 
 </td>
 
@@ -1524,25 +1524,25 @@ WT
 
 <td class="gt_row gt_right">
 
-130
+127
 
 </td>
 
 <td class="gt_row gt_right">
 
-71.3
+71.1
 
 </td>
 
 <td class="gt_row gt_right">
 
-71.5
+70.4
 
 </td>
 
 <td class="gt_row gt_right">
 
-12.7
+12.6
 
 </td>
 
@@ -1604,7 +1604,7 @@ CRCL
 
 <td class="gt_row gt_right">
 
-130
+125
 
 </td>
 
@@ -1622,7 +1622,7 @@ CRCL
 
 <td class="gt_row gt_right">
 
-8.54
+8.53
 
 </td>
 
@@ -1638,7 +1638,7 @@ CRCL
 
 <td colspan="6" class="gt_group_heading">
 
-Renal function mild
+Renal function: mild
 
 </td>
 
@@ -1734,25 +1734,25 @@ CRCL
 
 <td class="gt_row gt_right">
 
-10
+9
 
 </td>
 
 <td class="gt_row gt_right">
 
-75.0
+74.2
 
 </td>
 
 <td class="gt_row gt_right">
 
-74.9
+74.8
 
 </td>
 
 <td class="gt_row gt_right">
 
-7.52
+7.48
 
 </td>
 
@@ -1768,7 +1768,7 @@ CRCL
 
 <td colspan="6" class="gt_group_heading">
 
-Renal function moderate
+Renal function: moderate
 
 </td>
 
@@ -1898,7 +1898,7 @@ CRCL
 
 <td colspan="6" class="gt_group_heading">
 
-Renal function severe
+Renal function: severe
 
 </td>
 
@@ -2044,25 +2044,25 @@ WT
 
 <td class="gt_row gt_right">
 
-160
+157
 
 </td>
 
 <td class="gt_row gt_right">
 
-70.9
+70.7
 
 </td>
 
 <td class="gt_row gt_right">
 
-70.2
+70.0
 
 </td>
 
 <td class="gt_row gt_right">
 
-12.9
+12.8
 
 </td>
 
@@ -2124,13 +2124,13 @@ CRCL
 
 <td class="gt_row gt_right">
 
-160
+154
 
 </td>
 
 <td class="gt_row gt_right">
 
-92.4
+92.1
 
 </td>
 
@@ -2142,7 +2142,7 @@ CRCL
 
 <td class="gt_row gt_right">
 
-25.2
+25.5
 
 </td>
 
@@ -3999,25 +3999,25 @@ BQL
 
 <td class="gt_row gt_center">
 
-30
+29
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+1
 
 </td>
 
 <td class="gt_row gt_left">
 
-18.8
+19.5
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+0.7
 
 </td>
 
@@ -4045,25 +4045,25 @@ BQL
 
 <td class="gt_row gt_center">
 
-50
+47
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+3
 
 </td>
 
 <td class="gt_row gt_left">
 
-31.2
+31.5
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+2.0
 
 </td>
 
@@ -4091,25 +4091,25 @@ BQL
 
 <td class="gt_row gt_center">
 
-40
+36
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+4
 
 </td>
 
 <td class="gt_row gt_left">
 
-25.0
+24.2
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+2.7
 
 </td>
 
@@ -4131,31 +4131,31 @@ BQL
 
 <td class="gt_row gt_center">
 
-0
+1
 
 </td>
 
 <td class="gt_row gt_center">
 
-40
+37
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+2
 
 </td>
 
 <td class="gt_row gt_left">
 
-25.0
+24.8
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+1.3
 
 </td>
 
@@ -4177,19 +4177,19 @@ Grand Total
 
 <td class="gt_row gt_center">
 
-0
+1
 
 </td>
 
 <td class="gt_row gt_center">
 
-160
+149
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+10
 
 </td>
 
@@ -4201,7 +4201,7 @@ Grand Total
 
 <td class="gt_row gt_left">
 
-0.0
+6.7
 
 </td>
 
@@ -4696,31 +4696,31 @@ male
 
 <td class="gt_row gt_center">
 
-0
+2
 
 </td>
 
 <td class="gt_row gt_center">
 
-150
+146
 
 </td>
 
 <td class="gt_row gt_center">
 
-3
+2
 
 </td>
 
 <td class="gt_row gt_left">
 
-9.2
+34.2
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.2
+0.5
 
 </td>
 
@@ -4754,43 +4754,43 @@ female
 
 <td class="gt_row gt_center">
 
-0
+6
 
 </td>
 
 <td class="gt_row gt_center">
 
-300
+281
 
 </td>
 
 <td class="gt_row gt_center">
 
-23
+13
 
 </td>
 
 <td class="gt_row gt_left">
 
-18.9
+65.8
 
 </td>
 
 <td class="gt_row gt_left">
 
-1.4
+3.0
 
 </td>
 
 <td class="gt_row gt_left">
 
-9.3
+9.1
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.7
+0.4
 
 </td>
 
@@ -4822,43 +4822,43 @@ male
 
 <td class="gt_row gt_center">
 
-0
+3
 
 </td>
 
 <td class="gt_row gt_center">
 
-432
+419
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+10
 
 </td>
 
 <td class="gt_row gt_left">
 
-26.6
+36.4
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+0.9
 
 </td>
 
 <td class="gt_row gt_left">
 
-13.5
+13.6
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+0.3
 
 </td>
 
@@ -4880,43 +4880,43 @@ female
 
 <td class="gt_row gt_center">
 
-0
+7
 
 </td>
 
 <td class="gt_row gt_center">
 
-768
+733
 
 </td>
 
 <td class="gt_row gt_center">
 
-1
+28
 
 </td>
 
 <td class="gt_row gt_left">
 
-48.4
+63.6
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.1
+2.4
 
 </td>
 
 <td class="gt_row gt_left">
 
-23.9
+23.8
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+0.9
 
 </td>
 
@@ -4948,31 +4948,31 @@ male
 
 <td class="gt_row gt_center">
 
-0
+3
 
 </td>
 
 <td class="gt_row gt_center">
 
-696
+669
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+24
 
 </td>
 
 <td class="gt_row gt_left">
 
-42.9
+72.7
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+2.6
 
 </td>
 
@@ -4984,7 +4984,7 @@ male
 
 <td class="gt_row gt_left">
 
-0.0
+0.8
 
 </td>
 
@@ -5006,43 +5006,43 @@ female
 
 <td class="gt_row gt_center">
 
-0
+7
 
 </td>
 
 <td class="gt_row gt_center">
 
-264
+251
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+6
 
 </td>
 
 <td class="gt_row gt_left">
 
-16.6
+27.3
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+0.7
 
 </td>
 
 <td class="gt_row gt_left">
 
-8.2
+8.1
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.0
+0.2
 
 </td>
 
@@ -5074,43 +5074,43 @@ male
 
 <td class="gt_row gt_center">
 
-0
+3
 
 </td>
 
 <td class="gt_row gt_center">
 
-345
+335
 
 </td>
 
 <td class="gt_row gt_center">
 
-28
+7
 
 </td>
 
 <td class="gt_row gt_left">
 
-21.3
+57.6
 
 </td>
 
 <td class="gt_row gt_left">
 
-1.7
+1.2
 
 </td>
 
 <td class="gt_row gt_left">
 
-10.7
+10.9
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.9
+0.2
 
 </td>
 
@@ -5132,43 +5132,43 @@ female
 
 <td class="gt_row gt_center">
 
-0
+4
 
 </td>
 
 <td class="gt_row gt_center">
 
-255
+247
 
 </td>
 
 <td class="gt_row gt_center">
 
-13
+4
 
 </td>
 
 <td class="gt_row gt_left">
 
-16.1
+42.4
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.8
+0.7
 
 </td>
 
 <td class="gt_row gt_left">
 
-7.9
+8.0
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.4
+0.1
 
 </td>
 
@@ -5190,19 +5190,31 @@ Grand Total
 
 <td class="gt_row gt_center">
 
-0
+35
 
 </td>
 
 <td class="gt_row gt_center">
 
-3210
+3081
 
 </td>
 
 <td class="gt_row gt_center">
 
-68
+94
+
+</td>
+
+<td class="gt_row gt_left">
+
+—
+
+</td>
+
+<td class="gt_row gt_left">
+
+—
 
 </td>
 
@@ -5214,19 +5226,7 @@ Grand Total
 
 <td class="gt_row gt_left">
 
-2.1
-
-</td>
-
-<td class="gt_row gt_left">
-
-100.0
-
-</td>
-
-<td class="gt_row gt_left">
-
-2.1
+3.1
 
 </td>
 
@@ -5702,31 +5702,31 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_center">
 
-0
+8
 
 </td>
 
 <td class="gt_row gt_center">
 
-450
+427
 
 </td>
 
 <td class="gt_row gt_center">
 
-26
+15
 
 </td>
 
 <td class="gt_row gt_left">
 
-14.0
+13.9
 
 </td>
 
 <td class="gt_row gt_left">
 
-0.8
+0.5
 
 </td>
 
@@ -5748,19 +5748,19 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_center">
 
-0
+10
 
 </td>
 
 <td class="gt_row gt_center">
 
-1200
+1152
 
 </td>
 
 <td class="gt_row gt_center">
 
-1
+38
 
 </td>
 
@@ -5772,7 +5772,7 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_left">
 
-0.0
+1.2
 
 </td>
 
@@ -5794,19 +5794,19 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_center">
 
-0
+10
 
 </td>
 
 <td class="gt_row gt_center">
 
-960
+920
 
 </td>
 
 <td class="gt_row gt_center">
 
-0
+30
 
 </td>
 
@@ -5818,7 +5818,7 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_left">
 
-0.0
+1.0
 
 </td>
 
@@ -5840,31 +5840,31 @@ Endpoint: DEMO PK
 
 <td class="gt_row gt_center">
 
-0
+7
 
 </td>
 
 <td class="gt_row gt_center">
 
-600
+582
 
 </td>
 
 <td class="gt_row gt_center">
 
-41
+11
 
 </td>
 
 <td class="gt_row gt_left">
 
-18.7
+18.9
 
 </td>
 
 <td class="gt_row gt_left">
 
-1.3
+0.4
 
 </td>
 
@@ -5886,19 +5886,19 @@ Group Total
 
 <td class="gt_row gt_center">
 
-0
+35
 
 </td>
 
 <td class="gt_row gt_center">
 
-3210
+3081
 
 </td>
 
 <td class="gt_row gt_center">
 
-68
+94
 
 </td>
 
@@ -5910,7 +5910,7 @@ Group Total
 
 <td class="gt_row gt_left">
 
-2.1
+3.1
 
 </td>
 
@@ -5960,7 +5960,7 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_left">
 
-50.0
+50.6
 
 </td>
 
@@ -5988,13 +5988,13 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_center">
 
-0
+1
 
 </td>
 
 <td class="gt_row gt_center">
 
-40
+39
 
 </td>
 
@@ -6006,7 +6006,7 @@ Endpoint: ESTRDIOL
 
 <td class="gt_row gt_left">
 
-50.0
+49.4
 
 </td>
 
@@ -6034,13 +6034,13 @@ Group Total
 
 <td class="gt_row gt_center">
 
-0
+1
 
 </td>
 
 <td class="gt_row gt_center">
 
-80
+79
 
 </td>
 
@@ -6090,13 +6090,13 @@ Endpoint: BMD
 
 <td class="gt_row gt_center">
 
-0
+9
 
 </td>
 
 <td class="gt_row gt_center">
 
-120
+111
 
 </td>
 
@@ -6108,7 +6108,7 @@ Endpoint: BMD
 
 <td class="gt_row gt_left">
 
-50.0
+49.1
 
 </td>
 
@@ -6136,31 +6136,31 @@ Endpoint: BMD
 
 <td class="gt_row gt_center">
 
+5
+
+</td>
+
+<td class="gt_row gt_center">
+
+115
+
+</td>
+
+<td class="gt_row gt_center">
+
 0
 
 </td>
 
-<td class="gt_row gt_center">
+<td class="gt_row gt_left">
 
-120
-
-</td>
-
-<td class="gt_row gt_center">
-
-4
+50.9
 
 </td>
 
 <td class="gt_row gt_left">
 
-50.0
-
-</td>
-
-<td class="gt_row gt_left">
-
-1.7
+0.0
 
 </td>
 
@@ -6182,19 +6182,19 @@ Group Total
 
 <td class="gt_row gt_center">
 
+14
+
+</td>
+
+<td class="gt_row gt_center">
+
+226
+
+</td>
+
+<td class="gt_row gt_center">
+
 0
-
-</td>
-
-<td class="gt_row gt_center">
-
-240
-
-</td>
-
-<td class="gt_row gt_center">
-
-4
 
 </td>
 
@@ -6206,7 +6206,7 @@ Group Total
 
 <td class="gt_row gt_left">
 
-1.7
+0.0
 
 </td>
 
