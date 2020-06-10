@@ -8,7 +8,7 @@ pt_opts$reset()
 
 test_that("opt objects", {
   expect_is(pt_opts, "environment")
-  expect_is(pmplots:::opts, "environment")
+  expect_is(pmtables:::opts, "environment")
 })
 
 test_that("opt defaults", {
