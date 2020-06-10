@@ -11,7 +11,6 @@
 #' @importFrom tibble tibble as_tibble
 #' @importFrom stats median rnorm sd na.omit
 #' @importFrom utils capture.output packageVersion str
-#' @importFrom yaml yaml.load_file
 #' @import mrggt
 #'
 #' @include utils.R
