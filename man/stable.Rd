@@ -87,8 +87,6 @@ file name will be included in the notes in the table footer}
 saved; the file name will be included in the notes in the table footer}
 
 \item{output_file_label}{prefix text for \code{output_file} note}
-
-\item{span_split_level}{not implemented at this time}
 }
 \description{
 Create tabular output from an R data frame

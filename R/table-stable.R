@@ -22,7 +22,6 @@ stretch_end <- "}"
 #' be made blank (overwritten with `""`)
 #' @param span a list of objects created with [colgroup]
 #' @param span_split not implemented at this time
-#' @param span_split_level not implemented at this time
 #' @param notes a character vector of notes to include at the foot of the table;
 #' use `r_file` and `output_file` for source code and output file annotations
 #' @param hline_at logical or integer vector specifying rows above which an

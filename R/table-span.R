@@ -9,7 +9,7 @@
 #'
 #' @return an object with class `colgroup`
 #' @export
-colgroup <- function(title=NULL, vars = c(), level = 1, split = !missing(sep), sep = '.') {
+colgroup <- function(title=NULL, vars = c(), level = 1, sep = ".", split = FALSE) {
 
   if(isTRUE(split)) {
     assert_that(is.null(title) || is.list(title))
@@ -30,6 +30,10 @@ colgroup <- function(title=NULL, vars = c(), level = 1, split = !missing(sep), s
 }
 
 #' @rdname colgroup
+#' @param split logical; if `TRUE` column groupings will be determined by
+#' splitting columns names on a separator
+#' @param sep character; the separator used for finding column groupings
+#' @param ... arguments passed to [colgroup]
 #' @export
 colsplit <- function(title, level = 1, split = TRUE, sep = ".", ...) {
   colgroup(title = title, level = level, split = split, sep = sep, ...)

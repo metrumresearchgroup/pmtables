@@ -6,7 +6,7 @@
 \alias{is.colgroup}
 \title{Set spans to group columns}
 \usage{
-colgroup(title = NULL, vars = c(), level = 1, split = !missing(sep), sep = ".")
+colgroup(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE)
 
 colsplit(title, level = 1, split = TRUE, sep = ".", ...)
 
@@ -20,7 +20,12 @@ is.colgroup(x)
 \item{level}{relative position for the grouping spanner; level 0 is the
 column names; level 1 is one step away (up) from the column names, etc}
 
-\item{sep}{character on which to split column names}
+\item{sep}{character; the separator used for finding column groupings}
+
+\item{split}{logical; if \code{TRUE} column groupings will be determined by
+splitting columns names on a separator}
+
+\item{...}{arguments passed to \link{colgroup}}
 
 \item{x}{an R object}
 }
