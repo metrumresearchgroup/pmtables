@@ -57,7 +57,6 @@ stable <- function(data,
                    rm_dups = NULL,
                    span = NULL,
                    span_split = NULL,
-                   span_split_level = 1,
                    notes = NULL,
                    hline_at = NULL,
                    hline_from = NULL,
@@ -145,13 +144,10 @@ stable <- function(data,
   nr <- nrow(data)
   cols <- colnames(data)
 
-  do_span_split <- is.character(span_split)
+  do_span_split <- is.colgroup(span_split)
   spans_from_split <- NULL
   if(do_span_split) {
-    spans <- find_span_split(
-      cols,sep = span_split, gather = FALSE,
-      level = span_split_level
-    )
+    spans <- find_span_split(cols,span_split)
     if(isTRUE(spans$any)) {
       data <- data[,spans$recol]
       cols <- spans$data$newcol

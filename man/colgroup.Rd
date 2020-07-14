@@ -2,10 +2,13 @@
 % Please edit documentation in R/table-span.R
 \name{colgroup}
 \alias{colgroup}
+\alias{colsplit}
 \alias{is.colgroup}
 \title{Set spans to group columns}
 \usage{
-colgroup(title, vars = c(), level = 1, sep = NULL)
+colgroup(title = NULL, vars = c(), level = 1, split = !missing(sep), sep = ".")
+
+colsplit(title, level = 1, split = TRUE, sep = ".", ...)
 
 is.colgroup(x)
 }
@@ -17,7 +20,7 @@ is.colgroup(x)
 \item{level}{relative position for the grouping spanner; level 0 is the
 column names; level 1 is one step away (up) from the column names, etc}
 
-\item{sep}{not implemented yet}
+\item{sep}{character on which to split column names}
 
 \item{x}{an R object}
 }

@@ -5,14 +5,36 @@
 #' @param vars tidyselect specification of variables
 #' @param level relative position for the grouping spanner; level 0 is the
 #' column names; level 1 is one step away (up) from the column names, etc
-#' @param sep not implemented yet
+#' @param sep character on which to split column names
 #'
 #' @return an object with class `colgroup`
 #' @export
-colgroup <- function(title, vars = c(), level = 1, sep = NULL) {
-  ans <- list(title = title, level = level, vars = enquo(vars),sep = sep)
+colgroup <- function(title=NULL, vars = c(), level = 1, split = !missing(sep), sep = '.') {
+
+  if(isTRUE(split)) {
+    assert_that(is.null(title) || is.list(title))
+    if(!is.null(title)) assert_that(is_named(title))
+  } else {
+    assert_that(is.character(title))
+  }
+
+  ans <- list(
+    title = title,
+    level = level,
+    vars = enquo(vars),
+    split = split,
+    sep = sep,
+    gather = FALSE
+  )
   structure(ans, class = "colgroup")
 }
+
+#' @rdname colgroup
+#' @export
+colsplit <- function(title, level = 1, split = TRUE, sep = ".", ...) {
+  colgroup(title = title, level = level, split = split, sep = sep, ...)
+}
+
 
 #' @rdname colgroup
 #' @param x an R object
@@ -61,7 +83,6 @@ make_span_tex <- function(span) {
 combine_spans <- function(..., cols) {
   all_spans <- bind_rows(...)
   all_spans <- filter(all_spans, .data[["title"]] != "")
-  #all_spans <- arrange(all_spans, .data[["level"]], .data[["coln"]])
   all_spans <- arrange(all_spans,  .data[["level"]], .data[["coln"]], .data[["title"]])
   all_spans <- group_by(all_spans, .data[["level"]])
   all_spans <- distinct(all_spans, .data[["coln"]], .keep_all = TRUE)
@@ -71,36 +92,57 @@ combine_spans <- function(..., cols) {
   all
 }
 
-
-find_span_split <- function(cols,sep = ".",gather = FALSE,level = 1) {
-  x <- str_split(cols, fixed(sep), n = 2)
+find_span_split <- function(cols,xsp) {
+  x <- str_split(cols, fixed(xsp$sep), n = 2)
   spans <- tibble(
     coln = seq_along(x),
     col = cols,
     newcol = map_chr(x,last),
-    title  = map_chr(x,1),
-    titlef = fct_inorder(.data[["title"]])
+    tag  = map_chr(x,1),
+    tagf = fct_inorder(.data[["tag"]])
   )
-  if(gather) spans <- arrange(spans, .data[["titlef"]])
+  if(xsp$gather) spans <- arrange(spans, .data[["tagf"]])
   spans <- mutate(
     spans,
-    title = ifelse(col == .data[["newcol"]], "", .data[["title"]]),
-    align='c'
+    tag = ifelse(col == .data[["newcol"]], "", .data[["tag"]]),
+    align = 'c'
   )
-  spans <- mutate(spans, flg = chunk_runs(.data[["title"]]))
-  spans[["titlef"]] <- NULL
+  spans <- mutate(spans, flg = chunk_runs(.data[["tag"]]))
+  spans[["tagf"]] <- NULL
   spandf <- spans
   recol <- spandf$coln
-  spandf <- mutate(spandf,coln = seq_len(n()),level=level)
+  spandf <- mutate(spandf, coln = seq_len(n()), level = xsp$level)
   spans <- filter(spans, .data[["col"]] != .data[["newcol"]])
   spans <- unname(split(spans, spans$flg))
-  spans <- map(spans, ~ c(.x$title[1],.x$col[1],.x$col[nrow(.x)]))
+  spans <- map(spans, ~ c(.x$tag[1],.x$col[1],.x$col[nrow(.x)]))
   resort <- !identical(spandf$coln,seq_len(nrow(spandf)))
+
+  if(!is.null(xsp$title)) {
+    assert_that(rlang::is_named(xsp$title))
+    title <- spandf$tag
+    if(!all(names(xsp$title) %in% title)) {
+      diff <- setdiff(names(xsp$title),title)
+      for(bad in diff) {
+        warning("[pmtables] split tag not found in any columns: ", bad, call.=FALSE)
+      }
+    }
+    to_rename <- intersect(names(xsp$title),title)
+    indx_rename <- match(title,to_rename)
+    indx_title <- which(!is.na(indx_rename))
+    indx_rename <- na.omit(indx_rename)
+    title[indx_title] <- xsp$title[indx_rename]
+    spandf[["title"]] <- flatten_chr(title)
+  } else {
+    spandf[["title"]] <- spandf[["tag"]]
+  }
+
+  spandf[["tag"]] <- NULL
+
   list(
     data = spandf,
     spans = spans,
     resort = resort,
-    any = length(spans)>0,
+    any = length(spans) > 0,
     recol = recol
   )
 }

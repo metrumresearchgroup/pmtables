@@ -12,7 +12,6 @@ stable(
   rm_dups = NULL,
   span = NULL,
   span_split = NULL,
-  span_split_level = 1,
   notes = NULL,
   hline_at = NULL,
   hline_from = NULL,
@@ -48,8 +47,6 @@ be made blank (overwritten with \code{""})}
 \item{span}{a list of objects created with \link{colgroup}}
 
 \item{span_split}{not implemented at this time}
-
-\item{span_split_level}{not implemented at this time}
 
 \item{notes}{a character vector of notes to include at the foot of the table;
 use \code{r_file} and \code{output_file} for source code and output file annotations}
@@ -90,6 +87,8 @@ file name will be included in the notes in the table footer}
 saved; the file name will be included in the notes in the table footer}
 
 \item{output_file_label}{prefix text for \code{output_file} note}
+
+\item{span_split_level}{not implemented at this time}
 }
 \description{
 Create tabular output from an R data frame
