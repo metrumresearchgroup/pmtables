@@ -3,9 +3,6 @@
 #'
 #' @inheritParams pt_data_inventory
 #' @param tot logical indicating if a summary row should be included
-#' @param dv_col character name of `DV` column
-#' @param bq_col character name of `BQL` column
-#' @param id_col character name of `ID` column
 #' @param ... used to absorb other arguments; not used
 data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
                                  tot = FALSE, all_name = "all",
@@ -209,6 +206,10 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' `MISS` values are equal to zero
 #' @param stacked if `TRUE`, then independent summaries are created by `outer`
 #' and included in a single table (see examples)
+#' @param dv_col character name of `DV` column
+#' @param bq_col character name of `BQL` column
+#' @param id_col character name of `ID` column
+#' @param no_bql if `TRUE`, the BQL summary is bypassed
 #' @param ... other arguments passed to [data_inventory_chunk]
 #'
 #' @details
@@ -243,7 +244,15 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 pt_data_inventory <- function(data, by = ".total", panel = by,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
-                              all_name = "all", ...) {
+                              all_name = "all",
+                              dv_col = pt_opts$dv_col,
+                              bq_col = pt_opts$bq_col,
+                              id_col = pt_opts$id_col,
+                              no_bql = FALSE, ...) {
+
+  if(no_bql) {
+
+  }
 
   by <- new_names(by,table)
   panel <- new_names(panel,table)
@@ -260,6 +269,9 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     panel = panel,
     stacked = stacked,
     all_name = all_name,
+    dv_col = dv_col,
+    bq_col = bq_col,
+    id_col = id_col,
     ...
   )
 

@@ -13,6 +13,10 @@ pt_data_inventory(
   stacked = FALSE,
   table = NULL,
   all_name = "all",
+  dv_col = pt_opts$dv_col,
+  bq_col = pt_opts$bq_col,
+  id_col = pt_opts$id_col,
+  no_bql = FALSE,
   ...
 )
 }
@@ -36,6 +40,14 @@ and included in a single table (see examples)}
 examples)}
 
 \item{all_name}{a name to use for the complete data summary}
+
+\item{dv_col}{character name of \code{DV} column}
+
+\item{bq_col}{character name of \code{BQL} column}
+
+\item{id_col}{character name of \code{ID} column}
+
+\item{no_bql}{if \code{TRUE}, the BQL summary is bypassed}
 
 \item{...}{other arguments passed to \link{data_inventory_chunk}}
 }
