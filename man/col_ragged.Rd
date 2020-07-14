@@ -18,7 +18,7 @@ col_ragged(
 
 \item{ragged}{use \code{right} to left justify and \code{left} to right justify}
 
-\item{type}{column type}
+\item{coltype}{column type}
 }
 \description{
 Format a table cell with fixed width

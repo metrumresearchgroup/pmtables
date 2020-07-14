@@ -7,7 +7,14 @@
 \alias{cols_right}
 \title{Set table column alignment}
 \usage{
-cols_align(.default = c("l", "c", "r"), ..., .complete = NULL)
+cols_align(
+  .default = c("l", "c", "r"),
+  ...,
+  .rt = NULL,
+  .cent = NULL,
+  .lt = NULL,
+  .complete = NULL
+)
 
 cols_center(...)
 
@@ -20,6 +27,15 @@ cols_right(...)
 
 \item{...}{exceptions to use from \code{default}; each argument should be named
 by a column in the data set; values should be either "l", "c", or "r"}
+
+\item{.rt}{column names as character vector or comma separated string
+to right justify}
+
+\item{.cent}{column names as character vector or comma separated string
+to center}
+
+\item{.lt}{column names as character vector or comma separated string
+to right justify}
 
 \item{.complete}{not used}
 }

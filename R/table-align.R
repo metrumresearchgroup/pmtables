@@ -4,19 +4,25 @@
 #' @param .default the default column alignment
 #' @param ... exceptions to use from `default`; each argument should be named
 #' by a column in the data set; values should be either "l", "c", or "r"
+#' @param .rt column names as character vector or comma separated string
+#' to right justify
+#' @param .cent column names as character vector or comma separated string
+#' to center
+#' @param .lt column names as character vector or comma separated string
+#' to right justify
 #' @param .complete not used
 #'
 #' @export
 cols_align <- function(.default  = c("l", "c", "r"), ...,
-                       .right = NULL, .center = NULL, .left = NULL,
+                       .rt = NULL, .cent = NULL, .lt = NULL,
                        .complete = NULL) {
 
   .default <- match.arg(.default)
 
   to_update <- list(...)
-  to_update <- align_update(to_update, .right,"r")
-  to_update <- align_update(to_update,  .left,"l")
-  to_update <- align_update(to_update,.center,"c")
+  to_update <- align_update(to_update, .rt,  "r")
+  to_update <- align_update(to_update, .lt,  "l")
+  to_update <- align_update(to_update, .cent,"c")
 
   ans <- list(
     complete = .complete,
@@ -58,7 +64,7 @@ cols_right <- function(...) {
 #' @param size the width of the cell
 #' @param unit to go with `size`
 #' @param ragged use `right` to left justify and `left` to right justify
-#' @param type column type
+#' @param coltype column type
 #'
 #' @export
 col_ragged <- function(size, unit = "cm", ragged = c("right","left"),

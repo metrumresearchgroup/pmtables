@@ -31,8 +31,6 @@ to the bottom of the table}
 examples)}
 
 \item{wide}{if \code{TRUE} the table will be rendered in a wide format}
-
-\item{...}{other arguments passed to \link{pt_cat_long} or \link{pt_cat_wide}}
 }
 \description{
 Discrete covariate table by study

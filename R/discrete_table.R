@@ -215,7 +215,6 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 #' @param table a named list to use for renaming columns (see details and
 #' examples)
 #' @param wide if `TRUE` the table will be rendered in a wide format
-#' @param ... other arguments passed to [pt_cat_long] or [pt_cat_wide]
 #'
 #' @examples
 #'
