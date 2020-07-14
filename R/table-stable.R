@@ -9,10 +9,46 @@ stretch_start <- "{\\def\\arraystretch{<row_stretch>}\\tabcolsep=<tab_sep>pt"
 stretch_end <- "}"
 
 
-
+#' Create tabular output from an R data frame
+#'
+#' @param data a data.frame to convert to tabular table
+#' @param align an alignment object created by [cols_align], [cols_left],
+#' [cols_center], or [cols_right]
+#' @param units a named list with unit information; names should correspond to
+#' columns in the data frame
+#' @param rm_dups character vector of column names where duplicate values will
+#' be made blank (overwritten with `""`)
+#' @param span a list of objects created with [colgroup]
+#' @param span_split not implemented at this time
+#' @param span_split_level not implemented at this time
+#' @param notes a character vector of notes to include at the foot of the table;
+#' use `r_file` and `output_file` for source code and output file annotations
+#' @param hline_at logical or integer vector specifying rows above which an
+#' `\hline` will be placed
+#' @param hline_from a character column name from which to separate the table
+#' with `\hline`; non-duplicated values of `hline_from` will be used to create
+#' the split
+#' @param sumrows an object created with [sumrow]; identifies summary rows
+#' and adds styling
+#' @param bold_cols if `TRUE`, table column names are rendered with bold font
+#' @param col_rename a `name = value` character vector to translate column names
+#' to table names
+#' @param col_replace a character vector with the same length as the number of
+#' output table columns; use this to completely replace the names (as opposed
+#' to one by on editing with `col_rename`)
+#' @param row_stretch increase or decrease spacing between rows
+#' @param tab_sep set column padding level
+#' @param note_sp separation for table notes
+#' @param r_file the name of the R file containg code to generate the table; the
+#' file name will be included in the notes in the table footer
+#' @param r_file_label prefix text for `r_file` note
+#' @param output_file the name of the output file where the table text will be
+#' saved; the file name will be included in the notes in the table footer
+#' @param output_file_label prefix text for `output_file` note
+#'
 #' @export
 stable <- function(data,
-                   align = 'l',
+                   align = cols_left(),
                    panel = NULL,
                    units = NULL,
                    rm_dups = NULL,
@@ -22,11 +58,11 @@ stable <- function(data,
                    notes = NULL,
                    hline_at = NULL,
                    hline_from = NULL,
+                   sumrows = NULL,
                    bold_cols = missing(panel),
                    col_rename = NULL,
                    col_replace = NULL,
-                   gather = FALSE,
-                   row_stretch = 1,
+                   row_stretch = 1.4,
                    tab_sep = 5,
                    note_sp = 0.1,
                    r_file = NULL,
@@ -34,10 +70,15 @@ stable <- function(data,
                    output_file = NULL,
                    output_file_label = getOption("out.file.label","source file")) {
 
+  assert_that(is.data.frame(data))
+
   if(missing(panel) && (length(group_vars(data)) > 0)) {
     panel <- group_vars(data)[1]
     panel <- sym(panel)
   }
+
+  if(inherits(sumrows, "sumrow")) sumrows <- list(sumrows)
+  if(!is.null(sumrows)) assert_that(is.list(sumrows))
 
   add_hlines <- NULL
 
@@ -56,6 +97,15 @@ stable <- function(data,
     }
   }
 
+  if(!is.null(sumrows)) {
+    hline_sums <- map(sumrows, sumrow_get_hline)
+    hline_sums <- flatten_int(hline_sums)-1
+    add_hlines <- c(add_hlines, hline_sums)
+
+    for(this_sumrow in sumrows) {
+      data <- sumrow_add_style(this_sumrow,data)
+    }
+  }
 
   if(is.character(rm_dups)) {
     if(!missing(panel)) {
@@ -94,8 +144,10 @@ stable <- function(data,
   do_span_split <- is.character(span_split)
   spans_from_split <- NULL
   if(do_span_split) {
-    spans <- find_span_split(cols,sep = span_split, gather = gather,
-                             level = span_split_level)
+    spans <- find_span_split(
+      cols,sep = span_split, gather = FALSE,
+      level = span_split_level
+    )
     if(isTRUE(spans$any)) {
       data <- data[,spans$recol]
       cols <- spans$data$newcol
@@ -130,13 +182,17 @@ stable <- function(data,
   }
 
   units <- form_unit(units,names(data))
-  cols <- form_cols(cols, bold = bold_cols,
-                    relabel = enquo(col_rename), units = units)
 
-  if(length(align)==1L && nchar(align) == 1L) {
-    align <- rep(align,nc)
-    align <- paste0(align, collapse="")
-  }
+  cols <- form_cols(
+    cols,
+    bold = bold_cols,
+    relabel = enquo(col_rename),
+    units = units
+  )
+
+  align <- form_align(align,names(data))
+  assert_that(length(align)==ncol(data))
+  align <- paste0(align,collapse="")
 
   if(is.character(r_file)) {
     r_note <- paste(r_file_label, basename(r_file))
@@ -152,7 +208,7 @@ stable <- function(data,
 
   if(!is.null(add_hlines)) {
     add_hlines <- sort(unique(add_hlines))
-    tab[add_hlines] <- paste0(tab[add_hlines], "\\hline")
+    tab[add_hlines] <- paste0(tab[add_hlines], " \\hline")
   }
 
   if(do_panel) {
@@ -161,22 +217,22 @@ stable <- function(data,
 
   open <- form_open(align)
 
-  if(!is.null(notes)) notes <- form_notes(notes, note_sp)
+  if(!is.null(notes)) {
+    notes <- form_notes(notes, note_sp)
+  }
 
   stretch_start <- gluet(stretch_start)
-  #stretch_start <- gluet("{\\renewcommand*{\\arraystretch}{<row_stretch>}")
 
   tab <- c(
     stretch_start,
     start_tpt,
-
     open,
-    hl,
+    "\\hline",
     all_span_tex,
     cols,
-    hl,
+    "\\hline",
     tab,
-    hl,
+    "\\hline",
     "\\end{tabular}",
     notes,
     end_tpt,

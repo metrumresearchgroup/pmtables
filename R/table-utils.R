@@ -1,6 +1,17 @@
+#' Save output from stable
+#'
+#' @param x a table formatted with [stable]
+#'
+#' @export
 stable_save <- function(x) {
   file <- attr(x, "stable_file")
-  if(is.null(file)) stop()
+  if(is.null(file)) {
+    stop(
+      "bad input - there is no stable_file attribute; ",
+      "maybe this object was corrupted or it wasn't generated from 'stable()'",
+      call.=FALSE
+    )
+  }
   writeLines(text = x, con = file)
 }
 
@@ -15,6 +26,10 @@ insrt_vec <- function(vec, nw, where) {
 
 chunk_runs <- function(x) {
   cumsum(x != c(x[1], x[-length(x)]))+1
+}
+
+blank_each <- function(x) {
+  rep("", length(x))
 }
 
 bold_each <- function(x) {

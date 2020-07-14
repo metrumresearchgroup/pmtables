@@ -1,5 +1,5 @@
 
-make_tabular <- function(data,indent = NULL) {
+make_tabular <- function(data, indent = NULL) {
   tab <- modify(data, function(x) {
     formatC(x, width = max(nchar(x)))
   })
@@ -13,8 +13,7 @@ make_tabular <- function(data,indent = NULL) {
   tab
 }
 
-form_cols <- function(cols, bold = FALSE, relabel = NULL,
-                      units = NULL) {
+form_cols <- function(cols, bold = FALSE, relabel = NULL, units = NULL) {
   if(!is.null(relabel)) {
     names(cols) <- cols
     col_rename <- eval_rename(relabel,data = cols)
@@ -45,5 +44,3 @@ form_unit <- function(units, cols) {
 form_open <- function(align) {
   paste0("\\begin{tabular}[h]{", align, "}")
 }
-
-

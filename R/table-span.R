@@ -1,9 +1,21 @@
+
+#' Set spans to group columns
+#'
+#' @param title label for groups of columns
+#' @param vars tidyselect specification of variables
+#' @param level relative position for the grouping spanner; level 0 is the
+#' column names; level 1 is one step away (up) from the column names, etc
+#' @param set not implemented yet
+#'
+#' @return an object with class `colgroup`
 #' @export
-colgroup <- function(title, vars = c(), level = 1,sep=NULL) {
+colgroup <- function(title, vars = c(), level = 1, sep = NULL) {
   ans <- list(title = title, level = level, vars = enquo(vars),sep = sep)
   structure(ans, class = "colgroup")
 }
 
+#' @rdname colgroup
+#' @export
 is.colgroup <- function(x) inherits(x,"colgroup")
 
 process_colgroup <- function(x,cols) {

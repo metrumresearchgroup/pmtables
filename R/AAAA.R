@@ -6,7 +6,7 @@
 #' @importFrom purrr map_dfr walk partial map map_chr modify flatten_chr
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill
 #' @importFrom forcats fct_inorder
-#' @importFrom rlang sym syms quo_get_expr as_string := .data .env
+#' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
 #' @importFrom glue glue
 #' @importFrom tibble tibble as_tibble
 #' @importFrom stats median rnorm sd na.omit
