@@ -1,5 +1,7 @@
 test\.Rmd
 test\.html
+test\.pdf
+test\.log
 test\.R
 reprex\.R
 ^.*\.Rproj$
