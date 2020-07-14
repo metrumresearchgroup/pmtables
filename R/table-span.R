@@ -5,7 +5,7 @@
 #' @param vars tidyselect specification of variables
 #' @param level relative position for the grouping spanner; level 0 is the
 #' column names; level 1 is one step away (up) from the column names, etc
-#' @param set not implemented yet
+#' @param sep not implemented yet
 #'
 #' @return an object with class `colgroup`
 #' @export
@@ -15,6 +15,7 @@ colgroup <- function(title, vars = c(), level = 1, sep = NULL) {
 }
 
 #' @rdname colgroup
+#' @param x an R object
 #' @export
 is.colgroup <- function(x) inherits(x,"colgroup")
 
@@ -24,7 +25,7 @@ process_colgroup <- function(x,cols) {
   ans <-
     tibble(
       coln = eval_select(x$vars, data = cols),
-      col = names(cols)[coln],
+      col = names(cols)[.data[["coln"]]],
       newcol = col,
       title = x$title
     )
@@ -35,9 +36,20 @@ process_colgroup <- function(x,cols) {
 fill_nospan <- function(span,cols) {
   nc <- length(cols)
   row_fill <- setdiff(seq(nc), span$coln)
-  tbl <- tibble(coln = row_fill, col = cols[coln], newcol=col, title = "")
-  ans <- bind_rows(span,tbl) %>% arrange(coln)
-  ans <- mutate(ans, flg = chunk_runs(title), align = 'c',level=span$level[1])
+  tbl <- tibble(
+    coln = row_fill,
+    col = cols[.data[["coln"]]],
+    newcol = col,
+    title = ""
+  )
+  ans <- bind_rows(span,tbl)
+  ans <- arrange(ans,.data[["coln"]])
+  ans <- mutate(
+    ans,
+    flg = chunk_runs(.data[["title"]]),
+    align = 'c',
+    level=span$level[1]
+  )
   ans
 }
 
@@ -48,10 +60,12 @@ make_span_tex <- function(span) {
 
 combine_spans <- function(..., cols) {
   all_spans <- bind_rows(...)
-  all_spans <- filter(all_spans, title != "")
-  all_spans <- arrange(all_spans,level,coln)
-  all_spans <- arrange(all_spans, level, coln, title)
-  all_spans <- ungroup(distinct(group_by(all_spans,level), coln, .keep_all = TRUE))
+  all_spans <- filter(all_spans, .data[["title"]] != "")
+  #all_spans <- arrange(all_spans, .data[["level"]], .data[["coln"]])
+  all_spans <- arrange(all_spans,  .data[["level"]], .data[["coln"]], .data[["title"]])
+  all_spans <- group_by(all_spans, .data[["level"]])
+  all_spans <- distinct(all_spans, .data[["coln"]], .keep_all = TRUE)
+  all_spans <- ungroup(all_spans)
   all <- split(all_spans, all_spans$level)
   all <- map(all, fill_nospan, cols = cols)
   all
@@ -65,15 +79,20 @@ find_span_split <- function(cols,sep = ".",gather = FALSE,level = 1) {
     col = cols,
     newcol = map_chr(x,last),
     title  = map_chr(x,1),
-    titlef = fct_inorder(title)
+    titlef = fct_inorder(.data[["title"]])
   )
-  if(gather) spans <- arrange(spans, titlef)
-  spans <- mutate(spans, title = ifelse(col == newcol, "", title), align='c')
-  spans <- mutate(spans, flg = chunk_runs(title),titlef=NULL)
+  if(gather) spans <- arrange(spans, .data[["titlef"]])
+  spans <- mutate(
+    spans,
+    title = ifelse(col == .data[["newcol"]], "", .data[["title"]]),
+    align='c'
+  )
+  spans <- mutate(spans, flg = chunk_runs(.data[["title"]]))
+  spans[["titlef"]] <- NULL
   spandf <- spans
   recol <- spandf$coln
   spandf <- mutate(spandf,coln = seq_len(n()),level=level)
-  spans <- filter(spans, col != newcol)
+  spans <- filter(spans, .data[["col"]] != .data[["newcol"]])
   spans <- unname(split(spans, spans$flg))
   spans <- map(spans, ~ c(.x$title[1],.x$col[1],.x$col[nrow(.x)]))
   resort <- !identical(spandf$coln,seq_len(nrow(spandf)))
@@ -101,7 +120,7 @@ form_span_tex <- function(spans) {
 }
 
 form_cline_tex <- function(spans) {
-  spans <- filter(spans, nchar(title) > 0)
+  spans <- filter(spans, nchar(.data[["title"]]) > 0)
   spans <- split(spans, spans$flg)
   clin <- vector("list", length(spans))
 

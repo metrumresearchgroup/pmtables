@@ -14,6 +14,8 @@ stretch_end <- "}"
 #' @param data a data.frame to convert to tabular table
 #' @param align an alignment object created by [cols_align], [cols_left],
 #' [cols_center], or [cols_right]
+#' @param panel character column name to use to section the table; sections will
+#' be created from unique values of `data[[panel]]`
 #' @param units a named list with unit information; names should correspond to
 #' columns in the data frame
 #' @param rm_dups character vector of column names where duplicate values will
@@ -39,6 +41,7 @@ stretch_end <- "}"
 #' @param row_stretch increase or decrease spacing between rows
 #' @param tab_sep set column padding level
 #' @param note_sp separation for table notes
+#' @param fontsize for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
 #' @param r_file the name of the R file containg code to generate the table; the
 #' file name will be included in the notes in the table footer
 #' @param r_file_label prefix text for `r_file` note
@@ -65,6 +68,7 @@ stable <- function(data,
                    row_stretch = 1.4,
                    tab_sep = 5,
                    note_sp = 0.1,
+                   fontsize = NULL,
                    r_file = NULL,
                    r_file_label = getOption("r.file.label","source code:"),
                    output_file = NULL,
@@ -190,9 +194,9 @@ stable <- function(data,
     units = units
   )
 
-  align <- form_align(align,names(data))
-  assert_that(length(align)==ncol(data))
-  align <- paste0(align,collapse="")
+  align_tex <- form_align(align,names(data))
+  assert_that(length(align_tex)==ncol(data))
+  align_tex <- paste0(align_tex,collapse="")
 
   if(is.character(r_file)) {
     r_note <- paste(r_file_label, basename(r_file))
@@ -215,7 +219,7 @@ stable <- function(data,
     tab <- insrt_vec(tab, ins$to_insert, where = ins$where)
   }
 
-  open <- form_open(align)
+  open <- form_open(align_tex)
 
   if(!is.null(notes)) {
     notes <- form_notes(notes, note_sp)
@@ -223,7 +227,14 @@ stable <- function(data,
 
   stretch_start <- gluet(stretch_start)
 
+  text <- list()
+  if(is.character(fontsize)) {
+    text$start <- paste0("{\\", fontsize)
+    text$end <- "}"
+  }
+
   tab <- c(
+    text$start,
     stretch_start,
     start_tpt,
     open,
@@ -236,7 +247,8 @@ stable <- function(data,
     "\\end{tabular}",
     notes,
     end_tpt,
-    stretch_end
+    stretch_end,
+    text$end
   )
   tab <- structure(tab, stable_file = output_file)
   tab

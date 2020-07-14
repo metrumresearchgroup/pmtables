@@ -1,4 +1,16 @@
-
+#' Identify and style summary rows
+#'
+#' @param rows integer or logical vector of rows that are summary rows
+#' @param col integer or character (name) column location that labels the
+#' summary row
+#' @param hline logical; if `TRUE`, a horizontal line will be placed above the summary
+#' row
+#' @param bold logical; if `TRUE`, then the cell(s) identified by `rows` and
+#' `col` will be rendered in bold font
+#' @param blank integer column positions in the summary row(s) to be made blank
+#' @param label character label to replace text in cell(s) marked by `row(s)`
+#' and `col
+#'
 #' @export
 sumrow <- function(rows,
                    col = 1,

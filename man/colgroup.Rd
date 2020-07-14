@@ -17,7 +17,9 @@ is.colgroup(x)
 \item{level}{relative position for the grouping spanner; level 0 is the
 column names; level 1 is one step away (up) from the column names, etc}
 
-\item{set}{not implemented yet}
+\item{sep}{not implemented yet}
+
+\item{x}{an R object}
 }
 \value{
 an object with class \code{colgroup}

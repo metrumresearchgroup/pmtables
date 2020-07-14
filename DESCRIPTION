@@ -7,7 +7,7 @@ Maintainer: The package maintainer <yourself@somewhere.net>
 Description: Create tables that are commonly used in pharamcometrics analyses.
 License: GPL (>=2)
 Imports: purrr, dplyr, forcats, tidyr, rlang, mrggt, glue, tibble, assertthat, 
-    tidyselect
+    tidyselect, stringr
 Depends: R (>= 3.5.0)
 Suggests: testthat, knitr, yaml
 Encoding: UTF-8

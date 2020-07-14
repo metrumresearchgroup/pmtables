@@ -23,6 +23,7 @@ stable(
   row_stretch = 1.4,
   tab_sep = 5,
   note_sp = 0.1,
+  fontsize = NULL,
   r_file = NULL,
   r_file_label = getOption("r.file.label", "source code:"),
   output_file = NULL,
@@ -34,6 +35,9 @@ stable(
 
 \item{align}{an alignment object created by \link{cols_align}, \link{cols_left},
 \link{cols_center}, or \link{cols_right}}
+
+\item{panel}{character column name to use to section the table; sections will
+be created from unique values of \code{data[[panel]]}}
 
 \item{units}{a named list with unit information; names should correspond to
 columns in the data frame}
@@ -74,6 +78,8 @@ to one by on editing with \code{col_rename})}
 \item{tab_sep}{set column padding level}
 
 \item{note_sp}{separation for table notes}
+
+\item{fontsize}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
 
 \item{r_file}{the name of the R file containg code to generate the table; the
 file name will be included in the notes in the table footer}

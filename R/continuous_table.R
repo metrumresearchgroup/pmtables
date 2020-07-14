@@ -175,7 +175,7 @@ pt_cont_wide <- function(data, cols,
   }
 
   out <- tab_stubhead(out,"Variable")
-  out <- cols_align(out,"right")
+  #out <- cols_align(out,"right")
 
   if(is.list(table)) {
     out <-
@@ -288,7 +288,7 @@ pt_cont_long <- function(data,
 
   out <- cols_label(out, outer = names(by)[1])
   out <- tab_stubhead(out,"Variable")
-  out <- cols_align(out,"right")
+  #out <- cols_align(out,"right")
 
   if(exists("Min..Max", ans)) {
     out <- cols_label(out, Min..Max = "Min / Max")
