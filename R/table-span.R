@@ -9,14 +9,13 @@
 #'
 #' @return an object with class `colgroup`
 #' @export
-colgroup <- function(title=NULL, vars = c(), level = 1, sep = ".", split = FALSE) {
+colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE) {
 
   if(isTRUE(split)) {
-    assert_that(is.null(title) || is.list(title))
-    if(!is.null(title)) assert_that(is_named(title))
-  } else {
-    assert_that(is.character(title))
+    return(colsplit(title = title, level = level, sep = sep, split = TRUE))
   }
+
+  assert_that(is.character(title))
 
   ans <- list(
     title = title,
@@ -33,10 +32,20 @@ colgroup <- function(title=NULL, vars = c(), level = 1, sep = ".", split = FALSE
 #' @param split logical; if `TRUE` column groupings will be determined by
 #' splitting columns names on a separator
 #' @param sep character; the separator used for finding column groupings
-#' @param ... arguments passed to [colgroup]
 #' @export
-colsplit <- function(title, level = 1, split = TRUE, sep = ".", ...) {
-  colgroup(title = title, level = level, split = split, sep = sep, ...)
+colsplit <- function(sep, level = 1, split = TRUE, title = NULL) {
+  assert_that(is.null(title) || is.list(title))
+  if(!is.null(title)) assert_that(is_named(title))
+  structure(
+    list(
+      title = title,
+      level = level,
+      split = split,
+      sep = sep,
+      gather = FALSE
+    ),
+    class = "colsplit"
+  )
 }
 
 
@@ -44,6 +53,9 @@ colsplit <- function(title, level = 1, split = TRUE, sep = ".", ...) {
 #' @param x an R object
 #' @export
 is.colgroup <- function(x) inherits(x,"colgroup")
+#' @rdname colgroup
+#' @export
+is.colsplit <- function(x) inherits(x,"colsplit")
 
 process_colgroup <- function(x,cols) {
   nc <- length(cols)

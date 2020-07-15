@@ -27,3 +27,7 @@ check:
 	R CMD check $(TARBALL)
 pkgdown:
 	Rscript -e "options(pkdown.internet = FALSE); pkgdown::build_site()"
+
+data:
+	Rscript inst/script/data.R
+	Rscript inst/script/data-tabular.R

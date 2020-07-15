@@ -19,10 +19,12 @@ stable(
   bold_cols = missing(panel),
   col_rename = NULL,
   col_replace = NULL,
-  row_stretch = 1.4,
-  tab_sep = 5,
-  note_sp = 0.1,
+  row_space = 1.4,
+  col_space = 5,
+  note_space = 0.1,
   fontsize = NULL,
+  prime_fun = tab_prime,
+  escape_fun = tab_escape,
   r_file = NULL,
   r_file_label = getOption("r.file.label", "source code:"),
   output_file = NULL,
@@ -70,13 +72,19 @@ to table names}
 output table columns; use this to completely replace the names (as opposed
 to one by on editing with \code{col_rename})}
 
-\item{row_stretch}{increase or decrease spacing between rows}
+\item{row_space}{relative increase or decrease spacing between rows; use
+\verb{row_space > <default>} to increase}
 
-\item{tab_sep}{set column padding level}
+\item{col_space}{absolute column spacing amount (\code{pt})}
 
-\item{note_sp}{separation for table notes}
+\item{note_space}{separation for table notes}
 
 \item{fontsize}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
+
+\item{prime_fun}{function to prime the data frame to be converted to tabular}
+
+\item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
+data}
 
 \item{r_file}{the name of the R file containg code to generate the table; the
 file name will be included in the notes in the table footer}

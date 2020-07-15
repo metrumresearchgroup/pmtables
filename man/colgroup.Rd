@@ -4,13 +4,16 @@
 \alias{colgroup}
 \alias{colsplit}
 \alias{is.colgroup}
+\alias{is.colsplit}
 \title{Set spans to group columns}
 \usage{
 colgroup(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE)
 
-colsplit(title, level = 1, split = TRUE, sep = ".", ...)
+colsplit(sep, level = 1, split = TRUE, title = NULL)
 
 is.colgroup(x)
+
+is.colsplit(x)
 }
 \arguments{
 \item{title}{label for groups of columns}
@@ -24,8 +27,6 @@ column names; level 1 is one step away (up) from the column names, etc}
 
 \item{split}{logical; if \code{TRUE} column groupings will be determined by
 splitting columns names on a separator}
-
-\item{...}{arguments passed to \link{colgroup}}
 
 \item{x}{an R object}
 }

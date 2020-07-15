@@ -31,6 +31,7 @@ Collate:
     'table-functions.R'
     'table-notes.R'
     'table-panel.R'
+    'table-prime.R'
     'table-span.R'
     'table-stable.R'
     'table-sumrow.R'

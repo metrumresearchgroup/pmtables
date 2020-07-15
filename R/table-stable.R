@@ -4,9 +4,8 @@ end_tpt <- "\\end{threeparttable}"
 begin_tn <- "\\begin{tablenotes}[flushleft]"
 end_tn <- "\\end{tablenotes}"
 hl <- "\\hline"
-note_sp <- 0.1
-stretch_start <- "{\\def\\arraystretch{<row_stretch>}\\tabcolsep=<tab_sep>pt"
-stretch_end <- "}"
+note_space <- 0.1
+
 
 
 #' Create tabular output from an R data frame
@@ -37,10 +36,14 @@ stretch_end <- "}"
 #' @param col_replace a character vector with the same length as the number of
 #' output table columns; use this to completely replace the names (as opposed
 #' to one by on editing with `col_rename`)
-#' @param row_stretch increase or decrease spacing between rows
-#' @param tab_sep set column padding level
-#' @param note_sp separation for table notes
+#' @param row_space relative increase or decrease spacing between rows; use
+#' `row_space > <default>` to increase
+#' @param col_space absolute column spacing amount (`pt`)
+#' @param note_space separation for table notes
 #' @param fontsize for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
+#' @param prime_fun function to prime the data frame to be converted to tabular
+#' @param escape_fun a function passed to `prime_fun` that will sanitize column
+#' data
 #' @param r_file the name of the R file containg code to generate the table; the
 #' file name will be included in the notes in the table footer
 #' @param r_file_label prefix text for `r_file` note
@@ -63,10 +66,12 @@ stable <- function(data,
                    bold_cols = missing(panel),
                    col_rename = NULL,
                    col_replace = NULL,
-                   row_stretch = 1.4,
-                   tab_sep = 5,
-                   note_sp = 0.1,
+                   row_space = 1.4,
+                   col_space = 5,
+                   note_space = 0.1,
                    fontsize = NULL,
+                   prime_fun = tab_prime,
+                   escape_fun = tab_escape,
                    r_file = NULL,
                    r_file_label = getOption("r.file.label","source code:"),
                    output_file = NULL,
@@ -130,9 +135,14 @@ stable <- function(data,
   do_panel <- FALSE
   panel_prefix <- ""
   if(!missing(panel)) {
-    paneln <- tidyselect::eval_select(enquo(panel),data = data)
-    panel <- names(data)[paneln[1]]
-    panel_prefix <- names(paneln)[1]
+    panel <- new_names(panel)
+    assert_that(length(panel)==1)
+    paneln <- match(panel,names(data))
+    if(any(is.na(paneln))) {
+      stop("panel column not found: ", sQuote(panel), call.=FALSE)
+    }
+    panel_prefix <- names(panel)[1]
+    if(substr(panel_prefix,1,1)=='.') panel_prefix <- character(0)
     require_col(data,panel,context = "panel column input name")
     ins <- panel_by(data,panel,prefix = panel_prefix)
     data[[panel]] <- NULL
@@ -143,7 +153,7 @@ stable <- function(data,
   nr <- nrow(data)
   cols <- colnames(data)
 
-  do_span_split <- is.colgroup(span_split)
+  do_span_split <- is.colsplit(span_split)
   spans_from_split <- NULL
   if(do_span_split) {
     spans <- find_span_split(cols,span_split)
@@ -185,7 +195,7 @@ stable <- function(data,
   cols <- form_cols(
     cols,
     bold = bold_cols,
-    relabel = enquo(col_rename),
+    relabel = col_rename,
     units = units
   )
 
@@ -193,15 +203,24 @@ stable <- function(data,
   assert_that(length(align_tex)==ncol(data))
   align_tex <- paste0(align_tex,collapse="")
 
+  r_note <- NULL
+  out_note <- NULL
+
   if(is.character(r_file)) {
     r_note <- paste(r_file_label, basename(r_file))
-    notes <- c(notes,r_note)
   }
 
   if(is.character(output_file)) {
     out_note <- paste(output_file_label,basename(output_file))
-    notes <- c(notes,out_note)
   }
+
+  notes <- c(notes, r_note, out_note)
+
+  if(is.character(prime_fun)) prime_fun <- get(prime_fun, mode = "function")
+  if(is.character(escape_fun)) escape_fun <- get(escape_fun, mode = "function")
+  assert_that(is.function(prime_fun))
+  assert_that(is.function(escape_fun))
+  data <- prime_fun(data, escape_fun)
 
   tab <- make_tabular(data)
 
@@ -214,25 +233,27 @@ stable <- function(data,
     tab <- insrt_vec(tab, ins$to_insert, where = ins$where)
   }
 
-  open <- form_open(align_tex)
+  open_tabular <- form_open(align_tex)
 
   if(!is.null(notes)) {
-    notes <- form_notes(notes, note_sp)
+    notes <- form_notes(notes, note_space)
   }
 
+  stretch_start <- "{\\def\\arraystretch{<row_space>}\\tabcolsep=<col_space>pt"
+  stretch_end <- "}"
   stretch_start <- gluet(stretch_start)
 
-  text <- list()
+  font_size <- list()
   if(is.character(fontsize)) {
-    text$start <- paste0("{\\", fontsize)
-    text$end <- "}"
+    font_size$start <- paste0("{\\", fontsize)
+    font_size$end <- "}"
   }
 
   tab <- c(
-    text$start,
+    font_size$start,
     stretch_start,
     start_tpt,
-    open,
+    open_tabular,
     "\\hline",
     all_span_tex,
     cols,
@@ -243,7 +264,7 @@ stable <- function(data,
     notes,
     end_tpt,
     stretch_end,
-    text$end
+    font_size$end
   )
   tab <- structure(tab, stable_file = output_file)
   tab

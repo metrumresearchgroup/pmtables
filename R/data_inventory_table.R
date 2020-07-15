@@ -344,16 +344,6 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   gt_opts_(out)
 }
 
-# data_inventory_stacked <- function(data,inner,stack_by,...) {
-#   pt_data_inventory(
-#     data,
-#     by = outer,
-#     inner = inner,
-#     inner_summary = FALSE,
-#     stacked = TRUE,
-#     ...
-#   )
-# }
 
 to_html <- function(x) {
   if(interactive()) return(x)

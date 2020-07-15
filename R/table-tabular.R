@@ -15,10 +15,12 @@ make_tabular <- function(data, indent = NULL) {
 
 form_cols <- function(cols, bold = FALSE, relabel = NULL, units = NULL) {
   if(!is.null(relabel)) {
-    names(cols) <- cols
-    col_rename <- eval_rename(relabel,data = cols)
-    cols[col_rename] <- names(col_rename)
-    unname(cols)
+    relabel <- new_names(relabel)
+    relabel <- relabel[relabel %in% cols]
+    newi <- match(cols, relabel)
+    loc <- which(!is.na(newi))
+    cols[loc] <- names(relabel)
+    cols <- unname(cols)
   }
   if(isTRUE(bold)) cols <- bold_each(cols)
   cols <- paste0(cols, collapse = " & ")
@@ -33,12 +35,15 @@ form_cols <- function(cols, bold = FALSE, relabel = NULL, units = NULL) {
 
 form_unit <- function(units, cols) {
   if(is.null(units)) return(NULL)
-  unit <- vector(mode = "character", length = length(cols))
+  ans <- vector(mode = "character", length = length(cols))
+  units <- units[names(units) %in% cols]
+  if(length(units)==0) return(ans)
   i <- match(names(units),cols)
-  unit[i] <- units
-  unit <- paste0(unit, collapse = " & ")
-  unit <- paste0(unit, " \\\\ ")
-  unit
+  i <- i[!is.na(i)]
+  ans[i] <- units
+  ans <- paste0(ans, collapse = " & ")
+  ans <- paste0(ans, " \\\\ ")
+  ans
 }
 
 form_open <- function(align) {

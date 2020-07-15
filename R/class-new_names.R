@@ -14,6 +14,18 @@ new_names.character <- function(x,table=NULL,...) {
   names(ans) <- ans
   new_names_update_table(ans,table)
 }
+
+new_names.list <- function(x,...) {
+  assert_that(is_named(x))
+  if(any(duplicated(names(x)))) {
+    stop("duplicated names", call.=FALSE)
+  }
+  labels <- names(x)
+  ans <- map_chr(x,~ as.character(.x[1]))
+  names(ans) <- labels
+  new_names.character(ans)
+}
+
 #' @export
 new_names.quosures <- function(x,table=NULL,chr=FALSE,...) {
   x <- map(x,quo_get_expr)

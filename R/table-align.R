@@ -4,30 +4,30 @@
 #' @param .default the default column alignment
 #' @param ... exceptions to use from `default`; each argument should be named
 #' by a column in the data set; values should be either "l", "c", or "r"
-#' @param .rt column names as character vector or comma separated string
+#' @param .r column names as character vector or comma separated string
 #' to right justify
-#' @param .cent column names as character vector or comma separated string
+#' @param .c column names as character vector or comma separated string
 #' to center
-#' @param .lt column names as character vector or comma separated string
+#' @param .l column names as character vector or comma separated string
 #' to right justify
+#' @param  .coltype should be p, m, or b
 #' @param .complete not used
 #'
 #' @export
-cols_align <- function(.default  = c("l", "c", "r"), ...,
-                       .rt = NULL, .cent = NULL, .lt = NULL,
-                       .complete = NULL) {
-
-  .default <- match.arg(.default)
+cols_align <- function(.default = 'l', ...,
+                       .r = NULL, .c = NULL, .l = NULL,
+                       .coltype = 'p', .complete = NULL) {
 
   to_update <- list(...)
-  to_update <- align_update(to_update, .rt,  "r")
-  to_update <- align_update(to_update, .lt,  "l")
-  to_update <- align_update(to_update, .cent,"c")
+  to_update <- align_update(to_update, .r,  "r")
+  to_update <- align_update(to_update, .l,  "l")
+  to_update <- align_update(to_update, .c,  "c")
 
   ans <- list(
     complete = .complete,
     default = .default,
-    update = to_update
+    update = to_update,
+    coltype = .coltype
   )
   structure(ans, class = "aligncol")
 }
