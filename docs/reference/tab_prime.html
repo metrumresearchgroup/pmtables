@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a summary of endpoint data — data_inventory_data • pmtables</title>
+<title>Prime a data frame for inclusion into a latex table — tab_prime • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a summary of endpoint data — data_inventory_data" />
-<meta property="og:description" content="Create a summary of endpoint data" />
+<meta property="og:title" content="Prime a data frame for inclusion into a latex table — tab_prime" />
+<meta property="og:description" content="Prime a data frame for inclusion into a latex table" />
 
 
 
@@ -136,51 +136,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a summary of endpoint data</h1>
+    <h1>Prime a data frame for inclusion into a latex table</h1>
     
-    <div class="hidden name"><code>data_inventory_data.Rd</code></div>
+    <div class="hidden name"><code>tab_prime.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a summary of endpoint data</p>
+    <p>Prime a data frame for inclusion into a latex table</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_inventory_data</span>(
-  <span class='no'>data</span>,
-  <span class='no'>by</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>tab_prime</span>(<span class='no'>data</span>, <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>)
+
+<span class='fu'>tab_escape</span>(<span class='no'>string</span>, <span class='kw'>chrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"_"</span>, <span class='st'>"&amp;"</span>, <span class='st'>"#"</span>, <span class='st'>"%"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <td><p>a data frame</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>the outer grouping variable; may be character or quosure</p></td>
+      <th>escape_fun</th>
+      <td><p>a function to sanitize data frame contents</p></td>
     </tr>
     <tr>
-      <th>panel</th>
-      <td><p>the panel grouping variable; may be character or quosure</p></td>
+      <th>string</th>
+      <td><p>data to sanitize</p></td>
     </tr>
     <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
-    </tr>
-    <tr>
-      <th>stacked</th>
-      <td><p>if <code>TRUE</code>, then independent summaries are created by <code>outer</code>
-and included in a single table (see examples)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed to subsequent summary functions</p></td>
+      <th>chrs</th>
+      <td><p>a character vector of strings to escape</p></td>
     </tr>
     </table>
 

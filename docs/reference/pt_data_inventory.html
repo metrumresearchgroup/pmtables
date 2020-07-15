@@ -73,7 +73,7 @@ and missing observations and percentage of observations that are BQL." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9014</span>
       </span>
     </div>
 
@@ -156,6 +156,10 @@ and missing observations and percentage of observations that are BQL.</p>
   <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+  <span class='kw'>dv_col</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>dv_col</span>,
+  <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>bq_col</span>,
+  <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>id_col</span>,
+  <span class='kw'>no_bql</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -197,6 +201,22 @@ examples)</p></td>
     <tr>
       <th>all_name</th>
       <td><p>a name to use for the complete data summary</p></td>
+    </tr>
+    <tr>
+      <th>dv_col</th>
+      <td><p>character name of <code>DV</code> column</p></td>
+    </tr>
+    <tr>
+      <th>bq_col</th>
+      <td><p>character name of <code>BQL</code> column</p></td>
+    </tr>
+    <tr>
+      <th>id_col</th>
+      <td><p>character name of <code>ID</code> column</p></td>
+    </tr>
+    <tr>
+      <th>no_bql</th>
+      <td><p>if <code>TRUE</code>, the BQL summary is bypassed</p></td>
     </tr>
     <tr>
       <th>...</th>

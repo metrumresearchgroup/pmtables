@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a summary of endpoint data — data_inventory_data • pmtables</title>
+<title>Format a table cell with fixed width — col_ragged • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a summary of endpoint data — data_inventory_data" />
-<meta property="og:description" content="Create a summary of endpoint data" />
+<meta property="og:title" content="Format a table cell with fixed width — col_ragged" />
+<meta property="og:description" content="Format a table cell with fixed width" />
 
 
 
@@ -136,51 +136,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a summary of endpoint data</h1>
+    <h1>Format a table cell with fixed width</h1>
     
-    <div class="hidden name"><code>data_inventory_data.Rd</code></div>
+    <div class="hidden name"><code>col_ragged.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a summary of endpoint data</p>
+    <p>Format a table cell with fixed width</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_inventory_data</span>(
-  <span class='no'>data</span>,
-  <span class='no'>by</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'>col_ragged</span>(
+  <span class='no'>size</span>,
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>,
+  <span class='kw'>ragged</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>),
+  <span class='kw'>coltype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"p"</span>, <span class='st'>"m"</span>, <span class='st'>"b"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <th>size</th>
+      <td><p>the width of the cell</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>the outer grouping variable; may be character or quosure</p></td>
+      <th>unit</th>
+      <td><p>to go with <code>size</code></p></td>
     </tr>
     <tr>
-      <th>panel</th>
-      <td><p>the panel grouping variable; may be character or quosure</p></td>
+      <th>ragged</th>
+      <td><p>use <code>right</code> to left justify and <code>left</code> to right justify</p></td>
     </tr>
     <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
-    </tr>
-    <tr>
-      <th>stacked</th>
-      <td><p>if <code>TRUE</code>, then independent summaries are created by <code>outer</code>
-and included in a single table (see examples)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed to subsequent summary functions</p></td>
+      <th>coltype</th>
+      <td><p>column type</p></td>
     </tr>
     </table>
 

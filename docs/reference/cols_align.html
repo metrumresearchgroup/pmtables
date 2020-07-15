@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a summary of endpoint data — data_inventory_data • pmtables</title>
+<title>Set table column alignment — cols_align • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a summary of endpoint data — data_inventory_data" />
-<meta property="og:description" content="Create a summary of endpoint data" />
+<meta property="og:title" content="Set table column alignment — cols_align" />
+<meta property="og:description" content="Set table column alignment" />
 
 
 
@@ -136,51 +136,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a summary of endpoint data</h1>
+    <h1>Set table column alignment</h1>
     
-    <div class="hidden name"><code>data_inventory_data.Rd</code></div>
+    <div class="hidden name"><code>cols_align.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a summary of endpoint data</p>
+    <p>Set table column alignment</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_inventory_data</span>(
-  <span class='no'>data</span>,
-  <span class='no'>by</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>cols_align</span>(
+  <span class='kw'>.default</span> <span class='kw'>=</span> <span class='st'>"l"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.c</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.l</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.coltype</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
+  <span class='kw'>.complete</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
+
+<span class='fu'>cols_center</span>(<span class='no'>...</span>)
+
+<span class='fu'>cols_left</span>(<span class='no'>...</span>)
+
+<span class='fu'>cols_right</span>(<span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
-    </tr>
-    <tr>
-      <th>by</th>
-      <td><p>the outer grouping variable; may be character or quosure</p></td>
-    </tr>
-    <tr>
-      <th>panel</th>
-      <td><p>the panel grouping variable; may be character or quosure</p></td>
-    </tr>
-    <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
-    </tr>
-    <tr>
-      <th>stacked</th>
-      <td><p>if <code>TRUE</code>, then independent summaries are created by <code>outer</code>
-and included in a single table (see examples)</p></td>
+      <th>.default</th>
+      <td><p>the default column alignment</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed to subsequent summary functions</p></td>
+      <td><p>exceptions to use from <code>default</code>; each argument should be named
+by a column in the data set; values should be either "l", "c", or "r"</p></td>
+    </tr>
+    <tr>
+      <th>.r</th>
+      <td><p>column names as character vector or comma separated string
+to right justify</p></td>
+    </tr>
+    <tr>
+      <th>.c</th>
+      <td><p>column names as character vector or comma separated string
+to center</p></td>
+    </tr>
+    <tr>
+      <th>.l</th>
+      <td><p>column names as character vector or comma separated string
+to right justify</p></td>
+    </tr>
+    <tr>
+      <th>.coltype</th>
+      <td><p>should be p, m, or b</p></td>
+    </tr>
+    <tr>
+      <th>.complete</th>
+      <td><p>not used</p></td>
     </tr>
     </table>
 

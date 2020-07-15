@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a summary of endpoint data — data_inventory_data • pmtables</title>
+<title>Save output from stable — stable_save • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a summary of endpoint data — data_inventory_data" />
-<meta property="og:description" content="Create a summary of endpoint data" />
+<meta property="og:title" content="Save output from stable — stable_save" />
+<meta property="og:description" content="Save output from stable" />
 
 
 
@@ -136,51 +136,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a summary of endpoint data</h1>
+    <h1>Save output from stable</h1>
     
-    <div class="hidden name"><code>data_inventory_data.Rd</code></div>
+    <div class="hidden name"><code>stable_save.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a summary of endpoint data</p>
+    <p>Save output from stable</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_inventory_data</span>(
-  <span class='no'>data</span>,
-  <span class='no'>by</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>stable_save</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
-    </tr>
-    <tr>
-      <th>by</th>
-      <td><p>the outer grouping variable; may be character or quosure</p></td>
-    </tr>
-    <tr>
-      <th>panel</th>
-      <td><p>the panel grouping variable; may be character or quosure</p></td>
-    </tr>
-    <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
-    </tr>
-    <tr>
-      <th>stacked</th>
-      <td><p>if <code>TRUE</code>, then independent summaries are created by <code>outer</code>
-and included in a single table (see examples)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed to subsequent summary functions</p></td>
+      <th>x</th>
+      <td><p>a table formatted with <a href='stable.html'>stable</a></p></td>
     </tr>
     </table>
 

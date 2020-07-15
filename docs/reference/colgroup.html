@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a summary of endpoint data — data_inventory_data • pmtables</title>
+<title>Set spans to group columns — colgroup • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a summary of endpoint data — data_inventory_data" />
-<meta property="og:description" content="Create a summary of endpoint data" />
+<meta property="og:title" content="Set spans to group columns — colgroup" />
+<meta property="og:description" content="Set spans to group columns" />
 
 
 
@@ -136,54 +136,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a summary of endpoint data</h1>
+    <h1>Set spans to group columns</h1>
     
-    <div class="hidden name"><code>data_inventory_data.Rd</code></div>
+    <div class="hidden name"><code>colgroup.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a summary of endpoint data</p>
+    <p>Set spans to group columns</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_inventory_data</span>(
-  <span class='no'>data</span>,
-  <span class='no'>by</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>colgroup</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>colsplit</span>(<span class='no'>sep</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>is.colgroup</span>(<span class='no'>x</span>)
+
+<span class='fu'>is.colsplit</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <th>title</th>
+      <td><p>label for groups of columns</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>the outer grouping variable; may be character or quosure</p></td>
+      <th>vars</th>
+      <td><p>tidyselect specification of variables</p></td>
     </tr>
     <tr>
-      <th>panel</th>
-      <td><p>the panel grouping variable; may be character or quosure</p></td>
+      <th>level</th>
+      <td><p>relative position for the grouping spanner; level 0 is the
+column names; level 1 is one step away (up) from the column names, etc</p></td>
     </tr>
     <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
+      <th>sep</th>
+      <td><p>character; the separator used for finding column groupings</p></td>
     </tr>
     <tr>
-      <th>stacked</th>
-      <td><p>if <code>TRUE</code>, then independent summaries are created by <code>outer</code>
-and included in a single table (see examples)</p></td>
+      <th>split</th>
+      <td><p>logical; if <code>TRUE</code> column groupings will be determined by
+splitting columns names on a separator</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>passed to subsequent summary functions</p></td>
+      <th>x</th>
+      <td><p>an R object</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>an object with class <code>colgroup</code></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

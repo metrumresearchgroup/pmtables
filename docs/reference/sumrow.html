@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a summary of endpoint data — data_inventory_data • pmtables</title>
+<title>Identify and style summary rows — sumrow • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a summary of endpoint data — data_inventory_data" />
-<meta property="og:description" content="Create a summary of endpoint data" />
+<meta property="og:title" content="Identify and style summary rows — sumrow" />
+<meta property="og:description" content="Identify and style summary rows" />
 
 
 
@@ -136,51 +136,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a summary of endpoint data</h1>
+    <h1>Identify and style summary rows</h1>
     
-    <div class="hidden name"><code>data_inventory_data.Rd</code></div>
+    <div class="hidden name"><code>sumrow.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a summary of endpoint data</p>
+    <p>Identify and style summary rows</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_inventory_data</span>(
-  <span class='no'>data</span>,
-  <span class='no'>by</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sumrow</span>(<span class='no'>rows</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>hline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <th>rows</th>
+      <td><p>integer or logical vector of rows that are summary rows</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>the outer grouping variable; may be character or quosure</p></td>
+      <th>col</th>
+      <td><p>integer or character (name) column location that labels the
+summary row</p></td>
     </tr>
     <tr>
-      <th>panel</th>
-      <td><p>the panel grouping variable; may be character or quosure</p></td>
+      <th>hline</th>
+      <td><p>logical; if <code>TRUE</code>, a horizontal line will be placed above the summary
+row</p></td>
     </tr>
     <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
+      <th>bold</th>
+      <td><p>logical; if <code>TRUE</code>, then the cell(s) identified by <code>rows</code> and
+<code>col</code> will be rendered in bold font</p></td>
     </tr>
     <tr>
-      <th>stacked</th>
-      <td><p>if <code>TRUE</code>, then independent summaries are created by <code>outer</code>
-and included in a single table (see examples)</p></td>
+      <th>blank</th>
+      <td><p>integer column positions in the summary row(s) to be made blank</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>passed to subsequent summary functions</p></td>
+      <th>label</th>
+      <td><p>character label to replace text in cell(s) marked by <code><a href='https://rdrr.io/r/base/row.html'>row(s)</a></code>
+and `col</p></td>
     </tr>
     </table>
 
