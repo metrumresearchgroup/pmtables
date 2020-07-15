@@ -244,24 +244,33 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 pt_data_inventory <- function(data, by = ".total", panel = by,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
+                              align = cols_center(.outer = 'l'),
                               all_name = "all",
                               dv_col = pt_opts$dv_col,
                               bq_col = pt_opts$bq_col,
                               id_col = pt_opts$id_col,
                               no_bql = FALSE, ...) {
 
+  has_panel <- !missing(panel)
+  has_by <- !missing(by)
+
   if(no_bql) {
 
   }
 
   by <- new_names(by,table)
+
   panel <- new_names(panel,table)
 
   if(panel==by | stacked) {
     inner_summary <- FALSE
   }
 
-  total_name <- ifelse(stacked, "Group Total", "Grand Total")
+  total_name <- ifelse(
+    stacked,
+    "\\hline {\\it Group Total}",
+    "All Data"
+  )
 
   ans <- data_inventory_data(
     data,
@@ -320,28 +329,44 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
       !!sym(panel) := paste0(names(panel), ": ", !!sym(panel))
     )
     ans <- rename(ans,panel)
-    ans <- rename(ans,by)
-    out <- gt(ans,groupname_col=names(panel))
   }
+
   if(panel==by & by != ".total") {
     ans <- rename(ans, by)
     ans <- mutate(ans,.total = NULL)
-    out <- gt(ans)
   }
+
   if(by==".total" & panel == by ) {
     ans <- mutate(ans,.total = NULL)
-    out <- gt(ans)
   }
+  out <- ans
 
-  out <- tab_sp_delim(out,delim = '.')
-
-  out <- tab_source_note(
-    out,
-    "SUBJ: subjects; OBS: observations; MISS: missing;
-     BQL: below quantitation limit"
+  notes <- c(
+    "SUBJ: subjects",
+    "BQL: below quantitation limit",
+    "MISS: missing observations (not BQL)",
+    "OBS: observations"
   )
 
-  gt_opts_(out)
+  if(drop_miss) notes <- notes[-3]
+
+  .sumrows <- NULL
+  if(panel==by) panel <- NULL
+  if(!stacked & isTRUE(has_by)) {
+    .sumrows <- sumrow(out[,1]==total_name, bold = TRUE)
+  }
+
+  tab <- stable(
+    out,
+    panel = c(.foo = names(panel)),
+    col_rename = by,
+    span_split = colsplit(sep = '.'),
+    sumrows = .sumrows,
+    align = align,
+    notes = notes,
+    ...
+  )
+  tab
 }
 
 

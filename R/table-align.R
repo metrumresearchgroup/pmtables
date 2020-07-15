@@ -11,12 +11,18 @@
 #' @param .l column names as character vector or comma separated string
 #' to right justify
 #' @param  .coltype should be p, m, or b
+#' @param .outer force the left-most column to the left (`l`), or the right-most
+#' column on the right (`r`), or both (`lr`)
 #' @param .complete not used
 #'
 #' @export
 cols_align <- function(.default = 'l', ...,
                        .r = NULL, .c = NULL, .l = NULL,
-                       .coltype = 'p', .complete = NULL) {
+                       .coltype = 'p',
+                       .outer = c("none", "l", "r", "lr"),
+                       .complete = NULL) {
+
+  .outer <- match.arg(.outer)
 
   to_update <- list(...)
   to_update <- align_update(to_update, .r,  "r")
@@ -27,7 +33,8 @@ cols_align <- function(.default = 'l', ...,
     complete = .complete,
     default = .default,
     update = to_update,
-    coltype = .coltype
+    coltype = .coltype,
+    outer = .outer
   )
   structure(ans, class = "aligncol")
 }
@@ -78,6 +85,17 @@ form_align <- function(x,cols,pipes = FALSE) {
   if(is.character(x$complete)) return(x$complete)
   nc <- length(cols)
   ans <- rep(x$default, nc)
+
+  if(x$outer=="lr") {
+    ans[c(1,length(ans))] <- c('l', 'r')
+  }
+  if(x$outer=="l") {
+    ans[1] <- 'l'
+  }
+  if(x$outer=="r") {
+    ans[length(ans)] <- 'r'
+  }
+
   replace <- match(names(x$update), cols)
   replace <- replace[!is.na(replace)]
   ans[replace] <- unlist(x$update,use.names=FALSE)

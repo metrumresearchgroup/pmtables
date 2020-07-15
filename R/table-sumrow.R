@@ -7,6 +7,8 @@
 #' row
 #' @param bold logical; if `TRUE`, then the cell(s) identified by `rows` and
 #' `col` will be rendered in bold font
+#' @param it logical; if `TRUE`, then the cell(s) identified by `rows` and
+#' `col` will be rendered in italic font
 #' @param blank integer column positions in the summary row(s) to be made blank
 #' @param label character label to replace text in cell(s) marked by `row(s)`
 #' and `col
@@ -16,6 +18,7 @@ sumrow <- function(rows,
                    col = 1,
                    hline = TRUE,
                    bold = FALSE,
+                   it = FALSE,
                    blank = NULL,
                    label = NULL) {
   if(is.logical(rows)) rows <- which(rows)
@@ -32,6 +35,7 @@ sumrow <- function(rows,
     col = col[1],
     hline = as.logical(hline),
     bold = as.logical(bold),
+    it = as.logical(it),
     blank = as.integer(blank),
     label = label,
     nrows = length(rows)
@@ -56,6 +60,9 @@ sumrow_add_style <- function(x,data) {
     }
     if(isTRUE(x$bold)) {
       data[r,x$col] <- bold_each(data[r,x$col])
+    }
+    if(isTRUE(x$it)) {
+      data[r,x$col] <- it_each(data[r,x$col])
     }
   }
   data

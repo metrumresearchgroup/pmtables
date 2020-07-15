@@ -134,7 +134,7 @@ stable <- function(data,
 
   do_panel <- FALSE
   panel_prefix <- ""
-  if(!missing(panel)) {
+  if(!is.null(panel)) {
     panel <- new_names(panel)
     assert_that(length(panel)==1)
     paneln <- match(panel,names(data))

@@ -14,6 +14,7 @@ cols_align(
   .c = NULL,
   .l = NULL,
   .coltype = "p",
+  .outer = c("none", "l", "r", "lr"),
   .complete = NULL
 )
 
@@ -39,6 +40,9 @@ to center}
 to right justify}
 
 \item{.coltype}{should be p, m, or b}
+
+\item{.outer}{force the left-most column to the left (\code{l}), or the right-most
+column on the right (\code{r}), or both (\code{lr})}
 
 \item{.complete}{not used}
 }

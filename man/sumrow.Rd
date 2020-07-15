@@ -4,7 +4,15 @@
 \alias{sumrow}
 \title{Identify and style summary rows}
 \usage{
-sumrow(rows, col = 1, hline = TRUE, bold = FALSE, blank = NULL, label = NULL)
+sumrow(
+  rows,
+  col = 1,
+  hline = TRUE,
+  bold = FALSE,
+  it = FALSE,
+  blank = NULL,
+  label = NULL
+)
 }
 \arguments{
 \item{rows}{integer or logical vector of rows that are summary rows}
@@ -17,6 +25,9 @@ row}
 
 \item{bold}{logical; if \code{TRUE}, then the cell(s) identified by \code{rows} and
 \code{col} will be rendered in bold font}
+
+\item{it}{logical; if \code{TRUE}, then the cell(s) identified by \code{rows} and
+\code{col} will be rendered in italic font}
 
 \item{blank}{integer column positions in the summary row(s) to be made blank}
 

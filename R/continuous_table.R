@@ -155,41 +155,43 @@ pt_cont_wide <- function(data, cols,
 
   if(by==panel) ans[["outer"]] <- NULL
 
-  if(panel==by) {
-    out <- gt(ans, row_group.sep=" ")
-  } else {
-    out <- gt(ans, row_group.sep=" ", groupname_col=panel)
-  }
+  return(ans)
 
-  if(exists(by,ans)) {
-    out <- cols_label(out, !!sym(by) := names(by)[1])
-  }
-
-  if(is.list(units)) {
-    for(col in cols) {
-      if(exists(col,units)) {
-        lab <- paste0(col," ", units[[col]])
-        out <- cols_label(out, !!col := lab)
-      }
-    }
-  }
-
-  out <- tab_stubhead(out,"Variable")
-  #out <- cols_align(out,"right")
-
-  if(is.list(table)) {
-    out <-
-      tab_source_note(
-        out,
-        source_note = foot(table,unname(cols))
-      )
-  }
-
-  if(is.logical(formals(fun)[["footnote"]])) {
-    out <- tab_source_note(out, fun(footnote = TRUE))
-  }
-
-  gt_opts_(out)
+  # if(panel==by) {
+  #   out <- gt(ans, row_group.sep=" ")
+  # } else {
+  #   out <- gt(ans, row_group.sep=" ", groupname_col=panel)
+  # }
+  #
+  # if(exists(by,ans)) {
+  #   out <- cols_label(out, !!sym(by) := names(by)[1])
+  # }
+  #
+  # if(is.list(units)) {
+  #   for(col in cols) {
+  #     if(exists(col,units)) {
+  #       lab <- paste0(col," ", units[[col]])
+  #       out <- cols_label(out, !!col := lab)
+  #     }
+  #   }
+  # }
+  #
+  # out <- tab_stubhead(out,"Variable")
+  # #out <- cols_align(out,"right")
+  #
+  # if(is.list(table)) {
+  #   out <-
+  #     tab_source_note(
+  #       out,
+  #       source_note = foot(table,unname(cols))
+  #     )
+  # }
+  #
+  # if(is.logical(formals(fun)[["footnote"]])) {
+  #   out <- tab_source_note(out, fun(footnote = TRUE))
+  # }
+  #
+  # gt_opts_(out)
 }
 
 #' Continuous data summary in long format
@@ -245,9 +247,9 @@ pt_cont_long <- function(data,
     wide = FALSE
   )
 
-  if(isTRUE(panel.label.add)) {
-    ans <- mutate(ans,outer=paste(names(by)[1], outer, sep = ": "))
-  }
+  # if(isTRUE(panel.label.add)) {
+  #   ans <- mutate(ans,outer=paste(names(by)[1], outer, sep = ": "))
+  # }
 
   if(by==".total") ans <- mutate(ans, outer=all_name)
 
@@ -279,35 +281,36 @@ pt_cont_long <- function(data,
     )
   }
 
-  out <- gt(
-    ans,
-    row_group.sep=" ",
-    rowname_col = "name",
-    groupname_col = c("outer")
-  )
-
-  out <- cols_label(out, outer = names(by)[1])
-  out <- tab_stubhead(out,"Variable")
+  # out <- gt(
+  #   ans,
+  #   row_group.sep=" ",
+  #   rowname_col = "name",
+  #   groupname_col = c("outer")
+  # )
+  #
+  # out <- cols_label(out, outer = names(by)[1])
+  # out <- tab_stubhead(out,"Variable")
   #out <- cols_align(out,"right")
 
-  if(exists("Min..Max", ans)) {
-    out <- cols_label(out, Min..Max = "Min / Max")
-  }
-
-  if(is.logical(formals(fun)[["footnote"]])) {
-    footn <- fun(footnote = TRUE)
-    if(is.list(footn)) {
-      for(this_foot in footn) {
-        out <- tab_footnote(
-          out,
-          footnote = this_foot$footnote,
-          locations = this_foot$locations
-        )
-      }
-    }
-  }
-
-  gt_opts_(out)
+   if(exists("Min..Max", ans)) {
+     ans <- rename(ans, `Min / Max` = Min..Max)
+   }
+  #
+  # if(is.logical(formals(fun)[["footnote"]])) {
+  #   footn <- fun(footnote = TRUE)
+  #   if(is.list(footn)) {
+  #     for(this_foot in footn) {
+  #       out <- tab_footnote(
+  #         out,
+  #         footnote = this_foot$footnote,
+  #         locations = this_foot$locations
+  #       )
+  #     }
+  #   }
+  # }
+  #
+  # gt_opts_(out)
+  ans
 }
 
 #' Continuous covariate table by study

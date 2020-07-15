@@ -119,23 +119,23 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
     )
     ans <- left_join(ans, all, by=c("name", "level"))
   }
-
-  tab <- gt(ans, rowname_col = "level", groupname_col = "name")
-
-  if(nby > 1) {
-    span_cols <- intersect(bys,names(ans))
-    span_label <- names(by)[1]
-    tab <- tab_spanner(
-      tab,
-      label = span_label,
-      columns = span_cols,
-      gather = FALSE
-    )
-  }
-
-  tab <- tab_source_note(tab, "Summaries are count (percent)")
-
-  gt_opts_(tab)
+  ans
+  # tab <- gt(ans, rowname_col = "level", groupname_col = "name")
+  #
+  # if(nby > 1) {
+  #   span_cols <- intersect(bys,names(ans))
+  #   span_label <- names(by)[1]
+  #   tab <- tab_spanner(
+  #     tab,
+  #     label = span_label,
+  #     columns = span_cols,
+  #     gather = FALSE
+  #   )
+  # }
+  #
+  # tab <- tab_source_note(tab, "Summaries are count (percent)")
+  #
+  # gt_opts_(tab)
 }
 
 #' @rdname pt_cat_long
@@ -184,25 +184,27 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   ans[[".total"]] <- NULL
 
-  if(panel==by) {
-    out <- gt(ans, row_group.sep = " ")
-  } else {
-    out <- gt(ans, row_group.sep=" ", groupname_col = panel, rowname_col = by)
-    out <- tab_stubhead(out, names(by))
-  }
+  return(ans)
 
-  if(exists(by,ans)) {
-    out <- cols_label(
-      out,
-      {{by}} := names(by)[1]
-    )
-  }
-
-  out <- tab_sp_delim(out, delim = '.')
-
-  out <- tab_source_note(out, "Summaries are count (percent)")
-
-  gt_opts_(out)
+  # if(panel==by) {
+  #   out <- gt(ans, row_group.sep = " ")
+  # } else {
+  #   out <- gt(ans, row_group.sep=" ", groupname_col = panel, rowname_col = by)
+  #   out <- tab_stubhead(out, names(by))
+  # }
+  #
+  # if(exists(by,ans)) {
+  #   out <- cols_label(
+  #     out,
+  #     {{by}} := names(by)[1]
+  #   )
+  # }
+  #
+  # out <- tab_sp_delim(out, delim = '.')
+  #
+  # out <- tab_source_note(out, "Summaries are count (percent)")
+  #
+  # gt_opts_(out)
 }
 
 #' Discrete covariate table by study
