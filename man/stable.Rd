@@ -26,7 +26,7 @@ stable(
   r_file = NULL,
   r_file_label = getOption("r.file.label", "source code:"),
   output_file = NULL,
-  output_file_label = getOption("out.file.label", "source file")
+  output_file_label = getOption("out.file.label", "source file: ")
 )
 }
 \arguments{
