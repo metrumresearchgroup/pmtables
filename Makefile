@@ -31,3 +31,7 @@ pkgdown:
 data:
 	Rscript inst/script/data.R
 	Rscript inst/script/data-tabular.R
+
+demo-doc:
+	Rscript -e 'rmarkdown::render("inst/demo.Rmd")'
+

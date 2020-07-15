@@ -9,5 +9,6 @@ inst/vignette/*.html
 README.html
 test.R
 reprex.R
-inst/demo.pdf
 inst/foo.tex
+inst/demo.log
+inst/demo.tex
