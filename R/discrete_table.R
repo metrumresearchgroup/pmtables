@@ -117,8 +117,14 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
       nby = nby,
       all_name = all_name
     )
-    ans <- left_join(ans, all, by=c("name", "level"))
+    names(all)[ncol(all)] <- bold_each(names(all)[ncol(all)])
+    ans <- left_join(ans, all, by = c("name", "level"))
   }
+
+  if(exists("level", ans)) {
+    ans <- rename(ans, "\\ " = level)
+  }
+
 
   out <- list(
     data = ans,
@@ -155,28 +161,30 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   check_discrete(data = data, cols = cols, others = by)
 
-  summarize_all <- summarize_all & nby > 1
+  summarize_all <- summarize_all & (has_by | has_panel)
 
   ans <- cat_data(data, cols, by = by, panel = panel, wide = TRUE)
   ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
+
 
   if(summarize_all) {
 
     all <- cat_data(data, cols, by = ".total", panel = ".total", wide = TRUE)
 
-    if(panel != by) {
+    all_name_fmt <- paste0("\\hline \\hline {\\bf ",all_name,"}")
 
-      all <- mutate(all, !!sym(panel) := "Total")
-      if(isTRUE(panel.label.add)) {
-        ans <- mutate(
-          ans,
-          !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
-        )
+    if(has_panel) {
+      if(has_by) {
+        all <- mutate(all, !!sym(panel) := ".panel.waiver.")
+
+        all[[by]] <- all_name_fmt
+      } else {
+        all <- mutate(all, !!sym(panel) := all_name)
       }
-    }
-    all <- mutate(all, !!sym(by) := all_name)
-    if(has_panel && has_by) {
-      all[[by]] <- ""
+    } else {
+      if(has_by) {
+        all <- mutate(all, !!sym(by) := all_name_fmt)
+      }
     }
     ans <- bind_rows(ans, all)
   }
@@ -186,9 +194,14 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
   ans[[".total"]] <- NULL
 
   if(has_panel) {
-    .panel <- rowpanel(panel)
+    names(ans)[names(ans)==panel] <- names(panel)[1]
+    .panel <- rowpanel(names(panel)[1])
   } else {
     .panel <- rowpanel(NULL)
+  }
+
+  if(has_by) {
+    names(ans)[names(ans)==by] <- names(by)[1]
   }
 
   out <- list(

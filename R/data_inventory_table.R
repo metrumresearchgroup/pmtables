@@ -143,7 +143,10 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 
   if(by != ".total") {
     tot <- data_inventory_chunk(
-      data, by = ".total", panel=".total", stacked = FALSE,
+      data,
+      by = ".total",
+      panel = ".total",
+      stacked = FALSE,
       all_name = all_name, ...
     )
     tot <- mutate(tot, .total = all_name)
@@ -270,7 +273,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
 
   total_name <- case_when(
     isTRUE(stacked)  ~ "\\hline {\\it Group Total}",
-    TRUE ~ "All data"
+    TRUE ~ "\\hline \\hline {\\bf All data}"
   )
 
   ans <- data_inventory_data(
@@ -324,21 +327,6 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   }
 
 
-
-  # if(panel != by) {
-  #   ans <- mutate(
-  #     ans,
-  #     .total = NULL,
-  #     !!sym(panel) := paste0(names(panel), ": ", !!sym(panel))
-  #   )
-  #   ans <- rename(ans,panel)
-  # }
-
-  # if(panel==by & by != ".total") {
-  #   ans <- rename(ans, by)
-  #   ans <- mutate(ans,.total = NULL)
-  # }
-
   ans <- mutate(ans,.total = NULL)
   out <- ans
 
@@ -362,7 +350,6 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     panel = rowpanel(col = panel, prefix =  NULL),
     col_rename = by,
     span_split = colsplit(sep = "."),
-    sumrows = .sumrows,
     align = align,
     notes = notes
   )

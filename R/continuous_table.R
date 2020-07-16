@@ -150,59 +150,22 @@ pt_cont_wide <- function(data, cols,
     ans <- bind_rows(ans,ans2)
   }
 
-  if(has_panel) {
-    ans <- rename(ans,!!sym(panel) := outer)
+  if(has_by & !has_panel) {
+    ans <- rename(ans,!!sym(by) := outer)
   }
 
+  ans[["outer"]] <- NULL
   ans[[".total"]] <- NULL
-
-  #if(by==panel) ans[["outer"]] <- NULL
 
   out <- list(
     data = ans,
-    align = cols_center(.outer = "lr"),
-    panel = rowpanel(panel)
+    align = cols_left(),
+    panel = rowpanel(panel),
+    units = units
   )
 
   out <- structure(out, class = "pmtable")
   out
-
-
-  # if(panel==by) {
-  #   out <- gt(ans, row_group.sep=" ")
-  # } else {
-  #   out <- gt(ans, row_group.sep=" ", groupname_col=panel)
-  # }
-  #
-  # if(exists(by,ans)) {
-  #   out <- cols_label(out, !!sym(by) := names(by)[1])
-  # }
-  #
-  # if(is.list(units)) {
-  #   for(col in cols) {
-  #     if(exists(col,units)) {
-  #       lab <- paste0(col," ", units[[col]])
-  #       out <- cols_label(out, !!col := lab)
-  #     }
-  #   }
-  # }
-  #
-  # out <- tab_stubhead(out,"Variable")
-  # #out <- cols_align(out,"right")
-  #
-  # if(is.list(table)) {
-  #   out <-
-  #     tab_source_note(
-  #       out,
-  #       source_note = foot(table,unname(cols))
-  #     )
-  # }
-  #
-  # if(is.logical(formals(fun)[["footnote"]])) {
-  #   out <- tab_source_note(out, fun(footnote = TRUE))
-  # }
-  #
-  # gt_opts_(out)
 }
 
 #' Continuous data summary in long format
@@ -239,6 +202,8 @@ pt_cont_long <- function(data,
                          fun = df_sum_2,
                          panel.label.add = pt_opts$panel.label.add) {
 
+  has_panel <- !missing(panel)
+
   by <- panel
   summarize_all <- summarize_all & by != ".total"
   data <- data_total_col(data)
@@ -257,10 +222,6 @@ pt_cont_long <- function(data,
     digits = digits,
     wide = FALSE
   )
-
-  # if(isTRUE(panel.label.add)) {
-  #   ans <- mutate(ans,outer=paste(names(by)[1], outer, sep = ": "))
-  # }
 
   if(by==".total") ans <- mutate(ans, outer = all_name)
 
@@ -292,41 +253,25 @@ pt_cont_long <- function(data,
     )
   }
 
-  # out <- gt(
-  #   ans,
-  #   row_group.sep=" ",
-  #   rowname_col = "name",
-  #   groupname_col = c("outer")
-  # )
-  #
-  # out <- cols_label(out, outer = names(by)[1])
-  # out <- tab_stubhead(out,"Variable")
-  #out <- cols_align(out,"right")
-
-  #
-  # if(is.logical(formals(fun)[["footnote"]])) {
-  #   footn <- fun(footnote = TRUE)
-  #   if(is.list(footn)) {
-  #     for(this_foot in footn) {
-  #       out <- tab_footnote(
-  #         out,
-  #         footnote = this_foot$footnote,
-  #         locations = this_foot$locations
-  #       )
-  #     }
-  #   }
-  # }
-  #
-  # gt_opts_(out)
-
   if(names(ans)[1]=="outer") {
     names(ans)[1] <- unname(by)
   }
 
+  for(i in c(1,2)) {
+    if(names(ans)[i] == "name") {
+      names(ans)[i] <- "Variable"
+    }
+  }
+
+  ans[[".total"]] <- NULL
+
+  .panel <- rowpanel(NULL)
+  if(has_panel) .panel <- rowpanel(panel)
+
   out <- list(
     data = ans,
     align = cols_center(.outer = "lr"),
-    panel = rowpanel(panel)
+    panel = .panel
   )
   out <- structure(out, class = "pmtable")
   out
