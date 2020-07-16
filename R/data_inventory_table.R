@@ -119,7 +119,7 @@ data_inventory_data_split <- function(data,by,panel=by,stacked=FALSE,...) {
 #'
 #' @export
 data_inventory_data <- function(data, by, panel = by, all_name = "all",
-                                stacked = FALSE, ...) {
+                                stacked = FALSE, st = TRUE, ...) {
   by <- unname(by)
   panel <- unname(panel)
 
@@ -245,7 +245,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
                               align = cols_center(.outer = 'l'),
-                              all_name = "all",
+                              all_name = "all", st = FALSE,
                               dv_col = pt_opts$dv_col,
                               bq_col = pt_opts$bq_col,
                               id_col = pt_opts$id_col,
@@ -266,10 +266,9 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     inner_summary <- FALSE
   }
 
-  total_name <- ifelse(
-    stacked,
-    "\\hline {\\it Group Total}",
-    "All Data"
+  total_name <- case_when(
+    isTRUE(stacked)  ~ "\\hline {\\it Group Total}",
+    TRUE ~ "All data"
   )
 
   ans <- data_inventory_data(
@@ -356,17 +355,23 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     .sumrows <- sumrow(out[,1]==total_name, bold = TRUE)
   }
 
-  tab <- stable(
-    out,
-    panel = c(.foo = names(panel)),
+  out <- list(
+    data = out,
+    panel = c(.panel = names(panel)),
     col_rename = by,
-    span_split = colsplit(sep = '.'),
+    span_split = colsplit(sep = "."),
     sumrows = .sumrows,
     align = align,
     notes = notes,
     ...
   )
-  tab
+  out <- structure(out, class = "pmtable")
+
+  if(isTRUE(st)) {
+    return(as_stable.pmtable(out))
+  }
+
+  return(out)
 }
 
 

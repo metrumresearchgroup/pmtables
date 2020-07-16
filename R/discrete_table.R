@@ -145,6 +145,9 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
                         summarize_all = TRUE,
                         panel.label.add = pt_opts$panel.label_add) {
 
+  has_by <- !missing(by)
+  has_panel <- !missing(panel)
+
   cols <- new_names(cols, table)
   by <- new_names(by, table)
   panel <- new_names(panel,table)
@@ -177,6 +180,9 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
       }
     }
     all <- mutate(all, !!sym(by) := all_name)
+    if(has_panel && has_by) {
+      all[[by]] <- ""
+    }
     ans <- bind_rows(ans, all)
   }
 
@@ -185,26 +191,6 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
   ans[[".total"]] <- NULL
 
   return(ans)
-
-  # if(panel==by) {
-  #   out <- gt(ans, row_group.sep = " ")
-  # } else {
-  #   out <- gt(ans, row_group.sep=" ", groupname_col = panel, rowname_col = by)
-  #   out <- tab_stubhead(out, names(by))
-  # }
-  #
-  # if(exists(by,ans)) {
-  #   out <- cols_label(
-  #     out,
-  #     {{by}} := names(by)[1]
-  #   )
-  # }
-  #
-  # out <- tab_sp_delim(out, delim = '.')
-  #
-  # out <- tab_source_note(out, "Summaries are count (percent)")
-  #
-  # gt_opts_(out)
 }
 
 #' Discrete covariate table by study

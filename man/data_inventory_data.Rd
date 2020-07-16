@@ -10,6 +10,7 @@ data_inventory_data(
   panel = by,
   all_name = "all",
   stacked = FALSE,
+  st = TRUE,
   ...
 )
 }

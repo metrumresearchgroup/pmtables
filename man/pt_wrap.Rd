@@ -4,16 +4,16 @@
 \alias{pt_wrap}
 \title{Wrap stable output in table environment}
 \usage{
-pt_wrap(x, center = TRUE, caption = NULL, con = stdout())
+pt_wrap(x, con = NULL, center = TRUE, caption = NULL)
 }
 \arguments{
 \item{x}{tabular text}
 
+\item{con}{where to write the output}
+
 \item{center}{if \code{TRUE}, center the table}
 
 \item{caption}{the table caption}
-
-\item{con}{where to write the output}
 }
 \description{
 Wrap stable output in table environment

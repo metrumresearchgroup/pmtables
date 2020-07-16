@@ -124,7 +124,9 @@ stable <- function(data,
       data <- mutate(
         data,
         {{this_col}} :=  ifelse(
-          duplicated(chunk_runs(!!sym(this_col))), "", paste0("{", !!sym(this_col), "}")
+          duplicated(chunk_runs(!!sym(this_col))),
+          "",
+          !!sym(this_col)
         )
       )
     }
@@ -133,7 +135,6 @@ stable <- function(data,
 
 
   do_panel <- FALSE
-  panel_prefix <- ""
   if(!is.null(panel)) {
     panel <- new_names(panel)
     assert_that(length(panel)==1)
@@ -266,6 +267,6 @@ stable <- function(data,
     stretch_end,
     font_size$end
   )
-  tab <- structure(tab, stable_file = output_file)
+  tab <- structure(tab, class = "stable", stable_file = output_file)
   tab
 }

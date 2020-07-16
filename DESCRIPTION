@@ -22,6 +22,7 @@ Collate:
     'utils.R'
     'AAAA.R'
     'check.R'
+    'class-table.R'
     'continuous_table.R'
     'data_inventory_table.R'
     'discrete_table.R'
