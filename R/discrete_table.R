@@ -190,7 +190,17 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   ans[[".total"]] <- NULL
 
-  return(ans)
+  out <- list(
+    data = ans,
+    span_split = colsplit(sep = '.'),
+    align = cols_center(.outer = 'l'),
+    col_rename = c(panel,by),
+    panel = panel
+  )
+
+  out <- structure(out, class = "pmtable")
+
+  return(out)
 }
 
 #' Discrete covariate table by study

@@ -10,6 +10,8 @@
 #' to the panel variable value
 #' @param cont.long.fun data summary function for continuous / long summaries
 #' @param cont.wide.fun data summary function for continuous / wide summaries
+#' @param notes.sanitize if `TRUE`, should the notes be passed through the
+#' sanitize function
 #' @param digits a `digits` object
 #'
 #' @details
@@ -63,6 +65,7 @@ pt_options <- function(
   panel.label.add = TRUE,
   cont.long.fun = pmtables:::df_sum_2,
   cont.wide.fun = pmtables:::str_sum_2,
+  notes.sanitize = TRUE,
   digits = NULL
   ) {
   set <- function(..., .list = NULL) {

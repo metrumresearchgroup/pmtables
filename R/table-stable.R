@@ -237,6 +237,9 @@ stable <- function(data,
   open_tabular <- form_open(align_tex)
 
   if(!is.null(notes)) {
+    if(isTRUE(pt_opts$notes.sanitize)) {
+      notes <- escape_fun(notes)
+    }
     notes <- form_notes(notes, note_space)
   }
 
