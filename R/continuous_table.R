@@ -100,6 +100,9 @@ pt_cont_wide <- function(data, cols,
                          fun = str_sum_2,
                          panel.label.add = pt_opts$panel.label.add) {
 
+  has_panel <- !is.null(panel)
+  has_by <- !is.null(by)
+
   tst <- fun(rnorm(10))
   assert_that(identical(names(tst),"summary"))
 
@@ -147,15 +150,23 @@ pt_cont_wide <- function(data, cols,
     ans <- bind_rows(ans,ans2)
   }
 
-  if(by != ".total") {
-    ans <- rename(ans,!!sym(names(by)) := outer)
+  if(has_panel) {
+    ans <- rename(ans,!!sym(panel) := outer)
   }
 
   ans[[".total"]] <- NULL
 
-  if(by==panel) ans[["outer"]] <- NULL
+  #if(by==panel) ans[["outer"]] <- NULL
 
-  return(ans)
+  out <- list(
+    data = ans,
+    align = cols_center(.outer = "lr"),
+    panel = rowpanel(panel)
+  )
+
+  out <- structure(out, class = "pmtable")
+  out
+
 
   # if(panel==by) {
   #   out <- gt(ans, row_group.sep=" ")
@@ -251,7 +262,7 @@ pt_cont_long <- function(data,
   #   ans <- mutate(ans,outer=paste(names(by)[1], outer, sep = ": "))
   # }
 
-  if(by==".total") ans <- mutate(ans, outer=all_name)
+  if(by==".total") ans <- mutate(ans, outer = all_name)
 
   if(summarize_all) {
     ans2 <- cont_table_data(
@@ -292,9 +303,6 @@ pt_cont_long <- function(data,
   # out <- tab_stubhead(out,"Variable")
   #out <- cols_align(out,"right")
 
-   if(exists("Min..Max", ans)) {
-     ans <- rename(ans, `Min / Max` = Min..Max)
-   }
   #
   # if(is.logical(formals(fun)[["footnote"]])) {
   #   footn <- fun(footnote = TRUE)
@@ -310,7 +318,18 @@ pt_cont_long <- function(data,
   # }
   #
   # gt_opts_(out)
-  ans
+
+  if(names(ans)[1]=="outer") {
+    names(ans)[1] <- unname(by)
+  }
+
+  out <- list(
+    data = ans,
+    align = cols_center(.outer = "lr"),
+    panel = rowpanel(panel)
+  )
+  out <- structure(out, class = "pmtable")
+  out
 }
 
 #' Continuous covariate table by study

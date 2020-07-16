@@ -323,23 +323,23 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     }
   }
 
-  if(panel != by) {
-    ans <- mutate(
-      ans,
-      .total = NULL,
-      !!sym(panel) := paste0(names(panel), ": ", !!sym(panel))
-    )
-    ans <- rename(ans,panel)
-  }
 
-  if(panel==by & by != ".total") {
-    ans <- rename(ans, by)
-    ans <- mutate(ans,.total = NULL)
-  }
 
-  if(by==".total" & panel == by ) {
-    ans <- mutate(ans,.total = NULL)
-  }
+  # if(panel != by) {
+  #   ans <- mutate(
+  #     ans,
+  #     .total = NULL,
+  #     !!sym(panel) := paste0(names(panel), ": ", !!sym(panel))
+  #   )
+  #   ans <- rename(ans,panel)
+  # }
+
+  # if(panel==by & by != ".total") {
+  #   ans <- rename(ans, by)
+  #   ans <- mutate(ans,.total = NULL)
+  # }
+
+  ans <- mutate(ans,.total = NULL)
   out <- ans
 
   notes <- c(
@@ -359,7 +359,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
 
   out <- list(
     data = out,
-    panel = c(.panel = names(panel)),
+    panel = rowpanel(col = panel, prefix =  NULL),
     col_rename = by,
     span_split = colsplit(sep = "."),
     sumrows = .sumrows,
@@ -369,13 +369,13 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
 
   out <- structure(out, class = "pmtable")
 
-  if(isTRUE(st)) {
-    return(as_stable.pmtable(out))
-  }
-
-  if(length(st_args) > 0) {
-    return(do.call(as_stable, c(list(out),st_args)))
-  }
+  # if(isTRUE(st)) {
+  #   return(as_stable.pmtable(out))
+  # }
+  #
+  # if(length(st_args) > 0) {
+  #   return(do.call(as_stable, c(list(out),st_args)))
+  # }
 
   return(out)
 }

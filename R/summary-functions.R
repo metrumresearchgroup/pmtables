@@ -46,7 +46,7 @@ df_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = F
     Mean = digit_fun(mean(value),digits = digits),
     Median = digit_fun(median(value),digits = digits),
     SD = digit_fun(sd(value),digits = digits),
-    `Min..Max` = rng
+    `Min / Max` = rng
   )
   ans
 }

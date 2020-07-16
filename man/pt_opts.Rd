@@ -6,7 +6,7 @@
 \alias{pt_options}
 \title{Set global plot options}
 \format{
-An object of class \code{pt_opts} (inherits from \code{environment}) of length 16.
+An object of class \code{pt_opts} (inherits from \code{environment}) of length 17.
 }
 \usage{
 pt_options(
@@ -18,6 +18,7 @@ pt_options(
   panel.label.add = TRUE,
   cont.long.fun = pmtables:::df_sum_2,
   cont.wide.fun = pmtables:::str_sum_2,
+  notes.sanitize = TRUE,
   digits = NULL
 )
 
@@ -40,6 +41,9 @@ to the panel variable value}
 \item{cont.long.fun}{data summary function for continuous / long summaries}
 
 \item{cont.wide.fun}{data summary function for continuous / wide summaries}
+
+\item{notes.sanitize}{if \code{TRUE}, should the notes be passed through the
+sanitize function}
 
 \item{digits}{a \code{digits} object}
 }

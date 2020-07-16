@@ -1,3 +1,4 @@
+^test-pmtables\.R$
 ^inst/demo\.pdf$
 ^inst/foo\.tex$
 ^data\.R$

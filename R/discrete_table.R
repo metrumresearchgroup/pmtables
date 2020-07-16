@@ -119,23 +119,18 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
     )
     ans <- left_join(ans, all, by=c("name", "level"))
   }
-  ans
-  # tab <- gt(ans, rowname_col = "level", groupname_col = "name")
-  #
-  # if(nby > 1) {
-  #   span_cols <- intersect(bys,names(ans))
-  #   span_label <- names(by)[1]
-  #   tab <- tab_spanner(
-  #     tab,
-  #     label = span_label,
-  #     columns = span_cols,
-  #     gather = FALSE
-  #   )
-  # }
-  #
-  # tab <- tab_source_note(tab, "Summaries are count (percent)")
-  #
-  # gt_opts_(tab)
+
+  out <- list(
+    data = ans,
+    span_split = colsplit(sep = '.'),
+    align = cols_center(.outer = 'l'),
+    col_rename = by,
+    panel = c(.blank = "name")
+  )
+
+  out <- structure(out, class = "pmtable")
+
+  return(out)
 }
 
 #' @rdname pt_cat_long
@@ -190,12 +185,18 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   ans[[".total"]] <- NULL
 
+  if(has_panel) {
+    .panel <- rowpanel(panel)
+  } else {
+    .panel <- rowpanel(NULL)
+  }
+
   out <- list(
     data = ans,
     span_split = colsplit(sep = '.'),
     align = cols_center(.outer = 'l'),
-    col_rename = c(panel,by),
-    panel = panel
+    col_rename = c(.panel$col,by),
+    panel = .panel
   )
 
   out <- structure(out, class = "pmtable")

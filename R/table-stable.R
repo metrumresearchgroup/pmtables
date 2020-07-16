@@ -79,9 +79,10 @@ stable <- function(data,
 
   assert_that(is.data.frame(data))
 
-  if(missing(panel) && (length(group_vars(data)) > 0)) {
-    panel <- group_vars(data)[1]
-    panel <- sym(panel)
+  has_panel <- !is.null(panel)
+
+  if(!is.null(panel) && !is.rowpanel(panel)) {
+    panel <- rowpanel(panel)
   }
 
   if(inherits(sumrows, "sumrow")) sumrows <- list(sumrows)
@@ -116,7 +117,7 @@ stable <- function(data,
 
   if(is.character(rm_dups)) {
     if(!missing(panel)) {
-      paneln <- tidyselect::eval_select(enquo(panel),data = data)
+      paneln <- tidyselect::eval_select(panel$col,data = data)
       panelcol <- names(data)[paneln[1]]
       data <- group_by(data,!!sym(panelcol))
     }
@@ -133,20 +134,17 @@ stable <- function(data,
     data <- ungroup(data)
   }
 
-
   do_panel <- FALSE
-  if(!is.null(panel)) {
-    panel <- new_names(panel)
-    assert_that(length(panel)==1)
-    paneln <- match(panel,names(data))
+  if(!panel$null) {
+    require_col(data,panel$col,context = "panel column input name")
+    paneln <- match(panel$col,names(data))
     if(any(is.na(paneln))) {
-      stop("panel column not found: ", sQuote(panel), call.=FALSE)
+      stop("panel column not found: ", sQuote(panel$col), call.=FALSE)
     }
-    panel_prefix <- names(panel)[1]
-    if(substr(panel_prefix,1,1)=='.') panel_prefix <- character(0)
-    require_col(data,panel,context = "panel column input name")
-    ins <- panel_by(data,panel,prefix = panel_prefix)
-    data[[panel]] <- NULL
+    panel_prefix <- panel$prefix
+    if(panel$prefix_name) panel_prefix <- names(panel$col)[1]
+    ins <- panel_by(data, panel$col, prefix = panel_prefix)
+    data[[panel$col]] <- NULL
     do_panel <- TRUE
   }
 
