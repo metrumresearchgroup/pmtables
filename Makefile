@@ -35,8 +35,11 @@ data:
 demo-doc:
 	Rscript -e 'rmarkdown::render("inst/demo.Rmd")'
 
-quick: 
+quick:
 	make doc
 	make build
-	R CMD check $(TARBALL) --ignore-vignettes --no-manual --no-tests --no-install 
+	R CMD check $(TARBALL) --ignore-vignettes --no-manual --no-tests --no-install
+
+tag-version:
+	git tag $(VERSION)
 
