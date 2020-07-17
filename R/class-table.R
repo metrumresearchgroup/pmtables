@@ -1,10 +1,19 @@
 
 #' Create stable from pmtable
 #'
+#' @param x object to convert to stable
+#' @param ... for the `pmtable` method, these are extra named arguments to pass to [stable()]
+#' @param wrap if `TRUE`, the stable output will be wrapped in a latex table environment
+#' @param wrapw if `TRUE`, the stable output will be wrapped in a latex table environment and
+#' the output will be written to [stdout()]; use this along with `results = "asis"` when rendering
+#' tables with [rmarkdown::render()]
+#'
 #' @export
 #'
 as_stable <- function(x, ...) UseMethod("as_stable")
 
+#' @rdname as_stable
+#' @keywords internal
 #' @export
 as_stable.pmtable <- function(x, ..., wrap = FALSE, wrapw = FALSE) {
   up <- list(...)
@@ -26,6 +35,8 @@ as_stable.pmtable <- function(x, ..., wrap = FALSE, wrapw = FALSE) {
   return(invisible(ans))
 }
 
+#' @rdname as_stable
+#' @keywords internal
 #' @export
 as_stable.stable <- function(x,...) {
   x

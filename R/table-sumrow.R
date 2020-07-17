@@ -50,6 +50,9 @@ sumrow_get_hline <- function(x) {
 }
 
 sumrow_add_style <- function(x,data) {
+  if(is.null(data[[x$col]])) {
+    stop("sumrow column '", x$col, "' not in 'data'",call.=FALSE)
+  }
   for(r in x$rows) {
     data[[x$col]] <- as.character(data[[x$col]])
     if(!is_empty(x$blank)) {

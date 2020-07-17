@@ -74,7 +74,7 @@ cols_right <- function(...) {
 #' @param coltype column type
 #'
 #' @export
-col_ragged <- function(size, unit = "cm", ragged = c("right", "left", "no"),
+col_fixed <- function(size, unit = "cm", ragged = c("right", "left", "no"),
                        coltype = c("p","m","b")) {
   ragged <- match.arg(ragged)
 
@@ -86,10 +86,11 @@ col_ragged <- function(size, unit = "cm", ragged = c("right", "left", "no"),
   paste0(">{\\ragged",ragged,"}",coltype,"{",size,unit,"}")
 }
 
-#' @rdname col_ragged
+#' @rdname col_fixed
+#' @param ... arguments passed to col fixed
 #' @export
-col_fixed <- function(..., ragged = "no") {
-  col_ragged(..., ragged = "no")
+col_ragged <- function(..., ragged = "right") {
+  col_fixed(..., ragged = ragged)
 }
 
 

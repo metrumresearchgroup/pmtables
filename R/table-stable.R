@@ -132,9 +132,9 @@ stable <- function(data,
       stop("panel column not found: ", sQuote(panel$col), call.=FALSE)
     }
     data[[paneln]] <- replace_na(data[[paneln]],"")
-    panel_prefix <- panel$prefix
-    if(panel$prefix_name) panel_prefix <- names(panel$col)[1]
-    ins <- panel_by(data, panel$col, prefix = panel_prefix)
+    #panel_prefix <- panel$prefix
+    #if(panel$prefix_name) panel_prefix <- names(panel$col)[1]
+    ins <- panel_by(data, panel)#panel$col, prefix = panel_prefix)
     data[[panel$col]] <- NULL
     do_panel <- TRUE
   }

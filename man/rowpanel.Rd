@@ -2,9 +2,24 @@
 % Please edit documentation in R/table-panel.R
 \name{rowpanel}
 \alias{rowpanel}
+\alias{is.rowpanel}
 \title{Create panel object}
 \usage{
-rowpanel(col = NULL, prefix_name = FALSE, prefix = "")
+rowpanel(col = NULL, prefix = "", prefix_name = FALSE, prefix_skip = NULL)
+
+is.rowpanel(x)
+}
+\arguments{
+\item{col}{name of column to be used for creating panels}
+
+\item{prefix}{to be added to each panel title}
+
+\item{prefix_name}{\code{logical}; if \code{TRUE}, then the prefix will be derived by the name associated with \code{col} input
+to the function}
+
+\item{prefix_skip}{a regular expression for identifying panel titles where the prefix won't be applied}
+
+\item{x}{an object to test}
 }
 \description{
 Create panel object

@@ -124,7 +124,7 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
   }
 
   if(exists("level", ans)) {
-    ans <- rename(ans, "\\ " = level)
+    ans <- rename(ans, "\\ " = .data[["level"]])
   }
 
   span <- NULL

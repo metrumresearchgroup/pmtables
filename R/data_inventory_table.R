@@ -119,7 +119,7 @@ data_inventory_data_split <- function(data,by,panel=by,stacked=FALSE,...) {
 #'
 #' @export
 data_inventory_data <- function(data, by, panel = by, all_name = "all",
-                                stacked = FALSE, st = TRUE, ...) {
+                                stacked = FALSE, ...) {
   by <- unname(by)
   panel <- unname(panel)
 
@@ -247,10 +247,7 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 pt_data_inventory <- function(data, by = ".total", panel = by,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
-                              align = cols_center(.outer = 'l'),
                               all_name = "all",
-                              st = FALSE,
-                              st_args = NULL,
                               dv_col = pt_opts$dv_col,
                               bq_col = pt_opts$bq_col,
                               id_col = pt_opts$id_col,
@@ -259,9 +256,10 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   has_panel <- !missing(panel)
   has_by <- !missing(by)
 
-  if(no_bql) {
-
-  }
+  # TODO
+  # if(no_bql) {
+  #
+  # }
 
   by <- new_names(by,table)
 
@@ -350,19 +348,11 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     panel = rowpanel(col = panel, prefix =  NULL),
     col_rename = by,
     span_split = colsplit(sep = "."),
-    align = align,
+    align = cols_center(.outer = 'l'),
     notes = notes
   )
 
   out <- structure(out, class = "pmtable")
-
-  # if(isTRUE(st)) {
-  #   return(as_stable.pmtable(out))
-  # }
-  #
-  # if(length(st_args) > 0) {
-  #   return(do.call(as_stable, c(list(out),st_args)))
-  # }
 
   return(out)
 }
