@@ -70,6 +70,24 @@ stable(
 ) %>% pt_wrap(stdout())
 ```
 
+\clearpage
+
+# Notes in minipage
+
+- By default, notes are put in the 3rd part of threeparttable
+- Alternatively, we can put them in a minipage just below the table
+
+```{r,results = 'asis'}
+stable(
+  data, 
+  r_file = "foo.R", 
+  output_file = "foo.tex", 
+  note_config = noteconf(type = "minipage", width = 0.65),
+  notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
+) %>% pt_wrap(stdout())
+```
+
+
 
 \clearpage
 
