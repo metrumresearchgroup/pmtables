@@ -100,8 +100,8 @@ pt_cont_wide <- function(data, cols,
                          fun = str_sum_2,
                          panel.label.add = pt_opts$panel.label.add) {
 
-  has_panel <- !is.null(panel)
-  has_by <- !is.null(by)
+  has_panel <- !missing(panel)
+  has_by <- !missing(by)
 
   tst <- fun(rnorm(10))
   assert_that(identical(names(tst),"summary"))
@@ -126,7 +126,7 @@ pt_cont_wide <- function(data, cols,
   )
 
   all_summary <- FALSE
-  if(by != ".total") {
+  if(has_panel || has_by) {
     all_summary <- TRUE
     ans2 <- cont_table_data(
       data=data,
@@ -137,34 +137,47 @@ pt_cont_wide <- function(data, cols,
       digits = digits,
       wide = TRUE
     )
-    ans2 <- mutate(ans2, outer := all_name)
-    if(panel != by) {
-      ans2 <- mutate(ans2, !!sym(panel) := "Total")
-      if(isTRUE(panel.label.add)) {
-        ans <- mutate(
-          ans,
-          !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
-        )
+    #ans2 <- mutate(ans2, outer := all_name)
+
+    if(has_panel) {
+      ans2 <- mutate(ans2, !!sym(panel) := all_name)
+    } else {
+      if(has_by) {
+        ans2[["outer"]] <- paste0("\\hline \\hline {\\bf ", all_name, "}")
       }
     }
     ans <- bind_rows(ans,ans2)
   }
 
   if(has_by & !has_panel) {
-    ans <- rename(ans,!!sym(by) := outer)
+    ans <- rename(ans, !!sym(by) := outer)
   }
+
+  if(exists(by, ans)) {
+    where <- names(ans)==by
+    names(ans)[where] <- names(by)
+  }
+
 
   ans[["outer"]] <- NULL
   ans[[".total"]] <- NULL
 
+  .panel <- rowpanel(NULL)
+  if(has_panel) {
+    .panel <- rowpanel(panel)
+  }
+
   out <- list(
     data = ans,
     align = cols_left(),
-    panel = rowpanel(panel),
-    units = units
+    panel = .panel,
+    units = units,
+    bold_cols = !has_panel,
+    notes = "Summary is mean (sd) [count]"
   )
 
   out <- structure(out, class = "pmtable")
+
   out
 }
 
@@ -271,7 +284,8 @@ pt_cont_long <- function(data,
   out <- list(
     data = ans,
     align = cols_center(.outer = "lr"),
-    panel = .panel
+    panel = .panel,
+    bold_cols = !has_panel
   )
   out <- structure(out, class = "pmtable")
   out

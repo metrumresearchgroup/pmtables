@@ -74,12 +74,24 @@ cols_right <- function(...) {
 #' @param coltype column type
 #'
 #' @export
-col_ragged <- function(size, unit = "cm", ragged = c("right","left"),
+col_ragged <- function(size, unit = "cm", ragged = c("right", "left", "no"),
                        coltype = c("p","m","b")) {
   ragged <- match.arg(ragged)
+
   coltype <- match.arg(coltype)
+
+  if(ragged=="no") {
+    return(paste0(coltype,"{",size,unit,"}"))
+  }
   paste0(">{\\ragged",ragged,"}",coltype,"{",size,unit,"}")
 }
+
+#' @rdname col_ragged
+#' @export
+col_fixed <- function(..., ragged = "no") {
+  col_ragged(..., ragged = "no")
+}
+
 
 form_align <- function(x,cols,pipes = FALSE) {
   if(is.character(x$complete)) return(x$complete)

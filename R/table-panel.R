@@ -23,6 +23,7 @@ is.null.rowpanel <- function(x) x$null
 panel_by <- function(data, col, prefix = NULL) {
   nc <- ncol(data)-1
   u <- unique(data[[col]])
+  u <- u[u!=""]
   u <- u[u!=".panel.waiver."]
   where <- match(u,data[[col]])
   lab <- data[[col]][where]

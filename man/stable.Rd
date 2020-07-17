@@ -7,7 +7,7 @@
 stable(
   data,
   align = cols_left(),
-  panel = NULL,
+  panel = rowpanel(col = NULL),
   units = NULL,
   rm_dups = NULL,
   span = NULL,

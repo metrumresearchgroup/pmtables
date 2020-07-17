@@ -80,7 +80,9 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
                         all_name = "All Groups", summarize_all = TRUE,
                         table = NULL) {
 
-  if(missing(by) & !missing(span)) {
+  has_span <- !missing(span) | !missing(by)
+
+  if(missing(by) & has_span) {
     by <- span
   }
 
@@ -125,13 +127,18 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
     ans <- rename(ans, "\\ " = level)
   }
 
+  span <- NULL
+  if(has_span) {
+    span <- colgroup(names(by), unique(data[[by]]))
+  }
 
   out <- list(
     data = ans,
-    span_split = colsplit(sep = '.'),
+    span = span,
     align = cols_center(.outer = 'l'),
     col_rename = by,
-    panel = c(.blank = "name")
+    panel = c(.blank = "name"),
+    notes = "Summary is count (percent)"
   )
 
   out <- structure(out, class = "pmtable")
@@ -209,7 +216,8 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
     span_split = colsplit(sep = '.'),
     align = cols_center(.outer = 'l'),
     col_rename = c(.panel$col,by),
-    panel = .panel
+    panel = .panel,
+    notes = "Summary is count (percent)"
   )
 
   out <- structure(out, class = "pmtable")

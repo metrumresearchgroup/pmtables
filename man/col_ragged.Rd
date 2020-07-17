@@ -2,14 +2,17 @@
 % Please edit documentation in R/table-align.R
 \name{col_ragged}
 \alias{col_ragged}
+\alias{col_fixed}
 \title{Format a table cell with fixed width}
 \usage{
 col_ragged(
   size,
   unit = "cm",
-  ragged = c("right", "left"),
+  ragged = c("right", "left", "no"),
   coltype = c("p", "m", "b")
 )
+
+col_fixed(..., ragged = "no")
 }
 \arguments{
 \item{size}{the width of the cell}

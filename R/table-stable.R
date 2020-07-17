@@ -54,7 +54,7 @@ note_space <- 0.1
 #' @export
 stable <- function(data,
                    align = cols_left(),
-                   panel = NULL,
+                   panel = rowpanel(col = NULL),
                    units = NULL,
                    rm_dups = NULL,
                    span = NULL,
@@ -79,9 +79,9 @@ stable <- function(data,
 
   assert_that(is.data.frame(data))
 
-  has_panel <- !is.null(panel)
+  has_panel <- !missing(panel)
 
-  if(!is.null(panel) && !is.rowpanel(panel)) {
+  if(has_panel && !is.rowpanel(panel)) {
     panel <- rowpanel(panel)
   }
 
@@ -102,16 +102,6 @@ stable <- function(data,
       hline_row <- !duplicated(chunk_runs(data[[this_col]]))
       hline_row[1] <- FALSE
       add_hlines <- c(add_hlines, which(hline_row)-1)
-    }
-  }
-
-  if(!is.null(sumrows)) {
-    hline_sums <- map(sumrows, sumrow_get_hline)
-    hline_sums <- flatten_int(hline_sums)-1
-    add_hlines <- c(add_hlines, hline_sums)
-
-    for(this_sumrow in sumrows) {
-      data <- sumrow_add_style(this_sumrow,data)
     }
   }
 
@@ -141,12 +131,24 @@ stable <- function(data,
     if(any(is.na(paneln))) {
       stop("panel column not found: ", sQuote(panel$col), call.=FALSE)
     }
+    data[[paneln]] <- replace_na(data[[paneln]],"")
     panel_prefix <- panel$prefix
     if(panel$prefix_name) panel_prefix <- names(panel$col)[1]
     ins <- panel_by(data, panel$col, prefix = panel_prefix)
     data[[panel$col]] <- NULL
     do_panel <- TRUE
   }
+
+  if(!is.null(sumrows)) {
+    hline_sums <- map(sumrows, sumrow_get_hline)
+    hline_sums <- flatten_int(hline_sums)-1
+    add_hlines <- c(add_hlines, hline_sums)
+
+    for(this_sumrow in sumrows) {
+      data <- sumrow_add_style(this_sumrow,data)
+    }
+  }
+
 
   nc <- ncol(data)
   nr <- nrow(data)
@@ -183,7 +185,10 @@ stable <- function(data,
 
   if(is.character(col_replace)) {
     if(length(col_replace) != length(cols)) {
-      stop("'col_replace' length is not equal to the number of columns in 'data'", call.=FALSE)
+      stop(
+        "'col_replace' length is not equal to the number of columns in 'data'",
+        call.=FALSE
+      )
     }
     cols <- col_replace
     col_rename <- NULL
