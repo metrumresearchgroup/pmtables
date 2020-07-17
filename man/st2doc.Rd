@@ -4,13 +4,25 @@
 \alias{st2doc}
 \title{Render a table a pdf document}
 \usage{
-st2doc(text, preview = TRUE)
+st2doc(
+  text,
+  preview = TRUE,
+  output_dir = tempdir(),
+  output_file = "st2doc.pdf"
+)
 }
 \arguments{
 \item{text}{\code{\link[=stable]{stable()}} output}
 
 \item{preview}{if \code{TRUE}, the rendered pdf file is opened using
 \code{\link[fs:file_show]{fs::file_show()}}}
+
+\item{output_dir}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+
+\item{output_file}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+}
+\value{
+the \code{text} is returned invisibly
 }
 \description{
 Render a table a pdf document

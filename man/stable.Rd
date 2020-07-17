@@ -21,14 +21,14 @@ stable(
   col_replace = NULL,
   row_space = 1.4,
   col_space = 5,
-  note_space = 0.1,
   fontsize = NULL,
   prime_fun = tab_prime,
   escape_fun = tab_escape,
+  note_config = noteconf(type = "tpt"),
   r_file = NULL,
-  r_file_label = getOption("r.file.label", "source code:"),
+  r_file_label = getOption("r.file.label", "Source code:"),
   output_file = NULL,
-  output_file_label = getOption("out.file.label", "source file: ")
+  output_file_label = getOption("out.file.label", "Source file: ")
 )
 }
 \arguments{
@@ -76,8 +76,6 @@ to one by on editing with \code{col_rename})}
 \verb{row_space > <default>} to increase}
 
 \item{col_space}{absolute column spacing amount (\code{pt})}
-
-\item{note_space}{separation for table notes}
 
 \item{fontsize}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
 

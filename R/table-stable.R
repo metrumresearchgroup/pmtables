@@ -39,7 +39,6 @@ note_space <- 0.1
 #' @param row_space relative increase or decrease spacing between rows; use
 #' `row_space > <default>` to increase
 #' @param col_space absolute column spacing amount (`pt`)
-#' @param note_space separation for table notes
 #' @param fontsize for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
 #' @param prime_fun function to prime the data frame to be converted to tabular
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
@@ -68,16 +67,17 @@ stable <- function(data,
                    col_replace = NULL,
                    row_space = 1.4,
                    col_space = 5,
-                   note_space = 0.1,
                    fontsize = NULL,
                    prime_fun = tab_prime,
                    escape_fun = tab_escape,
+                   note_config = noteconf(type = "tpt"),
                    r_file = NULL,
-                   r_file_label = getOption("r.file.label","source code:"),
+                   r_file_label = getOption("r.file.label","Source code:"),
                    output_file = NULL,
-                   output_file_label = getOption("out.file.label","source file: ")) {
+                   output_file_label = getOption("out.file.label","Source file: ")) {
 
   assert_that(is.data.frame(data))
+  assert_that(is.noteconfig(note_config))
 
   has_panel <- !missing(panel)
 
@@ -207,18 +207,6 @@ stable <- function(data,
   assert_that(length(align_tex)==ncol(data))
   align_tex <- paste0(align_tex,collapse="")
 
-  r_note <- NULL
-  out_note <- NULL
-
-  if(is.character(r_file)) {
-    r_note <- paste(r_file_label, basename(r_file))
-  }
-
-  if(is.character(output_file)) {
-    out_note <- paste(output_file_label,basename(output_file))
-  }
-
-  notes <- c(notes, r_note, out_note)
 
   if(is.character(prime_fun)) prime_fun <- get(prime_fun, mode = "function")
   if(is.character(escape_fun)) escape_fun <- get(escape_fun, mode = "function")
@@ -239,11 +227,30 @@ stable <- function(data,
 
   open_tabular <- form_open(align_tex)
 
+  r_note <- NULL
+  out_note <- NULL
+
+  if(is.character(r_file)) {
+    r_note <- paste(r_file_label, basename(r_file))
+  }
+
+  if(is.character(output_file)) {
+    out_note <- paste(output_file_label,basename(output_file))
+  }
+
+  notes <- c(notes, r_note, out_note)
+
   if(!is.null(notes)) {
     if(isTRUE(pt_opts$notes.sanitize)) {
       notes <- escape_fun(notes)
     }
-    notes <- form_notes(notes, note_space)
+  }
+
+  m_notes <- t_notes <- NULL
+  if(note_config$tpt) {
+    t_notes <- tpt_notes(notes, note_config)
+  } else {
+    m_notes <- mini_notes(notes, note_config)
   }
 
   stretch_start <- "{\\def\\arraystretch{<row_space>}\\tabcolsep=<col_space>pt"
@@ -268,9 +275,10 @@ stable <- function(data,
     tab,
     "\\hline",
     "\\end{tabular}",
-    notes,
+    t_notes,
     end_tpt,
     stretch_end,
+    m_notes,
     font_size$end
   )
   tab <- structure(tab, class = "stable", stable_file = output_file)
