@@ -1,3 +1,4 @@
+^test-.*\.R$
 ^test-pmtables\.R$
 ^inst/demo\.pdf$
 ^inst/foo\.tex$

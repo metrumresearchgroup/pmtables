@@ -15,13 +15,6 @@ editor_options:
 
 ```{r,message = FALSE, echo=FALSE}
 library(dplyr)
-wraptable <- function(x) {
-  writeLines("\\begin{table}[h]")
-  writeLines("\\centering")
-  writeLines(x)
-  writeLines("\\end{table}")
-}
-wrap <- wraptable
 ```
 
 \clearpage
@@ -55,7 +48,7 @@ in markdown.
 - Columns are in bold by default (can be turned off)
 
 ```{r,results = 'asis'}
-data %>% stable() %>% wrap()
+data %>% stable() %>% pt_wrap(stdout())
 ```
 
 \clearpage
@@ -74,7 +67,7 @@ stable(
   r_file = "foo.R", 
   output_file = "foo.tex", 
   notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 
@@ -88,7 +81,7 @@ stable(
 
 ```{r,results = 'asis'}
 data %>% 
-  stable(align = cols_center(STUDY = 'l', .r = "DOSE,SCR")) %>% wrap()
+  stable(align = cols_center(STUDY = 'l', .r = "DOSE,SCR")) %>% pt_wrap(stdout())
 ```
 
 
@@ -106,7 +99,7 @@ stable(
   data,
   align = cols_center(STUDY = 'l', .r = "DOSE,SCR"),
   units = units,
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 \clearpage
@@ -129,7 +122,7 @@ stable(
   ptab, 
   align = cols_center(Parameter =  col_ragged(3), .l = "Symbol"), 
   panel = ".type"
-  ) %>% wrap
+  ) %>% pt_wrap
 ```
 
 
@@ -144,7 +137,7 @@ stable(
 stable(
   data,
   hline_from = "STUDY",
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 \clearpage
@@ -157,7 +150,7 @@ stable(
 stable(
   data,
   hline_at = c(3,nrow(data))-1,
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 
@@ -172,7 +165,7 @@ stable(
   data,
   hline_from = "STUDY",
   rm_dups = "STUDY",
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 \clearpage
@@ -187,7 +180,7 @@ stable(
   data,
   align = cols_center(DOSE = "l", SCR = "r"), 
   panel = vars("Study number:" = STUDY)
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 \clearpage
@@ -201,7 +194,7 @@ stable(
   data,
   align = cols_left(.c = "WT,AGE,CRCL"),
   span = colgroup("In final model", WT:CRCL),
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 
@@ -226,7 +219,7 @@ stable(
     colgroup("Huh", ALB:SCR), 
     colgroup("Expert opinion", CRCL:SCR, level = 2)
   )
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 
@@ -248,7 +241,7 @@ stable(
   span_split = colsplit(sep = '.'),
   align = cols_left(.c = "WT,AGE,CRCL"),
   r_file = "foo.R", output_file = "foo.tex"
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 \clearpage
@@ -259,7 +252,7 @@ stable(
 ```{r,results = "asis"}
 ptable <- readRDS("datasets/ptable.RDS")
 
-stable(ptable) %>% wrap()
+stable(ptable) %>% pt_wrap(stdout())
 ```
 
 
@@ -269,7 +262,7 @@ stable(ptable) %>% wrap()
 stable(
   ptable, 
   align = cols_center(descr = col_ragged(5))
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 
@@ -298,7 +291,7 @@ stable(
     label = "All Studies", 
     bold = TRUE
   )
-) %>% wrap()
+) %>% pt_wrap(stdout())
 ```
 
 
@@ -334,7 +327,7 @@ try(stable_save(as.character(tab)))
 - Where's my glasses?
 
 ```{r,results = 'asis'}
-data %>% stable(fontsize = "tiny") %>% wrap()
+data %>% stable(fontsize = "tiny") %>% pt_wrap(stdout())
 ```
 
 
@@ -343,14 +336,14 @@ data %>% stable(fontsize = "tiny") %>% wrap()
 # Row space
 
 ```{r,results = 'asis'}
-data %>% slice(1:3) %>% stable() %>% wrap()
-data %>% slice(1:3) %>% stable(row_space = 0.9) %>% wrap()
-data %>% slice(1:3) %>% stable(row_space = 2) %>% wrap()
+data %>% slice(1:3) %>% stable() %>% pt_wrap(stdout())
+data %>% slice(1:3) %>% stable(row_space = 0.9) %>% pt_wrap(stdout())
+data %>% slice(1:3) %>% stable(row_space = 2) %>% pt_wrap(stdout())
 ```
 \clearpage
 
 # Col space
 
 ```{r,results = 'asis'}
-data %>% stable(col_space = 20) %>% wrap()
+data %>% stable(col_space = 20) %>% pt_wrap(stdout())
 ```
