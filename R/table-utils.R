@@ -73,3 +73,4 @@ gluet <- function(x,...) {
   glue(x,.open = "<", .close = ">", .envir = parent.frame())
 }
 
+squote <- function(x) paste0("'", x, "'")

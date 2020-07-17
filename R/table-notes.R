@@ -4,6 +4,7 @@
 #' @param width the width (as fraction of linewidth) is `minipage` notes
 #' @param type put table notes in either the `tablenotes` section of
 #' threeparttable (`tpt`) or in a minipage below the table (`minipage`)
+#' @param hline where to include horizintal lines
 #' @param table_skip vertical space (`cm`) between the last row of the table
 #' and the hline (if any) at the top of the table notes
 #' @param note_skip vertical space (`cm`) between the top hline of the table
@@ -16,7 +17,7 @@
 noteconf <- function(width = 0.8,
                      type = c("tpt", "minipage"),
                      hline = c("top", "bottom", "both", "none"),
-                     table_skip = 0.67, note_skip = 0.05,
+                     table_skip = 0.67, note_skip = 0.02,
                      linespread = 1.1, hline_pt = 0.4,
                      note_sp = 0.1) {
 
@@ -46,26 +47,26 @@ is.noteconfig <- function(x) inherits(x, "noteconfig")
 
 mini_notes <- function(notes, x) {
   hline1 <- hline2 <- paste0("\\rule{", 1, "\\linewidth}{",x$hline_pt, "pt}")
-  vskip1 <- vskip2 <- paste0("\\vskip ", x$note_skip, "cm")
+  tskip <- paste0("\\vskip ", x$table_skip, "cm")
+  nskip <- paste0("\\vskip ", x$note_skip,  "cm")
   if(!x$hline1) {
     hline1 <- NULL
-    vskip1 <- NULL
   }
   if(!x$hline2) {
     hline2 <- NULL
-    vskip2 <- NULL
   }
+  notes <- paste(notes, "\\newline")
   out <- c(
-    paste0("\\vskip ", x$table_skip, "cm"),
+    tskip,
     paste0("\\begin{minipage}{",x$width,"\\linewidth}"),
     paste0("\\linespread{", x$linespread,"}\\selectfont"),
     hline1,
-    vskip1,
-    paste(notes,"\\newline"),
-    vskip2,
+    nskip,
+    notes,
     hline2,
     paste0("\\end{minipage}")
   )
+  out
 }
 
 tpt_notes <- function(notes,x) {

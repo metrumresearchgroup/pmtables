@@ -43,6 +43,8 @@ note_space <- 0.1
 #' @param prime_fun function to prime the data frame to be converted to tabular
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
+#' @param note_config a [noteconf()] object used to configure how table notes
+#' are displayed
 #' @param r_file the name of the R file containg code to generate the table; the
 #' file name will be included in the notes in the table footer
 #' @param r_file_label prefix text for `r_file` note
@@ -129,12 +131,10 @@ stable <- function(data,
     require_col(data,panel$col,context = "panel column input name")
     paneln <- match(panel$col,names(data))
     if(any(is.na(paneln))) {
-      stop("panel column not found: ", sQuote(panel$col), call.=FALSE)
+      stop("panel column not found: ", squote(panel$col), call.=FALSE)
     }
     data[[paneln]] <- replace_na(data[[paneln]],"")
-    #panel_prefix <- panel$prefix
-    #if(panel$prefix_name) panel_prefix <- names(panel$col)[1]
-    ins <- panel_by(data, panel)#panel$col, prefix = panel_prefix)
+    ins <- panel_by(data, panel)
     data[[panel$col]] <- NULL
     do_panel <- TRUE
   }

@@ -84,6 +84,9 @@ to one by on editing with \code{col_rename})}
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}
 
+\item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
+are displayed}
+
 \item{r_file}{the name of the R file containg code to generate the table; the
 file name will be included in the notes in the table footer}
 

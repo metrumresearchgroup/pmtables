@@ -9,7 +9,7 @@ noteconf(
   type = c("tpt", "minipage"),
   hline = c("top", "bottom", "both", "none"),
   table_skip = 0.67,
-  note_skip = 0.05,
+  note_skip = 0.02,
   linespread = 1.1,
   hline_pt = 0.4,
   note_sp = 0.1
@@ -20,6 +20,8 @@ noteconf(
 
 \item{type}{put table notes in either the \code{tablenotes} section of
 threeparttable (\code{tpt}) or in a minipage below the table (\code{minipage})}
+
+\item{hline}{where to include horizintal lines}
 
 \item{table_skip}{vertical space (\code{cm}) between the last row of the table
 and the hline (if any) at the top of the table notes}
