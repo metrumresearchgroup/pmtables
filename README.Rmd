@@ -26,6 +26,7 @@ Installation information to be updated when ready.
 
 ## Examples
 
-See [inst/demo.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo.pdf) for examples. 
+- General table examples: [inst/demo-table.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-table.pdf) 
 
+- Standard table examples: [inst/demo-pmtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pmtable.pdf)
 

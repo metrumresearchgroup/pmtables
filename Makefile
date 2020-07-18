@@ -4,6 +4,7 @@ VERSION=$(shell grep Version DESCRIPTION |awk '{print $$2}')
 TARBALL=${PACKAGE}_${VERSION}.tar.gz
 PKGDIR=.
 CHKDIR=.
+
 all:
 	make doc
 	make install
@@ -33,7 +34,8 @@ data:
 	Rscript inst/script/data-tabular.R
 
 demo-doc:
-	Rscript -e 'rmarkdown::render("inst/demo.Rmd")'
+	Rscript -e 'rmarkdown::render("inst/demo-table.Rmd", clean=TRUE)'
+	Rscript -e 'rmarkdown::render("inst/demo-pmtable.R", clean=TRUE)'
 
 quick:
 	make doc
