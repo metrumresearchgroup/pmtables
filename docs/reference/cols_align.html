@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9021</span>
       </span>
     </div>
 
@@ -152,6 +152,7 @@
   <span class='kw'>.c</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.l</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.coltype</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
+  <span class='kw'>.outer</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"l"</span>, <span class='st'>"r"</span>, <span class='st'>"lr"</span>),
   <span class='kw'>.complete</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )
 
@@ -191,6 +192,11 @@ to right justify</p></td>
     <tr>
       <th>.coltype</th>
       <td><p>should be p, m, or b</p></td>
+    </tr>
+    <tr>
+      <th>.outer</th>
+      <td><p>force the left-most column to the left (<code>l</code>), or the right-most
+column on the right (<code>r</code>), or both (<code>lr</code>)</p></td>
     </tr>
     <tr>
       <th>.complete</th>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract multiple pmtables options — [.pt_opts • pmtables</title>
+<title>Configure table notes — noteconf • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Extract multiple pmtables options — [.pt_opts" />
-<meta property="og:description" content="Extract multiple pmtables options" />
+<meta property="og:title" content="Configure table notes — noteconf" />
+<meta property="og:description" content="Configure table notes" />
 
 
 
@@ -136,48 +136,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract multiple pmtables options</h1>
+    <h1>Configure table notes</h1>
     
-    <div class="hidden name"><code>sub-.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>noteconf.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract multiple pmtables options</p>
+    <p>Configure table notes</p>
     </div>
 
-    <pre class="usage"># S3 method for pt_opts
-[(x, i, ..., exact = TRUE)</pre>
+    <pre class="usage"><span class='fu'>noteconf</span>(
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpt"</span>, <span class='st'>"minipage"</span>),
+  <span class='kw'>hline</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"top"</span>, <span class='st'>"bottom"</span>, <span class='st'>"both"</span>, <span class='st'>"none"</span>),
+  <span class='kw'>table_skip</span> <span class='kw'>=</span> <span class='fl'>0.67</span>,
+  <span class='kw'>note_skip</span> <span class='kw'>=</span> <span class='fl'>0.02</span>,
+  <span class='kw'>linespread</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
+  <span class='kw'>hline_pt</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
+  <span class='kw'>note_sp</span> <span class='kw'>=</span> <span class='fl'>0.1</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <th>width</th>
+      <td><p>the width (as fraction of linewidth) is <code>minipage</code> notes</p></td>
     </tr>
     <tr>
-      <th>i</th>
-      <td><p>a character option name to extract</p></td>
+      <th>type</th>
+      <td><p>put table notes in either the <code>tablenotes</code> section of
+threeparttable (<code>tpt</code>) or in a minipage below the table (<code>minipage</code>)</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>other option names to extract</p></td>
+      <th>hline</th>
+      <td><p>where to include horizintal lines</p></td>
     </tr>
     <tr>
-      <th>exact</th>
-      <td><p>not used</p></td>
+      <th>table_skip</th>
+      <td><p>vertical space (<code>cm</code>) between the last row of the table
+and the hline (if any) at the top of the table notes</p></td>
+    </tr>
+    <tr>
+      <th>note_skip</th>
+      <td><p>vertical space (<code>cm</code>) between the top hline of the table
+notes and the first note line</p></td>
+    </tr>
+    <tr>
+      <th>linespread</th>
+      <td><p>spacing between note lines for <code>minipage</code> notes</p></td>
+    </tr>
+    <tr>
+      <th>hline_pt</th>
+      <td><p>the point size for hlines</p></td>
+    </tr>
+    <tr>
+      <th>note_sp</th>
+      <td><p>spacing between note lines for <code>tpt</code> notes</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pt_opts</span>[<span class='st'>"id_col"</span>, <span class='st'>"dv_col"</span>]</div><div class='output co'>#&gt; $id_col
-#&gt; [1] "ID"
-#&gt; 
-#&gt; $dv_col
-#&gt; [1] "DV"
-#&gt; </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

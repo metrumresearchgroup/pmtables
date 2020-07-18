@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract multiple pmtables options — [.pt_opts • pmtables</title>
+<title>Create panel object — rowpanel • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Extract multiple pmtables options — [.pt_opts" />
-<meta property="og:description" content="Extract multiple pmtables options" />
+<meta property="og:title" content="Create panel object — rowpanel" />
+<meta property="og:description" content="Create panel object" />
 
 
 
@@ -136,48 +136,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract multiple pmtables options</h1>
+    <h1>Create panel object</h1>
     
-    <div class="hidden name"><code>sub-.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>rowpanel.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract multiple pmtables options</p>
+    <p>Create panel object</p>
     </div>
 
-    <pre class="usage"># S3 method for pt_opts
-[(x, i, ..., exact = TRUE)</pre>
+    <pre class="usage"><span class='fu'>rowpanel</span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>prefix_name</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>prefix_skip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>is.rowpanel</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>col</th>
+      <td><p>name of column to be used for creating panels</p></td>
+    </tr>
+    <tr>
+      <th>prefix</th>
+      <td><p>to be added to each panel title</p></td>
+    </tr>
+    <tr>
+      <th>prefix_name</th>
+      <td><p><code>logical</code>; if <code>TRUE</code>, then the prefix will be derived by the name associated with <code>col</code> input
+to the function</p></td>
+    </tr>
+    <tr>
+      <th>prefix_skip</th>
+      <td><p>a regular expression for identifying panel titles where the prefix won't be applied</p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
-    </tr>
-    <tr>
-      <th>i</th>
-      <td><p>a character option name to extract</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other option names to extract</p></td>
-    </tr>
-    <tr>
-      <th>exact</th>
-      <td><p>not used</p></td>
+      <td><p>an object to test</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pt_opts</span>[<span class='st'>"id_col"</span>, <span class='st'>"dv_col"</span>]</div><div class='output co'>#&gt; $id_col
-#&gt; [1] "ID"
-#&gt; 
-#&gt; $dv_col
-#&gt; [1] "DV"
-#&gt; </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

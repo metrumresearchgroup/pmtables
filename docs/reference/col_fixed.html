@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract multiple pmtables options — [.pt_opts • pmtables</title>
+<title>Format a table cell with fixed width — col_fixed • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Extract multiple pmtables options — [.pt_opts" />
-<meta property="og:description" content="Extract multiple pmtables options" />
+<meta property="og:title" content="Format a table cell with fixed width — col_fixed" />
+<meta property="og:description" content="Format a table cell with fixed width" />
 
 
 
@@ -136,48 +136,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract multiple pmtables options</h1>
+    <h1>Format a table cell with fixed width</h1>
     
-    <div class="hidden name"><code>sub-.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>col_fixed.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract multiple pmtables options</p>
+    <p>Format a table cell with fixed width</p>
     </div>
 
-    <pre class="usage"># S3 method for pt_opts
-[(x, i, ..., exact = TRUE)</pre>
+    <pre class="usage"><span class='fu'>col_fixed</span>(
+  <span class='no'>size</span>,
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>,
+  <span class='kw'>ragged</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>, <span class='st'>"no"</span>),
+  <span class='kw'>coltype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"p"</span>, <span class='st'>"m"</span>, <span class='st'>"b"</span>)
+)
+
+<span class='fu'>col_ragged</span>(<span class='no'>...</span>, <span class='kw'>ragged</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <th>size</th>
+      <td><p>the width of the cell</p></td>
     </tr>
     <tr>
-      <th>i</th>
-      <td><p>a character option name to extract</p></td>
+      <th>unit</th>
+      <td><p>to go with <code>size</code></p></td>
+    </tr>
+    <tr>
+      <th>ragged</th>
+      <td><p>use <code>right</code> to left justify and <code>left</code> to right justify</p></td>
+    </tr>
+    <tr>
+      <th>coltype</th>
+      <td><p>column type</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other option names to extract</p></td>
-    </tr>
-    <tr>
-      <th>exact</th>
-      <td><p>not used</p></td>
+      <td><p>arguments passed to col fixed</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pt_opts</span>[<span class='st'>"id_col"</span>, <span class='st'>"dv_col"</span>]</div><div class='output co'>#&gt; $id_col
-#&gt; [1] "ID"
-#&gt; 
-#&gt; $dv_col
-#&gt; [1] "DV"
-#&gt; </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

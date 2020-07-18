@@ -42,4 +42,5 @@ quick:
 
 tag-version:
 	git tag $(VERSION)
+	git push origin $(VERSION)
 

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9021</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
     <pre class="usage"><span class='fu'>stable</span>(
   <span class='no'>data</span>,
   <span class='kw'>align</span> <span class='kw'>=</span> <span class='fu'><a href='cols_align.html'>cols_left</a></span>(),
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='fu'><a href='rowpanel.html'>rowpanel</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>rm_dups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -162,14 +162,14 @@
   <span class='kw'>col_replace</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>row_space</span> <span class='kw'>=</span> <span class='fl'>1.4</span>,
   <span class='kw'>col_space</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>note_space</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
   <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>prime_fun</span> <span class='kw'>=</span> <span class='no'>tab_prime</span>,
   <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>,
+  <span class='kw'>note_config</span> <span class='kw'>=</span> <span class='fu'><a href='noteconf.html'>noteconf</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"tpt"</span>),
   <span class='kw'>r_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>r_file_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"r.file.label"</span>, <span class='st'>"source code:"</span>),
+  <span class='kw'>r_file_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"r.file.label"</span>, <span class='st'>"Source code:"</span>),
   <span class='kw'>output_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>output_file_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"out.file.label"</span>, <span class='st'>"source file: "</span>)
+  <span class='kw'>output_file_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"out.file.label"</span>, <span class='st'>"Source file: "</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -253,10 +253,6 @@ to one by on editing with <code>col_rename</code>)</p></td>
       <td><p>absolute column spacing amount (<code>pt</code>)</p></td>
     </tr>
     <tr>
-      <th>note_space</th>
-      <td><p>separation for table notes</p></td>
-    </tr>
-    <tr>
       <th>fontsize</th>
       <td><p>for the table (e.g. <code>normalsize</code>, <code>small</code>, <code>scriptsize</code>, etc)</p></td>
     </tr>
@@ -268,6 +264,11 @@ to one by on editing with <code>col_rename</code>)</p></td>
       <th>escape_fun</th>
       <td><p>a function passed to <code>prime_fun</code> that will sanitize column
 data</p></td>
+    </tr>
+    <tr>
+      <th>note_config</th>
+      <td><p>a <code><a href='noteconf.html'>noteconf()</a></code> object used to configure how table notes
+are displayed</p></td>
     </tr>
     <tr>
       <th>r_file</th>

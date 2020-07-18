@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract multiple pmtables options — [.pt_opts • pmtables</title>
+<title>Wrap stable output in table environment — pt_wrap • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Extract multiple pmtables options — [.pt_opts" />
-<meta property="og:description" content="Extract multiple pmtables options" />
+<meta property="og:title" content="Wrap stable output in table environment — pt_wrap" />
+<meta property="og:description" content="Wrap stable output in table environment" />
 
 
 
@@ -136,48 +136,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract multiple pmtables options</h1>
+    <h1>Wrap stable output in table environment</h1>
     
-    <div class="hidden name"><code>sub-.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>pt_wrap.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract multiple pmtables options</p>
+    <p>Wrap stable output in table environment</p>
     </div>
 
-    <pre class="usage"># S3 method for pt_opts
-[(x, i, ..., exact = TRUE)</pre>
+    <pre class="usage"><span class='fu'>pt_wrap</span>(<span class='no'>x</span>, <span class='kw'>con</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <td><p>tabular text</p></td>
     </tr>
     <tr>
-      <th>i</th>
-      <td><p>a character option name to extract</p></td>
+      <th>con</th>
+      <td><p>where to write the output</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>other option names to extract</p></td>
+      <th>center</th>
+      <td><p>if <code>TRUE</code>, center the table</p></td>
     </tr>
     <tr>
-      <th>exact</th>
-      <td><p>not used</p></td>
+      <th>caption</th>
+      <td><p>the table caption</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pt_opts</span>[<span class='st'>"id_col"</span>, <span class='st'>"dv_col"</span>]</div><div class='output co'>#&gt; $id_col
-#&gt; [1] "ID"
-#&gt; 
-#&gt; $dv_col
-#&gt; [1] "DV"
-#&gt; </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
