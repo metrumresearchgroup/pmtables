@@ -140,7 +140,7 @@ stable(
   ptab, 
   align = cols_center(Parameter =  col_ragged(3), .l = "Symbol"), 
   panel = ".type"
-  ) %>% pt_wrap
+  ) %>% pt_wrap(stdout())
 ```
 
 
