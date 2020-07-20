@@ -17,7 +17,7 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(),
   file <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
   tab <- as.character(text)
   if(!any(grepl("begin{table}", tab, fixed = TRUE))) {
-      tab <- pt_wrap(as.character(tab))
+    tab <- pt_wrap(as.character(tab))
   }
   ans <- rmarkdown::render(
     input = file,
@@ -31,3 +31,25 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(),
   }
   return(invisible(text))
 }
+
+#' Preview an stable object
+#'
+#' @param x an stable object
+#' @param ... passed to [texPreview::tex_preview()]
+#'
+#' @export
+st_preview <- function(x,...) {
+  assert_that(requireNamespace("texPreview"))
+  if(length(x) > 1) {
+    x <- paste0(x,collapse = "\n")
+  }
+  pk <- texPreview::build_usepackage(
+    c("threeparttable", "array", "booktabs")
+  )
+  texPreview::tex_preview(
+    x,
+    usrPackages = pk,
+    ...
+  )
+}
+

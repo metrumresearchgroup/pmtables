@@ -1,9 +1,10 @@
 #' Save output from stable
 #'
-#' @param x a table formatted with [stable]
+#' @param x a table formatted with [stable()]
+#' @param dir the directory where the file is to be saved
 #'
 #' @export
-stable_save <- function(x) {
+stable_save <- function(x, dir = NULL) {
   file <- attr(x, "stable_file")
   if(is.null(file)) {
     stop(
@@ -11,6 +12,9 @@ stable_save <- function(x) {
       "maybe this object was corrupted or it wasn't generated from 'stable()'",
       call.=FALSE
     )
+  }
+  if(!is.null(dir)) {
+    file <- file.path(dir,file)
   }
   writeLines(text = x, con = file)
 }

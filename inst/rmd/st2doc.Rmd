@@ -9,6 +9,8 @@ output:
       booktabs:
       array:
       mathdesign: utopia
+  header-includes: 
+    - "\\pagenumbering{gobble}"
 params: 
   table_text: ""
 ---
