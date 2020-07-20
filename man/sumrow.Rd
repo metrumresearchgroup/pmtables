@@ -11,7 +11,8 @@ sumrow(
   bold = FALSE,
   it = FALSE,
   blank = NULL,
-  label = NULL
+  label = NULL,
+  depanel = TRUE
 )
 }
 \arguments{
@@ -33,6 +34,9 @@ row}
 
 \item{label}{character label to replace text in cell(s) marked by \code{row(s)}
 and `col}
+
+\item{depanel}{if \code{TRUE}, then these rows are not included in panel
+determination}
 }
 \description{
 Identify and style summary rows

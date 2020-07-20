@@ -134,6 +134,12 @@ stable <- function(data,
       stop("panel column not found: ", squote(panel$col), call.=FALSE)
     }
     data[[paneln]] <- replace_na(data[[paneln]],"")
+    if(!is.null(sumrows)) {
+      dep <- map(sumrows, sumrow_depanel_rows)
+      dep <- flatten_int(dep)
+      dep <- sort(unique(dep))
+      data[[paneln]][dep] <- rep("", length(dep))
+    }
     ins <- panel_by(data, panel)
     data[[panel$col]] <- NULL
     do_panel <- TRUE
@@ -148,7 +154,6 @@ stable <- function(data,
       data <- sumrow_add_style(this_sumrow,data)
     }
   }
-
 
   nc <- ncol(data)
   nr <- nrow(data)

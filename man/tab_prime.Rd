@@ -5,18 +5,20 @@
 \alias{tab_escape}
 \title{Prime a data frame for inclusion into a latex table}
 \usage{
-tab_prime(data, escape_fun = tab_escape)
+tab_prime(data, escape_fun = tab_escape, chrs = "_")
 
-tab_escape(string, chrs = c("_", "&", "#", "\%"))
+tab_escape(string, chrs = getOption("pmtables.san", "_"), ...)
 }
 \arguments{
 \item{data}{a data frame}
 
 \item{escape_fun}{a function to sanitize data frame contents}
 
+\item{chrs}{a character vector of strings to escape}
+
 \item{string}{data to sanitize}
 
-\item{chrs}{a character vector of strings to escape}
+\item{...}{used only to allow arguments through}
 }
 \description{
 Prime a data frame for inclusion into a latex table

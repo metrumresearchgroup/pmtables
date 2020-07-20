@@ -12,6 +12,8 @@
 #' @param blank integer column positions in the summary row(s) to be made blank
 #' @param label character label to replace text in cell(s) marked by `row(s)`
 #' and `col
+#' @param depanel if `TRUE`, then these rows are not included in panel
+#' determination
 #'
 #' @export
 sumrow <- function(rows,
@@ -20,7 +22,9 @@ sumrow <- function(rows,
                    bold = FALSE,
                    it = FALSE,
                    blank = NULL,
-                   label = NULL) {
+                   label = NULL,
+                   depanel = TRUE
+                   ) {
   if(is.logical(rows)) rows <- which(rows)
   assert_that(is.numeric(rows))
   rows <- rows[rows >= 1]
@@ -38,7 +42,8 @@ sumrow <- function(rows,
     it = as.logical(it),
     blank = as.integer(blank),
     label = label,
-    nrows = length(rows)
+    nrows = length(rows),
+    depanel = isTRUE(depanel)
   )
   structure(ans, class = "sumrow")
 }
@@ -47,6 +52,11 @@ sumrow_get_hline <- function(x) {
   ans <- NULL
   if(isTRUE(x$hline)) ans <- x$rows
   ans
+}
+
+sumrow_depanel_rows <- function(x) {
+  if(x$depanel) return(x$rows)
+  return(integer(0))
 }
 
 sumrow_add_style <- function(x,data) {
