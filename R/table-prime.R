@@ -34,3 +34,7 @@ tab_escape <- function(string,
   string <- gsub("<", "$<$", string, fixed = TRUE)
   string
 }
+
+esc_underscore <- function(string) {
+  gsub("_", "\\_", string, fixed = TRUE)
+}

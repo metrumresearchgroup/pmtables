@@ -84,21 +84,27 @@ stable <- function(data,
   has_panel <- !missing(panel)
 
   if(has_panel && !is.rowpanel(panel)) {
-    panel <- rowpanel(panel)
+    panel <- rowpanel(new_names(panel))
   }
 
-  if(inherits(sumrows, "sumrow")) sumrows <- list(sumrows)
-  if(!is.null(sumrows)) assert_that(is.list(sumrows))
+  if(inherits(sumrows, "sumrow")) {
+    sumrows <- list(sumrows)
+  }
+  if(!is.null(sumrows)) {
+    assert_that(is.list(sumrows))
+  }
 
   add_hlines <- NULL
 
   if(!is.null(hline_at)) {
-    if(is.logical(hline_at)) hline_at <- which(hline_at)
+    if(is.logical(hline_at)) {
+      hline_at <- which(hline_at)
+    }
     add_hlines <- c(add_hlines,hline_at)
   }
 
   if(!is.null(hline_from)) {
-    assertthat::assert_that(is.character(hline_from))
+    assert_that(is.character(hline_from))
     for(this_col in hline_from) {
       require_col(data,this_col)
       hline_row <- !duplicated(chunk_runs(data[[this_col]]))
@@ -109,7 +115,7 @@ stable <- function(data,
 
   if(is.character(rm_dups)) {
     if(!missing(panel)) {
-      paneln <- tidyselect::eval_select(panel$col,data = data)
+      paneln <- tidyselect::eval_select(panel$col, data = data)
       panelcol <- names(data)[paneln[1]]
       data <- group_by(data,!!sym(panelcol))
     }
@@ -134,11 +140,12 @@ stable <- function(data,
       stop("panel column not found: ", squote(panel$col), call.=FALSE)
     }
     data[[paneln]] <- replace_na(data[[paneln]],"")
+    # check summary rows
     if(!is.null(sumrows)) {
       dep <- map(sumrows, sumrow_depanel_rows)
       dep <- flatten_int(dep)
       dep <- sort(unique(dep))
-      data[[paneln]][dep] <- rep("", length(dep))
+      data[[paneln]][dep] <- rep(".panel.waiver.", length(dep))
     }
     ins <- panel_by(data, panel)
     data[[panel$col]] <- NULL
@@ -149,16 +156,14 @@ stable <- function(data,
     hline_sums <- map(sumrows, sumrow_get_hline)
     hline_sums <- flatten_int(hline_sums)-1
     add_hlines <- c(add_hlines, hline_sums)
-
     for(this_sumrow in sumrows) {
       data <- sumrow_add_style(this_sumrow,data)
     }
   }
 
-  nc <- ncol(data)
-  nr <- nrow(data)
   cols <- colnames(data)
 
+  # Colgroups ------------------------------------
   do_span_split <- is.colsplit(span_split)
   spans_from_split <- NULL
   if(do_span_split) {
@@ -175,19 +180,24 @@ stable <- function(data,
   } else {
     if(is.colgroup(span)) span <- list(span)
     assert_that(is.list(span))
-    span <- map(span,process_colgroup, cols = names(data))
+    span <- map(span, process_colgroup, cols = cols)
   }
 
   all_span_tex <- NULL
 
   if(length(span) > 0 || length(spans_from_split) > 0) {
-    all_spans <- combine_spans(span, spans_from_split, cols = names(data))
+    all_spans <- combine_spans(span, spans_from_split, cols = cols)
 
     all_span_tex <- map(rev(all_spans), make_span_tex)
 
     all_span_tex <- flatten_chr(unname(all_span_tex))
   }
 
+  # Units --------------------------------------
+  units <- form_unit(units,cols)
+
+
+  # Work on columns and column names
   if(is.character(col_replace)) {
     if(length(col_replace) != length(cols)) {
       stop(
@@ -199,7 +209,7 @@ stable <- function(data,
     col_rename <- NULL
   }
 
-  units <- form_unit(units,names(data))
+  cols <- esc_underscore(cols)
 
   cols <- form_cols(
     cols,
@@ -208,30 +218,38 @@ stable <- function(data,
     units = units
   )
 
-  align_tex <- form_align(align,names(data))
-  assert_that(length(align_tex)==ncol(data))
-  align_tex <- paste0(align_tex,collapse="")
-
-
-  if(is.character(prime_fun)) prime_fun <- get(prime_fun, mode = "function")
-  if(is.character(escape_fun)) escape_fun <- get(escape_fun, mode = "function")
+  if(is.character(prime_fun)) {
+    prime_fun <- get(prime_fun, mode = "function")
+  }
+  if(is.character(escape_fun)) {
+    escape_fun <- get(escape_fun, mode = "function")
+  }
   assert_that(is.function(prime_fun))
   assert_that(is.function(escape_fun))
   data <- prime_fun(data, escape_fun)
 
+  # Column alignments -----------------------------
+  align_tex <- form_align(align,names(data))
+  assert_that(length(align_tex)==ncol(data))
+  align_tex <- paste0(align_tex,collapse="")
+  open_tabular <- form_open(align_tex)
+
+  # Start working on the tabular text -------------------------
   tab <- make_tabular(data)
 
+  # Add hlines ---------------------------------------
   if(!is.null(add_hlines)) {
     add_hlines <- sort(unique(add_hlines))
     tab[add_hlines] <- paste0(tab[add_hlines], " \\hline")
   }
 
+  # Execute panel insertions ------------------------
   if(do_panel) {
     tab <- insrt_vec(tab, ins$to_insert, where = ins$where)
   }
 
-  open_tabular <- form_open(align_tex)
-
+  # NOTES ----------------------------------------------
+  # check behavior: do we want these basenamed or not?
   r_note <- NULL
   out_note <- NULL
 
@@ -252,16 +270,21 @@ stable <- function(data,
   }
 
   m_notes <- t_notes <- NULL
+
   if(note_config$tpt) {
     t_notes <- tpt_notes(notes, note_config)
   } else {
     m_notes <- mini_notes(notes, note_config)
   }
+  # END notes --------------------------------------------------
 
-  stretch_start <- "{\\def\\arraystretch{<row_space>}\\tabcolsep=<col_space>pt"
-  stretch_end <- "}"
-  stretch_start <- gluet(stretch_start)
+  # Table row and column spacing -------------------
+  col_row_sp <- list()
+  col_row_sp$start <- "{\\def\\arraystretch{<row_space>}\\tabcolsep=<col_space>pt"
+  col_row_sp$end <- "}"
+  col_row_sp$start <- gluet(col_row_sp$start)
 
+  # Font size ----------------------------------
   font_size <- list()
   if(is.character(fontsize)) {
     font_size$start <- paste0("{\\", fontsize)
@@ -270,7 +293,7 @@ stable <- function(data,
 
   tab <- c(
     font_size$start,
-    stretch_start,
+    col_row_sp$start,
     start_tpt,
     open_tabular,
     "\\hline",
@@ -282,10 +305,12 @@ stable <- function(data,
     "\\end{tabular}",
     t_notes,
     end_tpt,
-    stretch_end,
+    col_row_sp$end,
     m_notes,
     font_size$end
   )
+
   tab <- structure(tab, class = "stable", stable_file = output_file)
+
   tab
 }
