@@ -30,6 +30,7 @@ Collate:
     'preview.R'
     'summarize-cat-chunk.R'
     'table-align.R'
+    'table-clear_reps.R'
     'table-functions.R'
     'table-notes.R'
     'table-panel.R'

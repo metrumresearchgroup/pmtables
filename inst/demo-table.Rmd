@@ -174,7 +174,7 @@ stable(
 
 \clearpage
 
-# Remove dups
+# Remove duplicate values
 
 - Discard repeating values in a column
 
@@ -182,7 +182,7 @@ stable(
 stable(
   data,
   hline_from = "STUDY",
-  rm_dups = "STUDY",
+  clear_reps = "STUDY",
 ) %>% pt_wrap(stdout())
 ```
 

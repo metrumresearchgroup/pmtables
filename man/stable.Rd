@@ -9,6 +9,7 @@ stable(
   align = cols_left(),
   panel = rowpanel(col = NULL),
   units = NULL,
+  clear_reps = NULL,
   rm_dups = NULL,
   span = NULL,
   span_split = NULL,
@@ -43,8 +44,10 @@ be created from unique values of \code{data[[panel]]}}
 \item{units}{a named list with unit information; names should correspond to
 columns in the data frame}
 
-\item{rm_dups}{character vector of column names where duplicate values will
+\item{clear_reps}{character vector of column names where duplicate values will
 be made blank (overwritten with \code{""})}
+
+\item{rm_dups}{use \code{clear_reps}}
 
 \item{span}{a list of objects created with \link{colgroup}}
 

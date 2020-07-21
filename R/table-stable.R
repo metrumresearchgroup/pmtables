@@ -17,8 +17,9 @@ note_space <- 0.1
 #' be created from unique values of `data[[panel]]`
 #' @param units a named list with unit information; names should correspond to
 #' columns in the data frame
-#' @param rm_dups character vector of column names where duplicate values will
+#' @param clear_reps character vector of column names where duplicate values will
 #' be made blank (overwritten with `""`)
+#' @param rm_dups use `clear_reps`
 #' @param span a list of objects created with [colgroup]
 #' @param span_split not implemented at this time
 #' @param notes a character vector of notes to include at the foot of the table;
@@ -57,6 +58,7 @@ stable <- function(data,
                    align = cols_left(),
                    panel = rowpanel(col = NULL),
                    units = NULL,
+                   clear_reps = NULL,
                    rm_dups = NULL,
                    span = NULL,
                    span_split = NULL,
@@ -80,6 +82,10 @@ stable <- function(data,
 
   assert_that(is.data.frame(data))
   assert_that(is.noteconfig(note_config))
+
+  if(!missing(rm_dups)) {
+    warning("please use 'clear_reps' instead of 'rm_dups'")
+  }
 
   has_panel <- !missing(panel)
 
@@ -113,23 +119,11 @@ stable <- function(data,
     }
   }
 
-  if(is.character(rm_dups)) {
-    if(!missing(panel)) {
-      paneln <- tidyselect::eval_select(panel$col, data = data)
-      panelcol <- names(data)[paneln[1]]
-      data <- group_by(data,!!sym(panelcol))
+  if(is.character(clear_reps)) {
+    dedup <- reps_to_clear(data, clear_reps, panel)
+    for(dd in dedup) {
+      data[[dd$col]][dd$dup] <- rep("", dd$n)
     }
-    for(this_col in rm_dups) {
-      data <- mutate(
-        data,
-        {{this_col}} :=  ifelse(
-          duplicated(chunk_runs(!!sym(this_col))),
-          "",
-          !!sym(this_col)
-        )
-      )
-    }
-    data <- ungroup(data)
   }
 
   do_panel <- FALSE
