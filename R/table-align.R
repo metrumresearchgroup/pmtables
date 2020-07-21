@@ -95,7 +95,9 @@ col_ragged <- function(..., ragged = "right") {
 
 
 form_align <- function(x,cols,pipes = FALSE) {
+
   if(is.character(x$complete)) return(x$complete)
+
   nc <- length(cols)
   ans <- rep(x$default, nc)
 

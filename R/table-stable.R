@@ -88,6 +88,7 @@ stable <- function(data,
   }
 
   has_panel <- !missing(panel)
+  has_sumrows <- !is.null(sumrows)
 
   if(has_panel && !is.rowpanel(panel)) {
     panel <- rowpanel(new_names(panel))
@@ -122,6 +123,9 @@ stable <- function(data,
   if(is.character(clear_reps)) {
     dedup <- reps_to_clear(data, clear_reps, panel)
     for(dd in dedup) {
+      if(!is.character(data[[dd$col]])) {
+        data[[dd$col]] <- as.character(data[[dd$col]])
+      }
       data[[dd$col]][dd$dup] <- rep("", dd$n)
     }
   }
@@ -148,8 +152,10 @@ stable <- function(data,
 
   if(!is.null(sumrows)) {
     hline_sums <- map(sumrows, sumrow_get_hline)
-    hline_sums <- flatten_int(hline_sums)-1
-    add_hlines <- c(add_hlines, hline_sums)
+    hline_sums_top <- flatten_int(hline_sums)-1
+    hline_sums_bot <- hline_sums_top + 1
+    hline_sums_bot <- hline_sums_bot[hline_sums_bot != nrow(data)]
+    add_hlines <- c(add_hlines, hline_sums_top, hline_sums_bot)
     for(this_sumrow in sumrows) {
       data <- sumrow_add_style(this_sumrow,data)
     }
@@ -235,6 +241,15 @@ stable <- function(data,
   if(!is.null(add_hlines)) {
     add_hlines <- sort(unique(add_hlines))
     tab[add_hlines] <- paste0(tab[add_hlines], " \\hline")
+    if(has_sumrows) {
+      hlinex <- map(sumrows, sumrow_get_hlinex2)
+      above <- sort(unique(flatten_int(hlinex)-1))
+      below <- above + 1
+      #below2 <- below[below != nrow(data)]
+      tab[above] <- paste0(tab[above], " \\hline")
+      tab[below] <- paste0(tab[below], " \\hline")
+      #tab[below2] <- paste0(tab[below2], " \\hline")
+    }
   }
 
   # Execute panel insertions ------------------------

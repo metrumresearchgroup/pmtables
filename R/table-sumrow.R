@@ -5,6 +5,8 @@
 #' summary row
 #' @param hline logical; if `TRUE`, a horizontal line will be placed above the summary
 #' row
+#' @param hline2 logical; if `TRUE` a second line is added above and below the
+#' summary row
 #' @param bold logical; if `TRUE`, then the cell(s) identified by `rows` and
 #' `col` will be rendered in bold font
 #' @param it logical; if `TRUE`, then the cell(s) identified by `rows` and
@@ -19,12 +21,12 @@
 sumrow <- function(rows,
                    col = 1,
                    hline = TRUE,
+                   hline2 = TRUE,
                    bold = FALSE,
                    it = FALSE,
                    blank = NULL,
                    label = NULL,
-                   depanel = TRUE
-                   ) {
+                   depanel = TRUE) {
   if(is.logical(rows)) rows <- which(rows)
   assert_that(is.numeric(rows))
   rows <- rows[rows >= 1]
@@ -43,7 +45,8 @@ sumrow <- function(rows,
     blank = as.integer(blank),
     label = label,
     nrows = length(rows),
-    depanel = isTRUE(depanel)
+    depanel = isTRUE(depanel),
+    hlinex2 = isTRUE(hline2)
   )
   structure(ans, class = "sumrow")
 }
@@ -51,6 +54,12 @@ sumrow <- function(rows,
 sumrow_get_hline <- function(x) {
   ans <- NULL
   if(isTRUE(x$hline)) ans <- x$rows
+  ans
+}
+
+sumrow_get_hlinex2 <- function(x) {
+  ans <- NULL
+  if(isTRUE(x$hlinex2)) ans <- x$rows
   ans
 }
 

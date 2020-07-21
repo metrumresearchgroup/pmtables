@@ -8,6 +8,7 @@ sumrow(
   rows,
   col = 1,
   hline = TRUE,
+  hline2 = TRUE,
   bold = FALSE,
   it = FALSE,
   blank = NULL,
@@ -23,6 +24,9 @@ summary row}
 
 \item{hline}{logical; if \code{TRUE}, a horizontal line will be placed above the summary
 row}
+
+\item{hline2}{logical; if \code{TRUE} a second line is added above and below the
+summary row}
 
 \item{bold}{logical; if \code{TRUE}, then the cell(s) identified by \code{rows} and
 \code{col} will be rendered in bold font}
