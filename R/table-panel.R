@@ -48,7 +48,9 @@ panel_by <- function(data, x) { #col, prefix = NULL) {
   lab <- paste(prefix,lab)
   lab <- bold_each(lab)
   insrt <- paste0("\\multicolumn{", nc,"}{l}{", lab,"}\\\\")
-  insrt[2:length(insrt)] <- paste0("\\hline ", insrt[2:length(insrt)])
+  if(length(insrt) > 1) {
+    insrt[seq(2,length(insrt))] <- paste0("\\hline ", insrt[seq(2,length(insrt))])
+  }
   list(where = where, to_insert = insrt)
 }
 
