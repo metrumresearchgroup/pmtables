@@ -7,7 +7,13 @@ st_arg_names <- c(
   "sumrows", "note_config", "clear_reps"
 )
 
-
+#' Create an st object
+#'
+#' The st object will collect various configuration settings and pass those
+#' to [stable()] when the object is passed to [st_make()].
+#'
+#' @param data the data frame to pass to [stable()]
+#'
 #' @export
 st_new <- function(data) {
   x <- new.env()
@@ -33,6 +39,11 @@ st_new <- function(data) {
 
 is.stobject <- function(x) inherits(x, "stobject")
 
+#' Convert st object to table output
+#'
+#' @param x an stobject
+#' @param ... other arguments passed to [stable()]
+#'
 #' @export
 st_make <- function(x, ...) {
   assert_that(is.stobject(x))
@@ -51,6 +62,11 @@ st_make <- function(x, ...) {
   do.call(stable, args)
 }
 
+#' Add panel information to st object
+#'
+#' @param an stobject
+#' @param ... passed to [rowpanel()]
+#'
 #' @export
 st_panel <- function(x,...) {
   assert_that(is.stobject(x))
@@ -60,7 +76,12 @@ st_panel <- function(x,...) {
   x
 }
 
-
+#' Add note information to st object
+#'
+#' @param x an stobject
+#' @param ... table notes
+#' @param config named list of arguments for [noteconf()]
+#'
 #' @export
 st_notes <- function(x, ..., config = NULL) {
   assert_that(is.stobject(x))
@@ -75,6 +96,11 @@ st_notes <- function(x, ..., config = NULL) {
   x
 }
 
+#' Add note config information to st object
+#'
+#' @param x an stobject
+#' @param ... named arguments passed to [noteconf()]
+#'
 #' @export
 st_noteconf <- function(x,...) {
   assert_that(is.stobject(x))
@@ -82,6 +108,11 @@ st_noteconf <- function(x,...) {
   x
 }
 
+#' Add column alignment information to st object
+#'
+#' @param x an stobject
+#' @param ... named arguments passed to [cols_align()]
+#'
 #' @export
 st_align <- function(x, ...) {
   assert_that(is.stobject(x))
@@ -89,6 +120,12 @@ st_align <- function(x, ...) {
   x
 }
 
+#' Add file name information to st object
+#'
+#' @param x an stobject
+#' @param r set `r_file`, passed to [stable()]
+#' @param output set `output_file`, passed to [stable()]
+#'
 #' @export
 st_files <- function(x, r = NULL, output = NULL) {
   assert_that(is.stobject(x))
@@ -97,6 +134,11 @@ st_files <- function(x, r = NULL, output = NULL) {
   x
 }
 
+#' Add row and column spacing information to st object
+#'
+#' @param row set `row_space`, passed to [stable()]
+#' @param col set `col_space`, passed to [stable()]
+#'
 #' @export
 st_space <- function(x, row = NULL, col = NULL) {
   assert_that(is.stobject(x))
@@ -109,6 +151,11 @@ st_space <- function(x, row = NULL, col = NULL) {
   x
 }
 
+#' Add column spanner to st object
+#'
+#' @param x an stobject
+#' @param ... passed to [colgroup()]
+#'
 #' @export
 st_span <- function(x,...) {
   assert_that(is.stobject(x))
@@ -124,6 +171,11 @@ st_span <- function(x,...) {
   x
 }
 
+#' Add column split spanner information to st object
+#'
+#' @param x an stobject
+#' @param ... passed to [colsplit()]
+#'
 #' @export
 st_span_split <- function(x,...) {
   assert_that(is.stobject(x))
@@ -132,7 +184,11 @@ st_span_split <- function(x,...) {
   x
 }
 
-
+#' Add column rename information to st object
+#'
+#' @param an stobject
+#' @param ... column rename items in `new-name = old-name` format; passed
+#' to [stable()] as `col_rename`
 #' @export
 st_rename <- function(x,...) {
   assert_that(is.stobject(x))
@@ -141,6 +197,12 @@ st_rename <- function(x,...) {
   x
 }
 
+#' Add column blank information to st object
+#'
+#' @param x an stobject
+#' @param ... quoted or unquoted column names to be passed to [stable()] as
+#' `col_blank`
+#'
 #' @export
 st_blank <- function(x,...) {
   assert_that(is.stobject(x))
@@ -149,6 +211,11 @@ st_blank <- function(x,...) {
   x
 }
 
+#' Add summary row information to st object
+#'
+#' @param x an stobject
+#' @param ... passed to [sumrow()]
+#'
 #' @export
 st_sumrow <- function(x,...) {
   assert_that(is.stobject(x))
@@ -161,6 +228,12 @@ st_sumrow <- function(x,...) {
   x
 }
 
+#' Add clear rep information to st object
+#'
+#' @param x an stobject
+#' @param ... quoted or unquoted column names passed to [stable()] as
+#' `clear_reps`
+#'
 #' @export
 st_clear_reps <- function(x, ...) {
   assert_that(is.stobject(x))
@@ -171,6 +244,11 @@ st_clear_reps <- function(x, ...) {
   x
 }
 
+#' Add other arguments to st object
+#'
+#' @param x an stobject
+#' @param ... named arguments to be passed to [stable()]
+#'
 #' @export
 st_args <- function(x,...) {
   assert_that(is.stobject(x))
