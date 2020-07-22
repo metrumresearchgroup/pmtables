@@ -1,3 +1,3 @@
 
-# mrgsolve (development version)
+# pmtables (development version)
 
