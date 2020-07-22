@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9021</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9031</span>
       </span>
     </div>
 
@@ -120,6 +120,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -149,10 +152,12 @@
   <span class='no'>rows</span>,
   <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>hline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>hline2</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>it</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>depanel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -173,6 +178,11 @@ summary row</p></td>
 row</p></td>
     </tr>
     <tr>
+      <th>hline2</th>
+      <td><p>logical; if <code>TRUE</code> a second line is added above and below the
+summary row</p></td>
+    </tr>
+    <tr>
       <th>bold</th>
       <td><p>logical; if <code>TRUE</code>, then the cell(s) identified by <code>rows</code> and
 <code>col</code> will be rendered in bold font</p></td>
@@ -190,6 +200,11 @@ row</p></td>
       <th>label</th>
       <td><p>character label to replace text in cell(s) marked by <code><a href='https://rdrr.io/r/base/row.html'>row(s)</a></code>
 and `col</p></td>
+    </tr>
+    <tr>
+      <th>depanel</th>
+      <td><p>if <code>TRUE</code>, then these rows are not included in panel
+determination</p></td>
     </tr>
     </table>
 

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9021</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9031</span>
       </span>
     </div>
 
@@ -120,6 +120,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -147,8 +150,8 @@
 
     <pre class="usage"><span class='fu'>col_fixed</span>(
   <span class='no'>size</span>,
-  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>,
   <span class='kw'>ragged</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>, <span class='st'>"no"</span>),
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>,
   <span class='kw'>coltype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"p"</span>, <span class='st'>"m"</span>, <span class='st'>"b"</span>)
 )
 
@@ -162,12 +165,12 @@
       <td><p>the width of the cell</p></td>
     </tr>
     <tr>
-      <th>unit</th>
-      <td><p>to go with <code>size</code></p></td>
-    </tr>
-    <tr>
       <th>ragged</th>
       <td><p>use <code>right</code> to left justify and <code>left</code> to right justify</p></td>
+    </tr>
+    <tr>
+      <th>unit</th>
+      <td><p>to go with <code>size</code></p></td>
     </tr>
     <tr>
       <th>coltype</th>

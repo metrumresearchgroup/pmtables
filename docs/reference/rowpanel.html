@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9021</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9031</span>
       </span>
     </div>
 
@@ -120,6 +120,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -145,7 +148,13 @@
     <p>Create panel object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rowpanel</span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>prefix_name</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>prefix_skip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>rowpanel</span>(
+  <span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>prefix_name</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>prefix_skip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>duplicates_ok</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>is.rowpanel</span>(<span class='no'>x</span>)</pre>
 
@@ -162,12 +171,18 @@
     </tr>
     <tr>
       <th>prefix_name</th>
-      <td><p><code>logical</code>; if <code>TRUE</code>, then the prefix will be derived by the name associated with <code>col</code> input
-to the function</p></td>
+      <td><p><code>logical</code>; if <code>TRUE</code>, then the prefix will be derived by
+the name associated with <code>col</code> input to the function</p></td>
     </tr>
     <tr>
       <th>prefix_skip</th>
-      <td><p>a regular expression for identifying panel titles where the prefix won't be applied</p></td>
+      <td><p>a regular expression for identifying panel titles where
+the prefix won't be applied</p></td>
+    </tr>
+    <tr>
+      <th>duplicates_ok</th>
+      <td><p>if <code>FALSE</code>, an error is generated if more than one
+panel will have the same header</p></td>
     </tr>
     <tr>
       <th>x</th>
