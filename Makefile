@@ -42,6 +42,9 @@ quick:
 	make build
 	R CMD check $(TARBALL) --ignore-vignettes --no-manual --no-tests --no-install
 
+bump-dev:
+	Rscript -e 'usethis::use_version("dev")'
+
 tag-version:
 	git tag $(VERSION)
 	git push origin $(VERSION)
