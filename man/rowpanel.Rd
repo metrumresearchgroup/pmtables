@@ -5,7 +5,13 @@
 \alias{is.rowpanel}
 \title{Create panel object}
 \usage{
-rowpanel(col = NULL, prefix = "", prefix_name = FALSE, prefix_skip = NULL)
+rowpanel(
+  col = NULL,
+  prefix = "",
+  prefix_name = FALSE,
+  prefix_skip = NULL,
+  duplicates_ok = FALSE
+)
 
 is.rowpanel(x)
 }
@@ -14,10 +20,14 @@ is.rowpanel(x)
 
 \item{prefix}{to be added to each panel title}
 
-\item{prefix_name}{\code{logical}; if \code{TRUE}, then the prefix will be derived by the name associated with \code{col} input
-to the function}
+\item{prefix_name}{\code{logical}; if \code{TRUE}, then the prefix will be derived by
+the name associated with \code{col} input to the function}
 
-\item{prefix_skip}{a regular expression for identifying panel titles where the prefix won't be applied}
+\item{prefix_skip}{a regular expression for identifying panel titles where
+the prefix won't be applied}
+
+\item{duplicates_ok}{if \code{FALSE}, an error is generated if more than one
+panel will have the same header}
 
 \item{x}{an object to test}
 }

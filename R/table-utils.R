@@ -32,6 +32,12 @@ chunk_runs <- function(x) {
   cumsum(x != c(x[1], x[-length(x)]))+1
 }
 
+non_rep <- function(x) {
+  ans <- x != c(x[1],x[-length(x)])
+  ans[1] <- TRUE
+  ans
+}
+
 blank_each <- function(x) {
   rep("", length(x))
 }
