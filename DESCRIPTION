@@ -33,6 +33,7 @@ Collate:
     'table-clear_reps.R'
     'table-functions.R'
     'table-notes.R'
+    'table-object.R'
     'table-panel.R'
     'table-prime.R'
     'table-span.R'
