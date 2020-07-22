@@ -4,7 +4,7 @@
 #' @importFrom dplyr group_modify rename count vars group_by n first last
 #' @importFrom dplyr case_when filter arrange group_vars distinct
 #' @importFrom purrr map_dfr walk partial map map_chr modify flatten_chr
-#' @importFrom purrr flatten_int map_lgl
+#' @importFrom purrr flatten_int map_lgl modify_if
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty

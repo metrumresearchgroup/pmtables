@@ -84,6 +84,10 @@ stable <- function(data,
                    output_file_label = getOption("out.file.label","Source file: ")) {
 
   assert_that(is.data.frame(data))
+  data <- ungroup(data)
+  fct <- map_lgl(data, is.factor)
+  data <- modify_if(data, fct, as.character)
+
   assert_that(is.noteconfig(note_config))
 
   if(!missing(rm_dups)) {
