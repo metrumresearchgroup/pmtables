@@ -340,6 +340,38 @@ try(stable_save(as.character(tab)))
 
 \clearpage
 
+# Pipeable interface
+
+```{r, include = FALSE, eval = FALSE}
+stable(
+  data, 
+  r_file = "foo.R", 
+  output_file = "foo.tex", 
+  notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
+) %>% pt_wrap(stdout())
+```
+
+```{r, results = 'asis', message = FALSE, warning = FALSE}
+data %>% 
+  st_new() %>% 
+  st_files(r = "foo.R", output = "foo.tex") %>%
+  st_panel(vars(Study = STUDY)) %>% 
+  st_rename(Dose = DOSE) %>%
+  st_notes("The analysis was done in triplicate") %>%
+  st_args(units = ys_get_unit(spec, parens = TRUE)) %>%
+  st_clear_reps(DOSE) %>%
+  st_span("Included", AGE:CRCL) %>%
+  st_span("All covariates", WT:SCR, level=2) %>%
+  st_make() %>% 
+  pt_wrap(stdout())
+```
+
+
+
+
+\clearpage
+
+
 # Fontsize
 
 - Where's my glasses?
