@@ -34,6 +34,8 @@ note_space <- 0.1
 #' @param bold_cols if `TRUE`, table column names are rendered with bold font
 #' @param col_rename a `name = value` character vector to translate column names
 #' to table names
+#' @param col_blank a character vector of column names that will not be printed
+#' in the table header
 #' @param col_replace a character vector with the same length as the number of
 #' output table columns; use this to completely replace the names (as opposed
 #' to one by on editing with `col_rename`)
@@ -68,6 +70,7 @@ stable <- function(data,
                    sumrows = NULL,
                    bold_cols = missing(panel),
                    col_rename = NULL,
+                   col_blank = NULL,
                    col_replace = NULL,
                    row_space = 1.4,
                    col_space = 5,
@@ -215,6 +218,7 @@ stable <- function(data,
     cols,
     bold = bold_cols,
     relabel = col_rename,
+    blank = col_blank,
     units = units
   )
 

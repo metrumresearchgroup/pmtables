@@ -13,7 +13,14 @@ make_tabular <- function(data, indent = NULL) {
   tab
 }
 
-form_cols <- function(cols, bold = FALSE, relabel = NULL, units = NULL) {
+form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
+                      units = NULL) {
+  if(!is.null(blank)) {
+    blank <- unname(new_names(blank))
+    bl <- cols %in% blank
+    cols[bl] <- rep("", sum(bl))
+  }
+
   if(!is.null(relabel)) {
     relabel <- new_names(relabel)
     relabel <- relabel[relabel %in% cols]

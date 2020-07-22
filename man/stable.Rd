@@ -19,6 +19,7 @@ stable(
   sumrows = NULL,
   bold_cols = missing(panel),
   col_rename = NULL,
+  col_blank = NULL,
   col_replace = NULL,
   row_space = 1.4,
   col_space = 5,
@@ -70,6 +71,9 @@ and adds styling}
 
 \item{col_rename}{a \code{name = value} character vector to translate column names
 to table names}
+
+\item{col_blank}{a character vector of column names that will not be printed
+in the table header}
 
 \item{col_replace}{a character vector with the same length as the number of
 output table columns; use this to completely replace the names (as opposed

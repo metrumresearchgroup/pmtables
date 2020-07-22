@@ -7,8 +7,8 @@
 \usage{
 col_fixed(
   size,
-  unit = "cm",
   ragged = c("right", "left", "no"),
+  unit = "cm",
   coltype = c("p", "m", "b")
 )
 
@@ -17,9 +17,9 @@ col_ragged(..., ragged = "right")
 \arguments{
 \item{size}{the width of the cell}
 
-\item{unit}{to go with \code{size}}
-
 \item{ragged}{use \code{right} to left justify and \code{left} to right justify}
+
+\item{unit}{to go with \code{size}}
 
 \item{coltype}{column type}
 
