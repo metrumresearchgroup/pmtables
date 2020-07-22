@@ -7,6 +7,8 @@
 st_space(x, row = NULL, col = NULL)
 }
 \arguments{
+\item{x}{an stobject}
+
 \item{row}{set \code{row_space}, passed to \code{\link[=stable]{stable()}}}
 
 \item{col}{set \code{col_space}, passed to \code{\link[=stable]{stable()}}}

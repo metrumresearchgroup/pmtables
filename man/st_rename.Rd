@@ -7,10 +7,10 @@
 st_rename(x, ...)
 }
 \arguments{
+\item{x}{an stobject}
+
 \item{...}{column rename items in \code{new-name = old-name} format; passed
 to \code{\link[=stable]{stable()}} as \code{col_rename}}
-
-\item{an}{stobject}
 }
 \description{
 Add column rename information to st object

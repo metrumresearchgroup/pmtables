@@ -64,7 +64,7 @@ st_make <- function(x, ...) {
 
 #' Add panel information to st object
 #'
-#' @param an stobject
+#' @param x an stobject
 #' @param ... passed to [rowpanel()]
 #'
 #' @export
@@ -136,6 +136,7 @@ st_files <- function(x, r = NULL, output = NULL) {
 
 #' Add row and column spacing information to st object
 #'
+#' @param x an stobject
 #' @param row set `row_space`, passed to [stable()]
 #' @param col set `col_space`, passed to [stable()]
 #'
@@ -186,7 +187,7 @@ st_span_split <- function(x,...) {
 
 #' Add column rename information to st object
 #'
-#' @param an stobject
+#' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `col_rename`
 #' @export

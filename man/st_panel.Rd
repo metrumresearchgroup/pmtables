@@ -7,9 +7,9 @@
 st_panel(x, ...)
 }
 \arguments{
-\item{...}{passed to \code{\link[=rowpanel]{rowpanel()}}}
+\item{x}{an stobject}
 
-\item{an}{stobject}
+\item{...}{passed to \code{\link[=rowpanel]{rowpanel()}}}
 }
 \description{
 Add panel information to st object
