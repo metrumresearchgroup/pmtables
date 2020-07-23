@@ -2,9 +2,18 @@
 % Please edit documentation in R/table-object.R
 \name{st_align}
 \alias{st_align}
+\alias{st_center}
+\alias{st_left}
+\alias{st_right}
 \title{Add column alignment information to st object}
 \usage{
 st_align(x, ...)
+
+st_center(x, ...)
+
+st_left(x, ...)
+
+st_right(x, ...)
 }
 \arguments{
 \item{x}{an stobject}

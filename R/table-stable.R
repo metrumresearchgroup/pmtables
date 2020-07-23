@@ -26,10 +26,10 @@ note_space <- 0.1
 #' use `r_file` and `output_file` for source code and output file annotations;
 #' see also [st_notes()]
 #' @param hline_at logical or integer vector specifying rows above which an
-#' `\hline` will be placed
+#' `\hline` will be placed; see also [st_hline()]
 #' @param hline_from a character column name from which to separate the table
 #' with `\hline`; non-duplicated values of `hline_from` will be used to create
-#' the split
+#' the split; see also [st_hline()]
 #' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
 #' @param bold_cols if `TRUE`, table column names are rendered with bold font

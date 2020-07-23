@@ -120,6 +120,27 @@ st_align <- function(x, ...) {
   x
 }
 
+#' @rdname st_align
+#' @export
+st_center <- function(x,...) {
+  st_align(x,.default = "c",...)
+}
+
+#' @rdname st_align
+#' @export
+st_left <- function(x,...) {
+  st_align(x,.default = "l",...)
+}
+
+#' @rdname st_align
+#' @export
+st_right <- function(x,...) {
+  st_align(x,.default = "r",...)
+}
+
+
+
+
 #' Add file name information to st object
 #'
 #' See the `r_file` and `output_file` arguments to [stable()].
@@ -285,7 +306,6 @@ st_hline <- function(at = NULL, from = NULL) {
   }
   x
 }
-
 
 #' Add other arguments to st object
 #'

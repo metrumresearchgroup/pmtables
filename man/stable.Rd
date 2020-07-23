@@ -59,11 +59,11 @@ use \code{r_file} and \code{output_file} for source code and output file annotat
 see also \code{\link[=st_notes]{st_notes()}}}
 
 \item{hline_at}{logical or integer vector specifying rows above which an
-\verb{\\hline} will be placed}
+\verb{\\hline} will be placed; see also \code{\link[=st_hline]{st_hline()}}}
 
 \item{hline_from}{a character column name from which to separate the table
 with \verb{\\hline}; non-duplicated values of \code{hline_from} will be used to create
-the split}
+the split; see also \code{\link[=st_hline]{st_hline()}}}
 
 \item{sumrows}{an object created with \code{\link[=sumrow]{sumrow()}}; identifies summary rows
 and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
