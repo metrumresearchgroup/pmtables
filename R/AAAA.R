@@ -22,3 +22,11 @@
 #' @include summary-functions.R
 #'
 NULL
+
+#' Load an example data set
+#'
+#' @export
+ptdata <- function() {
+  file <- system.file("datasets", "ptdata.RDS", package = "pmtables")
+  readRDS(file)
+}

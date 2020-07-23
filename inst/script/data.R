@@ -72,5 +72,10 @@ saveRDS(file = "inst/datasets/id.RDS",id)
 obs <- filter(data,SEQ > 0)
 saveRDS(file = "inst/datasets/obs.RDS",obs)
 
+data <- pmtables:::data("id")
 
-
+data <- group_by(data,SEXf,STUDYf) %>%
+  summarise(WT = mean(WT,na.rm=TRUE), SCR = mean(SCR,na.rm=TRUE),
+            ALB = mean(ALB,na.rm=TRUE), N = n(), .groups="drop")
+getwd()
+saveRDS(file = "inst/datasets/ptdata.RDS", data)
