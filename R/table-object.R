@@ -20,10 +20,6 @@ st_arg_names <- c(
 st_new <- function(data) {
   assert_that(is.data.frame(data))
   x <- new.env()
-  form <- formals(stable)
-  for(arg in st_arg_names) {
-    x[[arg]] <- form[[arg]]
-  }
   x$data <- data
   x$args <- list()
   structure(x, class = "stobject", argnames = st_arg_names)
@@ -49,8 +45,7 @@ is.stobject <- function(x) inherits(x, "stobject")
 st_make <- function(x, ..., .preview = FALSE, .cat = FALSE) {
   assert_that(is.stobject(x))
   args <- as.list(structure(x, class = NULL))
-  args <- args[attr(x,"argnames")]
-
+  args <- args[intersect(names(args),attr(x,"argnames"))]
   if(is.list(x$args)) {
     args <- combine_list(args, x$args)
   }
@@ -170,8 +165,8 @@ st_right <- function(x,...) {
 #' @export
 st_files <- function(x, r = NULL, output = NULL) {
   assert_that(is.stobject(x))
-  x$r_file <- r
-  x$output_file <- output
+  if(!missing(r)) x$r_file <- r
+  if(!missing(output)) x$output_file <- output
   x
 }
 
@@ -186,10 +181,10 @@ st_files <- function(x, r = NULL, output = NULL) {
 #' @export
 st_space <- function(x, row = NULL, col = NULL) {
   assert_that(is.stobject(x))
-  if(is.numeric(row)) {
+  if(!missing(row)) {
     x$row_space <- row
   }
-  if(is.numeric(col)) {
+  if(!missing(col)) {
     x$col_space <- col
   }
   x
@@ -297,8 +292,9 @@ st_sumrow <- function(x,...) {
 #' @export
 st_clear_reps <- function(x, ...) {
   assert_that(is.stobject(x))
-  cols <- new_names(enquos(...))
-  if(!is.null(cols)) {
+  dots <- enquos(...)
+  if(length(dots) > 0) {
+    cols <- new_names(dots)
     x$clear_reps <- cols
   }
   x
@@ -317,10 +313,10 @@ st_clear_reps <- function(x, ...) {
 #' @export
 st_hline <- function(x, at = NULL, from = NULL) {
   assert_that(is.stobject(x))
-  if(!is.null(at)) {
+  if(!missing(at)) {
     x$hline_at <- at
   }
-  if(!is.null(from)) {
+  if(!missing(from)) {
     x$hline_from <- from
   }
   x
@@ -341,5 +337,3 @@ st_args <- function(x,...) {
   }
   x
 }
-
-
