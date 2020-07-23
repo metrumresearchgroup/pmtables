@@ -28,7 +28,7 @@ stable(
   prime_fun = tab_prime,
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
-  debug_info = FALSE,
+  debug_data = FALSE,
   r_file = NULL,
   r_file_label = getOption("r.file.label", "Source code:"),
   output_file = NULL,
@@ -101,6 +101,9 @@ data}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
+
+\item{debug_data}{if \code{TRUE}, extra information is attached to the output
+as an attribute called \code{debug_data}; see \code{\link[=get_debug_data]{get_debug_data()}}}
 
 \item{r_file}{the name of the R file containg code to generate the table; the
 file name will be included in the notes in the table footer; ; see also

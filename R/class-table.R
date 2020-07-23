@@ -49,7 +49,7 @@ as_stable.stable <- function(x,...) {
 #' @export
 get_debug_data <- function(x) {
   ans <- list(output = as.character(x),stable_file = attr(x,"stable_file"))
-  ans <- c(ans, as.list(attr(x,"envir")))
+  ans <- c(ans, as.list(attr(x,"debug_data")))
   ans
 }
 

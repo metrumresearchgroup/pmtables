@@ -56,6 +56,8 @@ note_space <- 0.1
 #' @param r_file the name of the R file containg code to generate the table; the
 #' file name will be included in the notes in the table footer; ; see also
 #' [st_files()]
+#' @param debug_data if `TRUE`, extra information is attached to the output
+#' as an attribute called `debug_data`; see [get_debug_data()]
 #' @param r_file_label prefix text for `r_file` note
 #' @param output_file the name of the output file where the table text will be
 #' saved; the file name will be included in the notes in the table footer; see
@@ -89,7 +91,7 @@ stable <- function(data,
                    prime_fun = tab_prime,
                    escape_fun = tab_escape,
                    note_config = noteconf(type = "tpt"),
-                   debug_info = FALSE,
+                   debug_data = FALSE,
                    r_file = NULL,
                    r_file_label = getOption("r.file.label","Source code:"),
                    output_file = NULL,
@@ -348,7 +350,7 @@ stable <- function(data,
 
   out <- structure(out, class = "stable", stable_file = output_file)
 
-  if(isTRUE(debug_info)) {
+  if(isTRUE(debug_data)) {
     envir <- new.env()
     envir$cols <- cols
     envir$cols <- strsplit(envir$cols, "&", fixed = TRUE)[[1]]
@@ -362,7 +364,7 @@ stable <- function(data,
     envir$notes <- c(t_notes,m_notes)
     envir$tab <- tab
     envir$align_tex <- align_tex
-    out <- structure(out, envir = envir)
+    out <- structure(out, debug_data = envir)
   }
 
   out
