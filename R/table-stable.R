@@ -40,6 +40,10 @@ note_space <- 0.1
 #' @param col_replace a character vector with the same length as the number of
 #' output table columns; use this to completely replace the names (as opposed
 #' to one by on editing with `col_rename`)
+#' @param col_split a string that is used to split column labels into tag
+#' (on the left) or name (on the right); if supplied, then `col_split` will be
+#' used to remove the tag; for example, a column named `x.WT` would be renamed
+#' `WT` if `col_split` was set to `.`
 #' @param row_space relative increase or decrease spacing between rows; use
 #' `row_space > <default>` to increase; ; see also [st_space()]
 #' @param col_space absolute column spacing amount (`pt`); see also [st_space()]
@@ -75,6 +79,7 @@ stable <- function(data,
                    col_rename = NULL,
                    col_blank = NULL,
                    col_replace = NULL,
+                   col_split = NULL,
                    row_space = 1.4,
                    col_space = 5,
                    fontsize = NULL,
@@ -187,6 +192,11 @@ stable <- function(data,
       cols <- spans$data$newcol
       spans_from_split <- spans$data
     }
+  }
+
+  if(!is.null(col_split)) {
+    split_cols <- str_split(cols, fixed(col_split), n = 2)
+    cols <- map_chr(split_cols, last)
   }
 
   if(is.null(span)) {

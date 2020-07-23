@@ -21,6 +21,7 @@ stable(
   col_rename = NULL,
   col_blank = NULL,
   col_replace = NULL,
+  col_split = NULL,
   row_space = 1.4,
   col_space = 5,
   fontsize = NULL,
@@ -79,6 +80,11 @@ in the table header; see also \code{\link[=st_blank]{st_blank()}}}
 \item{col_replace}{a character vector with the same length as the number of
 output table columns; use this to completely replace the names (as opposed
 to one by on editing with \code{col_rename})}
+
+\item{col_split}{a string that is used to split column labels into tag
+(on the left) or name (on the right); if supplied, then \code{col_split} will be
+used to remove the tag; for example, a column named \code{x.WT} would be renamed
+\code{WT} if \code{col_split} was set to \code{.}}
 
 \item{row_space}{relative increase or decrease spacing between rows; use
 \verb{row_space > <default>} to increase; ; see also \code{\link[=st_space]{st_space()}}}
