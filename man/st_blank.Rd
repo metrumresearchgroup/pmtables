@@ -13,5 +13,6 @@ st_blank(x, ...)
 \code{col_blank}}
 }
 \description{
-Add column blank information to st object
+See the \code{col_blank} argument to \code{\link[=stable]{stable()}}.  This function can be called
+multiple times and will accumulate \code{col_blank} data.
 }

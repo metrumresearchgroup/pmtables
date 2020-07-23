@@ -12,5 +12,5 @@ st_align(x, ...)
 \item{...}{named arguments passed to \code{\link[=cols_align]{cols_align()}}}
 }
 \description{
-Add column alignment information to st object
+See the \code{align} argument to \code{\link[=stable]{stable()}}.
 }

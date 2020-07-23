@@ -14,5 +14,5 @@ st_space(x, row = NULL, col = NULL)
 \item{col}{set \code{col_space}, passed to \code{\link[=stable]{stable()}}}
 }
 \description{
-Add row and column spacing information to st object
+See the \code{row_space} and \code{col_space} arguments to \code{\link[=stable]{stable()}}.
 }

@@ -13,5 +13,6 @@ st_rename(x, ...)
 to \code{\link[=stable]{stable()}} as \code{col_rename}}
 }
 \description{
-Add column rename information to st object
+See the \code{col_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
+multiple times and will accumulate \code{col_rename} data.
 }

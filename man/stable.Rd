@@ -34,28 +34,29 @@ stable(
 )
 }
 \arguments{
-\item{data}{a data.frame to convert to tabular table}
+\item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
 
 \item{align}{an alignment object created by \link{cols_align}, \link{cols_left},
-\link{cols_center}, or \link{cols_right}}
+\link{cols_center}, or \link{cols_right}; see also \code{\link[=st_align]{st_align()}}}
 
 \item{panel}{character column name to use to section the table; sections will
-be created from unique values of \code{data[[panel]]}}
+be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_panel]{st_panel()}}}
 
 \item{units}{a named list with unit information; names should correspond to
 columns in the data frame}
 
 \item{clear_reps}{character vector of column names where duplicate values will
-be made blank (overwritten with \code{""})}
+be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_reps]{st_clear_reps()}}}
 
 \item{rm_dups}{use \code{clear_reps}}
 
-\item{span}{a list of objects created with \link{colgroup}}
+\item{span}{a list of objects created with \link{colgroup}; ; see also \code{\link[=st_span]{st_span()}}}
 
-\item{span_split}{not implemented at this time}
+\item{span_split}{not implemented at this time; ; see also \code{\link[=st_span_split]{st_span_split()}}}
 
 \item{notes}{a character vector of notes to include at the foot of the table;
-use \code{r_file} and \code{output_file} for source code and output file annotations}
+use \code{r_file} and \code{output_file} for source code and output file annotations;
+see also \code{\link[=st_notes]{st_notes()}}}
 
 \item{hline_at}{logical or integer vector specifying rows above which an
 \verb{\\hline} will be placed}
@@ -65,24 +66,24 @@ with \verb{\\hline}; non-duplicated values of \code{hline_from} will be used to 
 the split}
 
 \item{sumrows}{an object created with \link{sumrow}; identifies summary rows
-and adds styling}
+and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
 
 \item{bold_cols}{if \code{TRUE}, table column names are rendered with bold font}
 
 \item{col_rename}{a \code{name = value} character vector to translate column names
-to table names}
+to table names; ; see also \code{\link[=st_rename]{st_rename()}}}
 
 \item{col_blank}{a character vector of column names that will not be printed
-in the table header}
+in the table header; see also \code{\link[=st_blank]{st_blank()}}}
 
 \item{col_replace}{a character vector with the same length as the number of
 output table columns; use this to completely replace the names (as opposed
 to one by on editing with \code{col_rename})}
 
 \item{row_space}{relative increase or decrease spacing between rows; use
-\verb{row_space > <default>} to increase}
+\verb{row_space > <default>} to increase; ; see also \code{\link[=st_space]{st_space()}}}
 
-\item{col_space}{absolute column spacing amount (\code{pt})}
+\item{col_space}{absolute column spacing amount (\code{pt}); see also \code{\link[=st_space]{st_space()}}}
 
 \item{fontsize}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
 
@@ -92,15 +93,17 @@ to one by on editing with \code{col_rename})}
 data}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
-are displayed}
+are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
 
 \item{r_file}{the name of the R file containg code to generate the table; the
-file name will be included in the notes in the table footer}
+file name will be included in the notes in the table footer; ; see also
+\code{\link[=st_files]{st_files()}}}
 
 \item{r_file_label}{prefix text for \code{r_file} note}
 
 \item{output_file}{the name of the output file where the table text will be
-saved; the file name will be included in the notes in the table footer}
+saved; the file name will be included in the notes in the table footer; see
+also \code{\link[=st_files]{st_files()}}}
 
 \item{output_file_label}{prefix text for \code{output_file} note}
 }

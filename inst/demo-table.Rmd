@@ -355,13 +355,14 @@ stable(
 data %>% 
   st_new() %>% 
   st_files(r = "foo.R", output = "foo.tex") %>%
-  st_panel(vars(Study = STUDY)) %>% 
+  st_panel("STUDY", prefix = "Study: ") %>% 
   st_rename(Dose = DOSE) %>%
   st_notes("The analysis was done in triplicate") %>%
   st_args(units = ys_get_unit(spec, parens = TRUE)) %>%
   st_clear_reps(DOSE) %>%
   st_span("Included", AGE:CRCL) %>%
   st_span("All covariates", WT:SCR, level=2) %>%
+  st_align("c", .outer = "lr") %>%
   st_make() %>% 
   pt_wrap(stdout())
 ```

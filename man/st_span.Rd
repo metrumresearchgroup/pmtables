@@ -12,5 +12,6 @@ st_span(x, ...)
 \item{...}{passed to \code{\link[=colgroup]{colgroup()}}}
 }
 \description{
-Add column spanner to st object
+See the \code{span} argument to \code{\link[=stable]{stable()}}. This function can be called multiple
+times and will accumulate \code{span} data.
 }

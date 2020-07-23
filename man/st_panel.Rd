@@ -12,5 +12,5 @@ st_panel(x, ...)
 \item{...}{passed to \code{\link[=rowpanel]{rowpanel()}}}
 }
 \description{
-Add panel information to st object
+See the \code{panel} argument to \code{\link[=stable]{stable()}}.
 }

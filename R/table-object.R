@@ -64,6 +64,8 @@ st_make <- function(x, ...) {
 
 #' Add panel information to st object
 #'
+#' See the `panel` argument to [stable()].
+#'
 #' @param x an stobject
 #' @param ... passed to [rowpanel()]
 #'
@@ -77,6 +79,9 @@ st_panel <- function(x,...) {
 }
 
 #' Add note information to st object
+#'
+#' See the `notes` and `note_config` arguments to [stable()]. The function can
+#' be called multiple times and will accumulate `notes` data.
 #'
 #' @param x an stobject
 #' @param ... table notes
@@ -98,6 +103,8 @@ st_notes <- function(x, ..., config = NULL) {
 
 #' Add note config information to st object
 #'
+#' See the `note_config` argument to [stable()].
+#'
 #' @param x an stobject
 #' @param ... named arguments passed to [noteconf()]
 #'
@@ -110,6 +117,8 @@ st_noteconf <- function(x,...) {
 
 #' Add column alignment information to st object
 #'
+#' See the `align` argument to [stable()].
+#'
 #' @param x an stobject
 #' @param ... named arguments passed to [cols_align()]
 #'
@@ -121,6 +130,8 @@ st_align <- function(x, ...) {
 }
 
 #' Add file name information to st object
+#'
+#' See the `r_file` and `output_file` arguments to [stable()].
 #'
 #' @param x an stobject
 #' @param r set `r_file`, passed to [stable()]
@@ -135,6 +146,8 @@ st_files <- function(x, r = NULL, output = NULL) {
 }
 
 #' Add row and column spacing information to st object
+#'
+#' See the `row_space` and `col_space` arguments to [stable()].
 #'
 #' @param x an stobject
 #' @param row set `row_space`, passed to [stable()]
@@ -153,6 +166,9 @@ st_space <- function(x, row = NULL, col = NULL) {
 }
 
 #' Add column spanner to st object
+#'
+#' See the `span` argument to [stable()]. This function can be called multiple
+#' times and will accumulate `span` data.
 #'
 #' @param x an stobject
 #' @param ... passed to [colgroup()]
@@ -174,6 +190,8 @@ st_span <- function(x,...) {
 
 #' Add column split spanner information to st object
 #'
+#' See the `span_split` argument to [stable()].
+#'
 #' @param x an stobject
 #' @param ... passed to [colsplit()]
 #'
@@ -186,6 +204,9 @@ st_span_split <- function(x,...) {
 }
 
 #' Add column rename information to st object
+#'
+#' See the `col_rename` argument to [stable()]. This function can be called
+#' multiple times and will accumulate `col_rename` data.
 #'
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
@@ -200,6 +221,9 @@ st_rename <- function(x,...) {
 
 #' Add column blank information to st object
 #'
+#' See the `col_blank` argument to [stable()].  This function can be called
+#' multiple times and will accumulate `col_blank` data.
+#'
 #' @param x an stobject
 #' @param ... quoted or unquoted column names to be passed to [stable()] as
 #' `col_blank`
@@ -213,6 +237,9 @@ st_blank <- function(x,...) {
 }
 
 #' Add summary row information to st object
+#'
+#' See the `sumrows` argument to [stable()]. This function can be called
+#' multiple times and will accumulate `sumrows` data.
 #'
 #' @param x an stobject
 #' @param ... passed to [sumrow()]
@@ -230,6 +257,8 @@ st_sumrow <- function(x,...) {
 }
 
 #' Add clear rep information to st object
+#'
+#' See the `clear_reps` argument to [stable()].
 #'
 #' @param x an stobject
 #' @param ... quoted or unquoted column names passed to [stable()] as

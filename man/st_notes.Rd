@@ -14,5 +14,6 @@ st_notes(x, ..., config = NULL)
 \item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}}
 }
 \description{
-Add note information to st object
+See the \code{notes} and \code{note_config} arguments to \code{\link[=stable]{stable()}}. The function can
+be called multiple times and will accumulate \code{notes} data.
 }

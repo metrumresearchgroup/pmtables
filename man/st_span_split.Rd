@@ -12,5 +12,5 @@ st_span_split(x, ...)
 \item{...}{passed to \code{\link[=colsplit]{colsplit()}}}
 }
 \description{
-Add column split spanner information to st object
+See the \code{span_split} argument to \code{\link[=stable]{stable()}}.
 }

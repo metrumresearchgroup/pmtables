@@ -14,5 +14,5 @@ st_files(x, r = NULL, output = NULL)
 \item{output}{set \code{output_file}, passed to \code{\link[=stable]{stable()}}}
 }
 \description{
-Add file name information to st object
+See the \code{r_file} and \code{output_file} arguments to \code{\link[=stable]{stable()}}.
 }

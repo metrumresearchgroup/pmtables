@@ -12,5 +12,6 @@ st_sumrow(x, ...)
 \item{...}{passed to \code{\link[=sumrow]{sumrow()}}}
 }
 \description{
-Add summary row information to st object
+See the \code{sumrows} argument to \code{\link[=stable]{stable()}}. This function can be called
+multiple times and will accumulate \code{sumrows} data.
 }

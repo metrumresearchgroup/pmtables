@@ -13,5 +13,5 @@ st_clear_reps(x, ...)
 \code{clear_reps}}
 }
 \description{
-Add clear rep information to st object
+See the \code{clear_reps} argument to \code{\link[=stable]{stable()}}.
 }

@@ -12,5 +12,5 @@ st_noteconf(x, ...)
 \item{...}{named arguments passed to \code{\link[=noteconf]{noteconf()}}}
 }
 \description{
-Add note config information to st object
+See the \code{note_config} argument to \code{\link[=stable]{stable()}}.
 }
