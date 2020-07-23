@@ -4,12 +4,19 @@
 \alias{st_make}
 \title{Convert st object to table output}
 \usage{
-st_make(x, ...)
+st_make(x, ..., .preview = FALSE, .cat = FALSE)
 }
 \arguments{
 \item{x}{an stobject}
 
 \item{...}{other arguments passed to \code{\link[=stable]{stable()}}}
+
+\item{.preview}{if \code{TRUE}, pass result to \code{\link[=st_preview]{st_preview()}}}
+
+\item{.cat}{if \code{TRUE}, pass result to \code{\link[=st_wrap]{st_wrap()}}}
+}
+\value{
+The latex code for the table.
 }
 \description{
 Convert st object to table output

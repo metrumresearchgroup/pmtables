@@ -2,12 +2,17 @@
 % Please edit documentation in R/table-object.R
 \name{st_new}
 \alias{st_new}
+\alias{st_data}
 \title{Create an st object}
 \usage{
 st_new(data)
+
+st_data(...)
 }
 \arguments{
 \item{data}{the data frame to pass to \code{\link[=stable]{stable()}}}
+
+\item{...}{passed to \code{\link[=st_new]{st_new()}}}
 }
 \description{
 The st object will collect various configuration settings and pass those

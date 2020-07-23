@@ -14,6 +14,7 @@ st_arg_names <- c(
 #' to [stable()] when the object is passed to [st_make()].
 #'
 #' @param data the data frame to pass to [stable()]
+#' @param ... passed to [st_new()]
 #'
 #' @export
 st_new <- function(data) {
@@ -28,15 +29,24 @@ st_new <- function(data) {
   structure(x, class = "stobject", argnames = st_arg_names)
 }
 
+#' @rdname st_new
+#' @export
+st_data <- function(...) st_new(...)
+
+
 is.stobject <- function(x) inherits(x, "stobject")
 
 #' Convert st object to table output
 #'
 #' @param x an stobject
 #' @param ... other arguments passed to [stable()]
+#' @param .preview if `TRUE`, pass result to [st_preview()]
+#' @param .cat if `TRUE`, pass result to [st_wrap()]
+#'
+#' @return The latex code for the table.
 #'
 #' @export
-st_make <- function(x, ...) {
+st_make <- function(x, ..., .preview = FALSE, .cat = FALSE) {
   assert_that(is.stobject(x))
   args <- as.list(structure(x, class = NULL))
   args <- args[attr(x,"argnames")]
@@ -50,7 +60,17 @@ st_make <- function(x, ...) {
     args <- combine_list(args,dots)
   }
 
-  do.call(stable, args)
+  ans <- do.call(stable, args)
+
+  if(.preview) {
+    x <- st_preview(ans)
+  }
+
+  if(.cat) {
+    x <- pt_wrap(ans,stdout())
+  }
+
+  return(invisible(ans))
 }
 
 #' Add panel information to st object
@@ -137,8 +157,6 @@ st_left <- function(x,...) {
 st_right <- function(x,...) {
   st_align(x,.default = "r",...)
 }
-
-
 
 
 #' Add file name information to st object

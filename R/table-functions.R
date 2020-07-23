@@ -18,7 +18,7 @@ panel_labels <- function(name, value) {
 #' @param con where to write the output
 #'
 #' @export
-pt_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) {
+st_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) {
   ans <- c()
   ans <- c(ans,"\\begin{table}[h]")
   if(isTRUE(center)) {
@@ -34,5 +34,9 @@ pt_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) {
   }
   return(invisible(ans))
 }
+
+#' @rdname st_wrap
+#' @export
+pt_wrap <- st_wrap
 
 
