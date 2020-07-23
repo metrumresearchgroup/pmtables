@@ -42,4 +42,14 @@ as_stable.stable <- function(x,...) {
   x
 }
 
+#' Get debug information from stable object
+#'
+#' @param x an stable object
+#'
+#' @export
+get_debug_data <- function(x) {
+  ans <- list(output = as.character(x),stable_file = attr(x,"stable_file"))
+  ans <- c(ans, as.list(attr(x,"envir")))
+  ans
+}
 

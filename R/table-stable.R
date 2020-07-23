@@ -89,6 +89,7 @@ stable <- function(data,
                    prime_fun = tab_prime,
                    escape_fun = tab_escape,
                    note_config = noteconf(type = "tpt"),
+                   debug_info = FALSE,
                    r_file = NULL,
                    r_file_label = getOption("r.file.label","Source code:"),
                    output_file = NULL,
@@ -273,10 +274,8 @@ stable <- function(data,
       hlinex <- map(sumrows, sumrow_get_hlinex2)
       above <- sort(unique(flatten_int(hlinex)-1))
       below <- above + 1
-      #below2 <- below[below != nrow(data)]
       tab[above] <- paste0(tab[above], " \\hline")
       tab[below] <- paste0(tab[below], " \\hline")
-      #tab[below2] <- paste0(tab[below2], " \\hline")
     }
   }
 
@@ -328,7 +327,7 @@ stable <- function(data,
     font_size$end <- "}"
   }
 
-  tab <- c(
+  out <- c(
     font_size$start,
     col_row_sp$start,
     start_tpt,
@@ -347,7 +346,24 @@ stable <- function(data,
     font_size$end
   )
 
-  tab <- structure(tab, class = "stable", stable_file = output_file)
+  out <- structure(out, class = "stable", stable_file = output_file)
 
-  tab
+  if(isTRUE(debug_info)) {
+    envir <- new.env()
+    envir$cols <- cols
+    envir$cols <- strsplit(envir$cols, "&", fixed = TRUE)[[1]]
+    envir$cols <- trimws(envir$cols)
+    if(!is.null(units)) {
+      envir$units <- strsplit(units, "&", fixed = TRUE)[[1]]
+      envir$units <- trimws(envir$units)
+    } else {
+      envir$units <- NULL
+    }
+    envir$notes <- c(t_notes,m_notes)
+    envir$tab <- tab
+    envir$align_tex <- align_tex
+    out <- structure(out, envir = envir)
+  }
+
+  out
 }

@@ -33,7 +33,7 @@ form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
   cols <- paste0(cols, collapse = " & ")
   cols <- paste0(cols, " \\\\")
   cols <- paste0("", cols)
-  if(is.character(units)) {
+  if(is.character(units) && any(nchar(units) > 0)) {
     cols <- paste0(cols, "[-0.5em]")
     cols <- c(cols, units)
   }
@@ -44,7 +44,14 @@ form_unit <- function(units, cols) {
   if(is.null(units)) return(NULL)
   ans <- vector(mode = "character", length = length(cols))
   units <- units[names(units) %in% cols]
-  if(length(units)==0) return(ans)
+  if(length(units)==0) {
+    warning(
+      "the 'units' argument was passed into 'stable()', ",
+      "but no column matches were found.",
+      call.=FALSE
+    )
+    return(ans)
+  }
   i <- match(names(units),cols)
   i <- i[!is.na(i)]
   ans[i] <- units

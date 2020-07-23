@@ -28,6 +28,7 @@ stable(
   prime_fun = tab_prime,
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
+  debug_info = FALSE,
   r_file = NULL,
   r_file_label = getOption("r.file.label", "Source code:"),
   output_file = NULL,
