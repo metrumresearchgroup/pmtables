@@ -116,3 +116,7 @@ also \code{\link[=st_files]{st_files()}}}
 \description{
 Create tabular output from an R data frame
 }
+\examples{
+stable(ptdata())
+
+}

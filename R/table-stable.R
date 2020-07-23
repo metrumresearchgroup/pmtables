@@ -62,6 +62,9 @@ note_space <- 0.1
 #' also [st_files()]
 #' @param output_file_label prefix text for `output_file` note
 #'
+#' @examples
+#' stable(ptdata())
+#'
 #' @export
 stable <- function(data,
                    align = cols_left(),
