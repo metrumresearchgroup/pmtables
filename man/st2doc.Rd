@@ -27,3 +27,11 @@ the \code{text} is returned invisibly
 \description{
 Render a table a pdf document
 }
+\examples{
+
+\dontrun{
+  library(dplyr)
+  ptdata()  \%>\% stable() \%>\% st2doc()
+}
+
+}

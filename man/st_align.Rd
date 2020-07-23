@@ -23,3 +23,12 @@ st_right(x, ...)
 \description{
 See the \code{align} argument to \code{\link[=stable]{stable()}}.
 }
+\examples{
+library(dplyr)
+
+ob <- st_new(ptdata())
+
+ob \%>\% st_align(.default = 'l') \%>\% st_make()
+ob \%>\% st_center(N = 'l') \%>\% st_make()
+
+}

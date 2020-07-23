@@ -16,3 +16,11 @@ st_space(x, row = NULL, col = NULL)
 \description{
 See the \code{row_space} and \code{col_space} arguments to \code{\link[=stable]{stable()}}.
 }
+\examples{
+library(dplyr)
+
+ob <- st_new(ptdata())
+
+ob \%>\% st_space(row = 1) \%>\% st_make()
+
+}

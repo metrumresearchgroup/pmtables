@@ -121,6 +121,12 @@ also \code{\link[=st_files]{st_files()}}}
 Create tabular output from an R data frame
 }
 \examples{
-stable(ptdata())
+data <- ptdata()
+
+a <- stable(data, r_file = "example.R", output_file = "output.tex")
+
+b <- stable(data, panel = "STUDY")
+
+c <- stable(data, span = colgroups("Covariates", STUDYf:ALB))
 
 }

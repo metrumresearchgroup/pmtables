@@ -14,3 +14,13 @@ st_span_split(x, ...)
 \description{
 See the \code{span_split} argument to \code{\link[=stable]{stable()}}.
 }
+\examples{
+library(dplyr)
+
+file <- system.file("datasets", "with-dots.RDS", package = "pmtables")
+
+data <- readRDS(file)
+
+data \%>\% st_span_split('.') \%>\% st_make()
+
+}

@@ -4,7 +4,7 @@
 \alias{st_files}
 \title{Add file name information to st object}
 \usage{
-st_files(x, r = NULL, output = NULL)
+st_files(x, r = NULL, output = NULL, esc = NULL)
 }
 \arguments{
 \item{x}{an stobject}
@@ -12,7 +12,17 @@ st_files(x, r = NULL, output = NULL)
 \item{r}{set \code{r_file}, passed to \code{\link[=stable]{stable()}}}
 
 \item{output}{set \code{output_file}, passed to \code{\link[=stable]{stable()}}}
+
+\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping}
 }
 \description{
 See the \code{r_file} and \code{output_file} arguments to \code{\link[=stable]{stable()}}.
+}
+\examples{
+library(dplyr)
+
+ob <- st_new(ptdata())
+
+ob \%>\% st_files(r = "foo.R", output = "foo.tex") \%>\% st_make()
+
 }

@@ -9,16 +9,36 @@
 #'
 #' @return the `text` is returned invisibly
 #'
+#' @examples
+#'
+#' \dontrun{
+#'   library(dplyr)
+#'   ptdata()  %>% stable() %>% st2doc()
+#' }
+#'
 #' @export
 st2doc <- function(text, preview = TRUE, output_dir = tempdir(),
                    output_file = "st2doc.pdf") {
   assert_that(requireNamespace("rmarkdown"))
   assert_that(requireNamespace("fs"))
   file <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
-  tab <- as.character(text)
-  if(!any(grepl("begin{table}", tab, fixed = TRUE))) {
-    tab <- pt_wrap(as.character(tab))
+
+  if(is.list(text)) {
+    tab <- map(text, .f = function(this_table) {
+      this_table <- as.character(this_table)
+      if(!any(grepl("begin{table}", this_table, fixed = TRUE))) {
+        this_table <- pt_wrap(as.character(this_table))
+      }
+      c(this_table, "\\clearpage")
+    })
+    tab <- flatten_chr(tab)
+  } else {
+    tab <- as.character(text)
+    if(!any(grepl("begin{table}", tab, fixed = TRUE))) {
+      tab <- pt_wrap(as.character(tab))
+    }
   }
+
   ans <- rmarkdown::render(
     input = file,
     intermediates_dir = tempdir(),
@@ -37,6 +57,11 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(),
 #' @param x an stable object
 #' @param ... passed to [texPreview::tex_preview()]
 #'
+#' @examples
+#'
+#' \dontrun{
+#' ptdata() %>% stable() %>% st_preview()
+#' }
 #' @export
 st_preview <- function(x,...) {
   assert_that(requireNamespace("texPreview"))

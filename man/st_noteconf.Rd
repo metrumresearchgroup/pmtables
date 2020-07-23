@@ -14,3 +14,14 @@ st_noteconf(x, ...)
 \description{
 See the \code{note_config} argument to \code{\link[=stable]{stable()}}.
 }
+\examples{
+library(dplyr)
+
+ob <- st_new(ptdata())
+
+ob \%>\%
+  st_notes("ALB: albumin (g/dL)") \%>\%
+  st_noteconf(type = "minipage") \%>\%
+  st_make()
+
+}

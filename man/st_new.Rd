@@ -18,3 +18,8 @@ st_data(...)
 The st object will collect various configuration settings and pass those
 to \code{\link[=stable]{stable()}} when the object is passed to \code{\link[=st_make]{st_make()}}.
 }
+\examples{
+ob <- st_new(ptdata())
+ob <- st_data(ptdata())
+
+}

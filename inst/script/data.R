@@ -74,7 +74,7 @@ saveRDS(file = "inst/datasets/obs.RDS",obs)
 
 data <- pmtables:::data("id")
 
-data <- group_by(data,SEXf,STUDYf) %>%
+data <- group_by(data,STUDYf,SEXf) %>%
   summarise(WT = mean(WT,na.rm=TRUE), SCR = mean(SCR,na.rm=TRUE),
             ALB = mean(ALB,na.rm=TRUE), N = n(), .groups="drop")
 data <- mutate(data, across(WT:ALB, .fns=sig))

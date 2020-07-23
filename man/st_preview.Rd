@@ -14,3 +14,9 @@ st_preview(x, ...)
 \description{
 Preview an stable object
 }
+\examples{
+
+\dontrun{
+ptdata() \%>\% stable() \%>\% st_preview()
+}
+}

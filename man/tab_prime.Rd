@@ -7,16 +7,16 @@
 \usage{
 tab_prime(data, escape_fun = tab_escape, chrs = "_")
 
-tab_escape(string, chrs = getOption("pmtables.san", "_"), ...)
+tab_escape(string, esc = getOption("pmtables.esc", "_"), ...)
 }
 \arguments{
 \item{data}{a data frame}
 
 \item{escape_fun}{a function to sanitize data frame contents}
 
-\item{chrs}{a character vector of strings to escape}
-
 \item{string}{data to sanitize}
+
+\item{esc}{a character vector of strings to escape}
 
 \item{...}{used only to allow arguments through}
 }

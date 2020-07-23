@@ -16,3 +16,9 @@ to \code{\link[=stable]{stable()}} as \code{col_rename}}
 See the \code{col_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
 multiple times and will accumulate \code{col_rename} data.
 }
+\examples{
+library(dplyr)
+
+st_new(ptdata()) \%>\% st_rename(Weight = WT) \%>\% st_make()
+
+}

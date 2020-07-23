@@ -15,3 +15,11 @@ st_span(x, ...)
 See the \code{span} argument to \code{\link[=stable]{stable()}}. This function can be called multiple
 times and will accumulate \code{span} data.
 }
+\examples{
+library(dplyr)
+
+ob <- st_new(ptdata())
+
+ob \%>\% st_span("Covariates", WT:ALB) \%>\% st_make()
+
+}

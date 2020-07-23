@@ -14,3 +14,11 @@ st_panel(x, ...)
 \description{
 See the \code{panel} argument to \code{\link[=stable]{stable()}}.
 }
+\examples{
+library(dplyr)
+
+ob <- st_new(ptdata())
+
+ob \%>\% st_panel("STUDY") \%>\% st_make()
+
+}

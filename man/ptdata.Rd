@@ -2,9 +2,12 @@
 % Please edit documentation in R/AAAA.R
 \name{ptdata}
 \alias{ptdata}
+\alias{stdata}
 \title{Load an example data set}
 \usage{
 ptdata()
+
+stdata()
 }
 \description{
 Load an example data set

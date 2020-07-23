@@ -22,11 +22,11 @@ tab_prime <- function(data, escape_fun = tab_escape, chrs = "_") {
 
 #' @rdname tab_prime
 #' @param string data to sanitize
-#' @param chrs a character vector of strings to escape
+#' @param esc a character vector of strings to escape
 #' @param ... used only to allow arguments through
 tab_escape <- function(string,
-                       chrs = getOption("pmtables.san","_"), ...) {
-  for(ch in chrs) {
+                       esc = getOption("pmtables.esc","_"), ...) {
+  for(ch in esc) {
     string <- gsub(ch, paste0("\\",ch), string, fixed = TRUE)
   }
   string <- gsub("~", "$\\sim$", string, fixed = TRUE)

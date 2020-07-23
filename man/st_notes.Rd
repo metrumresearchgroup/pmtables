@@ -4,16 +4,26 @@
 \alias{st_notes}
 \title{Add note information to st object}
 \usage{
-st_notes(x, ..., config = NULL)
+st_notes(x, ..., esc = NULL, config = NULL)
 }
 \arguments{
 \item{x}{an stobject}
 
 \item{...}{table notes}
 
+\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notess}
+
 \item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}}
 }
 \description{
 See the \code{notes} and \code{note_config} arguments to \code{\link[=stable]{stable()}}. The function can
 be called multiple times and will accumulate \code{notes} data.
+}
+\examples{
+library(dplyr)
+
+ob <- st_new(ptdata())
+
+ob \%>\% st_notes("ALB: albumin (g/dL)") \%>\% st_make()
+
 }

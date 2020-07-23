@@ -30,3 +30,7 @@ ptdata <- function() {
   file <- system.file("datasets", "ptdata.RDS", package = "pmtables")
   readRDS(file)
 }
+
+#' @rdname ptdata
+#' @export
+stdata <- ptdata

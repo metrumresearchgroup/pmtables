@@ -16,13 +16,17 @@ st_arg_names <- c(
 #' @param data the data frame to pass to [stable()]
 #' @param ... passed to [st_new()]
 #'
+#' @examples
+#' ob <- st_new(ptdata())
+#' ob <- st_data(ptdata())
+#'
 #' @export
 st_new <- function(data) {
   assert_that(is.data.frame(data))
   x <- new.env()
   x$data <- data
   x$args <- list()
-  structure(x, class = "stobject", argnames = st_arg_names)
+  structure(x, class = c("stobject","environment"), argnames = st_arg_names)
 }
 
 #' @rdname st_new
@@ -41,10 +45,21 @@ is.stobject <- function(x) inherits(x, "stobject")
 #'
 #' @return The latex code for the table.
 #'
+#' @examples
+#'
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#' st_make(ob)
+#' st_make(ob, .cat = TRUE)
+#' \dontrun{
+#' st_make(ob, .preview = TRUE)
+#' }
+#'
 #' @export
 st_make <- function(x, ..., .preview = FALSE, .cat = FALSE) {
   assert_that(is.stobject(x))
-  args <- as.list(structure(x, class = NULL))
+  args <- as.list(x)
   args <- args[intersect(names(args),attr(x,"argnames"))]
   if(is.list(x$args)) {
     args <- combine_list(args, x$args)
@@ -58,14 +73,16 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE) {
   ans <- do.call(stable, args)
 
   if(.preview) {
-    x <- st_preview(ans)
+    .null <- st_preview(ans)
+    return(invisible(ans))
   }
 
   if(.cat) {
-    x <- pt_wrap(ans,stdout())
+    .null <- pt_wrap(ans,stdout())
+    return(invisible(ans))
   }
 
-  return(invisible(ans))
+  return(ans)
 }
 
 #' Add panel information to st object
@@ -74,6 +91,13 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE) {
 #'
 #' @param x an stobject
 #' @param ... passed to [rowpanel()]
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#'
+#' ob %>% st_panel("STUDY") %>% st_make()
 #'
 #' @export
 st_panel <- function(x,...) {
@@ -91,14 +115,25 @@ st_panel <- function(x,...) {
 #'
 #' @param x an stobject
 #' @param ... table notes
+#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notess
 #' @param config named list of arguments for [noteconf()]
 #'
+#' @examples
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#'
+#' ob %>% st_notes("ALB: albumin (g/dL)") %>% st_make()
+#'
 #' @export
-st_notes <- function(x, ..., config = NULL) {
+st_notes <- function(x, ..., esc = NULL, config = NULL) {
   assert_that(is.stobject(x))
   notes <- unlist(list(...))
   if(!is.null(notes)) {
     assert_that(is.character(notes))
+    if(is.character(esc)) {
+      notes <- tab_escape(notes, esc = esc)
+    }
     x$notes <- c(x$notes, notes)
   }
   if(is.list(config)) {
@@ -114,6 +149,16 @@ st_notes <- function(x, ..., config = NULL) {
 #' @param x an stobject
 #' @param ... named arguments passed to [noteconf()]
 #'
+#' @examples
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#'
+#' ob %>%
+#'   st_notes("ALB: albumin (g/dL)") %>%
+#'   st_noteconf(type = "minipage") %>%
+#'   st_make()
+#'
 #' @export
 st_noteconf <- function(x,...) {
   assert_that(is.stobject(x))
@@ -127,6 +172,14 @@ st_noteconf <- function(x,...) {
 #'
 #' @param x an stobject
 #' @param ... named arguments passed to [cols_align()]
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#'
+#' ob %>% st_align(.default = 'l') %>% st_make()
+#' ob %>% st_center(N = 'l') %>% st_make()
 #'
 #' @export
 st_align <- function(x, ...) {
@@ -160,13 +213,27 @@ st_right <- function(x,...) {
 #'
 #' @param x an stobject
 #' @param r set `r_file`, passed to [stable()]
+#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping
 #' @param output set `output_file`, passed to [stable()]
 #'
+#' @examples
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#'
+#' ob %>% st_files(r = "foo.R", output = "foo.tex") %>% st_make()
+#'
 #' @export
-st_files <- function(x, r = NULL, output = NULL) {
+st_files <- function(x, r = NULL, output = NULL, esc = NULL) {
   assert_that(is.stobject(x))
-  if(!missing(r)) x$r_file <- r
-  if(!missing(output)) x$output_file <- output
+  if(!missing(r)) {
+    if(!is.null(esc)) r <- tab_escape(r, esc = esc)
+    x$r_file <- r
+  }
+  if(!missing(output)) {
+    if(!is.null(esc)) output <- tab_escape(output, esc = esc)
+    x$output_file <- output
+  }
   x
 }
 
@@ -177,6 +244,13 @@ st_files <- function(x, r = NULL, output = NULL) {
 #' @param x an stobject
 #' @param row set `row_space`, passed to [stable()]
 #' @param col set `col_space`, passed to [stable()]
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#'
+#' ob %>% st_space(row = 1) %>% st_make()
 #'
 #' @export
 st_space <- function(x, row = NULL, col = NULL) {
@@ -197,6 +271,13 @@ st_space <- function(x, row = NULL, col = NULL) {
 #'
 #' @param x an stobject
 #' @param ... passed to [colgroup()]
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' ob <- st_new(ptdata())
+#'
+#' ob %>% st_span("Covariates", WT:ALB) %>% st_make()
 #'
 #' @export
 st_span <- function(x,...) {
@@ -220,6 +301,15 @@ st_span <- function(x,...) {
 #' @param x an stobject
 #' @param ... passed to [colsplit()]
 #'
+#' @examples
+#' library(dplyr)
+#'
+#' file <- system.file("datasets", "with-dots.RDS", package = "pmtables")
+#'
+#' data <- readRDS(file)
+#'
+#' data %>% st_span_split('.') %>% st_make()
+#'
 #' @export
 st_span_split <- function(x,...) {
   assert_that(is.stobject(x))
@@ -236,6 +326,12 @@ st_span_split <- function(x,...) {
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `col_rename`
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' st_new(ptdata()) %>% st_rename(Weight = WT) %>% st_make()
+#'
 #' @export
 st_rename <- function(x,...) {
   assert_that(is.stobject(x))

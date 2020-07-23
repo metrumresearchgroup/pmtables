@@ -21,3 +21,15 @@ The latex code for the table.
 \description{
 Convert st object to table output
 }
+\examples{
+
+library(dplyr)
+
+ob <- st_new(ptdata())
+st_make(ob)
+st_make(ob, .cat = TRUE)
+\dontrun{
+st_make(ob, .preview = TRUE)
+}
+
+}
