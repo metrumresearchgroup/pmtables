@@ -19,7 +19,7 @@ reps_to_clear <- function(data, clear_reps, panel) {
   for(this_col in clear_reps) {
     run <- chunk_runs(paste(paneldat, as.character(data[[this_col]])))
     dup <- duplicated(run)
-    ans[[this_col]] <- list(dup = dup, n = sum(!dup), col = this_col)
+    ans[[this_col]] <- list(dup = dup, n = sum(dup), col = this_col)
   }
 
   ans
