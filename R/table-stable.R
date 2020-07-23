@@ -11,16 +11,16 @@ note_space <- 0.1
 #' Create tabular output from an R data frame
 #'
 #' @param data a data.frame to convert to tabular table; see also [st_new()]
-#' @param align an alignment object created by [cols_align], [cols_left],
-#' [cols_center], or [cols_right]; see also [st_align()]
+#' @param align an alignment object created by [cols_align()], [cols_left()],
+#' [cols_center()], or [cols_right()]; see also [st_align()]
 #' @param panel character column name to use to section the table; sections will
 #' be created from unique values of `data[[panel]]`; see also [st_panel()]
 #' @param units a named list with unit information; names should correspond to
 #' columns in the data frame
 #' @param clear_reps character vector of column names where duplicate values will
 #' be made blank (overwritten with `""`); ; see also [st_clear_reps()]
-#' @param rm_dups use `clear_reps`
-#' @param span a list of objects created with [colgroup]; ; see also [st_span()]
+#' @param rm_dups deprected; use `clear_reps`
+#' @param span a list of objects created with [colgroup()]; ; see also [st_span()]
 #' @param span_split not implemented at this time; ; see also [st_span_split()]
 #' @param notes a character vector of notes to include at the foot of the table;
 #' use `r_file` and `output_file` for source code and output file annotations;
@@ -30,7 +30,7 @@ note_space <- 0.1
 #' @param hline_from a character column name from which to separate the table
 #' with `\hline`; non-duplicated values of `hline_from` will be used to create
 #' the split
-#' @param sumrows an object created with [sumrow]; identifies summary rows
+#' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
 #' @param bold_cols if `TRUE`, table column names are rendered with bold font
 #' @param col_rename a `name = value` character vector to translate column names

@@ -4,7 +4,8 @@ st_arg_names <- c(
   "align", "r_file", "output_file",
   "row_space", "col_space",
   "span", "span_split", "col_rename", "col_blank",
-  "sumrows", "note_config", "clear_reps"
+  "sumrows", "note_config", "clear_reps",
+  "hline_at", "hline_from"
 )
 
 #' Create an st object
@@ -16,23 +17,13 @@ st_arg_names <- c(
 #'
 #' @export
 st_new <- function(data) {
+  assert_that(is.data.frame(data))
   x <- new.env()
   form <- formals(stable)
+  for(arg in st_arg_names) {
+    x[[arg]] <- form[[arg]]
+  }
   x$data <- data
-  x$panel <- rowpanel(col = NULL)
-  x$span <- form$span
-  x$notes <- form$notes
-  x$align <- form$align
-  x$r_file <- form$r_file
-  x$output_file <- form$output_file
-  x$row_space <- form$row_space
-  x$col_space <- form$col_space
-  x$col_rename <- form$col_rename
-  x$col_blank <- form$col_blank
-  x$sumrows <- form$sumrows
-  x$note_config <- form$note_config
-  x$clear_reps <- form$clear_reps
-  x$span_split <- form$span_split
   x$args <- list()
   structure(x, class = "stobject", argnames = st_arg_names)
 }
@@ -274,6 +265,28 @@ st_clear_reps <- function(x, ...) {
   x
 }
 
+#' Add hline information to st object
+#'
+#' See the `hline_at` and `hline_from` arguments to [stable()].
+#'
+#' @param at logical or integer locations for hline passed to [stable()] as
+#' `hline_at`
+#' @param from character column name used to divide a table; passed to
+#' [stable()] as `hline_from`
+#'
+#' @export
+st_hline <- function(at = NULL, from = NULL) {
+  assert_that(is.stobject(x))
+  if(!is.null(at)) {
+    x$hline_at <- at
+  }
+  if(!is.null(from)) {
+    x$hline_from <- from
+  }
+  x
+}
+
+
 #' Add other arguments to st object
 #'
 #' @param x an stobject
@@ -289,3 +302,5 @@ st_args <- function(x,...) {
   }
   x
 }
+
+

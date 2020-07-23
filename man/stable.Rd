@@ -36,8 +36,8 @@ stable(
 \arguments{
 \item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
 
-\item{align}{an alignment object created by \link{cols_align}, \link{cols_left},
-\link{cols_center}, or \link{cols_right}; see also \code{\link[=st_align]{st_align()}}}
+\item{align}{an alignment object created by \code{\link[=cols_align]{cols_align()}}, \code{\link[=cols_left]{cols_left()}},
+\code{\link[=cols_center]{cols_center()}}, or \code{\link[=cols_right]{cols_right()}}; see also \code{\link[=st_align]{st_align()}}}
 
 \item{panel}{character column name to use to section the table; sections will
 be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_panel]{st_panel()}}}
@@ -48,9 +48,9 @@ columns in the data frame}
 \item{clear_reps}{character vector of column names where duplicate values will
 be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_reps]{st_clear_reps()}}}
 
-\item{rm_dups}{use \code{clear_reps}}
+\item{rm_dups}{deprected; use \code{clear_reps}}
 
-\item{span}{a list of objects created with \link{colgroup}; ; see also \code{\link[=st_span]{st_span()}}}
+\item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
 
 \item{span_split}{not implemented at this time; ; see also \code{\link[=st_span_split]{st_span_split()}}}
 
@@ -65,7 +65,7 @@ see also \code{\link[=st_notes]{st_notes()}}}
 with \verb{\\hline}; non-duplicated values of \code{hline_from} will be used to create
 the split}
 
-\item{sumrows}{an object created with \link{sumrow}; identifies summary rows
+\item{sumrows}{an object created with \code{\link[=sumrow]{sumrow()}}; identifies summary rows
 and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
 
 \item{bold_cols}{if \code{TRUE}, table column names are rendered with bold font}
