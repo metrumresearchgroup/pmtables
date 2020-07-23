@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9031</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9033</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
     <p>Convert st object to table output</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_make</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>st_make</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>.preview</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.cat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,8 +161,19 @@
       <th>...</th>
       <td><p>other arguments passed to <code><a href='stable.html'>stable()</a></code></p></td>
     </tr>
+    <tr>
+      <th>.preview</th>
+      <td><p>if <code>TRUE</code>, pass result to <code><a href='st_preview.html'>st_preview()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>.cat</th>
+      <td><p>if <code>TRUE</code>, pass result to <code><a href='st_wrap.html'>st_wrap()</a></code></p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The latex code for the table.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -308,13 +308,14 @@ st_clear_reps <- function(x, ...) {
 #'
 #' See the `hline_at` and `hline_from` arguments to [stable()].
 #'
+#' @param x and stobject
 #' @param at logical or integer locations for hline passed to [stable()] as
 #' `hline_at`
 #' @param from character column name used to divide a table; passed to
 #' [stable()] as `hline_from`
 #'
 #' @export
-st_hline <- function(at = NULL, from = NULL) {
+st_hline <- function(x, at = NULL, from = NULL) {
   assert_that(is.stobject(x))
   if(!is.null(at)) {
     x$hline_at <- at

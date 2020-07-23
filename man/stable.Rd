@@ -17,7 +17,7 @@ stable(
   hline_at = NULL,
   hline_from = NULL,
   sumrows = NULL,
-  bold_cols = missing(panel),
+  bold_cols = NULL,
   col_rename = NULL,
   col_blank = NULL,
   col_replace = NULL,

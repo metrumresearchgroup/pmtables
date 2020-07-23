@@ -4,9 +4,11 @@
 \alias{st_hline}
 \title{Add hline information to st object}
 \usage{
-st_hline(at = NULL, from = NULL)
+st_hline(x, at = NULL, from = NULL)
 }
 \arguments{
+\item{x}{and stobject}
+
 \item{at}{logical or integer locations for hline passed to \code{\link[=stable]{stable()}} as
 \code{hline_at}}
 

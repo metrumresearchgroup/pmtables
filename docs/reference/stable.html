@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9031</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9033</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@
   <span class='kw'>hline_at</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>hline_from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>sumrows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bold_cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/missing.html'>missing</a></span>(<span class='no'>panel</span>),
+  <span class='kw'>bold_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_rename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_replace</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -182,17 +182,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>a data.frame to convert to tabular table</p></td>
+      <td><p>a data.frame to convert to tabular table; see also <code><a href='st_new.html'>st_new()</a></code></p></td>
     </tr>
     <tr>
       <th>align</th>
-      <td><p>an alignment object created by <a href='cols_align.html'>cols_align</a>, <a href='cols_align.html'>cols_left</a>,
-<a href='cols_align.html'>cols_center</a>, or <a href='cols_align.html'>cols_right</a></p></td>
+      <td><p>an alignment object created by <code><a href='cols_align.html'>cols_align()</a></code>, <code><a href='cols_align.html'>cols_left()</a></code>,
+<code><a href='cols_align.html'>cols_center()</a></code>, or <code><a href='cols_align.html'>cols_right()</a></code>; see also <code><a href='st_align.html'>st_align()</a></code></p></td>
     </tr>
     <tr>
       <th>panel</th>
       <td><p>character column name to use to section the table; sections will
-be created from unique values of <code>data[[panel]]</code></p></td>
+be created from unique values of <code>data[[panel]]</code>; see also <code><a href='st_panel.html'>st_panel()</a></code></p></td>
     </tr>
     <tr>
       <th>units</th>
@@ -202,40 +202,41 @@ columns in the data frame</p></td>
     <tr>
       <th>clear_reps</th>
       <td><p>character vector of column names where duplicate values will
-be made blank (overwritten with <code>""</code>)</p></td>
+be made blank (overwritten with <code>""</code>); ; see also <code><a href='st_clear_reps.html'>st_clear_reps()</a></code></p></td>
     </tr>
     <tr>
       <th>rm_dups</th>
-      <td><p>use <code>clear_reps</code></p></td>
+      <td><p>deprected; use <code>clear_reps</code></p></td>
     </tr>
     <tr>
       <th>span</th>
-      <td><p>a list of objects created with <a href='colgroup.html'>colgroup</a></p></td>
+      <td><p>a list of objects created with <code><a href='colgroup.html'>colgroup()</a></code>; ; see also <code><a href='st_span.html'>st_span()</a></code></p></td>
     </tr>
     <tr>
       <th>span_split</th>
-      <td><p>not implemented at this time</p></td>
+      <td><p>not implemented at this time; ; see also <code><a href='st_span_split.html'>st_span_split()</a></code></p></td>
     </tr>
     <tr>
       <th>notes</th>
       <td><p>a character vector of notes to include at the foot of the table;
-use <code>r_file</code> and <code>output_file</code> for source code and output file annotations</p></td>
+use <code>r_file</code> and <code>output_file</code> for source code and output file annotations;
+see also <code><a href='st_notes.html'>st_notes()</a></code></p></td>
     </tr>
     <tr>
       <th>hline_at</th>
       <td><p>logical or integer vector specifying rows above which an
-<code>\hline</code> will be placed</p></td>
+<code>\hline</code> will be placed; see also <code><a href='st_hline.html'>st_hline()</a></code></p></td>
     </tr>
     <tr>
       <th>hline_from</th>
       <td><p>a character column name from which to separate the table
 with <code>\hline</code>; non-duplicated values of <code>hline_from</code> will be used to create
-the split</p></td>
+the split; see also <code><a href='st_hline.html'>st_hline()</a></code></p></td>
     </tr>
     <tr>
       <th>sumrows</th>
-      <td><p>an object created with <a href='sumrow.html'>sumrow</a>; identifies summary rows
-and adds styling</p></td>
+      <td><p>an object created with <code><a href='sumrow.html'>sumrow()</a></code>; identifies summary rows
+and adds styling; see also <code><a href='st_sumrow.html'>st_sumrow()</a></code></p></td>
     </tr>
     <tr>
       <th>bold_cols</th>
@@ -244,12 +245,12 @@ and adds styling</p></td>
     <tr>
       <th>col_rename</th>
       <td><p>a <code>name = value</code> character vector to translate column names
-to table names</p></td>
+to table names; ; see also <code><a href='st_rename.html'>st_rename()</a></code></p></td>
     </tr>
     <tr>
       <th>col_blank</th>
       <td><p>a character vector of column names that will not be printed
-in the table header</p></td>
+in the table header; see also <code><a href='st_blank.html'>st_blank()</a></code></p></td>
     </tr>
     <tr>
       <th>col_replace</th>
@@ -260,11 +261,11 @@ to one by on editing with <code>col_rename</code>)</p></td>
     <tr>
       <th>row_space</th>
       <td><p>relative increase or decrease spacing between rows; use
-<code>row_space &gt; &lt;default&gt;</code> to increase</p></td>
+<code>row_space &gt; &lt;default&gt;</code> to increase; ; see also <code><a href='st_space.html'>st_space()</a></code></p></td>
     </tr>
     <tr>
       <th>col_space</th>
-      <td><p>absolute column spacing amount (<code>pt</code>)</p></td>
+      <td><p>absolute column spacing amount (<code>pt</code>); see also <code><a href='st_space.html'>st_space()</a></code></p></td>
     </tr>
     <tr>
       <th>fontsize</th>
@@ -282,12 +283,13 @@ data</p></td>
     <tr>
       <th>note_config</th>
       <td><p>a <code><a href='noteconf.html'>noteconf()</a></code> object used to configure how table notes
-are displayed</p></td>
+are displayed; ; see also <code><a href='st_noteconf.html'>st_noteconf()</a></code></p></td>
     </tr>
     <tr>
       <th>r_file</th>
       <td><p>the name of the R file containg code to generate the table; the
-file name will be included in the notes in the table footer</p></td>
+file name will be included in the notes in the table footer; ; see also
+<code><a href='st_files.html'>st_files()</a></code></p></td>
     </tr>
     <tr>
       <th>r_file_label</th>
@@ -296,7 +298,8 @@ file name will be included in the notes in the table footer</p></td>
     <tr>
       <th>output_file</th>
       <td><p>the name of the output file where the table text will be
-saved; the file name will be included in the notes in the table footer</p></td>
+saved; the file name will be included in the notes in the table footer; see
+also <code><a href='st_files.html'>st_files()</a></code></p></td>
     </tr>
     <tr>
       <th>output_file_label</th>

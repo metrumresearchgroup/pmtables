@@ -71,7 +71,7 @@ stable <- function(data,
                    hline_at = NULL,
                    hline_from = NULL,
                    sumrows = NULL,
-                   bold_cols = missing(panel),
+                   bold_cols = NULL,
                    col_rename = NULL,
                    col_blank = NULL,
                    col_replace = NULL,
@@ -102,6 +102,10 @@ stable <- function(data,
 
   if(has_panel && !is.rowpanel(panel)) {
     panel <- rowpanel(new_names(panel))
+  }
+
+  if(missing(bold_cols) && panel$null) {
+    bold_cols <- TRUE
   }
 
   if(inherits(sumrows, "sumrow")) {
