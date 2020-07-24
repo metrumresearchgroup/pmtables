@@ -29,6 +29,7 @@ form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
     cols[loc] <- names(relabel)
     cols <- unname(cols)
   }
+
   if(isTRUE(bold)) cols <- bold_each(cols)
   cols <- paste0(cols, collapse = " & ")
   cols <- paste0(cols, " \\\\")
@@ -40,6 +41,38 @@ form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
   cols
 }
 
+rename_cols <- function(cols, relabel = NULL, blank = NULL) {
+
+  if(!is.null(blank)) {
+    blank <- unname(new_names(blank))
+    bl <- cols %in% blank
+    cols[bl] <- rep("", sum(bl))
+  }
+
+  if(!is.null(relabel)) {
+    relabel <- new_names(relabel)
+    relabel <- relabel[relabel %in% cols]
+    newi <- match(cols, relabel)
+    loc <- which(!is.na(newi))
+    cols[loc] <- names(relabel)
+    cols <- unname(cols)
+  }
+
+  cols
+}
+
+form_tex_cols <- function(cols, bold = FALSE, units = NULL) {
+  if(isTRUE(bold)) cols <- bold_each(cols)
+  cols <- paste0(cols, collapse = " & ")
+  cols <- paste0(cols, " \\\\")
+  cols <- paste0("", cols)
+  if(is.character(units) && any(nchar(units) > 0)) {
+    cols <- paste0(cols, "[-0.5em]")
+  }
+  cols
+}
+
+
 form_unit <- function(units, cols) {
   if(is.null(units)) return(NULL)
   ans <- vector(mode = "character", length = length(cols))
@@ -50,7 +83,7 @@ form_unit <- function(units, cols) {
       "but no column matches were found.",
       call.=FALSE
     )
-    return(ans)
+    return(NULL)
   }
   i <- match(names(units),cols)
   i <- i[!is.na(i)]

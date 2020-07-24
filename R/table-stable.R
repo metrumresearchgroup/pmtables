@@ -229,8 +229,6 @@ stable <- function(data,
     all_span_tex <- flatten_chr(unname(all_span_tex))
   }
 
-  # Units --------------------------------------
-  units <- form_unit(units,cols)
 
 
   # Work on columns and column names
@@ -247,13 +245,11 @@ stable <- function(data,
 
   cols <- esc_underscore(cols)
 
-  cols <- form_cols(
-    cols,
-    bold = bold_cols,
-    relabel = col_rename,
-    blank = col_blank,
-    units = units
-  )
+  # Units --------------------------------------
+  units_tex <- form_unit(units,cols)
+
+  cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
+  cols_tex <- form_tex_cols(cols_new, bold_cols, units)
 
   if(is.character(prime_fun)) {
     prime_fun <- get(prime_fun, mode = "function")
@@ -326,6 +322,8 @@ stable <- function(data,
   col_row_sp <- list()
   col_row_sp$start <- "{\\def\\arraystretch{<row_space>}\\tabcolsep=<col_space>pt"
   col_row_sp$end <- "}"
+
+
   col_row_sp$start <- gluet(col_row_sp$start)
 
   # Font size ----------------------------------
@@ -342,7 +340,8 @@ stable <- function(data,
     open_tabular,
     "\\hline",
     all_span_tex,
-    cols,
+    cols_tex,
+    units_tex,
     "\\hline",
     tab,
     "\\hline",
@@ -360,15 +359,17 @@ stable <- function(data,
     envir <- new.env()
     envir$cols <- cols
     envir$nc <- ncol(data)
-    envir$cols <- strsplit(envir$cols, "&", fixed = TRUE)[[1]]
-    envir$cols <- trimws(envir$cols)
-    if(!is.null(units)) {
-      envir$units <- units#strsplit(units, "&", fixed = TRUE)[[1]]
-      #envir$units <- trimws(envir$units)
-    } else {
-      envir$units <- NULL
-    }
-    envir$notes <- c(t_notes,m_notes)
+    envir$cols <- cols
+    envir$cols_new <- cols_new
+    envir$cols_tex <- cols_tex
+    envir$units <- units
+    envir$units_tex <- units_tex
+    envir$tpt_notes <- t_notes
+    envir$mini_notes <- m_notes
+    envir$notes <- notes
+    envir$note_config <- note_config
+    envir$panel <- panel
+    envir$align <- align
     envir$tab <- tab
     envir$align_tex <- align_tex
     out <- structure(out, debug_data = envir)

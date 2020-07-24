@@ -19,35 +19,35 @@ stable_long <- function(...,debug_data = TRUE) {
   x <- stable(..., debug_data = TRUE)
   x <- get_debug_data(x)
 
-  tab <- x$tab
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"
   nc <- x$nc
   longtab <- c(
-    "{",
-    "\\renewcommand*{\\arraystretch}{1.4}",
+    "{\\normalsize",
+    "\\setlength{\\extrarowheight}{0.3em}",
     start,
     gluet(head),
     "\\hline",
-    paste0(x$cols,collapse = " & "),
+    x$cols_tex,
     "\\endfirsthead",
     "\\hline",
-    paste0(x$cols,collapse = " & "),
-    x$units,
+    x$cols_tex,
+    x$units_tex,
     "\\hline",
     "\\endhead",
-    x$units,
+    x$units_tex,
     "\\hline",
-    tab,
+    x$tab,
     "\\hline",
     "\\end{longtable}",
+    "\\setlength{\\extrarowheight}{0em}",
     "\\begin{center}",
-    x$notes,
+    x$mini_notes,
     "\\end{center}",
-    "}"
+    "}" # Ends
   )
 
-  structure(longtab, class = "stable_long")
+  structure(longtab, class = c("stable_long", "stable"))
 }
 
 

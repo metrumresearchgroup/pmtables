@@ -5,6 +5,7 @@ output:
     extra_dependencies: 
       threeparttable:
       booktabs:
+      longtable:
       mathdesign: utopia
       array:
     number_sections: true
@@ -15,6 +16,7 @@ editor_options:
 
 ```{r,message = FALSE, echo=FALSE}
 library(dplyr)
+library(purrr)
 ```
 
 \clearpage
@@ -53,7 +55,7 @@ data %>% stable() %>% pt_wrap(stdout())
 
 \clearpage
 
-# Annotate
+# Annotate 
 
 - Arguments to identify the name of the generating R script and the output file
   name
@@ -332,41 +334,26 @@ stable_save(tab)
 file.exists("foo.tex")
 ```
 
-
-Oops ...
-```{r}
-try(stable_save(as.character(tab)))
-```
-
 \clearpage
 
-# Pipeable interface
+# Long table
 
-```{r, include = FALSE, eval = FALSE}
-stable(
-  data, 
-  r_file = "foo.R", 
-  output_file = "foo.tex", 
-  notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
-) %>% pt_wrap(stdout())
+```{r}
+long <- ptdata()
+long <- map_dfr(1:5, ~ long) %>% arrange(STUDYf,SEXf)
 ```
+```{r,results = "asis"}
+long %>%
+  stable_long(
+    panel = "STUDYf", bold_cols = TRUE,
+    units = ys_get_unit(spec, parens = TRUE),
+    notes = "The results look great!",
+    col_rename = c("Sex" = "SEXf", "Study" = "STUDYf"),
+    r_file = "foo.R", output_file = "../deliv/table/output.tex",
+    note_config = noteconf(type = "minipage", width = 0.5,table_skip = 0.2)
+  ) %>% as.character() %>% writeLines
 
-```{r, results = 'asis', message = FALSE, warning = FALSE}
-data %>% 
-  st_new() %>% 
-  st_files(r = "foo.R", output = "foo.tex") %>%
-  st_panel("STUDY", prefix = "Study: ") %>% 
-  st_rename(Dose = DOSE) %>%
-  st_notes("The analysis was done in triplicate") %>%
-  st_args(units = ys_get_unit(spec, parens = TRUE)) %>%
-  st_clear_reps(DOSE) %>%
-  st_span("Included", AGE:CRCL) %>%
-  st_span("All covariates", WT:SCR, level=2) %>%
-  st_align("c", .outer = "lr") %>%
-  st_make() %>% 
-  pt_wrap(stdout())
 ```
-
 
 
 
