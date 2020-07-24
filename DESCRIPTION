@@ -32,6 +32,7 @@ Collate:
     'table-align.R'
     'table-clear_reps.R'
     'table-functions.R'
+    'table-long.R'
     'table-notes.R'
     'table-object.R'
     'table-panel.R'

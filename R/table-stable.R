@@ -359,11 +359,12 @@ stable <- function(data,
   if(isTRUE(debug_data)) {
     envir <- new.env()
     envir$cols <- cols
+    envir$nc <- ncol(data)
     envir$cols <- strsplit(envir$cols, "&", fixed = TRUE)[[1]]
     envir$cols <- trimws(envir$cols)
     if(!is.null(units)) {
-      envir$units <- strsplit(units, "&", fixed = TRUE)[[1]]
-      envir$units <- trimws(envir$units)
+      envir$units <- units#strsplit(units, "&", fixed = TRUE)[[1]]
+      #envir$units <- trimws(envir$units)
     } else {
       envir$units <- NULL
     }
