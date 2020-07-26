@@ -69,9 +69,9 @@ note_space <- 0.1
 #'
 #' a <- stable(data, r_file = "example.R", output_file = "output.tex")
 #'
-#' b <- stable(data, panel = "STUDY")
+#' b <- stable(data, panel = "STUDYf")
 #'
-#' c <- stable(data, span = colgroups("Covariates", STUDYf:ALB))
+#' c <- stable(data, span = colgroup("Covariates", STUDYf:ALB))
 #'
 #' @export
 stable <- function(data,

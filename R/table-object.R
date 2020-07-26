@@ -42,6 +42,7 @@ is.stobject <- function(x) inherits(x, "stobject")
 #' @param ... other arguments passed to [stable()]
 #' @param .preview if `TRUE`, pass result to [st_preview()]
 #' @param .cat if `TRUE`, pass result to [st_wrap()]
+#' @param long render as longtable
 #'
 #' @return The latex code for the table.
 #'
@@ -105,7 +106,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 #'
 #' ob <- st_new(ptdata())
 #'
-#' ob %>% st_panel("STUDY") %>% st_make()
+#' ob %>% st_panel("STUDYf") %>% st_make()
 #'
 #' @export
 st_panel <- function(x,...) {
@@ -316,7 +317,7 @@ st_span <- function(x,...) {
 #'
 #' data <- readRDS(file)
 #'
-#' data %>% st_span_split('.') %>% st_make()
+#' st_new(data) %>% st_span_split('.') %>% st_make()
 #'
 #' @export
 st_span_split <- function(x,...) {

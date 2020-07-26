@@ -5,7 +5,7 @@
 \alias{tab_escape}
 \title{Prime a data frame for inclusion into a latex table}
 \usage{
-tab_prime(data, escape_fun = tab_escape, chrs = "_")
+tab_prime(data, escape_fun = tab_escape)
 
 tab_escape(string, esc = getOption("pmtables.esc", "_"), ...)
 }

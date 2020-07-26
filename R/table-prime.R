@@ -5,7 +5,7 @@
 #' @param escape_fun a function to sanitize data frame contents
 #'
 #' @export
-tab_prime <- function(data, escape_fun = tab_escape, chrs = "_") {
+tab_prime <- function(data, escape_fun = tab_escape) {
   if(isTRUE(attr(data, "pmtables.primed"))) {
     return(data)
   }

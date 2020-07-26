@@ -1,0 +1,98 @@
+--- 
+title: Simple Tables Demo Doc
+output: 
+  pdf_document: 
+    extra_dependencies: 
+      threeparttable:
+      booktabs:
+      longtable:
+      mathdesign: utopia
+      array:
+    number_sections: true
+    toc: true 
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r,message = FALSE, echo=FALSE}
+library(dplyr)
+library(purrr)
+```
+
+\clearpage
+
+# Data
+
+Mostly working with this data; but some others come in later to illustrate
+certain features.
+
+```{r}
+library(pmtables)
+library(yspec)
+spec <- ys_help$spec()
+
+pmdata <- readRDS("datasets/pmdata.RDS")
+head(pmdata)
+data <- select(pmdata, STUDY = STUDYf, DOSE = DOSEf, WT, AGE, CRCL, ALB, SCR)
+```
+
+
+# wrap
+
+There is a wrap function in this document.  Don't worry about that; it just 
+puts the output into a table environment and sends the output to get rendered
+in markdown.
+
+\clearpage
+
+# Simple table
+
+- Columns are in bold by default (can be turned off)
+
+```{r,results = 'asis'}
+data %>% stable() %>% pt_wrap(stdout())
+```
+\clearpage
+
+
+# Long table
+
+```{r}
+data <- ptdata()
+data <- map_dfr(1:5, ~ data) %>% arrange(STUDYf,SEXf)
+```
+
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDYf", bold_cols = TRUE,
+    units = ys_get_unit(spec, parens = TRUE),
+    notes = "The results look great!",
+    clear_reps = "SEXf",
+    col_rename = c("Sex" = "SEXf", "Study" = "STUDYf"),
+    r_file = "foo.R", output_file = "../deliv/table/output.tex",
+    note_config = noteconf(type = "minipage", width = 0.5,table_skip = 0.2)
+  ) %>% as.character() %>% writeLines
+```
+
+
+\clearpage
+
+# Annotate
+
+- Arguments to identify the name of the generating R script and the output file
+  name
+- The output file name is retained as an attribute to be used later when saving
+  the table data
+- Arbitrary notes are also allowed (encouraged)
+
+```{r,results = 'asis'}
+stable(
+  data[1:10,],
+  r_file = "foo.R",
+  output_file = "foo.tex",
+  notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
+) %>% pt_wrap(stdout())
+```
+

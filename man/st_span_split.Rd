@@ -21,6 +21,6 @@ file <- system.file("datasets", "with-dots.RDS", package = "pmtables")
 
 data <- readRDS(file)
 
-data \%>\% st_span_split('.') \%>\% st_make()
+st_new(data) \%>\% st_span_split('.') \%>\% st_make()
 
 }
