@@ -1,3 +1,17 @@
+do_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL)) {
+  if(is.null(clear_reps)) return(data)
+  assert_that(is.data.frame(data))
+  dedup <- reps_to_clear(data, clear_reps, panel)
+  for(dd in dedup) {
+    if(!is.character(data[[dd$col]])) {
+      data[[dd$col]] <- as.character(data[[dd$col]])
+    }
+    data[[dd$col]][dd$dup] <- rep("", dd$n)
+  }
+  data
+}
+
+
 
 reps_to_clear <- function(data, clear_reps, panel) {
 

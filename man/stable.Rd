@@ -10,20 +10,14 @@ stable(
   panel = rowpanel(col = NULL),
   units = NULL,
   clear_reps = NULL,
-  span = NULL,
-  span_split = NULL,
   notes = NULL,
-  hline_at = NULL,
-  hline_from = NULL,
+  sizes = tab_size(),
   sumrows = NULL,
   col_bold = NULL,
   col_rename = NULL,
   col_blank = NULL,
   col_replace = NULL,
   col_split = NULL,
-  row_space = 1.4,
-  col_space = 5,
-  fontsize = NULL,
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
   inspect = FALSE,
@@ -49,20 +43,9 @@ columns in the data frame}
 \item{clear_reps}{character vector of column names where duplicate values will
 be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_reps]{st_clear_reps()}}}
 
-\item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
-
-\item{span_split}{not implemented at this time; ; see also \code{\link[=st_span_split]{st_span_split()}}}
-
 \item{notes}{a character vector of notes to include at the foot of the table;
 use \code{r_file} and \code{output_file} for source code and output file annotations;
 see also \code{\link[=st_notes]{st_notes()}}}
-
-\item{hline_at}{logical or integer vector specifying rows above which an
-\verb{\\hline} will be placed; see also \code{\link[=st_hline]{st_hline()}}}
-
-\item{hline_from}{a character column name from which to separate the table
-with \verb{\\hline}; non-duplicated values of \code{hline_from} will be used to create
-the split; see also \code{\link[=st_hline]{st_hline()}}}
 
 \item{sumrows}{an object created with \code{\link[=sumrow]{sumrow()}}; identifies summary rows
 and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
@@ -83,13 +66,6 @@ to one by on editing with \code{col_rename})}
 (on the left) or name (on the right); if supplied, then \code{col_split} will be
 used to remove the tag; for example, a column named \code{x.WT} would be renamed
 \code{WT} if \code{col_split} was set to \code{.}}
-
-\item{row_space}{relative increase or decrease spacing between rows; use
-\verb{row_space > <default>} to increase; ; see also \code{\link[=st_space]{st_space()}}}
-
-\item{col_space}{absolute column spacing amount (\code{pt}); see also \code{\link[=st_space]{st_space()}}}
-
-\item{fontsize}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
 
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}

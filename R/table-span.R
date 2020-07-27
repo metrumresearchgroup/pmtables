@@ -189,3 +189,48 @@ form_cline_tex <- function(spans) {
   })
   unname(clin)
 }
+
+#' Create groups of columns with spanners
+#'
+#' @param span a list of objects created with [colgroup()]; ; see also [st_span()]
+#' @param span_split not implemented at this time; ; see also [st_span_split()]
+#'
+#' @export
+col_spanners <- function(span = NULL, span_split = NULL, cols = NUL) {
+
+  assert_that(is.character(cols))
+
+  do_span_split <- is.colsplit(span_split)
+
+  spans_from_split <- NULL
+
+  if(do_span_split) {
+    spans <- find_span_split(cols,span_split)
+    if(isTRUE(spans$any)) {
+      data <- data[,spans$recol]
+      cols <- spans$data$newcol
+      spans_from_split <- spans$data
+    }
+  }
+
+  if(is.null(span)) {
+    span <- list()
+  } else {
+    if(is.colgroup(span)) span <- list(span)
+    assert_that(is.list(span))
+    span <- map(span, process_colgroup, cols = cols)
+  }
+
+  all_span_tex <- NULL
+
+  if(length(span) > 0 || length(spans_from_split) > 0) {
+    all_spans <- combine_spans(span, spans_from_split, cols = cols)
+
+    all_span_tex <- map(rev(all_spans), make_span_tex)
+
+    all_span_tex <- flatten_chr(unname(all_span_tex))
+  }
+
+  all_span_tex
+}
+

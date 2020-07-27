@@ -26,16 +26,9 @@ triage_data <- function(data) {
 #' columns in the data frame
 #' @param clear_reps character vector of column names where duplicate values will
 #' be made blank (overwritten with `""`); ; see also [st_clear_reps()]
-#' @param span a list of objects created with [colgroup()]; ; see also [st_span()]
-#' @param span_split not implemented at this time; ; see also [st_span_split()]
 #' @param notes a character vector of notes to include at the foot of the table;
 #' use `r_file` and `output_file` for source code and output file annotations;
 #' see also [st_notes()]
-#' @param hline_at logical or integer vector specifying rows above which an
-#' `\hline` will be placed; see also [st_hline()]
-#' @param hline_from a character column name from which to separate the table
-#' with `\hline`; non-duplicated values of `hline_from` will be used to create
-#' the split; see also [st_hline()]
 #' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
 #' @param col_bold if `TRUE`, table column names are rendered with bold font
@@ -50,10 +43,6 @@ triage_data <- function(data) {
 #' (on the left) or name (on the right); if supplied, then `col_split` will be
 #' used to remove the tag; for example, a column named `x.WT` would be renamed
 #' `WT` if `col_split` was set to `.`
-#' @param row_space relative increase or decrease spacing between rows; use
-#' `row_space > <default>` to increase; ; see also [st_space()]
-#' @param col_space absolute column spacing amount (`pt`); see also [st_space()]
-#' @param fontsize for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
 #' @param note_config a [noteconf()] object used to configure how table notes
@@ -85,20 +74,14 @@ stable <- function(data,
                    panel = rowpanel(col = NULL),
                    units = NULL,
                    clear_reps = NULL,
-                   span = NULL,
-                   span_split = NULL,
                    notes = NULL,
-                   hline_at = NULL,
-                   hline_from = NULL,
+                   sizes = tab_size(),
                    sumrows = NULL,
                    col_bold = NULL,
                    col_rename = NULL,
                    col_blank = NULL,
                    col_replace = NULL,
                    col_split = NULL,
-                   row_space = 1.4,
-                   col_space = 5,
-                   fontsize = NULL,
                    escape_fun = tab_escape,
                    note_config = noteconf(type = "tpt"),
                    inspect = FALSE,
@@ -131,34 +114,9 @@ stable <- function(data,
     assert_that(is.list(sumrows))
   }
 
-  add_hlines <- NULL
+  add_hlines <- tab_hlines(data, ...)
 
-  if(!is.null(hline_at)) {
-    if(is.logical(hline_at)) {
-      hline_at <- which(hline_at)
-    }
-    add_hlines <- c(add_hlines,hline_at)
-  }
-
-  if(!is.null(hline_from)) {
-    assert_that(is.character(hline_from))
-    for(this_col in hline_from) {
-      require_col(data,this_col)
-      hline_row <- !duplicated(chunk_runs(data[[this_col]]))
-      hline_row[1] <- FALSE
-      add_hlines <- c(add_hlines, which(hline_row)-1)
-    }
-  }
-
-  if(is.character(clear_reps)) {
-    dedup <- reps_to_clear(data, clear_reps, panel)
-    for(dd in dedup) {
-      if(!is.character(data[[dd$col]])) {
-        data[[dd$col]] <- as.character(data[[dd$col]])
-      }
-      data[[dd$col]][dd$dup] <- rep("", dd$n)
-    }
-  }
+  data <- do_clear_reps(data, clear_reps, panel)
 
   do_panel <- FALSE
   if(!panel$null) {
@@ -194,39 +152,7 @@ stable <- function(data,
   cols <- colnames(data)
 
   # Colgroups ------------------------------------
-  do_span_split <- is.colsplit(span_split)
-  spans_from_split <- NULL
-  if(do_span_split) {
-    spans <- find_span_split(cols,span_split)
-    if(isTRUE(spans$any)) {
-      data <- data[,spans$recol]
-      cols <- spans$data$newcol
-      spans_from_split <- spans$data
-    }
-  }
-
-  if(!is.null(col_split)) {
-    split_cols <- str_split(cols, fixed(col_split), n = 2)
-    cols <- map_chr(split_cols, last)
-  }
-
-  if(is.null(span)) {
-    span <- list()
-  } else {
-    if(is.colgroup(span)) span <- list(span)
-    assert_that(is.list(span))
-    span <- map(span, process_colgroup, cols = cols)
-  }
-
-  all_span_tex <- NULL
-
-  if(length(span) > 0 || length(spans_from_split) > 0) {
-    all_spans <- combine_spans(span, spans_from_split, cols = cols)
-
-    all_span_tex <- map(rev(all_spans), make_span_tex)
-
-    all_span_tex <- flatten_chr(unname(all_span_tex))
-  }
+  all_span_tex <- col_spanners(..., cols = cols)
 
   # Units --------------------------------------
   units_tex <- form_unit(units,cols)
@@ -245,6 +171,10 @@ stable <- function(data,
 
   cols <- esc_underscore(cols)
   cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
+  if(!is.null(col_split)) {
+    split_cols <- str_split(cols_new, fixed(col_split), n = 2)
+    cols_new <- map_chr(split_cols, last)
+  }
   cols_tex <- form_tex_cols(cols_new, col_bold, units)
 
   # Column alignments -----------------------------
@@ -303,22 +233,10 @@ stable <- function(data,
   }
   # END notes --------------------------------------------------
 
-  # Table row and column spacing -------------------
-  col_row_sp <- list()
-  col_row_sp$start <- "{\\def\\arraystretch{<row_space>}\\tabcolsep=<col_space>pt"
-  col_row_sp$end <- "}"
-  col_row_sp$start <- gluet(col_row_sp$start)
-
-  # Font size ----------------------------------
-  font_size <- list()
-  if(is.character(fontsize)) {
-    font_size$start <- paste0("{\\", fontsize)
-    font_size$end <- "}"
-  }
 
   out <- c(
-    font_size$start,
-    col_row_sp$start,
+    sizes$font_size$start,
+    sizes$col_row_sp$start,
     start_tpt,
     open_tabular,
     "\\hline",
@@ -331,9 +249,9 @@ stable <- function(data,
     "\\end{tabular}",
     t_notes,
     end_tpt,
-    col_row_sp$end,
+    sizes$col_row_sp$end,
     m_notes,
-    font_size$end
+    sizes$font_size$end
   )
 
   out <- structure(out, class = "stable", stable_file = output_file)
