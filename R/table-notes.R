@@ -1,4 +1,61 @@
 
+#' Form table notes
+#'
+#' @inheritParams stable
+#' @param note_config a [noteconf()] object used to configure how table notes
+#' are displayed; ; see also [st_noteconf()]
+#' @param r_file the name of the R file containg code to generate the table; the
+#' file name will be included in the notes in the table footer; ; see also
+#' [st_files()]
+#' @param output_file the name of the output file where the table text will be
+#' saved; the file name will be included in the notes in the table footer; see
+#' also [st_files()]
+#'
+#'@export
+tab_notes <- function(notes, escape_fun = tab_escape,
+                      note_config = noteconf(type = "tpt"),
+                      r_file = NULL, output_file = NULL) {
+
+  assert_that(is.noteconfig(note_config))
+
+  r_file_label <-  getOption("r.file.label","Source code: ")
+
+  output_file_label <-  getOption("out.file.label","Source file: ")
+
+  r_note <- out_note <- NULL
+
+  if(is.character(r_file)) {
+    r_note <- paste(r_file_label, basename(r_file))
+  }
+
+  if(is.character(output_file)) {
+    out_note <- paste(output_file_label,basename(output_file))
+  }
+
+  notes <- c(notes, r_note, out_note)
+
+  if(isTRUE(pt_opts$notes.sanitize)) {
+    assert_that(is.character(notes) || is.null(notes))
+    notes <- escape_fun(notes)
+  }
+
+  m_notes <- t_notes <- NULL
+
+  if(note_config$tpt) {
+    t_notes <- tpt_notes(notes, note_config)
+  } else {
+    m_notes <- mini_notes(notes, note_config)
+  }
+
+  # END notes --------------------------------------------------
+  list(
+    m_notes = m_notes, t_notes = t_notes, config = note_config,
+    notes = notes, r_file = r_file, output_file = output_file
+  )
+
+}
+
+
 #' Configure table notes
 #'
 #' @param width the width (as fraction of linewidth) is `minipage` notes

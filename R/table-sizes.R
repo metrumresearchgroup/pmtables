@@ -24,7 +24,7 @@ tab_size <- function(row = 1.4, col = 5, font = NULL) {
   # Font size ----------------------------------
   font_size <- list()
   if(is.character(font)) {
-    font_size$start <- paste0("{\\", fontsize)
+    font_size$start <- paste0("{\\", font)
     font_size$end <- "}"
   }
 

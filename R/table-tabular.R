@@ -38,8 +38,15 @@ esc_underscore <- function(string) {
   gsub("_", "\\_", string, fixed = TRUE)
 }
 
-
-make_tabular <- function(data, indent = NULL, prime_fun = tab_prime,
+#' Create tabular environment from data frame
+#'
+#' @param data a data.frame
+#' @param prime_fun a function to prime the data frame for rendering in TeX
+#' @param escape_fun a function to escape characters that have special meaning
+#' in TeX
+#'
+#' @export
+make_tabular <- function(data, prime_fun = tab_prime,
                          escape_fun = tab_escape, ...) {
 
   if(is.character(prime_fun)) {
@@ -63,10 +70,6 @@ make_tabular <- function(data, indent = NULL, prime_fun = tab_prime,
   })
 
   tab <- paste0(tab, " \\\\")
-
-  if(is.character(indent)) {
-    tab <- paste0("\\hskip 0.3cm", tab)
-  }
 
   tab
 }

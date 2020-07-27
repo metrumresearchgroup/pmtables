@@ -45,18 +45,10 @@ triage_data <- function(data) {
 #' `WT` if `col_split` was set to `.`
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
-#' @param note_config a [noteconf()] object used to configure how table notes
-#' are displayed; ; see also [st_noteconf()]
-#' @param r_file the name of the R file containg code to generate the table; the
-#' file name will be included in the notes in the table footer; ; see also
-#' [st_files()]
 #' @param inspect if `TRUE`, extra information is attached to the output
 #' as an attribute called `stable_data`; see [get_stable_data()]
-#' @param output_file the name of the output file where the table text will be
-#' saved; the file name will be included in the notes in the table footer; see
-#' also [st_files()]
 #' @param ... passed to other functions: [tab_hlines()], [col_spanners()],
-#' and [make_tabular()]
+#' and [make_tabular()], [tab_notes()]
 #'
 #' @examples
 #' data <- ptdata()
@@ -82,15 +74,11 @@ stable <- function(data,
                    col_replace = NULL,
                    col_split = NULL,
                    escape_fun = tab_escape,
-                   note_config = noteconf(type = "tpt"),
                    inspect = FALSE,
-                   r_file = NULL,
-                   output_file = NULL,
                    ... ) {
 
   data <- triage_data(data)
 
-  assert_that(is.noteconfig(note_config))
 
   has_panel <- !missing(panel)
   has_sumrows <- !is.null(sumrows)
@@ -202,35 +190,8 @@ stable <- function(data,
 
   # NOTES ----------------------------------------------
   # check behavior: do we want these basenamed or not?
-  r_note <- NULL
-  out_note <- NULL
-  r_file_label <-  getOption("r.file.label","Source code: ")
-  output_file_label <-  getOption("out.file.label","Source file: ")
 
-  if(is.character(r_file)) {
-    r_note <- paste(r_file_label, basename(r_file))
-  }
-
-  if(is.character(output_file)) {
-    out_note <- paste(output_file_label,basename(output_file))
-  }
-
-  notes <- c(notes, r_note, out_note)
-
-  if(isTRUE(pt_opts$notes.sanitize)) {
-    assert_that(is.character(notes) || is.null(notes))
-    notes <- escape_fun(notes)
-  }
-
-  m_notes <- t_notes <- NULL
-
-  if(note_config$tpt) {
-    t_notes <- tpt_notes(notes, note_config)
-  } else {
-    m_notes <- mini_notes(notes, note_config)
-  }
-  # END notes --------------------------------------------------
-
+  note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
   out <- c(
     sizes$font_size$start,
@@ -245,14 +206,14 @@ stable <- function(data,
     tab,
     "\\hline",
     "\\end{tabular}",
-    t_notes,
+    note_data$t_notes,
     end_tpt,
     sizes$col_row_sp$end,
-    m_notes,
+    note_data$m_notes,
     sizes$font_size$end
   )
 
-  out <- structure(out, class = "stable", stable_file = output_file)
+  out <- structure(out, class = "stable", stable_file = note_data$output_file)
 
   if(isTRUE(inspect)) {
     stable_data <- structure(list(), class = "stable_data")
@@ -264,10 +225,10 @@ stable <- function(data,
     stable_data$cols_tex <- cols_tex
     stable_data$units <- units
     stable_data$units_tex <- units_tex
-    stable_data$tpt_notes <- t_notes
-    stable_data$mini_notes <- m_notes
-    stable_data$notes <- notes
-    stable_data$note_config <- note_config
+    stable_data$tpt_notes <- note_data$t_notes
+    stable_data$mini_notes <- note_data$m_notes
+    stable_data$notes <- note_data$notes
+    stable_data$note_config <- note_data$note_config
     stable_data$panel <- panel
     stable_data$align <- align
     stable_data$tab <- tab

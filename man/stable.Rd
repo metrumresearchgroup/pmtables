@@ -19,10 +19,7 @@ stable(
   col_replace = NULL,
   col_split = NULL,
   escape_fun = tab_escape,
-  note_config = noteconf(type = "tpt"),
   inspect = FALSE,
-  r_file = NULL,
-  output_file = NULL,
   ...
 )
 }
@@ -68,22 +65,11 @@ used to remove the tag; for example, a column named \code{x.WT} would be renamed
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}
 
-\item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
-are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
-
 \item{inspect}{if \code{TRUE}, extra information is attached to the output
 as an attribute called \code{stable_data}; see \code{\link[=get_stable_data]{get_stable_data()}}}
 
-\item{r_file}{the name of the R file containg code to generate the table; the
-file name will be included in the notes in the table footer; ; see also
-\code{\link[=st_files]{st_files()}}}
-
-\item{output_file}{the name of the output file where the table text will be
-saved; the file name will be included in the notes in the table footer; see
-also \code{\link[=st_files]{st_files()}}}
-
 \item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=col_spanners]{col_spanners()}},
-and \code{\link[=make_tabular]{make_tabular()}}}
+and \code{\link[=make_tabular]{make_tabular()}}, \code{\link[=tab_notes]{tab_notes()}}}
 }
 \description{
 Create tabular output from an R data frame
