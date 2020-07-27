@@ -47,9 +47,15 @@ as_stable.stable <- function(x,...) {
 #' @param x an stable object
 #'
 #' @export
-get_debug_data <- function(x) {
+get_stable_data <- function(x) {
   ans <- list(output = as.character(x),stable_file = attr(x,"stable_file"))
-  ans <- c(ans, as.list(attr(x,"debug_data")))
+  ans <- c(ans, as.list(attr(x,"stable_data")))
   ans
 }
 
+
+#' @export
+print.stable_data <- function(x,...) {
+  cat("table data is attached; extract with get_stable_data()")
+  return(invisible(NULL))
+}

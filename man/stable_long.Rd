@@ -4,12 +4,12 @@
 \alias{stable_long}
 \title{Create longtable output from an R data frame}
 \usage{
-stable_long(..., debug_data = TRUE)
+stable_long(..., inspect = TRUE)
 }
 \arguments{
 \item{...}{passed to \code{\link[=stable]{stable()}}}
 
-\item{debug_data}{fixed to \code{TRUE} and passed to \code{\link[=stable]{stable()}}}
+\item{inspect}{fixed to \code{TRUE} and passed to \code{\link[=stable]{stable()}}}
 }
 \description{
 Create longtable output from an R data frame

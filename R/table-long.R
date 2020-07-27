@@ -10,14 +10,14 @@ head <- '
 #' Create longtable output from an R data frame
 #'
 #' @param ... passed to [stable()]
-#' @param debug_data fixed to `TRUE` and passed to [stable()]
+#' @param inspect fixed to `TRUE` and passed to [stable()]
 #'
 #'
 #' @export
-stable_long <- function(...,debug_data = TRUE) {
+stable_long <- function(..., inspect = TRUE) {
 
-  x <- stable(..., debug_data = TRUE)
-  x <- get_debug_data(x)
+  x <- stable(..., inspect = TRUE)
+  x <- get_stable_data(x)
 
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"

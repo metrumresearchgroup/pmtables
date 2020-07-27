@@ -56,8 +56,8 @@ note_space <- 0.1
 #' @param r_file the name of the R file containg code to generate the table; the
 #' file name will be included in the notes in the table footer; ; see also
 #' [st_files()]
-#' @param debug_data if `TRUE`, extra information is attached to the output
-#' as an attribute called `debug_data`; see [get_debug_data()]
+#' @param inspect if `TRUE`, extra information is attached to the output
+#' as an attribute called `stable_data`; see [get_stable_data()]
 #' @param r_file_label prefix text for `r_file` note
 #' @param output_file the name of the output file where the table text will be
 #' saved; the file name will be included in the notes in the table footer; see
@@ -97,7 +97,7 @@ stable <- function(data,
                    prime_fun = tab_prime,
                    escape_fun = tab_escape,
                    note_config = noteconf(type = "tpt"),
-                   debug_data = FALSE,
+                   inspect = FALSE,
                    r_file = NULL,
                    r_file_label = getOption("r.file.label","Source code:"),
                    output_file = NULL,
@@ -355,24 +355,25 @@ stable <- function(data,
 
   out <- structure(out, class = "stable", stable_file = output_file)
 
-  if(isTRUE(debug_data)) {
-    envir <- new.env()
-    envir$cols <- cols
-    envir$nc <- ncol(data)
-    envir$cols <- cols
-    envir$cols_new <- cols_new
-    envir$cols_tex <- cols_tex
-    envir$units <- units
-    envir$units_tex <- units_tex
-    envir$tpt_notes <- t_notes
-    envir$mini_notes <- m_notes
-    envir$notes <- notes
-    envir$note_config <- note_config
-    envir$panel <- panel
-    envir$align <- align
-    envir$tab <- tab
-    envir$align_tex <- align_tex
-    out <- structure(out, debug_data = envir)
+  if(isTRUE(inspect)) {
+    stable_data <- structure(list(), class = "stable_data")
+    stable_data$data <- data
+    stable_data$cols <- cols
+    stable_data$nc <- ncol(data)
+    stable_data$cols <- cols
+    stable_data$cols_new <- cols_new
+    stable_data$cols_tex <- cols_tex
+    stable_data$units <- units
+    stable_data$units_tex <- units_tex
+    stable_data$tpt_notes <- t_notes
+    stable_data$mini_notes <- m_notes
+    stable_data$notes <- notes
+    stable_data$note_config <- note_config
+    stable_data$panel <- panel
+    stable_data$align <- align
+    stable_data$tab <- tab
+    stable_data$align_tex <- align_tex
+    out <- structure(out, stable_data = stable_data)
   }
 
   out
