@@ -22,9 +22,7 @@ stable(
   note_config = noteconf(type = "tpt"),
   inspect = FALSE,
   r_file = NULL,
-  r_file_label = getOption("r.file.label", "Source code: "),
   output_file = NULL,
-  output_file_label = getOption("out.file.label", "Source file: "),
   ...
 )
 }
@@ -80,15 +78,12 @@ as an attribute called \code{stable_data}; see \code{\link[=get_stable_data]{get
 file name will be included in the notes in the table footer; ; see also
 \code{\link[=st_files]{st_files()}}}
 
-\item{r_file_label}{prefix text for \code{r_file} note}
-
 \item{output_file}{the name of the output file where the table text will be
 saved; the file name will be included in the notes in the table footer; see
 also \code{\link[=st_files]{st_files()}}}
 
-\item{output_file_label}{prefix text for \code{output_file} note}
-
-\item{...}{passed to other functions}
+\item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=col_spanners]{col_spanners()}},
+and \code{\link[=make_tabular]{make_tabular()}}}
 }
 \description{
 Create tabular output from an R data frame

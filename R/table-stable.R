@@ -52,12 +52,11 @@ triage_data <- function(data) {
 #' [st_files()]
 #' @param inspect if `TRUE`, extra information is attached to the output
 #' as an attribute called `stable_data`; see [get_stable_data()]
-#' @param r_file_label prefix text for `r_file` note
 #' @param output_file the name of the output file where the table text will be
 #' saved; the file name will be included in the notes in the table footer; see
 #' also [st_files()]
-#' @param output_file_label prefix text for `output_file` note
-#' @param ... passed to other functions
+#' @param ... passed to other functions: [tab_hlines()], [col_spanners()],
+#' and [make_tabular()]
 #'
 #' @examples
 #' data <- ptdata()
@@ -86,9 +85,7 @@ stable <- function(data,
                    note_config = noteconf(type = "tpt"),
                    inspect = FALSE,
                    r_file = NULL,
-                   r_file_label = getOption("r.file.label","Source code: "),
                    output_file = NULL,
-                   output_file_label = getOption("out.file.label","Source file: "),
                    ... ) {
 
   data <- triage_data(data)
@@ -207,6 +204,8 @@ stable <- function(data,
   # check behavior: do we want these basenamed or not?
   r_note <- NULL
   out_note <- NULL
+  r_file_label <-  getOption("r.file.label","Source code: ")
+  output_file_label <-  getOption("out.file.label","Source file: ")
 
   if(is.character(r_file)) {
     r_note <- paste(r_file_label, basename(r_file))
@@ -218,10 +217,9 @@ stable <- function(data,
 
   notes <- c(notes, r_note, out_note)
 
-  if(!is.null(notes)) {
-    if(isTRUE(pt_opts$notes.sanitize)) {
-      notes <- escape_fun(notes)
-    }
+  if(isTRUE(pt_opts$notes.sanitize)) {
+    assert_that(is.character(notes) || is.null(notes))
+    notes <- escape_fun(notes)
   }
 
   m_notes <- t_notes <- NULL
