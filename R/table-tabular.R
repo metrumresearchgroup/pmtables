@@ -44,7 +44,7 @@ esc_underscore <- function(string) {
 #' @param prime_fun a function to prime the data frame for rendering in TeX
 #' @param escape_fun a function to escape characters that have special meaning
 #' in TeX
-#'
+#' @param ... not used
 #' @export
 make_tabular <- function(data, prime_fun = tab_prime,
                          escape_fun = tab_escape, ...) {

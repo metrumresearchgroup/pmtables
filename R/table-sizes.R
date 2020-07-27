@@ -28,11 +28,13 @@ tab_size <- function(row = 1.4, col = 5, font = NULL) {
     font_size$end <- "}"
   }
 
-  list(
+  ans <- list(
     row_space = row,
     col_space = col,
     font_size = font_size,
     col_row_sp = col_row_sp
   )
+
+  structure(ans, class = "from_tab_sizes")
 
 }

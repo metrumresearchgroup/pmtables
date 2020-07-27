@@ -42,6 +42,8 @@ be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_rep
 use \code{r_file} and \code{output_file} for source code and output file annotations;
 see also \code{\link[=st_notes]{st_notes()}}}
 
+\item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
+
 \item{sumrows}{an object created with \code{\link[=sumrow]{sumrow()}}; identifies summary rows
 and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
 

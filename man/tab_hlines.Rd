@@ -7,6 +7,8 @@
 tab_hlines(data, hline_at = NULL, hline_from = NULL, ...)
 }
 \arguments{
+\item{data}{the table data frame}
+
 \item{hline_at}{logical or integer vector specifying rows above which an
 \verb{\\hline} will be placed; see also \code{\link[=st_hline]{st_hline()}}}
 

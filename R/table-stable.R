@@ -29,6 +29,7 @@ triage_data <- function(data) {
 #' @param notes a character vector of notes to include at the foot of the table;
 #' use `r_file` and `output_file` for source code and output file annotations;
 #' see also [st_notes()]
+#' @param sizes an object returned from [tab_size()]
 #' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
 #' @param col_bold if `TRUE`, table column names are rendered with bold font
@@ -79,6 +80,7 @@ stable <- function(data,
 
   data <- triage_data(data)
 
+  assert_that(inherits(sizes, "from_tab_sizes"))
 
   has_panel <- !missing(panel)
   has_sumrows <- !is.null(sumrows)

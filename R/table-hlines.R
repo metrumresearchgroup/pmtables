@@ -1,6 +1,7 @@
 
 #' Insert hlines into table
 #'
+#' @param data the table data frame
 #' @param hline_at logical or integer vector specifying rows above which an
 #' `\hline` will be placed; see also [st_hline()]
 #' @param hline_from a character column name from which to separate the table
