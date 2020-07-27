@@ -48,7 +48,6 @@ note_space <- 0.1
 #' `row_space > <default>` to increase; ; see also [st_space()]
 #' @param col_space absolute column spacing amount (`pt`); see also [st_space()]
 #' @param fontsize for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
-#' @param prime_fun function to prime the data frame to be converted to tabular
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
 #' @param note_config a [noteconf()] object used to configure how table notes
@@ -94,14 +93,14 @@ stable <- function(data,
                    row_space = 1.4,
                    col_space = 5,
                    fontsize = NULL,
-                   prime_fun = tab_prime,
                    escape_fun = tab_escape,
                    note_config = noteconf(type = "tpt"),
                    inspect = FALSE,
                    r_file = NULL,
                    r_file_label = getOption("r.file.label","Source code:"),
                    output_file = NULL,
-                   output_file_label = getOption("out.file.label","Source file: ")) {
+                   output_file_label = getOption("out.file.label","Source file: "),
+                   ... ) {
 
   assert_that(is.data.frame(data))
   data <- ungroup(data)
@@ -229,8 +228,6 @@ stable <- function(data,
     all_span_tex <- flatten_chr(unname(all_span_tex))
   }
 
-
-
   # Work on columns and column names
   if(is.character(col_replace)) {
     if(length(col_replace) != length(cols)) {
@@ -251,16 +248,6 @@ stable <- function(data,
   cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
   cols_tex <- form_tex_cols(cols_new, bold_cols, units)
 
-  if(is.character(prime_fun)) {
-    prime_fun <- get(prime_fun, mode = "function")
-  }
-  if(is.character(escape_fun)) {
-    escape_fun <- get(escape_fun, mode = "function")
-  }
-  assert_that(is.function(prime_fun))
-  assert_that(is.function(escape_fun))
-  data <- prime_fun(data, escape_fun)
-
   # Column alignments -----------------------------
   align_tex <- form_align(align,names(data))
   assert_that(length(align_tex)==ncol(data))
@@ -268,7 +255,7 @@ stable <- function(data,
   open_tabular <- form_open(align_tex)
 
   # Start working on the tabular text -------------------------
-  tab <- make_tabular(data)
+  tab <- make_tabular(data, escape_fun = escape_fun, ... )
 
   # Add hlines ---------------------------------------
   if(!is.null(add_hlines)) {

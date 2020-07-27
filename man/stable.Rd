@@ -32,7 +32,8 @@ stable(
   r_file = NULL,
   r_file_label = getOption("r.file.label", "Source code:"),
   output_file = NULL,
-  output_file_label = getOption("out.file.label", "Source file: ")
+  output_file_label = getOption("out.file.label", "Source file: "),
+  ...
 )
 }
 \arguments{
@@ -93,8 +94,6 @@ used to remove the tag; for example, a column named \code{x.WT} would be renamed
 \item{col_space}{absolute column spacing amount (\code{pt}); see also \code{\link[=st_space]{st_space()}}}
 
 \item{fontsize}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
-
-\item{prime_fun}{function to prime the data frame to be converted to tabular}
 
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}
