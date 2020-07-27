@@ -66,7 +66,7 @@ data <- map_dfr(1:5, ~ data) %>% arrange(STUDYf,SEXf)
 ```{r,results = "asis"}
 data %>%
   stable_long(
-    panel = "STUDYf", bold_cols = TRUE,
+    panel = "STUDYf", col_bold = TRUE,
     units = ys_get_unit(spec, parens = TRUE),
     notes = "The results look great!",
     clear_reps = "SEXf",

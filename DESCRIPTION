@@ -36,7 +36,6 @@ Collate:
     'table-notes.R'
     'table-object.R'
     'table-panel.R'
-    'table-prime.R'
     'table-span.R'
     'table-stable.R'
     'table-sumrow.R'

@@ -6,6 +6,13 @@ end_tn <- "\\end{tablenotes}"
 hl <- "\\hline"
 note_space <- 0.1
 
+triage_data <- function(data) {
+  assert_that(is.data.frame(data))
+  data <- ungroup(data)
+  fct <- map_lgl(data, is.factor)
+  data <- modify_if(data, fct, as.character)
+  data
+}
 
 
 #' Create tabular output from an R data frame
@@ -19,7 +26,6 @@ note_space <- 0.1
 #' columns in the data frame
 #' @param clear_reps character vector of column names where duplicate values will
 #' be made blank (overwritten with `""`); ; see also [st_clear_reps()]
-#' @param rm_dups deprected; use `clear_reps`
 #' @param span a list of objects created with [colgroup()]; ; see also [st_span()]
 #' @param span_split not implemented at this time; ; see also [st_span_split()]
 #' @param notes a character vector of notes to include at the foot of the table;
@@ -32,7 +38,7 @@ note_space <- 0.1
 #' the split; see also [st_hline()]
 #' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
-#' @param bold_cols if `TRUE`, table column names are rendered with bold font
+#' @param col_bold if `TRUE`, table column names are rendered with bold font
 #' @param col_rename a `name = value` character vector to translate column names
 #' to table names; ; see also [st_rename()]
 #' @param col_blank a character vector of column names that will not be printed
@@ -62,6 +68,7 @@ note_space <- 0.1
 #' saved; the file name will be included in the notes in the table footer; see
 #' also [st_files()]
 #' @param output_file_label prefix text for `output_file` note
+#' @param ... passed to other functions
 #'
 #' @examples
 #' data <- ptdata()
@@ -78,14 +85,13 @@ stable <- function(data,
                    panel = rowpanel(col = NULL),
                    units = NULL,
                    clear_reps = NULL,
-                   rm_dups = NULL,
                    span = NULL,
                    span_split = NULL,
                    notes = NULL,
                    hline_at = NULL,
                    hline_from = NULL,
                    sumrows = NULL,
-                   bold_cols = NULL,
+                   col_bold = NULL,
                    col_rename = NULL,
                    col_blank = NULL,
                    col_replace = NULL,
@@ -97,21 +103,14 @@ stable <- function(data,
                    note_config = noteconf(type = "tpt"),
                    inspect = FALSE,
                    r_file = NULL,
-                   r_file_label = getOption("r.file.label","Source code:"),
+                   r_file_label = getOption("r.file.label","Source code: "),
                    output_file = NULL,
                    output_file_label = getOption("out.file.label","Source file: "),
                    ... ) {
 
-  assert_that(is.data.frame(data))
-  data <- ungroup(data)
-  fct <- map_lgl(data, is.factor)
-  data <- modify_if(data, fct, as.character)
+  data <- triage_data(data)
 
   assert_that(is.noteconfig(note_config))
-
-  if(!missing(rm_dups)) {
-    warning("please use 'clear_reps' instead of 'rm_dups'")
-  }
 
   has_panel <- !missing(panel)
   has_sumrows <- !is.null(sumrows)
@@ -120,13 +119,14 @@ stable <- function(data,
     panel <- rowpanel(new_names(panel))
   }
 
-  if(missing(bold_cols) && panel$null) {
-    bold_cols <- TRUE
+  if(missing(col_bold) && panel$null) {
+    col_bold <- TRUE
   }
 
   if(inherits(sumrows, "sumrow")) {
     sumrows <- list(sumrows)
   }
+
   if(!is.null(sumrows)) {
     assert_that(is.list(sumrows))
   }
@@ -228,6 +228,9 @@ stable <- function(data,
     all_span_tex <- flatten_chr(unname(all_span_tex))
   }
 
+  # Units --------------------------------------
+  units_tex <- form_unit(units,cols)
+
   # Work on columns and column names
   if(is.character(col_replace)) {
     if(length(col_replace) != length(cols)) {
@@ -241,17 +244,12 @@ stable <- function(data,
   }
 
   cols <- esc_underscore(cols)
-
-  # Units --------------------------------------
-  units_tex <- form_unit(units,cols)
-
   cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
-  cols_tex <- form_tex_cols(cols_new, bold_cols, units)
+  cols_tex <- form_tex_cols(cols_new, col_bold, units)
 
   # Column alignments -----------------------------
   align_tex <- form_align(align,names(data))
-  assert_that(length(align_tex)==ncol(data))
-  align_tex <- paste0(align_tex,collapse="")
+
   open_tabular <- form_open(align_tex)
 
   # Start working on the tabular text -------------------------
@@ -309,8 +307,6 @@ stable <- function(data,
   col_row_sp <- list()
   col_row_sp$start <- "{\\def\\arraystretch{<row_space>}\\tabcolsep=<col_space>pt"
   col_row_sp$end <- "}"
-
-
   col_row_sp$start <- gluet(col_row_sp$start)
 
   # Font size ----------------------------------

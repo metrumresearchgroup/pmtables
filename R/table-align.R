@@ -118,6 +118,9 @@ form_align <- function(x,cols,pipes = FALSE) {
     where <- seq_along(ans)[-1]
     ans[where] <- paste0("|",ans[where])
   }
+
+  ans <- paste0(ans,collapse="")
+
   ans
 }
 

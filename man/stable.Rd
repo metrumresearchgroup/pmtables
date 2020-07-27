@@ -10,14 +10,13 @@ stable(
   panel = rowpanel(col = NULL),
   units = NULL,
   clear_reps = NULL,
-  rm_dups = NULL,
   span = NULL,
   span_split = NULL,
   notes = NULL,
   hline_at = NULL,
   hline_from = NULL,
   sumrows = NULL,
-  bold_cols = NULL,
+  col_bold = NULL,
   col_rename = NULL,
   col_blank = NULL,
   col_replace = NULL,
@@ -25,12 +24,11 @@ stable(
   row_space = 1.4,
   col_space = 5,
   fontsize = NULL,
-  prime_fun = tab_prime,
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
   inspect = FALSE,
   r_file = NULL,
-  r_file_label = getOption("r.file.label", "Source code:"),
+  r_file_label = getOption("r.file.label", "Source code: "),
   output_file = NULL,
   output_file_label = getOption("out.file.label", "Source file: "),
   ...
@@ -51,8 +49,6 @@ columns in the data frame}
 \item{clear_reps}{character vector of column names where duplicate values will
 be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_reps]{st_clear_reps()}}}
 
-\item{rm_dups}{deprected; use \code{clear_reps}}
-
 \item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
 
 \item{span_split}{not implemented at this time; ; see also \code{\link[=st_span_split]{st_span_split()}}}
@@ -71,7 +67,7 @@ the split; see also \code{\link[=st_hline]{st_hline()}}}
 \item{sumrows}{an object created with \code{\link[=sumrow]{sumrow()}}; identifies summary rows
 and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
 
-\item{bold_cols}{if \code{TRUE}, table column names are rendered with bold font}
+\item{col_bold}{if \code{TRUE}, table column names are rendered with bold font}
 
 \item{col_rename}{a \code{name = value} character vector to translate column names
 to table names; ; see also \code{\link[=st_rename]{st_rename()}}}
@@ -115,6 +111,8 @@ saved; the file name will be included in the notes in the table footer; see
 also \code{\link[=st_files]{st_files()}}}
 
 \item{output_file_label}{prefix text for \code{output_file} note}
+
+\item{...}{passed to other functions}
 }
 \description{
 Create tabular output from an R data frame
