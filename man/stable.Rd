@@ -70,8 +70,8 @@ data}
 \item{inspect}{if \code{TRUE}, extra information is attached to the output
 as an attribute called \code{stable_data}; see \code{\link[=get_stable_data]{get_stable_data()}}}
 
-\item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=col_spanners]{col_spanners()}},
-and \code{\link[=make_tabular]{make_tabular()}}, \code{\link[=tab_notes]{tab_notes()}}}
+\item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=tab_spanners]{tab_spanners()}},
+\code{\link[=tab_notes]{tab_notes()}}, and \code{\link[=make_tabular]{make_tabular()}}}
 }
 \description{
 Create tabular output from an R data frame

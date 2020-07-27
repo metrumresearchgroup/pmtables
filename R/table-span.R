@@ -197,7 +197,7 @@ form_cline_tex <- function(spans) {
 #' @param cols a character vector of column names
 #'
 #' @export
-col_spanners <- function(span = NULL, span_split = NULL, cols = NULL) {
+tab_spanners <- function(span = NULL, span_split = NULL, cols = NULL) {
 
   assert_that(is.character(cols))
 

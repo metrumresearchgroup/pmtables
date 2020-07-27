@@ -48,8 +48,8 @@ triage_data <- function(data) {
 #' data
 #' @param inspect if `TRUE`, extra information is attached to the output
 #' as an attribute called `stable_data`; see [get_stable_data()]
-#' @param ... passed to other functions: [tab_hlines()], [col_spanners()],
-#' and [make_tabular()], [tab_notes()]
+#' @param ... passed to other functions: [tab_hlines()], [tab_spanners()],
+#' [tab_notes()], and [make_tabular()]
 #'
 #' @examples
 #' data <- ptdata()
