@@ -1,15 +1,25 @@
 #' Save output from stable
 #'
 #' @param x a table formatted with [stable()]
+#' @param file the file
 #' @param dir the directory where the file is to be saved
 #'
 #' @export
-stable_save <- function(x, dir = NULL) {
-  file <- attr(x, "stable_file")
-  if(is.null(file)) {
+stable_save <- function(x, file = attr(x, "stable_file"), dir = NULL) {
+
+  if(!inherits(x, "stable")) {
     stop(
-      "bad input - there is no stable_file attribute; ",
+      "bad input - x is not an 'stable' object; ",
       "maybe this object was corrupted or it wasn't generated from 'stable()'",
+      call.=FALSE
+    )
+  }
+  if(is.null(file)) {
+    miss <- ifelse(missing(file), "and the 'file' argument is missing", "")
+    stop(
+      "the value of 'file' is NULL; ",
+      "there is no stable_file attribute ",
+      miss,
       call.=FALSE
     )
   }

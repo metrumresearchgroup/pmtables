@@ -5,14 +5,14 @@
 \alias{st_data}
 \title{Create an st object}
 \usage{
-st_new(data)
+st_new(data, ...)
 
-st_data(...)
+st_data(data, ...)
 }
 \arguments{
 \item{data}{the data frame to pass to \code{\link[=stable]{stable()}}}
 
-\item{...}{passed to \code{\link[=st_new]{st_new()}}}
+\item{...}{additional arguments passed to \code{\link[=stable]{stable()}}}
 }
 \description{
 The st object will collect various configuration settings and pass those

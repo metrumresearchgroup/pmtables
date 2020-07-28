@@ -14,24 +14,24 @@ st_arg_names <- c(
 #' to [stable()] when the object is passed to [st_make()].
 #'
 #' @param data the data frame to pass to [stable()]
-#' @param ... passed to [st_new()]
+#' @param ... additional arguments passed to [stable()]
 #'
 #' @examples
 #' ob <- st_new(ptdata())
 #' ob <- st_data(ptdata())
 #'
 #' @export
-st_new <- function(data) {
+st_new <- function(data, ...) {
   assert_that(is.data.frame(data))
   x <- new.env()
   x$data <- data
-  x$args <- list()
+  x$args <- list(...)
   structure(x, class = c("stobject","environment"), argnames = st_arg_names)
 }
 
 #' @rdname st_new
 #' @export
-st_data <- function(...) st_new(...)
+st_data <- function(data,...) st_new(data,...)
 
 
 is.stobject <- function(x) inherits(x, "stobject")
