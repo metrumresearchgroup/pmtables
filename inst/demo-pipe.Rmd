@@ -38,10 +38,9 @@ data <- select(pmdata, STUDY = STUDYf, DOSE = DOSEf, WT, AGE, CRCL, ALB, SCR)
 
 # Simple table
 
-- Columns are in bold by default (can be turned off)
 
 ```{r,results = 'asis'}
-data %>% st_new() %>% st_make(.cat = TRUE)
+data %>% st_new() %>% st_make(col_bold = TRUE, .cat = TRUE)
 ```
 
 \clearpage

@@ -47,10 +47,8 @@ in markdown.
 
 # Simple table
 
-- Columns are in bold by default (can be turned off)
-
 ```{r,results = 'asis'}
-data %>% stable() %>% pt_wrap(stdout())
+data %>% stable(col_bold=TRUE) %>% pt_wrap(stdout())
 ```
 
 \clearpage
