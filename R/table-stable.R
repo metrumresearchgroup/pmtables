@@ -91,44 +91,49 @@ stable <- function(data,
     assert_that(is.list(sumrows))
   }
 
+  # hlines
   add_hlines <- tab_hlines(data, ...)
 
+  # clear reps
   data <- tab_clear_reps(data, panel = panel, ...)
 
+  # panel
   panel_insert <- tab_panel(data, panel, sumrows)
   data <- panel_insert$data
 
+  # sumrows
   sumrow_insert <- tab_find_sumrows(data, sumrows)
   data <- sumrow_insert$data
 
   add_hlines <- c(add_hlines, sumrow_insert$hlines)
 
-  cols <- colnames(data)
+  cols <- names(data)
 
-  # Colgroups ------------------------------------
+  # Colgroups
   span_data <- tab_spanners(data = data, cols = cols, span = span, ...)
   cols <- span_data$cols
 
-  # Units --------------------------------------
+  # Units
   units_tex <- form_unit(units,cols)
 
+  # Format cols
   cols_data <- tab_cols(cols, ..., units = units)
   assert_that(inherits(cols_data, "from_tab_cols"))
 
-  # Column alignments -----------------------------
+  # Column alignments
   align_tex <- form_align(align,names(data))
   open_tabular <- form_open(align_tex)
 
-  # Start working on the tabular text -------------------------
+  # Start working on the tabular text
   tab <- make_tabular(data, escape_fun = escape_fun, ... )
 
-  # Add hlines ---------------------------------------
+  # Add hlines
   tab <- tab_add_hlines(tab, add_hlines, sumrows)
 
-  # Execute panel insertions ------------------------
+  # Execute panel insertions
   tab <- tab_panel_insert(tab, panel_insert)
 
-  # NOTES ----------------------------------------------
+  # Notes
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
   out <- c(
