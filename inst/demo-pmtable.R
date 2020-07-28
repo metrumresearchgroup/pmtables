@@ -46,7 +46,7 @@ x <- pt_data_inventory(
   stacked = TRUE
 ) %>% as_stable(
   wrapw = TRUE, r_file = "test.R", output_file = "test.tex",
-  panel = rowpanel(.cols("Endpoint:" = "SEQf"), prefix_name = TRUE)
+  panel = rowpanel(c("Endpoint:" = "SEQf"), prefix_name = TRUE)
 )
 
 

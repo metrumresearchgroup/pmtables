@@ -232,6 +232,6 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...)
     all_span_tex <- flatten_chr(unname(all_span_tex))
   }
 
-  all_span_tex
+  return(list(tex = all_span_tex, cols = cols))
 }
 

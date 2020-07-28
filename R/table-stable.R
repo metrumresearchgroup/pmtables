@@ -6,6 +6,18 @@ end_tn <- "\\end{tablenotes}"
 hl <- "\\hline"
 note_space <- 0.1
 
+stable_argument_names <- function() {
+  c(
+    names(formals(stable)),
+    names(formals(tab_hlines)),
+    names(formals(tab_spanners)),
+    names(formals(tab_notes)),
+    names(formals(tab_clear_reps)),
+    names(formals(make_tabular)),
+    names(formals(tab_cols))
+  )
+}
+
 triage_data <- function(data) {
   assert_that(is.data.frame(data))
   data <- ungroup(data)
@@ -13,7 +25,6 @@ triage_data <- function(data) {
   data <- modify_if(data, fct, as.character)
   data
 }
-
 
 #' Create tabular output from an R data frame
 #'
@@ -95,7 +106,8 @@ stable <- function(data,
   cols <- colnames(data)
 
   # Colgroups ------------------------------------
-  all_span_tex <- tab_spanners(data = data, cols = cols, span = span, ...)
+  span_data <- tab_spanners(data = data, cols = cols, span = span, ...)
+  cols <- span_data$cols
 
   # Units --------------------------------------
   units_tex <- form_unit(units,cols)
@@ -125,7 +137,7 @@ stable <- function(data,
     start_tpt,
     open_tabular,
     "\\hline",
-    all_span_tex,
+    span_data$tex,
     cols_data$tex,
     units_tex,
     "\\hline",
