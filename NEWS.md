@@ -11,4 +11,8 @@
   for `stable()`; see `inst/demo-pipe.pdf`
 - `st2doc` will render multiple page document when a list of tables is passed in 
   as text
+- Changed `stable` argument from `bold_cols` to `col_bold`
+- Column names are only rendered with bold font when requested using `col_bold` argument
+- The prefixes for `r_file` and `output_file` are only settable with options `r.file.label`
+and `output.file.label`, respectively
 

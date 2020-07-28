@@ -4,14 +4,18 @@
 \alias{tab_spanners}
 \title{Create groups of columns with spanners}
 \usage{
-tab_spanners(span = NULL, span_split = NULL, cols = NULL)
+tab_spanners(data, cols = NULL, span = NULL, span_split = NULL, ...)
 }
 \arguments{
+\item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
+
+\item{cols}{a character vector of column names}
+
 \item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
 
 \item{span_split}{not implemented at this time; ; see also \code{\link[=st_span_split]{st_span_split()}}}
 
-\item{cols}{a character vector of column names}
+\item{...}{not used}
 }
 \description{
 Create groups of columns with spanners

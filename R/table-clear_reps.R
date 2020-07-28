@@ -3,9 +3,9 @@
 #' @inheritParams stable
 #' @param clear_reps character vector of column names where duplicate values will
 #' be made blank (overwritten with `""`); ; see also [st_clear_reps()]
-#'
+#' @param ... not used
 #' @export
-tab_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL)) {
+tab_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL),...) {
   if(is.null(clear_reps)) return(data)
   assert_that(is.data.frame(data))
   dedup <- reps_to_clear(data, clear_reps, panel)

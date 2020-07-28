@@ -192,12 +192,12 @@ form_cline_tex <- function(spans) {
 
 #' Create groups of columns with spanners
 #'
-#' @param span a list of objects created with [colgroup()]; ; see also [st_span()]
+#' @inheritParams stable
 #' @param span_split not implemented at this time; ; see also [st_span_split()]
 #' @param cols a character vector of column names
-#'
+#' @param ... not used
 #' @export
-tab_spanners <- function(span = NULL, span_split = NULL, cols = NULL) {
+tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...) {
 
   assert_that(is.character(cols))
 

@@ -308,6 +308,7 @@ st_span <- function(x,...) {
 #' See the `span_split` argument to [stable()].
 #'
 #' @param x an stobject
+#' @param sep passed to [colsplit()]
 #' @param ... passed to [colsplit()]
 #'
 #' @examples
@@ -320,10 +321,9 @@ st_span <- function(x,...) {
 #' st_new(data) %>% st_span_split('.') %>% st_make()
 #'
 #' @export
-st_span_split <- function(x,...) {
+st_span_split <- function(x, sep = ".",...) {
   assert_that(is.stobject(x))
-  span <- colsplit(...)
-  x$span_split <- span
+  x$span_split <- colsplit(sep = sep, ...)
   x
 }
 

@@ -9,7 +9,8 @@ tab_notes(
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
   r_file = NULL,
-  output_file = NULL
+  output_file = NULL,
+  ...
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ file name will be included in the notes in the table footer; ; see also
 \item{output_file}{the name of the output file where the table text will be
 saved; the file name will be included in the notes in the table footer; see
 also \code{\link[=st_files]{st_files()}}}
+
+\item{...}{not used}
 }
 \description{
 Form table notes

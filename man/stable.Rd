@@ -8,15 +8,11 @@ stable(
   data,
   align = cols_left(),
   panel = rowpanel(col = NULL),
-  units = NULL,
+  span = NULL,
   notes = NULL,
-  sizes = tab_size(),
   sumrows = NULL,
-  col_bold = NULL,
-  col_rename = NULL,
-  col_blank = NULL,
-  col_replace = NULL,
-  col_split = NULL,
+  units = NULL,
+  sizes = tab_size(),
   escape_fun = tab_escape,
   inspect = FALSE,
   ...
@@ -31,34 +27,19 @@ stable(
 \item{panel}{character column name to use to section the table; sections will
 be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_panel]{st_panel()}}}
 
-\item{units}{a named list with unit information; names should correspond to
-columns in the data frame}
+\item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
 
 \item{notes}{a character vector of notes to include at the foot of the table;
 use \code{r_file} and \code{output_file} for source code and output file annotations;
 see also \code{\link[=st_notes]{st_notes()}}}
 
-\item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
-
 \item{sumrows}{an object created with \code{\link[=sumrow]{sumrow()}}; identifies summary rows
 and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
 
-\item{col_bold}{if \code{TRUE}, table column names are rendered with bold font}
+\item{units}{a named list with unit information; names should correspond to
+columns in the data frame}
 
-\item{col_rename}{a \code{name = value} character vector to translate column names
-to table names; ; see also \code{\link[=st_rename]{st_rename()}}}
-
-\item{col_blank}{a character vector of column names that will not be printed
-in the table header; see also \code{\link[=st_blank]{st_blank()}}}
-
-\item{col_replace}{a character vector with the same length as the number of
-output table columns; use this to completely replace the names (as opposed
-to one by on editing with \code{col_rename})}
-
-\item{col_split}{a string that is used to split column labels into tag
-(on the left) or name (on the right); if supplied, then \code{col_split} will be
-used to remove the tag; for example, a column named \code{x.WT} would be renamed
-\code{WT} if \code{col_split} was set to \code{.}}
+\item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
 
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}
@@ -67,7 +48,7 @@ data}
 as an attribute called \code{stable_data}; see \code{\link[=get_stable_data]{get_stable_data()}}}
 
 \item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=tab_spanners]{tab_spanners()}},
-\code{\link[=tab_notes]{tab_notes()}}, \code{\link[=tab_clear_reps]{tab_clear_reps()}} and \code{\link[=make_tabular]{make_tabular()}}}
+\code{\link[=tab_notes]{tab_notes()}}, \code{\link[=tab_cols]{tab_cols()}}, \code{\link[=tab_clear_reps]{tab_clear_reps()}} and \code{\link[=make_tabular]{make_tabular()}}}
 }
 \description{
 Create tabular output from an R data frame

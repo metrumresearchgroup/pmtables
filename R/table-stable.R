@@ -22,32 +22,21 @@ triage_data <- function(data) {
 #' [cols_center()], or [cols_right()]; see also [st_align()]
 #' @param panel character column name to use to section the table; sections will
 #' be created from unique values of `data[[panel]]`; see also [st_panel()]
-#' @param units a named list with unit information; names should correspond to
-#' columns in the data frame
+#' @param span a list of objects created with [colgroup()]; ; see also [st_span()]
 #' @param notes a character vector of notes to include at the foot of the table;
 #' use `r_file` and `output_file` for source code and output file annotations;
 #' see also [st_notes()]
 #' @param sizes an object returned from [tab_size()]
 #' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
-#' @param col_bold if `TRUE`, table column names are rendered with bold font
-#' @param col_rename a `name = value` character vector to translate column names
-#' to table names; ; see also [st_rename()]
-#' @param col_blank a character vector of column names that will not be printed
-#' in the table header; see also [st_blank()]
-#' @param col_replace a character vector with the same length as the number of
-#' output table columns; use this to completely replace the names (as opposed
-#' to one by on editing with `col_rename`)
-#' @param col_split a string that is used to split column labels into tag
-#' (on the left) or name (on the right); if supplied, then `col_split` will be
-#' used to remove the tag; for example, a column named `x.WT` would be renamed
-#' `WT` if `col_split` was set to `.`
+#' @param units a named list with unit information; names should correspond to
+#' columns in the data frame
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
 #' @param inspect if `TRUE`, extra information is attached to the output
 #' as an attribute called `stable_data`; see [get_stable_data()]
 #' @param ... passed to other functions: [tab_hlines()], [tab_spanners()],
-#' [tab_notes()], [tab_clear_reps()] and [make_tabular()]
+#' [tab_notes()], [tab_cols()], [tab_clear_reps()] and [make_tabular()]
 #'
 #' @examples
 #' data <- ptdata()
@@ -62,15 +51,11 @@ triage_data <- function(data) {
 stable <- function(data,
                    align = cols_left(),
                    panel = rowpanel(col = NULL),
-                   units = NULL,
+                   span = NULL,
                    notes = NULL,
-                   sizes = tab_size(),
                    sumrows = NULL,
-                   col_bold = NULL,
-                   col_rename = NULL,
-                   col_blank = NULL,
-                   col_replace = NULL,
-                   col_split = NULL,
+                   units = NULL,
+                   sizes = tab_size(),
                    escape_fun = tab_escape,
                    inspect = FALSE,
                    ... ) {
@@ -84,10 +69,6 @@ stable <- function(data,
 
   if(has_panel && !is.rowpanel(panel)) {
     panel <- rowpanel(new_names(panel))
-  }
-
-  if(missing(col_bold) && panel$null) {
-    col_bold <- TRUE
   }
 
   if(inherits(sumrows, "sumrow")) {
@@ -136,30 +117,13 @@ stable <- function(data,
   cols <- colnames(data)
 
   # Colgroups ------------------------------------
-  all_span_tex <- col_spanners(..., cols = cols)
+  all_span_tex <- tab_spanners(data = data, cols = cols, span = span, ...)
 
   # Units --------------------------------------
   units_tex <- form_unit(units,cols)
 
-  # Work on columns and column names
-  if(is.character(col_replace)) {
-    if(length(col_replace) != length(cols)) {
-      stop(
-        "'col_replace' length is not equal to the number of columns in 'data'",
-        call.=FALSE
-      )
-    }
-    cols <- col_replace
-    col_rename <- NULL
-  }
-
-  cols <- esc_underscore(cols)
-  cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
-  if(!is.null(col_split)) {
-    split_cols <- str_split(cols_new, fixed(col_split), n = 2)
-    cols_new <- map_chr(split_cols, last)
-  }
-  cols_tex <- form_tex_cols(cols_new, col_bold, units)
+  cols_data <- tab_cols(cols, ..., units = units)
+  assert_that(inherits(cols_data, "from_tab_cols"))
 
   # Column alignments -----------------------------
   align_tex <- form_align(align,names(data))
@@ -188,8 +152,6 @@ stable <- function(data,
   }
 
   # NOTES ----------------------------------------------
-  # check behavior: do we want these basenamed or not?
-
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
   out <- c(
@@ -199,7 +161,7 @@ stable <- function(data,
     open_tabular,
     "\\hline",
     all_span_tex,
-    cols_tex,
+    cols_data$tex,
     units_tex,
     "\\hline",
     tab,
@@ -217,11 +179,10 @@ stable <- function(data,
   if(isTRUE(inspect)) {
     stable_data <- structure(list(), class = "stable_data")
     stable_data$data <- data
-    stable_data$cols <- cols
+    stable_data$cols <- cols_data$cols
     stable_data$nc <- ncol(data)
-    stable_data$cols <- cols
-    stable_data$cols_new <- cols_new
-    stable_data$cols_tex <- cols_tex
+    stable_data$cols_new <- cols_data$new
+    stable_data$cols_tex <- cols_data$tex
     stable_data$units <- units
     stable_data$units_tex <- units_tex
     stable_data$tpt_notes <- note_data$t_notes
