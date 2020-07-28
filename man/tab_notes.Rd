@@ -16,7 +16,8 @@ tab_notes(
 \arguments{
 \item{notes}{a character vector of notes to include at the foot of the table;
 use \code{r_file} and \code{output_file} for source code and output file annotations;
-see also \code{\link[=st_notes]{st_notes()}}}
+see \code{\link[=tab_notes]{tab_notes()}} for arguments to pass in order to configure the way notes
+appear in the output; see also \code{\link[=st_notes]{st_notes()}}}
 
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}

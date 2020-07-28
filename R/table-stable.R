@@ -25,7 +25,8 @@ triage_data <- function(data) {
 #' @param span a list of objects created with [colgroup()]; ; see also [st_span()]
 #' @param notes a character vector of notes to include at the foot of the table;
 #' use `r_file` and `output_file` for source code and output file annotations;
-#' see also [st_notes()]
+#' see [tab_notes()] for arguments to pass in order to configure the way notes
+#' appear in the output; see also [st_notes()]
 #' @param sizes an object returned from [tab_size()]
 #' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
@@ -104,7 +105,6 @@ stable <- function(data,
 
   # Column alignments -----------------------------
   align_tex <- form_align(align,names(data))
-
   open_tabular <- form_open(align_tex)
 
   # Start working on the tabular text -------------------------
