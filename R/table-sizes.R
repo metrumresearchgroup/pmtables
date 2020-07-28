@@ -7,9 +7,11 @@
 #' `row_space > <default>` to increase; ; see also [st_space()]
 #' @param col absolute column spacing amount (`pt`); see also [st_space()]
 #' @param font for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
+#' @param lt_row extra row space for longtables; this is used instead of `row_space`
+#' when rendering longtable
 #'
 #' @export
-tab_size <- function(row = 1.4, col = 5, font = NULL) {
+tab_size <- function(row = 1.4, col = 5, font = NULL, lt_row = 0.3) {
 
   assert_that(is.numeric(row))
   assert_that(is.numeric(col))
@@ -31,10 +33,10 @@ tab_size <- function(row = 1.4, col = 5, font = NULL) {
   ans <- list(
     row_space = row,
     col_space = col,
+    lt_row_space = lt_row,
     font_size = font_size,
     col_row_sp = col_row_sp
   )
 
   structure(ans, class = "from_tab_sizes")
-
 }

@@ -21,6 +21,8 @@ stable_long <- function(..., inspect = TRUE) {
 
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"
+  extra_height <- max(x$sizes$lt_row_space,0)
+  extra <- gluet("\\setlength{\\extrarowheight}{<extra_height>em}")
   nc <- x$nc
   longtab <- c(
     "{\\normalsize",

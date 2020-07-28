@@ -158,6 +158,7 @@ stable <- function(data,
     stable_data$align <- align
     stable_data$tab <- tab
     stable_data$align_tex <- align_tex
+    stable_data$sizes <- sizes
     out <- structure(out, stable_data = stable_data)
   }
 

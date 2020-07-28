@@ -4,7 +4,7 @@
 \alias{tab_size}
 \title{Adjustments for row padding, column padding, and font size}
 \usage{
-tab_size(row = 1.4, col = 5, font = NULL)
+tab_size(row = 1.4, col = 5, font = NULL, lt_row = 0.3)
 }
 \arguments{
 \item{row}{relative increase or decrease spacing between rows; use
@@ -13,6 +13,9 @@ tab_size(row = 1.4, col = 5, font = NULL)
 \item{col}{absolute column spacing amount (\code{pt}); see also \code{\link[=st_space]{st_space()}}}
 
 \item{font}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
+
+\item{lt_row}{extra row space for longtables; this is used instead of \code{row_space}
+when rendering longtable}
 }
 \description{
 Adjustments for row padding, column padding, and font size
