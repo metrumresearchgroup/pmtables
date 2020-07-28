@@ -83,36 +83,13 @@ stable <- function(data,
 
   data <- tab_clear_reps(data, panel = panel, ...)
 
-  do_panel <- FALSE
-  if(!panel$null) {
-    require_col(data,panel$col,context = "panel column input name")
-    paneln <- match(panel$col,names(data))
-    if(any(is.na(paneln))) {
-      stop("panel column not found: ", squote(panel$col), call.=FALSE)
-    }
-    data[[paneln]] <- replace_na(data[[paneln]],"")
-    # check summary rows
-    if(!is.null(sumrows)) {
-      dep <- map(sumrows, sumrow_depanel_rows)
-      dep <- flatten_int(dep)
-      dep <- sort(unique(dep))
-      data[[paneln]][dep] <- rep(".panel.waiver.", length(dep))
-    }
-    ins <- panel_by(data, panel)
-    data[[panel$col]] <- NULL
-    do_panel <- TRUE
-  }
+  panel_insert <- tab_panel(data, panel, sumrows)
+  data <- panel_insert$data
 
-  if(!is.null(sumrows)) {
-    hline_sums <- map(sumrows, sumrow_get_hline)
-    hline_sums_top <- flatten_int(hline_sums)-1
-    hline_sums_bot <- hline_sums_top + 1
-    hline_sums_bot <- hline_sums_bot[hline_sums_bot != nrow(data)]
-    add_hlines <- c(add_hlines, hline_sums_top, hline_sums_bot)
-    for(this_sumrow in sumrows) {
-      data <- sumrow_add_style(this_sumrow,data)
-    }
-  }
+  sumrow_insert <- tab_find_sumrows(data, sumrows)
+  data <- sumrow_insert$data
+
+  add_hlines <- c(add_hlines, sumrow_insert$hlines)
 
   cols <- colnames(data)
 
@@ -134,22 +111,10 @@ stable <- function(data,
   tab <- make_tabular(data, escape_fun = escape_fun, ... )
 
   # Add hlines ---------------------------------------
-  if(!is.null(add_hlines)) {
-    add_hlines <- sort(unique(add_hlines))
-    tab[add_hlines] <- paste0(tab[add_hlines], " \\hline")
-    if(has_sumrows) {
-      hlinex <- map(sumrows, sumrow_get_hlinex2)
-      above <- sort(unique(flatten_int(hlinex)-1))
-      below <- above + 1
-      tab[above] <- paste0(tab[above], " \\hline")
-      tab[below] <- paste0(tab[below], " \\hline")
-    }
-  }
+  tab <- tab_add_hlines(tab, add_hlines, sumrows)
 
   # Execute panel insertions ------------------------
-  if(do_panel) {
-    tab <- insrt_vec(tab, ins$to_insert, where = ins$where)
-  }
+  tab <- tab_panel_insert(tab, panel_insert)
 
   # NOTES ----------------------------------------------
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)

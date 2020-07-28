@@ -29,3 +29,19 @@ tab_hlines <- function(data, hline_at = NULL, hline_from = NULL, ...) {
   }
   add_hlines
 }
+
+tab_add_hlines <- function(tab, hlines, sumrows = NULL) {
+  if(is.null(hlines) || length(hlines)==0) {
+    return(tab)
+  }
+  hlines <- sort(unique(hlines))
+  tab[hlines] <- paste0(tab[hlines], " \\hline")
+  if(is.list(sumrows)) {
+    hlinex <- map(sumrows, sumrow_get_hlinex2)
+    above <- sort(unique(flatten_int(hlinex)-1))
+    below <- above + 1
+    tab[above] <- paste0(tab[above], " \\hline")
+    tab[below] <- paste0(tab[below], " \\hline")
+  }
+  tab
+}

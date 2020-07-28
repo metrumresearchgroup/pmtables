@@ -32,6 +32,9 @@ rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
 is.rowpanel <- function(x) inherits(x,"rowpanel")
 
 panel_by <- function(data, x) {
+  if(x$null) {
+    return(list(insert_row = NULL, insert_data = NULL, insert = FALSE))
+  }
   col <- x$col
   prefix <- x$prefix
   if(x$prefix_name) prefix <- names(x$col)[1]
@@ -64,6 +67,46 @@ panel_by <- function(data, x) {
   if(length(insrt) > 1) {
     insrt[seq(2,length(insrt))] <- paste0("\\hline ", insrt[seq(2,length(insrt))])
   }
-  list(where = where, to_insert = insrt)
+  list(insert_row = where, insert_data = insrt, insert = TRUE)
 }
+
+# Calculates the panel and modifies the data set
+# returns list that you have to grab data out of
+tab_panel <- function(data, panel, sumrows) {
+  if(panel$null) {
+    ins <- panel_by(data,panel)
+    ins$data <- data
+    return(ins)
+  }
+  require_col(data,panel$col,context = "panel column input name")
+  paneln <- match(panel$col,names(data))
+  if(any(is.na(paneln))) {
+    stop("panel column not found: ", squote(panel$col), call.=FALSE)
+  }
+  data[[paneln]] <- replace_na(data[[paneln]],"")
+  # check summary rows
+  if(!is.null(sumrows)) {
+    dep <- map(sumrows, sumrow_depanel_rows)
+    dep <- flatten_int(dep)
+    dep <- sort(unique(dep))
+    data[[paneln]][dep] <- rep(".panel.waiver.", length(dep))
+  }
+  ins <- panel_by(data, panel)
+  data[[panel$col]] <- NULL
+  ins$data <- data
+  ins
+}
+
+# Execute the insertion of panel rows
+tab_panel_insert <- function(tab, panel_insert) {
+  if(!isTRUE(panel_insert$insert)) return(tab)
+  insrt_vec(
+    vec = tab,
+    where = panel_insert$insert_row,
+    nw = panel_insert$insert_data
+  )
+}
+
+
+
 
