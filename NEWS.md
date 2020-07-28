@@ -15,4 +15,5 @@
 - Column names are only rendered with bold font when requested using `col_bold` argument
 - The prefixes for `r_file` and `output_file` are only settable with options `r.file.label`
 and `output.file.label`, respectively
-
+- Dropped `col_space`, `row_space` and `fontsize` arguments to `stable()`; they should be set 
+with a call to `tab_size`

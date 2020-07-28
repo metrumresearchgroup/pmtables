@@ -5,7 +5,7 @@ st_arg_names <- c(
   "row_space", "col_space",
   "span", "span_split", "col_rename", "col_blank",
   "sumrows", "note_config", "clear_reps",
-  "hline_at", "hline_from"
+  "hline_at", "hline_from", "sizes"
 )
 
 #' Create an st object
@@ -427,6 +427,18 @@ st_hline <- function(x, at = NULL, from = NULL) {
   x
 }
 
+#' Add table size information to st object
+#'
+#' @param x an stobject
+#' @param ... passed to [tab_size()]
+#'
+#' @export
+st_sizes <- function(x,...) {
+  assert_that(is.stobject(x))
+  x$sizes <- tab_size(...)
+  x
+}
+
 #' Add other arguments to st object
 #'
 #' @param x an stobject
@@ -442,3 +454,4 @@ st_args <- function(x,...) {
   }
   x
 }
+
