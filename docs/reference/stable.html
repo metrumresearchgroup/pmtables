@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9041</span>
       </span>
     </div>
 
@@ -152,31 +152,14 @@
   <span class='no'>data</span>,
   <span class='kw'>align</span> <span class='kw'>=</span> <span class='fu'><a href='cols_align.html'>cols_left</a></span>(),
   <span class='kw'>panel</span> <span class='kw'>=</span> <span class='fu'><a href='rowpanel.html'>rowpanel</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>clear_reps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rm_dups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>span_split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>notes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hline_at</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hline_from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>sumrows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bold_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_rename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_replace</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>row_space</span> <span class='kw'>=</span> <span class='fl'>1.4</span>,
-  <span class='kw'>col_space</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prime_fun</span> <span class='kw'>=</span> <span class='no'>tab_prime</span>,
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sizes</span> <span class='kw'>=</span> <span class='fu'><a href='tab_size.html'>tab_size</a></span>(),
   <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>,
-  <span class='kw'>note_config</span> <span class='kw'>=</span> <span class='fu'><a href='noteconf.html'>noteconf</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"tpt"</span>),
-  <span class='kw'>debug_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>r_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>r_file_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"r.file.label"</span>, <span class='st'>"Source code:"</span>),
-  <span class='kw'>output_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>output_file_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"out.file.label"</span>, <span class='st'>"Source file: "</span>)
+  <span class='kw'>inspect</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -197,26 +180,8 @@
 be created from unique values of <code>data[[panel]]</code>; see also <code><a href='st_panel.html'>st_panel()</a></code></p></td>
     </tr>
     <tr>
-      <th>units</th>
-      <td><p>a named list with unit information; names should correspond to
-columns in the data frame</p></td>
-    </tr>
-    <tr>
-      <th>clear_reps</th>
-      <td><p>character vector of column names where duplicate values will
-be made blank (overwritten with <code>""</code>); ; see also <code><a href='st_clear_reps.html'>st_clear_reps()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>rm_dups</th>
-      <td><p>deprected; use <code>clear_reps</code></p></td>
-    </tr>
-    <tr>
       <th>span</th>
       <td><p>a list of objects created with <code><a href='colgroup.html'>colgroup()</a></code>; ; see also <code><a href='st_span.html'>st_span()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>span_split</th>
-      <td><p>not implemented at this time; ; see also <code><a href='st_span_split.html'>st_span_split()</a></code></p></td>
     </tr>
     <tr>
       <th>notes</th>
@@ -225,64 +190,18 @@ use <code>r_file</code> and <code>output_file</code> for source code and output 
 see also <code><a href='st_notes.html'>st_notes()</a></code></p></td>
     </tr>
     <tr>
-      <th>hline_at</th>
-      <td><p>logical or integer vector specifying rows above which an
-<code>\hline</code> will be placed; see also <code><a href='st_hline.html'>st_hline()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>hline_from</th>
-      <td><p>a character column name from which to separate the table
-with <code>\hline</code>; non-duplicated values of <code>hline_from</code> will be used to create
-the split; see also <code><a href='st_hline.html'>st_hline()</a></code></p></td>
-    </tr>
-    <tr>
       <th>sumrows</th>
       <td><p>an object created with <code><a href='sumrow.html'>sumrow()</a></code>; identifies summary rows
 and adds styling; see also <code><a href='st_sumrow.html'>st_sumrow()</a></code></p></td>
     </tr>
     <tr>
-      <th>bold_cols</th>
-      <td><p>if <code>TRUE</code>, table column names are rendered with bold font</p></td>
+      <th>units</th>
+      <td><p>a named list with unit information; names should correspond to
+columns in the data frame</p></td>
     </tr>
     <tr>
-      <th>col_rename</th>
-      <td><p>a <code>name = value</code> character vector to translate column names
-to table names; ; see also <code><a href='st_rename.html'>st_rename()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>col_blank</th>
-      <td><p>a character vector of column names that will not be printed
-in the table header; see also <code><a href='st_blank.html'>st_blank()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>col_replace</th>
-      <td><p>a character vector with the same length as the number of
-output table columns; use this to completely replace the names (as opposed
-to one by on editing with <code>col_rename</code>)</p></td>
-    </tr>
-    <tr>
-      <th>col_split</th>
-      <td><p>a string that is used to split column labels into tag
-(on the left) or name (on the right); if supplied, then <code>col_split</code> will be
-used to remove the tag; for example, a column named <code>x.WT</code> would be renamed
-<code>WT</code> if <code>col_split</code> was set to <code>.</code></p></td>
-    </tr>
-    <tr>
-      <th>row_space</th>
-      <td><p>relative increase or decrease spacing between rows; use
-<code>row_space &gt; &lt;default&gt;</code> to increase; ; see also <code><a href='st_space.html'>st_space()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>col_space</th>
-      <td><p>absolute column spacing amount (<code>pt</code>); see also <code><a href='st_space.html'>st_space()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>fontsize</th>
-      <td><p>for the table (e.g. <code>normalsize</code>, <code>small</code>, <code>scriptsize</code>, etc)</p></td>
-    </tr>
-    <tr>
-      <th>prime_fun</th>
-      <td><p>function to prime the data frame to be converted to tabular</p></td>
+      <th>sizes</th>
+      <td><p>an object returned from <code><a href='tab_size.html'>tab_size()</a></code></p></td>
     </tr>
     <tr>
       <th>escape_fun</th>
@@ -290,63 +209,26 @@ used to remove the tag; for example, a column named <code>x.WT</code> would be r
 data</p></td>
     </tr>
     <tr>
-      <th>note_config</th>
-      <td><p>a <code><a href='noteconf.html'>noteconf()</a></code> object used to configure how table notes
-are displayed; ; see also <code><a href='st_noteconf.html'>st_noteconf()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>debug_data</th>
+      <th>inspect</th>
       <td><p>if <code>TRUE</code>, extra information is attached to the output
-as an attribute called <code>debug_data</code>; see <code><a href='get_debug_data.html'>get_debug_data()</a></code></p></td>
+as an attribute called <code>stable_data</code>; see <code><a href='get_stable_data.html'>get_stable_data()</a></code></p></td>
     </tr>
     <tr>
-      <th>r_file</th>
-      <td><p>the name of the R file containg code to generate the table; the
-file name will be included in the notes in the table footer; ; see also
-<code><a href='st_files.html'>st_files()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>r_file_label</th>
-      <td><p>prefix text for <code>r_file</code> note</p></td>
-    </tr>
-    <tr>
-      <th>output_file</th>
-      <td><p>the name of the output file where the table text will be
-saved; the file name will be included in the notes in the table footer; see
-also <code><a href='st_files.html'>st_files()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>output_file_label</th>
-      <td><p>prefix text for <code>output_file</code> note</p></td>
+      <th>...</th>
+      <td><p>passed to other functions: <code><a href='tab_hlines.html'>tab_hlines()</a></code>, <code><a href='tab_spanners.html'>tab_spanners()</a></code>,
+<code><a href='tab_notes.html'>tab_notes()</a></code>, <code><a href='tab_cols.html'>tab_cols()</a></code>, <code><a href='tab_clear_reps.html'>tab_clear_reps()</a></code> and <code><a href='make_tabular.html'>make_tabular()</a></code></p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>stable</span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"                                         
-#&gt;  [2] "\\begin{threeparttable}"                                                          
-#&gt;  [3] "\\begin{tabular}[h]{llllll}"                                                      
-#&gt;  [4] "\\hline"                                                                          
-#&gt;  [5] "{\\bf SEXf} &amp; {\\bf STUDYf} &amp; {\\bf WT} &amp; {\\bf SCR} &amp; {\\bf ALB} &amp; {\\bf N} \\\\"
-#&gt;  [6] "\\hline"                                                                          
-#&gt;  [7] "male &amp; 12-DEMO-001 &amp; 76.3 &amp; 1.09 &amp; 4.33 &amp; 10 \\\\"                                
-#&gt;  [8] "male &amp; 12-DEMO-002 &amp; 71.9 &amp; 1.01 &amp; 4.57 &amp; 18 \\\\"                                
-#&gt;  [9] "male &amp; 11-DEMO-005 &amp; 69.2 &amp; 2.51 &amp; 4.46 &amp; 29 \\\\"                                
-#&gt; [10] "male &amp; 13-DEMO-001 &amp; 71.1 &amp; 0.922 &amp; 3.68 &amp; 23 \\\\"                               
-#&gt; [11] "female &amp; 12-DEMO-001 &amp; 70.0 &amp; 1.01 &amp; 4.25 &amp; 20 \\\\"                              
-#&gt; [12] "female &amp; 12-DEMO-002 &amp; 72.6 &amp; 0.949 &amp; 4.42 &amp; 32 \\\\"                             
-#&gt; [13] "female &amp; 11-DEMO-005 &amp; 67.9 &amp; 2.53 &amp; 4.26 &amp; 11 \\\\"                              
-#&gt; [14] "female &amp; 13-DEMO-001 &amp; 67.0 &amp; 0.988 &amp; 3.45 &amp; 17 \\\\"                             
-#&gt; [15] "\\hline"                                                                          
-#&gt; [16] "\\end{tabular}"                                                                   
-#&gt; [17] "\\begin{tablenotes}[flushleft]"                                                   
-#&gt; [18] "\\item "                                                                          
-#&gt; [19] "\\end{tablenotes}"                                                                
-#&gt; [20] "\\end{threeparttable}"                                                            
-#&gt; [21] "}"                                                                                
-#&gt; attr(,"class")
-#&gt; [1] "stable"</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ptdata.html'>ptdata</a></span>()
+
+<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>stable</span>(<span class='no'>data</span>, <span class='kw'>r_file</span> <span class='kw'>=</span> <span class='st'>"example.R"</span>, <span class='kw'>output_file</span> <span class='kw'>=</span> <span class='st'>"output.tex"</span>)
+
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'>stable</span>(<span class='no'>data</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>"STUDYf"</span>)
+
+<span class='no'>c</span> <span class='kw'>&lt;-</span> <span class='fu'>stable</span>(<span class='no'>data</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fu'><a href='colgroup.html'>colgroup</a></span>(<span class='st'>"Covariates"</span>, <span class='no'>STUDYf</span>:<span class='no'>ALB</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

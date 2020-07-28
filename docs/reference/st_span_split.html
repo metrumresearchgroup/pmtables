@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9041</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
     <p>See the <code>span_split</code> argument to <code><a href='stable.html'>stable()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_span_split</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>st_span_split</span>(<span class='no'>x</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,12 +158,55 @@
       <td><p>an stobject</p></td>
     </tr>
     <tr>
+      <th>sep</th>
+      <td><p>passed to <code><a href='colgroup.html'>colsplit()</a></code></p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>passed to <code><a href='colgroup.html'>colsplit()</a></code></p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+
+<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"datasets"</span>, <span class='st'>"with-dots.RDS"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"pmtables"</span>)
+
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file</span>)
+
+<span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='no'>data</span>) <span class='kw'>%&gt;%</span> <span class='fu'>st_span_split</span>(<span class='st'>'.'</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"                                                         
+#&gt;  [2] "\\begin{threeparttable}"                                                                          
+#&gt;  [3] "\\begin{tabular}[h]{lllllll}"                                                                     
+#&gt;  [4] "\\hline"                                                                                          
+#&gt;  [5] "\\multicolumn{1}{c}{} &amp; \\multicolumn{3}{c}{{\\bf Normal}} &amp; \\multicolumn{3}{c}{{\\bf ESRD}}\\\\"
+#&gt;  [6] "\\cmidrule(lr){2-4}"                                                                              
+#&gt;  [7] "\\cmidrule(lr){5-7}"                                                                              
+#&gt;  [8] "STUDY &amp; Normal.WT &amp; Normal.CRCL &amp; Normal.ALB &amp; ESRD.WT &amp; ESRD.CRCL &amp; ESRD.ALB \\\\"               
+#&gt;  [9] "\\hline"                                                                                          
+#&gt; [10] "12-DEMO-001 &amp; 71.4 &amp; 104 &amp; 4.20 &amp; 78.5 &amp; 26.0 &amp; 2.10 \\\\"                                        
+#&gt; [11] "12-DEMO-001 &amp; 81.7 &amp; 104 &amp; 3.83 &amp; 89.9 &amp; 26.1 &amp; 1.92 \\\\"                                        
+#&gt; [12] "12-DEMO-001 &amp; 89.4 &amp; 122 &amp; 4.63 &amp; 98.4 &amp; 30.6 &amp; 2.32 \\\\"                                        
+#&gt; [13] "12-DEMO-001 &amp; 94.0 &amp; 93.2 &amp; 4.94 &amp; 103 &amp; 23.3 &amp; 2.47 \\\\"                                        
+#&gt; [14] "12-DEMO-001 &amp; 67.9 &amp; 100 &amp; 4.25 &amp; 74.7 &amp; 25.1 &amp; 2.13 \\\\"                                        
+#&gt; [15] "12-DEMO-001 &amp; 76.6 &amp; 99.2 &amp; 4.54 &amp; 84.2 &amp; 24.8 &amp; 2.27 \\\\"                                       
+#&gt; [16] "12-DEMO-002 &amp; 77.6 &amp; 106 &amp; 4.31 &amp; 85.4 &amp; 26.4 &amp; 2.16 \\\\"                                        
+#&gt; [17] "12-DEMO-002 &amp; 61.3 &amp; 113 &amp; 4.04 &amp; 67.4 &amp; 28.2 &amp; 2.02 \\\\"                                        
+#&gt; [18] "12-DEMO-002 &amp; 71.2 &amp; 106 &amp; 4.63 &amp; 78.3 &amp; 26.4 &amp; 2.32 \\\\"                                        
+#&gt; [19] "12-DEMO-002 &amp; 74.1 &amp; 112 &amp; 4.44 &amp; 81.5 &amp; 28.0 &amp; 2.22 \\\\"                                        
+#&gt; [20] "12-DEMO-002 &amp; 71.6 &amp; 98.9 &amp; 4.49 &amp; 78.8 &amp; 24.7 &amp; 2.25 \\\\"                                       
+#&gt; [21] "12-DEMO-002 &amp; 72.4 &amp; 105 &amp; 3.89 &amp; 79.6 &amp; 26.3 &amp; 1.94 \\\\"                                        
+#&gt; [22] "12-DEMO-002 &amp; 73.6 &amp; 103 &amp; 4.52 &amp; 81.0 &amp; 25.8 &amp; 2.26 \\\\"                                        
+#&gt; [23] "\\hline"                                                                                          
+#&gt; [24] "\\end{tabular}"                                                                                   
+#&gt; [25] "\\begin{tablenotes}[flushleft]"                                                                   
+#&gt; [26] "\\item "                                                                                          
+#&gt; [27] "\\end{tablenotes}"                                                                                
+#&gt; [28] "\\end{threeparttable}"                                                                            
+#&gt; [29] "}"                                                                                                
+#&gt; attr(,"class")
+#&gt; [1] "stable"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

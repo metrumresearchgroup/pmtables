@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9041</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@
       <h1 data-toc-skip>Data Inventory Table</h1>
                         <h4 class="author">Kyle Baron</h4>
             
-            <h4 class="date">2020-07-23</h4>
+            <h4 class="date">2020-07-27</h4>
       
       
       <div class="hidden name"><code>data-inventory.Rmd</code></div>
@@ -116,7 +116,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 
 <span class="no">all</span> <span class="kw">&lt;-</span> <span class="kw pkg">pmtables</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"obs"</span>)
-<span class="no">pk</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">all</span>, <span class="no">SEQ</span><span class="kw">==</span><span class="fl">1</span>)</pre></body></html></div>
+<span class="no">pk</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span>(<span class="no">all</span>, <span class="no">SEQ</span><span class="kw">==</span><span class="fl">1</span>)</pre></body></html></div>
 <p>A summary of PK data by study</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r">pt_data_inventory(pk, by = vars(Study = STUDYf))
 . $data

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce pt_opts object to a list — as.list.pt_opts • pmtables</title>
+<title>Adjustments for row padding, column padding, and font size — tab_size • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Coerce pt_opts object to a list — as.list.pt_opts" />
-<meta property="og:description" content="Coerce pt_opts object to a list" />
+<meta property="og:title" content="Adjustments for row padding, column padding, and font size — tab_size" />
+<meta property="og:description" content="Adjustments for row padding, column padding, and font size" />
 
 
 
@@ -139,34 +139,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce pt_opts object to a list</h1>
+    <h1>Adjustments for row padding, column padding, and font size</h1>
     
-    <div class="hidden name"><code>as.list.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>tab_size.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Coerce pt_opts object to a list</p>
+    <p>Adjustments for row padding, column padding, and font size</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for pt_opts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>tab_size</span>(<span class='kw'>row</span> <span class='kw'>=</span> <span class='fl'>1.4</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <th>row</th>
+      <td><p>relative increase or decrease spacing between rows; use
+<code>row_space &gt; &lt;default&gt;</code> to increase; ; see also <code><a href='st_space.html'>st_space()</a></code></p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>not used</p></td>
+      <th>col</th>
+      <td><p>absolute column spacing amount (<code>pt</code>); see also <code><a href='st_space.html'>st_space()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>font</th>
+      <td><p>for the table (e.g. <code>normalsize</code>, <code>small</code>, <code>scriptsize</code>, etc)</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>pt_opts</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

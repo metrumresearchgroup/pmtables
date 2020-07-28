@@ -73,7 +73,7 @@ be called multiple times and will accumulate notes data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9041</span>
       </span>
     </div>
 
@@ -150,7 +150,7 @@ be called multiple times and will accumulate notes data." />
 be called multiple times and will accumulate <code>notes</code> data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_notes</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>st_notes</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,12 +164,45 @@ be called multiple times and will accumulate <code>notes</code> data.</p>
       <td><p>table notes</p></td>
     </tr>
     <tr>
+      <th>esc</th>
+      <td><p>passed to <code><a href='tab_prime.html'>tab_escape()</a></code>; use <code>NULL</code> to bypass escaping the notess</p></td>
+    </tr>
+    <tr>
       <th>config</th>
       <td><p>named list of arguments for <code><a href='noteconf.html'>noteconf()</a></code></p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+
+<span class='no'>ob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())
+
+<span class='no'>ob</span> <span class='kw'>%&gt;%</span> <span class='fu'>st_notes</span>(<span class='st'>"ALB: albumin (g/dL)"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"            
+#&gt;  [2] "\\begin{threeparttable}"                             
+#&gt;  [3] "\\begin{tabular}[h]{llllll}"                         
+#&gt;  [4] "\\hline"                                             
+#&gt;  [5] "STUDYf &amp; SEXf &amp; WT &amp; SCR &amp; ALB &amp; N \\\\"             
+#&gt;  [6] "\\hline"                                             
+#&gt;  [7] "12-DEMO-001 &amp; male &amp; 76.3 &amp; 1.09 &amp; 4.33 &amp; 10 \\\\"   
+#&gt;  [8] "12-DEMO-001 &amp; female &amp; 70.0 &amp; 1.01 &amp; 4.25 &amp; 20 \\\\" 
+#&gt;  [9] "12-DEMO-002 &amp; male &amp; 71.9 &amp; 1.01 &amp; 4.57 &amp; 18 \\\\"   
+#&gt; [10] "12-DEMO-002 &amp; female &amp; 72.6 &amp; 0.949 &amp; 4.42 &amp; 32 \\\\"
+#&gt; [11] "11-DEMO-005 &amp; male &amp; 69.2 &amp; 2.51 &amp; 4.46 &amp; 29 \\\\"   
+#&gt; [12] "11-DEMO-005 &amp; female &amp; 67.9 &amp; 2.53 &amp; 4.26 &amp; 11 \\\\" 
+#&gt; [13] "13-DEMO-001 &amp; male &amp; 71.1 &amp; 0.922 &amp; 3.68 &amp; 23 \\\\"  
+#&gt; [14] "13-DEMO-001 &amp; female &amp; 67.0 &amp; 0.988 &amp; 3.45 &amp; 17 \\\\"
+#&gt; [15] "\\hline"                                             
+#&gt; [16] "\\end{tabular}"                                      
+#&gt; [17] "\\begin{tablenotes}[flushleft]"                      
+#&gt; [18] "\\item ALB: albumin (g/dL)"                          
+#&gt; [19] "\\end{tablenotes}"                                   
+#&gt; [20] "\\end{threeparttable}"                               
+#&gt; [21] "}"                                                   
+#&gt; attr(,"class")
+#&gt; [1] "stable"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

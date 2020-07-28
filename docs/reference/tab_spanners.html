@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce pt_opts object to a list — as.list.pt_opts • pmtables</title>
+<title>Create groups of columns with spanners — tab_spanners • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Coerce pt_opts object to a list — as.list.pt_opts" />
-<meta property="og:description" content="Coerce pt_opts object to a list" />
+<meta property="og:title" content="Create groups of columns with spanners — tab_spanners" />
+<meta property="og:description" content="Create groups of columns with spanners" />
 
 
 
@@ -139,24 +139,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce pt_opts object to a list</h1>
+    <h1>Create groups of columns with spanners</h1>
     
-    <div class="hidden name"><code>as.list.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>tab_spanners.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Coerce pt_opts object to a list</p>
+    <p>Create groups of columns with spanners</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for pt_opts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>tab_spanners</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>span_split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <th>data</th>
+      <td><p>a data.frame to convert to tabular table; see also <code><a href='st_new.html'>st_new()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>a character vector of column names</p></td>
+    </tr>
+    <tr>
+      <th>span</th>
+      <td><p>a list of objects created with <code><a href='colgroup.html'>colgroup()</a></code>; ; see also <code><a href='st_span.html'>st_span()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>span_split</th>
+      <td><p>not implemented at this time; ; see also <code><a href='st_span_split.html'>st_span_split()</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -165,8 +176,6 @@
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>pt_opts</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

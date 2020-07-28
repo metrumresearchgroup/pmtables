@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9041</span>
       </span>
     </div>
 
@@ -148,9 +148,9 @@
     <p>Prime a data frame for inclusion into a latex table</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tab_prime</span>(<span class='no'>data</span>, <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>, <span class='kw'>chrs</span> <span class='kw'>=</span> <span class='st'>"_"</span>)
+    <pre class="usage"><span class='fu'>tab_prime</span>(<span class='no'>data</span>, <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>)
 
-<span class='fu'>tab_escape</span>(<span class='no'>string</span>, <span class='kw'>chrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pmtables.san"</span>, <span class='st'>"_"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>tab_escape</span>(<span class='no'>string</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pmtables.esc"</span>, <span class='st'>"_"</span>), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,12 +164,12 @@
       <td><p>a function to sanitize data frame contents</p></td>
     </tr>
     <tr>
-      <th>chrs</th>
-      <td><p>a character vector of strings to escape</p></td>
-    </tr>
-    <tr>
       <th>string</th>
       <td><p>data to sanitize</p></td>
+    </tr>
+    <tr>
+      <th>esc</th>
+      <td><p>a character vector of strings to escape</p></td>
     </tr>
     <tr>
       <th>...</th>

@@ -17,3 +17,4 @@
 and `output.file.label`, respectively
 - Dropped `col_space`, `row_space` and `fontsize` arguments to `stable()`; they should be set 
 with a call to `tab_size`
+- Add `st_sizes()` to set `sizes` argument to `stable()`

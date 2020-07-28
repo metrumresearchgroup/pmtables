@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce pt_opts object to a list — as.list.pt_opts • pmtables</title>
+<title>Insert hlines into table — tab_hlines • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Coerce pt_opts object to a list — as.list.pt_opts" />
-<meta property="og:description" content="Coerce pt_opts object to a list" />
+<meta property="og:title" content="Insert hlines into table — tab_hlines" />
+<meta property="og:description" content="Insert hlines into table" />
 
 
 
@@ -139,24 +139,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce pt_opts object to a list</h1>
+    <h1>Insert hlines into table</h1>
     
-    <div class="hidden name"><code>as.list.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>tab_hlines.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Coerce pt_opts object to a list</p>
+    <p>Insert hlines into table</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for pt_opts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>tab_hlines</span>(<span class='no'>data</span>, <span class='kw'>hline_at</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hline_from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <th>data</th>
+      <td><p>the table data frame</p></td>
+    </tr>
+    <tr>
+      <th>hline_at</th>
+      <td><p>logical or integer vector specifying rows above which an
+<code>\hline</code> will be placed; see also <code><a href='st_hline.html'>st_hline()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>hline_from</th>
+      <td><p>a character column name from which to separate the table
+with <code>\hline</code>; non-duplicated values of <code>hline_from</code> will be used to create
+the split; see also <code><a href='st_hline.html'>st_hline()</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -165,8 +175,6 @@
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>pt_opts</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

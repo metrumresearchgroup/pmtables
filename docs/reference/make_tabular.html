@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce pt_opts object to a list — as.list.pt_opts • pmtables</title>
+<title>Create tabular environment from data frame — make_tabular • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Coerce pt_opts object to a list — as.list.pt_opts" />
-<meta property="og:description" content="Coerce pt_opts object to a list" />
+<meta property="og:title" content="Create tabular environment from data frame — make_tabular" />
+<meta property="og:description" content="Create tabular environment from data frame" />
 
 
 
@@ -139,24 +139,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce pt_opts object to a list</h1>
+    <h1>Create tabular environment from data frame</h1>
     
-    <div class="hidden name"><code>as.list.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>make_tabular.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Coerce pt_opts object to a list</p>
+    <p>Create tabular environment from data frame</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for pt_opts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>make_tabular</span>(<span class='no'>data</span>, <span class='kw'>prime_fun</span> <span class='kw'>=</span> <span class='no'>tab_prime</span>, <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <th>data</th>
+      <td><p>a data.frame</p></td>
+    </tr>
+    <tr>
+      <th>prime_fun</th>
+      <td><p>a function to prime the data frame for rendering in TeX</p></td>
+    </tr>
+    <tr>
+      <th>escape_fun</th>
+      <td><p>a function to escape characters that have special meaning
+in TeX</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -165,8 +173,6 @@
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>pt_opts</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

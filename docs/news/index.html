@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9041</span>
       </span>
     </div>
 
@@ -150,6 +150,20 @@
 <li>Add <code>duplicates_ok</code> argument to rowpanel</li>
 <li>Error if duplicate panel names found and <code>duplicates_ok</code> is FALSE</li>
 <li>Refactor how panel groupings are determined - non-repeating values rather than unique</li>
+<li>Added debug_data argument to stable; this adds an environment to the output with some data that underlies the table; the environment can be accessed with <code>get_debug_data()</code>
+</li>
+<li>Added complete series of <code>st_*</code> functions that can be used in a pipeline to set arguments for <code><a href="../reference/stable.html">stable()</a></code>; see <code>inst/demo-pipe.pdf</code>
+</li>
+<li>
+<code>st2doc</code> will render multiple page document when a list of tables is passed in as text</li>
+<li>Changed <code>stable</code> argument from <code>bold_cols</code> to <code>col_bold</code>
+</li>
+<li>Column names are only rendered with bold font when requested using <code>col_bold</code> argument</li>
+<li>The prefixes for <code>r_file</code> and <code>output_file</code> are only settable with options <code>r.file.label</code> and <code>output.file.label</code>, respectively</li>
+<li>Dropped <code>col_space</code>, <code>row_space</code> and <code>fontsize</code> arguments to <code><a href="../reference/stable.html">stable()</a></code>; they should be set with a call to <code>tab_size</code>
+</li>
+<li>Add <code><a href="../reference/st_sizes.html">st_sizes()</a></code> to set <code>sizes</code> argument to <code><a href="../reference/stable.html">stable()</a></code>
+</li>
 </ul>
 </div>
   </div>
