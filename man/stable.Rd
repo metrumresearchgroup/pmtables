@@ -9,7 +9,6 @@ stable(
   align = cols_left(),
   panel = rowpanel(col = NULL),
   units = NULL,
-  clear_reps = NULL,
   notes = NULL,
   sizes = tab_size(),
   sumrows = NULL,
@@ -34,9 +33,6 @@ be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_
 
 \item{units}{a named list with unit information; names should correspond to
 columns in the data frame}
-
-\item{clear_reps}{character vector of column names where duplicate values will
-be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_reps]{st_clear_reps()}}}
 
 \item{notes}{a character vector of notes to include at the foot of the table;
 use \code{r_file} and \code{output_file} for source code and output file annotations;
@@ -71,7 +67,7 @@ data}
 as an attribute called \code{stable_data}; see \code{\link[=get_stable_data]{get_stable_data()}}}
 
 \item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=tab_spanners]{tab_spanners()}},
-\code{\link[=tab_notes]{tab_notes()}}, and \code{\link[=make_tabular]{make_tabular()}}}
+\code{\link[=tab_notes]{tab_notes()}}, \code{\link[=tab_clear_reps]{tab_clear_reps()}} and \code{\link[=make_tabular]{make_tabular()}}}
 }
 \description{
 Create tabular output from an R data frame

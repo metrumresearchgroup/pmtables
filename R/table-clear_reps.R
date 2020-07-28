@@ -1,4 +1,11 @@
-do_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL)) {
+#' Clear repeated values in a column
+#'
+#' @inheritParams stable
+#' @param clear_reps character vector of column names where duplicate values will
+#' be made blank (overwritten with `""`); ; see also [st_clear_reps()]
+#'
+#' @export
+tab_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL)) {
   if(is.null(clear_reps)) return(data)
   assert_that(is.data.frame(data))
   dedup <- reps_to_clear(data, clear_reps, panel)

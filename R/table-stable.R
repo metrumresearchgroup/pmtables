@@ -24,8 +24,6 @@ triage_data <- function(data) {
 #' be created from unique values of `data[[panel]]`; see also [st_panel()]
 #' @param units a named list with unit information; names should correspond to
 #' columns in the data frame
-#' @param clear_reps character vector of column names where duplicate values will
-#' be made blank (overwritten with `""`); ; see also [st_clear_reps()]
 #' @param notes a character vector of notes to include at the foot of the table;
 #' use `r_file` and `output_file` for source code and output file annotations;
 #' see also [st_notes()]
@@ -49,7 +47,7 @@ triage_data <- function(data) {
 #' @param inspect if `TRUE`, extra information is attached to the output
 #' as an attribute called `stable_data`; see [get_stable_data()]
 #' @param ... passed to other functions: [tab_hlines()], [tab_spanners()],
-#' [tab_notes()], and [make_tabular()]
+#' [tab_notes()], [tab_clear_reps()] and [make_tabular()]
 #'
 #' @examples
 #' data <- ptdata()
@@ -65,7 +63,6 @@ stable <- function(data,
                    align = cols_left(),
                    panel = rowpanel(col = NULL),
                    units = NULL,
-                   clear_reps = NULL,
                    notes = NULL,
                    sizes = tab_size(),
                    sumrows = NULL,
@@ -103,7 +100,7 @@ stable <- function(data,
 
   add_hlines <- tab_hlines(data, ...)
 
-  data <- do_clear_reps(data, clear_reps, panel)
+  data <- tab_clear_reps(data, panel = panel, ...)
 
   do_panel <- FALSE
   if(!panel$null) {
