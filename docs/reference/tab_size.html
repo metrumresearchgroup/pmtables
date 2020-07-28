@@ -148,7 +148,7 @@
     <p>Adjustments for row padding, column padding, and font size</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tab_size</span>(<span class='kw'>row</span> <span class='kw'>=</span> <span class='fl'>1.4</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>tab_size</span>(<span class='kw'>row</span> <span class='kw'>=</span> <span class='fl'>1.4</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lt_row</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,6 +165,11 @@
     <tr>
       <th>font</th>
       <td><p>for the table (e.g. <code>normalsize</code>, <code>small</code>, <code>scriptsize</code>, etc)</p></td>
+    </tr>
+    <tr>
+      <th>lt_row</th>
+      <td><p>extra row space for longtables; this is used instead of <code>row_space</code>
+when rendering longtable</p></td>
     </tr>
     </table>
 
