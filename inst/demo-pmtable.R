@@ -44,18 +44,17 @@ d <- filter(data, SEQ==1)
 x <- pt_data_inventory(
   data,
   by = vars(Study = "STUDYf"),
-  panel = vars("Endpoint" = "SEQf"),
+  panel = as.panel("SEQf", prefix = "Endpoint: "),
   stacked = TRUE
 ) %>% as_stable(
-  wrapw = TRUE, r_file = "test.R", output_file = "test.tex",
-  panel = rowpanel(c("Endpoint:" = "SEQf"), prefix_name = TRUE)
+  wrapw = TRUE, r_file = "test.R", output_file = "test.tex"
 )
 
 #+ include = FALSE
 out <- pt_data_inventory(
   data,
   by = vars(Study = "STUDYf"),
-  panel = vars("Endpoint" = "SEQf"),
+  panel = as.panel("SEQf"),
   stacked = TRUE
 )
 
@@ -97,10 +96,10 @@ assert_that(all(out$data$Percent.OBS==j$POBS))
 pt_data_inventory(
   d,
   by = vars(Study = "STUDYf"),
-  panel = vars(Race = ASIANf)
+  panel = "ASIANf"
 ) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
-#+
+#+ include = FALSE
 out <- pt_data_inventory(
   d,
   by = vars(Study = "STUDYf"),
@@ -261,7 +260,7 @@ identical(comp$ans, comp$out)
 out <- pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf,Sex = SEXf,"Race group" = ASIANf),
-  panel = c(Study = "STUDYf")) %>%
+  panel = as.panel("STUDYf", prefix = "Study: ")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 
@@ -269,7 +268,7 @@ out <- pt_cat_wide(
 out <- pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf,Sex = SEXf,"Race group" = ASIANf),
-  panel = c(Study = "STUDYf")) %>%
+  panel = as.panel("STUDYf", prefix = "Study: ")) %>%
   as_stable(inspect=TRUE) %>% get_stable_data()
 as.data.frame(out$data)
 
@@ -295,7 +294,7 @@ pt_cat_wide(
 pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
-  panel = c(Study = "STUDYf"),
+  panel = as.panel("STUDYf", prefix = "Study: "),
   by = c("RF Group" = "RFf")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 

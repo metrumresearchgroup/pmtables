@@ -25,6 +25,7 @@ as_stable.pmtable <- function(x, ..., wrap = FALSE, wrapw = FALSE) {
   x <- c(x,up)
   valid <- intersect(names(x),stable_argument_names())
   x <- x[valid]
+
   ans <- do.call(stable, args = x)
   if(isTRUE(wrap) || isTRUE(wrapw)) {
     ans <- pt_wrap(ans)

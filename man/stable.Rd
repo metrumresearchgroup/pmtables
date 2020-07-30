@@ -2,9 +2,13 @@
 % Please edit documentation in R/table-stable.R
 \name{stable}
 \alias{stable}
+\alias{stable.data.frame}
+\alias{stable.pmtable}
 \title{Create tabular output from an R data frame}
 \usage{
-stable(
+stable(data, ...)
+
+\method{stable}{data.frame}(
   data,
   align = cols_left(),
   panel = rowpanel(col = NULL),
@@ -17,9 +21,14 @@ stable(
   inspect = FALSE,
   ...
 )
+
+\method{stable}{pmtable}(data, ...)
 }
 \arguments{
 \item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
+
+\item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=tab_spanners]{tab_spanners()}},
+\code{\link[=tab_notes]{tab_notes()}}, \code{\link[=tab_cols]{tab_cols()}}, \code{\link[=tab_clear_reps]{tab_clear_reps()}} and \code{\link[=make_tabular]{make_tabular()}}}
 
 \item{align}{an alignment object created by \code{\link[=cols_align]{cols_align()}}, \code{\link[=cols_left]{cols_left()}},
 \code{\link[=cols_center]{cols_center()}}, or \code{\link[=cols_right]{cols_right()}}; see also \code{\link[=st_align]{st_align()}}}
@@ -47,9 +56,6 @@ data}
 
 \item{inspect}{if \code{TRUE}, extra information is attached to the output
 as an attribute called \code{stable_data}; see \code{\link[=get_stable_data]{get_stable_data()}}}
-
-\item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=tab_spanners]{tab_spanners()}},
-\code{\link[=tab_notes]{tab_notes()}}, \code{\link[=tab_cols]{tab_cols()}}, \code{\link[=tab_clear_reps]{tab_clear_reps()}} and \code{\link[=make_tabular]{make_tabular()}}}
 }
 \description{
 Create tabular output from an R data frame

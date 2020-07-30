@@ -20,3 +20,9 @@ with a call to `tab_size`
 - Add `st_sizes()` to set `sizes` argument to `stable()`
 - Refactor `stable()` function in order to reduce cyclomatic complexity and shorten overall function
 length in response to brief review and comment by TS representative
+- Make stable a generic function; methods for data.frame and pmtable
+- All pmtables functions now accept `panel` argument as a rowgroup object
+- Add `as.panel()` function for constructing rowgroup objects
+- For pmtables functions: when `panel` is passed with an alternate name, 
+the name is is used to set the prefix
+

@@ -1,5 +1,7 @@
 #' Create panel object
 #'
+#' Objects may also be coerced with [as.panel()]
+#'
 #' @param col name of column to be used for creating panels
 #' @param prefix to be added to each panel title
 #' @param prefix_name `logical`; if `TRUE`, then the prefix will be derived by
@@ -8,6 +10,9 @@
 #' the prefix won't be applied
 #' @param duplicates_ok if `FALSE`, an error is generated if more than one
 #' panel will have the same header
+#'
+#' @seealso [as.panel()]
+#'
 #' @export
 rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
                      prefix_skip = NULL, duplicates_ok = FALSE) {
@@ -19,6 +24,7 @@ rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
   } else {
     col <- new_names(col)
   }
+  prefix <- ifelse(is.null(prefix), "", prefix)
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok)
@@ -30,6 +36,33 @@ rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
 #' @param x an object to test
 #' @export
 is.rowpanel <- function(x) inherits(x,"rowpanel")
+
+#' Coerce object to rowpanel
+#'
+#' @param x object to coerce
+#' @param ... arguments passed to [rowpanel()]
+#'
+#' @examples
+#' as.panel("STUDY", prefix = "Study: ")
+#'
+#' @export
+as.panel <- function(x, ...) UseMethod("as.panel")
+
+#' @rdname as.panel
+#' @export
+as.panel.rowpanel <- function(x, ...) x
+
+#' @rdname as.panel
+#' @export
+as.panel.default <- function(x, ...) {
+  assert_that(length(x)==1)
+  col <- new_names(x)
+  ans <- rowpanel(unname(col), ...)
+  if(col != names(col)) {
+    ans$prefix <- names(col)
+  }
+  ans
+}
 
 panel_by <- function(data, x) {
   if(x$null) {

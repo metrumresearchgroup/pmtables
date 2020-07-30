@@ -101,6 +101,9 @@ pt_cont_wide <- function(data, cols,
                          panel.label.add = pt_opts$panel.label.add) {
 
   has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
+
   has_by <- !missing(by)
 
   tst <- fun(rnorm(10))
@@ -129,15 +132,14 @@ pt_cont_wide <- function(data, cols,
   if(has_panel || has_by) {
     all_summary <- TRUE
     ans2 <- cont_table_data(
-      data=data,
-      cols=cols,
-      by=".total",
+      data = data,
+      cols = cols,
+      by = ".total",
       panel = ".total",
       fun = fun,
       digits = digits,
       wide = TRUE
     )
-    #ans2 <- mutate(ans2, outer := all_name)
 
     if(has_panel) {
       ans2 <- mutate(ans2, !!sym(panel) := all_name)
@@ -158,13 +160,13 @@ pt_cont_wide <- function(data, cols,
     names(ans)[where] <- names(by)
   }
 
-
   ans[["outer"]] <- NULL
   ans[[".total"]] <- NULL
 
   .panel <- rowpanel(NULL)
   if(has_panel) {
-    .panel <- rowpanel(panel)
+    .panel <- panel_data
+    .panel$prefix_skip <- all_name
   }
 
   out <- list(
@@ -211,11 +213,13 @@ pt_cont_long <- function(data,
                          units = NULL,
                          digits = pt_opts$digits,
                          summarize_all = TRUE,
-                         all_name="All data",
+                         all_name = "All data",
                          fun = df_sum_2,
                          panel.label.add = pt_opts$panel.label.add) {
 
   has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
 
   by <- panel
   summarize_all <- summarize_all & by != ".total"
@@ -251,7 +255,6 @@ pt_cont_long <- function(data,
     ans <- bind_rows(ans,ans2)
   }
 
-
   .name <- as.character(ans$name)
   ans <- mutate(ans, name = as.character(names(cols)[.data[["name"]]]))
 
@@ -279,7 +282,10 @@ pt_cont_long <- function(data,
   ans[[".total"]] <- NULL
 
   .panel <- rowpanel(NULL)
-  if(has_panel) .panel <- rowpanel(panel)
+  if(has_panel) {
+    .panel <- panel_data
+    .panel$prefix_skip <- all_name
+  }
 
   out <- list(
     data = ans,

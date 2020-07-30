@@ -7,14 +7,16 @@ hl <- "\\hline"
 note_space <- 0.1
 
 stable_argument_names <- function() {
-  c(
-    names(formals(stable)),
-    names(formals(tab_hlines)),
-    names(formals(tab_spanners)),
-    names(formals(tab_notes)),
-    names(formals(tab_clear_reps)),
-    names(formals(make_tabular)),
-    names(formals(tab_cols))
+  unique(
+    c(
+      names(formals(stable.data.frame)),
+      names(formals(tab_hlines)),
+      names(formals(tab_spanners)),
+      names(formals(tab_notes)),
+      names(formals(tab_clear_reps)),
+      names(formals(make_tabular)),
+      names(formals(tab_cols))
+    )
   )
 }
 
@@ -60,17 +62,21 @@ triage_data <- function(data) {
 #' c <- stable(data, span = colgroup("Covariates", STUDYf:ALB))
 #'
 #' @export
-stable <- function(data,
-                   align = cols_left(),
-                   panel = rowpanel(col = NULL),
-                   span = NULL,
-                   notes = NULL,
-                   sumrows = NULL,
-                   units = NULL,
-                   sizes = tab_size(),
-                   escape_fun = tab_escape,
-                   inspect = FALSE,
-                   ... ) {
+stable <- function(data, ...) UseMethod("stable")
+
+#' @rdname stable
+#' @export
+stable.data.frame <- function(data,
+                              align = cols_left(),
+                              panel = rowpanel(col = NULL),
+                              span = NULL,
+                              notes = NULL,
+                              sumrows = NULL,
+                              units = NULL,
+                              sizes = tab_size(),
+                              escape_fun = tab_escape,
+                              inspect = FALSE,
+                              ... ) {
 
   data <- triage_data(data)
 
@@ -182,3 +188,7 @@ stable <- function(data,
 
   out
 }
+
+#' @rdname stable
+#' @export
+stable.pmtable <- function(data, ...) as_stable(data, ...)

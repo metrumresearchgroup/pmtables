@@ -149,12 +149,14 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
 #' @rdname pt_cat_long
 #' @export
 pt_cat_wide <- function(data,cols, by = ".total", panel = by,
-                        table = NULL, all_name="All data",
+                        table = NULL, all_name = "All data",
                         summarize_all = TRUE,
                         panel.label.add = pt_opts$panel.label_add) {
 
   has_by <- !missing(by)
   has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
 
   cols <- new_names(cols, table)
   by <- new_names(by, table)
@@ -200,11 +202,10 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   ans[[".total"]] <- NULL
 
+  .panel <- rowpanel(NULL)
   if(has_panel) {
-    names(ans)[names(ans)==panel] <- names(panel)[1]
-    .panel <- rowpanel(names(panel)[1])
-  } else {
-    .panel <- rowpanel(NULL)
+    .panel <- panel_data
+    .panel$prefix_skip <- all_name
   }
 
   if(has_by) {

@@ -254,6 +254,9 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               no_bql = FALSE, ...) {
 
   has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
+
   has_by <- !missing(by)
 
   # TODO
@@ -338,14 +341,22 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   if(drop_miss) notes <- notes[-3]
 
   .sumrows <- NULL
+
+  .panel <- rowpanel(NULL)
+  if(has_panel) {
+    .panel <- panel_data
+    .panel$prefix_skip <- "(Grand|Group) Total"
+  }
+
   if(panel==by) panel <- NULL
+
   if(!stacked & isTRUE(has_by)) {
     .sumrows <- sumrow(out[,1]==total_name, bold = TRUE)
   }
 
   out <- list(
     data = out,
-    panel = rowpanel(col = panel, prefix =  NULL),
+    panel = .panel,
     col_rename = by,
     span_split = colsplit(sep = "."),
     align = cols_center(.outer = 'l'),

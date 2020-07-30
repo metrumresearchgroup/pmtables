@@ -43,6 +43,13 @@ new_names.quosures <- function(x,table=NULL,chr=FALSE,...) {
   new_names_update_table(ans,table)
 }
 
+#' @export
+new_names.rowpanel <- function(x,...) {
+  out <- x$col
+  names(out) <- x$col
+  out
+}
+
 new_names_update_table <- function(x,table=NULL,...) {
   if(is.null(table)) return(x)
   to_up <- intersect(x,names(table))
@@ -51,4 +58,10 @@ new_names_update_table <- function(x,table=NULL,...) {
   new_name <- unlist(table[to_up],use.names=FALSE)
   names(x)[which(x %in% to_up)] <- new_name
   x
+}
+
+panel_to_prefix <- function(x) {
+  x <- x[1]
+  if(identical(x,names(x)) || is.null(names(x))) return("")
+  return(names(x))
 }

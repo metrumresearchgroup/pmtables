@@ -32,5 +32,8 @@ panel will have the same header}
 \item{x}{an object to test}
 }
 \description{
-Create panel object
+Objects may also be coerced with \code{\link[=as.panel]{as.panel()}}
+}
+\seealso{
+\code{\link[=as.panel]{as.panel()}}
 }
