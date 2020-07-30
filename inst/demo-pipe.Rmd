@@ -209,7 +209,7 @@ data %>%
 data %>% 
   st_new() %>% 
   st_left(.c = "WT,AGE,CRCL") %>% 
-  st_span("In fonal model", WT:CRCL) %>% 
+  st_span("In final model", WT:CRCL) %>% 
   st_make(.cat = TRUE)
 
 ```
@@ -226,9 +226,6 @@ data %>%
 
 data %>% 
   st_new() %>% 
-  st_panel("STUDY", prefix = "Study ") %>% 
-  st_left(.c = "WT,AGE,CRCL") %>% 
-  st_files("foo.R", "foo.tex") %>% 
   st_span("Meh", DOSE:WT) %>% 
   st_span("Hrm", AGE:CRCL) %>%
   st_span("Huh", ALB:SCR) %>% 
@@ -251,10 +248,7 @@ head(dotdata, n=2)
 ```{r,results = 'asis'}
 dotdata %>% 
   st_new() %>%
-  st_panel("STUDY", prefix = "Study") %>% 
   st_span_split(sep = '.') %>%
-  st_left(.c = "WT,AGE,CRCL") %>% 
-  st_files("foo.R", "foo.tex") %>% 
   st_make(.cat = TRUE)
 ```
 
@@ -294,11 +288,6 @@ df.total
 
 ```{r, results = "asis"}
 st_new(df.total) %>% 
-  st_args(units = ys_get_unit(spec, parens = TRUE)) %>% 
-  st_center(STUDY = 'l') %>% 
-  st_files("foo.R", "output.tex") %>% 
-  st_rename("Protocol no." = "STUDY") %>% 
-  st_notes("WT: weight; CRCL: creatinine clearance") %>% 
   st_sumrow(.$data$STUDY=="all", label = "All studies", bold = TRUE) %>% 
   st_make(.cat = TRUE)
 ```

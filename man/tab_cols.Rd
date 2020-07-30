@@ -11,7 +11,7 @@ tab_cols(
   col_blank = NULL,
   col_split = NULL,
   col_bold = FALSE,
-  units = NULL,
+  pull_back = NULL,
   ...
 )
 }
@@ -34,9 +34,6 @@ used to remove the tag; for example, a column named \code{x.WT} would be renamed
 \code{WT} if \code{col_split} was set to \code{.}}
 
 \item{col_bold}{if \code{TRUE}, table column names are rendered with bold font}
-
-\item{units}{a named list with unit information; names should correspond to
-columns in the data frame}
 
 \item{...}{not used}
 }

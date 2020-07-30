@@ -36,6 +36,8 @@ data:
 demo-doc:
 	Rscript -e 'rmarkdown::render("inst/demo-table.Rmd", clean=TRUE)'
 	Rscript -e 'rmarkdown::render("inst/demo-pmtable.R", clean=TRUE)'
+	Rscript -e 'rmarkdown::render("inst/demo-pipe.Rmd", clean=TRUE)'
+	Rscript -e 'rmarkdown::render("inst/demo-longtable.Rmd", clean=TRUE)'
 
 quick:
 	make doc

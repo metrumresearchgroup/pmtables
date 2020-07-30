@@ -17,8 +17,9 @@
 #' @param ... not used
 #'
 #' @export
-tab_cols <- function(cols, col_replace = NULL, col_rename = NULL, col_blank = NULL,
-                     col_split = NULL, col_bold = FALSE, units = NULL, ...) {
+tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
+                     col_blank = NULL, col_split = NULL, col_bold = FALSE,
+                     pull_back = NULL, ...) {
   cols0 <- cols
 
   # Work on columns and column names
@@ -39,7 +40,70 @@ tab_cols <- function(cols, col_replace = NULL, col_rename = NULL, col_blank = NU
     split_cols <- str_split(cols_new, fixed(col_split), n = 2)
     cols_new <- map_chr(split_cols, last)
   }
-  cols_tex <- form_tex_cols(cols_new, col_bold, units)
+
+  cols_tex <- form_tex_cols(cols_new, col_bold, pull_back = pull_back)
+
   ans <- list(tex = cols_tex, new = cols_new, cols = cols)
   structure(ans, class = "from_tab_cols")
 }
+
+form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
+                      units = NULL) {
+  if(!is.null(blank)) {
+    blank <- unname(new_names(blank))
+    bl <- cols %in% blank
+    cols[bl] <- rep("", sum(bl))
+  }
+
+  if(!is.null(relabel)) {
+    relabel <- new_names(relabel)
+    relabel <- relabel[relabel %in% cols]
+    newi <- match(cols, relabel)
+    loc <- which(!is.na(newi))
+    cols[loc] <- names(relabel)
+    cols <- unname(cols)
+  }
+
+  if(isTRUE(bold)) cols <- bold_each(cols)
+  cols <- paste0(cols, collapse = " & ")
+  cols <- paste0(cols, " \\\\")
+  cols <- paste0("", cols)
+  if(is.character(units) && any(nchar(units) > 0)) {
+    cols <- paste0(cols, "[-0.5em]")
+    cols <- c(cols, units)
+  }
+  cols
+}
+
+rename_cols <- function(cols, relabel = NULL, blank = NULL) {
+
+  if(!is.null(blank)) {
+    blank <- unname(new_names(blank))
+    bl <- cols %in% blank
+    cols[bl] <- rep("", sum(bl))
+  }
+
+  if(!is.null(relabel)) {
+    relabel <- new_names(relabel)
+    relabel <- relabel[relabel %in% cols]
+    newi <- match(cols, relabel)
+    loc <- which(!is.na(newi))
+    cols[loc] <- names(relabel)
+    cols <- unname(cols)
+  }
+
+  cols
+}
+
+form_tex_cols <- function(cols, bold = FALSE, pull_back = FALSE) {
+  if(isTRUE(bold)) cols <- bold_each(cols)
+  cols <- paste0(cols, collapse = " & ")
+  cols <- paste0(cols, " \\\\")
+  cols <- paste0("", cols)
+  if(isTRUE(pull_back)) {
+    unit_back <- getOption("stable.unit.back", 0.6)
+    cols <- paste0(cols, " [-", unit_back, "em]")
+  }
+  cols
+}
+

@@ -115,9 +115,10 @@ stable <- function(data,
 
   # Units
   units_tex <- form_unit(units,cols)
+  showing_units <- nchar(units_tex) > 0
 
   # Format cols
-  cols_data <- tab_cols(cols, ..., units = units)
+  cols_data <- tab_cols(cols, ..., pull_back = showing_units)
   assert_that(inherits(cols_data, "from_tab_cols"))
 
   # Column alignments
