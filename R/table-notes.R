@@ -15,7 +15,8 @@
 #'@export
 tab_notes <- function(notes, escape_fun = tab_escape,
                       note_config = noteconf(type = "tpt"),
-                      r_file = NULL, output_file = NULL, ...) {
+                      r_file = getOption("mrg.script", NULL),
+                      output_file = NULL, ...) {
 
   assert_that(is.noteconfig(note_config))
 

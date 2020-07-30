@@ -233,7 +233,8 @@ st_right <- function(x,...) {
 #' ob %>% st_files(r = "foo.R", output = "foo.tex") %>% st_make()
 #'
 #' @export
-st_files <- function(x, r = NULL, output = NULL, esc = NULL) {
+st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
+                     esc = NULL) {
   assert_that(is.stobject(x))
   if(!missing(r)) {
     if(!is.null(esc)) r <- tab_escape(r, esc = esc)

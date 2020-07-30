@@ -26,4 +26,6 @@ length in response to brief review and comment by TS representative
 - For pmtables functions: when `panel` is passed with an alternate name, 
 the name is is used to set the prefix
 - Fixed bug where column names were getting sanitized before rename happened #62
+- Pick up option `pmtables.dir` to set output directory for `stable_save()`
+- Pick up option `mrg.script` to set script name in `st_files()` and `tab_notes()`
 

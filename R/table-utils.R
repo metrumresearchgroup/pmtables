@@ -5,7 +5,7 @@
 #' @param dir the directory where the file is to be saved
 #'
 #' @export
-stable_save <- function(x, file = attr(x, "stable_file"), dir = NULL) {
+stable_save <- function(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir")) {
 
   if(!inherits(x, "stable")) {
     stop(

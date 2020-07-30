@@ -8,7 +8,7 @@ tab_notes(
   notes,
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
-  r_file = NULL,
+  r_file = getOption("mrg.script", NULL),
   output_file = NULL,
   ...
 )

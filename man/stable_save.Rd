@@ -4,7 +4,7 @@
 \alias{stable_save}
 \title{Save output from stable}
 \usage{
-stable_save(x, file = attr(x, "stable_file"), dir = NULL)
+stable_save(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir"))
 }
 \arguments{
 \item{x}{a table formatted with \code{\link[=stable]{stable()}}}

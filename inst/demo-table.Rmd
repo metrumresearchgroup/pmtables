@@ -193,7 +193,7 @@ stable(
 ```{r,results = 'asis'}
 stable(
   data,
-  panel = vars("Study number:" = STUDY)
+  panel = as.panel("STUDY", prefix = "Study number: "),
 ) %>% pt_wrap(stdout())
 ```
 
@@ -331,7 +331,7 @@ long %>%
     notes = "The results look great!",
     col_rename = c("Sex" = "SEXf", "Study" = "STUDYf"),
     r_file = "foo.R", output_file = "../deliv/table/output.tex",
-    note_config = noteconf(type = "minipage", width = 0.5,table_skip = 0.2)
+    note_config = noteconf(type = "minipage", width = 0.5, table_skip = 0.2)
   ) %>% as.character() %>% writeLines
 
 ```
@@ -346,7 +346,7 @@ long %>%
 - Where's my glasses?
 
 ```{r,results = 'asis'}
-data %>% stable(fontsize = "tiny") %>% pt_wrap(stdout())
+data %>% stable(sizes = tab_size(font = "tiny")) %>% pt_wrap(stdout())
 ```
 
 
@@ -356,13 +356,13 @@ data %>% stable(fontsize = "tiny") %>% pt_wrap(stdout())
 
 ```{r,results = 'asis'}
 data %>% slice(1:3) %>% stable() %>% pt_wrap(stdout())
-data %>% slice(1:3) %>% stable(row_space = 0.9) %>% pt_wrap(stdout())
-data %>% slice(1:3) %>% stable(row_space = 2) %>% pt_wrap(stdout())
+data %>% slice(1:3) %>% stable(sizes = tab_size(row = 0.9)) %>% pt_wrap(stdout())
+data %>% slice(1:3) %>% stable(sizes = tab_size(row = 2))   %>% pt_wrap(stdout())
 ```
 \clearpage
 
 # Col space
 
 ```{r,results = 'asis'}
-data %>% stable(col_space = 20) %>% pt_wrap(stdout())
+data %>% stable(sizes = tab_size(col = 20)) %>% pt_wrap(stdout())
 ```

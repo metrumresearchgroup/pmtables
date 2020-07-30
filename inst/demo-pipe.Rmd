@@ -313,7 +313,7 @@ data %>% st_new() %>% st_sizes(font = "tiny") %>% st_make(.cat = TRUE)
 sl <- data %>% slice(1:3)
 sl %>% st_new() %>%                   st_make(.cat = TRUE)
 sl %>% st_new() %>% st_sizes(row = 0.9) %>% st_make(.cat = TRUE)
-sl %>% st_new() %>% st_sizes(col = 2  ) %>% st_make(.cat = TRUE)
+sl %>% st_new() %>% st_sizes(row = 2  ) %>% st_make(.cat = TRUE)
 ```
 \clearpage
 
