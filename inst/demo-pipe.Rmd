@@ -229,7 +229,7 @@ data %>%
   st_span("Meh", DOSE:WT) %>% 
   st_span("Hrm", AGE:CRCL) %>%
   st_span("Huh", ALB:SCR) %>% 
-  st_span("Exper opinion", CRCL:SCR, level = 2) %>% 
+  st_span("Expert opinion", CRCL:SCR, level = 2) %>% 
   st_make(.cat = TRUE)
 ```
 

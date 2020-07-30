@@ -80,8 +80,6 @@ stable(
 ```{r,results = 'asis'}
 stable(
   data, 
-  r_file = "foo.R", 
-  output_file = "foo.tex", 
   note_config = noteconf(type = "minipage", width = 0.65),
   notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
 ) %>% pt_wrap(stdout())
@@ -99,7 +97,8 @@ stable(
 
 ```{r,results = 'asis'}
 data %>% 
-  stable(align = cols_center(STUDY = 'l', .r = "DOSE,SCR")) %>% pt_wrap(stdout())
+  stable(align = cols_center(STUDY = 'l', .r = "DOSE,SCR")) %>%
+  pt_wrap(stdout())
 ```
 
 
@@ -115,7 +114,6 @@ units <- ys_get_unit(spec, parens = TRUE)
 
 stable(
   data,
-  align = cols_center(STUDY = 'l', .r = "DOSE,SCR"),
   units = units,
 ) %>% pt_wrap(stdout())
 ```
@@ -181,7 +179,6 @@ stable(
 ```{r,results = 'asis'}
 stable(
   data,
-  hline_from = "STUDY",
   clear_reps = "STUDY",
 ) %>% pt_wrap(stdout())
 ```
@@ -196,7 +193,6 @@ stable(
 ```{r,results = 'asis'}
 stable(
   data,
-  align = cols_center(DOSE = "l", SCR = "r"), 
   panel = vars("Study number:" = STUDY)
 ) %>% pt_wrap(stdout())
 ```
@@ -210,7 +206,6 @@ stable(
 ```{r,results = 'asis'}
 stable(
   data,
-  align = cols_left(.c = "WT,AGE,CRCL"),
   span = colgroup("In final model", WT:CRCL),
 ) %>% pt_wrap(stdout())
 ```
@@ -227,10 +222,6 @@ stable(
 
 stable(
   data,
-  panel  = list(Study = "STUDY"),
-  align = cols_left(.c = "WT,AGE,CRCL"),
-  units = ys_get_unit(spec, parens = TRUE),
-  r_file = "foo.R", output_file = "foo.tex",
   span = list(
     colgroup("Meh", DOSE:WT),
     colgroup("Hrm", AGE:CRCL), 
@@ -255,10 +246,7 @@ head(dotdata, n=2)
 ```{r,results = 'asis'}
 stable(
   dotdata,
-  panel  = c(Study = "STUDY"),
   span_split = colsplit(sep = '.'),
-  align = cols_left(.c = "WT,AGE,CRCL"),
-  r_file = "foo.R", output_file = "foo.tex"
 ) %>% pt_wrap(stdout())
 ```
 
@@ -299,11 +287,6 @@ df.total
 ```{r, results = "asis"}
 stable(
   df.total, 
-  units = ys_get_unit(spec, parens = TRUE),
-  align = cols_center(STUDY = 'l'),
-  r_file  = "foo.R", output_file = "output.tex",
-  col_rename = c("Protocol no."  = "STUDY"),
-  notes = "WT: weight; CRCL: creatinine clearance",
   sumrows = sumrow(
     df.total$STUDY == "all", 
     label = "All Studies", 
