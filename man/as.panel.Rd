@@ -3,14 +3,17 @@
 \name{as.panel}
 \alias{as.panel}
 \alias{as.panel.rowpanel}
-\alias{as.panel.default}
+\alias{as.panel.character}
+\alias{as.panel.quosures}
 \title{Coerce object to rowpanel}
 \usage{
 as.panel(x, ...)
 
 \method{as.panel}{rowpanel}(x, ...)
 
-\method{as.panel}{default}(x, ...)
+\method{as.panel}{character}(x, ...)
+
+\method{as.panel}{quosures}(x, ...)
 }
 \arguments{
 \item{x}{object to coerce}

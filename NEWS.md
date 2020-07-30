@@ -25,4 +25,5 @@ length in response to brief review and comment by TS representative
 - Add `as.panel()` function for constructing rowgroup objects
 - For pmtables functions: when `panel` is passed with an alternate name, 
 the name is is used to set the prefix
+- Fixed bug where column names were getting sanitized before rename happened #62
 

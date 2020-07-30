@@ -54,7 +54,7 @@ as.panel.rowpanel <- function(x, ...) x
 
 #' @rdname as.panel
 #' @export
-as.panel.default <- function(x, ...) {
+as.panel.character <- function(x, ...) {
   assert_that(length(x)==1)
   col <- new_names(x)
   ans <- rowpanel(unname(col), ...)
@@ -62,6 +62,12 @@ as.panel.default <- function(x, ...) {
     ans$prefix <- names(col)
   }
   ans
+}
+
+#' @rdname as.panel
+#' @export
+as.panel.quosures <- function(x, ...) {
+  as.panel.character(new_names(x),...)
 }
 
 panel_by <- function(data, x) {

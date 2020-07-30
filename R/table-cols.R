@@ -34,13 +34,13 @@ tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
     col_rename <- NULL
   }
 
-  cols <- esc_underscore(cols)
+
   cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
   if(!is.null(col_split)) {
     split_cols <- str_split(cols_new, fixed(col_split), n = 2)
     cols_new <- map_chr(split_cols, last)
   }
-
+  cols_new <- esc_underscore(cols_new)
   cols_tex <- form_tex_cols(cols_new, col_bold, pull_back = pull_back)
 
   ans <- list(tex = cols_tex, new = cols_new, cols = cols)
