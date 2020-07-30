@@ -312,7 +312,7 @@ st_new(df.total) %>%
 - Where's my glasses?
 
 ```{r,results = 'asis'}
-data %>% st_new() %>% st_args(fontsize = "tiny") %>% st_make(.cat = TRUE)
+data %>% st_new() %>% st_sizes(font = "tiny") %>% st_make(.cat = TRUE)
 ```
 
 
@@ -323,13 +323,13 @@ data %>% st_new() %>% st_args(fontsize = "tiny") %>% st_make(.cat = TRUE)
 ```{r,results = 'asis'}
 sl <- data %>% slice(1:3)
 sl %>% st_new() %>%                   st_make(.cat = TRUE)
-sl %>% st_new() %>% st_space(0.9) %>% st_make(.cat = TRUE)
-sl %>% st_new() %>% st_space(2)   %>% st_make(.cat = TRUE)
+sl %>% st_new() %>% st_sizes(row = 0.9) %>% st_make(.cat = TRUE)
+sl %>% st_new() %>% st_sizes(col = 2  ) %>% st_make(.cat = TRUE)
 ```
 \clearpage
 
 # Col space
 
 ```{r,results = 'asis'}
-data %>% st_new() %>% st_space(col = 20) %>% st_make(.cat = TRUE)
+data %>% st_new() %>% st_sizes(col = 20) %>% st_make(.cat = TRUE)
 ```
