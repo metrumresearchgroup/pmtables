@@ -1,6 +1,5 @@
 #' Form table column names
 #'
-#' @inheritParams stable
 #' @param cols the starting set of table column names
 #' @param col_bold if `TRUE`, table column names are rendered with bold font
 #' @param col_rename a `name = value` character vector to translate column names
@@ -14,6 +13,7 @@
 #' (on the left) or name (on the right); if supplied, then `col_split` will be
 #' used to remove the tag; for example, a column named `x.WT` would be renamed
 #' `WT` if `col_split` was set to `.`
+#' @param pull_back pull unit row back, slightly closer to table columns labels
 #' @param ... not used
 #'
 #' @export
