@@ -119,21 +119,18 @@ stable.data.frame <- function(data,
   span_data <- tab_spanners(data = data, cols = cols, span = span, ...)
   cols <- span_data$cols
 
-  # Units
-  #units_tex <- form_unit(units,cols)
-  #showing_units <- nchar(units_tex) > 0
-
   # Format cols
   cols_data <- tab_cols(cols, ...)
   assert_that(inherits(cols_data, "from_tab_cols"))
 
-  cols_tex <- header_matrix(
+  header_data <- header_matrix(
     cols = cols_data$cols,
     cols_new = cols_data$new,
     units = units,
-    newline = cols_data$newline,
-    sizes = sizes
+    newline = cols_data$newline
   )
+
+  cols_tex <- header_matrix_tex(header_data, sizes)
 
   # Column alignments
   align_tex <- form_align(align,names(data))

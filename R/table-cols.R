@@ -45,7 +45,20 @@ tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
   structure(ans, class = "from_tab_cols")
 }
 
-resize_header_cols <- function(sp, n) {
+header_matrix <- function(cols, cols_new, units = NULL, newline = "...") {
+  nunit <- !is.null(units)
+  sp <- str_split(cols_new, fixed(newline))
+  nsplit <- max(map_int(sp,length))
+  u <- header_matrix_unit(sp, cols, units)
+  sp <- map2(sp, u, ~c(.x,.y))
+  sp <- header_matrix_resize(sp, nsplit+nunit)
+  names(sp) <- cols
+  sp <- bind_cols(sp)
+  sp <- modify(sp, replace_na, "")
+  sp
+}
+
+header_matrix_resize <- function(sp, n) {
   if(n==1) return(sp)
   sp <- map(sp, rev)
   sp <- map(sp, .f=function(x) {
@@ -55,17 +68,16 @@ resize_header_cols <- function(sp, n) {
   sp
 }
 
-header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
-                          sizes = tab_size()) {
-  nunit <- !is.null(units)
-  sp <- str_split(cols_new, fixed(newline))
-  nsplit <- max(map_int(sp,length))
-  u <- header_matrix_unit(sp, cols, units)
-  sp <- map2(sp, u, ~c(.x,.y))
-  sp <- resize_header_cols(sp, nsplit+nunit)
-  names(sp) <- cols
-  sp <- bind_cols(sp)
-  sp <- modify(sp, replace_na, "")
+header_matrix_unit <- function(sp, cols, .units = NULL) {
+  if(is.null(.units)) return(sp)
+  .units <- .units[names(.units) %in% cols]
+  uni <- match(cols, names(.units))
+  unit <- vector("list", length(cols))
+  unit[which(!is.na(uni))] <- .units[uni[!is.na(uni)]]
+  unit
+}
+
+header_matrix_tex <- function(sp, sizes = tab_size()) {
   sp <- unname(split(sp, seq(nrow(sp))))
   sp <- map(sp, flatten_chr)
   sp <- map_chr(sp, form_tex_cols)
@@ -79,14 +91,6 @@ header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
   sp
 }
 
-header_matrix_unit <- function(sp, cols, .units = NULL) {
-  if(is.null(.units)) return(sp)
-  .units <- .units[names(.units) %in% cols]
-  uni <- match(cols, names(.units))
-  unit <- vector("list", length(cols))
-  unit[which(!is.na(uni))] <- .units[uni[!is.na(uni)]]
-  unit
-}
 
 rename_cols <- function(cols, relabel = NULL, blank = NULL) {
 
