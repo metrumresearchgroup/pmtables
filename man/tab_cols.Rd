@@ -11,7 +11,7 @@ tab_cols(
   col_blank = NULL,
   col_split = NULL,
   col_bold = FALSE,
-  pull_back = NULL,
+  col_break = "...",
   ...
 )
 }
@@ -35,7 +35,7 @@ used to remove the tag; for example, a column named \code{x.WT} would be renamed
 
 \item{col_bold}{if \code{TRUE}, table column names are rendered with bold font}
 
-\item{pull_back}{pull unit row back, slightly closer to table columns labels}
+\item{col_break}{character sequence to break column names into new lines}
 
 \item{...}{not used}
 }

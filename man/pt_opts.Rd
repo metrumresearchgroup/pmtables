@@ -6,7 +6,7 @@
 \alias{pt_options}
 \title{Set global plot options}
 \format{
-An object of class \code{pt_opts} (inherits from \code{environment}) of length 23.
+An object of class \code{pt_opts} (inherits from \code{environment}) of length 22.
 }
 \usage{
 pt_options(
@@ -23,7 +23,6 @@ pt_options(
   file.label.r = "Source code: ",
   file.label.output = "Source file: ",
   file.notes.fun = form_file_notes,
-  stable.unit.back = 0.6,
   escape = "_",
   longtable.foot = longtable_foot("continued on next page")
 )
@@ -59,10 +58,6 @@ sanitize function}
 
 \item{file.notes.fun}{function to assemble \code{r_file} and \code{output_file} into
 table annotation}
-
-\item{stable.unit.back}{reduction (in \code{em}) in row spacing between table
-column labels and unit row; this moves \code{units} (when supplied) closer to
-column labels}
 
 \item{escape}{vector of characters to escape when sanitizing table contents}
 

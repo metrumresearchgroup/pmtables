@@ -4,7 +4,7 @@
 \alias{tab_size}
 \title{Adjustments for row padding, column padding, and font size}
 \usage{
-tab_size(row = 1.4, col = 5, font = NULL, lt_row = 0.3)
+tab_size(row = 1.4, col = 5, font = NULL, header_row = 0.4 * row, lt_row = 0.3)
 }
 \arguments{
 \item{row}{relative increase or decrease spacing between rows; use
@@ -13,6 +13,11 @@ tab_size(row = 1.4, col = 5, font = NULL, lt_row = 0.3)
 \item{col}{absolute column spacing amount (\code{pt}); see also \code{\link[=st_space]{st_space()}}}
 
 \item{font}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
+
+\item{header_row}{the amount of space to remove between rows in the header
+section of the table (column names and units); this should be a positive
+number; the default is \code{0.4*row}; recommend fixing to 0.2 when \code{row} is 1
+and smaller if \code{row} is less than 1}
 
 \item{lt_row}{extra row space for longtables; this is used instead of \code{row_space}
 when rendering longtable}

@@ -120,12 +120,20 @@ stable.data.frame <- function(data,
   cols <- span_data$cols
 
   # Units
-  units_tex <- form_unit(units,cols)
-  showing_units <- nchar(units_tex) > 0
+  #units_tex <- form_unit(units,cols)
+  #showing_units <- nchar(units_tex) > 0
 
   # Format cols
-  cols_data <- tab_cols(cols, ..., pull_back = showing_units)
+  cols_data <- tab_cols(cols, ...)
   assert_that(inherits(cols_data, "from_tab_cols"))
+
+  cols_tex <- header_matrix(
+    cols = cols_data$cols,
+    cols_new = cols_data$new,
+    units = units,
+    newline = cols_data$newline,
+    sizes = sizes
+  )
 
   # Column alignments
   align_tex <- form_align(align,names(data))
@@ -150,8 +158,7 @@ stable.data.frame <- function(data,
     open_tabular,
     "\\hline",
     span_data$tex,
-    cols_data$tex,
-    units_tex,
+    cols_tex,
     "\\hline",
     tab,
     "\\hline",
@@ -171,9 +178,8 @@ stable.data.frame <- function(data,
     stable_data$cols <- cols_data$cols
     stable_data$nc <- ncol(data)
     stable_data$cols_new <- cols_data$new
-    stable_data$cols_tex <- cols_data$tex
+    stable_data$cols_tex <- cols_tex
     stable_data$units <- units
-    stable_data$units_tex <- units_tex
     stable_data$tpt_notes <- note_data$t_notes
     stable_data$mini_notes <- note_data$m_notes
     stable_data$notes <- note_data$notes

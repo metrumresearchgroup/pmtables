@@ -20,9 +20,6 @@ longtable_foot <- function(x) {
 #' @param file.label.output label to use when writing the output file annotation
 #' @param file.notes.fun function to assemble `r_file` and `output_file` into
 #' table annotation
-#' @param stable.unit.back reduction (in `em`) in row spacing between table
-#' column labels and unit row; this moves `units` (when supplied) closer to
-#' column labels
 #' @param escape vector of characters to escape when sanitizing table contents
 #' @param longtable.foot text to print at the bottom of longtable page when
 #' the table continues
@@ -85,7 +82,6 @@ pt_options <- function(
   file.label.r = "Source code: ",
   file.label.output = "Source file: ",
   file.notes.fun = form_file_notes,
-  stable.unit.back = 0.6,
   escape = "_",
   longtable.foot = longtable_foot("continued on next page")
 ) {

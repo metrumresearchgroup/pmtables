@@ -13,13 +13,13 @@
 #' (on the left) or name (on the right); if supplied, then `col_split` will be
 #' used to remove the tag; for example, a column named `x.WT` would be renamed
 #' `WT` if `col_split` was set to `.`
-#' @param pull_back pull unit row back, slightly closer to table columns labels
+#' @param col_break character sequence to break column names into new lines
 #' @param ... not used
 #'
 #' @export
 tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
                      col_blank = NULL, col_split = NULL, col_bold = FALSE,
-                     pull_back = NULL, ...) {
+                     col_break = "...", ...) {
   cols0 <- cols
 
   # Work on columns and column names
@@ -34,45 +34,58 @@ tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
     col_rename <- NULL
   }
 
-
   cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
   if(!is.null(col_split)) {
     split_cols <- str_split(cols_new, fixed(col_split), n = 2)
     cols_new <- map_chr(split_cols, last)
   }
-  cols_new <- esc_underscore(cols_new)
-  cols_tex <- form_tex_cols(cols_new, col_bold, pull_back = pull_back)
 
-  ans <- list(tex = cols_tex, new = cols_new, cols = cols)
+  cols_new <- esc_underscore(cols_new)
+  ans <- list(new = cols_new, cols = cols, newline = col_break)
   structure(ans, class = "from_tab_cols")
 }
 
-form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
-                      units = NULL) {
-  if(!is.null(blank)) {
-    blank <- unname(new_names(blank))
-    bl <- cols %in% blank
-    cols[bl] <- rep("", sum(bl))
-  }
+resize_header_cols <- function(sp, n) {
+  if(n==1) return(sp)
+  sp <- map(sp, rev)
+  sp <- map(sp, .f=function(x) {
+    length(x) <- n
+    rev(x)
+  })
+  sp
+}
 
-  if(!is.null(relabel)) {
-    relabel <- new_names(relabel)
-    relabel <- relabel[relabel %in% cols]
-    newi <- match(cols, relabel)
-    loc <- which(!is.na(newi))
-    cols[loc] <- names(relabel)
-    cols <- unname(cols)
+header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
+                          sizes = tab_size()) {
+  nunit <- !is.null(units)
+  sp <- str_split(cols_new, fixed(newline))
+  nsplit <- max(map_int(sp,length))
+  u <- header_matrix_unit(sp, cols, units)
+  sp <- map2(sp, u, ~c(.x,.y))
+  sp <- resize_header_cols(sp, nsplit+nunit)
+  names(sp) <- cols
+  sp <- bind_cols(sp)
+  sp <- modify(sp, replace_na, "")
+  sp <- unname(split(sp, seq(nrow(sp))))
+  sp <- map(sp, flatten_chr)
+  sp <- map_chr(sp, form_tex_cols)
+  nr <- length(sp)
+  unit_back <- sizes$header_row
+  pb <- paste0(" [-", unit_back, "em]")
+  if(nr > 1) {
+    w <- seq(nr-1)
+    sp[w] <- paste0(sp[w], pb)
   }
+  sp
+}
 
-  if(isTRUE(bold)) cols <- bold_each(cols)
-  cols <- paste0(cols, collapse = " & ")
-  cols <- paste0(cols, " \\\\")
-  cols <- paste0("", cols)
-  if(is.character(units) && any(nchar(units) > 0)) {
-    cols <- paste0(cols, "[-0.5em]")
-    cols <- c(cols, units)
-  }
-  cols
+header_matrix_unit <- function(sp, cols, .units = NULL) {
+  if(is.null(.units)) return(sp)
+  .units <- .units[names(.units) %in% cols]
+  uni <- match(cols, names(.units))
+  unit <- vector("list", length(cols))
+  unit[which(!is.na(uni))] <- .units[uni[!is.na(uni)]]
+  unit
 }
 
 rename_cols <- function(cols, relabel = NULL, blank = NULL) {
@@ -87,8 +100,9 @@ rename_cols <- function(cols, relabel = NULL, blank = NULL) {
     relabel <- new_names(relabel)
     relabel <- relabel[relabel %in% cols]
     newi <- match(cols, relabel)
-    loc <- which(!is.na(newi))
-    cols[loc] <- names(relabel)
+    target <- !is.na(newi)
+    replace <- newi[which(target)]
+    cols[target] <- names(relabel)[replace]
     cols <- unname(cols)
   }
 
@@ -100,10 +114,33 @@ form_tex_cols <- function(cols, bold = FALSE, pull_back = FALSE) {
   cols <- paste0(cols, collapse = " & ")
   cols <- paste0(cols, " \\\\")
   cols <- paste0("", cols)
-  if(isTRUE(pull_back)) {
-    unit_back <- pt_opts$get("stable.unit.back")
-    cols <- paste0(cols, " [-", unit_back, "em]")
-  }
   cols
 }
 
+# form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
+#                       units = NULL) {
+#   if(!is.null(blank)) {
+#     blank <- unname(new_names(blank))
+#     bl <- cols %in% blank
+#     cols[bl] <- rep("", sum(bl))
+#   }
+#
+#   if(!is.null(relabel)) {
+#     relabel <- new_names(relabel)
+#     relabel <- relabel[relabel %in% cols]
+#     newi <- match(cols, relabel)
+#     loc <- which(!is.na(newi))
+#     cols[loc] <- names(relabel)
+#     cols <- unname(cols)
+#   }
+#
+#   if(isTRUE(bold)) cols <- bold_each(cols)
+#   cols <- paste0(cols, collapse = " & ")
+#   cols <- paste0(cols, " \\\\")
+#   cols <- paste0("", cols)
+#   if(is.character(units) && any(nchar(units) > 0)) {
+#     cols <- paste0(cols, "[-0.5em]")
+#     cols <- c(cols, units)
+#   }
+#   cols
+# }

@@ -1,5 +1,6 @@
 
 library(testthat)
+library(pmtables)
 
 context("test-opts")
 
