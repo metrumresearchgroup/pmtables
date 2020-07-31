@@ -5,7 +5,7 @@ st_arg_names <- c(
   "row_space", "col_space",
   "span", "span_split", "col_rename", "col_blank",
   "sumrows", "note_config", "clear_reps",
-  "hline_at", "hline_from", "sizes"
+  "hline_at", "hline_from", "sizes", "units"
 )
 
 #' Create an st object
@@ -453,7 +453,7 @@ st_args <- function(x,...) {
   assert_that(is.stobject(x))
   args <- list(...)
   if(length(args) > 0) {
-    args <- args[intersect(names(args),names(formals(stable)))]
+    args <- args[intersect(names(args),st_arg_names)]
     x$args <- c(x$args, args)
   }
   x

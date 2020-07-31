@@ -121,6 +121,23 @@ data %>%
 
 \clearpage
 
+# Expand header rows
+
+- Multiline table header 
+- Unlimited number
+- Use `...` to break
+
+```{r, results = 'asis'}
+data %>% 
+  st_new() %>% 
+  st_rename("Study...Number" = STUDY, "Serum...Albumin" = ALB) %>%
+  st_args(units = units) %>%
+  st_make(.cat = TRUE)
+```
+
+
+
+\clearpage
 # Math
 
 - Columns with at least two `$` are "math" and will not be sanitized

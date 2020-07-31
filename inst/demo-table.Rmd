@@ -117,6 +117,21 @@ stable(
   units = units,
 ) %>% pt_wrap(stdout())
 ```
+\clearpage
+
+# Expand header rows
+
+- Multiline table header 
+- Unlimited number
+- Use `...` to break
+
+```{r, results = 'asis'}
+stable(
+  data, 
+  col_rename = vars("Study...Number" = STUDY, "Serum...Albumin" = ALB), 
+  units = units
+) %>% pt_wrap(stdout())
+```
 
 \clearpage
 

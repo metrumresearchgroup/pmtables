@@ -41,7 +41,7 @@ tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
   }
 
   cols_new <- esc_underscore(cols_new)
-  ans <- list(new = cols_new, cols = cols, newline = col_break)
+  ans <- list(new = cols_new, cols = cols0, newline = col_break)
   structure(ans, class = "from_tab_cols")
 }
 
@@ -52,29 +52,10 @@ header_matrix <- function(cols, cols_new, units = NULL, newline = "...") {
   u <- header_matrix_unit(sp, cols, units)
   sp <- map2(sp, u, ~c(.x,.y))
   sp <- header_matrix_resize(sp, nsplit+nunit)
-  names(sp) <- cols
+  names(sp) <- paste0("V", seq_along(sp))
   sp <- bind_cols(sp)
   sp <- modify(sp, replace_na, "")
   sp
-}
-
-header_matrix_resize <- function(sp, n) {
-  if(n==1) return(sp)
-  sp <- map(sp, rev)
-  sp <- map(sp, .f=function(x) {
-    length(x) <- n
-    rev(x)
-  })
-  sp
-}
-
-header_matrix_unit <- function(sp, cols, .units = NULL) {
-  if(is.null(.units)) return(sp)
-  .units <- .units[names(.units) %in% cols]
-  uni <- match(cols, names(.units))
-  unit <- vector("list", length(cols))
-  unit[which(!is.na(uni))] <- .units[uni[!is.na(uni)]]
-  unit
 }
 
 header_matrix_tex <- function(sp, sizes = tab_size()) {
@@ -91,6 +72,25 @@ header_matrix_tex <- function(sp, sizes = tab_size()) {
   sp
 }
 
+header_matrix_resize <- function(sp, n) {
+  if(n==1) return(sp)
+  sp <- map(sp, rev)
+  sp <- map(sp, .f=function(x) {
+    length(x) <- n
+    rev(x)
+  })
+  sp
+}
+
+header_matrix_unit <- function(sp, cols, units = NULL) {
+  if(is.null(units)) return(vector("list", length(sp)))
+  units <- units[names(units) %in% cols]
+  units <- keep(units, ~nchar(.x) > 0)
+  uni <- match(cols, names(units))
+  unit <- vector("list", length(cols))
+  unit[which(!is.na(uni))] <- units[uni[!is.na(uni)]]
+  unit
+}
 
 rename_cols <- function(cols, relabel = NULL, blank = NULL) {
 
