@@ -28,4 +28,11 @@ the name is is used to set the prefix
 - Fixed bug where column names were getting sanitized before rename happened #62
 - Pick up option `pmtables.dir` to set output directory for `stable_save()`
 - Pick up option `mrg.script` to set script name in `st_files()` and `tab_notes()`
+- Refactored the way that table cols and units are assembled; column labels are 
+split on `...` to create multi-line column names
+- Add `header_row` argument to `tab_cols()` to control the spacing between column labels
+and between labels and units
+- Fixed warning message when trying to align a column not in the data set
+- Fixed warning message when trying to add unit to column not in the data set
+
 
