@@ -4,12 +4,29 @@
 \alias{stable_long}
 \title{Create longtable output from an R data frame}
 \usage{
-stable_long(..., inspect = TRUE)
+stable_long(
+  note_config = noteconf(type = "minipage"),
+  ...,
+  inspect = TRUE,
+  cap_macro = NULL,
+  cap_text = NULL,
+  cap_label = NULL
+)
 }
 \arguments{
+\item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
+are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
+
 \item{...}{passed to \code{\link[=stable]{stable()}}}
 
 \item{inspect}{fixed to \code{TRUE} and passed to \code{\link[=stable]{stable()}}}
+
+\item{cap_macro}{the name of a macro that will hold caption text; to not lead with
+\verb{\\\\} - this will be added for you}
+
+\item{cap_text}{caption text}
+
+\item{cap_label}{table label for use in latex document}
 }
 \description{
 Create longtable output from an R data frame

@@ -60,8 +60,11 @@ is.stobject <- function(x) inherits(x, "stobject")
 #' @export
 st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
   assert_that(is.stobject(x))
+  long <- isTRUE(long)
   args <- as.list(x)
-  args <- args[intersect(names(args),attr(x,"argnames"))]
+  argnames <- attr(x,"argnames")
+  if(long) argnames <- c(argnames, "cap_text", "cap_macro")
+  args <- args[intersect(names(args),argnames)]
   if(is.list(x$args)) {
     args <- combine_list(args, x$args)
   }
@@ -71,7 +74,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
     args <- combine_list(args,dots)
   }
 
-  if(isTRUE(long)) {
+  if(long) {
     ans <- do.call(stable_long, args)
     if(isTRUE(.preview)) {
       warning("cannot preview a long table; use st2doc() instead",call.=FALSE)

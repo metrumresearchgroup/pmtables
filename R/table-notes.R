@@ -20,21 +20,9 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 
   assert_that(is.noteconfig(note_config))
 
-  r_file_label <-  getOption("r.file.label","Source code: ")
+  file_notes <- pt_opts$file.notes.fun(r_file, output_file)
 
-  output_file_label <-  getOption("out.file.label","Source file: ")
-
-  r_note <- out_note <- NULL
-
-  if(is.character(r_file)) {
-    r_note <- paste(r_file_label, basename(r_file))
-  }
-
-  if(is.character(output_file)) {
-    out_note <- paste(output_file_label,basename(output_file))
-  }
-
-  notes <- c(notes, r_note, out_note)
+  notes <- c(notes, file_notes)
 
   if(isTRUE(pt_opts$notes.sanitize)) {
     assert_that(is.character(notes) || is.null(notes))
@@ -43,10 +31,12 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 
   m_notes <- t_notes <- NULL
 
-  if(note_config$tpt) {
-    t_notes <- tpt_notes(notes, note_config)
-  } else {
-    m_notes <- mini_notes(notes, note_config)
+  if(length(notes) > 0) {
+    if(note_config$tpt) {
+      t_notes <- tpt_notes(notes, note_config)
+    } else {
+      m_notes <- mini_notes(notes, note_config)
+    }
   }
 
   # END notes --------------------------------------------------
@@ -54,7 +44,6 @@ tab_notes <- function(notes, escape_fun = tab_escape,
     m_notes = m_notes, t_notes = t_notes, config = note_config,
     notes = notes, r_file = r_file, output_file = output_file
   )
-
 }
 
 
@@ -136,5 +125,20 @@ tpt_notes <- function(notes,x) {
     paste0("\\item ", notes),
     "\\end{tablenotes}"
   )
+}
+
+form_file_notes <- function(r_file, output_file, ...) {
+  r_note <- output_note <- NULL
+  if(is.character(r_file)) {
+    r_note <- paste0(pt_opts$file.label.r, r_file)
+  }
+  if(is.character(output_file)) {
+    output_note <- paste0(pt_opts$file.label.output,output_file)
+  }
+  c(r_note, output_note)
+}
+
+valid_file_notes_fun <- function(x) {
+  identical(formals(x), formals(form_file_notes))
 }
 

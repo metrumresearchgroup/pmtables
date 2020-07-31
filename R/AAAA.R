@@ -13,13 +13,13 @@
 #' @importFrom tibble tibble as_tibble
 #' @importFrom stats median rnorm sd na.omit
 #' @importFrom utils capture.output packageVersion str
-#' @importFrom stringr fixed str_split str_count
+#' @importFrom stringr fixed str_split str_count str_detect
 #' @import mrggt
 #'
+#' @include summary-functions.R
 #' @include utils.R
 #' @include class-digits.R
 #' @include class-new_names.R
-#' @include summary-functions.R
 #'
 NULL
 

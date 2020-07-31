@@ -1,3 +1,6 @@
+longtable_foot <- function(x) {
+ paste0("{\\footnotesize {\\it ", x, "}}")
+}
 
 #' Set global plot options
 #'
@@ -13,6 +16,16 @@
 #' @param notes.sanitize if `TRUE`, should the notes be passed through the
 #' sanitize function
 #' @param digits a `digits` object
+#' @param file.label.r label to use when writing the R file annotation
+#' @param file.label.output label to use when writing the output file annotation
+#' @param file.notes.fun function to assemble `r_file` and `output_file` into
+#' table annotation
+#' @param stable.unit.back reduction (in `em`) in row spacing between table
+#' column labels and unit row; this moves `units` (when supplied) closer to
+#' column labels
+#' @param escape vector of characters to escape when sanitizing table contents
+#' @param longtable.foot text to print at the bottom of longtable page when
+#' the table continues
 #'
 #' @details
 #' `pt_opts` is the options environment.
@@ -55,6 +68,8 @@
 #'
 #' @md
 #' @include class-digits.R
+#' @include table-notes.R
+#' @include summary-functions.R
 #' @name pt_opts
 pt_options <- function(
   id_col = "ID",
@@ -66,8 +81,14 @@ pt_options <- function(
   cont.long.fun = pmtables:::df_sum_2,
   cont.wide.fun = pmtables:::str_sum_2,
   notes.sanitize = TRUE,
-  digits = NULL
-  ) {
+  digits = NULL,
+  file.label.r = "Source code: ",
+  file.label.output = "Source file: ",
+  file.notes.fun = form_file_notes,
+  stable.unit.back = 0.6,
+  escape = "_",
+  longtable.foot = longtable_foot("continued on next page")
+) {
   set <- function(..., .list = NULL) {
     if(is.list(.list)) {
       x <- .list
@@ -76,6 +97,7 @@ pt_options <- function(
     }
     if(length(x)==0) invisible(NULL)
     for(k in names(x)) assign(k,x[[k]],envir=self)
+    valid_pt_opts(self)
     return(invisible(NULL))
   }
   get <- function(x) {
@@ -122,6 +144,7 @@ pt_options <- function(
     return(invisible(x))
   }
   assign(i,value,envir=x)
+  valid_pt_opts(x)
   return(invisible(x))
 }
 
@@ -180,3 +203,9 @@ print.pt_opts <- function(x,...) {
 pt_opts <- pt_options()
 opts <- pt_opts
 
+valid_pt_opts <- function(x) {
+  assert_that(
+    valid_file_notes_fun(x$file.notes.fun),
+    msg = "[pt_opts] the file notes function does not have the correct formal arguments"
+  )
+}

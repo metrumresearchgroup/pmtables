@@ -43,17 +43,19 @@ d <- filter(data, SEQ==1)
 #+ pt-inventory-data-stacked, results = 'asis'
 x <- pt_data_inventory(
   data,
-  by = vars(Study = "STUDYf"),
+  by = c(Study = "STUDYf"),
   panel = as.panel("SEQf", prefix = "Endpoint: "),
   stacked = TRUE
 ) %>% as_stable(
-  wrapw = TRUE, r_file = "test.R", output_file = "test.tex"
+  wrapw = TRUE,
+  r_file = "test.R",
+  output_file = "test.tex"
 )
 
 #+ include = FALSE
 out <- pt_data_inventory(
   data,
-  by = vars(Study = "STUDYf"),
+  by = c(Study = "STUDYf"),
   panel = as.panel("SEQf"),
   stacked = TRUE
 )
@@ -95,7 +97,7 @@ assert_that(all(out$data$Percent.OBS==j$POBS))
 
 pt_data_inventory(
   d,
-  by = vars(Study = "STUDYf"),
+  by = c(Study = "STUDYf"),
   panel = "ASIANf"
 ) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
@@ -154,7 +156,7 @@ assert_that(all(ans))
 
 pt_data_inventory(
   d,
-  by = vars(Study = "STUDYf")
+  by = c(Study = "STUDYf")
 ) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #+ include = FALSE
@@ -213,13 +215,13 @@ data <- pmtables:::data("id")
 
 pt_cat_wide(
   data = data,
-  cols = vars(Formulation = FORMf,Sex = SEXf,"Race group" = ASIANf)) %>%
+  cols = vars(Formulation = FORMf,Sex = SEXf, "Race group" = ASIANf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #+ include = FALSE
 out <- pt_cat_wide(
   data = data,
-  cols = vars(Formulation = FORMf,Sex = SEXf,"Race group" = ASIANf)
+  cols = vars(Formulation = FORMf, Sex = SEXf, "Race group" = ASIANf)
 ) %>% as_stable(inspect = TRUE) %>% get_stable_data()
 
 w <- pivot_longer(data, cols = c("FORMf", "SEXf", "ASIANf"))
@@ -259,7 +261,7 @@ identical(comp$ans, comp$out)
 
 out <- pt_cat_wide(
   data = data,
-  cols = vars(Formulation = FORMf,Sex = SEXf,"Race group" = ASIANf),
+  cols = vars(Formulation = FORMf, Sex = SEXf, "Race group" = ASIANf),
   panel = as.panel("STUDYf", prefix = "Study: ")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
@@ -281,8 +283,8 @@ as.data.frame(out$data)
 #+ results = 'asis'
 pt_cat_wide(
   data = data,
-  by = vars(Sex = SEXf),
-  cols = vars(Formulation = FORMf,"Race group" = ASIANf)) %>%
+  by = c(Sex = "SEXf"),
+  cols = vars(Formulation = FORMf, "Race group" = ASIANf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage
@@ -309,7 +311,7 @@ pt_cat_wide(
 #+ results = 'asis'
 pt_cat_long(
   data = data,
-  cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf)) %>%
+  cols = vars(Study = STUDYf, Sex = SEXf, "Race group" = ASIANf, "Child-Pugh" = CPf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage

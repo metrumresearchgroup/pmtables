@@ -101,7 +101,7 @@ form_tex_cols <- function(cols, bold = FALSE, pull_back = FALSE) {
   cols <- paste0(cols, " \\\\")
   cols <- paste0("", cols)
   if(isTRUE(pull_back)) {
-    unit_back <- getOption("stable.unit.back", 0.6)
+    unit_back <- pt_opts$get("stable.unit.back")
     cols <- paste0(cols, " [-", unit_back, "em]")
   }
   cols

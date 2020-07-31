@@ -16,15 +16,16 @@ RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Collate: 
-    'summary-functions.R'
     'class-new_names.R'
     'class-digits.R'
     'utils.R'
+    'summary-functions.R'
     'AAAA.R'
     'check.R'
     'continuous_table.R'
     'data_inventory_table.R'
     'discrete_table.R'
+    'table-notes.R'
     'opts.R'
     'preview.R'
     'summarize-cat-chunk.R'
@@ -34,7 +35,6 @@ Collate:
     'table-functions.R'
     'table-hlines.R'
     'table-long.R'
-    'table-notes.R'
     'table-object.R'
     'table-panel.R'
     'table-sizes.R'

@@ -23,8 +23,7 @@ tab_prime <- function(data, escape_fun = tab_escape) {
 #' @param string data to sanitize
 #' @param esc a character vector of strings to escape
 #' @param ... used only to allow arguments through
-tab_escape <- function(string,
-                       esc = getOption("pmtables.esc","_"), ...) {
+tab_escape <- function(string, esc = pt_opts$get("escape"), ...) {
   for(ch in esc) {
     string <- gsub(ch, paste0("\\",ch), string, fixed = TRUE)
   }
