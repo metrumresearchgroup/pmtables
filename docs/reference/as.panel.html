@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add panel information to st object — st_panel • pmtables</title>
+<title>Coerce object to rowpanel — as.panel • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Add panel information to st object — st_panel" />
-<meta property="og:description" content="See the panel argument to stable()." />
+<meta property="og:title" content="Coerce object to rowpanel — as.panel" />
+<meta property="og:description" content="Coerce object to rowpanel" />
 
 
 
@@ -139,60 +139,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add panel information to st object</h1>
+    <h1>Coerce object to rowpanel</h1>
     
-    <div class="hidden name"><code>st_panel.Rd</code></div>
+    <div class="hidden name"><code>as.panel.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See the <code>panel</code> argument to <code><a href='stable.html'>stable()</a></code>.</p>
+    <p>Coerce object to rowpanel</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_panel</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>as.panel</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for rowpanel</span>
+<span class='fu'>as.panel</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for character</span>
+<span class='fu'>as.panel</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for quosures</span>
+<span class='fu'>as.panel</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an stobject</p></td>
+      <td><p>object to coerce</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed to <code><a href='rowpanel.html'>rowpanel()</a></code></p></td>
+      <td><p>arguments passed to <code><a href='rowpanel.html'>rowpanel()</a></code></p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-
-<span class='no'>ob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())
-
-<span class='no'>ob</span> <span class='kw'>%&gt;%</span> <span class='fu'>st_panel</span>(<span class='st'>"STUDYf"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"            
-#&gt;  [2] "\\begin{threeparttable}"                             
-#&gt;  [3] "\\begin{tabular}[h]{lllll}"                          
-#&gt;  [4] "\\hline"                                             
-#&gt;  [5] "SEXf &amp; WT &amp; SCR &amp; ALB &amp; N \\\\"                      
-#&gt;  [6] "\\hline"                                             
-#&gt;  [7] "\\multicolumn{5}{l}{{\\bf  12-DEMO-001}}\\\\"        
-#&gt;  [8] "male &amp; 76.3 &amp; 1.09 &amp; 4.33 &amp; 10 \\\\"                 
-#&gt;  [9] "female &amp; 70.0 &amp; 1.01 &amp; 4.25 &amp; 20 \\\\"               
-#&gt; [10] "\\hline \\multicolumn{5}{l}{{\\bf  12-DEMO-002}}\\\\"
-#&gt; [11] "male &amp; 71.9 &amp; 1.01 &amp; 4.57 &amp; 18 \\\\"                 
-#&gt; [12] "female &amp; 72.6 &amp; 0.949 &amp; 4.42 &amp; 32 \\\\"              
-#&gt; [13] "\\hline \\multicolumn{5}{l}{{\\bf  11-DEMO-005}}\\\\"
-#&gt; [14] "male &amp; 69.2 &amp; 2.51 &amp; 4.46 &amp; 29 \\\\"                 
-#&gt; [15] "female &amp; 67.9 &amp; 2.53 &amp; 4.26 &amp; 11 \\\\"               
-#&gt; [16] "\\hline \\multicolumn{5}{l}{{\\bf  13-DEMO-001}}\\\\"
-#&gt; [17] "male &amp; 71.1 &amp; 0.922 &amp; 3.68 &amp; 23 \\\\"                
-#&gt; [18] "female &amp; 67.0 &amp; 0.988 &amp; 3.45 &amp; 17 \\\\"              
-#&gt; [19] "\\hline"                                             
-#&gt; [20] "\\end{tabular}"                                      
-#&gt; [21] "\\end{threeparttable}"                               
-#&gt; [22] "}"                                                   
+    <pre class="examples"><div class='input'><span class='fu'>as.panel</span>(<span class='st'>"STUDY"</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"Study: "</span>)</div><div class='output co'>#&gt; $col
+#&gt;   STUDY 
+#&gt; "STUDY" 
+#&gt; 
+#&gt; $prefix
+#&gt; [1] "Study: "
+#&gt; 
+#&gt; $prefix_name
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $prefix_skip
+#&gt; NULL
+#&gt; 
+#&gt; $null
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $dup_err
+#&gt; [1] TRUE
+#&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "stable"</div><div class='input'>
+#&gt; [1] "rowpanel"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -32,7 +32,12 @@ the name is is used to set the prefix
 split on `...` to create multi-line column names
 - Add `header_row` argument to `tab_cols()` to control the spacing between column labels
 and between labels and units
-- Fixed warning message when trying to align a column not in the data set
-- Fixed warning message when trying to add unit to column not in the data set
+- Fix warning message when trying to align a column not in the data set
+- Fix warning message when trying to add unit to column not in the data set
+- Adde several new package options; see `?pt_opts`
+- Add `center` argument to `col_fixed`; when `ragged` is `no`, the column can still be 
+fixed and centered
+- Dots (`...`) added to `st_new()` / `st_data()` to be collected by args
+
 
 

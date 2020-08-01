@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9044</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9051</span>
       </span>
     </div>
 
@@ -165,6 +165,23 @@
 <li>Add <code><a href="../reference/st_sizes.html">st_sizes()</a></code> to set <code>sizes</code> argument to <code><a href="../reference/stable.html">stable()</a></code>
 </li>
 <li>Refactor <code><a href="../reference/stable.html">stable()</a></code> function in order to reduce cyclomatic complexity and shorten overall function length in response to brief review and comment by TS representative</li>
+<li>Make stable a generic function; methods for data.frame and pmtable</li>
+<li>All pmtables functions now accept <code>panel</code> argument as a rowgroup object</li>
+<li>Add <code><a href="../reference/as.panel.html">as.panel()</a></code> function for constructing rowgroup objects</li>
+<li>For pmtables functions: when <code>panel</code> is passed with an alternate name, the name is is used to set the prefix</li>
+<li>Fixed bug where column names were getting sanitized before rename happened #62</li>
+<li>Pick up option <code>pmtables.dir</code> to set output directory for <code><a href="../reference/stable_save.html">stable_save()</a></code>
+</li>
+<li>Pick up option <code>mrg.script</code> to set script name in <code><a href="../reference/st_files.html">st_files()</a></code> and <code><a href="../reference/tab_notes.html">tab_notes()</a></code>
+</li>
+<li>Refactored the way that table cols and units are assembled; column labels are split on <code>...</code> to create multi-line column names</li>
+<li>Add <code>header_row</code> argument to <code><a href="../reference/tab_cols.html">tab_cols()</a></code> to control the spacing between column labels and between labels and units</li>
+<li>Fix warning message when trying to align a column not in the data set</li>
+<li>Fix warning message when trying to add unit to column not in the data set</li>
+<li>Adde several new package options; see <code><a href="../reference/pt_opts.html">?pt_opts</a></code>
+</li>
+<li>Add <code>center</code> argument to <code>col_fixed</code>; when <code>ragged</code> is <code>no</code>, the column can still be fixed and centered</li>
+<li>Dots (<code>...</code>) added to <code><a href="../reference/st_new.html">st_new()</a></code> / <code><a href="../reference/st_new.html">st_data()</a></code> to be collected by args</li>
 </ul>
 </div>
   </div>

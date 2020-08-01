@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9044</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9051</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@
   <span class='kw'>col_blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_bold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_break</span> <span class='kw'>=</span> <span class='st'>"..."</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -194,9 +194,8 @@ used to remove the tag; for example, a column named <code>x.WT</code> would be r
       <td><p>if <code>TRUE</code>, table column names are rendered with bold font</p></td>
     </tr>
     <tr>
-      <th>units</th>
-      <td><p>a named list with unit information; names should correspond to
-columns in the data frame</p></td>
+      <th>col_break</th>
+      <td><p>character sequence to break column names into new lines</p></td>
     </tr>
     <tr>
       <th>...</th>

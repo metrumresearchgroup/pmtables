@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9044</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9051</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
     <p>See the <code>r_file</code> and <code>output_file</code> arguments to <code><a href='stable.html'>stable()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_files</span>(<span class='no'>x</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>st_files</span>(<span class='no'>x</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mrg.script"</span>, <span class='kw'>NULL</span>), <span class='kw'>output</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,8 +194,8 @@
 #&gt; [15] "\\hline"                                             
 #&gt; [16] "\\end{tabular}"                                      
 #&gt; [17] "\\begin{tablenotes}[flushleft]"                      
-#&gt; [18] "\\item Source code:  foo.R"                          
-#&gt; [19] "\\item Source file:  foo.tex"                        
+#&gt; [18] "\\item Source code: foo.R"                           
+#&gt; [19] "\\item Source file: foo.tex"                         
 #&gt; [20] "\\end{tablenotes}"                                   
 #&gt; [21] "\\end{threeparttable}"                               
 #&gt; [22] "}"                                                   

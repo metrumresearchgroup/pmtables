@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9044</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9051</span>
       </span>
     </div>
 
@@ -148,7 +148,10 @@
     <p>Create tabular output from an R data frame</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stable</span>(
+    <pre class="usage"><span class='fu'>stable</span>(<span class='no'>data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>stable</span>(
   <span class='no'>data</span>,
   <span class='kw'>align</span> <span class='kw'>=</span> <span class='fu'><a href='cols_align.html'>cols_left</a></span>(),
   <span class='kw'>panel</span> <span class='kw'>=</span> <span class='fu'><a href='rowpanel.html'>rowpanel</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
@@ -160,7 +163,10 @@
   <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>,
   <span class='kw'>inspect</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>
-)</pre>
+)
+
+<span class='co'># S3 method for pmtable</span>
+<span class='fu'>stable</span>(<span class='no'>data</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +174,11 @@
     <tr>
       <th>data</th>
       <td><p>a data.frame to convert to tabular table; see also <code><a href='st_new.html'>st_new()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>passed to other functions: <code><a href='tab_hlines.html'>tab_hlines()</a></code>, <code><a href='tab_spanners.html'>tab_spanners()</a></code>,
+<code><a href='tab_notes.html'>tab_notes()</a></code>, <code><a href='tab_cols.html'>tab_cols()</a></code>, <code><a href='tab_clear_reps.html'>tab_clear_reps()</a></code> and <code><a href='make_tabular.html'>make_tabular()</a></code></p></td>
     </tr>
     <tr>
       <th>align</th>
@@ -213,11 +224,6 @@ data</p></td>
       <th>inspect</th>
       <td><p>if <code>TRUE</code>, extra information is attached to the output
 as an attribute called <code>stable_data</code>; see <code><a href='get_stable_data.html'>get_stable_data()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed to other functions: <code><a href='tab_hlines.html'>tab_hlines()</a></code>, <code><a href='tab_spanners.html'>tab_spanners()</a></code>,
-<code><a href='tab_notes.html'>tab_notes()</a></code>, <code><a href='tab_cols.html'>tab_cols()</a></code>, <code><a href='tab_clear_reps.html'>tab_clear_reps()</a></code> and <code><a href='make_tabular.html'>make_tabular()</a></code></p></td>
     </tr>
     </table>
 
