@@ -94,3 +94,25 @@ gluet <- function(x,...) {
 }
 
 squote <- function(x) paste0("'", x, "'")
+
+#' Make bold
+#'
+#' @param x a string
+#' @param pattern a regular expression
+#'
+#' @export
+tex_bold <- function(x, pattern = "*") {
+  assert_that(is.character(x), msg = "'x' must be character")
+  w <- grepl(pattern,x) & nchar(x) > 0
+  x[w] <- paste0("{\\bf ", x[w], "}")
+  x
+}
+
+#' @rdname tex_bold
+#' @export
+tex_it <- function(x, pattern = "*") {
+  assert_that(is.character(x), msg = "'x' must be character")
+  w <- grepl(pattern,x) & nchar(x) > 0
+  x[w] <- paste0("{\\it ", x[w], "}")
+  x
+}

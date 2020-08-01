@@ -39,5 +39,7 @@ and between labels and units
 fixed and centered
 - Dots (`...`) added to `st_new()` / `st_data()` to be collected by args
 - Add `st_units()` pipeline function
+- Add `tex_bold`() function to style data frame contents
+- Add `tex_it()` function to style data frame contents
 
 

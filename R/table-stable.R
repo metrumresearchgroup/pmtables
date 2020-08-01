@@ -127,9 +127,6 @@ stable.data.frame <- function(data,
   sumrows <- validate_sumrows(sumrows)
   panel <- as.panel(panel)
 
-  # clear reps
-  data <- tab_clear_reps(data, panel = panel, ...)
-
   # panel
   panel_insert <- tab_panel(data, panel, sumrows)
   data <- panel_insert$data
@@ -139,6 +136,9 @@ stable.data.frame <- function(data,
 
   # hlines
   add_hlines <- tab_hlines(data, ...)
+
+  # clear reps
+  data <- tab_clear_reps(data, panel = panel, ...)
 
   # sumrows
   sumrow_insert <- tab_find_sumrows(data, sumrows)

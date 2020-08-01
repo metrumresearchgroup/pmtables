@@ -212,6 +212,30 @@ data %>%
 
 \clearpage
 
+# Add styling to data frame
+
+- tex_bold will make table cells bold when they match `pattern`
+- tex_it will make table cells italics when they match `pattern`
+- styling is only added when there is at least one character
+- input must be string
+- combine this with `clear_rep` and `hline_from` to partition the table
+```{r}
+tmp <- ptdata() %>% rename(STUDY = STUDYf, SEX = SEXf)
+tmp <- mutate(tmp, STUDY = tex_bold(as.character(STUDY)))
+```
+
+```{r,results = "asis"}
+tmp %>% 
+  st_new() %>% 
+  st_clear_reps(STUDY) %>%
+  st_hline(from = "STUDY") %>%
+  st_make(.cat = TRUE)
+```
+
+
+\clearpage
+
+
 # Panel
 
 - Divide the table using column contents
