@@ -24,6 +24,8 @@ reps_to_clear <- function(data, clear_reps, panel) {
 
   clear_reps <- new_names(clear_reps)
 
+  for(col in clear_reps) require_col(data,col)
+
   if(!panel$null) {
     paneln <- tidyselect::eval_select(panel$col, data = data)
     panelcol <- names(data)[paneln[1]]

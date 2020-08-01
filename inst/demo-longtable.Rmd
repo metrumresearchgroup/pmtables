@@ -70,7 +70,7 @@ data %>%
     units = ys_get_unit(spec, parens = TRUE),
     notes = "The results look great!",
     clear_reps = "SEXf",
-    col_rename = c("Sex" = "SEXf", "Study" = "STUDYf"),
+    col_rename = c("Sex" = "SEXf"),
     r_file = "foo.R", output_file = "../deliv/table/output.tex",
     note_config = noteconf(type = "minipage", width = 0.5,table_skip = 0.2)
   ) %>% as.character() %>% writeLines
