@@ -18,8 +18,6 @@ tab_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL
   data
 }
 
-
-
 reps_to_clear <- function(data, clear_reps, panel) {
 
   if(!is.character(clear_reps)) return(data)

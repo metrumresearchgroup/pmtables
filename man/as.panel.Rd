@@ -5,6 +5,7 @@
 \alias{as.panel.rowpanel}
 \alias{as.panel.character}
 \alias{as.panel.quosures}
+\alias{as.panel.NULL}
 \title{Coerce object to rowpanel}
 \usage{
 as.panel(x, ...)
@@ -14,6 +15,8 @@ as.panel(x, ...)
 \method{as.panel}{character}(x, ...)
 
 \method{as.panel}{quosures}(x, ...)
+
+\method{as.panel}{`NULL`}(x, ...)
 }
 \arguments{
 \item{x}{object to coerce}

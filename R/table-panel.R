@@ -70,6 +70,12 @@ as.panel.quosures <- function(x, ...) {
   as.panel.character(new_names(x),...)
 }
 
+#' @rdname as.panel
+#' @export
+as.panel.NULL <- function(x, ...) {
+  rowpanel(NULL)
+}
+
 panel_by <- function(data, x) {
   if(x$null) {
     return(list(insert_row = NULL, insert_data = NULL, insert = FALSE))

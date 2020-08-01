@@ -20,6 +20,34 @@ stable_argument_names <- function() {
   )
 }
 
+
+validate_sumrows <- function(x) {
+  if(inherits(x, "sumrow")) {
+    x <- list(x)
+  }
+  if(!is.null(x)) {
+    assert_that(is.list(x))
+  }
+  return(x)
+}
+
+validate_units <- function(x, data) {
+  if(is.null(x)) return(x)
+  assert_that(
+    is.list(x),
+    "'units' must be a named list"
+  )
+  assert_that(
+    is_named(x),
+    "'units' must be a named list"
+  )
+  ok <- names(x) %in% names(data)
+  if(!any(ok)) {
+    warning("there were no valid units found; returning", call.=FALSE)
+    return(NULL)
+  }
+  units[ok]
+}
 triage_data <- function(data) {
   assert_that(is.data.frame(data))
   data <- ungroup(data)
@@ -68,7 +96,7 @@ stable <- function(data, ...) UseMethod("stable")
 #' @export
 stable.data.frame <- function(data,
                               align = cols_left(),
-                              panel = rowpanel(col = NULL),
+                              panel = NULL,
                               span = NULL,
                               notes = NULL,
                               sumrows = NULL,
@@ -81,33 +109,26 @@ stable.data.frame <- function(data,
   data <- triage_data(data)
 
   assert_that(inherits(sizes, "from_tab_sizes"))
-
-  has_panel <- !missing(panel)
-  has_sumrows <- !is.null(sumrows)
-
-  if(has_panel && !is.rowpanel(panel)) {
-    panel <- rowpanel(new_names(panel))
-  }
-
-  if(inherits(sumrows, "sumrow")) {
-    sumrows <- list(sumrows)
-  }
-
-  if(!is.null(sumrows)) {
-    assert_that(is.list(sumrows))
-  }
-
-  # hlines
-  add_hlines <- tab_hlines(data, ...)
+  assert_that(is.function(escape_fun))
+  assert_that(is.aligncol(align))
+  assert_that(is.character(notes))
 
   # clear reps
+  panel <- as.panel(panel)
   data <- tab_clear_reps(data, panel = panel, ...)
 
   # panel
   panel_insert <- tab_panel(data, panel, sumrows)
   data <- panel_insert$data
 
+  # units
+  units <- validate_units(units)
+
+  # hlines
+  add_hlines <- tab_hlines(data, ...)
+
   # sumrows
+  sumrows <- validate_sumrows(sumrows)
   sumrow_insert <- tab_find_sumrows(data, sumrows)
   data <- sumrow_insert$data
 
@@ -116,7 +137,7 @@ stable.data.frame <- function(data,
   cols <- names(data)
 
   # Colgroups
-  span_data <- tab_spanners(data = data, cols = cols, span = span, ...)
+  span_data <- tab_spanners(data = data, cols = names(data), span = span, ...)
   cols <- span_data$cols
 
   # Format cols

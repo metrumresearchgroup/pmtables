@@ -39,6 +39,8 @@ cols_align <- function(.default = 'l', ...,
   structure(ans, class = "aligncol")
 }
 
+is.aligncol <- function(x) inherits(x, "aligncol")
+
 align_update <- function(to_update,cols,al) {
   if(is.null(cols)) return(to_update)
   cols <- cvec_cs(cols)

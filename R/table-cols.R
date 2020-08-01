@@ -103,10 +103,10 @@ rename_cols <- function(cols, relabel = NULL, blank = NULL) {
   if(!is.null(relabel)) {
     relabel <- new_names(relabel)
     relabel <- relabel[relabel %in% cols]
-    newi <- match(cols, relabel)
-    target <- !is.na(newi)
-    replace <- newi[which(target)]
-    cols[target] <- names(relabel)[replace]
+    cols_match <- match(cols, relabel)
+    cols_target <- !is.na(cols_match)
+    cols_replace <- cols_match[which(cols_target)]
+    cols[cols_target] <- names(relabel)[cols_replace]
     cols <- unname(cols)
   }
 
@@ -120,31 +120,3 @@ form_tex_cols <- function(cols, bold = FALSE, pull_back = FALSE) {
   cols <- paste0("", cols)
   cols
 }
-
-# form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
-#                       units = NULL) {
-#   if(!is.null(blank)) {
-#     blank <- unname(new_names(blank))
-#     bl <- cols %in% blank
-#     cols[bl] <- rep("", sum(bl))
-#   }
-#
-#   if(!is.null(relabel)) {
-#     relabel <- new_names(relabel)
-#     relabel <- relabel[relabel %in% cols]
-#     newi <- match(cols, relabel)
-#     loc <- which(!is.na(newi))
-#     cols[loc] <- names(relabel)
-#     cols <- unname(cols)
-#   }
-#
-#   if(isTRUE(bold)) cols <- bold_each(cols)
-#   cols <- paste0(cols, collapse = " & ")
-#   cols <- paste0(cols, " \\\\")
-#   cols <- paste0("", cols)
-#   if(is.character(units) && any(nchar(units) > 0)) {
-#     cols <- paste0(cols, "[-0.5em]")
-#     cols <- c(cols, units)
-#   }
-#   cols
-# }
