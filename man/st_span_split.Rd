@@ -4,7 +4,7 @@
 \alias{st_span_split}
 \title{Add column split spanner information to st object}
 \usage{
-st_span_split(x, sep = ".", ...)
+st_span_split(x, sep, ...)
 }
 \arguments{
 \item{x}{an stobject}

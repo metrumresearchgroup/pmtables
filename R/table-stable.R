@@ -35,21 +35,22 @@ validate_units <- function(x, data) {
   if(is.null(x)) return(x)
   assert_that(
     is.list(x),
-    "'units' must be a named list"
+    msg = "'units' must be a named list"
   )
   assert_that(
-    is_named(x),
-    "'units' must be a named list"
+    rlang::is_named(x),
+    msg = "'units' must be a named list"
   )
   ok <- names(x) %in% names(data)
   if(!any(ok)) {
     warning("there were no valid units found; returning", call.=FALSE)
     return(NULL)
   }
-  units[ok]
+  x[ok]
 }
+
 triage_data <- function(data) {
-  assert_that(is.data.frame(data))
+  assert_that(is.data.frame(data), msg = "'data' must be a data frame")
   data <- ungroup(data)
   fct <- map_lgl(data, is.factor)
   data <- modify_if(data, fct, as.character)
@@ -107,45 +108,55 @@ stable.data.frame <- function(data,
                               ... ) {
 
   data <- triage_data(data)
-
-  assert_that(inherits(sizes, "from_tab_sizes"))
-  assert_that(is.function(escape_fun))
-  assert_that(is.aligncol(align))
-  assert_that(is.character(notes))
+  assert_that(
+    inherits(sizes, "from_tab_sizes"),
+    msg = "'sizes' must be an object created from tab_size()"
+  )
+  assert_that(
+    is.function(escape_fun),
+    msg = "'escape_fun' must be a function"
+  )
+  assert_that(
+    is.aligncol(align),
+    msg = "'align' must be created from cols_align() or other helper in ?cols_align"
+  )
+  assert_that(
+    is.character(notes) || is.null(notes),
+    msg = "'notes' must be character or NULL"
+  )
+  sumrows <- validate_sumrows(sumrows)
+  panel <- as.panel(panel)
 
   # clear reps
-  panel <- as.panel(panel)
   data <- tab_clear_reps(data, panel = panel, ...)
 
   # panel
   panel_insert <- tab_panel(data, panel, sumrows)
   data <- panel_insert$data
 
-  # units
-  units <- validate_units(units)
+  # units / after panel is done
+  units <- validate_units(units, data)
 
   # hlines
   add_hlines <- tab_hlines(data, ...)
 
   # sumrows
-  sumrows <- validate_sumrows(sumrows)
   sumrow_insert <- tab_find_sumrows(data, sumrows)
   data <- sumrow_insert$data
 
   add_hlines <- c(add_hlines, sumrow_insert$hlines)
 
-  cols <- names(data)
-
   # Colgroups
-  span_data <- tab_spanners(data = data, cols = names(data), span = span, ...)
+  cols <- names(data)
+  span_data <- tab_spanners(data = data, cols = cols, span = span, ...)
   cols <- span_data$cols
 
   # Format cols
   cols_data <- tab_cols(cols, ...)
-  assert_that(inherits(cols_data, "from_tab_cols"))
+  cols <- cols_data$cols
 
   header_data <- header_matrix(
-    cols = cols_data$cols,
+    cols = cols,
     cols_new = cols_data$new,
     units = units,
     newline = cols_data$newline
@@ -153,20 +164,20 @@ stable.data.frame <- function(data,
 
   cols_tex <- header_matrix_tex(header_data, sizes)
 
-  # Column alignments
+  # column alignments
   align_tex <- form_align(align,names(data))
   open_tabular <- form_open(align_tex)
 
-  # Start working on the tabular text
+  # start working on the tabular text
   tab <- make_tabular(data, escape_fun = escape_fun, ... )
 
-  # Add hlines
+  # add hlines
   tab <- tab_add_hlines(tab, add_hlines, sumrows)
 
-  # Execute panel insertions
+  # execute panel insertions
   tab <- tab_panel_insert(tab, panel_insert)
 
-  # Notes
+  # notes
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
   out <- c(

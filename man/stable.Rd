@@ -11,7 +11,7 @@ stable(data, ...)
 \method{stable}{data.frame}(
   data,
   align = cols_left(),
-  panel = rowpanel(col = NULL),
+  panel = NULL,
   span = NULL,
   notes = NULL,
   sumrows = NULL,

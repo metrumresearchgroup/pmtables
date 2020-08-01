@@ -1,4 +1,9 @@
-
+check_st <- function(x) {
+  assert_that(
+    is.stobject(x),
+    msg = "the first argument (x) must be an st object"
+  )
+}
 st_arg_names <- c(
   "data", "panel", "notes",
   "align", "r_file", "output_file",
@@ -59,12 +64,15 @@ is.stobject <- function(x) inherits(x, "stobject")
 #'
 #' @export
 st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
-  assert_that(is.stobject(x))
+  check_st(x)
   long <- isTRUE(long)
+  # accumulated by the functions
   args <- as.list(x)
   argnames <- attr(x,"argnames")
   if(long) argnames <- c(argnames, "cap_text", "cap_macro")
   args <- args[intersect(names(args),argnames)]
+
+  # misc args
   if(is.list(x$args)) {
     args <- combine_list(args, x$args)
   }
@@ -113,7 +121,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 #'
 #' @export
 st_panel <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   panel <- rowpanel(...)
   assert_that(is.rowpanel(panel))
   x$panel <- panel
@@ -129,6 +137,8 @@ st_panel <- function(x,...) {
 #' @param ... table notes
 #' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notess
 #' @param config named list of arguments for [noteconf()]
+#' @param collapse if `is.character`, then the note will be collapsed into a
+#' single line separated by value of `collapse` (see [base::paste0()])
 #'
 #' @examples
 #' library(dplyr)
@@ -138,13 +148,16 @@ st_panel <- function(x,...) {
 #' ob %>% st_notes("ALB: albumin (g/dL)") %>% st_make()
 #'
 #' @export
-st_notes <- function(x, ..., esc = NULL, config = NULL) {
-  assert_that(is.stobject(x))
+st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = NULL) {
+  check_st(x)
   notes <- unlist(list(...))
   if(!is.null(notes)) {
     assert_that(is.character(notes))
     if(is.character(esc)) {
       notes <- tab_escape(notes, esc = esc)
+    }
+    if(is.character(collapse) && length(notes) > 1) {
+      notes <- paste0(notes, collapse = collapse)
     }
     x$notes <- c(x$notes, notes)
   }
@@ -173,7 +186,7 @@ st_notes <- function(x, ..., esc = NULL, config = NULL) {
 #'
 #' @export
 st_noteconf <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   x$note_config <- noteconf(...)
   x
 }
@@ -195,7 +208,7 @@ st_noteconf <- function(x,...) {
 #'
 #' @export
 st_align <- function(x, ...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   x$align <- cols_align(...)
   x
 }
@@ -218,7 +231,6 @@ st_right <- function(x,...) {
   st_align(x,.default = "r",...)
 }
 
-
 #' Add file name information to st object
 #'
 #' See the `r_file` and `output_file` arguments to [stable()].
@@ -238,7 +250,7 @@ st_right <- function(x,...) {
 #' @export
 st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
                      esc = NULL) {
-  assert_that(is.stobject(x))
+  check_st(x)
   if(!missing(r)) {
     if(!is.null(esc)) r <- tab_escape(r, esc = esc)
     x$r_file <- r
@@ -267,7 +279,7 @@ st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
 #'
 #' @export
 st_space <- function(x, row = NULL, col = NULL) {
-  assert_that(is.stobject(x))
+  check_st(x)
   if(!missing(row)) {
     x$row_space <- row
   }
@@ -294,7 +306,7 @@ st_space <- function(x, row = NULL, col = NULL) {
 #'
 #' @export
 st_span <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   span <- colgroup(...)
   if(is.null(x$span)) {
     x$span <- list(span)
@@ -325,8 +337,8 @@ st_span <- function(x,...) {
 #' st_new(data) %>% st_span_split('.') %>% st_make()
 #'
 #' @export
-st_span_split <- function(x, sep = ".",...) {
-  assert_that(is.stobject(x))
+st_span_split <- function(x, sep,...) {
+  check_st(x)
   x$span_split <- colsplit(sep = sep, ...)
   x
 }
@@ -347,7 +359,7 @@ st_span_split <- function(x, sep = ".",...) {
 #'
 #' @export
 st_rename <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   l <- new_names(enquos(...))
   x$col_rename <- c(x$col_rename, l)
   x
@@ -364,7 +376,7 @@ st_rename <- function(x,...) {
 #'
 #' @export
 st_blank <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   l <- new_names(enquos(...))
   x$col_blank <- c(x$col_blank, l)
   x
@@ -380,7 +392,7 @@ st_blank <- function(x,...) {
 #'
 #' @export
 st_sumrow <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   sumr <- sumrow(...)
   if(is.list(x$sumrows)) {
     x$sumrows <- c(x$sumrows, list(sumr))
@@ -400,7 +412,7 @@ st_sumrow <- function(x,...) {
 #'
 #' @export
 st_clear_reps <- function(x, ...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   dots <- enquos(...)
   if(length(dots) > 0) {
     cols <- new_names(dots)
@@ -421,7 +433,7 @@ st_clear_reps <- function(x, ...) {
 #'
 #' @export
 st_hline <- function(x, at = NULL, from = NULL) {
-  assert_that(is.stobject(x))
+  check_st(x)
   if(!missing(at)) {
     x$hline_at <- at
   }
@@ -438,7 +450,7 @@ st_hline <- function(x, at = NULL, from = NULL) {
 #'
 #' @export
 st_sizes <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   x$sizes <- tab_size(...)
   x
 }
@@ -450,7 +462,7 @@ st_sizes <- function(x,...) {
 #'
 #' @export
 st_args <- function(x,...) {
-  assert_that(is.stobject(x))
+  check_st(x)
   args <- list(...)
   if(length(args) > 0) {
     args <- args[intersect(names(args),st_arg_names)]
@@ -459,3 +471,34 @@ st_args <- function(x,...) {
   x
 }
 
+#' Add unit information to st object
+#'
+#' Units can be passed either as `name=value` pairs or as a named list
+#' with [st_args()]. Units can alternatively be passed as an argument
+#' to [stable()] as a pre-formed, named list using [st_args()].  Passing
+#' as an argument this way will overwrite units specified with
+#' [st_units()]. It is recommended to use either [st_units()] or
+#' [st_args()] but not both.
+#'
+#' @param x an stobject
+#' @param ... named items of the form `COL = unit` or a named list
+#' of units
+#' @param parens if `TRUE`, parens will be added to any unit whose first
+#' character is not `(`
+#'
+#' @export
+st_units <- function(x, ..., parens = TRUE) {
+  check_st(x)
+  units <- flatten(list(...))
+  units <- map(units, trimws)
+  if(isTRUE(parens)) {
+    w <- substr(unlist(units, use.names=FALSE),1,1) != "("
+    units[w] <- paste0("(",units[w],")")
+  }
+  if(is.list(x$units)) {
+    x$units <- combine_list(x$units, units)
+  } else {
+    x$units <- units
+  }
+  x
+}

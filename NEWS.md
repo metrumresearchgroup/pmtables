@@ -38,6 +38,6 @@ and between labels and units
 - Add `center` argument to `col_fixed`; when `ragged` is `no`, the column can still be 
 fixed and centered
 - Dots (`...`) added to `st_new()` / `st_data()` to be collected by args
-
+- Add `st_units()` pipeline function
 
 
