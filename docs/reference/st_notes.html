@@ -73,7 +73,7 @@ be called multiple times and will accumulate notes data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9051</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9052</span>
       </span>
     </div>
 
@@ -150,7 +150,7 @@ be called multiple times and will accumulate notes data." />
 be called multiple times and will accumulate <code>notes</code> data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_notes</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>st_notes</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +170,11 @@ be called multiple times and will accumulate <code>notes</code> data.</p>
     <tr>
       <th>config</th>
       <td><p>named list of arguments for <code><a href='noteconf.html'>noteconf()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>collapse</th>
+      <td><p>if <code>is.character</code>, then the note will be collapsed into a
+single line separated by value of <code>collapse</code> (see <code><a href='https://rdrr.io/r/base/paste.html'>base::paste0()</a></code>)</p></td>
     </tr>
     </table>
 

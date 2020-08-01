@@ -110,12 +110,22 @@ data %>%
 - Automatically put units under the column name
 
 ```{r,results = 'asis'}
-units <- ys_get_unit(spec, parens = TRUE)
 
 data %>% 
   st_new() %>% 
   st_center(STUDY = 'l', .r = "DOSE,SCR") %>% 
-  st_args(units = units) %>%
+  st_units(WT = "kg", SCR = "mg/dL", DOSE = "mg") %>%
+  st_make(.cat = TRUE)
+```
+
+Alternatively
+```{r,results = 'asis'}
+units <- ys_get_unit(spec, parens = TRUE)
+
+data[1:3,] %>% 
+  st_new() %>% 
+  st_center(STUDY = 'l', .r = "DOSE,SCR") %>% 
+  st_units(units) %>%
   st_make(.cat = TRUE)
 ```
 
@@ -131,7 +141,7 @@ data %>%
 data %>% 
   st_new() %>% 
   st_rename("Study...Number" = STUDY, "Serum...Albumin" = ALB) %>%
-  st_args(units = units) %>%
+  st_units(units) %>%
   st_make(.cat = TRUE)
 ```
 

@@ -492,7 +492,8 @@ st_units <- function(x, ..., parens = TRUE) {
   units <- flatten(list(...))
   units <- map(units, trimws)
   if(isTRUE(parens)) {
-    w <- substr(unlist(units, use.names=FALSE),1,1) != "("
+    u <- unlist(units, use.names=FALSE)
+    w <- substr(u,1,1) != "(" & nchar(u) > 0
     units[w] <- paste0("(",units[w],")")
   }
   if(is.list(x$units)) {
