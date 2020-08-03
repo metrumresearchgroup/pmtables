@@ -620,3 +620,16 @@ tab_edit <- function(data, pattern, replacement, cols = names(data)) {
   }
   data
 }
+
+#' Methods for stobject
+#'
+#' @param x an stobject
+#' @param ... other arguments
+#' @export
+print.stobject <- function(x, ...) {
+  as_tibble(x$data)
+}
+
+#' @rdname print.stobject
+#' @export
+names.stobject <- function(x) names(x$data)
