@@ -49,6 +49,16 @@ validate_units <- function(x, data) {
   x[ok]
 }
 
+#' Get data ready for processing with s table
+#'
+#' @param data a data frame
+#'
+#' @details
+#' 1. `data` must be a data frame
+#' 1. `data` is ungrouped with [dplyr::ungroup()]
+#' 1. factor columns in `data` are converted to character
+#'
+#' @export
 triage_data <- function(data) {
   assert_that(is.data.frame(data), msg = "'data' must be a data frame")
   data <- ungroup(data)

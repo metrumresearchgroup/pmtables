@@ -148,7 +148,14 @@
     <p>See the <code>hline_at</code> and <code>hline_from</code> arguments to <code><a href='stable.html'>stable()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_hline</span>(<span class='no'>x</span>, <span class='kw'>at</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>st_hline</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>$<span class='no'>data</span>),
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>at</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,6 +163,19 @@
     <tr>
       <th>x</th>
       <td><p>and stobject</p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p>a regular expression to find rows where an <code>hline</code> will be
+placed; passed to <code><a href='https://stringr.tidyverse.org/reference/str_detect.html'>stringr::str_detect()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>data columns to scan using <code>pattern</code></p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>number of <code>hlines</code> to add when a hit is found</p></td>
     </tr>
     <tr>
       <th>at</th>

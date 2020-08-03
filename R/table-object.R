@@ -459,6 +459,7 @@ st_hline <- function(x, pattern = NULL, cols = names(x$data), n = 1,
   }
   if(is.character(pattern)) {
     hline_re <- unique(find_hline_df(x$data, pattern, cols))
+    hline_re <- hline_re[hline_re > 1]
     if(n > 1) {
       hline_re <- sort(rep(hline_re,n))
     }
@@ -535,7 +536,7 @@ st_units <- function(x, ..., parens = TRUE) {
 #' @param pattern passed to [tex_bold()] or [tex_it()]
 #'
 #' @export
-st_bold <- function(x, pattern, cols = names(x$data)) {
+st_bold <- function(x, cols, pattern = "*") {
   cols <- new_names(cols)
   assert_that(all(cols %in% names(x$data)))
   for(col in cols) {
@@ -593,14 +594,21 @@ st_mutate <- function(x, ...) {
 #' @param cols data columns to check for `pattern`
 #'
 #' @export
-st_edit <- function(x, pattern, replacement, cols = names(x$data)) {
+st_edit <- function(x, ...) {
   check_st(x)
-  if(!missing(cols)) {
-    cols <- cols[cols %in% names(x$data)]
-  }
-  if(length(cols)==0) return(x)
-  for(col in cols) {
-    x$data[[col]] <- str_replace(x$data[[col]],pattern,replacement)
-  }
+  x$data <- tab_edit(x$data, ...)
   x
+}
+
+#' @rdname st_edit
+#' @export
+tab_edit <- function(data, pattern, replacement, cols = names(data)) {
+  if(!missing(cols)) {
+    cols <- cols[cols %in% names(data)]
+  }
+  if(length(cols)==0) return(data)
+  for(col in cols) {
+    data[[col]] <- str_replace(data[[col]],pattern,replacement)
+  }
+  data
 }

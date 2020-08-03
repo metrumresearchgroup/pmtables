@@ -148,7 +148,13 @@
     <p>Clear repeated values in a column</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tab_clear_reps</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clear_reps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='fu'><a href='rowpanel.html'>rowpanel</a></span>(<span class='kw'>NULL</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>tab_clear_reps</span>(
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>clear_reps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='fu'><a href='rowpanel.html'>rowpanel</a></span>(<span class='kw'>NULL</span>),
+  <span class='kw'>clear_grouped_reps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +172,10 @@ be made blank (overwritten with <code>""</code>); ; see also <code><a href='st_c
       <th>panel</th>
       <td><p>character column name to use to section the table; sections will
 be created from unique values of <code>data[[panel]]</code>; see also <code><a href='st_panel.html'>st_panel()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>clear_grouped_reps</th>
+      <td><p>passed to <code><a href='deduplicate_values.html'>deduplicate_values()</a></code> as <code>cols</code></p></td>
     </tr>
     <tr>
       <th>...</th>

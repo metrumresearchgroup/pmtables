@@ -41,5 +41,11 @@ fixed and centered
 - Add `st_units()` pipeline function
 - Add `tex_bold`() function to style data frame contents
 - Add `tex_it()` function to style data frame contents
+- Add `st_edit()`
+- Refactor `st_hline()`; allow to add hline by regexp across whole data frame 
+or targeted
+- Refactored `st_bold` and `st_it` to target columns or whole data frame
+- Add `st_drop()`
+-
 
 

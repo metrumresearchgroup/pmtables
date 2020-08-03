@@ -159,6 +159,7 @@
   <span class='kw'>notes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>sumrows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>sizes</span> <span class='kw'>=</span> <span class='fu'><a href='tab_size.html'>tab_size</a></span>(),
   <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>,
   <span class='kw'>inspect</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -210,6 +211,10 @@ and adds styling; see also <code><a href='st_sumrow.html'>st_sumrow()</a></code>
       <th>units</th>
       <td><p>a named list with unit information; names should correspond to
 columns in the data frame</p></td>
+    </tr>
+    <tr>
+      <th>drop</th>
+      <td><p>columns to remove prior to rendering the table</p></td>
     </tr>
     <tr>
       <th>sizes</th>

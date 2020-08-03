@@ -64,6 +64,7 @@ reps_to_clear <- function(data, clear_reps, panel) {
 #'
 #' @export
 deduplicate_values <- function(data, cols = groups(data), extra_groups = NULL) {
+  cols <- new_names(cols)
   gr <- groups(data)
   data <- ungroup(data)
   rm_dup <- function(x) {
