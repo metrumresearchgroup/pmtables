@@ -46,12 +46,14 @@ tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
 }
 
 header_matrix <- function(cols, cols_new, units = NULL, newline = "...") {
-  nunit <- !is.null(units)
+
   sp <- str_split(cols_new, fixed(newline))
-  nsplit <- max(map_int(sp,length))
+  nsplit <- map_int(sp,length)
   u <- header_matrix_unit(sp, cols, units)
+  nunit <- !map_int(u, is.null)
+  nrows <- max(nsplit+nunit)
   sp <- map2(sp, u, ~c(.x,.y))
-  sp <- header_matrix_resize(sp, nsplit+nunit)
+  sp <- header_matrix_resize(sp, nrows)
   names(sp) <- paste0("V", seq_along(sp))
   sp <- bind_cols(sp)
   sp <- modify(sp, replace_na, "")

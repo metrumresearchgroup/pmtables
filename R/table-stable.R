@@ -74,6 +74,7 @@ triage_data <- function(data) {
 #' and adds styling; see also [st_sumrow()]
 #' @param units a named list with unit information; names should correspond to
 #' columns in the data frame
+#' @param drop columns to remove prior to rendering the table
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
 #' @param inspect if `TRUE`, extra information is attached to the output
@@ -102,6 +103,7 @@ stable.data.frame <- function(data,
                               notes = NULL,
                               sumrows = NULL,
                               units = NULL,
+                              drop = NULL,
                               sizes = tab_size(),
                               escape_fun = tab_escape,
                               inspect = FALSE,
@@ -145,6 +147,18 @@ stable.data.frame <- function(data,
   data <- sumrow_insert$data
 
   add_hlines <- c(add_hlines, sumrow_insert$hlines)
+
+  # Drop
+  drop_cols <- function(data,drop) {
+    if(is.null(drop)) return(data)
+    drop <- new_names(drop)
+    for(col in drop) {
+      data[[col]] <- NULL
+    }
+    data
+  }
+
+  data <- drop_cols(data, drop)
 
   # Colgroups
   cols <- names(data)

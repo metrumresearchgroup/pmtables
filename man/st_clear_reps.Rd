@@ -2,9 +2,12 @@
 % Please edit documentation in R/table-object.R
 \name{st_clear_reps}
 \alias{st_clear_reps}
+\alias{st_clear_grouped}
 \title{Add clear rep information to st object}
 \usage{
 st_clear_reps(x, ...)
+
+st_clear_grouped(x, ...)
 }
 \arguments{
 \item{x}{an stobject}

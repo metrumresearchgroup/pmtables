@@ -2,12 +2,15 @@
 % Please edit documentation in R/table-span.R
 \name{colgroup}
 \alias{colgroup}
+\alias{as.span}
 \alias{colsplit}
 \alias{is.colgroup}
 \alias{is.colsplit}
 \title{Set spans to group columns}
 \usage{
 colgroup(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE)
+
+as.span(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE)
 
 colsplit(sep, level = 1, split = TRUE, title = NULL)
 

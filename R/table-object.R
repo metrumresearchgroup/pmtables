@@ -9,7 +9,7 @@ st_arg_names <- c(
   "align", "r_file", "output_file",
   "row_space", "col_space",
   "span", "span_split", "col_rename", "col_blank",
-  "sumrows", "note_config", "clear_reps",
+  "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
   "hline_at", "hline_from", "sizes", "units"
 )
 
@@ -421,24 +421,48 @@ st_clear_reps <- function(x, ...) {
   x
 }
 
+#' @rdname st_clear_reps
+#' @export
+st_clear_grouped <- function(x, ...) {
+  check_st(x)
+  dots <- enquos(...)
+  if(length(dots) > 0) {
+    cols <- new_names(dots)
+    x$clear_grouped_reps <- cols
+  }
+  x
+}
+
 #' Add hline information to st object
 #'
 #' See the `hline_at` and `hline_from` arguments to [stable()].
 #'
 #' @param x and stobject
+#' @param pattern a regular expression to find rows where an `hline` will be
+#' placed; passed to [stringr::str_detect()]
+#' @param cols data columns to scan using `pattern`
+#' @param n number of `hlines` to add when a hit is found
 #' @param at logical or integer locations for hline passed to [stable()] as
 #' `hline_at`
 #' @param from character column name used to divide a table; passed to
 #' [stable()] as `hline_from`
 #'
 #' @export
-st_hline <- function(x, at = NULL, from = NULL) {
+st_hline <- function(x, pattern = NULL, cols = names(x$data), n = 1,
+                     at = NULL, from = NULL) {
   check_st(x)
   if(!missing(at)) {
     x$hline_at <- at
   }
   if(!missing(from)) {
     x$hline_from <- from
+  }
+  if(is.character(pattern)) {
+    hline_re <- unique(find_hline_df(x$data, pattern, cols))
+    if(n > 1) {
+      hline_re <- sort(rep(hline_re,n))
+    }
+    x$hline_at <- c(x$hline_at, hline_re)
   }
   x
 }
@@ -500,6 +524,83 @@ st_units <- function(x, ..., parens = TRUE) {
     x$units <- combine_list(x$units, units)
   } else {
     x$units <- units
+  }
+  x
+}
+
+#' Make columns bold or italics
+#'
+#' @param x an stobject
+#' @param cols columns to make bold
+#' @param pattern passed to [tex_bold()] or [tex_it()]
+#'
+#' @export
+st_bold <- function(x, pattern, cols = names(x$data)) {
+  cols <- new_names(cols)
+  assert_that(all(cols %in% names(x$data)))
+  for(col in cols) {
+    x$data[[col]] <- tex_bold(as.character(x$data[[col]]), pattern = pattern)
+  }
+  x
+}
+
+#' @rdname st_bold
+#' @export
+st_it <- function(x, cols, pattern = "*") {
+  cols <- new_names(cols)
+  assert_that(all(cols %in% names(x$data)))
+  for(col in cols) {
+    x$data[[col]] <- tex_it(as.character(x$data[[col]]), pattern = pattern)
+  }
+  x
+}
+
+#' Drop data columns
+#'
+#' @param x an stobject
+#' @param ... column names to drop
+#'
+#' @export
+st_drop <- function(x, ...) {
+  dots <- new_names(enquos(...))
+  x$data[dots] <- NULL
+  x
+}
+
+#' Filter, select, or mutate data
+#'
+#' @param x an stobject
+#' @param ... passed to [dplyr::select()], or [dplyr::mutate()]
+#'
+#' @export
+st_select <- function(x, ...) {
+  x$data <- dplyr::select(x$data, ...)
+  x
+}
+
+#' @rdname st_select
+#' @export
+st_mutate <- function(x, ...) {
+  x$data <- dplyr::mutate(x$data, ...)
+  x
+}
+
+#' Edit table contents
+#'
+#' @param x an stobject
+#' @param pattern passed to [stringr::str_replace()]
+#' @param replacement passed to [stringr::str_replace()]
+#' @param cols data columns to check for `pattern`
+#'
+#' @export
+st_edit <- function(x, pattern, replacement, cols = names(x$data)) {
+  check_st(x)
+  if(!missing(cols)) {
+    cols <- cols[cols %in% names(x$data)]
+  }
+  if(length(cols)==0) return(x)
+  for(col in cols) {
+    x$data[[col]] <- str_replace(x$data[[col]],pattern,replacement)
   }
   x
 }

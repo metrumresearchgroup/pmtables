@@ -16,6 +16,7 @@ stable(data, ...)
   notes = NULL,
   sumrows = NULL,
   units = NULL,
+  drop = NULL,
   sizes = tab_size(),
   escape_fun = tab_escape,
   inspect = FALSE,
@@ -48,6 +49,8 @@ and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
 
 \item{units}{a named list with unit information; names should correspond to
 columns in the data frame}
+
+\item{drop}{columns to remove prior to rendering the table}
 
 \item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
 

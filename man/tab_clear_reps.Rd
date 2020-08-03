@@ -4,7 +4,13 @@
 \alias{tab_clear_reps}
 \title{Clear repeated values in a column}
 \usage{
-tab_clear_reps(data = NULL, clear_reps = NULL, panel = rowpanel(NULL), ...)
+tab_clear_reps(
+  data = NULL,
+  clear_reps = NULL,
+  panel = rowpanel(NULL),
+  clear_grouped_reps = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
@@ -14,6 +20,8 @@ be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_rep
 
 \item{panel}{character column name to use to section the table; sections will
 be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_panel]{st_panel()}}}
+
+\item{clear_grouped_reps}{passed to \code{\link[=deduplicate_values]{deduplicate_values()}} as \code{cols}}
 
 \item{...}{not used}
 }

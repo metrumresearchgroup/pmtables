@@ -3,6 +3,7 @@
 #' @importFrom dplyr mutate bind_rows select ungroup summarise left_join
 #' @importFrom dplyr group_modify rename count vars group_by n first last
 #' @importFrom dplyr case_when filter arrange group_vars distinct bind_cols
+#' @importFrom dplyr groups
 #' @importFrom purrr map_dfr walk partial map map_chr modify flatten_chr
 #' @importFrom purrr flatten_int map_lgl modify_if map_int map2 keep flatten
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill
@@ -13,7 +14,7 @@
 #' @importFrom tibble tibble as_tibble
 #' @importFrom stats median rnorm sd na.omit
 #' @importFrom utils capture.output packageVersion str
-#' @importFrom stringr fixed str_split str_count str_detect
+#' @importFrom stringr fixed str_split str_count str_detect str_replace
 #' @import mrggt
 #'
 #' @include summary-functions.R

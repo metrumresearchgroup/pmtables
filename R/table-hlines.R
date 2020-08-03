@@ -16,7 +16,7 @@ tab_hlines <- function(data, hline_at = NULL, hline_from = NULL, ...) {
     if(is.logical(hline_at)) {
       hline_at <- which(hline_at)
     }
-    add_hlines <- c(add_hlines,hline_at)
+    add_hlines <- c(add_hlines,hline_at-1)
   }
   if(!is.null(hline_from)) {
     assert_that(is.character(hline_from))
@@ -34,8 +34,10 @@ tab_add_hlines <- function(tab, hlines, sumrows = NULL) {
   if(is.null(hlines) || length(hlines)==0) {
     return(tab)
   }
-  hlines <- sort(unique(hlines))
-  tab[hlines] <- paste0(tab[hlines], " \\hline")
+  hlines <- sort(hlines)
+  for(i in hlines) {
+    tab[i] <- paste0(tab[i], " \\hline")
+  }
   if(is.list(sumrows)) {
     hlinex <- map(sumrows, sumrow_get_hlinex2)
     above <- sort(unique(flatten_int(hlinex)-1))
@@ -44,4 +46,18 @@ tab_add_hlines <- function(tab, hlines, sumrows = NULL) {
     tab[below] <- paste0(tab[below], " \\hline")
   }
   tab
+}
+
+find_hline_col <- function(x,re) {
+  which(str_detect(x,re))
+}
+
+find_hline_df <- function(data, re,  cols = NULL) {
+  if(is.null(cols)) cols <- names(data)
+  cols <- cols[cols %in% names(data)]
+  if(length(cols)==0) return(NULL)
+  rows <- map(data[,cols], find_hline_col, re = re)
+  rows <- flatten_int(rows)
+  if(length(rows)==0) return(NULL)
+  return(rows)
 }

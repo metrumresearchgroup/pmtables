@@ -4,10 +4,24 @@
 \alias{st_hline}
 \title{Add hline information to st object}
 \usage{
-st_hline(x, at = NULL, from = NULL)
+st_hline(
+  x,
+  pattern = NULL,
+  cols = names(x$data),
+  n = 1,
+  at = NULL,
+  from = NULL
+)
 }
 \arguments{
 \item{x}{and stobject}
+
+\item{pattern}{a regular expression to find rows where an \code{hline} will be
+placed; passed to \code{\link[stringr:str_detect]{stringr::str_detect()}}}
+
+\item{cols}{data columns to scan using \code{pattern}}
+
+\item{n}{number of \code{hlines} to add when a hit is found}
 
 \item{at}{logical or integer locations for hline passed to \code{\link[=stable]{stable()}} as
 \code{hline_at}}

@@ -29,6 +29,10 @@ colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".", split = FAL
 }
 
 #' @rdname colgroup
+#' @export
+as.span <- colgroup
+
+#' @rdname colgroup
 #' @param split logical; if `TRUE` column groupings will be determined by
 #' splitting columns names on a separator
 #' @param sep character; the separator used for finding column groupings
