@@ -183,10 +183,13 @@ stable.data.frame <- function(data,
     cols = cols,
     cols_new = cols_data$new,
     units = units,
-    newline = cols_data$newline
+    newline = cols_data$newline,
+    bold = cols_data$bold
   )
 
-  cols_tex <- header_matrix_tex(header_data, sizes)
+  cols_tex <- header_matrix_tex(header_data, sizes
+
+                                )
 
   # column alignments
   align_tex <- form_align(align,names(data))

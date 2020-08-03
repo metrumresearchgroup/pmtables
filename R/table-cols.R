@@ -41,17 +41,21 @@ tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
   }
 
   cols_new <- esc_underscore(cols_new)
-  ans <- list(new = cols_new, cols = cols0, newline = col_break)
+  ans <- list(new = cols_new, cols = cols0, newline = col_break, bold = col_bold)
   structure(ans, class = "from_tab_cols")
 }
 
-header_matrix <- function(cols, cols_new, units = NULL, newline = "...") {
+header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
+                          bold = FALSE) {
 
   sp <- str_split(cols_new, fixed(newline))
   nsplit <- map_int(sp,length)
   u <- header_matrix_unit(sp, cols, units)
   nunit <- !map_int(u, is.null)
   nrows <- max(nsplit+nunit)
+  if(isTRUE(bold)) {
+    sp <- map(sp, bold_each)
+  }
   sp <- map2(sp, u, ~c(.x,.y))
   sp <- header_matrix_resize(sp, nrows)
   names(sp) <- paste0("V", seq_along(sp))
@@ -115,8 +119,7 @@ rename_cols <- function(cols, relabel = NULL, blank = NULL) {
   cols
 }
 
-form_tex_cols <- function(cols, bold = FALSE, pull_back = FALSE) {
-  if(isTRUE(bold)) cols <- bold_each(cols)
+form_tex_cols <- function(cols) {
   cols <- paste0(cols, collapse = " & ")
   cols <- paste0(cols, " \\\\")
   cols <- paste0("", cols)

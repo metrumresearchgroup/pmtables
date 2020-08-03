@@ -627,7 +627,7 @@ tab_edit <- function(data, pattern, replacement, cols = names(data)) {
 #' @param ... other arguments
 #' @export
 print.stobject <- function(x, ...) {
-  as_tibble(x$data)
+  print(as_tibble(x$data))
 }
 
 #' @rdname print.stobject
