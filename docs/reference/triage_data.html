@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print the pt_opts object — print.pt_opts • pmtables</title>
+<title>Get data ready for processing with s table — triage_data • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Print the pt_opts object — print.pt_opts" />
-<meta property="og:description" content="Print the pt_opts object" />
+<meta property="og:title" content="Get data ready for processing with s table — triage_data" />
+<meta property="og:description" content="Get data ready for processing with s table" />
 
 
 
@@ -139,35 +139,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print the pt_opts object</h1>
+    <h1>Get data ready for processing with s table</h1>
     
-    <div class="hidden name"><code>print.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>triage_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Print the pt_opts object</p>
+    <p>Get data ready for processing with s table</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for pt_opts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>triage_data</span>(<span class='no'>data</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>not used</p></td>
+      <th>data</th>
+      <td><p>a data frame</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pt_opts</span></div><div class='output co'>#&gt; Classes 'pt_opts', 'environment' &lt;environment: 0x7fee632d7c40&gt; </div><div class='input'>
-</div></pre>
+    
+<ol>
+<li><p><code>data</code> must be a data frame</p></li>
+<li><p><code>data</code> is ungrouped with <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::ungroup()</a></code></p></li>
+<li><p>factor columns in <code>data</code> are converted to character</p></li>
+</ol>
+
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -63,7 +63,7 @@ reps_to_clear <- function(data, clear_reps, panel) {
 #' @param extra_groups extra grouping variables
 #'
 #' @export
-clear_grouped_reps <- function(data, cols = groups(data), extra_groups = NULL) {
+clear_grouped_values <- function(data, cols = groups(data), extra_groups = NULL) {
   cols <- new_names(cols)
   gr <- groups(data)
   data <- ungroup(data)
@@ -85,7 +85,7 @@ clear_grouped_reps <- function(data, cols = groups(data), extra_groups = NULL) {
   }
   data
 }
-#' @rdname clear_grouped_reps
+#' @rdname clear_grouped_values
 #' @export
-deduplicate_values <- clear_grouped_reps
+deduplicate_values <- clear_grouped_values
 

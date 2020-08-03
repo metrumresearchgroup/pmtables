@@ -32,7 +32,6 @@ Collate:
     'table-align.R'
     'table-clear_reps.R'
     'table-cols.R'
-    'table-edit.R'
     'table-functions.R'
     'table-hlines.R'
     'table-long.R'

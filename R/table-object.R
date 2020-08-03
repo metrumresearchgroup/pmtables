@@ -589,9 +589,7 @@ st_mutate <- function(x, ...) {
 #' Edit table contents
 #'
 #' @param x an stobject
-#' @param pattern passed to [stringr::str_replace()]
-#' @param replacement passed to [stringr::str_replace()]
-#' @param cols data columns to check for `pattern`
+#' @param ... arguments passed to [tab_edit()]
 #'
 #' @export
 st_edit <- function(x, ...) {
@@ -600,6 +598,10 @@ st_edit <- function(x, ...) {
   x
 }
 
+#' @param data a data frame
+#' @param pattern passed to [stringr::str_replace()]
+#' @param replacement passed to [stringr::str_replace()]
+#' @param cols data columns to check for `pattern`
 #' @rdname st_edit
 #' @export
 tab_edit <- function(data, pattern, replacement, cols = names(data)) {

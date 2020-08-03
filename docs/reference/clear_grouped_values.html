@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print the pt_opts object — print.pt_opts • pmtables</title>
+<title>Clear grouped column values — clear_grouped_values • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Print the pt_opts object — print.pt_opts" />
-<meta property="og:description" content="Print the pt_opts object" />
+<meta property="og:title" content="Clear grouped column values — clear_grouped_values" />
+<meta property="og:description" content="Clear grouped column values" />
 
 
 
@@ -139,35 +139,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print the pt_opts object</h1>
+    <h1>Clear grouped column values</h1>
     
-    <div class="hidden name"><code>print.pt_opts.Rd</code></div>
+    <div class="hidden name"><code>clear_grouped_values.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Print the pt_opts object</p>
+    <p>Clear grouped column values</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for pt_opts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>clear_grouped_values</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>groups</span>(<span class='no'>data</span>), <span class='kw'>extra_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>deduplicate_values</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>groups</span>(<span class='no'>data</span>), <span class='kw'>extra_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the <code>pt_opts</code> object</p></td>
+      <th>data</th>
+      <td><p>data frame</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>not used</p></td>
+      <th>cols</th>
+      <td><p>columns to clear</p></td>
+    </tr>
+    <tr>
+      <th>extra_groups</th>
+      <td><p>extra grouping variables</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pt_opts</span></div><div class='output co'>#&gt; Classes 'pt_opts', 'environment' &lt;environment: 0x7fee632d7c40&gt; </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

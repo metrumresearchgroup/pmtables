@@ -148,7 +148,9 @@
     <p>Edit table contents</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_edit</span>(<span class='no'>x</span>, <span class='no'>pattern</span>, <span class='no'>replacement</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>$<span class='no'>data</span>))</pre>
+    <pre class="usage"><span class='fu'>st_edit</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>tab_edit</span>(<span class='no'>data</span>, <span class='no'>pattern</span>, <span class='no'>replacement</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>data</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,6 +158,14 @@
     <tr>
       <th>x</th>
       <td><p>an stobject</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to <code>tab_edit()</code></p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>a data frame</p></td>
     </tr>
     <tr>
       <th>pattern</th>

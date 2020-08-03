@@ -12,6 +12,10 @@ tab_edit(data, pattern, replacement, cols = names(data))
 \arguments{
 \item{x}{an stobject}
 
+\item{...}{arguments passed to \code{\link[=tab_edit]{tab_edit()}}}
+
+\item{data}{a data frame}
+
 \item{pattern}{passed to \code{\link[stringr:str_replace]{stringr::str_replace()}}}
 
 \item{replacement}{passed to \code{\link[stringr:str_replace]{stringr::str_replace()}}}
