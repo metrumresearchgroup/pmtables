@@ -5,7 +5,7 @@
 \alias{st_clear_grouped}
 \title{Add clear rep information to st object}
 \usage{
-st_clear_reps(x, ...)
+st_clear_reps(x, ..., .now = FALSE)
 
 st_clear_grouped(x, ...)
 }
@@ -14,6 +14,9 @@ st_clear_grouped(x, ...)
 
 \item{...}{quoted or unquoted column names passed to \code{\link[=stable]{stable()}} as
 \code{clear_reps}}
+
+\item{.now}{if \code{TRUE}, the data is immediately processed; otherwise, the
+processing is done after the pipeline completes}
 }
 \description{
 See the \code{clear_reps} argument to \code{\link[=stable]{stable()}}.

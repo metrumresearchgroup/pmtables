@@ -10,7 +10,7 @@ st_arg_names <- c(
   "row_space", "col_space",
   "span", "span_split", "col_rename", "col_blank",
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
-  "hline_at", "hline_from", "sizes", "units"
+  "hline_at", "hline_from", "sizes", "units", "drop"
 )
 
 #' Create an st object
@@ -409,14 +409,20 @@ st_sumrow <- function(x,...) {
 #' @param x an stobject
 #' @param ... quoted or unquoted column names passed to [stable()] as
 #' `clear_reps`
+#' @param .now if `TRUE`, the data is immediately processed; otherwise, the
+#' processing is done after the pipeline completes
 #'
 #' @export
-st_clear_reps <- function(x, ...) {
+st_clear_reps <- function(x, ..., .now = FALSE) {
   check_st(x)
   dots <- enquos(...)
   if(length(dots) > 0) {
     cols <- new_names(dots)
-    x$clear_reps <- cols
+    if(isTRUE(.now)) {
+      x$data <- tab_clear_reps(x$data, clear_reps = cols)
+    } else {
+      x$clear_reps <- cols
+    }
   }
   x
 }
@@ -564,7 +570,7 @@ st_it <- function(x, cols, pattern = "*") {
 #' @export
 st_drop <- function(x, ...) {
   dots <- new_names(enquos(...))
-  x$data[dots] <- NULL
+  x$drop <- c(x$drop, dots)
   x
 }
 

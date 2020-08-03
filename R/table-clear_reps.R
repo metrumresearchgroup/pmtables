@@ -2,7 +2,7 @@
 #'
 #' @inheritParams stable
 #' @param clear_reps character vector of column names where duplicate values will
-#' be made blank (overwritten with `""`); ; see also [st_clear_reps()]
+#' be made blank (overwritten with `""`); see also [st_clear_reps()]
 #' @param clear_grouped_reps passed to [deduplicate_values()] as `cols`
 #' @param ... not used
 #' @export

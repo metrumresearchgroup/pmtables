@@ -16,7 +16,7 @@ tab_clear_reps(
 \item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
 
 \item{clear_reps}{character vector of column names where duplicate values will
-be made blank (overwritten with \code{""}); ; see also \code{\link[=st_clear_reps]{st_clear_reps()}}}
+be made blank (overwritten with \code{""}); see also \code{\link[=st_clear_reps]{st_clear_reps()}}}
 
 \item{panel}{character column name to use to section the table; sections will
 be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_panel]{st_panel()}}}

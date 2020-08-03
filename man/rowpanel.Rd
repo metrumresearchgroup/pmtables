@@ -10,7 +10,9 @@ rowpanel(
   prefix = "",
   prefix_name = FALSE,
   prefix_skip = NULL,
-  duplicates_ok = FALSE
+  duplicates_ok = FALSE,
+  bold = TRUE,
+  it = FALSE
 )
 
 is.rowpanel(x)
@@ -28,6 +30,10 @@ the prefix won't be applied}
 
 \item{duplicates_ok}{if \code{FALSE}, an error is generated if more than one
 panel will have the same header}
+
+\item{bold}{render panel title in bold font face}
+
+\item{it}{render panel title in italic font face}
 
 \item{x}{an object to test}
 }

@@ -10,12 +10,15 @@
 #' the prefix won't be applied
 #' @param duplicates_ok if `FALSE`, an error is generated if more than one
 #' panel will have the same header
+#' @param bold render panel title in bold font face
+#' @param it render panel title in italic font face
 #'
 #' @seealso [as.panel()]
 #'
 #' @export
 rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
-                     prefix_skip = NULL, duplicates_ok = FALSE) {
+                     prefix_skip = NULL, duplicates_ok = FALSE,
+                     bold = TRUE, it = FALSE) {
   null <- FALSE
   if(is.null(col)) {
     col <- NULL
@@ -27,7 +30,8 @@ rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
   prefix <- ifelse(is.null(prefix), "", prefix)
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
-    prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok)
+    prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
+    bold = isTRUE(bold), it = isTRUE(it)
   )
   structure(ans, class = "rowpanel")
 }
@@ -106,8 +110,13 @@ panel_by <- function(data, x) {
       prefix[skip] <- rep("",sum(skip))
     }
   }
-  lab <- paste(prefix,lab)
-  lab <- bold_each(lab)
+  lab <- trimws(paste(prefix,lab))
+  if(x$bold) {
+    lab <- bold_each(lab)
+  }
+  if(x$it) {
+    lab <- it_each(lab)
+  }
   insrt <- paste0("\\multicolumn{", nc,"}{l}{", lab,"}\\\\")
   if(length(insrt) > 1) {
     insrt[seq(2,length(insrt))] <- paste0("\\hline ", insrt[seq(2,length(insrt))])

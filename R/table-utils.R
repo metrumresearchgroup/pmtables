@@ -54,13 +54,13 @@ blank_each <- function(x) {
 
 bold_each <- function(x) {
   flg <- nchar(x) > 0
-  x[flg] <- paste0("{\\bf ", x[flg], "}")
+  x[flg] <- paste0("\\textbf{", x[flg], "}")
   x
 }
 
 italics_each <- function(x) {
   flg <- nchar(x) > 0
-  x[flg] <- paste0("{\\it ", x[flg], "}")
+  x[flg] <- paste0("\\textit{", x[flg], "}")
   x
 }
 
@@ -104,7 +104,7 @@ squote <- function(x) paste0("'", x, "'")
 tex_bold <- function(x, pattern = "*") {
   assert_that(is.character(x), msg = "'x' must be character")
   w <- grepl(pattern,x) & nchar(x) > 0
-  x[w] <- paste0("{\\bf ", x[w], "}")
+  x[w] <- paste0("\\textbf{", x[w], "}")
   x
 }
 
@@ -113,6 +113,6 @@ tex_bold <- function(x, pattern = "*") {
 tex_it <- function(x, pattern = "*") {
   assert_that(is.character(x), msg = "'x' must be character")
   w <- grepl(pattern,x) & nchar(x) > 0
-  x[w] <- paste0("{\\it ", x[w], "}")
+  x[w] <- paste0("\\textit{", x[w], "}")
   x
 }
