@@ -1,4 +1,4 @@
-# coverage: 70.08%
+# coverage: 69.94%
 
 |file                     | coverage|
 |:------------------------|--------:|
@@ -15,14 +15,13 @@
 |R/table-panel.R          |    78.05|
 |R/discrete_table.R       |    78.79|
 |R/table-stable.R         |    78.95|
-|R/continuous_table.R     |    81.87|
+|R/continuous_table.R     |    81.77|
 |R/summary-functions.R    |    82.14|
 |R/data_inventory_table.R |    82.32|
-|R/class-digits.R         |    85.00|
 |R/check.R                |    85.42|
 |R/table-cols.R           |    87.32|
+|R/class-digits.R         |    87.50|
 |R/class-new_names.R      |    87.80|
-|R/table-notes.R          |    89.39|
-|R/opts.R                 |    90.00|
 |R/table-sizes.R          |    90.48|
+|R/table-notes.R          |    97.14|
 |R/summarize-cat-chunk.R  |   100.00|

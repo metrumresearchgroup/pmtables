@@ -46,6 +46,17 @@ test_that("stobject equivalent panel", {
   expect_identical(x$cols_tex, y$cols_tex)
 })
 
+test_that("stobject equivanelt sumrow", {
+  file <- system.file("datasets", "with-total.RDS", package = "pmtables")
+  data <- readRDS(file)
+  sumr <- sumrow(rows = data$STUDY=="all", bold = TRUE, label = "All data")
+  out1 <- inspect(data, sumrows = sumr)
+  out2 <- st_new(data) %>%
+    st_sumrow(rows = data$STUDY=="all", bold = TRUE, label = "All data") %>%
+    inspect2()
+  expect_identical(out1,out2)
+})
+
 test_that("stobject equivalent span", {
   data <- tibble(a = 1, b = 2, c = 3, d = 4, e = 5, f = 6)
   sp <- list(
