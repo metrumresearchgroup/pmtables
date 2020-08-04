@@ -8,6 +8,8 @@ inspect <- function(...) {
 context("test-longtable")
 
 test_that("longtable", {
-  out <- get_stable_data(stable_long(data = mtcars, inspect = TRUE))
+  notes <- letters[1:3]
+  out <- get_stable_data(stable_long(data = mtcars, inspect = TRUE, notes = notes))
   expect_match(out$output, "\\begin{longtable}", fixed = TRUE, all=FALSE)
 })
+

@@ -31,12 +31,7 @@ ltcaption <- function(macro = NULL, text = NULL, label = NULL) {
 
 longtable_notes <- function(notes) {
   if(is.null(notes)) return(NULL)
-  c(
-    "\\begin{center}",
-    x$mini_notes,
-    "\\end{center}"
-  )
-
+  c("\\begin{center}",notes,"\\end{center}")
 }
 
 #' Create longtable output from an R data frame
