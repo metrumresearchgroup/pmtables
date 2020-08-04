@@ -1,6 +1,9 @@
 library(testthat)
 library(pmtables)
 
+inspect <- function(...) {
+  get_stable_data(stable(..., inspect = TRUE))
+}
 
 context("test-tab_cols")
 
@@ -28,3 +31,49 @@ test_that("cols are renamed", {
   out <- pmtables:::rename_cols(cols, re_label)
   expect_identical(out, c("A", "b", "c", "DD", "e"))
 })
+
+test_that("cols are bold", {
+  data <- tibble(a = 1, b = 2, c = 3)
+  x <- inspect(data, col_bold = TRUE)
+  expect_true(grepl("textbf", x$cols_tex))
+  x <- inspect(data)
+  expect_false(grepl("textbf", x$cols_tex))
+})
+
+test_that("units", {
+  u <- list(b = "in",kyle = "baron", dd = 5, a = "mg")
+  data <- tibble(a = 1, b = 2, c = 3)
+  x <- inspect(data,units = u)
+  expect_match(x$cols_tex[2], "mg & in & c")
+  expect_warning(
+    inspect(data, units = list(foo = "bar")),
+    "no valid units"
+  )
+})
+
+test_that("col title breaks", {
+  data <- tibble(a = 1, b = 2, c = 3)
+  x <- inspect(
+    data,
+    col_rename  =  c("Metrum RG" = "b")
+  )
+  expect_length(x$cols_tex,1)
+  expect_match(x$cols_tex, "a & Metrum RG", fixed = TRUE)
+  x <- inspect(
+    data,
+    col_rename  =  c("Metrum  ... RG...CT" = "b"),
+    units = list(a = "A", b  = "B")
+  )
+  expect_length(x$cols_tex,4)
+  expect_match(x$cols_tex[1], " & Metrum & ")
+  expect_match(x$cols_tex[2], " & RG & ")
+  expect_match(x$cols_tex[3], "a & CT & ")
+  expect_match(x$cols_tex[4], "A & B & c")
+})
+
+test_that("column is dropped", {
+  data <- tibble(a = 1, b = 2, z = 25, c = 3)
+  x <- inspect(data, drop = "z")
+  expect_identical(x$cols, c("a", "b", "c"))
+})
+

@@ -15,6 +15,7 @@ new_names.character <- function(x,table=NULL,...) {
   new_names_update_table(ans,table)
 }
 
+#' @export
 new_names.list <- function(x,...) {
   assert_that(is_named(x))
   if(any(duplicated(names(x)))) {

@@ -17,7 +17,7 @@
 #' }
 #'
 #' @export
-st2doc <- function(text, preview = TRUE, output_dir = tempdir(),
+st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
                    output_file = "st2doc.pdf") {
   assert_that(requireNamespace("rmarkdown"))
   assert_that(requireNamespace("fs"))
@@ -50,7 +50,7 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(),
     fs::file_show(ans)
   }
   return(invisible(text))
-}
+} # nocov end
 
 #' Preview an stable object
 #'
@@ -63,7 +63,7 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(),
 #' ptdata() %>% stable() %>% st_preview()
 #' }
 #' @export
-st_preview <- function(x,...) {
+st_preview <- function(x,...) { # nocov start
   assert_that(requireNamespace("texPreview"))
   if(length(x) > 1) {
     x <- paste0(x,collapse = "\n")
@@ -76,5 +76,5 @@ st_preview <- function(x,...) {
     usrPackages = pk,
     ...
   )
-}
+} # nocov end
 

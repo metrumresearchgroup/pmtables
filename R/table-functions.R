@@ -1,14 +1,3 @@
-tab_sp_delim <- mrggt::tab_spanner_delim
-
-foot <- function(short,cols) {
-  cols <- cvec_cs(cols)
-  values <- unlist(short[cols], use.names=FALSE)
-  paste0(cols, ": ",values,collapse="; ")
-}
-
-panel_labels <- function(name, value) {
-  value
-}
 
 #' Wrap stable output in table environment
 #'
@@ -18,7 +7,7 @@ panel_labels <- function(name, value) {
 #' @param con where to write the output
 #'
 #' @export
-st_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) {
+st_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) { # nocov start
   ans <- c()
   ans <- c(ans,"\\begin{table}[h]")
   if(isTRUE(center)) {
@@ -33,7 +22,7 @@ st_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) {
     writeLines(text=ans, con = con)
   }
   return(invisible(ans))
-}
+} # nocov end
 
 #' @rdname st_wrap
 #' @export

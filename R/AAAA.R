@@ -27,11 +27,11 @@ NULL
 #' Load an example data set
 #'
 #' @export
-ptdata <- function() {
+ptdata <- function() { # nocov start
   file <- system.file("datasets", "ptdata.RDS", package = "pmtables")
   readRDS(file)
-}
+} # nocov end
 
 #' @rdname ptdata
 #' @export
-stdata <- ptdata
+stdata <- ptdata # nocov

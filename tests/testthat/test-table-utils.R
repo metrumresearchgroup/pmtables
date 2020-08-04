@@ -21,3 +21,13 @@ test_that("tex_bold and tex_it", {
   expect_identical(ans[3], "\\textbf{c}")
 })
 
+test_that("save stable", {
+  tmp <- tempfile()
+  x <- stable(data.frame(a = 1), output_file = tmp)
+  stable_save(x)
+  expect_true(file.exists(tmp))
+  read <- readLines(tmp)
+  expect_identical(as.character(x), read)
+  expect_error(stable_save(as.character(x)), "x is not an 'stable' object")
+})
+

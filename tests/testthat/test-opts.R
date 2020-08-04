@@ -49,9 +49,27 @@ test_that("as.list", {
   expect_identical(a,b)
 })
 
+test_that("names", {
+  a <- names(pt_opts)
+  b <- names(pt_opts$defaults)
+  expect_identical(a,b)
+})
+
+test_that("validate", {
+  expect_error(pt_opts$set(file.notes.fun = as.data.frame))
+  pt_opts$reset()
+})
+
 test_that("bracket dot pm_opts", {
   a <- pt_opts["dv_col", "bq_col"]
   b <- pt_opts$defaults[names(a)]
   expect_identical(a,b)
+  pt_opts$reset()
 })
 
+test_that("new object", {
+  x <- pmtables:::pt_options()
+  form <- formals(pmtables:::pt_options)
+  expect_equal(names(form), names(x$defaults))
+  rm(x)
+})

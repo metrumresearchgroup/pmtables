@@ -21,7 +21,8 @@ st_right(x, ...)
 \item{...}{named arguments passed to \code{\link[=cols_align]{cols_align()}}}
 }
 \description{
-See the \code{align} argument to \code{\link[=stable]{stable()}}.
+See the \code{align} argument to \code{\link[=stable]{stable()}}. Note: these functions
+always replace the current alignment in total.
 }
 \examples{
 library(dplyr)
@@ -29,6 +30,7 @@ library(dplyr)
 ob <- st_new(ptdata())
 
 ob \%>\% st_align(.default = 'l') \%>\% st_make()
+
 ob \%>\% st_center(N = 'l') \%>\% st_make()
 
 }

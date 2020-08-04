@@ -92,7 +92,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
     ans <- do.call(stable, args)
   }
 
-  if(.preview) {
+  if(.preview) { # nocov start
     .null <- st_preview(ans)
     return(invisible(ans))
   }
@@ -100,7 +100,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
   if(.cat) {
     .null <- pt_wrap(ans,stdout())
     return(invisible(ans))
-  }
+  } # nocov end
 
   return(ans)
 }
@@ -193,7 +193,8 @@ st_noteconf <- function(x,...) {
 
 #' Add column alignment information to st object
 #'
-#' See the `align` argument to [stable()].
+#' See the `align` argument to [stable()]. Note: these functions
+#' always replace the current alignment in total.
 #'
 #' @param x an stobject
 #' @param ... named arguments passed to [cols_align()]
@@ -204,6 +205,7 @@ st_noteconf <- function(x,...) {
 #' ob <- st_new(ptdata())
 #'
 #' ob %>% st_align(.default = 'l') %>% st_make()
+#'
 #' ob %>% st_center(N = 'l') %>% st_make()
 #'
 #' @export
@@ -278,13 +280,13 @@ st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
 #' ob %>% st_space(row = 1) %>% st_make()
 #'
 #' @export
-st_space <- function(x, row = NULL, col = NULL) {
+st_space <- function(x, row = 1.5, col = 5) {
   check_st(x)
-  if(!missing(row)) {
-    x$row_space <- row
-  }
-  if(!missing(col)) {
-    x$col_space <- col
+  if(is.null(x$sizes)) {
+    x$sizes <- tab_sizes(row = row, col = col)
+  } else {
+    x$sizes$row_space <- row
+    x$sizes$col_space <- col
   }
   x
 }

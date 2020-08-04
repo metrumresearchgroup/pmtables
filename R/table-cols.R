@@ -49,6 +49,7 @@ header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
                           bold = FALSE) {
 
   sp <- str_split(cols_new, fixed(newline))
+  sp <- map(sp, trimws)
   nsplit <- map_int(sp,length)
   u <- header_matrix_unit(sp, cols, units)
   nunit <- !map_int(u, is.null)

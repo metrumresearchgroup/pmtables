@@ -46,3 +46,4 @@ test_that("continuous data summary wide - by", {
   expect_identical(names(ans)[1],"outer")
   expect_equal(nrow(ans),length(unique(data[["RFf"]])))
 })
+
