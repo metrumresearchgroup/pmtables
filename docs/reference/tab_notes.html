@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9053</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9054</span>
       </span>
     </div>
 
@@ -85,40 +85,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -153,7 +120,9 @@
   <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>,
   <span class='kw'>note_config</span> <span class='kw'>=</span> <span class='fu'><a href='noteconf.html'>noteconf</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"tpt"</span>),
   <span class='kw'>r_file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mrg.script"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>r_file_label</span> <span class='kw'>=</span> <span class='st'>"Source code: "</span>,
   <span class='kw'>output_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>output_file_label</span> <span class='kw'>=</span> <span class='st'>"Source file: "</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -184,10 +153,18 @@ file name will be included in the notes in the table footer; ; see also
 <code><a href='st_files.html'>st_files()</a></code></p></td>
     </tr>
     <tr>
+      <th>r_file_label</th>
+      <td><p>a prefix for <code>r_file</code></p></td>
+    </tr>
+    <tr>
       <th>output_file</th>
       <td><p>the name of the output file where the table text will be
 saved; the file name will be included in the notes in the table footer; see
 also <code><a href='st_files.html'>st_files()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>output_file_label</th>
+      <td><p>a prefix for <code>output_file</code></p></td>
     </tr>
     <tr>
       <th>...</th>

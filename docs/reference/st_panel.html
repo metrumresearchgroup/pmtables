@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9053</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9054</span>
       </span>
     </div>
 
@@ -85,40 +85,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -169,28 +136,28 @@
 
 <span class='no'>ob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())
 
-<span class='no'>ob</span> <span class='kw'>%&gt;%</span> <span class='fu'>st_panel</span>(<span class='st'>"STUDYf"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"            
-#&gt;  [2] "\\begin{threeparttable}"                             
-#&gt;  [3] "\\begin{tabular}[h]{lllll}"                          
-#&gt;  [4] "\\hline"                                             
-#&gt;  [5] "SEXf &amp; WT &amp; SCR &amp; ALB &amp; N \\\\"                      
-#&gt;  [6] "\\hline"                                             
-#&gt;  [7] "\\multicolumn{5}{l}{{\\bf  12-DEMO-001}}\\\\"        
-#&gt;  [8] "male &amp; 76.3 &amp; 1.09 &amp; 4.33 &amp; 10 \\\\"                 
-#&gt;  [9] "female &amp; 70.0 &amp; 1.01 &amp; 4.25 &amp; 20 \\\\"               
-#&gt; [10] "\\hline \\multicolumn{5}{l}{{\\bf  12-DEMO-002}}\\\\"
-#&gt; [11] "male &amp; 71.9 &amp; 1.01 &amp; 4.57 &amp; 18 \\\\"                 
-#&gt; [12] "female &amp; 72.6 &amp; 0.949 &amp; 4.42 &amp; 32 \\\\"              
-#&gt; [13] "\\hline \\multicolumn{5}{l}{{\\bf  11-DEMO-005}}\\\\"
-#&gt; [14] "male &amp; 69.2 &amp; 2.51 &amp; 4.46 &amp; 29 \\\\"                 
-#&gt; [15] "female &amp; 67.9 &amp; 2.53 &amp; 4.26 &amp; 11 \\\\"               
-#&gt; [16] "\\hline \\multicolumn{5}{l}{{\\bf  13-DEMO-001}}\\\\"
-#&gt; [17] "male &amp; 71.1 &amp; 0.922 &amp; 3.68 &amp; 23 \\\\"                
-#&gt; [18] "female &amp; 67.0 &amp; 0.988 &amp; 3.45 &amp; 17 \\\\"              
-#&gt; [19] "\\hline"                                             
-#&gt; [20] "\\end{tabular}"                                      
-#&gt; [21] "\\end{threeparttable}"                               
-#&gt; [22] "}"                                                   
+<span class='no'>ob</span> <span class='kw'>%&gt;%</span> <span class='fu'>st_panel</span>(<span class='st'>"STUDYf"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"              
+#&gt;  [2] "\\begin{threeparttable}"                               
+#&gt;  [3] "\\begin{tabular}[h]{lllll}"                            
+#&gt;  [4] "\\hline"                                               
+#&gt;  [5] "SEXf &amp; WT &amp; SCR &amp; ALB &amp; N \\\\"                        
+#&gt;  [6] "\\hline"                                               
+#&gt;  [7] "\\multicolumn{5}{l}{\\textbf{12-DEMO-001}}\\\\"        
+#&gt;  [8] "male &amp; 76.3 &amp; 1.09 &amp; 4.33 &amp; 10 \\\\"                   
+#&gt;  [9] "female &amp; 70.0 &amp; 1.01 &amp; 4.25 &amp; 20 \\\\"                 
+#&gt; [10] "\\hline \\multicolumn{5}{l}{\\textbf{12-DEMO-002}}\\\\"
+#&gt; [11] "male &amp; 71.9 &amp; 1.01 &amp; 4.57 &amp; 18 \\\\"                   
+#&gt; [12] "female &amp; 72.6 &amp; 0.949 &amp; 4.42 &amp; 32 \\\\"                
+#&gt; [13] "\\hline \\multicolumn{5}{l}{\\textbf{11-DEMO-005}}\\\\"
+#&gt; [14] "male &amp; 69.2 &amp; 2.51 &amp; 4.46 &amp; 29 \\\\"                   
+#&gt; [15] "female &amp; 67.9 &amp; 2.53 &amp; 4.26 &amp; 11 \\\\"                 
+#&gt; [16] "\\hline \\multicolumn{5}{l}{\\textbf{13-DEMO-001}}\\\\"
+#&gt; [17] "male &amp; 71.1 &amp; 0.922 &amp; 3.68 &amp; 23 \\\\"                  
+#&gt; [18] "female &amp; 67.0 &amp; 0.988 &amp; 3.45 &amp; 17 \\\\"                
+#&gt; [19] "\\hline"                                               
+#&gt; [20] "\\end{tabular}"                                        
+#&gt; [21] "\\end{threeparttable}"                                 
+#&gt; [22] "}"                                                     
 #&gt; attr(,"class")
 #&gt; [1] "stable"</div><div class='input'>
 </div></pre>

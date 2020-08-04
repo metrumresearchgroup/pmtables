@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Continuous data summary in long format — pt_cont_long • pmtables</title>
+<title>Methods for stobject — print.stobject • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Continuous data summary in long format — pt_cont_long" />
-<meta property="og:description" content="Continuous data summary in long format" />
+<meta property="og:title" content="Methods for stobject — print.stobject" />
+<meta property="og:description" content="Methods for stobject" />
 
 
 
@@ -106,82 +106,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Continuous data summary in long format</h1>
+    <h1>Methods for stobject</h1>
     
-    <div class="hidden name"><code>pt_cont_long.Rd</code></div>
+    <div class="hidden name"><code>print.stobject.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Continuous data summary in long format</p>
+    <p>Methods for stobject</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pt_cont_long</span>(
-  <span class='no'>data</span>,
-  <span class='no'>cols</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
-  <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='new_digits.html'>new_digits</a></span>(),
-  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>df_sum_2</span>,
-  <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='st'>"ID"</span>
-)</pre>
+    <pre class="usage"><span class='co'># S3 method for stobject</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for stobject</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <th>x</th>
+      <td><p>an stobject</p></td>
     </tr>
     <tr>
-      <th>cols</th>
-      <td><p>the columns to summarize; may be character vector or quosure</p></td>
-    </tr>
-    <tr>
-      <th>panel</th>
-      <td><p>data set column name to stratify the summary</p></td>
-    </tr>
-    <tr>
-      <th>table</th>
-      <td><p>a named list to use for renaming columns (see details and
-examples)</p></td>
-    </tr>
-    <tr>
-      <th>units</th>
-      <td><p>a named list to use for unit lookup (see details and examples)</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p>a <code>digits</code> object (see <code><a href='new_digits.html'>new_digits()</a></code>)</p></td>
-    </tr>
-    <tr>
-      <th>summarize_all</th>
-      <td><p>if <code>TRUE</code> then a complete data summary will be appended
-to the bottom of the table</p></td>
-    </tr>
-    <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
-    </tr>
-    <tr>
-      <th>fun</th>
-      <td><p>the data summary function (see details)</p></td>
-    </tr>
-    <tr>
-      <th>id_col</th>
-      <td><p>the ID column name</p></td>
+      <th>...</th>
+      <td><p>other arguments</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
-
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='dot-cols.html'>.cols</a></span>(<span class='no'>WT</span>,<span class='no'>ALB</span>,<span class='no'>CRCL</span>))
-
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,CRCL"</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>"SEXf"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
