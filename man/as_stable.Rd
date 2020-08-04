@@ -15,13 +15,16 @@ as_stable(x, ...)
 \arguments{
 \item{x}{object to convert to stable}
 
-\item{...}{for the \code{pmtable} method, these are extra named arguments to pass to \code{\link[=stable]{stable()}}}
+\item{...}{for the \code{pmtable} method, these are extra named arguments to pass
+to \code{\link[=stable]{stable()}}}
 
-\item{wrap}{if \code{TRUE}, the stable output will be wrapped in a latex table environment}
+\item{wrap}{if \code{TRUE}, the stable output will be wrapped in a latex table
+environment}
 
-\item{wrapw}{if \code{TRUE}, the stable output will be wrapped in a latex table environment and
-the output will be written to \code{\link[=stdout]{stdout()}}; use this along with \code{results = "asis"} when rendering
-tables with \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+\item{wrapw}{if \code{TRUE}, the stable output will be wrapped in a latex table
+environment and
+the output will be written to \code{\link[=stdout]{stdout()}}; use this along with
+\code{results = "asis"} when rendering tables with \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 }
 \description{
 Create stable from pmtable

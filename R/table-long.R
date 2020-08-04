@@ -28,6 +28,17 @@ ltcaption <- function(macro = NULL, text = NULL, label = NULL) {
   cap3 <- paste0(lab, cap3)
   paste0(c(cap1,cap2,cap3),collapse = "")
 }
+
+longtable_notes <- function(notes) {
+  if(is.null(notes)) return(NULL)
+  c(
+    "\\begin{center}",
+    x$mini_notes,
+    "\\end{center}"
+  )
+
+}
+
 #' Create longtable output from an R data frame
 #' @inheritParams tab_notes
 #' @param ... passed to [stable()]
@@ -60,6 +71,8 @@ stable_long <- function(note_config = noteconf(type="minipage"), ...,
   nc <- x$nc
   head <- gluet(head)
 
+  lt_notes <- longtable_notes(x$mini_notes)
+
   longtab <- c(
     "{\\normalsize",
     "\\setlength{\\extrarowheight}{0.3em}",
@@ -80,10 +93,14 @@ stable_long <- function(note_config = noteconf(type="minipage"), ...,
     "\\hline",
     "\\end{longtable}",
     "\\setlength{\\extrarowheight}{0em}",
-    "\\begin{center}",
-    x$mini_notes,
-    "\\end{center}",
+    lt_notes,
     "}" # Ends
   )
-  structure(longtab, class = c("stable_long", "stable"))
+  out <- structure(longtab, class = c("stable_long", "stable"))
+  if(isTRUE(inspect)) {
+    stable_data <- x
+    stable_data$tab  <- longtab
+    stable_data$lt_notes <- lt_notes
+    out <- structure(out, stable_data = stable_data)
+  }
 }
