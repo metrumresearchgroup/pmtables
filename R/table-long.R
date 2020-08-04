@@ -1,7 +1,7 @@
 head <- '
 \\endhead
 \\hline
-\\multicolumn{<nc>}{r}{<lt_continued>}
+\\multicolumn{<nc>}{r}{<lt_continue>}
 \\endfoot
 \\hline
 \\endlastfoot
@@ -32,23 +32,24 @@ ltcaption <- function(macro = NULL, text = NULL, label = NULL) {
 #' @inheritParams tab_notes
 #' @param ... passed to [stable()]
 #' @param inspect fixed to `TRUE` and passed to [stable()]
-#' @param cap_macro the name of a macro that will hold caption text; to not lead with
+#' @param lt_cap_macro the name of a macro that will hold caption text; to not lead with
 #' `\\` - this will be added for you
-#' @param cap_text caption text
-#' @param cap_label table label for use in latex document
+#' @param lt_cap_text caption text
+#' @param lt_cap_label table label for use in latex document
+#' @param lt_continue longtable continuation message
 #'
 #'
 #' @export
 stable_long <- function(note_config = noteconf(type="minipage"), ...,
-                        inspect = TRUE, cap_macro = NULL, cap_text = NULL,
-                        cap_label = NULL) {
+                        inspect = TRUE, lt_cap_macro = NULL, lt_cap_text = NULL,
+                        lt_cap_label = NULL, lt_continue = "continued on next page") {
 
   assert_that(note_config$type=="minipage")
 
-  x <- stable( note_config = note_config, inspect = TRUE, ...)
+  x <- stable(note_config = note_config, inspect = TRUE, ...)
   x <- get_stable_data(x)
 
-  cap <- ltcaption(cap_macro, cap_text, cap_label)
+  cap <- ltcaption(lt_cap_macro, lt_cap_text, lt_cap_label)
 
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"
@@ -57,7 +58,6 @@ stable_long <- function(note_config = noteconf(type="minipage"), ...,
   extra <- gluet("\\setlength{\\extrarowheight}{<extra_height>em}")
 
   nc <- x$nc
-  lt_continued <- pt_opts$get("longtable.foot")
   head <- gluet(head)
 
   longtab <- c(

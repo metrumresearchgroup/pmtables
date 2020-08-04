@@ -10,11 +10,11 @@ pt_cont_long(
   panel = ".total",
   table = NULL,
   units = NULL,
-  digits = pt_opts$digits,
+  digits = new_digits(),
   summarize_all = TRUE,
   all_name = "All data",
   fun = df_sum_2,
-  panel.label.add = pt_opts$panel.label.add
+  id_col = "ID"
 )
 }
 \arguments{
@@ -29,7 +29,7 @@ examples)}
 
 \item{units}{a named list to use for unit lookup (see details and examples)}
 
-\item{digits}{a \code{digits} object (see \link{new_digits})}
+\item{digits}{a \code{digits} object (see \code{\link[=new_digits]{new_digits()}})}
 
 \item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
 to the bottom of the table}
@@ -38,8 +38,7 @@ to the bottom of the table}
 
 \item{fun}{the data summary function (see details)}
 
-\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
-to the panel variable value}
+\item{id_col}{the ID column name}
 }
 \description{
 Continuous data summary in long format

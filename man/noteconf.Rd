@@ -12,7 +12,9 @@ noteconf(
   note_skip = 0.02,
   linespread = 1.1,
   hline_pt = 0.4,
-  note_sp = 0.1
+  note_sp = 0.1,
+  sanitize = TRUE,
+  escape = "_"
 )
 }
 \arguments{
@@ -34,6 +36,10 @@ notes and the first note line}
 \item{hline_pt}{the point size for hlines}
 
 \item{note_sp}{spacing between note lines for \code{tpt} notes}
+
+\item{sanitize}{if \code{TRUE}, notes will be sanitized}
+
+\item{escape}{vector of characters to escape in notes}
 }
 \description{
 Configure table notes

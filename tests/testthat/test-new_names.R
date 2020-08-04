@@ -44,10 +44,10 @@ test_that("new names - panel", {
 test_that("new names - list", {
   x <- list(a = "A", z = "Z")
   x <- pmtables:::new_names(x)
-  expect_identical(names(x),c("a"))
-  expect_equivalent(x,"a")
+  expect_identical(names(x),c("a", "z"))
+  expect_equivalent(x, c("A", "Z"))
   expect_is(x,"character")
-  expect_length(x,1)
+  expect_length(x,2)
 })
 
 test_that("duplicated values is error", {

@@ -14,7 +14,7 @@ test_that("continuous data summary long - simple", {
 
 test_that("continuous data summary long - by", {
   cols <- pmtables:::new_names("WT,ALB,SCR")
-  by <- pmtables:::new_names("STUDY")
+  by <- pmtables:::new_names("STUDYf")
   ans <- cont_table_data(data, cols = cols, by = by)
   expect_is(ans,"data.frame")
   expect_identical(names(ans)[1],"outer")

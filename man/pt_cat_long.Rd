@@ -22,8 +22,7 @@ pt_cat_wide(
   panel = by,
   table = NULL,
   all_name = "All data",
-  summarize_all = TRUE,
-  panel.label.add = pt_opts$panel.label_add
+  summarize_all = TRUE
 )
 }
 \arguments{
@@ -40,13 +39,9 @@ pt_cat_wide(
 \item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
 to the bottom of the table}
 
-\item{table}{a named list to use for renaming columns (see details and
-examples)}
+\item{table}{a named list for renaming data items}
 
 \item{panel}{data set column name to stratify the summary}
-
-\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
-to the panel variable value}
 }
 \description{
 Create categorical data summary tables

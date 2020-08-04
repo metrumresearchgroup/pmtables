@@ -7,7 +7,7 @@
 \usage{
 tab_prime(data, escape_fun = tab_escape)
 
-tab_escape(string, esc = pt_opts$get("escape"), ...)
+tab_escape(string, esc = "_", ...)
 }
 \arguments{
 \item{data}{a data frame}

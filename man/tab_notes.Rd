@@ -9,7 +9,9 @@ tab_notes(
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
   r_file = getOption("mrg.script", NULL),
+  r_file_label = "Source code: ",
   output_file = NULL,
+  output_file_label = "Source file: ",
   ...
 )
 }
@@ -29,9 +31,13 @@ are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
 file name will be included in the notes in the table footer; ; see also
 \code{\link[=st_files]{st_files()}}}
 
+\item{r_file_label}{a prefix for \code{r_file}}
+
 \item{output_file}{the name of the output file where the table text will be
 saved; the file name will be included in the notes in the table footer; see
 also \code{\link[=st_files]{st_files()}}}
+
+\item{output_file_label}{a prefix for \code{output_file}}
 
 \item{...}{not used}
 }

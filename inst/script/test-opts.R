@@ -17,24 +17,24 @@ test_that("opt defaults", {
 })
 
 test_that("opt get", {
-  dvcol_a <- pt_opts$dv_col
-  dvcol_b <- pt_opts$get("dv_col")
-  expect_identical(dvcol_a,dvcol_b)
-  expect_identical(dvcol_a,"DV")
+  esc_a <- pt_opts$escape
+  esc_b <- pt_opts$get("escape")
+  expect_identical(esc_a,esc_b)
+  expect_identical(esc_a,"_")
 })
 
 test_that("opt set", {
-  pt_opts$set(id_col = "SUBJ")
-  expect_identical(pt_opts$id_col,"SUBJ")
-  pt_opts$dv_col <- "dv"
-  expect_identical(pt_opts$dv_col,"dv")
+  pt_opts$set(escape = "__")
+  expect_identical(pt_opts$escape,"__")
+  pt_opts$escape <- "----"
+  expect_identical(pt_opts$escape,"----")
 })
 
 test_that("opt reset", {
-  a <- pt_opts$dv_col
+  a <- pt_opts$escape
   pt_opts$reset()
-  b <- pt_opts$dv_col
-  expect_identical(b,def$dv_col)
+  b <- pt_opts$escape
+  expect_identical(b,def$escape)
   expect_false(a==b)
 })
 
@@ -55,13 +55,8 @@ test_that("names", {
   expect_identical(a,b)
 })
 
-test_that("validate", {
-  expect_error(pt_opts$set(file.notes.fun = as.data.frame))
-  pt_opts$reset()
-})
-
 test_that("bracket dot pm_opts", {
-  a <- pt_opts["dv_col", "bq_col"]
+  a <- pt_opts["escape"]
   b <- pt_opts$defaults[names(a)]
   expect_identical(a,b)
   pt_opts$reset()

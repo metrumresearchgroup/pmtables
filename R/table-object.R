@@ -283,7 +283,7 @@ st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
 st_space <- function(x, row = 1.5, col = 5) {
   check_st(x)
   if(is.null(x$sizes)) {
-    x$sizes <- tab_sizes(row = row, col = col)
+    x$sizes <- tab_size(row = row, col = col)
   } else {
     x$sizes$row_space <- row
     x$sizes$col_space <- col

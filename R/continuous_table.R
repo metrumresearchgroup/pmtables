@@ -6,27 +6,27 @@
 #' @param all_name label for full data summary
 #' @param digits named list specifing `digits` argument for `digit_fun`
 #' @param fun continuous data summary function
+#' @param id_col the ID column name
 #'
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
-                            all_name = "all", digits = NULL,
-                            fun = pt_opts$cont.long.fun) {
+                            all_name = "all", digits = new_digits(), id_col = "ID",
+                            fun = df_sum_2) {
 
   cols <- unname(new_names(cols))
   by <- unname(new_names(by))
   panel <- unname(new_names(panel))
 
-  if(is.null(digits)) {
-    digits <- new_digits(sig,3)
-  }
+  data <- data_total_col(data, all_name = all_name)
+  check_continuous(data,cols)
+  check_discrete(data,by)
+  check_exists(data,id_col)
 
-  check_exists(data, pt_opts$id_col)
+  assert_that(inherits(digits, "digits"))
 
   digits <- update_digits(digits,cols)
   digit_fun <- get_digits_fun(digits)
   digit_data <- get_digits_list(digits)
-
-  data <- data_total_col(data, all_name = all_name)
 
   groups <- c("name")
   if(!is.null(by)) groups <- c(by,groups)
@@ -55,7 +55,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = .[[pt_opts$id_col]]
+        id = .[[id_col]]
       ),
       keep = TRUE
     )
@@ -67,7 +67,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = .[[pt_opts$id_col]]
+        id = .[[id_col]]
       ),
       .keep = TRUE
     )
@@ -84,10 +84,10 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 #' Create a continuous data summary table in wide format
 #'
 #' @inheritParams pt_cont_long
-#' @inheritParams pt_opts
 #'
 #' @param by a grouping variable name
 #' @param panel a variable for paneling the summary
+#' @param id_col the ID column name
 #'
 #' @export
 pt_cont_wide <- function(data, cols,
@@ -95,10 +95,10 @@ pt_cont_wide <- function(data, cols,
                          panel = by,
                          table = NULL,
                          units = NULL,
-                         digits = NULL,
+                         digits = new_digits(),
                          all_name = "All data",
                          fun = str_sum_2,
-                         panel.label.add = pt_opts$panel.label.add) {
+                         id_col = "ID") {
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
@@ -115,13 +115,11 @@ pt_cont_wide <- function(data, cols,
 
   data <- data_total_col(data, all_name = all_name)
 
-  check_continuous(data,cols)
-  check_discrete(data,by)
-
   ans <- cont_table_data(
     data = data,
     cols = cols,
     by = by,
+    id_col = id_col,
     panel = panel,
     fun = fun,
     digits = digits,
@@ -187,16 +185,16 @@ pt_cont_wide <- function(data, cols,
 #'
 #'
 #' @inheritParams pt_cont_study
-#' @inheritParams pt_opts
 #' @param panel data set column name to stratify the summary
 #' @param table a named list to use for renaming columns (see details and
 #' examples)
 #' @param units a named list to use for unit lookup (see details and examples)
-#' @param digits a `digits` object (see [new_digits])
+#' @param digits a `digits` object (see [new_digits()])
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
 #' @param all_name a name to use for the complete data summary
 #' @param fun the data summary function (see details)
+#' @param id_col the ID column name
 #'
 #' @examples
 #' data <- pmtables:::data("id")
@@ -211,11 +209,11 @@ pt_cont_long <- function(data,
                          panel = ".total",
                          table = NULL,
                          units = NULL,
-                         digits = pt_opts$digits,
+                         digits = new_digits(),
                          summarize_all = TRUE,
                          all_name = "All data",
                          fun = df_sum_2,
-                         panel.label.add = pt_opts$panel.label.add) {
+                         id_col = "ID") {
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
@@ -228,13 +226,11 @@ pt_cont_long <- function(data,
   cols <- new_names(cols,table)
   by <- new_names(by,table)
 
-  check_continuous(data,cols)
-  check_discrete(data,by)
-
   ans <- cont_table_data(
     data = data,
     cols = unname(cols),
     by = unname(by),
+    id_col = id_col,
     fun = fun,
     digits = digits,
     wide = FALSE

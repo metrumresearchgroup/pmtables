@@ -2,27 +2,12 @@ longtable_foot <- function(x) {
  paste0("{\\footnotesize {\\it ", x, "}}")
 }
 
-#' Set global plot options
+#' Set global table options
 #'
-#' @param id_col ID column name
-#' @param dv_col DV column name
-#' @param bq_col BQL column name
-#' @param units named list of units
-#' @param table named list of column name transformations
-#' @param panel.label.add logical; if `TRUE`, panel variable name will be pasted
-#' to the panel variable value
-#' @param cont.long.fun data summary function for continuous / long summaries
-#' @param cont.wide.fun data summary function for continuous / wide summaries
 #' @param notes.sanitize if `TRUE`, should the notes be passed through the
 #' sanitize function
 #' @param digits a `digits` object
-#' @param file.label.r label to use when writing the R file annotation
-#' @param file.label.output label to use when writing the output file annotation
-#' @param file.notes.fun function to assemble `r_file` and `output_file` into
-#' table annotation
-#' @param escape vector of characters to escape when sanitizing table contents
-#' @param longtable.foot text to print at the bottom of longtable page when
-#' the table continues
+#' @param escape a vector of characters to escape in tables
 #'
 #' @details
 #' `pt_opts` is the options environment.
@@ -44,46 +29,15 @@ longtable_foot <- function(x) {
 #' [`$<-.pt_opts`].
 #'
 #'
-#'
-#' @examples
-#'
-#' pt_opts$set(id_col = "USUBJID")
-#'
-#' pt_opts$id_col <- "ID"
-#'
-#' pt_opts$bq_col
-#'
-#' pt_opts$reset()
-#'
-#' x <- pt_opts$as.list()
-#'
-#' \dontrun{
-#'  defs <- pt_opts$defaults
-#'  defs$dv_col <- "dv"
-#'  pt_opts$set(.list = defs)
-#' }
-#'
 #' @md
 #' @include class-digits.R
 #' @include table-notes.R
 #' @include summary-functions.R
 #' @name pt_opts
 pt_options <- function(
-  id_col = "ID",
-  dv_col = "DV",
-  bq_col = "BQL",
-  units = NULL,
-  table = NULL,
-  panel.label.add = TRUE,
-  cont.long.fun = pmtables:::df_sum_2,
-  cont.wide.fun = pmtables:::str_sum_2,
   notes.sanitize = TRUE,
   digits = NULL,
-  file.label.r = "Source code: ",
-  file.label.output = "Source file: ",
-  file.notes.fun = form_file_notes,
-  escape = "_",
-  longtable.foot = longtable_foot("continued on next page")
+  escape = "_"
 ) {
   set <- function(..., .list = NULL) {
     if(is.list(.list)) {
@@ -93,7 +47,6 @@ pt_options <- function(
     }
     if(length(x)==0) invisible(NULL)
     for(k in names(x)) assign(k,x[[k]],envir=self)
-    valid_pt_opts(self)
     return(invisible(NULL))
   }
   get <- function(x) {
@@ -140,7 +93,6 @@ pt_options <- function(
     return(invisible(x))
   }
   assign(i,value,envir=x)
-  valid_pt_opts(x)
   return(invisible(x))
 }
 
@@ -150,9 +102,6 @@ pt_options <- function(
 #' @param i a character option name to extract
 #' @param ... other option names to extract
 #' @param exact not used
-#'
-#' @examples
-#' pt_opts["id_col", "dv_col"]
 #'
 #' @keywords internal
 #' @export
@@ -198,10 +147,3 @@ print.pt_opts <- function(x,...) {
 #' @export
 pt_opts <- pt_options()
 opts <- pt_opts
-
-valid_pt_opts <- function(x) {
-  assert_that(
-    valid_file_notes_fun(x$file.notes.fun),
-    msg = "[pt_opts] the file notes function does not have the correct formal arguments"
-  )
-}

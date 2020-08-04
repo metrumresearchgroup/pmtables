@@ -11,9 +11,9 @@ data_inventory_chunk(
   stacked = FALSE,
   tot = FALSE,
   all_name = "all",
-  dv_col = pt_opts$dv_col,
-  bq_col = pt_opts$bq_col,
-  id_col = pt_opts$id_col,
+  dv_col = "DV",
+  bq_col = "BQL",
+  id_col = "ID",
   ...
 )
 }

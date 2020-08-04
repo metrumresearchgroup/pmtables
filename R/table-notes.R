@@ -7,26 +7,32 @@
 #' @param r_file the name of the R file containg code to generate the table; the
 #' file name will be included in the notes in the table footer; ; see also
 #' [st_files()]
+#' @param r_file_label a prefix for `r_file`
 #' @param output_file the name of the output file where the table text will be
 #' saved; the file name will be included in the notes in the table footer; see
 #' also [st_files()]
+#' @param output_file_label a prefix for `output_file`
 #' @param ... not used
 #'
 #'@export
 tab_notes <- function(notes, escape_fun = tab_escape,
                       note_config = noteconf(type = "tpt"),
                       r_file = getOption("mrg.script", NULL),
-                      output_file = NULL, ...) {
+                      r_file_label = "Source code: ",
+                      output_file = NULL,
+                      output_file_label = "Source file: ",
+                      ...) {
 
   assert_that(is.noteconfig(note_config))
 
-  file_notes <- pt_opts$file.notes.fun(r_file, output_file)
+  file_notes <- form_file_notes(r_file, r_file_label, output_file,
+                                output_file_label)
 
   notes <- c(notes, file_notes)
 
-  if(isTRUE(pt_opts$notes.sanitize)) {
+  if(note_config$sanitize) {
     assert_that(is.character(notes) || is.null(notes))
-    notes <- escape_fun(notes)
+    notes <- escape_fun(notes, escape = note_config$escape)
   }
 
   m_notes <- t_notes <- NULL
@@ -60,6 +66,8 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 #' @param linespread spacing between note lines for `minipage` notes
 #' @param hline_pt the point size for hlines
 #' @param note_sp spacing between note lines for `tpt` notes
+#' @param sanitize if `TRUE`, notes will be sanitized
+#' @param escape vector of characters to escape in notes
 #'
 #' @export
 noteconf <- function(width = 0.8,
@@ -67,7 +75,7 @@ noteconf <- function(width = 0.8,
                      hline = c("top", "bottom", "both", "none"),
                      table_skip = 0.67, note_skip = 0.02,
                      linespread = 1.1, hline_pt = 0.4,
-                     note_sp = 0.1) {
+                     note_sp = 0.1, sanitize = TRUE, escape = "_") {
 
   hline <- match.arg(hline)
 
@@ -75,6 +83,8 @@ noteconf <- function(width = 0.8,
   hline2 <- all(hline %in% c("bottom", "both"), hline != "none")
 
   type <- match.arg(type)
+
+  assert_that(is.character(escape))
 
   ans <- list(
     width = width,
@@ -86,7 +96,9 @@ noteconf <- function(width = 0.8,
     type = type,
     tpt = type == "tpt",
     hline1 = hline1,
-    hline2 = hline2
+    hline2 = hline2,
+    escape = escape,
+    sanitize = isTRUE(sanitize)
   )
   structure(ans, class = "noteconfig")
 }
@@ -127,13 +139,14 @@ tpt_notes <- function(notes,x) {
   )
 }
 
-form_file_notes <- function(r_file, output_file, ...) {
+form_file_notes <- function(r_file, r_file_label, output_file,
+                            output_file_label, ...) {
   r_note <- output_note <- NULL
   if(is.character(r_file)) {
-    r_note <- paste0(pt_opts$file.label.r, r_file)
+    r_note <- paste0(r_file_label, r_file)
   }
   if(is.character(output_file)) {
-    output_note <- paste0(pt_opts$file.label.output,output_file)
+    output_note <- paste0(output_file_label, output_file)
   }
   c(r_note, output_note)
 }

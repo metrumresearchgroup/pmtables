@@ -6,9 +6,9 @@
 #' @param ... used to absorb other arguments; not used
 data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
                                  tot = FALSE, all_name = "all",
-                                 dv_col = pt_opts$dv_col,
-                                 bq_col = pt_opts$bq_col,
-                                 id_col = pt_opts$id_col,
+                                 dv_col = "DV",
+                                 bq_col = "BQL",
+                                 id_col = "ID",
                                  ...) {
 
   if(by==".total" | panel == ".total") {
@@ -248,9 +248,9 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
                               all_name = "all",
-                              dv_col = pt_opts$dv_col,
-                              bq_col = pt_opts$bq_col,
-                              id_col = pt_opts$id_col,
+                              dv_col = "DV",
+                              bq_col = "BQL",
+                              id_col = "ID",
                               no_bql = FALSE, ...) {
 
   has_panel <- !missing(panel)

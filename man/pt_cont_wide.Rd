@@ -11,10 +11,10 @@ pt_cont_wide(
   panel = by,
   table = NULL,
   units = NULL,
-  digits = NULL,
+  digits = new_digits(),
   all_name = "All data",
   fun = str_sum_2,
-  panel.label.add = pt_opts$panel.label.add
+  id_col = "ID"
 )
 }
 \arguments{
@@ -31,14 +31,13 @@ examples)}
 
 \item{units}{a named list to use for unit lookup (see details and examples)}
 
-\item{digits}{a \code{digits} object (see \link{new_digits})}
+\item{digits}{a \code{digits} object (see \code{\link[=new_digits]{new_digits()}})}
 
 \item{all_name}{a name to use for the complete data summary}
 
 \item{fun}{the data summary function (see details)}
 
-\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
-to the panel variable value}
+\item{id_col}{the ID column name}
 }
 \description{
 Create a continuous data summary table in wide format
