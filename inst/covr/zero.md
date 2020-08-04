@@ -140,9 +140,6 @@
 "111","R/table-clear_reps.R","tab_clear_reps",18,0
 "119","R/table-clear_reps.R","tab_clear_reps",19,0
 "287","R/table-clear_reps.R","reps_to_clear",33,0
-"376","R/table-clear_reps.R","reps_to_clear",40,0
-"386","R/table-clear_reps.R","reps_to_clear",41,0
-"400","R/table-clear_reps.R","reps_to_clear",42,0
 "775","R/table-clear_reps.R","deduplicate_values",82,0
 "216","R/table-cols.R","tab_cols",27,0
 "230","R/table-cols.R","tab_cols",28,0

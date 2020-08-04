@@ -1,4 +1,4 @@
-# coverage: 76.2%
+# coverage: 76.37%
 
 |file                     | coverage|
 |:------------------------|--------:|
@@ -9,9 +9,9 @@
 |R/table-utils.R          |    70.83|
 |R/table-align.R          |    71.43|
 |R/table-hlines.R         |    72.73|
-|R/table-clear_reps.R     |    72.92|
 |R/table-panel.R          |    78.05|
 |R/discrete_table.R       |    78.79|
+|R/table-clear_reps.R     |    79.17|
 |R/table-stable.R         |    80.26|
 |R/table-long.R           |    80.33|
 |R/continuous_table.R     |    81.77|

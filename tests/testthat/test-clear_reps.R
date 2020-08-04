@@ -18,6 +18,25 @@ test_that("clear replicates", {
 
 test_that("clear grouped replicates", {
   data <- pmtables:::data("id")
+  data <- count(data, STUDYf, FORMf, SEXf)
+  data <- mutate(data, across(c(STUDYf,FORMf,SEXf),as.character))
+  ans <- tab_clear_reps(
+    data[seq(6),],
+    clear_reps = "FORMf",
+    panel = rowpanel("STUDYf")
+  )
+  expect_identical(
+    ans$STUDYf,
+    c(rep(data$STUDYf[1],5), data$STUDYf[6])
+  )
+  expect_identical(
+    ans$FORMf,
+    c("tablet", "", "capsule", "", "troche", "tablet")
+  )
+})
+
+test_that("clear grouped replicates", {
+  data <- pmtables:::data("id")
   data <- count(data,STUDYf,FORMf,SEXf)
   data <- mutate(data, across(STUDYf:SEXf, as.character))
   ans <- clear_grouped_values(data[1:6,], cols = c("STUDYf", "FORMf"))
