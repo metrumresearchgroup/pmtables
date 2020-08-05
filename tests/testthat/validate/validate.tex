@@ -1,0 +1,1508 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Simple Tables Demo Doc},
+  pdfborder={0 0 0},
+  breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{threeparttable}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[utopia]{mathdesign}
+\usepackage{array}
+
+\title{Simple Tables Demo Doc}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(purrr)}
+\KeywordTok{library}\NormalTok{(yspec)}
+\KeywordTok{library}\NormalTok{(pmtables)}
+
+\NormalTok{spec <-}\StringTok{ }\NormalTok{ys_help}\OperatorTok{$}\KeywordTok{spec}\NormalTok{()}
+
+\NormalTok{units <-}\StringTok{ }\KeywordTok{ys_get_unit}\NormalTok{(spec, }\DataTypeTok{parens =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{basic-table}{%
+\section{Basic table}\label{basic-table}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"basic-table.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{bold-cols}{%
+\section{Bold cols}\label{bold-cols}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{col_bold =} \OtherTok{TRUE}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+\textbf{STUDY} & \textbf{DOSE} & \textbf{FORM} & \textbf{N} & \textbf{WT} & \textbf{CRCL} & \textbf{AGE} & \textbf{ALB} & \textbf{SCR} \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"basic-table-bold.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{file-names}{%
+\section{File names}\label{file-names}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{r_file =} \StringTok{"validate.Rmd"}\NormalTok{, }\DataTypeTok{output_file =} \StringTok{"file-names.tex"}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item Source code: validate.Rmd
+\item Source file: file-names.tex
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\KeywordTok{file.exists}\NormalTok{(}\StringTok{"file-names.tex"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\clearpage
+
+\hypertarget{notes-tpt}{%
+\section{Notes tpt}\label{notes-tpt}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{notes =} \KeywordTok{c}\NormalTok{(}\StringTok{"WT: weight"}\NormalTok{, }\StringTok{"ALB: albumin"}\NormalTok{))}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item WT: weight
+\item ALB: albumin
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"notes-tpt.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{notes-minipage}{%
+\section{Notes minipage}\label{notes-minipage}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{conf <-}\StringTok{ }\KeywordTok{noteconf}\NormalTok{(}\DataTypeTok{type =} \StringTok{'minipage'}\NormalTok{)}
+
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{notes =} \KeywordTok{c}\NormalTok{(}\StringTok{"WT: weight"}\NormalTok{, }\StringTok{"ALB: albumin"}\NormalTok{), }\DataTypeTok{note_config =}\NormalTok{ conf)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\vskip 0.67cm
+\begin{minipage}{0.8\linewidth}
+\linespread{1.1}\selectfont
+\rule{1\linewidth}{0.4pt}
+\vskip 0.02cm
+WT: weight \newline
+ALB: albumin \newline
+\end{minipage}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"notes-mini.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{panel-basic}{%
+\section{Panel basic}\label{panel-basic}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{panel =} \StringTok{"STUDY"}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{llllllll}
+\hline
+DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+\multicolumn{8}{l}{\textbf{12-DEMO-001}}\\
+100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+\hline \multicolumn{8}{l}{\textbf{12-DEMO-002}}\\
+100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"panel-basic.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{panel-prefix}{%
+\section{Panel prefix}\label{panel-prefix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{panel =} \KeywordTok{as.panel}\NormalTok{(}\StringTok{"STUDY"}\NormalTok{, }\DataTypeTok{prefix =} \StringTok{"Study: "}\NormalTok{))}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{llllllll}
+\hline
+DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+\multicolumn{8}{l}{\textbf{Study:  12-DEMO-001}}\\
+100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+\hline \multicolumn{8}{l}{\textbf{Study:  12-DEMO-002}}\\
+100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"panel-prefix.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{clear-reps}{%
+\section{Clear reps}\label{clear-reps}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{clear_reps =} \StringTok{"STUDY"}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+ & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+ & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+ & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+ & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+ & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+ & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+ & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+ & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+ & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+ & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+ & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"clear-reps.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{clear-grouped-reps}{%
+\section{Clear grouped reps}\label{clear-grouped-reps}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{clear_grouped_reps =} \StringTok{"STUDY,DOSE"}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+ & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+ &  & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+ &  & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+ & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+ &  & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+ &  & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+ & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+ &  & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+ & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+ &  & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+ &  & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"clear-grouped-reps.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{hline-at}{%
+\section{hline at}\label{hline-at}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{hline_at =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{))}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\ \hline
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\ \hline
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\ \hline
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"hline-at.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{hline-from}{%
+\section{hline from}\label{hline-from}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{hline_from =} \StringTok{"STUDY"}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\ \hline
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"hline-from.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{hline-from-with-clear}{%
+\section{hline from with clear}\label{hline-from-with-clear}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{hline_from =} \StringTok{"STUDY"}\NormalTok{, }\DataTypeTok{clear_reps =} \StringTok{"STUDY"}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+ & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+ & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+ & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+ & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+ & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\ \hline
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+ & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+ & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+ & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+ & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+ & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+ & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"hline-from-clear.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{align}{%
+\section{Align}\label{align}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{align <-}\StringTok{ }\KeywordTok{cols_center}\NormalTok{(}\DataTypeTok{.outer =} \StringTok{'lr'}\NormalTok{, }\DataTypeTok{DOSE =} \StringTok{'r'}\NormalTok{)}
+
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{align =}\NormalTok{ align)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lrccccccr}
+\hline
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"align.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{rename}{%
+\section{rename}\label{rename}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{col_rename =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{Weight =} \StringTok{"WT"}\NormalTok{, }\DataTypeTok{Dose =} \StringTok{"DOSE"}\NormalTok{))}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & Dose & FORM & N & Weight & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"col-rename.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{blank}{%
+\section{blank}\label{blank}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{col_blank =} \StringTok{"WT,ALB"}\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+STUDY & DOSE & FORM & N &  & CRCL & AGE &  & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"col-blank.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{multi-line}{%
+\section{multi-line}\label{multi-line}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(pmt_summarized, }\DataTypeTok{col_rename =} \KeywordTok{c}\NormalTok{(}\StringTok{"Protocol...Number"}\NormalTok{ =}\StringTok{ "STUDY"}\NormalTok{, }\DataTypeTok{Weight =} \StringTok{"WT"}\NormalTok{))}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+Protocol &  &  &  &  &  &  &  &  \\ [-0.56em]
+Number & DOSE & FORM & N & Weight & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"col-multi-line.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{multi-line-units}{%
+\section{multi-line units}\label{multi-line-units}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(}
+\NormalTok{  pmt_summarized, }
+  \DataTypeTok{col_rename =} \KeywordTok{c}\NormalTok{(}\StringTok{"Protocol...Number"}\NormalTok{ =}\StringTok{ "STUDY"}\NormalTok{, }\DataTypeTok{Weight =} \StringTok{"WT"}\NormalTok{), }
+  \DataTypeTok{units =}\NormalTok{ units}
+\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+Protocol &  &  &  & Weight & CRCL & AGE & ALB & SCR \\ [-0.56em]
+Number & DOSE & FORM & N & (kg) & (ml/min) & (years) & (g/dL) & (mg/dL) \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"col-multi-line-units.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{span}{%
+\section{span}\label{span}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(}
+\NormalTok{  pmt_summarized, }
+  \DataTypeTok{span =} \KeywordTok{colgroup}\NormalTok{(}\StringTok{"Final model"}\NormalTok{, AGE}\OperatorTok{:}\NormalTok{CRCL)}
+\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+\multicolumn{5}{c}{} & \multicolumn{2}{c}{\textbf{Final model}} & \multicolumn{2}{c}{}\\
+\cmidrule(lr){6-7}
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"span.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{span-levels}{%
+\section{span levels}\label{span-levels}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{stable}\NormalTok{(}
+\NormalTok{  pmt_summarized, }
+  \DataTypeTok{span =} \KeywordTok{list}\NormalTok{(}
+    \KeywordTok{colgroup}\NormalTok{(}\StringTok{"All covariates"}\NormalTok{, WT}\OperatorTok{:}\NormalTok{SCR, }\DataTypeTok{level =} \DecValTok{2}\NormalTok{), }
+    \KeywordTok{colgroup}\NormalTok{(}\StringTok{"Final model"}\NormalTok{, AGE}\OperatorTok{:}\NormalTok{CRCL)}
+\NormalTok{  )}
+\NormalTok{)}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lllllllll}
+\hline
+\multicolumn{4}{c}{} & \multicolumn{5}{c}{\textbf{All covariates}}\\
+\cmidrule(lr){5-9}
+\multicolumn{5}{c}{} & \multicolumn{2}{c}{\textbf{Final model}} & \multicolumn{2}{c}{}\\
+\cmidrule(lr){6-7}
+STUDY & DOSE & FORM & N & WT & CRCL & AGE & ALB & SCR \\
+\hline
+12-DEMO-001 & 100 mg & tablet & 80 & 71.4 & 104 & 33.7 & 4.20 & 1.06 \\
+12-DEMO-001 & 150 mg & capsule & 16 & 89.4 & 122 & 24.4 & 4.63 & 1.12 \\
+12-DEMO-001 & 150 mg & tablet & 48 & 81.7 & 104 & 34.4 & 3.83 & 0.910 \\
+12-DEMO-001 & 150 mg & troche & 16 & 94.0 & 93.2 & 27.4 & 4.94 & 1.25 \\
+12-DEMO-001 & 200 mg & tablet & 64 & 67.9 & 100 & 27.5 & 4.25 & 1.10 \\
+12-DEMO-001 & 200 mg & troche & 16 & 76.6 & 99.2 & 22.8 & 4.54 & 1.15 \\
+12-DEMO-002 & 100 mg & capsule & 36 & 61.3 & 113 & 38.3 & 4.04 & 1.28 \\
+12-DEMO-002 & 100 mg & tablet & 324 & 77.6 & 106 & 29.9 & 4.31 & 0.981 \\
+12-DEMO-002 & 50 mg & capsule & 36 & 74.1 & 112 & 37.1 & 4.44 & 0.900 \\
+12-DEMO-002 & 50 mg & tablet & 324 & 71.2 & 106 & 34.1 & 4.63 & 0.868 \\
+12-DEMO-002 & 75 mg & capsule & 36 & 72.4 & 105 & 38.2 & 3.89 & 0.900 \\
+12-DEMO-002 & 75 mg & tablet & 288 & 71.6 & 98.9 & 34.2 & 4.49 & 0.991 \\
+12-DEMO-002 & 75 mg & troche & 36 & 73.6 & 103 & 49.2 & 4.52 & 0.930 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"span-levels.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{continuous-long-panel}{%
+\section{Continuous long panel}\label{continuous-long-panel}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{pt_cont_long}\NormalTok{(}
+\NormalTok{  pmt_first, }\DataTypeTok{cols =} \StringTok{"WT,CRCL,ALB"}\NormalTok{, }\DataTypeTok{panel =} \StringTok{"STUDYf"}\NormalTok{, }
+  \DataTypeTok{units =}\NormalTok{ units}
+\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_stable}\NormalTok{()}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lccccr}
+\hline
+Variable & n & Mean & Median & SD & Min / Max \\
+\hline
+\multicolumn{6}{l}{\textbf{12-DEMO-001}}\\
+WT (kg) & 29 & 72.2 & 70.0 & 14.3 & 50.9 / 97.2 \\
+CRCL (ml/min) & 29 & 106 & 104 & 9.46 & 93.2 / 126 \\
+ALB (g/dL) & 29 & 4.28 & 4.08 & 0.474 & 3.56 / 5.15 \\
+\hline \multicolumn{6}{l}{\textbf{12-DEMO-002}}\\
+WT (kg) & 49 & 72.4 & 72.1 & 11.5 & 51.5 / 96.6 \\
+CRCL (ml/min) & 49 & 103 & 103 & 8.35 & 90.6 / 121 \\
+ALB (g/dL) & 50 & 4.47 & 4.43 & 0.468 & 3.65 / 5.39 \\
+\hline \multicolumn{6}{l}{\textbf{11-DEMO-005}}\\
+WT (kg) & 39 & 68.9 & 65.4 & 14.5 & 43.6 / 92.8 \\
+CRCL (ml/min) & 39 & 58.8 & 56.2 & 29.7 & 15.4 / 103 \\
+ALB (g/dL) & 39 & 4.41 & 4.44 & 0.537 & 3.51 / 5.39 \\
+\hline \multicolumn{6}{l}{\textbf{13-DEMO-001}}\\
+WT (kg) & 40 & 69.4 & 68.1 & 11.6 & 50.7 / 96.6 \\
+CRCL (ml/min) & 37 & 102 & 102 & 8.19 & 90.7 / 119 \\
+ALB (g/dL) & 38 & 3.58 & 3.65 & 1.15 & 1.28 / 5.38 \\
+\hline \multicolumn{6}{l}{\textbf{All data}}\\
+WT (kg) & 157 & 70.7 & 70.0 & 12.8 & 43.6 / 97.2 \\
+CRCL (ml/min) & 154 & 92.1 & 98.8 & 25.5 & 15.4 / 126 \\
+ALB (g/dL) & 156 & 4.20 & 4.32 & 0.793 & 1.28 / 5.39 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"continuous-long-panel.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{continuous-wide-by}{%
+\section{Continuous wide by}\label{continuous-wide-by}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{pt_cont_wide}\NormalTok{(}
+\NormalTok{  pmt_first, }
+  \DataTypeTok{cols =} \StringTok{"WT,CRCL,ALB"}\NormalTok{, }\DataTypeTok{by =} \StringTok{"STUDYf"}\NormalTok{, }
+  \DataTypeTok{units =}\NormalTok{ units}
+\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_stable}\NormalTok{()}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{llll}
+\hline
+ & WT & CRCL & ALB \\ [-0.56em]
+STUDYf & (kg) & (ml/min) & (g/dL) \\
+\hline
+12-DEMO-001 & 72.2 (14.3) [29] & 106 (9.46) [29] & 4.28 (0.474) [29] \\
+12-DEMO-002 & 72.4 (11.5) [49] & 103 (8.35) [49] & 4.47 (0.468) [50] \\
+11-DEMO-005 & 68.9 (14.5) [39] & 58.8 (29.7) [39] & 4.41 (0.537) [39] \\
+13-DEMO-001 & 69.4 (11.6) [40] & 102 (8.19) [37] & 3.58 (1.15) [38] \\
+\hline \hline {\bf All data} & 70.7 (12.8) [157] & 92.1 (25.5) [154] & 4.20 (0.793) [156] \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item Summary is mean (sd) [count]
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"continuous-wide-by.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{categorical-long-by}{%
+\section{Categorical long by}\label{categorical-long-by}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{pt_cat_long}\NormalTok{(}
+\NormalTok{  pmt_first, }
+  \DataTypeTok{cols =} \StringTok{"SEXf,RFf,FORMf"}\NormalTok{, }
+  \DataTypeTok{by =} \StringTok{"STUDYf"}
+\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_stable}\NormalTok{()}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lccccc}
+\hline
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{\textbf{STUDYf}} & \multicolumn{1}{c}{}\\
+\cmidrule(lr){2-5}
+\ & 12-DEMO-001 & 12-DEMO-002 & 11-DEMO-005 & 13-DEMO-001 & \textbf{All Groups} \\
+\hline
+\multicolumn{6}{l}{\textbf{SEXf}}\\
+male & 10 (33.3) & 18 (36.0) & 29 (72.5) & 23 (57.5) & 80 (50.0) \\
+female & 20 (66.7) & 32 (64.0) & 11 (27.5) & 17 (42.5) & 80 (50.0) \\
+\hline \multicolumn{6}{l}{\textbf{RFf}}\\
+normal & 30 (100.0) & 50 (100.0) & 10 (25.0) & 40 (100.0) & 130 (81.2) \\
+mild & 0 (0.0) & 0 (0.0) & 10 (25.0) & 0 (0.0) & 10 (6.2) \\
+moderate & 0 (0.0) & 0 (0.0) & 10 (25.0) & 0 (0.0) & 10 (6.2) \\
+severe & 0 (0.0) & 0 (0.0) & 10 (25.0) & 0 (0.0) & 10 (6.2) \\
+\hline \multicolumn{6}{l}{\textbf{FORMf}}\\
+tablet & 25 (83.3) & 42 (84.0) & 30 (75.0) & 33 (82.5) & 130 (81.2) \\
+capsule & 3 (10.0) & 6 (12.0) & 3 (7.5) & 3 (7.5) & 15 (9.4) \\
+troche & 2 (6.7) & 2 (4.0) & 7 (17.5) & 4 (10.0) & 15 (9.4) \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item Summary is count (percent)
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"cat-long-by.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{categorical-wide-by-panel}{%
+\section{Categorical wide by panel}\label{categorical-wide-by-panel}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{pt_cat_wide}\NormalTok{(}
+\NormalTok{  pmt_first, }
+  \DataTypeTok{cols =} \StringTok{"SEXf,RFf"}\NormalTok{,}
+  \DataTypeTok{by =} \StringTok{"FORMf"}\NormalTok{,}
+  \DataTypeTok{panel =} \StringTok{"STUDYf"}
+\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_stable}\NormalTok{()}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lcccccc}
+\hline
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{\textbf{SEXf}} & \multicolumn{4}{c}{\textbf{RFf}}\\
+\cmidrule(lr){2-3}
+\cmidrule(lr){4-7}
+FORMf & male & female & normal & mild & moderate & severe \\
+\hline
+\multicolumn{7}{l}{\textbf{12-DEMO-001}}\\
+tablet & 7 (28.0) & 18 (72.0) & 25 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+capsule & 1 (33.3) & 2 (66.7) & 3 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+troche & 2 (100.0) & 0 (0.0) & 2 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+\hline \multicolumn{7}{l}{\textbf{12-DEMO-002}}\\
+tablet & 16 (38.1) & 26 (61.9) & 42 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+capsule & 2 (33.3) & 4 (66.7) & 6 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+troche & 0 (0.0) & 2 (100.0) & 2 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+\hline \multicolumn{7}{l}{\textbf{11-DEMO-005}}\\
+tablet & 20 (66.7) & 10 (33.3) & 9 (30.0) & 7 (23.3) & 6 (20.0) & 8 (26.7) \\
+capsule & 3 (100.0) & 0 (0.0) & 0 (0.0) & 2 (66.7) & 0 (0.0) & 1 (33.3) \\
+troche & 6 (85.7) & 1 (14.3) & 1 (14.3) & 1 (14.3) & 4 (57.1) & 1 (14.3) \\
+\hline \multicolumn{7}{l}{\textbf{13-DEMO-001}}\\
+tablet & 19 (57.6) & 14 (42.4) & 33 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+capsule & 1 (33.3) & 2 (66.7) & 3 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+troche & 3 (75.0) & 1 (25.0) & 4 (100.0) & 0 (0.0) & 0 (0.0) & 0 (0.0) \\
+\hline \hline {\bf All data} & 80 (50.0) & 80 (50.0) & 130 (81.2) & 10 (6.2) & 10 (6.2) & 10 (6.2) \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item Summary is count (percent)
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"cat-wide-by-panel.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{inventory-by}{%
+\section{Inventory by}\label{inventory-by}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{pt_data_inventory}\NormalTok{(}
+\NormalTok{  pmt_pk, }
+  \DataTypeTok{by =} \StringTok{"STUDYf"}
+\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_stable}\NormalTok{()}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lcccccc}
+\hline
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{\textbf{Number}} & \multicolumn{2}{c}{\textbf{Percent}}\\
+\cmidrule(lr){2-5}
+\cmidrule(lr){6-7}
+STUDYf & SUBJ & MISS & OBS & BQL & OBS & BQL \\
+\hline
+12-DEMO-001 & 30 & 8 & 427 & 15 & 13.9 & 0.5 \\
+12-DEMO-002 & 50 & 10 & 1152 & 38 & 37.4 & 1.2 \\
+11-DEMO-005 & 40 & 10 & 920 & 30 & 29.9 & 1.0 \\
+13-DEMO-001 & 40 & 7 & 582 & 11 & 18.9 & 0.4 \\
+\hline \hline {\bf All data} & 160 & 35 & 3081 & 94 & 100.0 & 3.1 \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item SUBJ: subjects
+\item BQL: below quantitation limit
+\item MISS: missing observations (not BQL)
+\item OBS: observations
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"inventory-by.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{inventory-panel-by}{%
+\section{Inventory panel by}\label{inventory-panel-by}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{pt_data_inventory}\NormalTok{(}
+\NormalTok{  pmt_pk, }
+  \DataTypeTok{panel =} \StringTok{"FORMf"}\NormalTok{,}
+  \DataTypeTok{by =} \StringTok{"STUDYf"}
+\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_stable}\NormalTok{()}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lcccccccc}
+\hline
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{\textbf{Number}} & \multicolumn{2}{c}{\textbf{Group percent}} & \multicolumn{2}{c}{\textbf{Overall percent}}\\
+\cmidrule(lr){2-5}
+\cmidrule(lr){6-7}
+\cmidrule(lr){8-9}
+STUDYf & SUBJ & MISS & OBS & BQL & OBS & BQL & OBS & BQL \\
+\hline
+\multicolumn{9}{l}{\textbf{tablet}}\\
+12-DEMO-001 & 25 & 8 & 356 & 11 & 14.3 & 0.4 & 11.6 & 0.4 \\
+12-DEMO-002 & 42 & 7 & 969 & 32 & 38.9 & 1.3 & 31.5 & 1.0 \\
+11-DEMO-005 & 30 & 9 & 687 & 24 & 27.6 & 1.0 & 22.3 & 0.8 \\
+13-DEMO-001 & 33 & 6 & 479 & 10 & 19.2 & 0.4 & 15.5 & 0.3 \\
+\hline \multicolumn{9}{l}{\textbf{capsule}}\\
+12-DEMO-001 & 3 & 0 & 41 & 4 & 14.0 & 1.4 & 1.3 & 0.1 \\
+12-DEMO-002 & 6 & 2 & 137 & 5 & 46.8 & 1.7 & 4.4 & 0.2 \\
+11-DEMO-005 & 3 & 1 & 70 & 1 & 23.9 & 0.3 & 2.3 & 0.0 \\
+13-DEMO-001 & 3 & 0 & 45 & 0 & 15.4 & 0.0 & 1.5 & 0.0 \\
+\hline \multicolumn{9}{l}{\textbf{troche}}\\
+12-DEMO-001 & 2 & 0 & 30 & 0 & 10.1 & 0.0 & 1.0 & 0.0 \\
+12-DEMO-002 & 2 & 1 & 46 & 1 & 15.5 & 0.3 & 1.5 & 0.0 \\
+11-DEMO-005 & 7 & 0 & 163 & 5 & 54.9 & 1.7 & 5.3 & 0.2 \\
+13-DEMO-001 & 4 & 1 & 58 & 1 & 19.5 & 0.3 & 1.9 & 0.0 \\
+\hline \hline {\bf All data} & 160 & 35 & 3081 & 94 & --- & --- & 100.0 & 3.1 \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item SUBJ: subjects
+\item BQL: below quantitation limit
+\item MISS: missing observations (not BQL)
+\item OBS: observations
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"inventory-panel-by.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\clearpage
+
+\hypertarget{inventory-stacked}{%
+\section{Inventory stacked}\label{inventory-stacked}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{pt_data_inventory}\NormalTok{(}
+\NormalTok{  pmt_obs, }
+  \DataTypeTok{by =} \StringTok{"STUDYf"}\NormalTok{, }
+  \DataTypeTok{panel =} \StringTok{"SEQf"}\NormalTok{,}
+  \DataTypeTok{stacked =} \OtherTok{TRUE}
+\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_stable}\NormalTok{()}
+
+\KeywordTok{pt_wrap}\NormalTok{(out, }\DataTypeTok{con =} \KeywordTok{stdout}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[h]
+\centering
+{\def\arraystretch{1.4}\tabcolsep=5pt
+\begin{threeparttable}
+\begin{tabular}[h]{lcccccc}
+\hline
+\multicolumn{1}{c}{} & \multicolumn{4}{c}{\textbf{Number}} & \multicolumn{2}{c}{\textbf{Percent}}\\
+\cmidrule(lr){2-5}
+\cmidrule(lr){6-7}
+STUDYf & SUBJ & MISS & OBS & BQL & OBS & BQL \\
+\hline
+\multicolumn{7}{l}{\textbf{DEMO PK}}\\
+12-DEMO-001 & 30 & 8 & 427 & 15 & 13.9 & 0.5 \\
+12-DEMO-002 & 50 & 10 & 1152 & 38 & 37.4 & 1.2 \\
+11-DEMO-005 & 40 & 10 & 920 & 30 & 29.9 & 1.0 \\
+13-DEMO-001 & 40 & 7 & 582 & 11 & 18.9 & 0.4 \\
+\hline {\it Group Total} & 160 & 35 & 3081 & 94 & 100.0 & 3.1 \\
+\hline \multicolumn{7}{l}{\textbf{ESTRDIOL}}\\
+11-DEMO-005 & 40 & 0 & 40 & 0 & 50.6 & 0.0 \\
+13-DEMO-001 & 40 & 1 & 39 & 0 & 49.4 & 0.0 \\
+\hline {\it Group Total} & 80 & 1 & 79 & 0 & 100.0 & 0.0 \\
+\hline \multicolumn{7}{l}{\textbf{BMD}}\\
+11-DEMO-005 & 40 & 9 & 111 & 0 & 49.1 & 0.0 \\
+13-DEMO-001 & 40 & 5 & 115 & 0 & 50.9 & 0.0 \\
+\hline {\it Group Total} & 80 & 14 & 226 & 0 & 100.0 & 0.0 \\
+\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item SUBJ: subjects
+\item BQL: below quantitation limit
+\item MISS: missing observations (not BQL)
+\item OBS: observations
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(params}\OperatorTok{$}\NormalTok{save) \{}
+  \KeywordTok{stable_save}\NormalTok{(out, }\DataTypeTok{file =} \StringTok{"inventory-stacked.tex"}\NormalTok{, }\DataTypeTok{dir =}\NormalTok{ params}\OperatorTok{$}\NormalTok{dir)   }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}
