@@ -76,7 +76,7 @@ pmt_obs <- filter(data,SEQ > 0)
 
 usethis::use_data(pmt_obs, overwrite = TRUE)
 
-pt_pk <- filter(data, SEQ==1)
+pmt_pk <- filter(data, SEQ==1)
 usethis::use_data(pmt_pk, overwrite = TRUE)
 
 data <- analysis1

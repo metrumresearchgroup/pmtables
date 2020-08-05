@@ -65,8 +65,9 @@ test_that("stobject equivalent span", {
   )
   x <- inspect(data, span = sp)
   y <- st_new(data) %>% st_span("first", a:c)
-  y <- y %>% st_span("second", e:f)
+  y <- y %>% st_span("second", e:f, level = 2)
   y <- st_make(y, inspect = TRUE) %>% get_stable_data()
+  expect_identical(x,y)
 })
 
 test_that("stobject equivalent files", {
