@@ -1,0 +1,505 @@
+--- 
+title: Simple Tables Demo Doc
+output: 
+  pdf_document: 
+    extra_dependencies: 
+      threeparttable:
+      booktabs:
+      longtable:
+      mathdesign: utopia
+      array:
+    number_sections: true
+    toc: true 
+params:
+  save: true
+---
+
+```{r,setup,message = FALSE, echo=FALSE}
+library(dplyr)
+library(purrr)
+library(yspec)
+library(pmtables)
+
+spec <- ys_help$spec()
+
+units <- ys_get_unit(spec, parens = TRUE)
+
+datasets <- function(file) {
+  system.file("datasets", file, package = "pmtables")  
+}
+
+data <- readRDS(datasets("pmdata.RDS"))
+
+data <- select(data, STUDY = STUDYf, DOSE = DOSEf, WT, AGE, CRCL, ALB, SCR)
+
+pmdata <- pmtables:::data("id")
+
+obs <- pmtables:::data("obs") %>% filter(SEQ !=0)
+pk <- filter(obs, SEQ==1)
+```
+
+
+\clearpage
+
+
+# Basic table
+
+```{r, results = "asis"}
+out <- stable(data)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "basic-table.tex")   
+}
+```
+
+\clearpage
+
+# Bold cols
+
+```{r, results = "asis"}
+out <- stable(data, col_bold = TRUE)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "basic-table-bold.tex")   
+}
+```
+
+\clearpage 
+
+# File names
+
+```{r, results = "asis"}
+out <- stable(data, r_file = "validate.Rmd", output_file = "file-names.tex")
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out)   
+}
+file.exists("file-names.tex")
+```
+
+\clearpage
+
+# Notes tpt
+
+```{r, results = "asis"}
+out <- stable(data, notes = c("WT: weight", "ALB: albumin"))
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "notes-tpt.tex")   
+}
+
+```
+
+\clearpage
+
+# Notes minipage
+
+```{r, results = "asis"}
+conf <- noteconf(type = 'minipage')
+
+out <- stable(data, notes = c("WT: weight", "ALB: albumin"), note_config = conf)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "notes-mini.tex")   
+}
+```
+
+\clearpage
+
+
+# Panel basic
+
+```{r, results = "asis"}
+out <- stable(data, panel = "STUDY")
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "panel-basic.tex")   
+}
+```
+
+\clearpage
+
+# Panel prefix
+
+```{r, results = "asis"}
+out <- stable(data, panel = as.panel("STUDY", prefix = "Study: "))
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "panel-prefix.tex")   
+}
+```
+
+\clearpage
+
+# Clear reps
+
+```{r, results = "asis"}
+out <- stable(data, clear_reps = "STUDY")
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "clear-reps.tex")   
+}
+```
+
+\clearpage
+
+# Clear grouped reps
+
+```{r, results = "asis"}
+out <- stable(data, clear_grouped_reps = "STUDY,DOSE")
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "clear-grouped-reps.tex")   
+}
+```
+
+
+
+\clearpage
+
+# hline at
+
+```{r, results = "asis"}
+out <- stable(data, hline_at = c(2,4,6))
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "hline-at.tex")   
+}
+```
+
+\clearpage
+
+# hline from
+
+```{r, results = "asis"}
+out <- stable(data, hline_from = "STUDY")
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "hline-from.tex")   
+}
+```
+
+\clearpage
+
+# hline from with clear
+
+```{r, results = "asis"}
+out <- stable(data, hline_from = "STUDY", clear_reps = "STUDY")
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "hline-from-clear.tex")   
+}
+```
+
+\clearpage
+
+# Align
+
+```{r, results = "asis"}
+align <- cols_center(.outer = 'lr', DOSE = 'r')
+
+out <- stable(data, align = align)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "align.tex")   
+}
+```
+
+\clearpage
+
+# rename
+
+```{r, results = "asis"}
+out <- stable(data, col_rename = c(Weight = "WT", Dose = "DOSE"))
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "cols-rename.tex")   
+}
+```
+
+\clearpage
+
+
+# blank
+
+```{r, results = "asis"}
+out <- stable(data, col_blank = "WT,ALB")
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "col-blank.tex")   
+}
+```
+
+\clearpage
+
+# multi-line
+
+```{r, results = "asis"}
+out <- stable(data, col_rename = c("Protocol...Number" = "STUDY", Weight = "WT"))
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "col-multi-line.tex")   
+}
+```
+
+\clearpage
+
+# multi-line units
+
+```{r, results = "asis"}
+out <- stable(
+  data, 
+  col_rename = c("Protocol...Number" = "STUDY", Weight = "WT"), 
+  units = units
+)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "col-multi-line-units.tex")   
+}
+```
+
+\clearpage
+
+# span
+
+```{r, results = "asis"}
+out <- stable(
+  data, 
+  span = colgroup("Final model", AGE:CRCL)
+)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "span.tex")   
+}
+```
+
+\clearpage
+
+# span levels
+
+```{r, results = "asis"}
+out <- stable(
+  data, 
+  span = list(
+    colgroup("All covariates", WT:SCR, level = 2), 
+    colgroup("Final model", AGE:CRCL)
+  )
+)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "span-levels.tex")   
+}
+```
+
+\clearpage
+
+# Continuous long panel
+
+```{r, results = 'asis'}
+out <- pt_cont_long(pmdata, cols = "WT,CRCL,ALB", panel = "STUDYf", 
+                    units = units) %>%
+  as_stable()
+
+pt_wrap(out, con = stdout()) 
+```
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "continuous-long-panel.tex")   
+}
+```
+
+\clearpage
+
+# Continuous wide by
+
+```{r, results = 'asis'}
+out <- pt_cont_wide(
+  pmdata, cols = "WT,CRCL,ALB", by = "STUDYf", 
+  units = units
+) %>% as_stable()
+
+pt_wrap(out, con = stdout()) 
+```
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "continuous-wide-by.tex")   
+}
+```
+
+\clearpage
+
+# Categorical long by
+
+```{r, results = 'asis'}
+out <- pt_cat_long(
+  pmdata, 
+  cols = "SEXf,RFf,FORMf", 
+  by = "STUDYf"
+) %>% as_stable()
+
+pt_wrap(out, con = stdout()) 
+```
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "cat-long-by.tex")   
+}
+```
+
+\clearpage
+
+# Categorical wide by panel
+
+```{r, results = 'asis'}
+out <- pt_cat_wide(
+  pmdata, 
+  cols = "SEXf,RFf",
+  by = "FORMf",
+  panel = "STUDYf"
+) %>% as_stable()
+
+pt_wrap(out, con = stdout()) 
+```
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "cat-wide-by-panel.tex")   
+}
+```
+
+\clearpage
+
+# Inventory basic
+
+```{r, results = 'asis'}
+out <- pt_data_inventory(
+  pk, 
+  by = "STUDYf"
+) %>% as_stable()
+
+pt_wrap(out, con = stdout()) 
+```
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "inventory-basic.tex")   
+}
+```
+
+
+\clearpage
+
+# Inventory stacked
+```{r, results = 'asis'}
+out <- pt_data_inventory(
+  obs, 
+  by = "STUDYf", 
+  panel = "SEQf",
+  stacked = TRUE
+) %>% as_stable()
+
+pt_wrap(out, con = stdout()) 
+```
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "inventory-stacked.tex")   
+}
+```
