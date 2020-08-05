@@ -36,8 +36,21 @@ d <- filter(data, SEQ==1)
 
 
 #' # Data inventory tables
+#'
+#' - Count number of
+#'   - individuals
+#'   - observations
+#'   - BQL observations
+#'   - missing values
+#' - Calculate the percent  of observations or BQL in different sub groups
+#'
 
 #' ## Stacked by endpoint
+#'
+#' - The stacked plot creates multiple independent tables to summarize different
+#' endpoints; there is no single overall summary for the table because we
+#' are summarizing different endpoints
+#'
 
 
 #+ pt-inventory-data-stacked, results = 'asis'
@@ -57,6 +70,8 @@ x <- pt_data_inventory(
 
 
 #' ## Paneled
+#'
+#' - Just summarize a single endpoint
 
 #+ results = 'asis'
 
@@ -84,6 +99,11 @@ pt_data_inventory(
 data <- pmtables:::data("id")
 
 #' # Wide categorical table
+#'
+#' - Summary of categorical data in wide format
+#' - The summary is `number (percent within group)`
+#' - Wide refers to the fact that the covariates go across the table
+#'
 
 ##' ## Basic
 
@@ -94,7 +114,9 @@ pt_cat_wide(
   cols = vars(Formulation = FORMf,Sex = SEXf, "Race group" = ASIANf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
-##' ## Paneled (limited utility, IMO)
+#' ## Paneled (limited utility, IMO)
+#'
+#' - Provided here for completeness
 
 #+ results = 'asis'
 
@@ -108,7 +130,7 @@ out <- pt_cat_wide(
 
 #' \clearpage
 
-##' ## Grouped (by male / female)
+#' ## Grouped (by male / female)
 
 #+ results = 'asis'
 pt_cat_wide(
@@ -135,6 +157,9 @@ pt_cat_wide(
 #+ include = TRUE
 
 #' # Long categorical table
+#'
+#' - Categorical table in long format
+#' - Long indicates that the covariates go down the table
 
 #' ## Ungrouped
 
@@ -162,6 +187,10 @@ pt_cat_long(
 
 
 #' # Wide continuous table
+#'
+#' - Continuous table in wide format
+#' - Wide means that the covariates go across the table
+#'
 
 #' ## Ungrouped
 
@@ -213,6 +242,10 @@ pt_cont_wide(
 
 
 #' # Long continuous table
+#'
+#' - Continuous summary table in long format
+#' - Long indicates that covariates go down the table
+#'
 
 #' ## Ungrouped
 
