@@ -3,7 +3,7 @@
 #' @inheritParams stable
 #' @param clear_reps character vector of column names where duplicate values will
 #' be made blank (overwritten with `""`); see also [st_clear_reps()]
-#' @param clear_grouped_reps passed to [deduplicate_values()] as `cols`
+#' @param clear_grouped_reps passed to [clear_grouped_values()] as `cols`
 #' @param ... not used
 #' @export
 tab_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL),

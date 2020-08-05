@@ -23,6 +23,6 @@ This is a convenience wrapper around \link{pt_data_inventory}
 }
 \examples{
 
-ans <- pt_data_study(pmt.pk, study_col = "STUDYf")
+ans <- pt_data_study(pmt_pk, study_col = "STUDYf")
 
 }

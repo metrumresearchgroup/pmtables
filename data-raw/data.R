@@ -69,15 +69,15 @@ data <- yspec::yspec_add_factors(data,spec,RF,SEX,CP,SEQ,STUDY,FORM,ASIAN,.suffi
 analysis1 <- data
 usethis::use_data(analysis1, overwrite = TRUE)
 
-pmt.first <- distinct(data,ID,.keep_all=TRUE)
-usethis::use_data(pmt.first, overwrite = TRUE)
+pmt_first <- distinct(data,ID,.keep_all=TRUE)
+usethis::use_data(pmt_first, overwrite = TRUE)
 
-pmt.obs <- filter(data,SEQ > 0)
+pmt_obs <- filter(data,SEQ > 0)
 
-usethis::use_data(pmt.obs, overwrite = TRUE)
+usethis::use_data(pmt_obs, overwrite = TRUE)
 
-pmt.pk <- filter(data, SEQ==1)
-usethis::use_data(pmt.pk, overwrite = TRUE)
+pt_pk <- filter(data, SEQ==1)
+usethis::use_data(pmt_pk, overwrite = TRUE)
 
 data <- analysis1
 summ <-
@@ -97,5 +97,5 @@ summ <- mutate(summ,across(c(WT,CRCL,AGE,ALB,SCR), ~ pmtables:::sig(.x)))
 pmdata <- modify(summ,as.character) %>% ungroup()
 pmdata <- arrange(pmdata, STUDYf,DOSEf,FORMf)
 pmdata <- rename(pmdata, STUDY = STUDYf, DOSE = DOSEf, FORM = FORMf)
-pmt.summ <- pmdata
-usethis::use_data(pmt.summ, overwrite = TRUE)
+pmt_summarized <- pmdata
+usethis::use_data(pmt_summarized, overwrite = TRUE)

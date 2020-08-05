@@ -66,16 +66,16 @@ See the \link{data_inventory_chunk} help topic for a description of these column
 }
 \examples{
 
-ans <- pt_data_inventory(pmt.pk, by = .cols("Renal function" = RFf))
+ans <- pt_data_inventory(pmt_pk, by = .cols("Renal function" = RFf))
 
 ans <- pt_data_inventory(
-   pmt.pk,
+   pmt_pk,
    by = "STUDYf",
    panel = "RFf"
 )
 
 ans <- pt_data_inventory(
-   pmt.obs,
+   pmt_obs,
    by = "STUDYf",
    panel = "SEQf",
    stacked = TRUE

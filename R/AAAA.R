@@ -28,8 +28,8 @@ NULL
 #' @export
 ptdata <- function() { # nocov start
   env <- new.env()
-  utils::data(list = "pmt.summ", package = "pmtables", envir = env)
-  return(env$pmt.summ)
+  utils::data(list = "pmt_summarized", package = "pmtables", envir = env)
+  return(env$pmt_summarized)
 } # nocov end
 
 #' @rdname ptdata
@@ -45,19 +45,18 @@ stdata <- ptdata # nocov
 #' analysis1 data set - first record only
 #'
 #'
-"pmt.first"
+"pmt_first"
 
 #' analysis1 data set - observations only
 #'
-#'
-"pmt.obs"
+"pmt_obs"
 
 #' analysis1 data set - PK observations only
 #'
 #'
-"pmt.pk"
+"pmt_pk"
 
 #' analysis1 data set - summarized
 #'
 #'
-"pmt.summ"
+"pmt_summarized"

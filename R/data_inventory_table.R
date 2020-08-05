@@ -186,7 +186,7 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 #'
 #' @examples
 #'
-#' ans <- pt_data_study(pmt.pk, study_col = "STUDYf")
+#' ans <- pt_data_study(pmt_pk, study_col = "STUDYf")
 #'
 #' @export
 pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
@@ -226,16 +226,16 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'
 #' @examples
 #'
-#' ans <- pt_data_inventory(pmt.pk, by = .cols("Renal function" = RFf))
+#' ans <- pt_data_inventory(pmt_pk, by = .cols("Renal function" = RFf))
 #'
 #' ans <- pt_data_inventory(
-#'    pmt.pk,
+#'    pmt_pk,
 #'    by = "STUDYf",
 #'    panel = "RFf"
 #' )
 #'
 #' ans <- pt_data_inventory(
-#'    pmt.obs,
+#'    pmt_obs,
 #'    by = "STUDYf",
 #'    panel = "SEQf",
 #'    stacked = TRUE

@@ -43,6 +43,6 @@ Summarize categorical data
 }
 \examples{
 
-cat_data(pmt.first, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
+cat_data(pmt_first, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
 
 }

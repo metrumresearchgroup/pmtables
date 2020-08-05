@@ -2,7 +2,7 @@
 context("test-inventory-data")
 
 test_that("inventory data summary", {
-  data <- pmt.first
+  data <- pmt_first
   ans <- data_inventory_data(data, by = ".total")
   expect_equal(nrow(ans),1)
   expect_equal(names(ans)[1],".total")
@@ -16,7 +16,7 @@ test_that("inventory data summary", {
 })
 
 test_that("stacked inventory data summary", {
-  data <- pmt.first
+  data <- pmt_first
   ans <- pmtables:::data_inventory_data_split(data, by = "STUDYf")
   nstudy <- length(unique(data[["STUDY"]]))
   expect_equal(nrow(ans), 2*nstudy)

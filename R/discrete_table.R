@@ -14,7 +14,7 @@
 #'
 #' @examples
 #'
-#' cat_data(pmt.first, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
+#' cat_data(pmt_first, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
 #'
 #' @export
 cat_data <- function(data, cols, by = ".total", panel = by,
@@ -237,9 +237,9 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 #' @examples
 #'
 #'
-#' ans <- pt_cat_study(pmt.first, cols = "SEXf,FORMf", study = "STUDYf")
+#' ans <- pt_cat_study(pmt_first, cols = "SEXf,FORMf", study = "STUDYf")
 #'
-#' ans <- pt_cat_study(pmt.first, cols = "FORMf", study = "STUDYf", wide = TRUE)
+#' ans <- pt_cat_study(pmt_first, cols = "FORMf", study = "STUDYf", wide = TRUE)
 #'
 #' @export
 pt_cat_study<- function(data,

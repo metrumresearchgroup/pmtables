@@ -45,8 +45,8 @@ Continuous data summary in long format
 }
 \examples{
 
-ans <- pt_cont_long(pmt.first, cols = .cols(WT,ALB,CRCL))
+ans <- pt_cont_long(pmt_first, cols = .cols(WT,ALB,CRCL))
 
-ans <- pt_cont_long(pmt.first, cols = "WT,CRCL", panel = "SEXf")
+ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", panel = "SEXf")
 
 }

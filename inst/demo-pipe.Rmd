@@ -30,7 +30,7 @@ library(yspec)
 library(dplyr)
 spec <- ys_help$spec()
 
-data <- pmt.summ
+data <- pmt_summarized
 head(data)
 ```
 

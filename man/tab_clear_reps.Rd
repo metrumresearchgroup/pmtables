@@ -21,7 +21,7 @@ be made blank (overwritten with \code{""}); see also \code{\link[=st_clear_reps]
 \item{panel}{character column name to use to section the table; sections will
 be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_panel]{st_panel()}}}
 
-\item{clear_grouped_reps}{passed to \code{\link[=deduplicate_values]{deduplicate_values()}} as \code{cols}}
+\item{clear_grouped_reps}{passed to \code{\link[=clear_grouped_values]{clear_grouped_values()}} as \code{cols}}
 
 \item{...}{not used}
 }

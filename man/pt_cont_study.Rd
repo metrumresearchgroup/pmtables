@@ -24,8 +24,8 @@ Continuous covariate table by study
 }
 \examples{
 
-pt_cont_study(pmt.first, cols = "WT,ALB,SCR", study_col="STUDYf")
+pt_cont_study(pmt_first, cols = "WT,ALB,SCR", study_col="STUDYf")
 
-pt_cont_study(pmt.first, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
+pt_cont_study(pmt_first, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
 
 }

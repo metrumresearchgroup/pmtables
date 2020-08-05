@@ -198,9 +198,9 @@ pt_cont_wide <- function(data, cols,
 #'
 #' @examples
 #'
-#' ans <- pt_cont_long(pmt.first, cols = .cols(WT,ALB,CRCL))
+#' ans <- pt_cont_long(pmt_first, cols = .cols(WT,ALB,CRCL))
 #'
-#' ans <- pt_cont_long(pmt.first, cols = "WT,CRCL", panel = "SEXf")
+#' ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", panel = "SEXf")
 #'
 #' @export
 pt_cont_long <- function(data,
@@ -304,9 +304,9 @@ pt_cont_long <- function(data,
 #'
 #' @examples
 #'
-#' pt_cont_study(pmt.first, cols = "WT,ALB,SCR", study_col="STUDYf")
+#' pt_cont_study(pmt_first, cols = "WT,ALB,SCR", study_col="STUDYf")
 #'
-#' pt_cont_study(pmt.first, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
+#' pt_cont_study(pmt_first, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
 #'
 #' @export
 pt_cont_study <- function(data,cols,study_col = "STUDY", wide = FALSE,...) {

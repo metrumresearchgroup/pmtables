@@ -29,9 +29,9 @@ units = ys_get_unit(ys_help$spec(), parens = TRUE)
 
 #+ include = TRUE
 
-data <- pmt.first
-data_pk <- pmt.pk
-data_all <- pmt.obs
+data <- pmt_first
+data_pk <- pmt_pk
+data_all <- pmt_obs
 
 #' \clearpage
 

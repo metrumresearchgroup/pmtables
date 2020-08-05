@@ -31,7 +31,7 @@ library(pmtables)
 library(yspec)
 spec <- ys_help$spec()
 
-data <- pmt.summ
+data <- pmt_summarized
 
 data
 ```

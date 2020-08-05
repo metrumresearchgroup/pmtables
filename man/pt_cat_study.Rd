@@ -38,8 +38,8 @@ Discrete covariate table by study
 \examples{
 
 
-ans <- pt_cat_study(pmt.first, cols = "SEXf,FORMf", study = "STUDYf")
+ans <- pt_cat_study(pmt_first, cols = "SEXf,FORMf", study = "STUDYf")
 
-ans <- pt_cat_study(pmt.first, cols = "FORMf", study = "STUDYf", wide = TRUE)
+ans <- pt_cat_study(pmt_first, cols = "FORMf", study = "STUDYf", wide = TRUE)
 
 }
