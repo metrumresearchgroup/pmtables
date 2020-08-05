@@ -12,6 +12,7 @@ output:
     toc: true 
 params:
   save: false
+  dir: '.'
 ---
 
 ```{r,setup,message = FALSE, echo=TRUE}
@@ -42,7 +43,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "basic-table.tex")   
+  stable_save(out, file = "basic-table.tex", dir = params$dir)   
 }
 ```
 
@@ -59,7 +60,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "basic-table-bold.tex")   
+  stable_save(out, file = "basic-table-bold.tex", dir = params$dir)   
 }
 ```
 
@@ -76,7 +77,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out)   
+  stable_save(out, dir = params$dir)   
 }
 file.exists("file-names.tex")
 ```
@@ -94,7 +95,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "notes-tpt.tex")   
+  stable_save(out, file = "notes-tpt.tex", dir = params$dir)   
 }
 
 ```
@@ -114,7 +115,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "notes-mini.tex")   
+  stable_save(out, file = "notes-mini.tex", dir = params$dir)   
 }
 ```
 
@@ -132,7 +133,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "panel-basic.tex")   
+  stable_save(out, file = "panel-basic.tex", dir = params$dir)   
 }
 ```
 
@@ -149,7 +150,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "panel-prefix.tex")   
+  stable_save(out, file = "panel-prefix.tex", dir = params$dir)   
 }
 ```
 
@@ -166,7 +167,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "clear-reps.tex")   
+  stable_save(out, file = "clear-reps.tex", dir = params$dir)   
 }
 ```
 
@@ -183,7 +184,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "clear-grouped-reps.tex")   
+  stable_save(out, file = "clear-grouped-reps.tex", dir = params$dir)   
 }
 ```
 
@@ -202,7 +203,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "hline-at.tex")   
+  stable_save(out, file = "hline-at.tex", dir = params$dir)   
 }
 ```
 
@@ -219,7 +220,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "hline-from.tex")   
+  stable_save(out, file = "hline-from.tex", dir = params$dir)   
 }
 ```
 
@@ -236,7 +237,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "hline-from-clear.tex")   
+  stable_save(out, file = "hline-from-clear.tex", dir = params$dir)   
 }
 ```
 
@@ -255,7 +256,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "align.tex")   
+  stable_save(out, file = "align.tex", dir = params$dir)   
 }
 ```
 
@@ -272,7 +273,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "col-rename.tex")   
+  stable_save(out, file = "col-rename.tex", dir = params$dir)   
 }
 ```
 
@@ -290,7 +291,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "col-blank.tex")   
+  stable_save(out, file = "col-blank.tex", dir = params$dir)   
 }
 ```
 
@@ -307,7 +308,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "col-multi-line.tex")   
+  stable_save(out, file = "col-multi-line.tex", dir = params$dir)   
 }
 ```
 
@@ -328,7 +329,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "col-multi-line-units.tex")   
+  stable_save(out, file = "col-multi-line-units.tex", dir = params$dir)   
 }
 ```
 
@@ -348,7 +349,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "span.tex")   
+  stable_save(out, file = "span.tex", dir = params$dir)   
 }
 ```
 
@@ -371,7 +372,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "span-levels.tex")   
+  stable_save(out, file = "span-levels.tex", dir = params$dir)   
 }
 ```
 
@@ -390,7 +391,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "continuous-long-panel.tex")   
+  stable_save(out, file = "continuous-long-panel.tex", dir = params$dir)   
 }
 ```
 
@@ -410,7 +411,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "continuous-wide-by.tex")   
+  stable_save(out, file = "continuous-wide-by.tex", dir = params$dir)   
 }
 ```
 
@@ -430,7 +431,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "cat-long-by.tex")   
+  stable_save(out, file = "cat-long-by.tex", dir = params$dir)   
 }
 ```
 
@@ -451,7 +452,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "cat-wide-by-panel.tex")   
+  stable_save(out, file = "cat-wide-by-panel.tex", dir = params$dir)   
 }
 ```
 
@@ -470,7 +471,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "inventory-by.tex")   
+  stable_save(out, file = "inventory-by.tex", dir = params$dir)   
 }
 ```
 
@@ -490,7 +491,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "inventory-panel-by.tex")   
+  stable_save(out, file = "inventory-panel-by.tex", dir = params$dir)   
 }
 ```
 
@@ -510,6 +511,6 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "inventory-stacked.tex")   
+  stable_save(out, file = "inventory-stacked.tex", dir = params$dir)   
 }
 ```
