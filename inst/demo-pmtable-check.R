@@ -13,7 +13,7 @@ units = ys_get_unit(ys_help$spec(), parens = TRUE)
 
 #+ include = TRUE
 
-data <- pmtables:::data("all") %>% filter(SEQ > 0)
+data <- pmt.obs
 d <- filter(data, SEQ==1)
 
 #' # Data inventory tables
@@ -145,7 +145,7 @@ assert_that(all(ans))
 
 
 #+ include = FALSE
-data <- pmtables:::data("id")
+data <- pmt.first
 
 #' # Wide categorical table
 

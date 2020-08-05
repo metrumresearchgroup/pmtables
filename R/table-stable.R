@@ -97,9 +97,9 @@ triage_data <- function(data) {
 #'
 #' a <- stable(data, r_file = "example.R", output_file = "output.tex")
 #'
-#' b <- stable(data, panel = "STUDYf")
+#' b <- stable(data, panel = "STUDY")
 #'
-#' c <- stable(data, span = colgroup("Covariates", STUDYf:ALB))
+#' c <- stable(data, span = colgroup("Covariates", STUDY:ALB))
 #'
 #' @export
 stable <- function(data, ...) UseMethod("stable")

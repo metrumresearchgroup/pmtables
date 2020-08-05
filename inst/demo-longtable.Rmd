@@ -31,9 +31,9 @@ library(pmtables)
 library(yspec)
 spec <- ys_help$spec()
 
-pmdata <- readRDS("datasets/pmdata.RDS")
-head(pmdata)
-data <- select(pmdata, STUDY = STUDYf, DOSE = DOSEf, WT, AGE, CRCL, ALB, SCR)
+data <- pmt.summ
+
+data
 ```
 
 
@@ -59,20 +59,20 @@ data %>% stable() %>% pt_wrap(stdout())
 
 ```{r}
 data <- ptdata()
-data <- map_dfr(1:5, ~ data) %>% arrange(STUDYf,SEXf)
+data <- map_dfr(1:2, ~ data) %>% arrange(STUDY,DOSE,FORM)
 ```
 
 
 ```{r,results = "asis"}
 data %>%
   stable_long(
-    panel = "STUDYf", col_bold = TRUE,
+    panel = "STUDY", col_bold = TRUE,
     units = ys_get_unit(spec, parens = TRUE),
     notes = "The results look great!",
-    clear_reps = "SEXf",
-    col_rename = c("Sex" = "SEXf"),
+    clear_reps = "DOSE",
+    col_rename = c(Formulation  = "FORM"),
     r_file = "foo.R", output_file = "../deliv/table/output.tex",
-    note_config = noteconf(type = "minipage", width = 0.5,table_skip = 0.2)
+    note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.2)
   ) %>% as.character() %>% writeLines
 ```
 

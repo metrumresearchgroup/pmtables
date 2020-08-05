@@ -1,10 +1,10 @@
 
 context("test-cat-data")
 
-data <- pmtables:::data("id")
 cols <- pmtables:::new_names(c("CPf", "SEXf", "RFf"))
 
 test_that("discrete data summary long - simple", {
+  data <- pmt.first
   ans <- cat_data(data, cols = cols)
   expect_is(ans,"data.frame")
   expect_identical(names(ans)[1],"name")
@@ -19,6 +19,7 @@ test_that("discrete data summary long - simple", {
 })
 
 test_that("discrete data summary long - by", {
+  data <- pmt.first
   ans <- cat_data(data, cols = cols, by = "STUDY")
   expect_is(ans,"data.frame")
   expect_identical(names(ans)[1],"name")
@@ -34,6 +35,7 @@ test_that("discrete data summary long - by", {
 })
 
 test_that("discrete data summary wide - simple", {
+  data <- pmt.first
   ans <- cat_data(data, cols = cols, wide = TRUE)
   expect_is(ans,"data.frame")
   expect_identical(names(ans)[1],".total")
@@ -47,6 +49,7 @@ test_that("discrete data summary wide - simple", {
 })
 
 test_that("discrete data summary wide - by", {
+  data <- pmt.first
   ans <- cat_data(data, cols = cols, wide = TRUE, by = "STUDY")
   expect_is(ans,"data.frame")
   expect_identical(names(ans)[1],"STUDY")

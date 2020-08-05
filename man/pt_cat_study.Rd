@@ -37,10 +37,9 @@ Discrete covariate table by study
 }
 \examples{
 
-data <- pmtables:::data("id")
 
-ans <- pt_cat_study(data, cols = .cols(SEXf,FORMf), study = "STUDYf")
+ans <- pt_cat_study(pmt.first, cols = "SEXf,FORMf", study = "STUDYf")
 
-ans <- pt_cat_study(data, cols = .cols(FORMf), study = "STUDYf", wide = TRUE)
+ans <- pt_cat_study(pmt.first, cols = "FORMf", study = "STUDYf", wide = TRUE)
 
 }

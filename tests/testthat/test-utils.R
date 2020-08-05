@@ -1,12 +1,6 @@
 
 context("test-utils")
 
-test_that("data", {
-  expect_is(pmtables:::data("id"), "data.frame")
-  expect_is(pmtables:::data("obs"), "data.frame")
-  expect_is(pmtables:::data("all"), "data.frame")
-})
-
 test_that(".cols", {
   expect_is(.cols(a,b,c), "quosures")
 })

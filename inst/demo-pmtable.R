@@ -29,8 +29,9 @@ units = ys_get_unit(ys_help$spec(), parens = TRUE)
 
 #+ include = TRUE
 
-data <- pmtables:::data("all") %>% filter(SEQ > 0)
-d <- filter(data, SEQ==1)
+data <- pmt.first
+data_pk <- pmt.pk
+data_all <- pmt.obs
 
 #' \clearpage
 
@@ -45,6 +46,8 @@ d <- filter(data, SEQ==1)
 #' - Calculate the percent  of observations or BQL in different sub groups
 #'
 
+#' \clearpage
+#'
 #' ## Stacked by endpoint
 #'
 #' - The stacked plot creates multiple independent tables to summarize different
@@ -55,15 +58,11 @@ d <- filter(data, SEQ==1)
 
 #+ pt-inventory-data-stacked, results = 'asis'
 x <- pt_data_inventory(
-  data,
+  data_all,
   by = c(Study = "STUDYf"),
   panel = as.panel("SEQf", prefix = "Endpoint: "),
   stacked = TRUE
-) %>% as_stable(
-  wrapw = TRUE,
-  r_file = "test.R",
-  output_file = "test.tex"
-)
+) %>% as_stable( wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 
 #' \clearpage
@@ -76,7 +75,7 @@ x <- pt_data_inventory(
 #+ results = 'asis'
 
 pt_data_inventory(
-  d,
+  data_pk,
   by = c(Study = "STUDYf"),
   panel = "ASIANf"
 ) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
@@ -88,7 +87,7 @@ pt_data_inventory(
 #+ results = 'asis'
 
 pt_data_inventory(
-  d,
+  data_pk,
   by = c(Study = "STUDYf")
 ) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
@@ -96,7 +95,7 @@ pt_data_inventory(
 #' \clearpage
 
 #+ include = FALSE
-data <- pmtables:::data("id")
+
 
 #' # Wide categorical table
 #'
@@ -114,6 +113,8 @@ pt_cat_wide(
   cols = vars(Formulation = FORMf,Sex = SEXf, "Race group" = ASIANf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
+#' \clearpage
+#'
 #' ## Paneled (limited utility, IMO)
 #'
 #' - Provided here for completeness

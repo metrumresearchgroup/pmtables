@@ -197,11 +197,10 @@ pt_cont_wide <- function(data, cols,
 #' @param id_col the ID column name
 #'
 #' @examples
-#' data <- pmtables:::data("id")
 #'
-#' ans <- pt_cont_long(data, cols = .cols(WT,ALB,CRCL))
+#' ans <- pt_cont_long(pmt.first, cols = .cols(WT,ALB,CRCL))
 #'
-#' ans <- pt_cont_long(data, cols = "WT,CRCL", panel = "SEXf")
+#' ans <- pt_cont_long(pmt.first, cols = "WT,CRCL", panel = "SEXf")
 #'
 #' @export
 pt_cont_long <- function(data,
@@ -305,11 +304,9 @@ pt_cont_long <- function(data,
 #'
 #' @examples
 #'
-#' data <- pmtables:::data("id")
+#' pt_cont_study(pmt.first, cols = "WT,ALB,SCR", study_col="STUDYf")
 #'
-#' pt_cont_study(data, cols = "WT,ALB,SCR", study_col="STUDYf")
-#'
-#' pt_cont_study(data, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
+#' pt_cont_study(pmt.first, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
 #'
 #' @export
 pt_cont_study <- function(data,cols,study_col = "STUDY", wide = FALSE,...) {

@@ -1,9 +1,8 @@
 
 context("test-inventory-table")
 
-data <- pmtables:::data("id")
-
 test_that("inventory table", {
+  data <- pmt.first
   ans <- pt_data_inventory(data,  by = "STUDYf")
   expect_is(ans,"pmtable")
   tab <- ans[["data"]]
@@ -19,7 +18,7 @@ test_that("inventory table", {
 })
 
 test_that("inventory table - stacked", {
-  data <- pmtables:::data("obs")
+  data <- pmt.obs
   ans <- pt_data_inventory(data,  panel = "SEQf", by = "STUDYf",stacked = TRUE)
   expect_is(ans,"pmtable")
   tab <- ans[["data"]]

@@ -27,11 +27,11 @@ certain features.
 ```{r}
 library(pmtables)
 library(yspec)
+library(dplyr)
 spec <- ys_help$spec()
 
-pmdata <- readRDS("datasets/pmdata.RDS")
-head(pmdata)
-data <- select(pmdata, STUDY = STUDYf, DOSE = DOSEf, WT, AGE, CRCL, ALB, SCR)
+data <- pmt.summ
+head(data)
 ```
 
 \clearpage
@@ -220,7 +220,7 @@ data %>%
 - input must be string
 - combine this with `clear_rep` and `hline_from` to partition the table
 ```{r}
-tmp <- ptdata() %>% rename(STUDY = STUDYf, SEX = SEXf)
+tmp <- ptdata() 
 tmp <- mutate(tmp, STUDY = tex_bold(as.character(STUDY)))
 ```
 
@@ -238,7 +238,7 @@ tmp %>%
 # Add styling in the pipeline
 
 ```{r}
-tmp <- ptdata() %>% rename(STUDY = STUDYf, SEX = SEXf)
+tmp <- ptdata()
 ```
 
 ```{r,results = "asis"}
@@ -248,7 +248,7 @@ tmp %>%
   st_clear_reps(STUDY, .now = TRUE) %>%
   st_hline(pattern = "\\S+", cols = "STUDY") %>%
   st_bold(cols = "STUDY") %>%
-  st_it("SEX") %>%
+  st_it("DOSE") %>%
   st_edit("\\bmale", "dude") %>%
   st_edit("female", "gal") %>%
   st_make(.cat = TRUE)

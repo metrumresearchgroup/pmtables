@@ -185,9 +185,8 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 #' [data_inventory_chunk]
 #'
 #' @examples
-#' data <- pmtables:::data("obs")
 #'
-#' ans <- pt_data_study(data, study_col = "STUDYf")
+#' ans <- pt_data_study(pmt.pk, study_col = "STUDYf")
 #'
 #' @export
 pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
@@ -226,18 +225,17 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' See the [data_inventory_chunk] help topic for a description of these columns.
 #'
 #' @examples
-#' data <- pmtables:::data("obs")
 #'
-#' ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
+#' ans <- pt_data_inventory(pmt.pk, by = .cols("Renal function" = RFf))
 #'
 #' ans <- pt_data_inventory(
-#'    data,
+#'    pmt.pk,
 #'    by = "STUDYf",
 #'    panel = "RFf"
 #' )
 #'
 #' ans <- pt_data_inventory(
-#'    data,
+#'    pmt.obs,
 #'    by = "STUDYf",
 #'    panel = "SEQf",
 #'    stacked = TRUE
@@ -366,10 +364,4 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   out <- structure(out, class = "pmtable")
 
   return(out)
-}
-
-
-to_html <- function(x) {
-  if(interactive()) return(x)
-  as_raw_html(x)
 }

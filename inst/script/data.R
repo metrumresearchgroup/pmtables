@@ -65,10 +65,11 @@ spec <- yspec::ys_load("inst/datasets/analysis1.yml")
 data <- select(data, names(spec))
 data <- yspec::yspec_add_factors(data,spec,RF,SEX,CP,SEQ,STUDY,FORM,ASIAN,.suffix="f")
 
-
 saveRDS(file = "inst/datasets/all.RDS",data)
+
 id <- distinct(data,ID,.keep_all=TRUE)
 saveRDS(file = "inst/datasets/id.RDS",id)
+
 obs <- filter(data,SEQ > 0)
 saveRDS(file = "inst/datasets/obs.RDS",obs)
 

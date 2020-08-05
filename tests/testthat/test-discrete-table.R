@@ -1,14 +1,14 @@
 
 context("test-discrete-table")
 
-data <- pmtables:::data("id")
-
 test_that("discrete data table - long", {
+  data <- pmt.first
   ans <- pt_cat_long(data, cols = "SEXf,RFf,CPf", by = "STUDYf")
   expect_is(ans,"pmtable")
 })
 
 test_that("discrete data table - wide", {
+  data <- pmt.first
   ans <- pt_cat_wide(data, cols = "SEXf,RFf,CPf", by = "STUDYf")
   expect_is(ans,"pmtable")
 })

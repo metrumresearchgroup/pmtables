@@ -82,13 +82,6 @@ data_total_col <- function(data,all_name="all") {
 
 n_parens <- function(x) paste0("(n=",x,")")
 
-data <- function(domain = c("id", "obs", "all")) {
-  domain <- match.arg(domain)
-  file <- paste0(domain,".RDS")
-  file <- system.file("datasets", file, package = "pmtables")
-  readRDS(file)
-}
-
 #' Alias to `dplyr::vars`
 #'
 #' @param ... passed to [dplyr::vars]
@@ -106,7 +99,6 @@ gt_opts_ <- function(x) {
     footnotes.marks = ..letters
   )
 }
-
 
 combine_list <- function(left, right) {
   if(!all(is.list(left),is.list(right))) {

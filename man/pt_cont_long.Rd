@@ -44,10 +44,9 @@ to the bottom of the table}
 Continuous data summary in long format
 }
 \examples{
-data <- pmtables:::data("id")
 
-ans <- pt_cont_long(data, cols = .cols(WT,ALB,CRCL))
+ans <- pt_cont_long(pmt.first, cols = .cols(WT,ALB,CRCL))
 
-ans <- pt_cont_long(data, cols = "WT,CRCL", panel = "SEXf")
+ans <- pt_cont_long(pmt.first, cols = "WT,CRCL", panel = "SEXf")
 
 }

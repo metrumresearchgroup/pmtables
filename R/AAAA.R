@@ -15,7 +15,6 @@
 #' @importFrom stats median rnorm sd na.omit
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
-#' @import mrggt
 #'
 #' @include summary-functions.R
 #' @include utils.R
@@ -28,10 +27,37 @@ NULL
 #'
 #' @export
 ptdata <- function() { # nocov start
-  file <- system.file("datasets", "ptdata.RDS", package = "pmtables")
-  readRDS(file)
+  env <- new.env()
+  utils::data(list = "pmt.summ", package = "pmtables", envir = env)
+  return(env$pmt.summ)
 } # nocov end
 
 #' @rdname ptdata
 #' @export
 stdata <- ptdata # nocov
+
+
+#' analysis1 data set
+#'
+#'
+"analysis1"
+
+#' analysis1 data set - first record only
+#'
+#'
+"pmt.first"
+
+#' analysis1 data set - observations only
+#'
+#'
+"pmt.obs"
+
+#' analysis1 data set - PK observations only
+#'
+#'
+"pmt.pk"
+
+#' analysis1 data set - summarized
+#'
+#'
+"pmt.summ"

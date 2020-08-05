@@ -13,9 +13,8 @@
 #' this is intended for internal use
 #'
 #' @examples
-#' data <- pmtables:::data("id")
 #'
-#' cat_data(data, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
+#' cat_data(pmt.first, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
 #'
 #' @export
 cat_data <- function(data, cols, by = ".total", panel = by,
@@ -136,7 +135,7 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
     span = span,
     align = cols_center(.outer = 'l'),
     col_rename = by,
-    panel = c(.blank = "name"),
+    panel = "name",
     notes = "Summary is count (percent)"
   )
 
@@ -237,11 +236,10 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 #'
 #' @examples
 #'
-#' data <- pmtables:::data("id")
 #'
-#' ans <- pt_cat_study(data, cols = .cols(SEXf,FORMf), study = "STUDYf")
+#' ans <- pt_cat_study(pmt.first, cols = "SEXf,FORMf", study = "STUDYf")
 #'
-#' ans <- pt_cat_study(data, cols = .cols(FORMf), study = "STUDYf", wide = TRUE)
+#' ans <- pt_cat_study(pmt.first, cols = "FORMf", study = "STUDYf", wide = TRUE)
 #'
 #' @export
 pt_cat_study<- function(data,

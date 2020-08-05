@@ -65,18 +65,17 @@ and \code{id_col} (for ID). For example, if BQL indicator is in a column called
 See the \link{data_inventory_chunk} help topic for a description of these columns.
 }
 \examples{
-data <- pmtables:::data("obs")
 
-ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
+ans <- pt_data_inventory(pmt.pk, by = .cols("Renal function" = RFf))
 
 ans <- pt_data_inventory(
-   data,
+   pmt.pk,
    by = "STUDYf",
    panel = "RFf"
 )
 
 ans <- pt_data_inventory(
-   data,
+   pmt.obs,
    by = "STUDYf",
    panel = "SEQf",
    stacked = TRUE

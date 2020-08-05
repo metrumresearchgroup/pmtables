@@ -117,7 +117,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 #'
 #' ob <- st_new(ptdata())
 #'
-#' ob %>% st_panel("STUDYf") %>% st_make()
+#' ob %>% st_panel("STUDY") %>% st_make()
 #'
 #' @export
 st_panel <- function(x,...) {

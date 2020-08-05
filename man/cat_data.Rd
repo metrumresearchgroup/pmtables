@@ -42,8 +42,7 @@ this is intended for internal use}
 Summarize categorical data
 }
 \examples{
-data <- pmtables:::data("id")
 
-cat_data(data, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
+cat_data(pmt.first, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
 
 }
