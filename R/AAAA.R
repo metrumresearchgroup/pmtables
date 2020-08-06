@@ -39,24 +39,52 @@ stdata <- ptdata # nocov
 
 #' analysis1 data set
 #'
+#' This is the complete example analysis data set.
+#'
+#' @format A data frame with 4680 rows and 36 variables
+#'
+#' @seealso [pmt_first], [pmt_pk], [pmt_obs]
 #'
 "analysis1"
 
 #' analysis1 data set - first record only
 #'
+#' This is the first record from each individual in the
+#' [analysis1] data set.
+#'
+#' @format A data frame with 160 rows and 36 variables
+#'
+#' @seealso [analysis1], [pmt_pk], [pmt_obs]
 #'
 "pmt_first"
 
 #' analysis1 data set - observations only
 #'
+#' These are observation records (`EVID=0`) from the
+#' [analysis1] data set.
+#'
+#' @format A data frame with 3530 rows and 36 variables
+#'
+#' @seealso [analysis1], [pmt_first], [pmt_pk]
+#'
 "pmt_obs"
 
 #' analysis1 data set - PK observations only
 #'
+#' These are PK observation records from the [analysis1]
+#' data set.
+#'
+#' @format A data frame with 3210 rows and 36 variables
+#'
+#' @seealso [analysis1], [pmt_first], [pmt_obs]
 #'
 "pmt_pk"
 
 #' analysis1 data set - summarized
 #'
+#' This is an example of a summary of the [analysis1]
+#' data set.
+#'
+#' @format A data frame with 13 rows and 9 variables
 #'
 "pmt_summarized"

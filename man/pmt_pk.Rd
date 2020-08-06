@@ -5,12 +5,16 @@
 \alias{pmt_pk}
 \title{analysis1 data set - PK observations only}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3210 rows and 36 columns.
+A data frame with 3210 rows and 36 variables
 }
 \usage{
 pmt_pk
 }
 \description{
-analysis1 data set - PK observations only
+These are PK observation records from the \link{analysis1}
+data set.
+}
+\seealso{
+\link{analysis1}, \link{pmt_first}, \link{pmt_obs}
 }
 \keyword{datasets}

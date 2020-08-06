@@ -448,47 +448,127 @@ assert_that(all(status))
 #' ## Ungrouped
 
 #+ results = "asis"
-pt_cont_wide(
+out <- pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% as_stable(inspect = TRUE, r_file = "test.R", output_file = "test.tex") %>%
+  get_stable_data()
+
+fun <- function(x,id=1) {
+  a <- sig(mean(x, na.rm=TRUE))
+  b <- sig(sd(x, na.rm = TRUE))
+  c <- length(unique(id[!is.na(x)]))
+  paste0(a, " (",b,") [", c, "]", collapse = "")
+}
+
+x1 <- summarise(
+  data,
+  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID)
+)
+
+assert_that(identical(out$data, x1))
 
 
 ##' ## Paneled
 
 #+ results = "asis"
-pt_cont_wide(
+out <- pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
   panel = c(Study = "STUDYf"),
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% as_stable(inspect = TRUE, r_file = "test.R", output_file = "test.tex") %>%
+  get_stable_data()
+
+fun <- function(x,id=1) {
+  a <- sig(mean(x, na.rm=TRUE))
+  b <- sig(sd(x, na.rm = TRUE))
+  c <- length(unique(id[!is.na(x)]))
+  paste0(a, " (",b,") [", c, "]", collapse = "")
+}
+
+x1 <- data %>%
+  group_by(STUDYf) %>%
+  summarise(
+  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+  .groups = "drop"
+) %>% select(-STUDYf)
+
+x2 <- data %>%
+  summarise(
+  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+  .groups = "drop"
+)
+
+x <- bind_rows(x1,x2)
+
+assert_that(identical(out$data, x))
 
 #' \clearpage
 
 #' ## Grouped (by study)
 
 #+ results = "asis"
-pt_cont_wide(
+out <- pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
   by = c(Study = "STUDYf"),
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% as_stable(inspect = TRUE) %>%
+  get_stable_data()
+
+
+x1 <- data %>%
+  group_by(STUDYf) %>%
+  summarise(
+  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+  .groups = "drop"
+)
+
+x2 <- data %>%
+  summarise(
+  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+  .groups = "drop"
+) %>% mutate(STUDYf = "\\hline \\hline {\\bf All data}")
+
+x <- bind_rows(x1,x2)
+x <- rename(x, Study = STUDYf)
+
+assert_that(identical(out$data, x))
+
 
 #' \clearpage
 
 #' ## Paneled and grouped
 
 #+ results = "asis"
-pt_cont_wide(
+out <- pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
   by = c(Study = "STUDYf"),
   panel = c(Formulation = "FORMf"),
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% as_stable(inspect = TRUE) %>%
+  get_stable_data()
+
+
+x1 <- data %>%
+  group_by(FORMf,STUDYf) %>%
+  summarise(
+  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+  .groups = "drop"
+)
+
+x2 <- data %>%
+  summarise(
+  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+  .groups = "drop"
+)
+
+x <- bind_rows(x1,x2) %>% select(-STUDYf,-FORMf)
+
+assert_that(identical(out$data, x))
 
 #' \clearpage
 
@@ -499,19 +579,69 @@ pt_cont_wide(
 #' ## Ungrouped
 
 #+ results = 'asis'
-pt_cont_long(
+out <-
+  pt_cont_long(
   data = data,
   cols = "WT,SCR,AGE",
-  units = units) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  units = units) %>% as_stable(inspect = TRUE) %>%
+  get_stable_data()
+
+w <- pivot_longer(data, cols = c("WT", "SCR", "AGE"))
+w <- mutate(w, name = fct_inorder(name))
+x1 <- group_by(w, Variable = name)  %>%
+  summarise(
+    n = length(value[!is.na(value)]),
+    Mean = sig(mean(value, na.rm=TRUE)),
+    Median = sig(median(value, na.rm = TRUE)),
+    SD = sig(sd(value, na.rm = TRUE)),
+    Min = sig(min(value,na.rm=TRUE)),
+    Max = sig(max(value,na.rm=TRUE)),
+    `Min / Max` = paste0(Min , " / ", Max)
+  ) %>% select(-Min, -Max)
+x2 <- mutate(x1,Variable = as.character(Variable))
+x <- mutate(x2, Variable = paste0(Variable, c(" (kg)", " (mg/dL)", " (years)")))
+
+assert_that(identical(out$data, x))
 
 #' \clearpage
 
 #+ results='asis'
-pt_cont_long(
+out <- pt_cont_long(
   data = data,
   cols = "WT,SCR,AGE",
   panel = vars(Study = STUDYf),
-  units = units) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  units = units) %>% as_stable(inspect = TRUE) %>%
+  get_stable_data()
 
+w <- pivot_longer(data, cols = c("WT", "SCR", "AGE"))
+w <- mutate(w, name = fct_inorder(name))
+x1 <- group_by(w,Study = STUDYf, Variable = name)  %>%
+  summarise(
+    n = length(value[!is.na(value)]),
+    Mean = sig(mean(value, na.rm=TRUE)),
+    Median = sig(median(value, na.rm = TRUE)),
+    SD = sig(sd(value, na.rm = TRUE)),
+    Min = sig(min(value,na.rm=TRUE)),
+    Max = sig(max(value,na.rm=TRUE)),
+    `Min / Max` = paste0(Min , " / ", Max),
+    .groups = "drop"
+  ) %>% select(-Min, -Max)
+x2 <- mutate(x1,Variable = as.character(Variable), Study = NULL)
+x2 <- ungroup(x2)
+
+x3 <- group_by(w, Variable = name)  %>%
+  summarise(
+    n = length(value[!is.na(value)]),
+    Mean = sig(mean(value, na.rm=TRUE)),
+    Median = sig(median(value, na.rm = TRUE)),
+    SD = sig(sd(value, na.rm = TRUE)),
+    Min = sig(min(value,na.rm=TRUE)),
+    Max = sig(max(value,na.rm=TRUE)),
+    `Min / Max` = paste0(Min , " / ", Max),
+    .groups = "drop"
+  ) %>% select(-Min, -Max)
+
+x <- bind_rows(x2,x3)
+x <- mutate(x, Variable = paste0(Variable, c(" (kg)", " (mg/dL)", " (years)")))
+
+assert_that(identical(out$data, x))

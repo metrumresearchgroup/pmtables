@@ -18,6 +18,7 @@ stable(data, ...)
   units = NULL,
   drop = NULL,
   sizes = tab_size(),
+  control = st_control(),
   escape_fun = tab_escape,
   inspect = FALSE,
   ...
@@ -53,6 +54,8 @@ columns in the data frame}
 \item{drop}{columns to remove prior to rendering the table}
 
 \item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
+
+\item{control}{not used at the moment}
 
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}

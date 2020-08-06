@@ -5,12 +5,13 @@
 \alias{pmt_summarized}
 \title{analysis1 data set - summarized}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 13 rows and 9 columns.
+A data frame with 13 rows and 9 variables
 }
 \usage{
 pmt_summarized
 }
 \description{
-analysis1 data set - summarized
+This is an example of a summary of the \link{analysis1}
+data set.
 }
 \keyword{datasets}

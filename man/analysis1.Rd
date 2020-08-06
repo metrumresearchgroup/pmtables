@@ -5,12 +5,15 @@
 \alias{analysis1}
 \title{analysis1 data set}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4680 rows and 36 columns.
+A data frame with 4680 rows and 36 variables
 }
 \usage{
 analysis1
 }
 \description{
-analysis1 data set
+This is the complete example analysis data set.
+}
+\seealso{
+\link{pmt_first}, \link{pmt_pk}, \link{pmt_obs}
 }
 \keyword{datasets}

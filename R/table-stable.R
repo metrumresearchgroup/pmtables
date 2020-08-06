@@ -79,12 +79,13 @@ triage_data <- function(data) {
 #' use `r_file` and `output_file` for source code and output file annotations;
 #' see [tab_notes()] for arguments to pass in order to configure the way notes
 #' appear in the output; see also [st_notes()]
-#' @param sizes an object returned from [tab_size()]
 #' @param sumrows an object created with [sumrow()]; identifies summary rows
 #' and adds styling; see also [st_sumrow()]
 #' @param units a named list with unit information; names should correspond to
 #' columns in the data frame
 #' @param drop columns to remove prior to rendering the table
+#' @param sizes an object returned from [tab_size()]
+#' @param control not used at the moment
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
 #' @param inspect if `TRUE`, extra information is attached to the output
@@ -115,6 +116,7 @@ stable.data.frame <- function(data,
                               units = NULL,
                               drop = NULL,
                               sizes = tab_size(),
+                              control = st_control(),
                               escape_fun = tab_escape,
                               inspect = FALSE,
                               ... ) {
@@ -135,6 +137,10 @@ stable.data.frame <- function(data,
   assert_that(
     is.character(notes) || is.null(notes),
     msg = "'notes' must be character or NULL"
+  )
+  assert_that(
+    inherits(control, "st_control"),
+    msg = "'control' must be created with st_control()"
   )
   sumrows <- validate_sumrows(sumrows)
   panel <- as.panel(panel)
@@ -187,9 +193,7 @@ stable.data.frame <- function(data,
     bold = cols_data$bold
   )
 
-  cols_tex <- header_matrix_tex(header_data, sizes
-
-                                )
+  cols_tex <- header_matrix_tex(header_data, sizes)
 
   # column alignments
   align_tex <- form_align(align,names(data))
@@ -206,6 +210,25 @@ stable.data.frame <- function(data,
 
   # notes
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
+
+  # rowcolsize <- function(x) {
+  #   ans <- list()
+  #   ans$start <- gluet("{\\def\\arraystretch{<x$row_space>}\\tabcolsep=<x$col_space>pt")
+  #   ans$end <- "{"
+  #   ans
+  # }
+  #
+  # fontsize <- function(x) {
+  #   fsize <- list()
+  #   if(is.null(x$fontsize)) return(fsize)
+  #   fsize$start <- paste0("{\\", x$fontsize)
+  #   fsize$end <- "}"
+  #   return(fsize)
+  # }
+  #
+  # sizes <- list()
+  # sizes$font_size <- fontsize(control)
+  # sizes$col_row_sp <- rowcolsize(control)
 
   out <- c(
     sizes$font_size$start,

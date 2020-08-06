@@ -63,9 +63,7 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 #' and the hline (if any) at the top of the table notes
 #' @param note_skip vertical space (`cm`) between the top hline of the table
 #' notes and the first note line
-#' @param linespread spacing between note lines for `minipage` notes
 #' @param hline_pt the point size for hlines
-#' @param note_sp spacing between note lines for `tpt` notes
 #' @param sanitize if `TRUE`, notes will be sanitized
 #' @param escape vector of characters to escape in notes
 #'
@@ -74,8 +72,7 @@ noteconf <- function(width = 0.8,
                      type = c("tpt", "minipage"),
                      hline = c("top", "bottom", "both", "none"),
                      table_skip = 0.67, note_skip = 0.02,
-                     linespread = 1.1, hline_pt = 0.4,
-                     note_sp = 0.1, sanitize = TRUE, escape = "_") {
+                     hline_pt = 0.4, sanitize = TRUE, escape = "_") {
 
   hline <- match.arg(hline)
 
@@ -88,7 +85,6 @@ noteconf <- function(width = 0.8,
 
   ans <- list(
     width = width,
-    linespread = linespread,
     hline_pt = hline_pt,
     table_skip = table_skip,
     note_skip = note_skip,
@@ -119,7 +115,7 @@ mini_notes <- function(notes, x) {
   out <- c(
     tskip,
     paste0("\\begin{minipage}{",x$width,"\\linewidth}"),
-    paste0("\\linespread{", x$linespread,"}\\selectfont"),
+    paste0("\\linespread{1.1}\\selectfont"),
     hline1,
     nskip,
     notes,
@@ -133,7 +129,6 @@ tpt_notes <- function(notes,x) {
   note_sp <- force(x$note_sp)
   c(
     "\\begin{tablenotes}[flushleft]",
-    gluet("\\setlength\\itemsep{<note_sp>em}"),
     paste0("\\item ", notes),
     "\\end{tablenotes}"
   )

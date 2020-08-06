@@ -5,12 +5,16 @@
 \alias{pmt_first}
 \title{analysis1 data set - first record only}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 160 rows and 36 columns.
+A data frame with 160 rows and 36 variables
 }
 \usage{
 pmt_first
 }
 \description{
-analysis1 data set - first record only
+This is the first record from each individual in the
+\link{analysis1} data set.
+}
+\seealso{
+\link{analysis1}, \link{pmt_pk}, \link{pmt_obs}
 }
 \keyword{datasets}
