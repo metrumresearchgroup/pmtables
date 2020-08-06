@@ -75,19 +75,6 @@ require_col <- function(data,col,context=NULL) {
   }
 }
 
-# cvec_cs <- function(x) {
-#   if(is.null(x) | length(x)==0) return(character(0))
-#   if(!is.null(names(x))) return(x)
-#   x <- unlist(strsplit(as.character(x),",",fixed=TRUE),use.names=FALSE)
-#   x <- unlist(strsplit(x," ",fixed=TRUE),use.names=FALSE)
-#   x <- x[x!=""]
-#   if(length(x)==0) {
-#     return(character(0))
-#   } else {
-#     return(x)
-#   }
-# }
-
 gluet <- function(x,...) {
   x <- force(x)
   glue(x,.open = "<", .close = ">", .envir = parent.frame())

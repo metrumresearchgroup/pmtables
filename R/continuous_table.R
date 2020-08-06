@@ -47,7 +47,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
     join_cols <- "name"
   }
 
-  if(packageVersion("dplyr") < '0.8.99') {
+  if(packageVersion("dplyr") < '0.8.99') { # nocov start
     d2 <- group_modify(
       d1,
       ~fun(
@@ -58,7 +58,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         id = .[[id_col]]
       ),
       keep = TRUE
-    )
+    ) # nocov end
   } else {
     d2 <- group_modify(
       d1,
@@ -308,8 +308,7 @@ pt_cont_long <- function(data,
 #'
 #' pt_cont_study(pmt_first, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
 #'
-#' @export
-pt_cont_study <- function(data,cols,study_col = "STUDY", wide = FALSE,...) {
+pt_cont_study <- function(data, cols, study_col = "STUDY", wide = FALSE,...) { # nocov start
   if(wide) {
     pt_cont_wide(
       data = data,
@@ -325,4 +324,4 @@ pt_cont_study <- function(data,cols,study_col = "STUDY", wide = FALSE,...) {
       ...
     )
   }
-}
+} # nocov end

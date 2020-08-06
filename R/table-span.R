@@ -227,6 +227,7 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...)
   }
 
   all_span_tex <- NULL
+  all_spans <- NULL
 
   if(length(span) > 0 || length(spans_from_split) > 0) {
     all_spans <- combine_spans(span, spans_from_split, cols = cols)
@@ -236,6 +237,6 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...)
     all_span_tex <- flatten_chr(unname(all_span_tex))
   }
 
-  return(list(tex = all_span_tex, cols = cols))
+  return(list(tex = all_span_tex, cols = cols, span = all_spans))
 }
 

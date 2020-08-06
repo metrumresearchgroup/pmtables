@@ -1,10 +1,6 @@
 
 context("test-utils")
 
-test_that(".cols", {
-  expect_is(.cols(a,b,c), "quosures")
-})
-
 test_that("Update_List", {
   a <- list(a = 1, b = 2, c = 3)
   b <- list(c = 4, a = 3, z = 500)

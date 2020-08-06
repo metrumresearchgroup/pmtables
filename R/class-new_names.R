@@ -60,9 +60,3 @@ new_names_update_table <- function(x,table=NULL,...) {
   names(x)[which(x %in% to_up)] <- new_name
   x
 }
-
-panel_to_prefix <- function(x) {
-  x <- x[1]
-  if(identical(x,names(x)) || is.null(names(x))) return("")
-  return(names(x))
-}

@@ -29,5 +29,8 @@ test_that("save stable", {
   read <- readLines(tmp)
   expect_identical(as.character(x), read)
   expect_error(stable_save(as.character(x)), "x is not an 'stable' object")
+  expect_error(stable_save(x, file = NULL), "the value of 'file' is NULL")
+  x <- stable(data.frame(a = 1))
+  expect_error(stable_save(x), "and the 'file' argument is missing")
 })
 

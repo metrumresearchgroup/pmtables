@@ -44,3 +44,7 @@ test_that("print", {
   ans <- capture.output(print(x))
   expect_length(ans,2)
 })
+
+test_that("digits - invalid function", {
+  expect_error(new_digits(.fun = sum), "'digits' must be included")
+})

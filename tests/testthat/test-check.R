@@ -16,3 +16,12 @@ test_that("discrete", {
   expect_error(pmtables:::check_discrete(data,"c"))
 })
 
+test_that("check exists", {
+  data <- data.frame(A = 1, B = 2, C = 3)
+  expect_true(pmtables:::check_exists(data, c("B", "C", "A")))
+  expect_error(
+    pmtables:::check_exists(data, c("B", "Z", "D")),
+    "there were problems with input data"
+  )
+})
+

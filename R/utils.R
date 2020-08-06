@@ -1,7 +1,5 @@
 emessage <- function(x) message(paste0("[pmtables] ", x))
 
-
-
 cvec_cs <- function(x) {
   if(is.null(x) | length(x)==0) return(character(0))
   if(!is.null(names(x))) return(x)
@@ -13,15 +11,6 @@ cvec_cs <- function(x) {
   } else {
     return(x)
   }
-}
-
-Update_List <- function(left, right) {
-  if(!all(is.list(left),is.list(right))) {
-    stop("input are not lists")
-  }
-  common <- intersect(names(left), names(right))
-  left[common] <-  right[common]
-  left
 }
 
 #' Format digits
@@ -80,25 +69,14 @@ data_total_col <- function(data,all_name="all") {
   return(data)
 }
 
-n_parens <- function(x) paste0("(n=",x,")")
-
 #' Alias to `dplyr::vars`
 #'
 #' @param ... passed to [dplyr::vars]
 #'
-#' @examples
-#' .cols(a,b,c)
-#'
 #' @export
-.cols <- function(...) dplyr::vars(...)
-
-..letters <- c(letters,LETTERS)
-gt_opts_ <- function(x) {
-  mrggt::tab_options(
-    x,
-    footnotes.marks = ..letters
-  )
-}
+.cols <- function(...) { # nocov start
+  stop("this function is deprecated; use `dplyr::vars` instead")
+} # nocov end
 
 combine_list <- function(left, right) {
   if(!all(is.list(left),is.list(right))) {
@@ -108,7 +86,7 @@ combine_list <- function(left, right) {
   left
 }
 
-update_list <- function(left, right) {
+Update_List <- function(left, right) {
   if(!all(is.list(left),is.list(right))) {
     stop("input are not lists")
   }

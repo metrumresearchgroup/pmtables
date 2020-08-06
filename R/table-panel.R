@@ -133,6 +133,10 @@ tab_panel <- function(data, panel, sumrows) {
     return(ins)
   }
   require_col(data,panel$col,context = "panel column input name")
+  assert_that(
+    ncol(data) > 1,
+    msg = "must have more than one column to use 'panel' option"
+  )
   paneln <- match(panel$col,names(data))
   if(any(is.na(paneln))) {
     stop("panel column not found: ", squote(panel$col), call.=FALSE)
@@ -143,7 +147,7 @@ tab_panel <- function(data, panel, sumrows) {
     dep <- map(sumrows, sumrow_depanel_rows)
     dep <- flatten_int(dep)
     dep <- sort(unique(dep))
-    data[[paneln]][dep] <- rep(".panel.waiver.", length(dep))
+    data[[paneln]][dep] <- rep(NA_character_, length(dep))
   }
   ins <- panel_by(data, panel)
   data[[panel$col]] <- NULL

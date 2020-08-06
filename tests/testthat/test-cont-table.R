@@ -8,11 +8,11 @@ test_that("continuous data table - long", {
   expect_is(ans,"pmtable")
 })
 
-test_that("continuous study table - long", {
-  data <- pmt_first
-  ans <- pt_cont_study(data, cols = "WT,ALB,SCR", study_col = "STUDYf")
-  expect_is(ans,"pmtable")
-})
+# test_that("continuous study table - long", {
+#   data <- pmt_first
+#   ans <- pt_cont_study(data, cols = "WT,ALB,SCR", study_col = "STUDYf")
+#   expect_is(ans,"pmtable")
+# })
 
 test_that("continuous data table - wide", {
   data <- pmt_first
@@ -20,9 +20,10 @@ test_that("continuous data table - wide", {
   expect_is(ans,"pmtable")
 })
 
-test_that("continuous study table - wide", {
-  data <- pmt_first
-  ans <- pt_cont_study(data, cols = "WT,ALB,SCR", study_col = "STUDYf")
-  expect_is(ans,"pmtable")
-})
+# test_that("continuous study table - wide", {
+#   skip()
+#   data <- pmt_first
+#   ans <- pt_cont_study(data, cols = "WT,ALB,SCR", study_col = "STUDYf")
+#   expect_is(ans,"pmtable")
+# })
 

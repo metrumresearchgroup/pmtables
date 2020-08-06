@@ -51,6 +51,7 @@ make_tabular <- function(data, prime_fun = tab_prime,
   if(is.character(prime_fun)) {
     prime_fun <- get(prime_fun, mode = "function")
   }
+
   if(is.character(escape_fun)) {
     escape_fun <- get(escape_fun, mode = "function")
   }
@@ -73,7 +74,7 @@ make_tabular <- function(data, prime_fun = tab_prime,
   tab
 }
 
-form_unit <- function(units, cols) {
+form_unit <- function(units, cols) { # nocov start
   if(is.null(units)) return(NULL)
   ans <- vector(mode = "character", length = length(cols))
   units <- units[names(units) %in% cols]
@@ -91,7 +92,7 @@ form_unit <- function(units, cols) {
   ans <- paste0(ans, collapse = " & ")
   ans <- paste0(ans, " \\\\ ")
   ans
-}
+} # nocov end
 
 form_open <- function(align) {
   paste0("\\begin{tabular}[h]{", align, "}")

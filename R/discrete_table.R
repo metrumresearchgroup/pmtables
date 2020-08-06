@@ -241,8 +241,7 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 #'
 #' ans <- pt_cat_study(pmt_first, cols = "FORMf", study = "STUDYf", wide = TRUE)
 #'
-#' @export
-pt_cat_study<- function(data,
+pt_cat_study<- function(data, # nocov start
                         cols,
                         study_col = vars("Study ID" = all_of("STUDY")),
                         summarize_all = TRUE,
@@ -269,4 +268,4 @@ pt_cat_study<- function(data,
     )
   }
   tab
-}
+} # nocov end

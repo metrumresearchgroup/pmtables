@@ -268,6 +268,7 @@ stable.data.frame <- function(data,
     stable_data$tab <- tab
     stable_data$align_tex <- align_tex
     stable_data$sizes <- sizes
+    stable_data$span_data <- span_data
     out <- structure(out, stable_data = stable_data)
   }
 

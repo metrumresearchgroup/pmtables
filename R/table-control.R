@@ -24,7 +24,7 @@
 #'
 #'
 #' @export
-st_control <- function(...) UseMethod("st_control")
+st_control <- function(...) UseMethod("st_control") # nocov start
 #' @rdname st_control
 #' @export
 st_control.default <- function(row_space = 1.4,
@@ -68,4 +68,4 @@ st_control.stobject <- function(x,...) {
   x$control <- Update_List(x$control, list(...))
   x <- structure(x, class = "st_control")
   x
-}
+} # nocov end

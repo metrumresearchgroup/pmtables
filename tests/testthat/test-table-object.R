@@ -27,7 +27,21 @@ test_that("stobject equivalent hline", {
   expect_identical(x$tab, y$tab)
 })
 
-test_that("stobject equivalent hline", {
+test_that("hine re", {
+  data <- data.frame(
+    Study = c("A", "B", "C", "All Studies"),
+    Result = c(1,2,3,123),
+    Letter = letters[1:4]
+  )
+  x <-
+    st_new(data) %>%
+    st_hline(pattern = "All Studies") %>%
+    inspect2()
+  where <- grep("\\hline", x$tab, fixed = TRUE)
+  expect_identical(where, nrow(data)-1L)
+})
+
+test_that("stobject equivalent col_bold", {
   mt <- mtcars[1:20,]
   x <- inspect(mt, col_bold = TRUE)
   y <- st_new(mt, col_bold = TRUE) %>%
@@ -157,6 +171,20 @@ test_that("stobject equivalent blank", {
   expect_identical(x$output, y$output)
 })
 
+test_that("stobject equivalent clear_reps", {
+  data <- ptdata()
+  x <- inspect(data, clear_reps = "FORM")
+  y <- st_new(data) %>% st_clear_reps(FORM) %>% inspect2()
+  expect_identical(x$output, y$output)
+})
+
+test_that("stobject equivalent clear_grouped_reps", {
+  data <- ptdata()
+  x <- inspect(data, clear_grouped_reps = "STUDY,DOSE")
+  y <- st_new(data) %>% st_clear_grouped(STUDY,DOSE) %>% inspect2()
+  expect_identical(x$output, y$output)
+})
+
 test_that("tab edit", {
   data <- tibble(a = c(1,2,3), b = c(4,2,6))
   ans <- tab_edit(data, "2", "222")
@@ -166,3 +194,23 @@ test_that("tab edit", {
   expect_equal(ans$a, c(1, 2, 3))
   expect_equal(ans$b, c("4", "222", "6"))
 })
+
+test_that("st_units", {
+  data <- ptdata()
+  x <- st_new(data) %>% st_units(WT = "kg", ALB = "foo")
+  expect_identical(x$units, list(WT = "(kg)", ALB = "(foo)"))
+  unit_list <- list(ALB = "foo")
+  x <- st_new(data) %>% st_units(WT = "kg", unit_list)
+  expect_identical(x$units, list(WT = "(kg)", ALB = "(foo)"))
+})
+
+test_that("st_bold and st_it", {
+  data <- data.frame(A = 1, B =2 , C = 3)
+  x <- st_new(data) %>% st_bold("B")
+  expect_equal(x$data$B, "\\textbf{2}")
+  x <- st_new(data) %>% st_it("A")
+  expect_equal(x$data$A, "\\textit{1}")
+})
+
+
+

@@ -32,6 +32,13 @@ test_that("cols are renamed", {
   expect_identical(out, c("A", "b", "c", "DD", "e"))
 })
 
+test_that("cols are replaced", {
+  data <- data.frame(A = 1, B = 2, C = 3)
+  out <- inspect(data, col_replace = c("X", "Y", "Z"))
+  expect_equal(out$cols_new, c("X", "Y", "Z"))
+  expect_error(stable(data, col_replace = c("X", "Y")))
+})
+
 test_that("cols are bold", {
   data <- tibble(a = 1, b = 2, c = 3)
   x <- inspect(data, col_bold = TRUE)

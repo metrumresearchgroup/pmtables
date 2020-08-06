@@ -28,4 +28,20 @@ test_that("stacked inventory data summary", {
   )
 })
 
+test_that("missing columns", {
+  data <- data.frame(DV = 1, ID = 2, BQL = 3, by = 'a')
+  expect_silent(data_inventory_data(data, by = "by"))
+  bad <- select(data, -DV)
+  expect_error(
+    data_inventory_data(bad, by = "by")
+  )
+  bad <- select(data, -ID)
+  expect_error(
+    data_inventory_data(bad, by = "by")
+  )
+  bad <- select(data, -BQL)
+  expect_error(
+    data_inventory_data(bad, by = "by")
+  )
+})
 
