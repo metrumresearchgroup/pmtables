@@ -5,7 +5,7 @@ library(tidyverse)
 library(tidyselect)
 library(assertthat)
 library(yspec)
-
+options(tibble.width = Inf)
 #' # Setup
 
 #+ include = TRUE
@@ -61,7 +61,7 @@ out <- pt_data_inventory(
   d,
   by = vars(Study = "STUDYf"),
   panel = vars(Race = ASIANf)
-) %>% as_stable(inspect = TRUE) %>% get_stable_data()
+)
 
 
 a <- group_by(d, ASIANf,STUDYf)
@@ -73,33 +73,43 @@ b <- summarize(
   NOBS = sum(!is.na(DV)),
   .groups = "drop"
 )
-dd <- b %>% mutate(TOBS = sum(NOBS), TBQL = sum(NBQL)) %>% ungroup()
-ddd <- group_by(dd, ASIANf) %>% mutate(GOBS = sum(NOBS), GBQL = sum(NBQL)) %>% ungroup()
+dd <- b %>%
+  mutate(TOBS = sum(NOBS), TBQL = sum(NBQL)) %>%
+  ungroup()
+ddd <- group_by(dd, ASIANf) %>%
+  mutate(GOBS = sum(NOBS), GBQL = sum(NBQL)) %>%
+  ungroup()
+
 e <- mutate(
   ddd,
   POBS = 100*NOBS/TOBS,
   PBQL = 100*NBQL/TOBS,
   GPOBS = 100*NOBS/GOBS,
-  GPBQL = 100*NBQL/GBQL
+  GPBQL = 100*NBQL/GOBS
 )
 f <- mutate(e, across(c(POBS,PBQL), .fns = ~ifelse(is.nan(.x), 0, .x)))
 
 g <- summarise_at(f, -c(1,2), sum)
 h <- bind_rows(f,g)
+
 i <- mutate(h, across(POBS:PBQL, pmtables:::digit1))
+j <- mutate(i, across(GPOBS:GPBQL, pmtables:::digit1))
+j$GPOBS[nrow(j)] <- "---"
+j$GPBQL[nrow(j)] <- "---"
 
-
-check <- list(
-  c("NID", "Number.SUBJ"),
-  c("NMISS", "Number.MISS"),
-  c("NOBS", "Number.OBS"),
-  c("NBQL", "Number.BQL"),
-  c("POBS", "Overall percent.OBS"),
-  c("PBQL", "Overall percent.BQL")
+k <- rename(
+  j,
+  Number.SUBJ = NID,
+  Number.MISS = NMISS,
+  Number.BQL = NBQL,
+  Number.OBS = NOBS,
+  `Group percent.OBS` = GPOBS,
+  `Group percent.BQL` = GPBQL,
+  `Overall percent.OBS` = POBS,
+  `Overall percent.BQL` = PBQL
 )
-
-ans <- map_lgl(check, ~ identical(i[[.x[1]]], out$data[[.x[2]]]))
-assert_that(all(ans))
+chk <- names(out$data)[3:10]
+assert_that(identical(out$data[chk], k[chk]))
 
 
 #' ## Grouped (by study)
@@ -107,7 +117,7 @@ assert_that(all(ans))
 out <- pt_data_inventory(
   d,
   by = vars(Study = "STUDYf")
-) %>% as_stable(inspect = TRUE) %>% get_stable_data()
+)
 
 a <- group_by(d,STUDYf)
 b <- summarize(
@@ -130,19 +140,22 @@ g <- summarise_at(f, -c(1), sum)
 h <- bind_rows(f,g)
 i <- mutate(h, across(POBS:PBQL, pmtables:::digit1))
 
-
-check <- list(
-  c("NID", "Number.SUBJ"),
-  c("NMISS", "Number.MISS"),
-  c("NOBS", "Number.OBS"),
-  c("NBQL", "Number.BQL"),
-  c("POBS", "Percent.OBS"),
-  c("PBQL", "Percent.BQL")
+k <- rename(
+  i,
+  Number.SUBJ = NID,
+  Number.MISS = NMISS,
+  Number.BQL = NBQL,
+  Number.OBS = NOBS,
+  `Percent.OBS` = POBS,
+  `Percent.BQL` = PBQL
+)
+all.equal(out$data, k)
+chk <- c(
+  "Number.SUBJ", "Number.MISS", "Number.BQL",
+  "Number.OBS", "Percent.OBS", "Percent.BQL"
 )
 
-ans <- map_lgl(check, ~ identical(i[[.x[1]]], out$data[[.x[2]]]))
-assert_that(all(ans))
-
+assert_that(identical(k[chk], out$data[chk]))
 
 #+ include = FALSE
 data <- pmt.first
@@ -154,7 +167,7 @@ data <- pmt.first
 out <- pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf, Sex = SEXf, "Race group" = ASIANf)
-) %>% as_stable(inspect = TRUE) %>% get_stable_data()
+)
 
 w <- pivot_longer(data, cols = c("FORMf", "SEXf", "ASIANf"))
 N <- length(unique(data$ID))
@@ -195,11 +208,7 @@ identical(comp$ans, comp$out)
 out <- pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf, Sex = SEXf, "Race group" = ASIANf),
-  panel = as.panel("STUDYf", prefix = "Study: ")) %>%
-  as_stable(
-    r_file = "test.R", output_file = "test.tex",
-    inspect = TRUE
-  ) %>% get_stable_data()
+  panel = as.panel("STUDYf", prefix = "Study: "))
 
 w <- pivot_longer(data, cols = c("FORMf", "SEXf", "ASIANf"))
 w <- mutate(w, name = fct_inorder(name))
@@ -253,10 +262,7 @@ identical(comp$ans, comp$out)
 out <- pt_cat_wide(
   data = data,
   by = c(Sex = "SEXf"),
-  cols = vars(Formulation = FORMf, "Race group" = ASIANf)) %>%
-  as_stable(inspect=TRUE, r_file = "test.R", output_file = "test.tex") %>%
-  get_stable_data()
-
+  cols = vars(Formulation = FORMf, "Race group" = ASIANf))
 
 w <- pivot_longer(data, cols = c("FORMf", "ASIANf"))
 w <- mutate(w, name = fct_inorder(name))
@@ -305,17 +311,8 @@ out <- pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
   panel = as.panel("STUDYf", prefix = "Study: "),
-  by = c("RF Group" = "RFf")) %>%
-  as_stable(r_file = "test.R", output_file = "test.tex") %>%
-  st_preview()
-
-out <- pt_cat_wide(
-  data = data,
-  cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
-  panel = as.panel("STUDYf", prefix = "Study: "),
-  by = c("RF Group" = "RFf")) %>%
-  as_stable(inspect = TRUE, r_file = "test.R", output_file = "test.tex") %>%
-  get_stable_data()
+  by = c("RF Group" = "RFf")
+)
 
 w <- pivot_longer(data, cols = c("FORMf","SEXf", "ASIANf"))
 w <- mutate(w, name = fct_inorder(name))
@@ -366,9 +363,12 @@ identical(comp$ans, comp$out)
 #+ results = 'asis'
 out <- pt_cat_long(
   data = data,
-  cols = vars(Study = STUDYf, Sex = SEXf, "Race group" = ASIANf, "Child-Pugh" = CPf)) %>%
-  as_stable(inspect=TRUE, r_file = "test.R", output_file = "test.tex") %>%
-  get_stable_data()
+  cols = vars(
+    Study = STUDYf, Sex = SEXf,
+    "Race group" = ASIANf,
+    "Child-Pugh" = CPf
+  )
+)
 
 w <- pivot_longer(data, cols = c("STUDYf","SEXf", "ASIANf", "CPf"))
 w <- mutate(w, name = fct_inorder(name))
@@ -383,15 +383,15 @@ x1 <- group_by(x0,name,value) %>% summarise(
 x <- x1
 y <- mutate(
   x,
-  name = paste0(name, '.', value),
-  value = paste0(number, " (", percent, ")"),
+  value = as.character(value),
+  Summary = paste0(number, " (", percent, ")"),
   number = NULL, percent=NULL,
   name = gsub("-", "", name, fixed = TRUE)
 )
 
 z <- y
 
-all.equal(unname(z[,2]), unname(out$data[,2]))
+identical(unname(z[,c(2,3)]), unname(out$data[,c(2,3)]))
 
 
 #' ## Gropued (by formulation)
@@ -400,9 +400,7 @@ all.equal(unname(z[,2]), unname(out$data[,2]))
 out <- pt_cat_long(
   data = data,
   cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf),
-  by = c(Formulation = "FORMf")) %>%
-  as_stable(inspect = TRUE, r_file = "test.R", output_file = "test.tex") %>%
-  get_stable_data()
+  by = c(Formulation = "FORMf"))
 
 
 w <- pivot_longer(data, cols = c("STUDYf","SEXf", "ASIANf", "CPf"))
@@ -438,9 +436,13 @@ y <- mutate(
 z <- pivot_wider(y)
 
 z <- mutate(z, troche = replace_na(troche, "0 (0.0)"))
+z <- mutate(z, val = as.character(val))
 
-status <- map_lgl(c(2,3,4,5), ~ all(z[[.x]]==out$data[[.x]]))
-assert_that(all(status))
+z <- rename(z, `\\ ` = val, `\\textbf{All Groups}` = ALL)
+
+chk <- names(z)
+
+identical(z[chk], out$data[chk])
 
 
 #' # Wide continuous table
@@ -452,8 +454,7 @@ out <- pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
   units = units
-) %>% as_stable(inspect = TRUE, r_file = "test.R", output_file = "test.tex") %>%
-  get_stable_data()
+)
 
 fun <- function(x,id=1) {
   a <- sig(mean(x, na.rm=TRUE))
@@ -478,8 +479,7 @@ out <- pt_cont_wide(
   cols = "WT,SCR,AGE,ALB,HT",
   panel = c(Study = "STUDYf"),
   units = units
-) %>% as_stable(inspect = TRUE, r_file = "test.R", output_file = "test.tex") %>%
-  get_stable_data()
+)
 
 fun <- function(x,id=1) {
   a <- sig(mean(x, na.rm=TRUE))
@@ -491,17 +491,19 @@ fun <- function(x,id=1) {
 x1 <- data %>%
   group_by(STUDYf) %>%
   summarise(
-  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
-  .groups = "drop"
-) %>% select(-STUDYf)
+    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    .groups = "drop"
+  )
 
 x2 <- data %>%
   summarise(
-  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
-  .groups = "drop"
-)
+    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    .groups = "drop"
+  )
 
 x <- bind_rows(x1,x2)
+x <- mutate(x, STUDYf = as.character(STUDYf))
+x <- mutate(x, STUDYf = replace_na(STUDYf, "All data"))
 
 assert_that(identical(out$data, x))
 
@@ -515,22 +517,20 @@ out <- pt_cont_wide(
   cols = "WT,SCR,AGE,ALB,HT",
   by = c(Study = "STUDYf"),
   units = units
-) %>% as_stable(inspect = TRUE) %>%
-  get_stable_data()
-
+)
 
 x1 <- data %>%
   group_by(STUDYf) %>%
   summarise(
-  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
-  .groups = "drop"
-)
+    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    .groups = "drop"
+  )
 
 x2 <- data %>%
   summarise(
-  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
-  .groups = "drop"
-) %>% mutate(STUDYf = "\\hline \\hline {\\bf All data}")
+    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    .groups = "drop"
+  ) %>% mutate(STUDYf = "\\hline \\hline {\\bf All data}")
 
 x <- bind_rows(x1,x2)
 x <- rename(x, Study = STUDYf)
@@ -549,30 +549,27 @@ out <- pt_cont_wide(
   by = c(Study = "STUDYf"),
   panel = c(Formulation = "FORMf"),
   units = units
-) %>% as_stable(inspect = TRUE) %>%
-  get_stable_data()
+)
 
 
 x1 <- data %>%
   group_by(FORMf,STUDYf) %>%
   summarise(
-  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
-  .groups = "drop"
-)
+    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    .groups = "drop"
+  )
 
 x2 <- data %>%
   summarise(
-  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
-  .groups = "drop"
-)
+    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    .groups = "drop"
+  )
 
-x <- bind_rows(x1,x2) %>% select(-STUDYf,-FORMf)
+x <- bind_rows(x1,x2) %>% select(-STUDYf)
+x <- mutate(x, FORMf = as.character(FORMf))
+x <- mutate(x, FORMf = replace_na(FORMf, "All data"))
 
 assert_that(identical(out$data, x))
-
-#' \clearpage
-
-
 
 #' # Long continuous table
 
@@ -581,10 +578,10 @@ assert_that(identical(out$data, x))
 #+ results = 'asis'
 out <-
   pt_cont_long(
-  data = data,
-  cols = "WT,SCR,AGE",
-  units = units) %>% as_stable(inspect = TRUE) %>%
-  get_stable_data()
+    data = data,
+    cols = "WT,SCR,AGE",
+    units = units
+  )
 
 w <- pivot_longer(data, cols = c("WT", "SCR", "AGE"))
 w <- mutate(w, name = fct_inorder(name))
@@ -610,12 +607,11 @@ out <- pt_cont_long(
   data = data,
   cols = "WT,SCR,AGE",
   panel = vars(Study = STUDYf),
-  units = units) %>% as_stable(inspect = TRUE) %>%
-  get_stable_data()
+  units = units)
 
 w <- pivot_longer(data, cols = c("WT", "SCR", "AGE"))
 w <- mutate(w, name = fct_inorder(name))
-x1 <- group_by(w,Study = STUDYf, Variable = name)  %>%
+x1 <- group_by(w,STUDYf, Variable = name)  %>%
   summarise(
     n = length(value[!is.na(value)]),
     Mean = sig(mean(value, na.rm=TRUE)),
@@ -626,7 +622,7 @@ x1 <- group_by(w,Study = STUDYf, Variable = name)  %>%
     `Min / Max` = paste0(Min , " / ", Max),
     .groups = "drop"
   ) %>% select(-Min, -Max)
-x2 <- mutate(x1,Variable = as.character(Variable), Study = NULL)
+x2 <- mutate(x1,Variable = as.character(Variable))
 x2 <- ungroup(x2)
 
 x3 <- group_by(w, Variable = name)  %>%
@@ -643,5 +639,7 @@ x3 <- group_by(w, Variable = name)  %>%
 
 x <- bind_rows(x2,x3)
 x <- mutate(x, Variable = paste0(Variable, c(" (kg)", " (mg/dL)", " (years)")))
-
+x <- mutate(x, STUDYf = as.character(STUDYf))
+x <- mutate(x, STUDYf = replace_na(STUDYf, "All data"))
+all.equal(out$data,x)
 assert_that(identical(out$data, x))
