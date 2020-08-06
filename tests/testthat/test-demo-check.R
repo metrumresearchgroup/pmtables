@@ -1,15 +1,19 @@
 
 library(testthat)
-library(tidyverse)
-library(tidyselect)
-library(assertthat)
-library(yspec)
+library(dplyr)
+library(purrr)
+library(tidyr)
+library(forcats)
 library(pmtables)
+
 options(tibble.width = Inf)
 
 context("test-demo-check")
 
-units = ys_get_unit(ys_help$spec(), parens = TRUE)
+units <- list(
+  AGE = "(years)", WT = "(kg)", HT = "(cm)", ALB = "(g/dL)",
+  SCR = "(mg/dL)"
+)
 data <- pmt_obs
 d <- pmt_pk
 
