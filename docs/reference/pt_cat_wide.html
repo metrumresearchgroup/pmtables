@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get debug information from stable object — get_stable_data • pmtables</title>
+<title>Discrete data summary in long format — pt_cat_wide • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get debug information from stable object — get_stable_data" />
-<meta property="og:description" content="Get debug information from stable object" />
+<meta property="og:title" content="Discrete data summary in long format — pt_cat_wide" />
+<meta property="og:description" content="Discrete data summary in long format" />
 
 
 
@@ -106,23 +106,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get debug information from stable object</h1>
+    <h1>Discrete data summary in long format</h1>
     
-    <div class="hidden name"><code>get_stable_data.Rd</code></div>
+    <div class="hidden name"><code>pt_cat_wide.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get debug information from stable object</p>
+    <p>Discrete data summary in long format</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_stable_data</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>pt_cat_wide</span>(
+  <span class='no'>data</span>,
+  <span class='no'>cols</span>,
+  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
+  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
+  <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
+  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>an stable object</p></td>
+      <th>data</th>
+      <td><p>the data frame to summarize</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>the columns to summarize; may be character vector or quosure</p></td>
+    </tr>
+    <tr>
+      <th>by</th>
+      <td><p>a grouping variable for the summary; may be given as character
+vector or quosure</p></td>
+    </tr>
+    <tr>
+      <th>panel</th>
+      <td><p>data set column name to stratify the summary</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>a named list to use for renaming columns (see details and
+examples)</p></td>
+    </tr>
+    <tr>
+      <th>all_name</th>
+      <td><p>a name to use for the complete data summary</p></td>
+    </tr>
+    <tr>
+      <th>summarize_all</th>
+      <td><p>if <code>TRUE</code>, an overall summary will be appended to the
+table</p></td>
     </tr>
     </table>
 

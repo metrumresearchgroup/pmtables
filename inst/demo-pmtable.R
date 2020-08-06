@@ -180,7 +180,7 @@ pt_cat_long(
 pt_cat_long(
   data = data,
   cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf),
-  by = c(Formulation = "FORMf")) %>%
+  span = c(Formulation = "FORMf")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage

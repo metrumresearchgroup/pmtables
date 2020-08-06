@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create categorical data summary tables — pt_cat_long • pmtables</title>
+<title>Discrete data summary in long format — pt_cat_long • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create categorical data summary tables — pt_cat_long" />
-<meta property="og:description" content="Create categorical data summary tables" />
+<meta property="og:title" content="Discrete data summary in long format — pt_cat_long" />
+<meta property="og:description" content="Discrete data summary in long format" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9056</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
       </span>
     </div>
 
@@ -106,33 +106,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create categorical data summary tables</h1>
+    <h1>Discrete data summary in long format</h1>
     
     <div class="hidden name"><code>pt_cat_long.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create categorical data summary tables</p>
+    <p>Discrete data summary in long format</p>
     </div>
 
     <pre class="usage"><span class='fu'>pt_cat_long</span>(
   <span class='no'>data</span>,
   <span class='no'>cols</span>,
-  <span class='kw'>span</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
+  <span class='kw'>span</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All Groups"</span>,
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
-
-<span class='fu'>pt_cat_wide</span>(
-  <span class='no'>data</span>,
-  <span class='no'>cols</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
-  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -151,10 +141,6 @@
       <td><p>variable name for column spanner</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>variable name for grouping</p></td>
-    </tr>
-    <tr>
       <th>all_name</th>
       <td><p>a name to use for the complete data summary</p></td>
     </tr>
@@ -165,11 +151,12 @@ to the bottom of the table</p></td>
     </tr>
     <tr>
       <th>table</th>
-      <td><p>a named list for renaming data items</p></td>
+      <td><p>a named list to use for renaming columns (see details and
+examples)</p></td>
     </tr>
     <tr>
-      <th>panel</th>
-      <td><p>data set column name to stratify the summary</p></td>
+      <th>by</th>
+      <td><p>use <code>span</code> argument instead</p></td>
     </tr>
     </table>
 

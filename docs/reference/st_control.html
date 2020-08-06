@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get debug information from stable object — get_stable_data • pmtables</title>
+<title>Table control parameters — st_control • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get debug information from stable object — get_stable_data" />
-<meta property="og:description" content="Get debug information from stable object" />
+<meta property="og:title" content="Table control parameters — st_control" />
+<meta property="og:description" content="Table control parameters" />
 
 
 
@@ -106,23 +106,102 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get debug information from stable object</h1>
+    <h1>Table control parameters</h1>
     
-    <div class="hidden name"><code>get_stable_data.Rd</code></div>
+    <div class="hidden name"><code>st_control.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get debug information from stable object</p>
+    <p>Table control parameters</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_stable_data</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>st_control</span>(<span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>st_control</span>(
+  <span class='kw'>row_space</span> <span class='kw'>=</span> <span class='fl'>1.4</span>,
+  <span class='kw'>col_space</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>lt_row_space</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='st'>"normalsize"</span>,
+  <span class='kw'>header_row</span> <span class='kw'>=</span> <span class='fl'>0.56</span>,
+  <span class='kw'>note_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpt"</span>, <span class='st'>"minipage"</span>),
+  <span class='kw'>note_hline</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"top"</span>, <span class='st'>"bottom"</span>, <span class='st'>"both"</span>, <span class='st'>"none"</span>),
+  <span class='kw'>note_hline_pt</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
+  <span class='kw'>note_table_skip</span> <span class='kw'>=</span> <span class='fl'>0.67</span>,
+  <span class='kw'>note_skip</span> <span class='kw'>=</span> <span class='fl'>0.02</span>,
+  <span class='kw'>note_sanitize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>note_escape</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+  <span class='no'>...</span>
+)
+
+<span class='co'># S3 method for stobject</span>
+<span class='fu'>st_control</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>...</th>
+      <td><p>used only in the generic</p></td>
+    </tr>
+    <tr>
+      <th>row_space</th>
+      <td><p>multiplier to increase or decrease padding between
+table rows; for example, <code>row_space = 1.4</code> means increase by 40%</p></td>
+    </tr>
+    <tr>
+      <th>col_space</th>
+      <td><p>padding between columns; unit is <code>pt</code></p></td>
+    </tr>
+    <tr>
+      <th>lt_row_space</th>
+      <td><p><strong>extra</strong> space between rows of longtable;
+unit is <code>em</code></p></td>
+    </tr>
+    <tr>
+      <th>fontsize</th>
+      <td><p>font size</p></td>
+    </tr>
+    <tr>
+      <th>header_row</th>
+      <td><p>amount of space that will be <strong>removed</strong> between
+rows of the table header; unit is <code>em</code>; this must be a positive
+number</p></td>
+    </tr>
+    <tr>
+      <th>note_type</th>
+      <td><p><code>tpt</code> puts notes in the third part of <code>threeparttable</code> and
+<code>minipage</code> puts notes in a minipage below the table</p></td>
+    </tr>
+    <tr>
+      <th>note_hline</th>
+      <td><p>where to place hlines when <code>minipage</code> notes are used</p></td>
+    </tr>
+    <tr>
+      <th>note_hline_pt</th>
+      <td><p>pointsize for <code>minipage</code> note <code>hline</code></p></td>
+    </tr>
+    <tr>
+      <th>note_table_skip</th>
+      <td><p>vertical space between the bottom of the table
+and the start of <code>minipage</code> notes; unit is <code>cm</code></p></td>
+    </tr>
+    <tr>
+      <th>note_skip</th>
+      <td><p>vertical space after the top <code>hline</code> where the <code>minipage</code>
+notes start</p></td>
+    </tr>
+    <tr>
+      <th>note_sanitize</th>
+      <td><p>if <code>TRUE</code>, notes will be sanitized</p></td>
+    </tr>
+    <tr>
+      <th>note_escape</th>
+      <td><p>a vector of characters to sanitize</p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>an stable object</p></td>
+      <td><p>an stobject</p></td>
     </tr>
     </table>
 

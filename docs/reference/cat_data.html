@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9056</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
       </span>
     </div>
 
@@ -136,11 +136,11 @@
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>character vector of column names for summary</p></td>
+      <td><p>the columns to summarize; may be character vector or quosure</p></td>
     </tr>
     <tr>
       <th>by</th>
-      <td><p>grouping variable name</p></td>
+      <td><p>a grouping varible; may be character vector or quosure</p></td>
     </tr>
     <tr>
       <th>panel</th>
@@ -153,12 +153,12 @@ of the full data in the output</p></td>
     </tr>
     <tr>
       <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
+      <td><p>label for full data summary</p></td>
     </tr>
     <tr>
       <th>wide</th>
-      <td><p>if <code>TRUE</code> covariates are rendered west to east; if <code>FALSE</code> then
-they are rendered north to south</p></td>
+      <td><p><code>logical</code>; if <code>TRUE</code>, data frame will be returned in wide format;
+if <code>FALSE</code>, it will be returned in <code>long</code> format</p></td>
     </tr>
     <tr>
       <th>nby</th>
