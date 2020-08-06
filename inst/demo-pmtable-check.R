@@ -1,24 +1,20 @@
-library(tibble)
-library(dplyr)
-library(pmtables)
+
+library(testthat)
 library(tidyverse)
 library(tidyselect)
 library(assertthat)
 library(yspec)
+library(pmtables)
 options(tibble.width = Inf)
-#' # Setup
 
-#+ include = TRUE
 units = ys_get_unit(ys_help$spec(), parens = TRUE)
-
-#+ include = TRUE
-
-data <- pmt.obs
-d <- filter(data, SEQ==1)
+data <- pmt_obs
+d <- pmt_pk
 
 #' # Data inventory tables
-
+#'
 #' ## Stacked by endpoint
+#'
 
 out <- pt_data_inventory(
   data,
@@ -46,13 +42,17 @@ i <- map_df(split(g, g$SEQf, drop=TRUE), function(df) {
 })
 j <- mutate(i, across(POBS:PBQL, pmtables:::digit1))
 
-assert_that(all(out$data$Number.SUBJ==j$NID))
-assert_that(all(out$data$Number.OBS==j$NOBS))
-assert_that(all(out$data$Number.BQL==j$NBQL))
-assert_that(all(out$data$Number.MISS==j$NMISS))
-assert_that(all(out$data$Percent.BQL==j$PBQL))
-assert_that(all(out$data$Percent.OBS==j$POBS))
+expected <- j
+test <- out$data
 
+test_that("demo-check data inventory stacked", {
+  expect_equal(test$Number.SUBJ,expected$NID)
+  expect_equal(test$Number.OBS,expected$NOBS)
+  expect_equal(test$Number.BQL,expected$NBQL)
+  expect_equal(test$Number.MISS,expected$NMISS)
+  expect_equal(test$Percent.BQL,expected$PBQL)
+  expect_equal(test$Percent.OBS,expected$POBS)
+})
 
 #' ## Paneled
 
@@ -109,7 +109,15 @@ k <- rename(
   `Overall percent.BQL` = PBQL
 )
 chk <- names(out$data)[3:10]
-assert_that(identical(out$data[chk], k[chk]))
+
+test <- out$data[chk]
+expected <- k[chk]
+
+test_that("demo-check paneled data inventory stacked", {
+  for(col in names(test)) {
+    expect_identical(expected[[col]],test[[col]])
+  }
+})
 
 
 #' ## Grouped (by study)
@@ -149,16 +157,23 @@ k <- rename(
   `Percent.OBS` = POBS,
   `Percent.BQL` = PBQL
 )
-all.equal(out$data, k)
+
 chk <- c(
   "Number.SUBJ", "Number.MISS", "Number.BQL",
   "Number.OBS", "Percent.OBS", "Percent.BQL"
 )
 
-assert_that(identical(k[chk], out$data[chk]))
+test <- out$data[chk]
+expected <- k[chk]
+
+test_that("demo-check grouped data inventory", {
+  for(col in names(test)) {
+    expect_identical(expected[[col]],test[[col]])
+  }
+})
 
 #+ include = FALSE
-data <- pmt.first
+data <- pmt_first
 
 #' # Wide categorical table
 
@@ -184,8 +199,11 @@ y <- mutate(
   name = gsub("-", "", name, fixed = TRUE)
 )
 ans <- y$value
+
 names(ans) <- y$name
+
 out$list <- as.list(out$data)
+
 check <- list(
   c("ASIANf.Asian", "Race group.Asian"),
   c("ASIANf.nonAsian", "Race group.non-Asian"),
@@ -196,19 +214,22 @@ check <- list(
   c("SEXf.female","Sex.female" )
 )
 
-comp <- map_df(check, ~ tibble(ans = ans[[.x[1]]], out =  out$list[[.x[2]]]))
-identical(comp$ans, comp$out)
+test <- out$list
+expected <- ans
 
-#+
+test_that("demo-check wide categorical basic", {
+  for(col in check) {
+    expect_identical(test[[col[2]]], expected[[col[1]]])
+  }
+})
 
-##' ## Paneled (limited utility, IMO)
-
-#+ results = 'asis'
+#' ## Paneled (limited utility, IMO)
 
 out <- pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf, Sex = SEXf, "Race group" = ASIANf),
-  panel = as.panel("STUDYf", prefix = "Study: "))
+  panel = as.panel("STUDYf", prefix = "Study: ")
+)
 
 w <- pivot_longer(data, cols = c("FORMf", "SEXf", "ASIANf"))
 w <- mutate(w, name = fct_inorder(name))
@@ -224,6 +245,7 @@ x2 <- group_by(w,name,value) %>% summarise(
   percent = pmtables:::digit1(100*number/N),
   .groups = "drop"
 ) %>% mutate(STUDYf = "ZZZ")
+
 x <- bind_rows(x1,x2) %>%
   mutate(STUDYf = fct_inorder(STUDYf)) %>%
   arrange(STUDYf,name)
@@ -236,10 +258,7 @@ y <- mutate(
   name = gsub("-", "", name, fixed = TRUE)
 )
 z <- pivot_wider(y)
-z
 
-head(out$data) %>% as.data.frame
-head(z) %>% as.data.frame
 check <- list(
   c("ASIANf.Asian", "Race group.Asian"),
   c("ASIANf.nonAsian", "Race group.non-Asian"),
@@ -249,12 +268,16 @@ check <- list(
   c("SEXf.male", "Sex.male"),
   c("SEXf.female","Sex.female" )
 )
-comp <- map_df(check, ~ tibble(a = .x[1], b = .x[2], ans = z[[.x[1]]], out =  out$data[[.x[2]]]))
-identical(comp$ans, comp$out)
 
-#+
+test <- out$data
+expected <- z
 
-#' \clearpage
+test_that("demo-check wide categorical panel", {
+  for(col in check) {
+    expect_identical(expected[[col[2]]], test[[col[1]]])
+  }
+})
+
 
 ##' ## Grouped (by male / female)
 
@@ -262,7 +285,8 @@ identical(comp$ans, comp$out)
 out <- pt_cat_wide(
   data = data,
   by = c(Sex = "SEXf"),
-  cols = vars(Formulation = FORMf, "Race group" = ASIANf))
+  cols = vars(Formulation = FORMf, "Race group" = ASIANf)
+)
 
 w <- pivot_longer(data, cols = c("FORMf", "ASIANf"))
 w <- mutate(w, name = fct_inorder(name))
@@ -288,10 +312,7 @@ y <- mutate(
   name = gsub("-", "", name, fixed = TRUE)
 )
 z <- pivot_wider(y)
-z
 
-head(out$data) %>% as.data.frame
-head(z) %>% as.data.frame
 check <- list(
   c("ASIANf.Asian", "Race group.Asian"),
   c("ASIANf.nonAsian", "Race group.non-Asian"),
@@ -299,13 +320,17 @@ check <- list(
   c("FORMf.capsule", "Formulation.capsule"),
   c("FORMf.troche", "Formulation.troche")
 )
-comp <- map_df(check, ~ tibble(a = .x[1], b = .x[2], ans = z[[.x[1]]], out =  out$data[[.x[2]]]))
-identical(comp$ans, comp$out)
 
+test <- out$data
+expected <- z
+
+test_that("demo-check wide cagegorical grouped", {
+  for(col in check) {
+    expect_identical(expected[[col[1]]], test[[col[2]]])
+  }
+})
 
 #' ## Paneled and grouped
-
-#+ results = 'asis'
 
 out <- pt_cat_wide(
   data = data,
@@ -341,8 +366,6 @@ z <- pivot_wider(y)
 
 z <- mutate(z, FORMf.capsule = replace_na(FORMf.capsule,"0 (0.0)"))
 
-head(out$data) %>% as.data.frame
-head(z) %>% as.data.frame
 check <- list(
   c("ASIANf.Asian", "Race group.Asian"),
   c("ASIANf.nonAsian", "Race group.non-Asian"),
@@ -352,9 +375,15 @@ check <- list(
   c("SEXf.male", "Sex.male"),
   c("SEXf.female", "Sex.female")
 )
-comp <- map_df(check, ~ tibble(a = .x[1], b = .x[2], ans = z[[.x[1]]], out =  out$data[[.x[2]]]))
-identical(comp$ans, comp$out)
 
+test <- out$data
+expected <- z
+
+test_that("demo-check wide categorical grouped paneled", {
+  for(col in check) {
+    expect_identical(expected[[col[1]]], test[[col[2]]])
+  }
+})
 
 #' # Long categorical table
 
@@ -389,19 +418,23 @@ y <- mutate(
   name = gsub("-", "", name, fixed = TRUE)
 )
 
-z <- y
+expected <- y
+test <- out$data
 
-identical(unname(z[,c(2,3)]), unname(out$data[,c(2,3)]))
+test_that("demo-check long categorical", {
+  for(col in c(2,3)) {
+    expect_identical(expected[[col]], test[[col]])
+  }
+})
 
 
-#' ## Gropued (by formulation)
+#' ## Grouped (by formulation)
 
-#+ results = 'asis'
 out <- pt_cat_long(
   data = data,
   cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf),
-  by = c(Formulation = "FORMf"))
-
+  by = c(Formulation = "FORMf")
+)
 
 w <- pivot_longer(data, cols = c("STUDYf","SEXf", "ASIANf", "CPf"))
 w <- mutate(w, name = fct_inorder(name))
@@ -420,9 +453,6 @@ x2 <- group_by(w,name,value) %>% summarise(
 ) %>% mutate(FORMf = "ALL")
 x <- bind_rows(x1,x2)
 
-
-x <- bind_rows(x1,x2)
-
 y <- mutate(
   x,
   name = FORMf,
@@ -434,15 +464,18 @@ y <- mutate(
 )
 
 z <- pivot_wider(y)
-
 z <- mutate(z, troche = replace_na(troche, "0 (0.0)"))
 z <- mutate(z, val = as.character(val))
-
 z <- rename(z, `\\ ` = val, `\\textbf{All Groups}` = ALL)
 
-chk <- names(z)
+expected <- z
+test <- out$data
 
-identical(z[chk], out$data[chk])
+test_that("demo-check long categorical grouped", {
+  for(col in names(expected)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
 
 
 #' # Wide continuous table
@@ -468,12 +501,18 @@ x1 <- summarise(
   across(c(WT,SCR,AGE,ALB,HT),fun, id = ID)
 )
 
-assert_that(identical(out$data, x1))
+test <- out$data
+expected <- x1
+
+test_that("demo-check wide continuous", {
+  for(col in names(expected)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
 
 
 ##' ## Paneled
 
-#+ results = "asis"
 out <- pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
@@ -505,9 +544,15 @@ x <- bind_rows(x1,x2)
 x <- mutate(x, STUDYf = as.character(STUDYf))
 x <- mutate(x, STUDYf = replace_na(STUDYf, "All data"))
 
-assert_that(identical(out$data, x))
+test <- out$data
+expected <- x
 
-#' \clearpage
+test_that("demo-check wide continuous panel", {
+  for(col in names(expected)) {
+    expect_identical(test[[col]],expected[[col]])
+  }
+})
+
 
 #' ## Grouped (by study)
 
@@ -535,14 +580,18 @@ x2 <- data %>%
 x <- bind_rows(x1,x2)
 x <- rename(x, Study = STUDYf)
 
-assert_that(identical(out$data, x))
+test <- out$data
+expected <- x
 
+test_that("demo-check wide continuous grouped", {
+  for(col in names(test)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
 
-#' \clearpage
 
 #' ## Paneled and grouped
 
-#+ results = "asis"
 out <- pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
@@ -569,7 +618,14 @@ x <- bind_rows(x1,x2) %>% select(-STUDYf)
 x <- mutate(x, FORMf = as.character(FORMf))
 x <- mutate(x, FORMf = replace_na(FORMf, "All data"))
 
-assert_that(identical(out$data, x))
+test <- out$data
+expected <- x
+
+test_that("demo-check wide continuous grouped panel", {
+  for(col in names(test)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
 
 #' # Long continuous table
 
@@ -598,16 +654,22 @@ x1 <- group_by(w, Variable = name)  %>%
 x2 <- mutate(x1,Variable = as.character(Variable))
 x <- mutate(x2, Variable = paste0(Variable, c(" (kg)", " (mg/dL)", " (years)")))
 
-assert_that(identical(out$data, x))
+test <- out$data
+expected <- x
 
-#' \clearpage
+test_that("demo-check long continuous", {
+  for(col in names(test)) {
+    expect_identical(test[[col]],expected[[col]])
+  }
+})
 
-#+ results='asis'
+#' # Long continuous paneled
 out <- pt_cont_long(
   data = data,
   cols = "WT,SCR,AGE",
   panel = vars(Study = STUDYf),
-  units = units)
+  units = units
+)
 
 w <- pivot_longer(data, cols = c("WT", "SCR", "AGE"))
 w <- mutate(w, name = fct_inorder(name))
@@ -641,5 +703,13 @@ x <- bind_rows(x2,x3)
 x <- mutate(x, Variable = paste0(Variable, c(" (kg)", " (mg/dL)", " (years)")))
 x <- mutate(x, STUDYf = as.character(STUDYf))
 x <- mutate(x, STUDYf = replace_na(STUDYf, "All data"))
-all.equal(out$data,x)
-assert_that(identical(out$data, x))
+
+
+test <- out$data
+expected <- x
+
+test_that("demo-check long continuous panel", {
+  for(col in names(test)) {
+    expect_identical(test[[col]],expected[[col]])
+  }
+})
