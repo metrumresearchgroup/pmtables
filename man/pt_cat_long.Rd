@@ -10,7 +10,8 @@ pt_cat_long(
   span = ".total",
   all_name = "All Groups",
   summarize_all = TRUE,
-  table = NULL
+  table = NULL,
+  by = NULL
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ to the bottom of the table}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
+
+\item{by}{use \code{span} argument instead}
 }
 \description{
 Discrete data summary in long format

@@ -67,17 +67,18 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #'
 #' @inheritParams pt_cont_long
 #' @param span variable name for column spanner
+#' @param by use `span` argument instead
 #'
 #' @export
 pt_cat_long <- function(data, cols, span  =  ".total",
                         all_name = "All Groups", summarize_all = TRUE,
-                        table = NULL) {
+                        table = NULL, by = NULL) {
 
-  has_span <- !missing(span) #| !missing(by)
+  has_span <- !missing(span)
 
-  # if(missing(by) & has_span) {
-  #   by <- span
-  # }
+  if(!missing(by) & missing(span)) {
+    warning("the 'by' argument was used; maybe you wanted 'span' instead?")
+  }
 
   if(span == ".total" & missing(all_name)) {
     all_name <- "Summary"
