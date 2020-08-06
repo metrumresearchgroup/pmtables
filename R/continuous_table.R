@@ -1,10 +1,12 @@
 #' Create continuous summary data frame
 #'
-#' @inheritParams pt_cont_study
+#' @inheritParams pt_cont_long
 #' @param by grouping variable name
 #' @param panel paneling variable name
 #' @param all_name label for full data summary
 #' @param digits named list specifing `digits` argument for `digit_fun`
+#' @param wide `logical`; if `TRUE`, output will be wide; output will be long
+#' otherwise
 #' @param fun continuous data summary function
 #' @param id_col the ID column name
 #'
@@ -83,10 +85,16 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 
 #' Create a continuous data summary table in wide format
 #'
-#' @inheritParams pt_cont_long
-#'
-#' @param by a grouping variable name
-#' @param panel a variable for paneling the summary
+#' @param data the data frame to summarize
+#' @param cols the columns to summarize; may be character vector or quosure
+#' @param by a grouping varible; may be character vector or quosure
+#' @param panel data set column name to stratify the summary
+#' @param table a named list to use for renaming columns (see details and
+#' examples)
+#' @param units a named list to use for unit lookup (see details and examples)
+#' @param digits a `digits` object (see [new_digits()])
+#' @param all_name a name to use for the complete data summary
+#' @param fun the data summary function (see details)
 #' @param id_col the ID column name
 #'
 #' @export
@@ -183,22 +191,13 @@ pt_cont_wide <- function(data, cols,
 
 #' Continuous data summary in long format
 #'
-#'
-#' @inheritParams pt_cont_study
-#' @param panel data set column name to stratify the summary
-#' @param table a named list to use for renaming columns (see details and
-#' examples)
-#' @param units a named list to use for unit lookup (see details and examples)
-#' @param digits a `digits` object (see [new_digits()])
+#' @inheritParams pt_cont_wide
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
-#' @param all_name a name to use for the complete data summary
-#' @param fun the data summary function (see details)
-#' @param id_col the ID column name
 #'
 #' @examples
 #'
-#' ans <- pt_cont_long(pmt_first, cols = .cols(WT,ALB,CRCL))
+#' ans <- pt_cont_long(pmt_first, cols = dplyr::vars(WT,ALB,CRCL))
 #'
 #' ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", panel = "SEXf")
 #'
@@ -292,36 +291,3 @@ pt_cont_long <- function(data,
   out
 }
 
-#' Continuous covariate table by study
-#'
-#' @param data the data frame to summarize
-#' @param cols the columns to summarize; may be character vector or quosure
-#' @param study_col character name of the study ID column; passed to
-#' [pt_cont_long] as `panel` or [pt_cont_wide] as `by`
-#' @param wide if `TRUE` covariates are rendered west to east; if `FALSE` then
-#' they are rendered north to south
-#' @param ... other arguments passed to [pt_cont_long] or [pt_cont_wide]
-#'
-#' @examples
-#'
-#' pt_cont_study(pmt_first, cols = "WT,ALB,SCR", study_col="STUDYf")
-#'
-#' pt_cont_study(pmt_first, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
-#'
-pt_cont_study <- function(data, cols, study_col = "STUDY", wide = FALSE,...) { # nocov start
-  if(wide) {
-    pt_cont_wide(
-      data = data,
-      cols = cols,
-      by = study_col,
-      ...
-    )
-  } else {
-    pt_cont_long(
-      data = data,
-      cols = cols,
-      panel = study_col,
-      ...
-    )
-  }
-} # nocov end

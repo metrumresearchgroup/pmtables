@@ -19,19 +19,19 @@ cat_data(
 \arguments{
 \item{data}{the data frame to summarize}
 
-\item{cols}{character vector of column names for summary}
+\item{cols}{the columns to summarize; may be character vector or quosure}
 
-\item{by}{grouping variable name}
+\item{by}{a grouping varible; may be character vector or quosure}
 
 \item{panel}{data set column name to stratify the summary}
 
 \item{summarize_all}{logical indicating whether or not to include a summary
 of the full data in the output}
 
-\item{all_name}{a name to use for the complete data summary}
+\item{all_name}{label for full data summary}
 
-\item{wide}{if \code{TRUE} covariates are rendered west to east; if \code{FALSE} then
-they are rendered north to south}
+\item{wide}{\code{logical}; if \code{TRUE}, data frame will be returned in wide format;
+if \code{FALSE}, it will be returned in \code{long} format}
 
 \item{nby}{number of unique levels for the \code{by} variable}
 

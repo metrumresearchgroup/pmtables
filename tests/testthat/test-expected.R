@@ -203,11 +203,11 @@ test_that("continuous-wide-by", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("cat-long-by", {
-  expect <- read_tex("cat-long-by.tex")
+test_that("cat-long-span", {
+  expect <- read_tex("cat-long-span.tex")
   ans <- pt_cat_long(
   pmt_first,
-  cols = "SEXf,RFf,FORMf", by = "STUDYf"
+  cols = "SEXf,RFf,FORMf", span = "STUDYf"
 ) %>% as_stable()
 
   expect_identical(expect, as.character(ans))

@@ -22,9 +22,9 @@ pt_cont_wide(
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
-\item{by}{a grouping variable name}
+\item{by}{a grouping varible; may be character vector or quosure}
 
-\item{panel}{a variable for paneling the summary}
+\item{panel}{data set column name to stratify the summary}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}

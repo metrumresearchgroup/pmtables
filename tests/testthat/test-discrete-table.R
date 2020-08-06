@@ -3,7 +3,7 @@ context("test-discrete-table")
 
 test_that("discrete data table - long", {
   data <- pmt_first
-  ans <- pt_cat_long(data, cols = "SEXf,RFf,CPf", by = "STUDYf")
+  ans <- pt_cat_long(data, cols = "SEXf,RFf,CPf", span = "STUDYf")
   expect_is(ans,"pmtable")
 })
 

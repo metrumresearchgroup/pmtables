@@ -423,7 +423,7 @@ if(params$save) {
 out <- pt_cat_long(
   pmt_first, 
   cols = "SEXf,RFf,FORMf", 
-  by = "STUDYf"
+  span = "STUDYf"
 ) %>% as_stable()
 
 pt_wrap(out, con = stdout()) 
@@ -431,7 +431,7 @@ pt_wrap(out, con = stdout())
 
 ```{r}
 if(params$save) {
-  stable_save(out, file = "cat-long-by.tex", dir = params$dir)   
+  stable_save(out, file = "cat-long-span.tex", dir = params$dir)   
 }
 ```
 

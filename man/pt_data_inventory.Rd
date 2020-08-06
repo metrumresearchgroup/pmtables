@@ -66,7 +66,7 @@ See the \link{data_inventory_chunk} help topic for a description of these column
 }
 \examples{
 
-ans <- pt_data_inventory(pmt_pk, by = .cols("Renal function" = RFf))
+ans <- pt_data_inventory(pmt_pk, by = c("Renal function" = "RFf"))
 
 ans <- pt_data_inventory(
    pmt_pk,

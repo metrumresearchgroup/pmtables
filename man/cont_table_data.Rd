@@ -25,8 +25,8 @@ cont_table_data(
 
 \item{panel}{paneling variable name}
 
-\item{wide}{if \code{TRUE} covariates are rendered west to east; if \code{FALSE} then
-they are rendered north to south}
+\item{wide}{\code{logical}; if \code{TRUE}, output will be wide; output will be long
+otherwise}
 
 \item{all_name}{label for full data summary}
 

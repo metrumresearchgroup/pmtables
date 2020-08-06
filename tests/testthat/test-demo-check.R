@@ -435,7 +435,7 @@ test_that("demo-check long categorical", {
 out <- pt_cat_long(
   data = data,
   cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf),
-  by = c(Formulation = "FORMf")
+  span = c(Formulation = "FORMf")
 )
 
 w <- pivot_longer(data, cols = c("STUDYf","SEXf", "ASIANf", "CPf"))

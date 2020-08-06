@@ -226,7 +226,7 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'
 #' @examples
 #'
-#' ans <- pt_data_inventory(pmt_pk, by = .cols("Renal function" = RFf))
+#' ans <- pt_data_inventory(pmt_pk, by = c("Renal function" = "RFf"))
 #'
 #' ans <- pt_data_inventory(
 #'    pmt_pk,
