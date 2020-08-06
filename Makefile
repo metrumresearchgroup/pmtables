@@ -58,3 +58,5 @@ tag-version:
 	git tag $(VERSION)
 	git push origin $(VERSION)
 
+demo-check:
+	Rscript -e 'testthat::test_file("tests/testthat/test-demo-check.R")'

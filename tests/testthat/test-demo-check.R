@@ -7,6 +7,8 @@ library(yspec)
 library(pmtables)
 options(tibble.width = Inf)
 
+context("test-demo-check")
+
 units = ys_get_unit(ys_help$spec(), parens = TRUE)
 data <- pmt_obs
 d <- pmt_pk
