@@ -115,6 +115,7 @@ panel_by <- function(data, x) {
     }
   }
   lab <- trimws(paste(prefix,lab))
+  lab <- tab_escape(lab)
   if(x$bold) {
     lab <- bold_each(lab)
   }
