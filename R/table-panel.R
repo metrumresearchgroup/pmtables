@@ -4,6 +4,7 @@
 #'
 #' @param col name of column to be used for creating panels
 #' @param prefix to be added to each panel title
+#' @param skip regular expression for panels to skip
 #' @param prefix_name `logical`; if `TRUE`, then the prefix will be derived by
 #' the name associated with `col` input to the function
 #' @param prefix_skip a regular expression for identifying panel titles where
@@ -16,7 +17,8 @@
 #' @seealso [as.panel()]
 #'
 #' @export
-rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
+rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
+                     prefix_name = FALSE,
                      prefix_skip = NULL, duplicates_ok = FALSE,
                      bold = TRUE, it = FALSE) {
   null <- FALSE
@@ -28,10 +30,11 @@ rowpanel <- function(col = NULL, prefix = "",  prefix_name = FALSE,
     col <- new_names(col)
   }
   prefix <- ifelse(is.null(prefix), "", prefix)
+  assert_that(is.character(skip))
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
-    bold = isTRUE(bold), it = isTRUE(it)
+    bold = isTRUE(bold), it = isTRUE(it), skip = skip
   )
   structure(ans, class = "rowpanel")
 }
@@ -93,6 +96,7 @@ panel_by <- function(data, x) {
   uc <- data[[col]][ui]
   ui <- ui[uc!=""]
   ui <- ui[uc!=".panel.waiver."]
+  ui <- ui[!grepl(x$skip,uc)]
   where <- ui
   lab <- data[[col]][where]
   if(x$dup_err && any(duplicated(lab))) {

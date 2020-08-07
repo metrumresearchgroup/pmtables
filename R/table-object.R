@@ -460,6 +460,7 @@ st_hline <- function(x, pattern = NULL, cols = names(x$data), n = 1,
                      at = NULL, from = NULL) {
   check_st(x)
   if(!missing(at)) {
+    if(n > 1) at <- sort(rep(at, n))
     x$hline_at <- at
   }
   if(!missing(from)) {

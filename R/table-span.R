@@ -173,6 +173,7 @@ form_span_tex <- function(spans) {
   span_tex <- map_chr(chunks, function(ch) {
     length <- nrow(ch)
     title <- ch$title[1]
+    title <- tab_escape(title)
     title <- bold_each(title)
     ans <- gluet("\\multicolumn{<length>}{<ch$align[1]>}{<title>}")
     ans

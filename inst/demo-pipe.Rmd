@@ -195,6 +195,43 @@ st_new(data) %>%
   st_make(.cat = TRUE)
 ```
 
+\clearpage
+
+# hline pattern
+
+```{r, results = 'asis'}
+tmp <- readRDS("datasets/with-total.RDS")
+
+st_new(tmp) %>% 
+  st_hline(pattern = "all", cols = "STUDY", n = 2) %>% 
+  st_make(.cat = TRUE)
+```
+\clearpage
+
+# hline multiple
+
+```{r, results = 'asis'}
+tmp <- readRDS("datasets/with-total.RDS")
+
+st_new(tmp) %>% 
+  st_hline(at = 3, n = 2) %>% 
+  st_make(.cat = TRUE)
+```
+
+\clearpage
+
+# Mark a summary row (cf sumrows)
+
+```{r, results = 'asis'}
+tmp <- readRDS("datasets/with-total.RDS")
+
+st_new(tmp) %>% 
+  st_hline(at = 3, n = 2) %>% 
+  st_bold(cols = "STUDY", pattern = "all") %>%
+  st_edit(pattern = "all", replacement = "All studies") %>%
+  st_make(.cat = TRUE)
+```
+
 
 \clearpage
 

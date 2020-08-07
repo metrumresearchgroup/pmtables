@@ -10,13 +10,13 @@ tab_prime <- function(data, escape_fun = tab_escape) {
   }
   data <- modify(data, as.character)
   data <- modify(data, replace_na, "")
-  math <- map_lgl(data, ~ any(str_count(.x, fixed("$")) >= 2))
-  if(any(math)) {
-    data[,!math] <- modify(data[,!math], escape_fun)
-  } else {
-    data <- modify(data, escape_fun)
-  }
+  data <- modify(data, escape_fun)
   structure(data, pmtables.primed = TRUE)
+}
+
+skip_escape <- function(x) {
+  any(str_count(x, fixed("$")) > 1) |
+    any(str_count(x, fixed("\\")) > 0)
 }
 
 #' @rdname tab_prime
@@ -24,6 +24,9 @@ tab_prime <- function(data, escape_fun = tab_escape) {
 #' @param esc a character vector of strings to escape
 #' @param ... used only to allow arguments through
 tab_escape <- function(string, esc = "_", ...) {
+  if(skip_escape(string)) {
+    return(string)
+  }
   for(ch in esc) {
     string <- gsub(ch, paste0("\\",ch), string, fixed = TRUE)
   }

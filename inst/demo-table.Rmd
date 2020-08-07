@@ -191,6 +191,7 @@ stable(
 
 \clearpage
 
+
 # hline anywhere
 
 - Give row numbers for hline as logical or integer vector
