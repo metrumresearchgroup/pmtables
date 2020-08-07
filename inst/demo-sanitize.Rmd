@@ -1,5 +1,5 @@
 --- 
-title: Simple Tables Demo Doc
+title: What gets sanitized
 output: 
   pdf_document: 
     extra_dependencies: 
@@ -87,6 +87,7 @@ out$span_data
 data <- tibble(a = c("a_1", "a_1", "a_1", "a_2", "a_2"), 
                b = letters[1:5])
 
-stable(data, panel = "a")
+out <- stable(data, panel = "a") 
+out[grepl("multicolumn", out)]
 ```
 
