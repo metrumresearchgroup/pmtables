@@ -8,6 +8,7 @@
 rowpanel(
   col = NULL,
   prefix = "",
+  skip = ".panel.skip.",
   prefix_name = FALSE,
   prefix_skip = NULL,
   duplicates_ok = FALSE,
@@ -21,6 +22,8 @@ is.rowpanel(x)
 \item{col}{name of column to be used for creating panels}
 
 \item{prefix}{to be added to each panel title}
+
+\item{skip}{regular expression for panels to skip}
 
 \item{prefix_name}{\code{logical}; if \code{TRUE}, then the prefix will be derived by
 the name associated with \code{col} input to the function}

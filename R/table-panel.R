@@ -94,9 +94,11 @@ panel_by <- function(data, x) {
   u <- non_rep(data[[col]])
   ui <- which(u)
   uc <- data[[col]][ui]
-  ui <- ui[uc!=""]
-  ui <- ui[uc!=".panel.waiver."]
-  ui <- ui[!grepl(x$skip,uc)]
+  drop <- uc == ""
+  drop <- drop | uc == ".panel.waiver."
+  drop <- drop | grepl(x$skip,uc)
+  ui <- ui[!drop]
+  uc <- uc[!drop]
   where <- ui
   lab <- data[[col]][where]
   if(x$dup_err && any(duplicated(lab))) {

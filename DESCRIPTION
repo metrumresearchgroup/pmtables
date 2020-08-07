@@ -9,7 +9,7 @@ License: GPL (>=2)
 Imports: purrr, dplyr, forcats, tidyr, rlang, glue, tibble, assertthat, 
     tidyselect, stringr
 Depends: R (>= 3.5.0)
-Suggests: testthat, knitr, yaml, rmarkdown, fs, texPreview, tidyr
+Suggests: testthat, knitr, yaml, rmarkdown, fs, texPreview
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
