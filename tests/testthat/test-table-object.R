@@ -41,10 +41,10 @@ test_that("hine re", {
   expect_identical(where, nrow(data)-1L)
 })
 
-test_that("stobject equivalent col_bold", {
+test_that("stobject equivalent cols_bold", {
   mt <- mtcars[1:20,]
-  x <- inspect(mt, col_bold = TRUE)
-  y <- st_new(mt, col_bold = TRUE) %>%
+  x <- inspect(mt, cols_bold = TRUE)
+  y <- st_new(mt, cols_bold = TRUE) %>%
     st_make(inspect=TRUE) %>%
     get_stable_data()
   expect_identical(x$cols_tex, y$cols_tex)
@@ -148,7 +148,7 @@ test_that("stobject equivalent rename", {
   notes <- letters[1:3]
   x <- inspect(
     mt,
-    col_rename = c(cylinder = "cyl", "miles per gallon" = "mpg")
+    cols_rename = c(cylinder = "cyl", "miles per gallon" = "mpg")
   )
   y <-
     st_new(mt) %>%
@@ -162,7 +162,7 @@ test_that("stobject equivalent blank", {
   notes <- letters[1:3]
   x <- inspect(
     mt,
-    col_blank = "qsec,drat,carb,foo"
+    cols_blank = "qsec,drat,carb,foo"
   )
   y <-
     st_new(mt) %>%

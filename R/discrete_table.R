@@ -216,7 +216,7 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
     data = ans,
     span_split = colsplit(sep = '.'),
     align = cols_center(.outer = 'l'),
-    col_rename = c(.panel$col,by),
+    cols_rename = c(.panel$col,by),
     panel = .panel,
     notes = "Summary is count (percent)"
   )

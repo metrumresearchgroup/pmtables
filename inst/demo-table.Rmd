@@ -52,7 +52,7 @@ in markdown.
 
 
 ```{r,results = 'asis'}
-data %>% stable(col_bold=TRUE) %>% pt_wrap(stdout())
+data %>% stable(cols_bold=TRUE) %>% pt_wrap(stdout())
 ```
 
 \clearpage
@@ -146,7 +146,7 @@ stable(
 ```{r, results = 'asis'}
 stable(
   data, 
-  col_rename = vars("Study...Number" = STUDY, "Serum...Albumin" = ALB), 
+  cols_rename = vars("Study...Number" = STUDY, "Serum...Albumin" = ALB), 
   units = units
 ) %>% pt_wrap(stdout())
 ```
@@ -410,11 +410,11 @@ long <- map_dfr(1:2, ~ long) %>% arrange(STUDY,DOSE,FORM)
 ```{r,results = "asis"}
 long %>%
   stable_long(
-    panel = "STUDY", col_bold = TRUE,
+    panel = "STUDY", cols_bold = TRUE,
     units = ys_get_unit(spec, parens = TRUE),
     notes = "The results look great!",
     clear_reps = "DOSE",
-    col_rename = c(Formulation  = "FORM"),
+    cols_rename = c(Formulation  = "FORM"),
     r_file = "foo.R", output_file = "../deliv/table/output.tex",
     note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.2)
   ) %>% as.character() %>% writeLines

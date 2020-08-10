@@ -17,7 +17,7 @@ test_that("basic-table", {
 
 test_that("basic-table-bold", {
   expect <- read_tex("basic-table-bold.tex")
-  ans <- stable(pmt_summarized, col_bold = TRUE)
+  ans <- stable(pmt_summarized, cols_bold = TRUE)
   expect_identical(expect, as.character(ans))
 })
 
@@ -128,7 +128,7 @@ test_that("cols-rename", {
   expect <- read_tex("col-rename.tex")
   ans <- stable(
     pmt_summarized,
-    col_rename  =c (Weight = "WT", Dose = "DOSE")
+    cols_rename  =c (Weight = "WT", Dose = "DOSE")
   )
   expect_identical(expect, as.character(ans))
 })
@@ -137,7 +137,7 @@ test_that("cols-blank", {
   expect <- read_tex("col-blank.tex")
   ans <- stable(
     pmt_summarized,
-    col_blank = "WT,ALB"
+    cols_blank = "WT,ALB"
   )
   expect_identical(expect, as.character(ans))
 })
@@ -146,7 +146,7 @@ test_that("col-multi-line", {
   expect <- read_tex("col-multi-line.tex")
   ans <- stable(
     pmt_summarized,
-    col_rename = c("Protocol...Number" = "STUDY", Weight = "WT")
+    cols_rename = c("Protocol...Number" = "STUDY", Weight = "WT")
   )
   expect_identical(expect, as.character(ans))
 })
@@ -155,7 +155,7 @@ test_that("col-multi-line-units", {
   expect <- read_tex("col-multi-line-units.tex")
   ans <- stable(
     pmt_summarized,
-    col_rename = c("Protocol...Number" = "STUDY", Weight = "WT"),
+    cols_rename = c("Protocol...Number" = "STUDY", Weight = "WT"),
     units = list(WT = "(kg)", CRCL = "(ml/min)", AGE = "(years)",
                  ALB = "(g/dL)", SCR = "(mg/dL)")
   )

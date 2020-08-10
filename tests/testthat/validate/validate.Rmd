@@ -52,7 +52,7 @@ if(params$save) {
 # Bold cols
 
 ```{r, results = "asis"}
-out <- stable(pmt_summarized, col_bold = TRUE)
+out <- stable(pmt_summarized, cols_bold = TRUE)
 
 pt_wrap(out, con = stdout()) 
 ```
@@ -265,7 +265,7 @@ if(params$save) {
 # rename
 
 ```{r, results = "asis"}
-out <- stable(pmt_summarized, col_rename = c(Weight = "WT", Dose = "DOSE"))
+out <- stable(pmt_summarized, cols_rename = c(Weight = "WT", Dose = "DOSE"))
 
 pt_wrap(out, con = stdout()) 
 ```
@@ -283,7 +283,7 @@ if(params$save) {
 # blank
 
 ```{r, results = "asis"}
-out <- stable(pmt_summarized, col_blank = "WT,ALB")
+out <- stable(pmt_summarized, cols_blank = "WT,ALB")
 
 pt_wrap(out, con = stdout()) 
 ```
@@ -300,7 +300,7 @@ if(params$save) {
 # multi-line
 
 ```{r, results = "asis"}
-out <- stable(pmt_summarized, col_rename = c("Protocol...Number" = "STUDY", Weight = "WT"))
+out <- stable(pmt_summarized, cols_rename = c("Protocol...Number" = "STUDY", Weight = "WT"))
 
 pt_wrap(out, con = stdout()) 
 ```
@@ -319,7 +319,7 @@ if(params$save) {
 ```{r, results = "asis"}
 out <- stable(
   pmt_summarized, 
-  col_rename = c("Protocol...Number" = "STUDY", Weight = "WT"), 
+  cols_rename = c("Protocol...Number" = "STUDY", Weight = "WT"), 
   units = units
 )
 

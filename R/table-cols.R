@@ -1,47 +1,47 @@
 #' Form table column names
 #'
 #' @param cols the starting set of table column names
-#' @param col_bold if `TRUE`, table column names are rendered with bold font
-#' @param col_rename a `name = value` character vector to translate column names
+#' @param cols_bold if `TRUE`, table column names are rendered with bold font
+#' @param cols_rename a `name = value` character vector to translate column names
 #' to table names; ; see also [st_rename()]
-#' @param col_blank a character vector of column names that will not be printed
+#' @param cols_blank a character vector of column names that will not be printed
 #' in the table header; see also [st_blank()]
-#' @param col_replace a character vector with the same length as the number of
+#' @param cols_replace a character vector with the same length as the number of
 #' output table columns; use this to completely replace the names (as opposed
 #' to one by on editing with `col_rename`)
-#' @param col_split a string that is used to split column labels into tag
+#' @param cols_split a string that is used to split column labels into tag
 #' (on the left) or name (on the right); if supplied, then `col_split` will be
 #' used to remove the tag; for example, a column named `x.WT` would be renamed
-#' `WT` if `col_split` was set to `.`
-#' @param col_break character sequence to break column names into new lines
+#' `WT` if `cols_split` was set to `.`
+#' @param cols_break character sequence to break column names into new lines
 #' @param ... not used
 #'
 #' @export
-tab_cols <- function(cols, col_replace = NULL, col_rename = NULL,
-                     col_blank = NULL, col_split = NULL, col_bold = FALSE,
-                     col_break = "...", ...) {
+tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
+                     cols_blank = NULL, cols_split = NULL, cols_bold = FALSE,
+                     cols_break = "...", ...) {
   cols0 <- cols
 
   # Work on columns and column names
-  if(is.character(col_replace)) {
-    if(length(col_replace) != length(cols)) {
+  if(is.character(cols_replace)) {
+    if(length(cols_replace) != length(cols)) {
       stop(
         "'col_replace' length is not equal to the number of columns in 'data'",
         call.=FALSE
       )
     }
-    cols <- col_replace
-    col_rename <- NULL
+    cols <- cols_replace
+    cols_rename <- NULL
   }
 
-  cols_new <- rename_cols(cols, relabel = col_rename, blank = col_blank)
-  if(!is.null(col_split)) {
-    split_cols <- str_split(cols_new, fixed(col_split), n = 2)
+  cols_new <- rename_cols(cols, relabel = cols_rename, blank = cols_blank)
+  if(!is.null(cols_split)) {
+    split_cols <- str_split(cols_new, fixed(cols_split), n = 2)
     cols_new <- map_chr(split_cols, last)
   }
 
   cols_new <- esc_underscore(cols_new)
-  ans <- list(new = cols_new, cols = cols0, newline = col_break, bold = col_bold)
+  ans <- list(new = cols_new, cols = cols0, newline = cols_break, bold = cols_bold)
   structure(ans, class = "from_tab_cols")
 }
 

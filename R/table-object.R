@@ -7,8 +7,7 @@ check_st <- function(x) {
 st_arg_names <- c(
   "data", "panel", "notes",
   "align", "r_file", "output_file",
-  "row_space", "col_space",
-  "span", "span_split", "col_rename", "col_blank",
+  "span", "span_split", "cols_rename", "cols_blank",
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
   "hline_at", "hline_from", "sizes", "units", "drop"
 )
@@ -352,12 +351,12 @@ st_span_split <- function(x, sep,...) {
 
 #' Add column rename information to st object
 #'
-#' See the `col_rename` argument to [stable()]. This function can be called
-#' multiple times and will accumulate `col_rename` data.
+#' See the `cols_rename` argument to [stable()]. This function can be called
+#' multiple times and will accumulate `cols_rename` data.
 #'
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
-#' to [stable()] as `col_rename`
+#' to [stable()] as `cols_rename`
 #'
 #' @examples
 #' library(dplyr)
@@ -368,24 +367,24 @@ st_span_split <- function(x, sep,...) {
 st_rename <- function(x,...) {
   check_st(x)
   l <- new_names(enquos(...))
-  x$col_rename <- c(x$col_rename, l)
+  x$cols_rename <- c(x$cols_rename, l)
   x
 }
 
 #' Add column blank information to st object
 #'
-#' See the `col_blank` argument to [stable()].  This function can be called
-#' multiple times and will accumulate `col_blank` data.
+#' See the `cols_blank` argument to [stable()].  This function can be called
+#' multiple times and will accumulate `cols_blank` data.
 #'
 #' @param x an stobject
 #' @param ... quoted or unquoted column names to be passed to [stable()] as
-#' `col_blank`
+#' `cols_blank`
 #'
 #' @export
 st_blank <- function(x,...) {
   check_st(x)
   l <- new_names(enquos(...))
-  x$col_blank <- c(x$col_blank, l)
+  x$cols_blank <- c(x$cols_blank, l)
   x
 }
 

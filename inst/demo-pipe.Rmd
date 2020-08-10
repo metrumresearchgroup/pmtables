@@ -40,7 +40,7 @@ head(data)
 
 
 ```{r,results = 'asis'}
-data %>% st_new() %>% st_make(col_bold = TRUE, .cat = TRUE)
+data %>% st_new() %>% st_make(cols_bold = TRUE, .cat = TRUE)
 ```
 
 \clearpage

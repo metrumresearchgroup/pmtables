@@ -355,7 +355,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   out <- list(
     data = out,
     panel = .panel,
-    col_rename = by,
+    cols_rename = by,
     span_split = colsplit(sep = "."),
     align = cols_center(.outer = 'l'),
     notes = notes

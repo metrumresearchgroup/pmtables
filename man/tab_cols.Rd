@@ -6,36 +6,36 @@
 \usage{
 tab_cols(
   cols,
-  col_replace = NULL,
-  col_rename = NULL,
-  col_blank = NULL,
-  col_split = NULL,
-  col_bold = FALSE,
-  col_break = "...",
+  cols_replace = NULL,
+  cols_rename = NULL,
+  cols_blank = NULL,
+  cols_split = NULL,
+  cols_bold = FALSE,
+  cols_break = "...",
   ...
 )
 }
 \arguments{
 \item{cols}{the starting set of table column names}
 
-\item{col_replace}{a character vector with the same length as the number of
+\item{cols_replace}{a character vector with the same length as the number of
 output table columns; use this to completely replace the names (as opposed
 to one by on editing with \code{col_rename})}
 
-\item{col_rename}{a \code{name = value} character vector to translate column names
+\item{cols_rename}{a \code{name = value} character vector to translate column names
 to table names; ; see also \code{\link[=st_rename]{st_rename()}}}
 
-\item{col_blank}{a character vector of column names that will not be printed
+\item{cols_blank}{a character vector of column names that will not be printed
 in the table header; see also \code{\link[=st_blank]{st_blank()}}}
 
-\item{col_split}{a string that is used to split column labels into tag
+\item{cols_split}{a string that is used to split column labels into tag
 (on the left) or name (on the right); if supplied, then \code{col_split} will be
 used to remove the tag; for example, a column named \code{x.WT} would be renamed
-\code{WT} if \code{col_split} was set to \code{.}}
+\code{WT} if \code{cols_split} was set to \code{.}}
 
-\item{col_bold}{if \code{TRUE}, table column names are rendered with bold font}
+\item{cols_bold}{if \code{TRUE}, table column names are rendered with bold font}
 
-\item{col_break}{character sequence to break column names into new lines}
+\item{cols_break}{character sequence to break column names into new lines}
 
 \item{...}{not used}
 }

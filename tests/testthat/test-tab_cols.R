@@ -11,7 +11,7 @@ context("test-tab_cols")
 test_that("underscore doesn't get escaped in rename", {
   cols <- c("A", "B", "C_f", "D")
   renam <- c(X = "C_f")
-  out <- tab_cols(cols, col_rename = renam)
+  out <- tab_cols(cols, cols_rename = renam)
   expect_identical(out$new[3], "X")
 })
 
@@ -34,14 +34,14 @@ test_that("cols are renamed", {
 
 test_that("cols are replaced", {
   data <- data.frame(A = 1, B = 2, C = 3)
-  out <- inspect(data, col_replace = c("X", "Y", "Z"))
+  out <- inspect(data, cols_replace = c("X", "Y", "Z"))
   expect_equal(out$cols_new, c("X", "Y", "Z"))
-  expect_error(stable(data, col_replace = c("X", "Y")))
+  expect_error(stable(data, cols_replace = c("X", "Y")))
 })
 
 test_that("cols are bold", {
   data <- tibble(a = 1, b = 2, c = 3)
-  x <- inspect(data, col_bold = TRUE)
+  x <- inspect(data, cols_bold = TRUE)
   expect_true(grepl("textbf", x$cols_tex))
   x <- inspect(data)
   expect_false(grepl("textbf", x$cols_tex))
@@ -62,13 +62,13 @@ test_that("col title breaks", {
   data <- tibble(a = 1, b = 2, c = 3)
   x <- inspect(
     data,
-    col_rename  =  c("Metrum RG" = "b")
+    cols_rename  =  c("Metrum RG" = "b")
   )
   expect_length(x$cols_tex,1)
   expect_match(x$cols_tex, "a & Metrum RG", fixed = TRUE)
   x <- inspect(
     data,
-    col_rename  =  c("Metrum  ... RG...CT" = "b"),
+    cols_rename  =  c("Metrum  ... RG...CT" = "b"),
     units = list(a = "A", b  = "B")
   )
   expect_length(x$cols_tex,4)
