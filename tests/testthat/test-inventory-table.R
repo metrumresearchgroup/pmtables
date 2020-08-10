@@ -1,3 +1,4 @@
+library(testthat)
 
 context("test-inventory-table")
 
@@ -54,4 +55,18 @@ test_that("inventory table - stacked", {
   expect_equal(names(tab)[6], "Number.BQL")
   expect_equal(names(tab)[7], "Percent.OBS")
   expect_equal(names(tab)[8], "Percent.BQL")
+})
+
+test_that("inventory table - different BQL cols", {
+  data1 <- pmt_pk
+  data2 <- rename(data1, BLQ = BQL)
+  ans1 <- pt_data_inventory(data1)
+  ans2 <- pt_data_inventory(data2)
+  expect_identical(ans1,ans2)
+})
+
+test_that("inventory table - no", {
+  data <- select(pmt_pk, -BQL)
+  ans <- pt_data_inventory(data)
+  expect_false(any(grepl("BQL", names(ans$data), fixed = TRUE)))
 })

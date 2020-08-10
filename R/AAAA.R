@@ -1,5 +1,5 @@
 #' @importFrom assertthat validate_that assert_that
-#' @importFrom tidyselect all_of eval_select eval_rename
+#' @importFrom tidyselect all_of eval_select eval_rename contains
 #' @importFrom dplyr mutate bind_rows select ungroup summarise left_join
 #' @importFrom dplyr group_modify rename count vars group_by n first last
 #' @importFrom dplyr case_when filter arrange group_vars distinct bind_cols
