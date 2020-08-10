@@ -211,25 +211,6 @@ stable.data.frame <- function(data,
   # notes
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
-  # rowcolsize <- function(x) {
-  #   ans <- list()
-  #   ans$start <- gluet("{\\def\\arraystretch{<x$row_space>}\\tabcolsep=<x$col_space>pt")
-  #   ans$end <- "{"
-  #   ans
-  # }
-  #
-  # fontsize <- function(x) {
-  #   fsize <- list()
-  #   if(is.null(x$fontsize)) return(fsize)
-  #   fsize$start <- paste0("{\\", x$fontsize)
-  #   fsize$end <- "}"
-  #   return(fsize)
-  # }
-  #
-  # sizes <- list()
-  # sizes$font_size <- fontsize(control)
-  # sizes$col_row_sp <- rowcolsize(control)
-
   out <- c(
     sizes$font_size$start,
     sizes$col_row_sp$start,

@@ -8,6 +8,9 @@ head <- '
 '
 
 ltcaption <- function(macro = NULL, text = NULL, label = NULL) {
+  if(all(is.null(macro),is.null(text), is.null(label))) {
+    return(NULL)
+  }
   lab <- NULL
   if(is.character(label)) {
     lab <- paste0("\\label{",label,"}")
@@ -36,6 +39,7 @@ longtable_notes <- function(notes) {
 
 #' Create longtable output from an R data frame
 #' @inheritParams tab_notes
+#' @param data data frame passed to [stable()]
 #' @param ... passed to [stable()]
 #' @param inspect fixed to `TRUE` and passed to [stable()]
 #' @param lt_cap_macro the name of a macro that will hold caption text; to not lead with
@@ -46,13 +50,17 @@ longtable_notes <- function(notes) {
 #'
 #'
 #' @export
-stable_long <- function(note_config = noteconf(type="minipage"), ...,
-                        inspect = TRUE, lt_cap_macro = NULL, lt_cap_text = NULL,
-                        lt_cap_label = NULL, lt_continue = "continued on next page") {
+stable_long <- function(data,
+                        note_config = noteconf(type="minipage"),
+                        inspect = TRUE,
+                        lt_cap_macro = NULL,
+                        lt_cap_text = NULL,
+                        lt_cap_label = NULL,
+                        lt_continue = "continued on next page", ...) {
 
   assert_that(note_config$type=="minipage")
 
-  x <- stable(note_config = note_config, inspect = TRUE, ...)
+  x <- stable(data = data, note_config = note_config, inspect = TRUE, ...)
   x <- get_stable_data(x)
 
   cap <- ltcaption(lt_cap_macro, lt_cap_text, lt_cap_label)

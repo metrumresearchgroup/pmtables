@@ -5,20 +5,21 @@
 \title{Create longtable output from an R data frame}
 \usage{
 stable_long(
+  data,
   note_config = noteconf(type = "minipage"),
-  ...,
   inspect = TRUE,
   lt_cap_macro = NULL,
   lt_cap_text = NULL,
   lt_cap_label = NULL,
-  lt_continue = "continued on next page"
+  lt_continue = "continued on next page",
+  ...
 )
 }
 \arguments{
+\item{data}{data frame passed to \code{\link[=stable]{stable()}}}
+
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
-
-\item{...}{passed to \code{\link[=stable]{stable()}}}
 
 \item{inspect}{fixed to \code{TRUE} and passed to \code{\link[=stable]{stable()}}}
 
@@ -30,6 +31,8 @@ are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
 \item{lt_cap_label}{table label for use in latex document}
 
 \item{lt_continue}{longtable continuation message}
+
+\item{...}{passed to \code{\link[=stable]{stable()}}}
 }
 \description{
 Create longtable output from an R data frame

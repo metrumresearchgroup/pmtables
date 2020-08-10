@@ -79,6 +79,21 @@ data %>%
 
 \clearpage
 
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    lt_cap_text  = "This is a super-interesting table."
+  ) %>% as.character() %>% writeLines
+```
+
+
+\clearpage
+
+
 # Annotate
 
 - Arguments to identify the name of the generating R script and the output file
