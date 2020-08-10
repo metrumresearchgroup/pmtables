@@ -47,3 +47,5 @@ or targeted
 - Refactored `st_bold` and `st_it` to target columns or whole data frame
 - Add `st_drop()`
 - Add data sets `analysis1`, `pmt_pk`, `pmt_first`, `pmt_obs`
+- Change argument names for `tab_cols`: all `col_xyz` arguments
+are renamed to `cols_xyz`
