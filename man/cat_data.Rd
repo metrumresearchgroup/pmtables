@@ -21,7 +21,7 @@ cat_data(
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
-\item{by}{a grouping varible; may be character vector or quosure}
+\item{by}{a grouping variable; may be character vector or quosure}
 
 \item{panel}{data set column name to stratify the summary}
 

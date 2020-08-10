@@ -3,14 +3,15 @@ Type: Package
 Title: Tables for Pharmacometrics
 Version: 0.0.1.9063
 Author: Kyle Baron
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Create tables that are commonly used in pharamcometrics analyses.
+Maintainer: Kyle Baron <kyleb@metrumrg.com>
+Description: Create tables that are commonly used in pharmacometrics analyses.
 License: GPL (>=2)
-Imports: purrr, dplyr, forcats, tidyr, rlang, glue, tibble, assertthat, 
-    tidyselect, stringr
+Imports: purrr, dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble, 
+    assertthat, tidyselect, stringr
 Depends: R (>= 3.5.0)
 Suggests: testthat, knitr, yaml, rmarkdown, fs, texPreview
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)

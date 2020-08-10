@@ -11,7 +11,7 @@ st_notes(x, ..., esc = NULL, config = NULL, collapse = NULL)
 
 \item{...}{table notes}
 
-\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notess}
+\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notes}
 
 \item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}}
 

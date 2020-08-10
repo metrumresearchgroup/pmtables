@@ -4,7 +4,7 @@
 #' @param by grouping variable name
 #' @param panel paneling variable name
 #' @param all_name label for full data summary
-#' @param digits named list specifing `digits` argument for `digit_fun`
+#' @param digits named list specifying `digits` argument for `digit_fun`
 #' @param wide `logical`; if `TRUE`, output will be wide; output will be long
 #' otherwise
 #' @param fun continuous data summary function
@@ -87,7 +87,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 #'
 #' @param data the data frame to summarize
 #' @param cols the columns to summarize; may be character vector or quosure
-#' @param by a grouping varible; may be character vector or quosure
+#' @param by a grouping variable; may be character vector or quosure
 #' @param panel data set column name to stratify the summary
 #' @param table a named list to use for renaming columns (see details and
 #' examples)

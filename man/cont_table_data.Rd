@@ -30,7 +30,7 @@ otherwise}
 
 \item{all_name}{label for full data summary}
 
-\item{digits}{named list specifing \code{digits} argument for \code{digit_fun}}
+\item{digits}{named list specifying \code{digits} argument for \code{digit_fun}}
 
 \item{id_col}{the ID column name}
 

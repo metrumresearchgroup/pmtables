@@ -46,7 +46,9 @@ is.stobject <- function(x) inherits(x, "stobject")
 #' @param x an stobject
 #' @param ... other arguments passed to [stable()]
 #' @param .preview if `TRUE`, pass result to [st_preview()]
-#' @param .cat if `TRUE`, pass result to [st_wrap()]
+#' @param .cat if `TRUE`, pass result to [st_wrap()]; use this option to write
+#' table text to standard output while creating Rmarkdown documents with pdf
+#' output
 #' @param long render as longtable
 #'
 #' @return The latex code for the table.
@@ -56,8 +58,11 @@ is.stobject <- function(x) inherits(x, "stobject")
 #' library(dplyr)
 #'
 #' ob <- st_new(ptdata())
+#'
 #' st_make(ob)
+#'
 #' st_make(ob, .cat = TRUE)
+#'
 #' \dontrun{
 #' st_make(ob, .preview = TRUE)
 #' }
@@ -135,7 +140,7 @@ st_panel <- function(x,...) {
 #'
 #' @param x an stobject
 #' @param ... table notes
-#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notess
+#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notes
 #' @param config named list of arguments for [noteconf()]
 #' @param collapse if `is.character`, then the note will be collapsed into a
 #' single line separated by value of `collapse` (see [base::paste0()])
@@ -538,7 +543,7 @@ st_units <- function(x, ..., parens = TRUE) {
   x
 }
 
-#' Make columns bold or italics
+#' Render table data in bold or italic font
 #'
 #' @param x an stobject
 #' @param cols columns to make bold

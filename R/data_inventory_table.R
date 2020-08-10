@@ -178,7 +178,7 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 #'
 #' @param data the data frame to summarize
 #' @param study_col the name of the column containing the study identifier;
-#' may be characer or quosure (see [dplyr::vars])
+#' may be character or quosure (see [dplyr::vars])
 #' @param panel another categorical data set column name to stratify the
 #' data summary
 #' @param ... other arguments passed to [pt_data_inventory] and

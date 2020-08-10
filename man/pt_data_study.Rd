@@ -10,7 +10,7 @@ pt_data_study(data, study_col = "STUDY", panel = study_col, ...)
 \item{data}{the data frame to summarize}
 
 \item{study_col}{the name of the column containing the study identifier;
-may be characer or quosure (see \link[dplyr:vars]{dplyr::vars})}
+may be character or quosure (see \link[dplyr:vars]{dplyr::vars})}
 
 \item{panel}{another categorical data set column name to stratify the
 data summary}

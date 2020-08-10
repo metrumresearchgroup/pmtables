@@ -34,7 +34,7 @@ split on `...` to create multi-line column names
 and between labels and units
 - Fix warning message when trying to align a column not in the data set
 - Fix warning message when trying to add unit to column not in the data set
-- Adde several new package options; see `?pt_opts`
+- Add several new package options; see `?pt_opts`
 - Add `center` argument to `col_fixed`; when `ragged` is `no`, the column can still be 
 fixed and centered
 - Dots (`...`) added to `st_new()` / `st_data()` to be collected by args
@@ -46,6 +46,4 @@ fixed and centered
 or targeted
 - Refactored `st_bold` and `st_it` to target columns or whole data frame
 - Add `st_drop()`
--
-
-
+- Add data sets `analysis1`, `pmt_pk`, `pmt_first`, `pmt_obs`

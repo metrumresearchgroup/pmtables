@@ -61,3 +61,6 @@ tag-version:
 
 demo-check:
 	Rscript -e 'testthat::test_file("tests/testthat/test-demo-check.R")'
+
+spelling:
+	Rscript -e "spelling::spell_check_package('.')"

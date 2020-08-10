@@ -4,7 +4,7 @@
 #' @inheritParams stable
 #' @param note_config a [noteconf()] object used to configure how table notes
 #' are displayed; ; see also [st_noteconf()]
-#' @param r_file the name of the R file containg code to generate the table; the
+#' @param r_file the name of the R file containing code to generate the table; the
 #' file name will be included in the notes in the table footer; ; see also
 #' [st_files()]
 #' @param r_file_label a prefix for `r_file`
@@ -58,7 +58,7 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 #' @param width the width (as fraction of linewidth) is `minipage` notes
 #' @param type put table notes in either the `tablenotes` section of
 #' threeparttable (`tpt`) or in a minipage below the table (`minipage`)
-#' @param hline where to include horizintal lines
+#' @param hline where to include horizontal lines
 #' @param table_skip vertical space (`cm`) between the last row of the table
 #' and the hline (if any) at the top of the table notes
 #' @param note_skip vertical space (`cm`) between the top hline of the table

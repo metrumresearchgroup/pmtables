@@ -3,7 +3,7 @@
 \name{st_bold}
 \alias{st_bold}
 \alias{st_it}
-\title{Make columns bold or italics}
+\title{Render table data in bold or italic font}
 \usage{
 st_bold(x, cols, pattern = "*")
 
@@ -17,5 +17,5 @@ st_it(x, cols, pattern = "*")
 \item{pattern}{passed to \code{\link[=tex_bold]{tex_bold()}} or \code{\link[=tex_it]{tex_it()}}}
 }
 \description{
-Make columns bold or italics
+Render table data in bold or italic font
 }

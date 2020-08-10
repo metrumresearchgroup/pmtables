@@ -21,7 +21,7 @@ noteconf(
 \item{type}{put table notes in either the \code{tablenotes} section of
 threeparttable (\code{tpt}) or in a minipage below the table (\code{minipage})}
 
-\item{hline}{where to include horizintal lines}
+\item{hline}{where to include horizontal lines}
 
 \item{table_skip}{vertical space (\code{cm}) between the last row of the table
 and the hline (if any) at the top of the table notes}
