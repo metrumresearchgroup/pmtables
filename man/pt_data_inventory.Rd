@@ -14,9 +14,8 @@ pt_data_inventory(
   table = NULL,
   all_name = "all",
   dv_col = "DV",
-  bq_col = "BQL",
+  bq_col = find_bq_col(data),
   id_col = "ID",
-  no_bql = FALSE,
   ...
 )
 }
@@ -43,13 +42,11 @@ examples)}
 
 \item{dv_col}{character name of \code{DV} column}
 
-\item{bq_col}{character name of \code{BQL} column}
+\item{bq_col}{character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}}
 
 \item{id_col}{character name of \code{ID} column}
 
-\item{no_bql}{if \code{TRUE}, the BQL summary is bypassed}
-
-\item{...}{other arguments passed to \link{data_inventory_chunk}}
+\item{...}{other arguments passed to \code{\link[=data_inventory_chunk]{data_inventory_chunk()}}}
 }
 \description{
 Output columns include counts for subjects, observations, BQL observations,

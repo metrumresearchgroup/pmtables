@@ -33,7 +33,7 @@ and included in a single table (see examples)}
 
 \item{dv_col}{character name of \code{DV} column}
 
-\item{bq_col}{character name of \code{BQL} column}
+\item{bq_col}{character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}}
 
 \item{id_col}{character name of \code{ID} column}
 

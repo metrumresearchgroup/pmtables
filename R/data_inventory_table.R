@@ -1,3 +1,17 @@
+#' Scan data set columns for BQL / BLQ
+#'
+#' @param data a data frame
+#'
+#' @details
+#' Will return the first match among `BQL` and `BLQ`.  If no match is found,
+#' returns `NA_character_`.
+#'
+#' @export
+find_bq_col <- function(data) {
+  candidate <- intersect(c("BQL", "BLQ"), names(data))
+  if(length(candidate)==0) return(NA_character_)
+  candidate[1]
+}
 
 #' Create a data inventory summary for a data chunk
 #'
@@ -209,10 +223,9 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' @param stacked if `TRUE`, then independent summaries are created by `outer`
 #' and included in a single table (see examples)
 #' @param dv_col character name of `DV` column
-#' @param bq_col character name of `BQL` column
+#' @param bq_col character name of `BQL` column; see [find_bq_col()]
 #' @param id_col character name of `ID` column
-#' @param no_bql if `TRUE`, the BQL summary is bypassed
-#' @param ... other arguments passed to [data_inventory_chunk]
+#' @param ... other arguments passed to [data_inventory_chunk()]
 #'
 #' @details
 #'
@@ -247,24 +260,25 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               stacked = FALSE, table = NULL,
                               all_name = "all",
                               dv_col = "DV",
-                              bq_col = "BQL",
-                              id_col = "ID",
-                              no_bql = FALSE, ...) {
+                              bq_col = find_bq_col(data),
+                              id_col = "ID", ...) {
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
   panel <- panel_data$col
-
   has_by <- !missing(by)
-
-  # TODO
-  # if(no_bql) {
-  #
-  # }
 
   by <- new_names(by,table)
 
   panel <- new_names(panel,table)
+
+  drop_bql <- FALSE
+
+  if(is.na(bq_col)) {
+    data[["BQL"]] <- 0
+    bq_col <- "BQL"
+    drop_bql <- TRUE
+  }
 
   if(panel==by | stacked) {
     inner_summary <- FALSE
@@ -336,7 +350,12 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     "OBS: observations"
   )
 
-  if(drop_miss) notes <- notes[-3]
+  if(drop_miss) notes <- notes[!grepl("MISS", notes)]
+
+  if(drop_bql) {
+    notes <- notes[!grepl("below", notes)]
+    out <- select(out, !contains("BQL"))
+  }
 
   .sumrows <- NULL
 
