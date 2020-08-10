@@ -49,3 +49,6 @@ or targeted
 - Add data sets `analysis1`, `pmt_pk`, `pmt_first`, `pmt_obs`
 - Change argument names for `tab_cols`: all `col_xyz` arguments
 are renamed to `cols_xyz`
+- Add `find_bq_col` function to allow either `BQL` or `BLQ` as default value 
+for `bq_col` argument to `pt_data_inventory`
+
