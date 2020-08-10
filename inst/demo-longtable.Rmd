@@ -79,6 +79,8 @@ data %>%
 
 \clearpage
 
+# Pass in the caption
+
 ```{r,results = "asis"}
 data %>%
   stable_long(
@@ -87,6 +89,31 @@ data %>%
     notes = "The results look great!",
     clear_reps = "DOSE",
     lt_cap_text  = "This is a super-interesting table."
+  ) %>% as.character() %>% writeLines
+```
+
+
+\clearpage
+
+
+# Use a caption from tex macro
+
+```{r, results = "asis"}
+writeLines("\\newcommand{\\myfbtable}{This is a caption from a macro}\\vskip 0.5cm")
+```
+
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "FORM: formulation",
+    r_file = "demo-longtable.Rmd", 
+    output_file = "foo.tex",
+    clear_reps = "DOSE",
+    lt_cap_macro  = "myfbtable", 
+    note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.2)
   ) %>% as.character() %>% writeLines
 ```
 
