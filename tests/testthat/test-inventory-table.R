@@ -65,7 +65,7 @@ test_that("inventory table - different BQL cols", {
   expect_identical(ans1,ans2)
 })
 
-test_that("inventory table - no", {
+test_that("inventory table - no bq col", {
   data <- select(pmt_pk, -BQL)
   ans <- pt_data_inventory(data)
   expect_false(any(grepl("BQL", names(ans$data), fixed = TRUE)))

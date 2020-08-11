@@ -243,7 +243,6 @@ test_that("inventory-panel-by", {
   expect_identical(expect, as.character(ans))
 })
 
-
 test_that("inventory-stacked", {
   expect <- read_tex("inventory-stacked.tex")
   ans <- pt_data_inventory(

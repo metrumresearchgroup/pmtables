@@ -23,3 +23,9 @@ test_that("span split with title", {
   expect_equal(utitle, c("First Split", "", "Last Split"))
 })
 
+test_that("span from user", {
+  out <- inspect(ptdata(), span = colgroup("from us_er",  FORM:WT))
+  span <- out$span_data$span[[1]]
+  expect_equal(nrow(span), ncol(ptdata()))
+  expect_true(all(span$title[3:5] == "from us_er"))
+})

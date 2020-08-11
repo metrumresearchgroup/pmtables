@@ -60,7 +60,7 @@ test_that("stobject equivalent panel", {
   expect_identical(x$cols_tex, y$cols_tex)
 })
 
-test_that("stobject equivanelt sumrow", {
+test_that("stobject equivalent sumrow", {
   file <- system.file("datasets", "with-total.RDS", package = "pmtables")
   data <- readRDS(file)
   sumr <- sumrow(rows = data$STUDY=="all", bold = TRUE, label = "All data")
@@ -183,6 +183,13 @@ test_that("stobject equivalent clear_grouped_reps", {
   x <- inspect(data, clear_grouped_reps = "STUDY,DOSE")
   y <- st_new(data) %>% st_clear_grouped(STUDY,DOSE) %>% inspect2()
   expect_identical(x$output, y$output)
+})
+
+test_that("stobject equivalent longtable", {
+  data <- ptdata()
+  x <- stable_long(data)
+  y <- st_new(data) %>% st_make(long=TRUE)
+  expect_identical(x, y)
 })
 
 test_that("tab edit", {

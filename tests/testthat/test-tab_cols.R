@@ -84,3 +84,8 @@ test_that("column is dropped", {
   expect_identical(x$cols, c("a", "b", "c"))
 })
 
+test_that("de-tag column labels", {
+  data <- tibble(x.a = 1, x.b = 2, y.a = 25, z.a = 3)
+  x <- inspect(data, cols_split  = '.')
+  expect_identical(x$cols_new, c("a", "b", "a", "a"))
+})

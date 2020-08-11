@@ -16,7 +16,7 @@ test_that("clear replicates", {
   expect_equal(out$A,ans)
 })
 
-test_that("clear grouped replicates", {
+test_that("clear grouped replicates - 1", {
   data <- pmt_first
   data <- count(data, STUDYf, FORMf, SEXf)
   data <- mutate(data, across(c(STUDYf,FORMf,SEXf),as.character))
@@ -35,7 +35,7 @@ test_that("clear grouped replicates", {
   )
 })
 
-test_that("clear grouped replicates", {
+test_that("clear grouped replicates - 2", {
   data <- pmt_first
   data <- count(data,STUDYf,FORMf,SEXf)
   data <- mutate(data, across(STUDYf:SEXf, as.character))

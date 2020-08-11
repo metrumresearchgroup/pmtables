@@ -44,7 +44,7 @@ test_that("notes escape", {
   expect_equal(x$notes, c("abc\\_def"))
 })
 
-test_that("files", {
+test_that("test-notes-files", {
   data <- tibble(a = 1)
   x <- inspect(
     data = data,

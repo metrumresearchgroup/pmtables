@@ -330,7 +330,7 @@ check <- list(
 test <- out$data
 expected <- z
 
-test_that("demo-check wide cagegorical grouped", {
+test_that("demo-check wide categorical grouped", {
   for(col in check) {
     expect_identical(expected[[col[1]]], test[[col[2]]])
   }

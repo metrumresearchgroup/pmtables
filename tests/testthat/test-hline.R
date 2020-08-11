@@ -14,13 +14,13 @@ data <- tibble(
   d = c("a", "a", "b", "a", "b")
   )
 
-test_that("hline at", {
+test_that("test-hline-hline-at", {
   x <- inspect(data = data, hline_at = c(2,4))
   ans <- grep("hline", x$tab)
   expect_equal(c(2,4)-1, ans)
 })
 
-test_that("hline from", {
+test_that("test-hline-hline-from", {
   x <- inspect(data = data, hline_from = "d")
   ans <- grep("hline", x$tab)
   expect_equal(c(3,4,5)-1, ans)
