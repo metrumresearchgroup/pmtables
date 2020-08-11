@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
       </span>
     </div>
 
@@ -117,12 +117,12 @@
 
     <pre class="usage"><span class='fu'>tab_cols</span>(
   <span class='no'>cols</span>,
-  <span class='kw'>col_replace</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_rename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_bold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col_break</span> <span class='kw'>=</span> <span class='st'>"..."</span>,
+  <span class='kw'>cols_replace</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols_rename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols_blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols_split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols_bold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>cols_break</span> <span class='kw'>=</span> <span class='st'>"..."</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -134,34 +134,34 @@
       <td><p>the starting set of table column names</p></td>
     </tr>
     <tr>
-      <th>col_replace</th>
+      <th>cols_replace</th>
       <td><p>a character vector with the same length as the number of
 output table columns; use this to completely replace the names (as opposed
 to one by on editing with <code>col_rename</code>)</p></td>
     </tr>
     <tr>
-      <th>col_rename</th>
+      <th>cols_rename</th>
       <td><p>a <code>name = value</code> character vector to translate column names
 to table names; ; see also <code><a href='st_rename.html'>st_rename()</a></code></p></td>
     </tr>
     <tr>
-      <th>col_blank</th>
+      <th>cols_blank</th>
       <td><p>a character vector of column names that will not be printed
 in the table header; see also <code><a href='st_blank.html'>st_blank()</a></code></p></td>
     </tr>
     <tr>
-      <th>col_split</th>
+      <th>cols_split</th>
       <td><p>a string that is used to split column labels into tag
 (on the left) or name (on the right); if supplied, then <code>col_split</code> will be
 used to remove the tag; for example, a column named <code>x.WT</code> would be renamed
-<code>WT</code> if <code>col_split</code> was set to <code>.</code></p></td>
+<code>WT</code> if <code>cols_split</code> was set to <code>.</code></p></td>
     </tr>
     <tr>
-      <th>col_bold</th>
+      <th>cols_bold</th>
       <td><p>if <code>TRUE</code>, table column names are rendered with bold font</p></td>
     </tr>
     <tr>
-      <th>col_break</th>
+      <th>cols_break</th>
       <td><p>character sequence to break column names into new lines</p></td>
     </tr>
     <tr>
@@ -182,7 +182,7 @@ used to remove the tag; for example, a column named <code>x.WT</code> would be r
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
       </span>
     </div>
 
@@ -116,26 +116,27 @@
     </div>
 
     <pre class="usage"><span class='fu'>stable_long</span>(
+  <span class='no'>data</span>,
   <span class='kw'>note_config</span> <span class='kw'>=</span> <span class='fu'><a href='noteconf.html'>noteconf</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"minipage"</span>),
-  <span class='no'>...</span>,
   <span class='kw'>inspect</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>lt_cap_macro</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>lt_cap_text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>lt_cap_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lt_continue</span> <span class='kw'>=</span> <span class='st'>"continued on next page"</span>
+  <span class='kw'>lt_continue</span> <span class='kw'>=</span> <span class='st'>"\\footnotesize{continued on next page}"</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>data</th>
+      <td><p>data frame passed to <code><a href='stable.html'>stable()</a></code></p></td>
+    </tr>
+    <tr>
       <th>note_config</th>
       <td><p>a <code><a href='noteconf.html'>noteconf()</a></code> object used to configure how table notes
 are displayed; ; see also <code><a href='st_noteconf.html'>st_noteconf()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed to <code><a href='stable.html'>stable()</a></code></p></td>
     </tr>
     <tr>
       <th>inspect</th>
@@ -158,6 +159,10 @@ are displayed; ; see also <code><a href='st_noteconf.html'>st_noteconf()</a></co
       <th>lt_continue</th>
       <td><p>longtable continuation message</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>passed to <code><a href='stable.html'>stable()</a></code></p></td>
+    </tr>
     </table>
 
 
@@ -172,7 +177,7 @@ are displayed; ; see also <code><a href='st_noteconf.html'>st_noteconf()</a></co
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

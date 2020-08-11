@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
       </span>
     </div>
 
@@ -134,7 +134,9 @@
     </tr>
     <tr>
       <th>.cat</th>
-      <td><p>if <code>TRUE</code>, pass result to <code><a href='st_wrap.html'>st_wrap()</a></code></p></td>
+      <td><p>if <code>TRUE</code>, pass result to <code><a href='st_wrap.html'>st_wrap()</a></code>; use this option to write
+table text to standard output while creating Rmarkdown documents with pdf
+output</p></td>
     </tr>
     <tr>
       <th>long</th>
@@ -151,6 +153,7 @@
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
 <span class='no'>ob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())
+
 <span class='fu'>st_make</span>(<span class='no'>ob</span>)</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"                                   
 #&gt;  [2] "\\begin{threeparttable}"                                                    
 #&gt;  [3] "\\begin{tabular}[h]{lllllllll}"                                             
@@ -175,7 +178,8 @@
 #&gt; [22] "\\end{threeparttable}"                                                      
 #&gt; [23] "}"                                                                          
 #&gt; attr(,"class")
-#&gt; [1] "stable"</div><div class='input'><span class='fu'>st_make</span>(<span class='no'>ob</span>, <span class='kw'>.cat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; \begin{table}[h]
+#&gt; [1] "stable"</div><div class='input'>
+<span class='fu'>st_make</span>(<span class='no'>ob</span>, <span class='kw'>.cat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; \begin{table}[h]
 #&gt; \centering
 #&gt; {\def\arraystretch{1.4}\tabcolsep=5pt
 #&gt; \begin{threeparttable}
@@ -200,7 +204,8 @@
 #&gt; \end{tabular}
 #&gt; \end{threeparttable}
 #&gt; }
-#&gt; \end{table}</div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+#&gt; \end{table}</div><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>st_make</span>(<span class='no'>ob</span>, <span class='kw'>.preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 }</div></pre>
   </div>
@@ -214,7 +219,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

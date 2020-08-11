@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
       </span>
     </div>
 
@@ -145,7 +145,7 @@
 <li>Add <code>header_row</code> argument to <code><a href="../reference/tab_cols.html">tab_cols()</a></code> to control the spacing between column labels and between labels and units</li>
 <li>Fix warning message when trying to align a column not in the data set</li>
 <li>Fix warning message when trying to add unit to column not in the data set</li>
-<li>Adde several new package options; see <code>?pt_opts</code>
+<li>Add several new package options; see <code>?pt_opts</code>
 </li>
 <li>Add <code>center</code> argument to <code>col_fixed</code>; when <code>ragged</code> is <code>no</code>, the column can still be fixed and centered</li>
 <li>Dots (<code>...</code>) added to <code><a href="../reference/st_new.html">st_new()</a></code> / <code><a href="../reference/st_new.html">st_data()</a></code> to be collected by args</li>
@@ -158,8 +158,16 @@
 <li>Refactored <code>st_bold</code> and <code>st_it</code> to target columns or whole data frame</li>
 <li>Add <code><a href="../reference/st_drop.html">st_drop()</a></code>
 </li>
-<li>
+<li>Add data sets <code>analysis1</code>, <code>pmt_pk</code>, <code>pmt_first</code>, <code>pmt_obs</code>
 </li>
+<li>Change argument names for <code>tab_cols</code>: all <code>col_xyz</code> arguments are renamed to <code>cols_xyz</code>
+</li>
+<li>Add <code>find_bq_col</code> function to allow either <code>BQL</code> or <code>BLQ</code> as default value for <code>bq_col</code> argument to <code>pt_data_inventory</code>
+</li>
+<li>Add <code>pattern</code> and <code>cols</code> arguments to <code>st_sumrow</code>; this allows calculation of <code>rows</code> based on a regular expression</li>
+<li>Add <code>df_grep_rows</code> and <code>df_grepl_rows</code> functions for finding rows where a regular expression is matched</li>
+<li>Add <code>pmtables.escape</code> option to pass a character vector of items to be escaped</li>
+<li>Unit of escape is now individual positions in a vector rather than the whole vector itself</li>
 </ul>
 </div>
   </div>
@@ -175,7 +183,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

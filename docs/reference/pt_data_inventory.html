@@ -73,7 +73,7 @@ and missing observations and percentage of observations that are BQL." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
       </span>
     </div>
 
@@ -127,9 +127,8 @@ and missing observations and percentage of observations that are BQL.</p>
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
   <span class='kw'>dv_col</span> <span class='kw'>=</span> <span class='st'>"DV"</span>,
-  <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='st'>"BQL"</span>,
+  <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='fu'><a href='find_bq_col.html'>find_bq_col</a></span>(<span class='no'>data</span>),
   <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='st'>"ID"</span>,
-  <span class='kw'>no_bql</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -178,19 +177,15 @@ examples)</p></td>
     </tr>
     <tr>
       <th>bq_col</th>
-      <td><p>character name of <code>BQL</code> column</p></td>
+      <td><p>character name of <code>BQL</code> column; see <code><a href='find_bq_col.html'>find_bq_col()</a></code></p></td>
     </tr>
     <tr>
       <th>id_col</th>
       <td><p>character name of <code>ID</code> column</p></td>
     </tr>
     <tr>
-      <th>no_bql</th>
-      <td><p>if <code>TRUE</code>, the BQL summary is bypassed</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>other arguments passed to <a href='data_inventory_chunk.html'>data_inventory_chunk</a></p></td>
+      <td><p>other arguments passed to <code><a href='data_inventory_chunk.html'>data_inventory_chunk()</a></code></p></td>
     </tr>
     </table>
 
@@ -230,7 +225,7 @@ and <code>id_col</code> (for ID). For example, if BQL indicator is in a column c
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

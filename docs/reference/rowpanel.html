@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9061</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
       </span>
     </div>
 
@@ -118,6 +118,7 @@
     <pre class="usage"><span class='fu'>rowpanel</span>(
   <span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='st'>".panel.skip."</span>,
   <span class='kw'>prefix_name</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>prefix_skip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>duplicates_ok</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -137,6 +138,10 @@
     <tr>
       <th>prefix</th>
       <td><p>to be added to each panel title</p></td>
+    </tr>
+    <tr>
+      <th>skip</th>
+      <td><p>regular expression for panels to skip</p></td>
     </tr>
     <tr>
       <th>prefix_name</th>
@@ -182,7 +187,7 @@ panel will have the same header</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

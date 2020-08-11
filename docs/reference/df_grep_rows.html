@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a data inventory summary for a data chunk — data_inventory_chunk • pmtables</title>
+<title>Find matching rows in a data frame — df_grep_rows • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a data inventory summary for a data chunk — data_inventory_chunk" />
-<meta property="og:description" content="Create a data inventory summary for a data chunk" />
+<meta property="og:title" content="Find matching rows in a data frame — df_grep_rows" />
+<meta property="og:description" content="Find matching rows in a data frame" />
 
 
 
@@ -106,71 +106,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a data inventory summary for a data chunk</h1>
+    <h1>Find matching rows in a data frame</h1>
     
-    <div class="hidden name"><code>data_inventory_chunk.Rd</code></div>
+    <div class="hidden name"><code>df_grep_rows.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a data inventory summary for a data chunk</p>
+    <p>Find matching rows in a data frame</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_inventory_chunk</span>(
-  <span class='no'>data</span>,
-  <span class='no'>by</span>,
-  <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>tot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>dv_col</span> <span class='kw'>=</span> <span class='st'>"DV"</span>,
-  <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='st'>"BQL"</span>,
-  <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='st'>"ID"</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>df_grep_rows</span>(<span class='no'>data</span>, <span class='no'>pattern</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>data</span>))
+
+<span class='fu'>df_grepl_rows</span>(<span class='no'>data</span>, <span class='no'>pattern</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>data</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <td><p>a data frame to search</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>the outer grouping variable; may be character or quosure</p></td>
+      <th>pattern</th>
+      <td><p>a regular expression</p></td>
     </tr>
     <tr>
-      <th>panel</th>
-      <td><p>the panel grouping variable; may be character or quosure</p></td>
-    </tr>
-    <tr>
-      <th>stacked</th>
-      <td><p>if <code>TRUE</code>, then independent summaries are created by <code>outer</code>
-and included in a single table (see examples)</p></td>
-    </tr>
-    <tr>
-      <th>tot</th>
-      <td><p>logical indicating if a summary row should be included</p></td>
-    </tr>
-    <tr>
-      <th>all_name</th>
-      <td><p>a name to use for the complete data summary</p></td>
-    </tr>
-    <tr>
-      <th>dv_col</th>
-      <td><p>character name of <code>DV</code> column</p></td>
-    </tr>
-    <tr>
-      <th>bq_col</th>
-      <td><p>character name of <code>BQL</code> column; see <code><a href='find_bq_col.html'>find_bq_col()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>id_col</th>
-      <td><p>character name of <code>ID</code> column</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>used to absorb other arguments; not used</p></td>
+      <th>cols</th>
+      <td><p>a character vector of column names to search</p></td>
     </tr>
     </table>
 
