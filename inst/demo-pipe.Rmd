@@ -397,7 +397,7 @@ df.total
 
 ```{r, results = "asis"}
 st_new(df.total) %>% 
-  st_sumrow(.$data$STUDY=="all", label = "All studies", bold = TRUE) %>% 
+  st_sumrow(pattern = "all", label = "All studies", bold = TRUE) %>% 
   st_make(.cat = TRUE)
 ```
 
