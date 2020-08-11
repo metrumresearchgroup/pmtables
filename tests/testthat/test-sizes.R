@@ -12,3 +12,10 @@ test_that("test-sizes-fontsize", {
   expect_match(out$output[1], "\\tiny", fixed = TRUE)
 })
 
+test_that("test-sizes-rowspace", {
+  out <- inspect(ptdata(), sizes = tab_size(font = "tiny"))
+  expect_match(out$output[1], "\\tiny", fixed = TRUE)
+})
+
+
+

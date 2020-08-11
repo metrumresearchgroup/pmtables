@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2020.1.7)  10 AUG 2020 15:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2020.1.7)  11 AUG 2020 16:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1238,13 +1238,12 @@ LaTeX Font Info:    Font shape `T1/mdput/b/n' will be
 (./validate.toc
 LaTeX Font Info:    Font shape `T1/mdput/b/n' will be
 (Font)              scaled to size 9.40002pt on input line 1.
-)
+[1
+
+{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write4
 \openout4 = `validate.toc'.
 
-[1
-
-{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 129.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/t1lmtt.fd
@@ -1360,9 +1359,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 391--393
 
 ] [22
 
-] [23
+]
+Overfull \hbox (39.36267pt too wide) in paragraph at lines 1174--1195
+ [] 
+ []
 
-] [24
+[23
+
+]
+LaTeX Font Info:    Try loading font information for TS1+mdput on input line 12
+13.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/mathdesign/mdput/ts1mdput.fd
+File: ts1mdput.fd 2013/08/29 Fontinst v1.933 font definitions for TS1/mdput.
+)
+LaTeX Font Info:    Font shape `TS1/mdput/m/n' will be
+(Font)              scaled to size 9.40002pt on input line 1213.
+[24
 
 ] [25
 
@@ -1370,27 +1382,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 391--393
 
 ] [27
 
-]
-LaTeX Font Info:    Font shape `T1/mdput/m/it' will be
-(Font)              scaled to size 9.40002pt on input line 1479.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1508.
-[28
+] [28
+
+] [29
+
+] [30
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1508.
+LaTeX Font Info:    Font shape `T1/mdput/m/it' will be
+(Font)              scaled to size 9.40002pt on input line 1643.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1672.
+[31
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1672.
 (./validate.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1508.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1508.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1508.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1672.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1672.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1672.
  ) 
 Here is how much of TeX's memory you used:
- 14864 strings out of 493014
- 215500 string characters out of 6133352
- 312194 words of memory out of 5000000
- 18036 multiletter control sequences out of 15000+600000
- 102513 words of font info for 110 fonts, out of 8000000 for 9000
+ 14904 strings out of 493014
+ 216139 string characters out of 6133352
+ 312308 words of memory out of 5000000
+ 18062 multiletter control sequences out of 15000+600000
+ 103079 words of font info for 112 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,11n,41p,394b,358s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,11n,41p,394b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/usr/lo
 cal/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2
 016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/2016/texmf-dist
@@ -1400,10 +1418,10 @@ mathdesign/mdput/md-utr8t.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/a
 dobe/utopia/putb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/ut
 opia/putr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/pu
 tri8a.pfb>
-Output written on validate.pdf (28 pages, 146534 bytes).
+Output written on validate.pdf (31 pages, 151826 bytes).
 PDF statistics:
- 332 PDF objects out of 1000 (max. 8388607)
- 293 compressed objects within 3 object streams
- 82 named destinations out of 1000 (max. 500000)
- 20689 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 366 PDF objects out of 1000 (max. 8388607)
+ 323 compressed objects within 4 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 20713 words of extra memory for PDF output out of 20736 (max. 10000000)
 

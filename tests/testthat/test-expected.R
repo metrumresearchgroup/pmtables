@@ -183,6 +183,34 @@ test_that("span-levels", {
   expect_identical(expect, as.character(ans))
 })
 
+test_that("row-space", {
+  expect <- read_tex("row-space.tex")
+  ans <- stable(
+    pmt_summarized,
+    sizes = tab_size(row = 0.8)
+  )
+  expect_identical(expect, as.character(ans))
+})
+
+test_that("col-space", {
+  expect <- read_tex("col-space.tex")
+  ans <- stable(
+    pmt_summarized,
+    sizes = tab_size(col = 15)
+  )
+  expect_identical(expect, as.character(ans))
+})
+
+test_that("header-space", {
+  expect <- read_tex("header-space.tex")
+  ans <- stable(
+    pmt_summarized,
+    cols_rename = c("Clinical ... Study ... Number" = "STUDY"),
+    sizes = tab_size(row = 2, header_row = 1.4)
+  )
+  expect_identical(expect, as.character(ans))
+})
+
 test_that("continuous-long-panel", {
   expect <- read_tex("continuous-long-panel.tex")
   ans <- pt_cont_long(
@@ -195,10 +223,10 @@ test_that("continuous-long-panel", {
 test_that("continuous-wide-by", {
   expect <- read_tex("continuous-wide-by.tex")
   ans <- pt_cont_wide(
-  pmt_first,
-  cols = "WT,CRCL,ALB", by = "STUDYf",
-  units = list(WT = "(kg)", CRCL = "(ml/min)", ALB = "(g/dL)")
-) %>% as_stable()
+    pmt_first,
+    cols = "WT,CRCL,ALB", by = "STUDYf",
+    units = list(WT = "(kg)", CRCL = "(ml/min)", ALB = "(g/dL)")
+  ) %>% as_stable()
 
   expect_identical(expect, as.character(ans))
 })
@@ -206,9 +234,9 @@ test_that("continuous-wide-by", {
 test_that("cat-long-span", {
   expect <- read_tex("cat-long-span.tex")
   ans <- pt_cat_long(
-  pmt_first,
-  cols = "SEXf,RFf,FORMf", span = "STUDYf"
-) %>% as_stable()
+    pmt_first,
+    cols = "SEXf,RFf,FORMf", span = "STUDYf"
+  ) %>% as_stable()
 
   expect_identical(expect, as.character(ans))
 })
@@ -216,9 +244,9 @@ test_that("cat-long-span", {
 test_that("cat-wide-by-panel", {
   expect <- read_tex("cat-wide-by-panel.tex")
   ans <- pt_cat_wide(
-  pmt_first,
-  cols = "SEXf,RFf", by = "FORMf", panel = "STUDYf"
-) %>% as_stable()
+    pmt_first,
+    cols = "SEXf,RFf", by = "FORMf", panel = "STUDYf"
+  ) %>% as_stable()
 
   expect_identical(expect, as.character(ans))
 })
@@ -226,9 +254,9 @@ test_that("cat-wide-by-panel", {
 test_that("inventory-by", {
   expect <- read_tex("inventory-by.tex")
   ans <- pt_data_inventory(
-  pmt_pk,
-  by = "STUDYf"
-) %>% as_stable()
+    pmt_pk,
+    by = "STUDYf"
+  ) %>% as_stable()
 
   expect_identical(expect, as.character(ans))
 })
@@ -236,21 +264,21 @@ test_that("inventory-by", {
 test_that("inventory-panel-by", {
   expect <- read_tex("inventory-panel-by.tex")
   ans <- pt_data_inventory(
-  pmt_pk,
-  by = "STUDYf",
-  panel = "FORMf"
-) %>% as_stable()
+    pmt_pk,
+    by = "STUDYf",
+    panel = "FORMf"
+  ) %>% as_stable()
   expect_identical(expect, as.character(ans))
 })
 
 test_that("inventory-stacked", {
   expect <- read_tex("inventory-stacked.tex")
   ans <- pt_data_inventory(
-  pmt_obs,
-  by = "STUDYf",
-  panel = "SEQf",
-  stacked = TRUE
-) %>% as_stable()
+    pmt_obs,
+    by = "STUDYf",
+    panel = "SEQf",
+    stacked = TRUE
+  ) %>% as_stable()
   expect_identical(expect, as.character(ans))
 })
 

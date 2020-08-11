@@ -378,6 +378,74 @@ if(params$save) {
 
 \clearpage
 
+# Row spacing
+
+```{r, results = "asis"}
+out <- stable(
+  pmt_summarized, 
+  sizes = tab_size(row = 0.8)
+)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "row-space.tex", dir = params$dir)   
+}
+```
+
+
+\clearpage
+
+# Col spacing
+
+```{r, results = "asis"}
+out <- stable(
+  pmt_summarized, 
+  sizes = tab_size(col = 15)
+)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "col-space.tex", dir = params$dir)   
+}
+```
+
+
+\clearpage
+
+# Header spacing
+
+- Extra space between table rows
+- Tight space betwen header rows
+
+```{r, results = "asis"}
+out <- stable(
+  pmt_summarized, 
+  cols_rename = c("Clinical ... Study ... Number" = "STUDY"),
+  sizes = tab_size(row = 2, header_row = 1.4)
+)
+
+pt_wrap(out, con = stdout()) 
+```
+
+
+```{r}
+if(params$save) {
+  stable_save(out, file = "header-space.tex", dir = params$dir)   
+}
+```
+
+
+\clearpage
+
+
 # Continuous long panel
 
 ```{r, results = 'asis'}
