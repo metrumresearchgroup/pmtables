@@ -59,4 +59,8 @@ expression is matched
 escaped
 - Unit of escape is now individual positions in a vector rather than the 
 whole vector itself
+- No longer requiring or assuming that `header_row` (`tab_size()`) is a negative
+number; enter a negative number if you want to remove space between header rows;
+this should only be required when row space is increased
+
 

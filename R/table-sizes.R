@@ -7,21 +7,21 @@
 #' `row_space > <default>` to increase; ; see also [st_space()]
 #' @param col absolute column spacing amount (`pt`); see also [st_space()]
 #' @param font for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
-#' @param header_row the amount of space to remove between rows in the header
-#' section of the table (column names and units); this should be a positive
-#' number; the default is `0.4*row`; recommend fixing to 0.2 when `row` is 1
-#' and smaller if `row` is less than 1
-#' @param lt_row extra row space for longtables; this is used instead of `row_space`
-#' when rendering longtable
+#' @param header_row extra space between rows in the header
+#' section of the table (column names and units); this should be a negative
+#' number if you wish to compress header rows; the default is `-0.4*row`;
+#' recommend fixing to `-0.2` when `row` is 1 and smaller if `row` is less
+#' than 1
+#' @param lt_row extra row space for longtables; this is used instead of
+#' `row_space` when rendering longtable
 #'
 #' @export
 tab_size <- function(row = 1.4, col = 5, font = NULL,
-                     header_row = 0.4*row, lt_row = 0.3) {
+                     header_row = -0.4*row, lt_row = 0.3) {
 
   assert_that(is.numeric(row))
   assert_that(is.numeric(col))
   assert_that(is.null(font) || is.character(font))
-  assert_that(header_row >= 0)
 
   # Column and row stretch --------------
   col_row_sp <- list()

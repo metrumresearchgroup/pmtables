@@ -76,8 +76,8 @@ header_matrix_tex <- function(sp, sizes = tab_size()) {
   sp <- map(sp, tab_escape, escape = esc)
   sp <- map_chr(sp, form_tex_cols)
   nr <- length(sp)
-  unit_back <- sizes$header_row
-  pb <- paste0(" [-", unit_back, "em]")
+  header_space <- sizes$header_row
+  pb <- paste0(" [", header_space, "em]")
   if(nr > 1) {
     w <- seq(nr-1)
     sp[w] <- paste0(sp[w], pb)

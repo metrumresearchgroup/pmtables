@@ -206,7 +206,7 @@ test_that("header-space", {
   ans <- stable(
     pmt_summarized,
     cols_rename = c("Clinical ... Study ... Number" = "STUDY"),
-    sizes = tab_size(row = 2, header_row = 1.4)
+    sizes = tab_size(row = 2.4, header_row = -1.4)
   )
   expect_identical(expect, as.character(ans))
 })

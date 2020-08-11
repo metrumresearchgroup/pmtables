@@ -11,7 +11,7 @@ output:
     number_sections: true
     toc: true 
 params:
-  save: false
+  save: true
   dir: '.'
 ---
 
@@ -429,7 +429,7 @@ if(params$save) {
 out <- stable(
   pmt_summarized, 
   cols_rename = c("Clinical ... Study ... Number" = "STUDY"),
-  sizes = tab_size(row = 2, header_row = 1.4)
+  sizes = tab_size(row = 2.4, header_row = -1.4)
 )
 
 pt_wrap(out, con = stdout()) 
