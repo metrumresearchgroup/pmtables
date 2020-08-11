@@ -21,7 +21,7 @@ test_that("tex_bold and tex_it", {
   expect_identical(ans[3], "\\textbf{c}")
 })
 
-test_that("save stable", {
+test_that("test-table-utils-stable_save", {
   tmp <- tempfile()
   x <- stable(data.frame(a = 1), output_file = tmp)
   stable_save(x)
