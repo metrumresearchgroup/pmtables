@@ -10,7 +10,7 @@ st_sumrow(x, pattern = NULL, cols = names(x$data), rows = integer(0), ...)
 \item{x}{an stobject}
 
 \item{pattern}{a regular expression to search in the data frame; when this
-argument is provided, \code{rows} are calculated using \code{\link[=grep_df]{grep_df()}}}
+argument is provided, \code{rows} are calculated using \code{\link[=df_grep_rows]{df_grep_rows()}}}
 
 \item{cols}{a character vector of column names to search}
 

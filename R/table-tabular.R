@@ -10,29 +10,36 @@ tab_prime <- function(data, escape_fun = tab_escape) {
   }
   data <- modify(data, as.character)
   data <- modify(data, replace_na, "")
-  data <- modify(data, escape_fun)
+  esc <- getOption("pmtables.escape", c("_", "%"))
+  if(is.character(esc)) {
+    data <- modify(data, escape_fun, esc = esc)
+  }
   structure(data, pmtables.primed = TRUE)
 }
 
-skip_escape <- function(x) {
+any_skip_escape <- function(x) {
   any(str_count(x, fixed("$")) > 1) |
     any(str_count(x, fixed("\\")) > 0)
+}
+
+do_escape <- function(x) {
+  str_count(x, fixed("$")) <= 1 &
+    str_count(x, fixed("\\")) == 0
 }
 
 #' @rdname tab_prime
 #' @param string data to sanitize
 #' @param esc a character vector of strings to escape
 #' @param ... used only to allow arguments through
-tab_escape <- function(string, esc = "_", ...) {
-  if(skip_escape(string)) {
-    return(string)
-  }
+tab_escape <- function(string, esc = getOption("pmtables.escape", c("_", "%")), ...) {
+  if(is.null(esc)) return(string)
+  w <- do_escape(string)
   for(ch in esc) {
-    string <- gsub(ch, paste0("\\",ch), string, fixed = TRUE)
+    string[w] <- gsub(ch, paste0("\\",ch), string[w], fixed = TRUE)
   }
-  string <- gsub("~", "$\\sim$", string, fixed = TRUE)
-  string <- gsub(">", "$>$", string, fixed = TRUE)
-  string <- gsub("<", "$<$", string, fixed = TRUE)
+  string[w] <- gsub("~", "$\\sim$", string[w], fixed = TRUE)
+  string[w] <- gsub(">", "$>$", string[w], fixed = TRUE)
+  string[w] <- gsub("<", "$<$", string[w], fixed = TRUE)
   string
 }
 

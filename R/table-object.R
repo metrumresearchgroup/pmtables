@@ -396,7 +396,7 @@ st_blank <- function(x,...) {
 #' @inheritParams sumrow
 #' @param x an stobject
 #' @param pattern a regular expression to search in the data frame; when this
-#' argument is provided, `rows` are calculated using [grep_df()]
+#' argument is provided, `rows` are calculated using [df_grep_rows()]
 #' @param cols a character vector of column names to search
 #' @param ... passed to [sumrow()]
 #'
@@ -409,7 +409,7 @@ st_sumrow <- function(x, pattern = NULL, cols = names(x$data), rows = integer(0)
                       ...) {
   check_st(x)
   if(is.character(pattern)) {
-    rows <- grep_df(x$data, pattern, cols)
+    rows <- df_grep_rows(x$data, pattern, cols)
   }
   sumr <- sumrow(rows = rows, ...)
   if(is.list(x$sumrows)) {
@@ -639,6 +639,7 @@ tab_edit <- function(data, pattern, replacement, cols = names(data)) {
   }
   data
 }
+
 
 #' Methods for stobject
 #'

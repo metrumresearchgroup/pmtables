@@ -116,14 +116,14 @@ grep_col <- function(x,pattern) {
 #'
 #'
 #' @export
-grep_df <- function(data, pattern, cols = names(data)) {
-  rows <- grepl_df(data, pattern, cols)
+df_grep_rows <- function(data, pattern, cols = names(data)) {
+  rows <- df_grepl_rows(data, pattern, cols)
   return(which(rows))
 }
 
-#' @rdname grep_df
+#' @rdname df_grep_rows
 #' @export
-grepl_df <- function(data, pattern, cols = names(data)) {
+df_grepl_rows <- function(data, pattern, cols = names(data)) {
   assert_that(is.character(cols))
   cols <- cols[cols %in% names(data)]
   if(length(cols)==0) return(NULL)

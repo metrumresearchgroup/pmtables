@@ -53,5 +53,10 @@ are renamed to `cols_xyz`
 for `bq_col` argument to `pt_data_inventory`
 - Add `pattern` and `cols` arguments to `st_sumrow`; this allows calculation of
 `rows` based on a regular expression
-- Add `grep_df` and `grepl_df` functions for finding rows where a regular 
+- Add `df_grep_rows` and `df_grepl_rows` functions for finding rows where a regular 
 expression is matched
+- Add `pmtables.escape` option to pass a character vector of items to be 
+escaped
+- Unit of escape is now individual positions in a vector rather than the 
+whole vector itself
+

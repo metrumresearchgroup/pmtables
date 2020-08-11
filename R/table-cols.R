@@ -35,13 +35,17 @@ tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
   }
 
   cols_new <- rename_cols(cols, relabel = cols_rename, blank = cols_blank)
+
   if(!is.null(cols_split)) {
     split_cols <- str_split(cols_new, fixed(cols_split), n = 2)
     cols_new <- map_chr(split_cols, last)
   }
 
-  cols_new <- esc_underscore(cols_new)
-  ans <- list(new = cols_new, cols = cols0, newline = cols_break, bold = cols_bold)
+  ans <- list(
+    new = cols_new, cols = cols0, newline = cols_break,
+    bold = cols_bold
+  )
+
   structure(ans, class = "from_tab_cols")
 }
 
@@ -68,6 +72,8 @@ header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
 header_matrix_tex <- function(sp, sizes = tab_size()) {
   sp <- unname(split(sp, seq(nrow(sp))))
   sp <- map(sp, flatten_chr)
+  esc <- getOption("pmtables.escape", c("_", "%"))
+  sp <- map(sp, tab_escape, escape = esc)
   sp <- map_chr(sp, form_tex_cols)
   nr <- length(sp)
   unit_back <- sizes$header_row
