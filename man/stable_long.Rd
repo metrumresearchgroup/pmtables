@@ -11,7 +11,7 @@ stable_long(
   lt_cap_macro = NULL,
   lt_cap_text = NULL,
   lt_cap_label = NULL,
-  lt_continue = "continued on next page",
+  lt_continue = "\\\\footnotesize{continued on next page}",
   ...
 )
 }

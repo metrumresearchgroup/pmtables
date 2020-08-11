@@ -103,3 +103,32 @@ tex_it <- function(x, pattern = "*") {
   x[w] <- paste0("\\textit{", x[w], "}")
   x
 }
+
+grep_col <- function(x,pattern) {
+  which(str_detect(x,pattern))
+}
+
+#' Find matching rows in a data frame
+#'
+#' @param data a data frame to search
+#' @param pattern a regular expression
+#' @param cols a character vector of column names to search
+#'
+#'
+#' @export
+grep_df <- function(data, pattern, cols = names(data)) {
+  rows <- grepl_df(data, pattern, cols)
+  return(which(rows))
+}
+
+#' @rdname grep_df
+#' @export
+grepl_df <- function(data, pattern, cols = names(data)) {
+  assert_that(is.character(cols))
+  cols <- cols[cols %in% names(data)]
+  if(length(cols)==0) return(NULL)
+  rows <- map(data[,cols], grep_col, pattern = pattern)
+  rows <- flatten_int(rows)
+  seq(nrow(data)) %in% rows
+}
+

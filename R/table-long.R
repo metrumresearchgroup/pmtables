@@ -56,7 +56,8 @@ stable_long <- function(data,
                         lt_cap_macro = NULL,
                         lt_cap_text = NULL,
                         lt_cap_label = NULL,
-                        lt_continue = "continued on next page", ...) {
+                        lt_continue = "\\footnotesize{continued on next page}",
+                        ...) {
 
   assert_that(note_config$type=="minipage")
 
@@ -100,10 +101,13 @@ stable_long <- function(data,
     "}" # Ends
   )
   out <- structure(longtab, class = c("stable_long", "stable"))
+
   if(isTRUE(inspect)) {
     stable_data <- x
     stable_data$tab  <- longtab
     stable_data$lt_notes <- lt_notes
     out <- structure(out, stable_data = stable_data)
   }
+
+  out
 }

@@ -393,13 +393,25 @@ st_blank <- function(x,...) {
 #' See the `sumrows` argument to [stable()]. This function can be called
 #' multiple times and will accumulate `sumrows` data.
 #'
+#' @inheritParams sumrow
 #' @param x an stobject
+#' @param pattern a regular expression to search in the data frame; when this
+#' argument is provided, `rows` are calculated using [grep_df()]
+#' @param cols a character vector of column names to search
 #' @param ... passed to [sumrow()]
 #'
+#' @details
+#' Please take careful note of the argument order for [st_sumrow()] compared to
+#' [sumrow()].
+#'
 #' @export
-st_sumrow <- function(x,...) {
+st_sumrow <- function(x, pattern = NULL, cols = names(x$data), rows = integer(0),
+                      ...) {
   check_st(x)
-  sumr <- sumrow(...)
+  if(is.character(pattern)) {
+    rows <- grep_df(x$data, pattern, cols)
+  }
+  sumr <- sumrow(rows = rows, ...)
   if(is.list(x$sumrows)) {
     x$sumrows <- c(x$sumrows, list(sumr))
     return(x)

@@ -51,4 +51,7 @@ or targeted
 are renamed to `cols_xyz`
 - Add `find_bq_col` function to allow either `BQL` or `BLQ` as default value 
 for `bq_col` argument to `pt_data_inventory`
-
+- Add `pattern` and `cols` arguments to `st_sumrow`; this allows calculation of
+`rows` based on a regular expression
+- Add `grep_df` and `grepl_df` functions for finding rows where a regular 
+expression is matched
