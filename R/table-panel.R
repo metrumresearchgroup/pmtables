@@ -91,16 +91,17 @@ panel_by <- function(data, x) {
   prefix <- x$prefix
   if(x$prefix_name) prefix <- names(x$col)[1]
   nc <- ncol(data)-1
-  u <- non_rep(data[[col]])
+  xpanel <- replace_na(data[[col]],"")
+  u <- non_rep(xpanel)
   ui <- which(u)
-  uc <- data[[col]][ui]
+  uc <- xpanel[ui]
   drop <- uc == ""
   drop <- drop | uc == ".panel.waiver."
   drop <- drop | grepl(x$skip,uc)
   ui <- ui[!drop]
   uc <- uc[!drop]
   where <- ui
-  lab <- data[[col]][where]
+  lab <- xpanel[where]
   if(x$dup_err && any(duplicated(lab))) {
     stop(
       "panel labels are duplicated; ",

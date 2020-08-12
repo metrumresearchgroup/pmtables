@@ -21,7 +21,7 @@
 sumrow <- function(rows,
                    col = 1,
                    hline = TRUE,
-                   hline2 = TRUE,
+                   hline2 = FALSE,
                    bold = FALSE,
                    it = FALSE,
                    blank = NULL,
