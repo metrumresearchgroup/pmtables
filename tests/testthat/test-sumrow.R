@@ -14,5 +14,5 @@ test_that("summary row", {
   sumr <- sumrow(rows = data$STUDY=="all", bold = TRUE, label = "All data")
   out <- inspect(data, sumrows = sumr )
   expect_match(out$tab[n], "textbf{All data}", fixed = TRUE)
-  expect_match(out$tab[n-1], "\\hline \\hline", fixed = TRUE)
+  expect_match(out$tab[n-1], "\\hline", fixed = TRUE)
 })

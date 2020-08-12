@@ -41,9 +41,7 @@ tab_add_hlines <- function(tab, hlines, sumrows = NULL) {
   if(is.list(sumrows)) {
     hlinex <- map(sumrows, sumrow_get_hlinex2)
     above <- sort(unique(flatten_int(hlinex)-1))
-    below <- above + 1
     tab[above] <- paste0(tab[above], " \\hline")
-    tab[below] <- paste0(tab[below], " \\hline")
   }
   tab
 }
