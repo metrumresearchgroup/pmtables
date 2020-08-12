@@ -4,7 +4,8 @@ Title: Tables for Pharmacometrics
 Version: 0.0.1.9067
 Author: Kyle Baron
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
-Description: Create tables that are commonly used in pharmacometrics analyses.
+Description: Summarize data sets and create publication-quality tables for 
+    inclusion in 'tex' documents.
 License: GPL (>=2)
 Imports: purrr, dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble, 
     assertthat, tidyselect, stringr

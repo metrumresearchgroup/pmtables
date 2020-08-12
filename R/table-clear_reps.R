@@ -5,6 +5,7 @@
 #' be made blank (overwritten with `""`); see also [st_clear_reps()]
 #' @param clear_grouped_reps passed to [clear_grouped_values()] as `cols`
 #' @param ... not used
+#' @seealso [clear_grouped_values()]
 #' @export
 tab_clear_reps <- function(data = NULL, clear_reps = NULL, panel = rowpanel(NULL),
                            clear_grouped_reps = NULL, ...) {
@@ -61,7 +62,7 @@ reps_to_clear <- function(data, clear_reps, panel) {
 #' @param data data frame
 #' @param cols columns to clear
 #' @param extra_groups extra grouping variables
-#'
+#' @seealso [tab_clear_reps()]
 #' @export
 clear_grouped_values <- function(data, cols = groups(data), extra_groups = NULL) {
   cols <- new_names(cols)

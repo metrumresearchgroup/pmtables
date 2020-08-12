@@ -19,3 +19,6 @@ deduplicate_values(data, cols = groups(data), extra_groups = NULL)
 \description{
 Clear grouped column values
 }
+\seealso{
+\code{\link[=tab_clear_reps]{tab_clear_reps()}}
+}

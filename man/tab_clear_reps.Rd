@@ -28,3 +28,6 @@ be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_
 \description{
 Clear repeated values in a column
 }
+\seealso{
+\code{\link[=clear_grouped_values]{clear_grouped_values()}}
+}
