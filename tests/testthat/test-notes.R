@@ -75,3 +75,21 @@ test_that("test-notes-files", {
     fixed = TRUE, all = FALSE
   )
 })
+
+test_that("test-notes-basename-only", {
+  data <- tibble(a = 1)
+  x <- inspect(
+    data = data,
+    notes = "abcdef",
+    r_file = "./script/foo.R",
+    output_file = "../data/table/foo.tex"
+  )
+  expect_match(
+    x$tpt_notes, "item Source file: foo.tex",
+    fixed = TRUE, all = FALSE
+  )
+  expect_match(
+    x$tpt_notes, "item Source code: foo.R",
+    fixed = TRUE, all = FALSE
+  )
+})
