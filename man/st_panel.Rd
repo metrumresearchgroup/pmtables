@@ -19,6 +19,6 @@ library(dplyr)
 
 ob <- st_new(ptdata())
 
-ob \%>\% st_panel("STUDYf") \%>\% st_make()
+ob \%>\% st_panel("STUDY") \%>\% st_make()
 
 }

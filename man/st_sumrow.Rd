@@ -4,14 +4,25 @@
 \alias{st_sumrow}
 \title{Add summary row information to st object}
 \usage{
-st_sumrow(x, ...)
+st_sumrow(x, pattern = NULL, cols = names(x$data), rows = integer(0), ...)
 }
 \arguments{
 \item{x}{an stobject}
+
+\item{pattern}{a regular expression to search in the data frame; when this
+argument is provided, \code{rows} are calculated using \code{\link[=df_grep_rows]{df_grep_rows()}}}
+
+\item{cols}{a character vector of column names to search}
+
+\item{rows}{integer or logical vector of rows that are summary rows}
 
 \item{...}{passed to \code{\link[=sumrow]{sumrow()}}}
 }
 \description{
 See the \code{sumrows} argument to \code{\link[=stable]{stable()}}. This function can be called
 multiple times and will accumulate \code{sumrows} data.
+}
+\details{
+Please take careful note of the argument order for \code{\link[=st_sumrow]{st_sumrow()}} compared to
+\code{\link[=sumrow]{sumrow()}}.
 }

@@ -1,3 +1,17 @@
+#' Scan data set columns for BQL / BLQ
+#'
+#' @param data a data frame
+#'
+#' @details
+#' Will return the first match among `BQL` and `BLQ`.  If no match is found,
+#' returns `NA_character_`.
+#'
+#' @export
+find_bq_col <- function(data) {
+  candidate <- intersect(c("BQL", "BLQ"), names(data))
+  if(length(candidate)==0) return(NA_character_)
+  candidate[1]
+}
 
 #' Create a data inventory summary for a data chunk
 #'
@@ -6,9 +20,9 @@
 #' @param ... used to absorb other arguments; not used
 data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
                                  tot = FALSE, all_name = "all",
-                                 dv_col = pt_opts$dv_col,
-                                 bq_col = pt_opts$bq_col,
-                                 id_col = pt_opts$id_col,
+                                 dv_col = "DV",
+                                 bq_col = "BQL",
+                                 id_col = "ID",
                                  ...) {
 
   if(by==".total" | panel == ".total") {
@@ -178,16 +192,15 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 #'
 #' @param data the data frame to summarize
 #' @param study_col the name of the column containing the study identifier;
-#' may be characer or quosure (see [dplyr::vars])
+#' may be character or quosure (see [dplyr::vars])
 #' @param panel another categorical data set column name to stratify the
 #' data summary
 #' @param ... other arguments passed to [pt_data_inventory] and
 #' [data_inventory_chunk]
 #'
 #' @examples
-#' data <- pmtables:::data("obs")
 #'
-#' ans <- pt_data_study(data, study_col = "STUDYf")
+#' ans <- pt_data_study(pmt_pk, study_col = "STUDYf")
 #'
 #' @export
 pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
@@ -210,10 +223,9 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' @param stacked if `TRUE`, then independent summaries are created by `outer`
 #' and included in a single table (see examples)
 #' @param dv_col character name of `DV` column
-#' @param bq_col character name of `BQL` column
+#' @param bq_col character name of `BQL` column; see [find_bq_col()]
 #' @param id_col character name of `ID` column
-#' @param no_bql if `TRUE`, the BQL summary is bypassed
-#' @param ... other arguments passed to [data_inventory_chunk]
+#' @param ... other arguments passed to [data_inventory_chunk()]
 #'
 #' @details
 #'
@@ -226,18 +238,17 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' See the [data_inventory_chunk] help topic for a description of these columns.
 #'
 #' @examples
-#' data <- pmtables:::data("obs")
 #'
-#' ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
+#' ans <- pt_data_inventory(pmt_pk, by = c("Renal function" = "RFf"))
 #'
 #' ans <- pt_data_inventory(
-#'    data,
+#'    pmt_pk,
 #'    by = "STUDYf",
 #'    panel = "RFf"
 #' )
 #'
 #' ans <- pt_data_inventory(
-#'    data,
+#'    pmt_obs,
 #'    by = "STUDYf",
 #'    panel = "SEQf",
 #'    stacked = TRUE
@@ -248,22 +259,26 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
                               all_name = "all",
-                              dv_col = pt_opts$dv_col,
-                              bq_col = pt_opts$bq_col,
-                              id_col = pt_opts$id_col,
-                              no_bql = FALSE, ...) {
+                              dv_col = "DV",
+                              bq_col = find_bq_col(data),
+                              id_col = "ID", ...) {
 
   has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
   has_by <- !missing(by)
-
-  # TODO
-  # if(no_bql) {
-  #
-  # }
 
   by <- new_names(by,table)
 
   panel <- new_names(panel,table)
+
+  drop_bql <- FALSE
+
+  if(is.na(bq_col)) {
+    data[["BQL"]] <- 0
+    bq_col <- "BQL"
+    drop_bql <- TRUE
+  }
 
   if(panel==by | stacked) {
     inner_summary <- FALSE
@@ -335,18 +350,31 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     "OBS: observations"
   )
 
-  if(drop_miss) notes <- notes[-3]
+  if(drop_miss) notes <- notes[!grepl("MISS", notes)]
+
+  if(drop_bql) {
+    notes <- notes[!grepl("below", notes)]
+    out <- select(out, !contains("BQL"))
+  }
 
   .sumrows <- NULL
+
+  .panel <- rowpanel(NULL)
+  if(has_panel) {
+    .panel <- panel_data
+    .panel$prefix_skip <- "(Grand|Group) Total"
+  }
+
   if(panel==by) panel <- NULL
+
   if(!stacked & isTRUE(has_by)) {
     .sumrows <- sumrow(out[,1]==total_name, bold = TRUE)
   }
 
   out <- list(
     data = out,
-    panel = rowpanel(col = panel, prefix =  NULL),
-    col_rename = by,
+    panel = .panel,
+    cols_rename = by,
     span_split = colsplit(sep = "."),
     align = cols_center(.outer = 'l'),
     notes = notes
@@ -355,10 +383,4 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   out <- structure(out, class = "pmtable")
 
   return(out)
-}
-
-
-to_html <- function(x) {
-  if(interactive()) return(x)
-  as_raw_html(x)
 }

@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9068</span>
       </span>
     </div>
 
@@ -84,40 +84,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -164,9 +131,15 @@
       <tr>
         
         <td>
-          <p><code><a href="as.list.pt_opts.html">as.list(<i>&lt;pt_opts&gt;</i>)</a></code> </p>
+          <p><code><a href="analysis1.html">analysis1</a></code> </p>
         </td>
-        <td><p>Coerce pt_opts object to a list</p></td>
+        <td><p>analysis1 data set</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as.panel.html">as.panel()</a></code> </p>
+        </td>
+        <td><p>Coerce object to rowpanel</p></td>
       </tr><tr>
         
         <td>
@@ -176,13 +149,19 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="clear_grouped_values.html">clear_grouped_values()</a></code> <code><a href="clear_grouped_values.html">deduplicate_values()</a></code> </p>
+        </td>
+        <td><p>Clear grouped column values</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="col_fixed.html">col_fixed()</a></code> <code><a href="col_fixed.html">col_ragged()</a></code> </p>
         </td>
         <td><p>Format a table cell with fixed width</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="colgroup.html">colgroup()</a></code> <code><a href="colgroup.html">colsplit()</a></code> <code><a href="colgroup.html">is.colgroup()</a></code> <code><a href="colgroup.html">is.colsplit()</a></code> </p>
+          <p><code><a href="colgroup.html">colgroup()</a></code> <code><a href="colgroup.html">as.span()</a></code> <code><a href="colgroup.html">colsplit()</a></code> <code><a href="colgroup.html">is.colgroup()</a></code> <code><a href="colgroup.html">is.colsplit()</a></code> </p>
         </td>
         <td><p>Set spans to group columns</p></td>
       </tr><tr>
@@ -212,15 +191,33 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="df_grep_rows.html">df_grep_rows()</a></code> <code><a href="df_grep_rows.html">df_grepl_rows()</a></code> </p>
+        </td>
+        <td><p>Find matching rows in a data frame</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="dot-cols.html">.cols()</a></code> </p>
         </td>
         <td><p>Alias to <code>dplyr::vars</code></p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_debug_data.html">get_debug_data()</a></code> </p>
+          <p><code><a href="find_bq_col.html">find_bq_col()</a></code> </p>
+        </td>
+        <td><p>Scan data set columns for BQL / BLQ</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_stable_data.html">get_stable_data()</a></code> </p>
         </td>
         <td><p>Get debug information from stable object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_tabular.html">make_tabular()</a></code> </p>
+        </td>
+        <td><p>Create tabular environment from data frame</p></td>
       </tr><tr>
         
         <td>
@@ -236,27 +233,57 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="pt_cat_long.html">pt_cat_long()</a></code> <code><a href="pt_cat_long.html">pt_cat_wide()</a></code> </p>
+          <p><code><a href="pmt_first.html">pmt_first</a></code> </p>
         </td>
-        <td><p>Create categorical data summary tables</p></td>
+        <td><p>analysis1 data set - first record only</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pt_cat_study.html">pt_cat_study()</a></code> </p>
+          <p><code><a href="pmt_obs.html">pmt_obs</a></code> </p>
         </td>
-        <td><p>Discrete covariate table by study</p></td>
+        <td><p>analysis1 data set - observations only</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pmt_pk.html">pmt_pk</a></code> </p>
+        </td>
+        <td><p>analysis1 data set - PK observations only</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pmt_summarized.html">pmt_summarized</a></code> </p>
+        </td>
+        <td><p>analysis1 data set - summarized</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pmtables.html">pmtables</a></code> </p>
+        </td>
+        <td><p>pmtables: Tables for Pharmacometrics.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.stobject.html">print(<i>&lt;stobject&gt;</i>)</a></code> <code><a href="print.stobject.html">names(<i>&lt;stobject&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Methods for stobject</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pt_cat_long.html">pt_cat_long()</a></code> </p>
+        </td>
+        <td><p>Discrete data summary in long format</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pt_cat_wide.html">pt_cat_wide()</a></code> </p>
+        </td>
+        <td><p>Discrete data summary in long format</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="pt_cont_long.html">pt_cont_long()</a></code> </p>
         </td>
         <td><p>Continuous data summary in long format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pt_cont_study.html">pt_cont_study()</a></code> </p>
-        </td>
-        <td><p>Continuous covariate table by study</p></td>
       </tr><tr>
         
         <td>
@@ -278,13 +305,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="pt_opts.html">pt_options()</a></code> <code><a href="pt_opts.html">pt_opts</a></code> </p>
-        </td>
-        <td><p>Set global plot options</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ptdata.html">ptdata()</a></code> </p>
+          <p><code><a href="ptdata.html">ptdata()</a></code> <code><a href="ptdata.html">stdata()</a></code> </p>
         </td>
         <td><p>Load an example data set</p></td>
       </tr><tr>
@@ -296,9 +317,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="sig.html">sig()</a></code> </p>
+          <p><code><a href="sig.html">sig()</a></code> <code><a href="sig.html">digit1()</a></code> </p>
         </td>
-        <td><p>Significant Digits</p></td>
+        <td><p>Format digits</p></td>
       </tr><tr>
         
         <td>
@@ -326,9 +347,33 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="st_clear_reps.html">st_clear_reps()</a></code> </p>
+          <p><code><a href="st_bold.html">st_bold()</a></code> <code><a href="st_bold.html">st_it()</a></code> </p>
+        </td>
+        <td><p>Render table data in bold or italic font</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="st_clear_reps.html">st_clear_reps()</a></code> <code><a href="st_clear_reps.html">st_clear_grouped()</a></code> </p>
         </td>
         <td><p>Add clear rep information to st object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="st_control.html">st_control()</a></code> </p>
+        </td>
+        <td><p>Table control parameters</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="st_drop.html">st_drop()</a></code> </p>
+        </td>
+        <td><p>Drop data columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="st_edit.html">st_edit()</a></code> <code><a href="st_edit.html">tab_edit()</a></code> </p>
+        </td>
+        <td><p>Edit table contents</p></td>
       </tr><tr>
         
         <td>
@@ -386,6 +431,18 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="st_select.html">st_select()</a></code> <code><a href="st_select.html">st_mutate()</a></code> </p>
+        </td>
+        <td><p>Filter, select, or mutate data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="st_sizes.html">st_sizes()</a></code> </p>
+        </td>
+        <td><p>Add table size information to st object</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="st_space.html">st_space()</a></code> </p>
         </td>
         <td><p>Add row and column spacing information to st object</p></td>
@@ -410,6 +467,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="st_units.html">st_units()</a></code> </p>
+        </td>
+        <td><p>Add unit information to st object</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="st_wrap.html">st_wrap()</a></code> <code><a href="st_wrap.html">pt_wrap()</a></code> </p>
         </td>
         <td><p>Wrap stable output in table environment</p></td>
@@ -419,6 +482,12 @@
           <p><code><a href="stable.html">stable()</a></code> </p>
         </td>
         <td><p>Create tabular output from an R data frame</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stable_long.html">stable_long()</a></code> </p>
+        </td>
+        <td><p>Create longtable output from an R data frame</p></td>
       </tr><tr>
         
         <td>
@@ -434,9 +503,57 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="tab_clear_reps.html">tab_clear_reps()</a></code> </p>
+        </td>
+        <td><p>Clear repeated values in a column</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tab_cols.html">tab_cols()</a></code> </p>
+        </td>
+        <td><p>Form table column names</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tab_hlines.html">tab_hlines()</a></code> </p>
+        </td>
+        <td><p>Insert hlines into table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tab_notes.html">tab_notes()</a></code> </p>
+        </td>
+        <td><p>Form table notes</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="tab_prime.html">tab_prime()</a></code> <code><a href="tab_prime.html">tab_escape()</a></code> </p>
         </td>
         <td><p>Prime a data frame for inclusion into a latex table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tab_size.html">tab_size()</a></code> </p>
+        </td>
+        <td><p>Adjustments for row padding, column padding, and font size</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tab_spanners.html">tab_spanners()</a></code> </p>
+        </td>
+        <td><p>Create groups of columns with spanners</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tex_bold.html">tex_bold()</a></code> <code><a href="tex_bold.html">tex_it()</a></code> </p>
+        </td>
+        <td><p>Make bold</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="triage_data.html">triage_data()</a></code> </p>
+        </td>
+        <td><p>Get data ready for processing with s table</p></td>
       </tr><tr>
         
         <td>
@@ -458,7 +575,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

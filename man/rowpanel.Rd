@@ -8,9 +8,12 @@
 rowpanel(
   col = NULL,
   prefix = "",
+  skip = ".panel.skip.",
   prefix_name = FALSE,
   prefix_skip = NULL,
-  duplicates_ok = FALSE
+  duplicates_ok = FALSE,
+  bold = TRUE,
+  it = FALSE
 )
 
 is.rowpanel(x)
@@ -19,6 +22,8 @@ is.rowpanel(x)
 \item{col}{name of column to be used for creating panels}
 
 \item{prefix}{to be added to each panel title}
+
+\item{skip}{regular expression for panels to skip}
 
 \item{prefix_name}{\code{logical}; if \code{TRUE}, then the prefix will be derived by
 the name associated with \code{col} input to the function}
@@ -29,8 +34,15 @@ the prefix won't be applied}
 \item{duplicates_ok}{if \code{FALSE}, an error is generated if more than one
 panel will have the same header}
 
+\item{bold}{render panel title in bold font face}
+
+\item{it}{render panel title in italic font face}
+
 \item{x}{an object to test}
 }
 \description{
-Create panel object
+Objects may also be coerced with \code{\link[=as.panel]{as.panel()}}
+}
+\seealso{
+\code{\link[=as.panel]{as.panel()}}
 }

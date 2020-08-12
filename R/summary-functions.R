@@ -1,7 +1,17 @@
-str_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = FALSE,...) {
-  if(footnote) {
-    return("summary is: mean (standard deviation) [number non-missng]")
-  }
+#' Function for continuous wide summaries
+#'
+#' @param value the data to summarize
+#' @param digit_fun a function to format digits in the summaries
+#' @param id a vector of subjet IDs; same length as `value`
+#' @param digits the number of digits in the summary; the current implementation
+#' passes `digits` to `digit_fun()`
+#' @param ... not used
+#'
+#' @examples
+#' pmtables:::cont_wide_fun(rnorm(100))
+#'
+#' @keywords internal
+cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
@@ -14,24 +24,15 @@ str_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = 
   ans <- tibble(summary = paste0(mn, " (",sd,")", " [",n,"]"))
   ans
 }
-
-df_sum_2 <- function(value,digit_fun=sig,id=NULL,digits=3,name=NULL,footnote = FALSE,...) {
-  if(footnote) {
-    footn <- list()
-    footn[[1]] <- list(
-      footnote = "standard deviation",
-      locations = cells_column_labels(
-        columns = "SD"
-      )
-    )
-    footn[[2]] <- list(
-      footnote = "subjects with non-missing values",
-      locations = cells_column_labels(
-        columns = "n"
-      )
-    )
-    return(footn)
-  }
+#' Function for continuous long summaries
+#'
+#' @inheritParams cont_wide_fun
+#'
+#' @examples
+#' pmtables:::cont_long_fun(rnorm(100))
+#'
+#' @keywords internal
+cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
@@ -55,6 +56,7 @@ n_missing <- function(x,bql) {
   sum(is.na(x) & bql==0)
 }
 
+# ncov start
 n_non_missing <- function(x) {
   sum(!is.na(x))
 }
@@ -66,3 +68,5 @@ n_total <- function(x) {
 n_unique <- function(x) {
   length(unique(x))
 }
+
+# nocov end

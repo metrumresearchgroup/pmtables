@@ -9,33 +9,43 @@ all:
 	make doc
 	make install
 	make build
+
 install:
 	R CMD install .
+
 build:
 	R CMD build .
+
 doc:
 	Rscript -e 'devtools::document()'
+
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
+
 test:
 	make install
-	Rscript -e 'testthat::test_dir("tests/")'
+	Rscript -e 'testthat::test_dir("tests/testthat")'
+
 covr:
 	Rscript inst/covr/covr.R
+
 check:
 	make doc
 	make build
 	R CMD check $(TARBALL)
+
 pkgdown:
 	Rscript -e "options(pkdown.internet = FALSE); pkgdown::build_site()"
 
 data:
-	Rscript inst/script/data.R
-	Rscript inst/script/data-tabular.R
+	cd data-raw && Rscript data.R
 
 demo-doc:
 	Rscript -e 'rmarkdown::render("inst/demo-table.Rmd", clean=TRUE)'
 	Rscript -e 'rmarkdown::render("inst/demo-pmtable.R", clean=TRUE)'
+	Rscript -e 'rmarkdown::render("inst/demo-pipe.Rmd", clean=TRUE)'
+	Rscript -e 'rmarkdown::render("inst/demo-longtable.Rmd", clean=TRUE)'
+	Rscript -e 'rmarkdown::render("inst/demo-sanitize.Rmd", clean=TRUE)'
 
 quick:
 	make doc
@@ -49,3 +59,8 @@ tag-version:
 	git tag $(VERSION)
 	git push origin $(VERSION)
 
+demo-check:
+	Rscript -e 'testthat::test_file("tests/testthat/test-demo-check.R")'
+
+spelling:
+	Rscript -e "spelling::spell_check_package('.')"

@@ -4,7 +4,7 @@
 \alias{st_space}
 \title{Add row and column spacing information to st object}
 \usage{
-st_space(x, row = NULL, col = NULL)
+st_space(x, row = 1.5, col = 5)
 }
 \arguments{
 \item{x}{an stobject}

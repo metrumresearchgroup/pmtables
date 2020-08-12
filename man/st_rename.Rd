@@ -10,11 +10,11 @@ st_rename(x, ...)
 \item{x}{an stobject}
 
 \item{...}{column rename items in \code{new-name = old-name} format; passed
-to \code{\link[=stable]{stable()}} as \code{col_rename}}
+to \code{\link[=stable]{stable()}} as \code{cols_rename}}
 }
 \description{
-See the \code{col_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
-multiple times and will accumulate \code{col_rename} data.
+See the \code{cols_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
+multiple times and will accumulate \code{cols_rename} data.
 }
 \examples{
 library(dplyr)

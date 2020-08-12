@@ -7,7 +7,8 @@
 \usage{
 col_fixed(
   size,
-  ragged = c("right", "left", "no"),
+  ragged = c("no", "right", "left"),
+  center = FALSE,
   unit = "cm",
   coltype = c("p", "m", "b")
 )
@@ -18,6 +19,9 @@ col_ragged(..., ragged = "right")
 \item{size}{the width of the cell}
 
 \item{ragged}{use \code{right} to left justify and \code{left} to right justify}
+
+\item{center}{\code{logical}; if \code{TRUE}, then column will be centered when
+\code{ragged} is \code{no}}
 
 \item{unit}{to go with \code{size}}
 

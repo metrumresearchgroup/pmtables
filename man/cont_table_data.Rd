@@ -11,8 +11,9 @@ cont_table_data(
   panel = by,
   wide = FALSE,
   all_name = "all",
-  digits = NULL,
-  fun = pt_opts$cont.long.fun
+  digits = new_digits(),
+  id_col = "ID",
+  fun = cont_long_fun
 )
 }
 \arguments{
@@ -24,12 +25,14 @@ cont_table_data(
 
 \item{panel}{paneling variable name}
 
-\item{wide}{if \code{TRUE} covariates are rendered west to east; if \code{FALSE} then
-they are rendered north to south}
+\item{wide}{\code{logical}; if \code{TRUE}, output will be wide; output will be long
+otherwise}
 
 \item{all_name}{label for full data summary}
 
-\item{digits}{named list specifing \code{digits} argument for \code{digit_fun}}
+\item{digits}{named list specifying \code{digits} argument for \code{digit_fun}}
+
+\item{id_col}{the ID column name}
 
 \item{fun}{continuous data summary function}
 }

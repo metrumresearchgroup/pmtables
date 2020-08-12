@@ -8,6 +8,7 @@ output:
       threeparttable:
       booktabs:
       array:
+      longtable:
       mathdesign: utopia
   header-includes: 
     - "\\pagenumbering{gobble}"

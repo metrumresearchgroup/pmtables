@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9068</span>
       </span>
     </div>
 
@@ -85,40 +85,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -154,9 +121,9 @@
   <span class='kw'>hline</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"top"</span>, <span class='st'>"bottom"</span>, <span class='st'>"both"</span>, <span class='st'>"none"</span>),
   <span class='kw'>table_skip</span> <span class='kw'>=</span> <span class='fl'>0.67</span>,
   <span class='kw'>note_skip</span> <span class='kw'>=</span> <span class='fl'>0.02</span>,
-  <span class='kw'>linespread</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
   <span class='kw'>hline_pt</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
-  <span class='kw'>note_sp</span> <span class='kw'>=</span> <span class='fl'>0.1</span>
+  <span class='kw'>sanitize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>escape</span> <span class='kw'>=</span> <span class='st'>"_"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -173,7 +140,7 @@ threeparttable (<code>tpt</code>) or in a minipage below the table (<code>minipa
     </tr>
     <tr>
       <th>hline</th>
-      <td><p>where to include horizintal lines</p></td>
+      <td><p>where to include horizontal lines</p></td>
     </tr>
     <tr>
       <th>table_skip</th>
@@ -186,16 +153,16 @@ and the hline (if any) at the top of the table notes</p></td>
 notes and the first note line</p></td>
     </tr>
     <tr>
-      <th>linespread</th>
-      <td><p>spacing between note lines for <code>minipage</code> notes</p></td>
-    </tr>
-    <tr>
       <th>hline_pt</th>
       <td><p>the point size for hlines</p></td>
     </tr>
     <tr>
-      <th>note_sp</th>
-      <td><p>spacing between note lines for <code>tpt</code> notes</p></td>
+      <th>sanitize</th>
+      <td><p>if <code>TRUE</code>, notes will be sanitized</p></td>
+    </tr>
+    <tr>
+      <th>escape</th>
+      <td><p>vector of characters to escape in notes</p></td>
     </tr>
     </table>
 
@@ -211,7 +178,7 @@ notes and the first note line</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

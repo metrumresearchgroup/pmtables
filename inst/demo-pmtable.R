@@ -19,6 +19,7 @@ library(dplyr)
 library(pmtables)
 library(tidyverse)
 library(tidyselect)
+library(assertthat)
 library(yspec)
 
 #' # Setup
@@ -28,42 +29,56 @@ units = ys_get_unit(ys_help$spec(), parens = TRUE)
 
 #+ include = TRUE
 
-data <- pmtables:::data("all") %>% filter(SEQ > 0)
-d <- filter(data, SEQ==1)
+data <- pmt_first
+data_pk <- pmt_pk
+data_all <- pmt_obs
 
 #' \clearpage
 
 
 #' # Data inventory tables
+#'
+#' - Count number of
+#'   - individuals
+#'   - observations
+#'   - BQL observations
+#'   - missing values
+#' - Calculate the percent  of observations or BQL in different sub groups
+#'
 
+#' \clearpage
+#'
 #' ## Stacked by endpoint
+#'
+#' - The stacked plot creates multiple independent tables to summarize different
+#' endpoints; there is no single overall summary for the table because we
+#' are summarizing different endpoints
+#'
 
-#+ results = 'asis'
+
+#+ pt-inventory-data-stacked, results = 'asis'
 x <- pt_data_inventory(
-  data,
-  by = vars(Study = "STUDYf"),
-  panel = vars("Endpoint" = "SEQf"),
+  data_all,
+  by = c(Study = "STUDYf"),
+  panel = as.panel("SEQf", prefix = "Endpoint: "),
   stacked = TRUE
-) %>% as_stable(
-  wrapw = TRUE, r_file = "test.R", output_file = "test.tex",
-  panel = rowpanel(.cols("Endpoint:" = "SEQf"), prefix_name = TRUE)
-)
+) %>% as_stable( wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 
 #' \clearpage
 
 
 #' ## Paneled
+#'
+#' - Just summarize a single endpoint
 
 #+ results = 'asis'
 
 pt_data_inventory(
-  d,
-  by = vars(Study = "STUDYf"),
-  panel = vars(Race = ASIANf)
+  data_pk,
+  by = c(Study = "STUDYf"),
+  panel = "ASIANf"
 ) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
-
-
 
 #' \clearpage
 
@@ -72,17 +87,22 @@ pt_data_inventory(
 #+ results = 'asis'
 
 pt_data_inventory(
-  d,
-  by = vars(Study = "STUDYf")
+  data_pk,
+  by = c(Study = "STUDYf")
 ) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 
 #' \clearpage
 
 #+ include = FALSE
-data <- pmtables:::data("id")
+
 
 #' # Wide categorical table
+#'
+#' - Summary of categorical data in wide format
+#' - The summary is `number (percent within group)`
+#' - Wide refers to the fact that the covariates go across the table
+#'
 
 ##' ## Basic
 
@@ -90,30 +110,34 @@ data <- pmtables:::data("id")
 
 pt_cat_wide(
   data = data,
-  cols = vars(Formulation = FORMf,Sex = SEXf,"Race group" = ASIANf)) %>%
+  cols = vars(Formulation = FORMf,Sex = SEXf, "Race group" = ASIANf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
-##' ## Paneled (limited utility, IMO)
+#' \clearpage
+#'
+#' ## Paneled (limited utility, IMO)
+#'
+#' - Provided here for completeness
 
 #+ results = 'asis'
 
-
-pt_cat_wide(
+out <- pt_cat_wide(
   data = data,
-  cols = vars(Formulation = FORMf,Sex = SEXf,"Race group" = ASIANf),
-  panel = c(Study = "STUDYf")) %>%
+  cols = vars(Formulation = FORMf, Sex = SEXf, "Race group" = ASIANf),
+  panel = as.panel("STUDYf", prefix = "Study: ")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
+#+
 
 #' \clearpage
 
-##' ## Grouped (by male / female)
+#' ## Grouped (by male / female)
 
 #+ results = 'asis'
 pt_cat_wide(
   data = data,
-  by = vars(Sex = SEXf),
-  cols = vars(Formulation = FORMf,"Race group" = ASIANf)) %>%
+  by = c(Sex = "SEXf"),
+  cols = vars(Formulation = FORMf, "Race group" = ASIANf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage
@@ -125,7 +149,7 @@ pt_cat_wide(
 pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
-  panel = c(Study = "STUDYf"),
+  panel = as.panel("STUDYf", prefix = "Study: "),
   by = c("RF Group" = "RFf")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
@@ -134,13 +158,16 @@ pt_cat_wide(
 #+ include = TRUE
 
 #' # Long categorical table
+#'
+#' - Categorical table in long format
+#' - Long indicates that the covariates go down the table
 
 #' ## Ungrouped
 
 #+ results = 'asis'
 pt_cat_long(
   data = data,
-  cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf)) %>%
+  cols = vars(Study = STUDYf, Sex = SEXf, "Race group" = ASIANf, "Child-Pugh" = CPf)) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage
@@ -153,7 +180,7 @@ pt_cat_long(
 pt_cat_long(
   data = data,
   cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf),
-  by = c(Formulation = "FORMf")) %>%
+  span = c(Formulation = "FORMf")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage
@@ -161,6 +188,10 @@ pt_cat_long(
 
 
 #' # Wide continuous table
+#'
+#' - Continuous table in wide format
+#' - Wide means that the covariates go across the table
+#'
 
 #' ## Ungrouped
 
@@ -212,6 +243,10 @@ pt_cont_wide(
 
 
 #' # Long continuous table
+#'
+#' - Continuous summary table in long format
+#' - Long indicates that covariates go down the table
+#'
 
 #' ## Ungrouped
 

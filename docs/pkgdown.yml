@@ -1,14 +1,6 @@
 pandoc: '2.6'
 pkgdown: 1.5.1
 pkgdown_sha: ~
-articles:
-  continuous-table: continuous-table.html
-  data-inventory: data-inventory.html
-  data-summaries: data-summaries.html
-  digits: digits.html
-  discrete-table: discrete-table.html
-  pmtables: pmtables.html
-  rename: rename.html
-  units: units.html
-last_built: 2020-07-23T14:38Z
+articles: []
+last_built: 2020-08-12T13:48Z
 

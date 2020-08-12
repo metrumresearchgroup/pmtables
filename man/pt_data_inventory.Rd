@@ -13,10 +13,9 @@ pt_data_inventory(
   stacked = FALSE,
   table = NULL,
   all_name = "all",
-  dv_col = pt_opts$dv_col,
-  bq_col = pt_opts$bq_col,
-  id_col = pt_opts$id_col,
-  no_bql = FALSE,
+  dv_col = "DV",
+  bq_col = find_bq_col(data),
+  id_col = "ID",
   ...
 )
 }
@@ -43,13 +42,11 @@ examples)}
 
 \item{dv_col}{character name of \code{DV} column}
 
-\item{bq_col}{character name of \code{BQL} column}
+\item{bq_col}{character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}}
 
 \item{id_col}{character name of \code{ID} column}
 
-\item{no_bql}{if \code{TRUE}, the BQL summary is bypassed}
-
-\item{...}{other arguments passed to \link{data_inventory_chunk}}
+\item{...}{other arguments passed to \code{\link[=data_inventory_chunk]{data_inventory_chunk()}}}
 }
 \description{
 Output columns include counts for subjects, observations, BQL observations,
@@ -65,18 +62,17 @@ and \code{id_col} (for ID). For example, if BQL indicator is in a column called
 See the \link{data_inventory_chunk} help topic for a description of these columns.
 }
 \examples{
-data <- pmtables:::data("obs")
 
-ans <- pt_data_inventory(data, by = .cols("Renal function" = RFf))
+ans <- pt_data_inventory(pmt_pk, by = c("Renal function" = "RFf"))
 
 ans <- pt_data_inventory(
-   data,
+   pmt_pk,
    by = "STUDYf",
    panel = "RFf"
 )
 
 ans <- pt_data_inventory(
-   data,
+   pmt_obs,
    by = "STUDYf",
    panel = "SEQf",
    stacked = TRUE

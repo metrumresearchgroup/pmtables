@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9053</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@
       <h1 data-toc-skip>Discrete Data Table</h1>
                         <h4 class="author">Kyle Baron</h4>
             
-            <h4 class="date">2020-07-23</h4>
+            <h4 class="date">2020-08-03</h4>
       
       
       <div class="hidden name"><code>discrete-table.Rmd</code></div>
@@ -147,7 +147,7 @@
 . $vars
 . &lt;quosure&gt;
 . expr: ^unique(data[[by]])
-. env:  0x7fcc9ff86be8
+. env:  0x7f948cb8f658
 . 
 . $split
 . [1] FALSE
@@ -287,22 +287,21 @@
 )
 . $data
 . # A tibble: 13 x 8
-.    Formulation Study SEXf.male SEXf.female RFf.normal RFf.mild RFf.moderate
-.    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;       
-.  1 tablet      "12-… 7 (28.0)  18 (72.0)   25 (100.0) 0 (0.0)  0 (0.0)     
-.  2 tablet      "12-… 16 (38.1) 26 (61.9)   42 (100.0) 0 (0.0)  0 (0.0)     
-.  3 tablet      "11-… 20 (66.7) 10 (33.3)   9 (30.0)   7 (23.3) 6 (20.0)    
-.  4 tablet      "13-… 19 (57.6) 14 (42.4)   33 (100.0) 0 (0.0)  0 (0.0)     
-.  5 capsule     "12-… 1 (33.3)  2 (66.7)    3 (100.0)  0 (0.0)  0 (0.0)     
-.  6 capsule     "12-… 2 (33.3)  4 (66.7)    6 (100.0)  0 (0.0)  0 (0.0)     
-.  7 capsule     "11-… 3 (100.0) 0 (0.0)     0 (0.0)    2 (66.7) 0 (0.0)     
-.  8 capsule     "13-… 1 (33.3)  2 (66.7)    3 (100.0)  0 (0.0)  0 (0.0)     
-.  9 troche      "12-… 2 (100.0) 0 (0.0)     2 (100.0)  0 (0.0)  0 (0.0)     
-. 10 troche      "12-… 0 (0.0)   2 (100.0)   2 (100.0)  0 (0.0)  0 (0.0)     
-. 11 troche      "11-… 6 (85.7)  1 (14.3)    1 (14.3)   1 (14.3) 4 (57.1)    
-. 12 troche      "13-… 3 (75.0)  1 (25.0)    4 (100.0)  0 (0.0)  0 (0.0)     
-. 13 .panel.wai… "\\h… 80 (50.0) 80 (50.0)   130 (81.2) 10 (6.2) 10 (6.2)    
-. # … with 1 more variable: RFf.severe &lt;chr&gt;
+.    FORMf Study SEXf.male SEXf.female RFf.normal RFf.mild RFf.moderate RFf.severe
+.    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;     
+.  1 tabl… "12-… 7 (28.0)  18 (72.0)   25 (100.0) 0 (0.0)  0 (0.0)      0 (0.0)   
+.  2 tabl… "12-… 16 (38.1) 26 (61.9)   42 (100.0) 0 (0.0)  0 (0.0)      0 (0.0)   
+.  3 tabl… "11-… 20 (66.7) 10 (33.3)   9 (30.0)   7 (23.3) 6 (20.0)     8 (26.7)  
+.  4 tabl… "13-… 19 (57.6) 14 (42.4)   33 (100.0) 0 (0.0)  0 (0.0)      0 (0.0)   
+.  5 caps… "12-… 1 (33.3)  2 (66.7)    3 (100.0)  0 (0.0)  0 (0.0)      0 (0.0)   
+.  6 caps… "12-… 2 (33.3)  4 (66.7)    6 (100.0)  0 (0.0)  0 (0.0)      0 (0.0)   
+.  7 caps… "11-… 3 (100.0) 0 (0.0)     0 (0.0)    2 (66.7) 0 (0.0)      1 (33.3)  
+.  8 caps… "13-… 1 (33.3)  2 (66.7)    3 (100.0)  0 (0.0)  0 (0.0)      0 (0.0)   
+.  9 troc… "12-… 2 (100.0) 0 (0.0)     2 (100.0)  0 (0.0)  0 (0.0)      0 (0.0)   
+. 10 troc… "12-… 0 (0.0)   2 (100.0)   2 (100.0)  0 (0.0)  0 (0.0)      0 (0.0)   
+. 11 troc… "11-… 6 (85.7)  1 (14.3)    1 (14.3)   1 (14.3) 4 (57.1)     1 (14.3)  
+. 12 troc… "13-… 3 (75.0)  1 (25.0)    4 (100.0)  0 (0.0)  0 (0.0)      0 (0.0)   
+. 13 .pan… "\\h… 80 (50.0) 80 (50.0)   130 (81.2) 10 (6.2) 10 (6.2)     10 (6.2)  
 . 
 . $span_split
 . $title
@@ -343,22 +342,22 @@
 . [1] "aligncol"
 . 
 . $col_rename
-.   Formulation         Study 
-. "Formulation"      "STUDYf" 
+.    FORMf    Study 
+.  "FORMf" "STUDYf" 
 . 
 . $panel
 . $col
-.   Formulation 
-. "Formulation" 
+.   FORMf 
+. "FORMf" 
 . 
 . $prefix
-. [1] ""
+. [1] "Formulation"
 . 
 . $prefix_name
 . [1] FALSE
 . 
 . $prefix_skip
-. NULL
+. [1] "All data"
 . 
 . $null
 . [1] FALSE

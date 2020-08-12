@@ -39,6 +39,8 @@ cols_align <- function(.default = 'l', ...,
   structure(ans, class = "aligncol")
 }
 
+is.aligncol <- function(x) inherits(x, "aligncol")
+
 align_update <- function(to_update,cols,al) {
   if(is.null(cols)) return(to_update)
   cols <- cvec_cs(cols)
@@ -71,17 +73,23 @@ cols_right <- function(...) {
 #' @param size the width of the cell
 #' @param unit to go with `size`
 #' @param ragged use `right` to left justify and `left` to right justify
+#' @param center `logical`; if `TRUE`, then column will be centered when
+#' `ragged` is `no`
 #' @param coltype column type
 #'
 #' @export
-col_fixed <- function(size, ragged = c("right", "left", "no"), unit = "cm",
-                       coltype = c("p","m","b")) {
+col_fixed <- function(size, ragged = c("no", "right", "left"),
+                      center = FALSE,
+                      unit = "cm",
+                      coltype = c("p","m","b")) {
   ragged <- match.arg(ragged)
 
   coltype <- match.arg(coltype)
 
   if(ragged=="no") {
-    return(paste0(coltype,"{",size,unit,"}"))
+    cntr <- ifelse(isTRUE(center), ">{\\centering\\arraybackslash}", "")
+    ans <- paste0(cntr, coltype, "{", size, unit, "}")
+    return(ans)
   }
   paste0(">{\\ragged",ragged,"\\arraybackslash}",coltype,"{",size,unit,"}")
 }
@@ -110,10 +118,12 @@ form_align <- function(x,cols,pipes = FALSE) {
   if(x$outer=="r") {
     ans[length(ans)] <- 'r'
   }
-
-  replace <- match(names(x$update), cols)
+  up <- x$update
+  up <- up[names(up) %in% cols]
+  replace <- match(names(up), cols)
   replace <- replace[!is.na(replace)]
-  ans[replace] <- unlist(x$update,use.names=FALSE)
+  ans[replace] <- unlist(up,use.names=FALSE)
+
   if(isTRUE(pipes)) {
     where <- seq_along(ans)[-1]
     ans[where] <- paste0("|",ans[where])

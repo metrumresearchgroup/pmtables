@@ -4,16 +4,19 @@
 \alias{st_notes}
 \title{Add note information to st object}
 \usage{
-st_notes(x, ..., esc = NULL, config = NULL)
+st_notes(x, ..., esc = NULL, config = NULL, collapse = NULL)
 }
 \arguments{
 \item{x}{an stobject}
 
 \item{...}{table notes}
 
-\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notess}
+\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notes}
 
 \item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}}
+
+\item{collapse}{if \code{is.character}, then the note will be collapsed into a
+single line separated by value of \code{collapse} (see \code{\link[base:paste]{base::paste0()}})}
 }
 \description{
 See the \code{notes} and \code{note_config} arguments to \code{\link[=stable]{stable()}}. The function can

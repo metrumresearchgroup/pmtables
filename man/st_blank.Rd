@@ -10,9 +10,9 @@ st_blank(x, ...)
 \item{x}{an stobject}
 
 \item{...}{quoted or unquoted column names to be passed to \code{\link[=stable]{stable()}} as
-\code{col_blank}}
+\code{cols_blank}}
 }
 \description{
-See the \code{col_blank} argument to \code{\link[=stable]{stable()}}.  This function can be called
-multiple times and will accumulate \code{col_blank} data.
+See the \code{cols_blank} argument to \code{\link[=stable]{stable()}}.  This function can be called
+multiple times and will accumulate \code{cols_blank} data.
 }

@@ -4,7 +4,7 @@
 \alias{st_files}
 \title{Add file name information to st object}
 \usage{
-st_files(x, r = NULL, output = NULL, esc = NULL)
+st_files(x, r = getOption("mrg.script", NULL), output = NULL, esc = NULL)
 }
 \arguments{
 \item{x}{an stobject}

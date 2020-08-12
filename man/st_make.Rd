@@ -13,7 +13,9 @@ st_make(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE)
 
 \item{.preview}{if \code{TRUE}, pass result to \code{\link[=st_preview]{st_preview()}}}
 
-\item{.cat}{if \code{TRUE}, pass result to \code{\link[=st_wrap]{st_wrap()}}}
+\item{.cat}{if \code{TRUE}, pass result to \code{\link[=st_wrap]{st_wrap()}}; use this option to write
+table text to standard output while creating Rmarkdown documents with pdf
+output}
 
 \item{long}{render as longtable}
 }
@@ -28,8 +30,11 @@ Convert st object to table output
 library(dplyr)
 
 ob <- st_new(ptdata())
+
 st_make(ob)
+
 st_make(ob, .cat = TRUE)
+
 \dontrun{
 st_make(ob, .preview = TRUE)
 }

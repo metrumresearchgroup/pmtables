@@ -27,21 +27,20 @@ certain features.
 ```{r}
 library(pmtables)
 library(yspec)
+library(dplyr)
 spec <- ys_help$spec()
 
-pmdata <- readRDS("datasets/pmdata.RDS")
-head(pmdata)
-data <- select(pmdata, STUDY = STUDYf, DOSE = DOSEf, WT, AGE, CRCL, ALB, SCR)
+data <- pmt_summarized
+head(data)
 ```
 
 \clearpage
 
 # Simple table
 
-- Columns are in bold by default (can be turned off)
 
 ```{r,results = 'asis'}
-data %>% st_new() %>% st_make(.cat = TRUE)
+data %>% st_new() %>% st_make(cols_bold = TRUE, .cat = TRUE)
 ```
 
 \clearpage
@@ -111,17 +110,44 @@ data %>%
 - Automatically put units under the column name
 
 ```{r,results = 'asis'}
-units <- ys_get_unit(spec, parens = TRUE)
 
 data %>% 
   st_new() %>% 
   st_center(STUDY = 'l', .r = "DOSE,SCR") %>% 
-  st_args(units = units) %>%
+  st_units(WT = "kg", SCR = "mg/dL", DOSE = "mg") %>%
+  st_make(.cat = TRUE)
+```
+
+Alternatively
+```{r,results = 'asis'}
+units <- ys_get_unit(spec, parens = TRUE)
+
+data[1:3,] %>% 
+  st_new() %>% 
+  st_center(STUDY = 'l', .r = "DOSE,SCR") %>% 
+  st_units(units) %>%
   st_make(.cat = TRUE)
 ```
 
 \clearpage
 
+# Expand header rows
+
+- Multiline table header 
+- Unlimited number
+- Use `...` to break
+
+```{r, results = 'asis'}
+data %>% 
+  st_new() %>% 
+  st_rename("Study...Number" = STUDY, "Serum...Albumin" = ALB) %>%
+  st_units(units) %>%
+  st_make(.cat = TRUE)
+```
+
+
+
+\clearpage
 # Math
 
 - Columns with at least two `$` are "math" and will not be sanitized
@@ -169,6 +195,43 @@ st_new(data) %>%
   st_make(.cat = TRUE)
 ```
 
+\clearpage
+
+# hline pattern
+
+```{r, results = 'asis'}
+tmp <- readRDS("datasets/with-total.RDS")
+
+st_new(tmp) %>% 
+  st_hline(pattern = "all", cols = "STUDY", n = 2) %>% 
+  st_make(.cat = TRUE)
+```
+\clearpage
+
+# hline multiple
+
+```{r, results = 'asis'}
+tmp <- readRDS("datasets/with-total.RDS")
+
+st_new(tmp) %>% 
+  st_hline(at = 3, n = 2) %>% 
+  st_make(.cat = TRUE)
+```
+
+\clearpage
+
+# Mark a summary row (cf sumrows)
+
+```{r, results = 'asis'}
+tmp <- readRDS("datasets/with-total.RDS")
+
+st_new(tmp) %>% 
+  st_hline(at = 3, n = 2) %>% 
+  st_bold(cols = "STUDY", pattern = "all") %>%
+  st_edit(pattern = "all", replacement = "All studies") %>%
+  st_make(.cat = TRUE)
+```
+
 
 \clearpage
 
@@ -183,6 +246,51 @@ data %>%
   st_clear_reps("STUDY") %>% 
   st_make(.cat = TRUE)
 ```
+
+\clearpage
+
+# Add styling to data frame
+
+- tex_bold will make table cells bold when they match `pattern`
+- tex_it will make table cells italics when they match `pattern`
+- styling is only added when there is at least one character
+- input must be string
+- combine this with `clear_rep` and `hline_from` to partition the table
+```{r}
+tmp <- ptdata() 
+tmp <- mutate(tmp, STUDY = tex_bold(as.character(STUDY)))
+```
+
+```{r,results = "asis"}
+tmp %>% 
+  st_new() %>% 
+  st_clear_reps(STUDY) %>%
+  st_hline(from = "STUDY") %>%
+  st_make(.cat = TRUE)
+```
+
+
+\clearpage
+
+# Add styling in the pipeline
+
+```{r}
+tmp <- ptdata()
+```
+
+```{r,results = "asis"}
+
+tmp %>%
+  st_new() %>%
+  st_clear_reps(STUDY, .now = TRUE) %>%
+  st_hline(pattern = "\\S+", cols = "STUDY") %>%
+  st_bold(cols = "STUDY") %>%
+  st_it("DOSE") %>%
+  st_edit("\\bmale", "dude") %>%
+  st_edit("female", "gal") %>%
+  st_make(.cat = TRUE)
+```
+
 
 \clearpage
 
@@ -210,7 +318,7 @@ data %>%
 data %>% 
   st_new() %>% 
   st_left(.c = "WT,AGE,CRCL") %>% 
-  st_span("In fonal model", WT:CRCL) %>% 
+  st_span("In final model", WT:CRCL) %>% 
   st_make(.cat = TRUE)
 
 ```
@@ -227,13 +335,10 @@ data %>%
 
 data %>% 
   st_new() %>% 
-  st_panel("STUDY", prefix = "Study ") %>% 
-  st_left(.c = "WT,AGE,CRCL") %>% 
-  st_files("foo.R", "foo.tex") %>% 
   st_span("Meh", DOSE:WT) %>% 
   st_span("Hrm", AGE:CRCL) %>%
   st_span("Huh", ALB:SCR) %>% 
-  st_span("Exper opinion", CRCL:SCR, level = 2) %>% 
+  st_span("Expert opinion", CRCL:SCR, level = 2) %>% 
   st_make(.cat = TRUE)
 ```
 
@@ -252,10 +357,7 @@ head(dotdata, n=2)
 ```{r,results = 'asis'}
 dotdata %>% 
   st_new() %>%
-  st_panel("STUDY", prefix = "Study") %>% 
   st_span_split(sep = '.') %>%
-  st_left(.c = "WT,AGE,CRCL") %>% 
-  st_files("foo.R", "foo.tex") %>% 
   st_make(.cat = TRUE)
 ```
 
@@ -295,12 +397,7 @@ df.total
 
 ```{r, results = "asis"}
 st_new(df.total) %>% 
-  st_args(units = ys_get_unit(spec, parens = TRUE)) %>% 
-  st_center(STUDY = 'l') %>% 
-  st_files("foo.R", "output.tex") %>% 
-  st_rename("Protocol no." = "STUDY") %>% 
-  st_notes("WT: weight; CRCL: creatinine clearance") %>% 
-  st_sumrow(.$data$STUDY=="all", label = "All studies", bold = TRUE) %>% 
+  st_sumrow(pattern = "all", label = "All studies", bold = TRUE) %>% 
   st_make(.cat = TRUE)
 ```
 
@@ -313,7 +410,7 @@ st_new(df.total) %>%
 - Where's my glasses?
 
 ```{r,results = 'asis'}
-data %>% st_new() %>% st_args(fontsize = "tiny") %>% st_make(.cat = TRUE)
+data %>% st_new() %>% st_sizes(font = "tiny") %>% st_make(.cat = TRUE)
 ```
 
 
@@ -324,13 +421,13 @@ data %>% st_new() %>% st_args(fontsize = "tiny") %>% st_make(.cat = TRUE)
 ```{r,results = 'asis'}
 sl <- data %>% slice(1:3)
 sl %>% st_new() %>%                   st_make(.cat = TRUE)
-sl %>% st_new() %>% st_space(0.9) %>% st_make(.cat = TRUE)
-sl %>% st_new() %>% st_space(2)   %>% st_make(.cat = TRUE)
+sl %>% st_new() %>% st_sizes(row = 0.9) %>% st_make(.cat = TRUE)
+sl %>% st_new() %>% st_sizes(row = 2  ) %>% st_make(.cat = TRUE)
 ```
 \clearpage
 
 # Col space
 
 ```{r,results = 'asis'}
-data %>% st_new() %>% st_space(col = 20) %>% st_make(.cat = TRUE)
+data %>% st_new() %>% st_sizes(col = 20) %>% st_make(.cat = TRUE)
 ```

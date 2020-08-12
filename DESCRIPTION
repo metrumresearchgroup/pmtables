@@ -1,41 +1,45 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.0.1.9041
+Version: 0.0.1.9068
 Author: Kyle Baron
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Create tables that are commonly used in pharamcometrics analyses.
+Maintainer: Kyle Baron <kyleb@metrumrg.com>
+Description: Summarize data sets and create publication-quality tables for 
+    inclusion in 'tex' documents.
 License: GPL (>=2)
-Imports: purrr, dplyr, forcats, tidyr, rlang, mrggt, glue, tibble, assertthat, 
-    tidyselect, stringr
+Imports: purrr, dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble, 
+    assertthat, tidyselect, stringr
 Depends: R (>= 3.5.0)
 Suggests: testthat, knitr, yaml, rmarkdown, fs, texPreview
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Collate: 
-    'summary-functions.R'
     'class-new_names.R'
     'class-digits.R'
     'utils.R'
+    'summary-functions.R'
     'AAAA.R'
     'check.R'
-    'class-table.R'
     'continuous_table.R'
     'data_inventory_table.R'
     'discrete_table.R'
-    'opts.R'
     'preview.R'
     'summarize-cat-chunk.R'
     'table-align.R'
     'table-clear_reps.R'
+    'table-cols.R'
+    'table-control.R'
     'table-functions.R'
+    'table-hlines.R'
     'table-long.R'
     'table-notes.R'
     'table-object.R'
     'table-panel.R'
+    'table-sizes.R'
     'table-span.R'
     'table-stable.R'
     'table-sumrow.R'

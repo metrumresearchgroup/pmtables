@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9068</span>
       </span>
     </div>
 
@@ -85,40 +85,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -148,7 +115,7 @@
     <p>See the <code>r_file</code> and <code>output_file</code> arguments to <code><a href='stable.html'>stable()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_files</span>(<span class='no'>x</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>st_files</span>(<span class='no'>x</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mrg.script"</span>, <span class='kw'>NULL</span>), <span class='kw'>output</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,9 +132,50 @@
       <th>output</th>
       <td><p>set <code>output_file</code>, passed to <code><a href='stable.html'>stable()</a></code></p></td>
     </tr>
+    <tr>
+      <th>esc</th>
+      <td><p>passed to <code><a href='tab_prime.html'>tab_escape()</a></code>; use <code>NULL</code> to bypass escaping</p></td>
+    </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+
+<span class='no'>ob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())
+
+<span class='no'>ob</span> <span class='kw'>%&gt;%</span> <span class='fu'>st_files</span>(<span class='kw'>r</span> <span class='kw'>=</span> <span class='st'>"foo.R"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='st'>"foo.tex"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"                                   
+#&gt;  [2] "\\begin{threeparttable}"                                                    
+#&gt;  [3] "\\begin{tabular}[h]{lllllllll}"                                             
+#&gt;  [4] "\\hline"                                                                    
+#&gt;  [5] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 
+#&gt;  [6] "\\hline"                                                                    
+#&gt;  [7] "12-DEMO-001 &amp; 100 mg &amp; tablet &amp; 80 &amp; 71.4 &amp; 104 &amp; 33.7 &amp; 4.20 &amp; 1.06 \\\\"  
+#&gt;  [8] "12-DEMO-001 &amp; 150 mg &amp; capsule &amp; 16 &amp; 89.4 &amp; 122 &amp; 24.4 &amp; 4.63 &amp; 1.12 \\\\" 
+#&gt;  [9] "12-DEMO-001 &amp; 150 mg &amp; tablet &amp; 48 &amp; 81.7 &amp; 104 &amp; 34.4 &amp; 3.83 &amp; 0.910 \\\\" 
+#&gt; [10] "12-DEMO-001 &amp; 150 mg &amp; troche &amp; 16 &amp; 94.0 &amp; 93.2 &amp; 27.4 &amp; 4.94 &amp; 1.25 \\\\" 
+#&gt; [11] "12-DEMO-001 &amp; 200 mg &amp; tablet &amp; 64 &amp; 67.9 &amp; 100 &amp; 27.5 &amp; 4.25 &amp; 1.10 \\\\"  
+#&gt; [12] "12-DEMO-001 &amp; 200 mg &amp; troche &amp; 16 &amp; 76.6 &amp; 99.2 &amp; 22.8 &amp; 4.54 &amp; 1.15 \\\\" 
+#&gt; [13] "12-DEMO-002 &amp; 100 mg &amp; capsule &amp; 36 &amp; 61.3 &amp; 113 &amp; 38.3 &amp; 4.04 &amp; 1.28 \\\\" 
+#&gt; [14] "12-DEMO-002 &amp; 100 mg &amp; tablet &amp; 324 &amp; 77.6 &amp; 106 &amp; 29.9 &amp; 4.31 &amp; 0.981 \\\\"
+#&gt; [15] "12-DEMO-002 &amp; 50 mg &amp; capsule &amp; 36 &amp; 74.1 &amp; 112 &amp; 37.1 &amp; 4.44 &amp; 0.900 \\\\" 
+#&gt; [16] "12-DEMO-002 &amp; 50 mg &amp; tablet &amp; 324 &amp; 71.2 &amp; 106 &amp; 34.1 &amp; 4.63 &amp; 0.868 \\\\" 
+#&gt; [17] "12-DEMO-002 &amp; 75 mg &amp; capsule &amp; 36 &amp; 72.4 &amp; 105 &amp; 38.2 &amp; 3.89 &amp; 0.900 \\\\" 
+#&gt; [18] "12-DEMO-002 &amp; 75 mg &amp; tablet &amp; 288 &amp; 71.6 &amp; 98.9 &amp; 34.2 &amp; 4.49 &amp; 0.991 \\\\"
+#&gt; [19] "12-DEMO-002 &amp; 75 mg &amp; troche &amp; 36 &amp; 73.6 &amp; 103 &amp; 49.2 &amp; 4.52 &amp; 0.930 \\\\"  
+#&gt; [20] "\\hline"                                                                    
+#&gt; [21] "\\end{tabular}"                                                             
+#&gt; [22] "\\begin{tablenotes}[flushleft]"                                             
+#&gt; [23] "\\item Source code: foo.R"                                                  
+#&gt; [24] "\\item Source file: foo.tex"                                                
+#&gt; [25] "\\end{tablenotes}"                                                          
+#&gt; [26] "\\end{threeparttable}"                                                      
+#&gt; [27] "}"                                                                          
+#&gt; attr(,"class")
+#&gt; [1] "stable"
+#&gt; attr(,"stable_file")
+#&gt; [1] "foo.tex"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -179,7 +187,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

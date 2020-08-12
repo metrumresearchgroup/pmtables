@@ -11,10 +11,10 @@ pt_cont_wide(
   panel = by,
   table = NULL,
   units = NULL,
-  digits = NULL,
+  digits = new_digits(),
   all_name = "All data",
-  fun = str_sum_2,
-  panel.label.add = pt_opts$panel.label.add
+  fun = cont_wide_fun,
+  id_col = "ID"
 )
 }
 \arguments{
@@ -22,24 +22,33 @@ pt_cont_wide(
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
-\item{by}{a grouping variable name}
+\item{by}{a grouping variable; may be character vector or quosure}
 
-\item{panel}{a variable for paneling the summary}
+\item{panel}{data set column name to stratify the summary}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
 
 \item{units}{a named list to use for unit lookup (see details and examples)}
 
-\item{digits}{a \code{digits} object (see \link{new_digits})}
+\item{digits}{a \code{digits} object (see \code{\link[=new_digits]{new_digits()}})}
 
 \item{all_name}{a name to use for the complete data summary}
 
 \item{fun}{the data summary function (see details)}
 
-\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
-to the panel variable value}
+\item{id_col}{the ID column name}
 }
 \description{
 Create a continuous data summary table in wide format
+}
+\details{
+The summary function (\code{fun}) should take \code{value} as the first argument and
+return a data frame or tibble with one row and one column named \code{summary}.
+The function can also accept an \code{id} argument which is a vector of \code{IDs}
+that is the same length as \code{value}. Be sure to include \code{...} to the function
+signature as other arguments will be passed along. Make sure your function
+completely formats the output ... it will appear in the table as you return
+from this function. See \code{\link[=cont_wide_fun]{cont_wide_fun()}} for details on the default
+implementation.
 }

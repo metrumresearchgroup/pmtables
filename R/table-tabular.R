@@ -10,27 +10,36 @@ tab_prime <- function(data, escape_fun = tab_escape) {
   }
   data <- modify(data, as.character)
   data <- modify(data, replace_na, "")
-  math <- map_lgl(data, ~ any(str_count(.x, fixed("$")) >= 2))
-  if(any(math)) {
-    data[,!math] <- modify(data[,!math], escape_fun)
-  } else {
-    data <- modify(data, escape_fun)
+  esc <- getOption("pmtables.escape", c("_", "%"))
+  if(is.character(esc)) {
+    data <- modify(data, escape_fun, esc = esc)
   }
   structure(data, pmtables.primed = TRUE)
+}
+
+any_skip_escape <- function(x) {
+  any(str_count(x, fixed("$")) > 1) |
+    any(str_count(x, fixed("\\")) > 0)
+}
+
+do_escape <- function(x) {
+  str_count(x, fixed("$")) <= 1 &
+    str_count(x, fixed("\\")) == 0
 }
 
 #' @rdname tab_prime
 #' @param string data to sanitize
 #' @param esc a character vector of strings to escape
 #' @param ... used only to allow arguments through
-tab_escape <- function(string,
-                       esc = getOption("pmtables.esc","_"), ...) {
+tab_escape <- function(string, esc = getOption("pmtables.escape", c("_", "%")), ...) {
+  if(is.null(esc)) return(string)
+  w <- do_escape(string)
   for(ch in esc) {
-    string <- gsub(ch, paste0("\\",ch), string, fixed = TRUE)
+    string[w] <- gsub(ch, paste0("\\",ch), string[w], fixed = TRUE)
   }
-  string <- gsub("~", "$\\sim$", string, fixed = TRUE)
-  string <- gsub(">", "$>$", string, fixed = TRUE)
-  string <- gsub("<", "$<$", string, fixed = TRUE)
+  string[w] <- gsub("~", "$\\sim$", string[w], fixed = TRUE)
+  string[w] <- gsub(">", "$>$", string[w], fixed = TRUE)
+  string[w] <- gsub("<", "$<$", string[w], fixed = TRUE)
   string
 }
 
@@ -38,13 +47,21 @@ esc_underscore <- function(string) {
   gsub("_", "\\_", string, fixed = TRUE)
 }
 
-
-make_tabular <- function(data, indent = NULL, prime_fun = tab_prime,
+#' Create tabular environment from data frame
+#'
+#' @param data a data.frame
+#' @param prime_fun a function to prime the data frame for rendering in TeX
+#' @param escape_fun a function to escape characters that have special meaning
+#' in TeX
+#' @param ... not used
+#' @export
+make_tabular <- function(data, prime_fun = tab_prime,
                          escape_fun = tab_escape, ...) {
 
   if(is.character(prime_fun)) {
     prime_fun <- get(prime_fun, mode = "function")
   }
+
   if(is.character(escape_fun)) {
     escape_fun <- get(escape_fun, mode = "function")
   }
@@ -64,74 +81,10 @@ make_tabular <- function(data, indent = NULL, prime_fun = tab_prime,
 
   tab <- paste0(tab, " \\\\")
 
-  if(is.character(indent)) {
-    tab <- paste0("\\hskip 0.3cm", tab)
-  }
-
   tab
 }
 
-form_cols <- function(cols, bold = FALSE, relabel = NULL, blank = NULL,
-                      units = NULL) {
-  if(!is.null(blank)) {
-    blank <- unname(new_names(blank))
-    bl <- cols %in% blank
-    cols[bl] <- rep("", sum(bl))
-  }
-
-  if(!is.null(relabel)) {
-    relabel <- new_names(relabel)
-    relabel <- relabel[relabel %in% cols]
-    newi <- match(cols, relabel)
-    loc <- which(!is.na(newi))
-    cols[loc] <- names(relabel)
-    cols <- unname(cols)
-  }
-
-  if(isTRUE(bold)) cols <- bold_each(cols)
-  cols <- paste0(cols, collapse = " & ")
-  cols <- paste0(cols, " \\\\")
-  cols <- paste0("", cols)
-  if(is.character(units) && any(nchar(units) > 0)) {
-    cols <- paste0(cols, "[-0.5em]")
-    cols <- c(cols, units)
-  }
-  cols
-}
-
-rename_cols <- function(cols, relabel = NULL, blank = NULL) {
-
-  if(!is.null(blank)) {
-    blank <- unname(new_names(blank))
-    bl <- cols %in% blank
-    cols[bl] <- rep("", sum(bl))
-  }
-
-  if(!is.null(relabel)) {
-    relabel <- new_names(relabel)
-    relabel <- relabel[relabel %in% cols]
-    newi <- match(cols, relabel)
-    loc <- which(!is.na(newi))
-    cols[loc] <- names(relabel)
-    cols <- unname(cols)
-  }
-
-  cols
-}
-
-form_tex_cols <- function(cols, bold = FALSE, units = NULL) {
-  if(isTRUE(bold)) cols <- bold_each(cols)
-  cols <- paste0(cols, collapse = " & ")
-  cols <- paste0(cols, " \\\\")
-  cols <- paste0("", cols)
-  if(is.character(units) && any(nchar(units) > 0)) {
-    cols <- paste0(cols, "[-0.5em]")
-  }
-  cols
-}
-
-
-form_unit <- function(units, cols) {
+form_unit <- function(units, cols) { # nocov start
   if(is.null(units)) return(NULL)
   ans <- vector(mode = "character", length = length(cols))
   units <- units[names(units) %in% cols]
@@ -149,7 +102,7 @@ form_unit <- function(units, cols) {
   ans <- paste0(ans, collapse = " & ")
   ans <- paste0(ans, " \\\\ ")
   ans
-}
+} # nocov end
 
 form_open <- function(align) {
   paste0("\\begin{tabular}[h]{", align, "}")

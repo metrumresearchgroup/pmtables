@@ -90,4 +90,17 @@ sumrow_add_style <- function(x,data) {
   data
 }
 
-
+tab_find_sumrows <- function(data, sumrows = NULL) {
+  if(is.null(sumrows)) {
+    return(list(data = data, hlines = NULL))
+  }
+  hline_sums <- map(sumrows, sumrow_get_hline)
+  hline_sums_top <- flatten_int(hline_sums)-1
+  hline_sums_bot <- hline_sums_top + 1
+  hline_sums_bot <- hline_sums_bot[hline_sums_bot != nrow(data)]
+  hlines <- c(hline_sums_top, hline_sums_bot)
+  for(this_sumrow in sumrows) {
+    data <- sumrow_add_style(this_sumrow,data)
+  }
+  return(list(data = data, hlines = hlines))
+}

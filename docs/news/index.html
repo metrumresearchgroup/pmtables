@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9068</span>
       </span>
     </div>
 
@@ -84,40 +84,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -150,6 +117,58 @@
 <li>Add <code>duplicates_ok</code> argument to rowpanel</li>
 <li>Error if duplicate panel names found and <code>duplicates_ok</code> is FALSE</li>
 <li>Refactor how panel groupings are determined - non-repeating values rather than unique</li>
+<li>Added debug_data argument to stable; this adds an environment to the output with some data that underlies the table; the environment can be accessed with <code>get_debug_data()</code>
+</li>
+<li>Added complete series of <code>st_*</code> functions that can be used in a pipeline to set arguments for <code><a href="../reference/stable.html">stable()</a></code>; see <code>inst/demo-pipe.pdf</code>
+</li>
+<li>
+<code>st2doc</code> will render multiple page document when a list of tables is passed in as text</li>
+<li>Changed <code>stable</code> argument from <code>bold_cols</code> to <code>col_bold</code>
+</li>
+<li>Column names are only rendered with bold font when requested using <code>col_bold</code> argument</li>
+<li>The prefixes for <code>r_file</code> and <code>output_file</code> are only settable with options <code>r.file.label</code> and <code>output.file.label</code>, respectively</li>
+<li>Dropped <code>col_space</code>, <code>row_space</code> and <code>fontsize</code> arguments to <code><a href="../reference/stable.html">stable()</a></code>; they should be set with a call to <code>tab_size</code>
+</li>
+<li>Add <code><a href="../reference/st_sizes.html">st_sizes()</a></code> to set <code>sizes</code> argument to <code><a href="../reference/stable.html">stable()</a></code>
+</li>
+<li>Refactor <code><a href="../reference/stable.html">stable()</a></code> function in order to reduce cyclomatic complexity and shorten overall function length in response to brief review and comment by TS representative</li>
+<li>Make stable a generic function; methods for data.frame and pmtable</li>
+<li>All pmtables functions now accept <code>panel</code> argument as a rowgroup object</li>
+<li>Add <code><a href="../reference/as.panel.html">as.panel()</a></code> function for constructing rowgroup objects</li>
+<li>For pmtables functions: when <code>panel</code> is passed with an alternate name, the name is is used to set the prefix</li>
+<li>Fixed bug where column names were getting sanitized before rename happened #62</li>
+<li>Pick up option <code>pmtables.dir</code> to set output directory for <code><a href="../reference/stable_save.html">stable_save()</a></code>
+</li>
+<li>Pick up option <code>mrg.script</code> to set script name in <code><a href="../reference/st_files.html">st_files()</a></code> and <code><a href="../reference/tab_notes.html">tab_notes()</a></code>
+</li>
+<li>Refactored the way that table cols and units are assembled; column labels are split on <code>...</code> to create multi-line column names</li>
+<li>Add <code>header_row</code> argument to <code><a href="../reference/tab_cols.html">tab_cols()</a></code> to control the spacing between column labels and between labels and units</li>
+<li>Fix warning message when trying to align a column not in the data set</li>
+<li>Fix warning message when trying to add unit to column not in the data set</li>
+<li>Add several new package options; see <code>?pt_opts</code>
+</li>
+<li>Add <code>center</code> argument to <code>col_fixed</code>; when <code>ragged</code> is <code>no</code>, the column can still be fixed and centered</li>
+<li>Dots (<code>...</code>) added to <code><a href="../reference/st_new.html">st_new()</a></code> / <code><a href="../reference/st_new.html">st_data()</a></code> to be collected by args</li>
+<li>Add <code><a href="../reference/st_units.html">st_units()</a></code> pipeline function</li>
+<li>Add <code>tex_bold</code>() function to style data frame contents</li>
+<li>Add <code><a href="../reference/tex_bold.html">tex_it()</a></code> function to style data frame contents</li>
+<li>Add <code><a href="../reference/st_edit.html">st_edit()</a></code>
+</li>
+<li>Refactor <code><a href="../reference/st_hline.html">st_hline()</a></code>; allow to add hline by regexp across whole data frame or targeted</li>
+<li>Refactored <code>st_bold</code> and <code>st_it</code> to target columns or whole data frame</li>
+<li>Add <code><a href="../reference/st_drop.html">st_drop()</a></code>
+</li>
+<li>Add data sets <code>analysis1</code>, <code>pmt_pk</code>, <code>pmt_first</code>, <code>pmt_obs</code>
+</li>
+<li>Change argument names for <code>tab_cols</code>: all <code>col_xyz</code> arguments are renamed to <code>cols_xyz</code>
+</li>
+<li>Add <code>find_bq_col</code> function to allow either <code>BQL</code> or <code>BLQ</code> as default value for <code>bq_col</code> argument to <code>pt_data_inventory</code>
+</li>
+<li>Add <code>pattern</code> and <code>cols</code> arguments to <code>st_sumrow</code>; this allows calculation of <code>rows</code> based on a regular expression</li>
+<li>Add <code>df_grep_rows</code> and <code>df_grepl_rows</code> functions for finding rows where a regular expression is matched</li>
+<li>Add <code>pmtables.escape</code> option to pass a character vector of items to be escaped</li>
+<li>Unit of escape is now individual positions in a vector rather than the whole vector itself</li>
+<li>No longer requiring or assuming that <code>header_row</code> (<code><a href="../reference/tab_size.html">tab_size()</a></code>) is a negative number; enter a negative number if you want to remove space between header rows; this should only be required when row space is increased</li>
 </ul>
 </div>
   </div>
@@ -165,7 +184,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9068</span>
       </span>
     </div>
 
@@ -85,40 +85,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -148,9 +115,9 @@
     <p>Prime a data frame for inclusion into a latex table</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tab_prime</span>(<span class='no'>data</span>, <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>, <span class='kw'>chrs</span> <span class='kw'>=</span> <span class='st'>"_"</span>)
+    <pre class="usage"><span class='fu'>tab_prime</span>(<span class='no'>data</span>, <span class='kw'>escape_fun</span> <span class='kw'>=</span> <span class='no'>tab_escape</span>)
 
-<span class='fu'>tab_escape</span>(<span class='no'>string</span>, <span class='kw'>chrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pmtables.san"</span>, <span class='st'>"_"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>tab_escape</span>(<span class='no'>string</span>, <span class='kw'>esc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pmtables.escape"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"_"</span>, <span class='st'>"%"</span>)), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,12 +131,12 @@
       <td><p>a function to sanitize data frame contents</p></td>
     </tr>
     <tr>
-      <th>chrs</th>
-      <td><p>a character vector of strings to escape</p></td>
-    </tr>
-    <tr>
       <th>string</th>
       <td><p>data to sanitize</p></td>
+    </tr>
+    <tr>
+      <th>esc</th>
+      <td><p>a character vector of strings to escape</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -189,7 +156,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">
