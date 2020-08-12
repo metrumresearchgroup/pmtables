@@ -43,6 +43,15 @@ to the bottom of the table}
 \description{
 Continuous data summary in long format
 }
+\details{
+The summary function (\code{fun}) should take \code{value} as the first argument and
+return a data frame or tibble with one row as many columns as you wish to
+appear in the table. The function can also accept an \code{id} argument which is
+a vector of \code{IDs} that is the same length as \code{value}. Be sure to include
+\code{...} to the function signature as other arguments will be passed along.
+Make sure your function completely formats the output ... it will appear in
+the table as you return from this function.
+}
 \examples{
 
 ans <- pt_cont_long(pmt_first, cols = dplyr::vars(WT,ALB,CRCL))

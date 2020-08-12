@@ -42,3 +42,12 @@ examples)}
 \description{
 Create a continuous data summary table in wide format
 }
+\details{
+The summary function (\code{fun}) should take \code{value} as the first argument and
+return a data frame or tibble with one row and one column named \code{summary}.
+The function can also accept an \code{id} argument which is a vector of \code{IDs}
+that is the same length as \code{value}. Be sure to include \code{...} to the function
+signature as other arguments will be passed along. Make sure your function
+completely formats the output ... it will appear in the table as you return
+from this function.
+}

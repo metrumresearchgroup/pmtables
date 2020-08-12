@@ -97,6 +97,15 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 #' @param fun the data summary function (see details)
 #' @param id_col the ID column name
 #'
+#' @details
+#' The summary function (`fun`) should take `value` as the first argument and
+#' return a data frame or tibble with one row and one column named `summary`.
+#' The function can also accept an `id` argument which is a vector of `IDs`
+#' that is the same length as `value`. Be sure to include `...` to the function
+#' signature as other arguments will be passed along. Make sure your function
+#' completely formats the output ... it will appear in the table as you return
+#' from this function.
+#'
 #' @export
 pt_cont_wide <- function(data, cols,
                          by = ".total",
@@ -194,6 +203,15 @@ pt_cont_wide <- function(data, cols,
 #' @inheritParams pt_cont_wide
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
+#'
+#' @details
+#' The summary function (`fun`) should take `value` as the first argument and
+#' return a data frame or tibble with one row as many columns as you wish to
+#' appear in the table. The function can also accept an `id` argument which is
+#' a vector of `IDs` that is the same length as `value`. Be sure to include
+#' `...` to the function signature as other arguments will be passed along.
+#' Make sure your function completely formats the output ... it will appear in
+#' the table as you return from this function.
 #'
 #' @examples
 #'
