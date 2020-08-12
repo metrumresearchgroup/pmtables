@@ -13,7 +13,7 @@ pt_cont_wide(
   units = NULL,
   digits = new_digits(),
   all_name = "All data",
-  fun = str_sum_2,
+  fun = cont_wide_fun,
   id_col = "ID"
 )
 }
@@ -49,5 +49,6 @@ The function can also accept an \code{id} argument which is a vector of \code{ID
 that is the same length as \code{value}. Be sure to include \code{...} to the function
 signature as other arguments will be passed along. Make sure your function
 completely formats the output ... it will appear in the table as you return
-from this function.
+from this function. See \code{\link[=cont_wide_fun]{cont_wide_fun()}} for details on the default
+implementation.
 }

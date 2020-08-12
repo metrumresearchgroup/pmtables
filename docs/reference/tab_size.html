@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9068</span>
       </span>
     </div>
 
@@ -115,7 +115,13 @@
     <p>Adjustments for row padding, column padding, and font size</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tab_size</span>(<span class='kw'>row</span> <span class='kw'>=</span> <span class='fl'>1.4</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>header_row</span> <span class='kw'>=</span> <span class='fl'>0.4</span> * <span class='no'>row</span>, <span class='kw'>lt_row</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)</pre>
+    <pre class="usage"><span class='fu'>tab_size</span>(
+  <span class='kw'>row</span> <span class='kw'>=</span> <span class='fl'>1.4</span>,
+  <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>header_row</span> <span class='kw'>=</span> -<span class='fl'>0.4</span> * <span class='no'>row</span>,
+  <span class='kw'>lt_row</span> <span class='kw'>=</span> <span class='fl'>0.3</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,15 +141,16 @@
     </tr>
     <tr>
       <th>header_row</th>
-      <td><p>the amount of space to remove between rows in the header
-section of the table (column names and units); this should be a positive
-number; the default is <code>0.4*row</code>; recommend fixing to 0.2 when <code>row</code> is 1
-and smaller if <code>row</code> is less than 1</p></td>
+      <td><p>extra space between rows in the header
+section of the table (column names and units); this should be a negative
+number if you wish to compress header rows; the default is <code>-0.4*row</code>;
+recommend fixing to <code>-0.2</code> when <code>row</code> is 1 and smaller if <code>row</code> is less
+than 1</p></td>
     </tr>
     <tr>
       <th>lt_row</th>
-      <td><p>extra row space for longtables; this is used instead of <code>row_space</code>
-when rendering longtable</p></td>
+      <td><p>extra row space for longtables; this is used instead of
+<code>row_space</code> when rendering longtable</p></td>
     </tr>
     </table>
 

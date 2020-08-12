@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9066</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9068</span>
       </span>
     </div>
 
@@ -168,6 +168,7 @@
 <li>Add <code>df_grep_rows</code> and <code>df_grepl_rows</code> functions for finding rows where a regular expression is matched</li>
 <li>Add <code>pmtables.escape</code> option to pass a character vector of items to be escaped</li>
 <li>Unit of escape is now individual positions in a vector rather than the whole vector itself</li>
+<li>No longer requiring or assuming that <code>header_row</code> (<code><a href="../reference/tab_size.html">tab_size()</a></code>) is a negative number; enter a negative number if you want to remove space between header rows; this should only be required when row space is increased</li>
 </ul>
 </div>
   </div>

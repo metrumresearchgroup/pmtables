@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add column blank information to st object — st_blank • pmtables</title>
+<title>Function for continuous wide summaries — cont_wide_fun • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Add column blank information to st object — st_blank" />
-<meta property="og:description" content="See the cols_blank argument to stable().  This function can be called
-multiple times and will accumulate cols_blank data." />
+<meta property="og:title" content="Function for continuous wide summaries — cont_wide_fun" />
+<meta property="og:description" content="Function for continuous wide summaries" />
 
 
 
@@ -107,33 +106,50 @@ multiple times and will accumulate cols_blank data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add column blank information to st object</h1>
+    <h1>Function for continuous wide summaries</h1>
     
-    <div class="hidden name"><code>st_blank.Rd</code></div>
+    <div class="hidden name"><code>cont_wide_fun.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See the <code>cols_blank</code> argument to <code><a href='stable.html'>stable()</a></code>.  This function can be called
-multiple times and will accumulate <code>cols_blank</code> data.</p>
+    <p>Function for continuous wide summaries</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_blank</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>cont_wide_fun</span>(<span class='no'>value</span>, <span class='kw'>digit_fun</span> <span class='kw'>=</span> <span class='no'>sig</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>an stobject</p></td>
+      <th>value</th>
+      <td><p>the data to summarize</p></td>
+    </tr>
+    <tr>
+      <th>digit_fun</th>
+      <td><p>a function to format digits in the summaries</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>a vector of subjet IDs; same length as <code>value</code></p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>the number of digits in the summary; the current implementation
+passes <code>digits</code> to <code>digit_fun()</code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>quoted or unquoted column names to be passed to <code><a href='stable.html'>stable()</a></code> as
-<code>cols_blank</code></p></td>
+      <td><p>not used</p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'>cont_wide_fun</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 1</span><span>
+#&gt;   summary           
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
+#&gt; </span><span style='color: #555555;'>1</span><span> 0.115 (1.01) [100]</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

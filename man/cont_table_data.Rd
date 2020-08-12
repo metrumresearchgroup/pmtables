@@ -13,7 +13,7 @@ cont_table_data(
   all_name = "all",
   digits = new_digits(),
   id_col = "ID",
-  fun = df_sum_2
+  fun = cont_long_fun
 )
 }
 \arguments{

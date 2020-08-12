@@ -4,9 +4,9 @@ library(dplyr)
 
 context("test-summary-functions.R")
 
-test_that("summary df_sum_2", {
+test_that("summary cont_long_fun", {
   x <- rnorm(1000)
-  ans <- pmtables:::df_sum_2(x)
+  ans <- pmtables:::cont_long_fun(x)
   expect_is(ans,"data.frame")
   expect_named(ans, c("n", "Mean", "Median", "SD", "Min / Max"))
   expect_equal(ans$n, 1000)
@@ -17,9 +17,9 @@ test_that("summary df_sum_2", {
   expect_equal(ans$`Min / Max`, rng)
 })
 
-test_that("summary str_sum_2", {
+test_that("summary cont_wide_fun", {
   x <- rnorm(1000)
-  ans <- pmtables:::str_sum_2(x)
+  ans <- pmtables:::cont_wide_fun(x)
   expect_is(ans,"data.frame")
   expect_named(ans, "summary")
   expect_equal(dim(ans), c(1,1))

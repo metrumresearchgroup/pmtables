@@ -13,7 +13,7 @@
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
                             all_name = "all", digits = new_digits(), id_col = "ID",
-                            fun = df_sum_2) {
+                            fun = cont_long_fun) {
 
   cols <- unname(new_names(cols))
   by <- unname(new_names(by))
@@ -104,7 +104,8 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 #' that is the same length as `value`. Be sure to include `...` to the function
 #' signature as other arguments will be passed along. Make sure your function
 #' completely formats the output ... it will appear in the table as you return
-#' from this function.
+#' from this function. See [cont_wide_fun()] for details on the default
+#' implementation.
 #'
 #' @export
 pt_cont_wide <- function(data, cols,
@@ -114,7 +115,7 @@ pt_cont_wide <- function(data, cols,
                          units = NULL,
                          digits = new_digits(),
                          all_name = "All data",
-                         fun = str_sum_2,
+                         fun = cont_wide_fun,
                          id_col = "ID") {
 
   has_panel <- !missing(panel)
@@ -211,7 +212,8 @@ pt_cont_wide <- function(data, cols,
 #' a vector of `IDs` that is the same length as `value`. Be sure to include
 #' `...` to the function signature as other arguments will be passed along.
 #' Make sure your function completely formats the output ... it will appear in
-#' the table as you return from this function.
+#' the table as you return from this function. See [cont_long_fun()] for
+#' details on the default implementation.
 #'
 #' @examples
 #'
@@ -228,7 +230,7 @@ pt_cont_long <- function(data,
                          digits = new_digits(),
                          summarize_all = TRUE,
                          all_name = "All data",
-                         fun = df_sum_2,
+                         fun = cont_long_fun,
                          id_col = "ID") {
 
   has_panel <- !missing(panel)

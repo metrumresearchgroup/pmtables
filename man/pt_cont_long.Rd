@@ -13,7 +13,7 @@ pt_cont_long(
   digits = new_digits(),
   summarize_all = TRUE,
   all_name = "All data",
-  fun = df_sum_2,
+  fun = cont_long_fun,
   id_col = "ID"
 )
 }
@@ -50,7 +50,8 @@ appear in the table. The function can also accept an \code{id} argument which is
 a vector of \code{IDs} that is the same length as \code{value}. Be sure to include
 \code{...} to the function signature as other arguments will be passed along.
 Make sure your function completely formats the output ... it will appear in
-the table as you return from this function.
+the table as you return from this function. See \code{\link[=cont_long_fun]{cont_long_fun()}} for
+details on the default implementation.
 }
 \examples{
 

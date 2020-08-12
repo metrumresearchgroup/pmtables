@@ -29,7 +29,7 @@ test_that("continuous data summary wide - simple", {
   cols <- pmtables:::new_names("WT,ALB,SCR")
   ans <- cont_table_data(
     data, cols = cols, wide = TRUE,
-    fun = pmtables:::str_sum_2
+    fun = pmtables:::cont_wide_fun
   )
   expect_is(ans,"data.frame")
   expect_identical(names(ans)[1],"outer")
@@ -41,7 +41,7 @@ test_that("continuous data summary wide - by", {
   cols <- pmtables:::new_names("WT,ALB,SCR")
   ans <- cont_table_data(
     data, cols = cols, wide = TRUE,
-    fun = pmtables:::str_sum_2,
+    fun = pmtables:::cont_wide_fun,
     by = pmtables:::new_names("RFf")
   )
   expect_is(ans,"data.frame")
