@@ -104,7 +104,7 @@ pt_data_inventory(
 #' - Wide refers to the fact that the covariates go across the table
 #'
 
-##' ## Basic
+##' ## Ungrouped
 
 #+ results = 'asis'
 
@@ -174,7 +174,7 @@ pt_cat_long(
 
 
 
-#' ## Gropued (by formulation)
+#' ## Grouped (by formulation)
 
 #+ results = 'asis'
 pt_cat_long(
@@ -184,7 +184,6 @@ pt_cat_long(
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage
-
 
 
 #' # Wide continuous table
@@ -258,6 +257,8 @@ pt_cont_long(
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage
+
+#' ## Paneled
 
 #+ results='asis'
 pt_cont_long(
