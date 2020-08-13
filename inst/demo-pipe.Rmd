@@ -75,7 +75,7 @@ data %>%
 data %>% 
   st_new() %>% 
   st_files("foo.R", "foo.tex") %>% 
-  st_noteconf(type = "minipage", width = 0.65) %>%
+  st_noteconf(type = "minipage", width = 0.85) %>%
   st_notes(
     "Data were analyzed in quadruplicate.", 
     "The results are very clear."
