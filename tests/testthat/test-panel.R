@@ -1,5 +1,6 @@
 library(testthat)
 library(pmtables)
+library(dplyr)
 
 inspect <- function(...) {
   get_stable_data(stable(..., inspect = TRUE))
@@ -30,3 +31,18 @@ test_that("span split with title", {
   expect_equal(utitle, c("First Split", "", "Last Split"))
 })
 
+test_that("panel with sumrow", {
+  data <- ptdata()
+  data$STUDY[6] <- "Summary"
+  data$STUDY[13] <- "Summary"
+  out <- inspect(
+    data,
+    panel = "STUDY",
+    sumrows = sumrow(data$STUDY=="Summary",label="All")
+  )
+  tab <- out$tab
+  multi <- grepl("multicolumn",tab)
+  expect_equal(sum(multi),2)
+  all <- grepl("^All", tab)
+  expect_equal(sum(all),2)
+})

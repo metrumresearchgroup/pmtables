@@ -21,7 +21,7 @@
 sumrow <- function(rows,
                    col = 1,
                    hline = TRUE,
-                   hline2 = TRUE,
+                   hline2 = FALSE,
                    bold = FALSE,
                    it = FALSE,
                    blank = NULL,
@@ -96,9 +96,7 @@ tab_find_sumrows <- function(data, sumrows = NULL) {
   }
   hline_sums <- map(sumrows, sumrow_get_hline)
   hline_sums_top <- flatten_int(hline_sums)-1
-  hline_sums_bot <- hline_sums_top + 1
-  hline_sums_bot <- hline_sums_bot[hline_sums_bot != nrow(data)]
-  hlines <- c(hline_sums_top, hline_sums_bot)
+  hlines <- hline_sums_top
   for(this_sumrow in sumrows) {
     data <- sumrow_add_style(this_sumrow,data)
   }

@@ -619,10 +619,10 @@ x2 <- data %>%
     across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
     .groups = "drop"
   )
-
-x <- bind_rows(x1,x2) %>% select(-STUDYf)
+x2 <- mutate(x2, STUDYf = "\\hline \\hline {\\bf All data}")
+x <- bind_rows(x1,x2) %>% rename(Study = STUDYf)
 x <- mutate(x, FORMf = as.character(FORMf))
-x <- mutate(x, FORMf = replace_na(FORMf, "All data"))
+x <- mutate(x, FORMf = replace_na(FORMf, ".panel.waiver."))
 
 test <- out$data
 expected <- x
