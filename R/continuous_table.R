@@ -156,18 +156,22 @@ pt_cont_wide <- function(data, cols,
       digits = digits,
       wide = TRUE
     )
-
+    all_name_fmt <- paste0("\\hline \\hline {\\bf ",all_name,"}")
     if(has_panel) {
-      ans2 <- mutate(ans2, !!sym(panel) := all_name)
-    } else {
       if(has_by) {
-        ans2[["outer"]] <- paste0("\\hline \\hline {\\bf ", all_name, "}")
+        ans2 <- mutate(ans2, !!sym(panel) := ".panel.waiver.")
+        ans2[["outer"]] <- all_name_fmt
+      } else {
+        ans2 <- mutate(ans2, !!sym(panel) := all_name)
       }
+    }
+    if(!has_panel && has_by) {
+      ans2[["outer"]] <- all_name_fmt
     }
     ans <- bind_rows(ans,ans2)
   }
 
-  if(has_by & !has_panel) {
+  if(has_by) {
     ans <- rename(ans, !!sym(by) := outer)
   }
 
@@ -266,6 +270,7 @@ pt_cont_long <- function(data,
       wide = FALSE
     )
     ans2 <- mutate(ans2, outer = all_name)
+    #ans2[[panel]] <- ifelse(has_panel, "", ans[[panel]])
     ans <- bind_rows(ans,ans2)
   }
 
