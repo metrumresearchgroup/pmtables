@@ -151,6 +151,18 @@ stable.data.frame <- function(data,
   # clear reps
   data <- tab_clear_reps(data, panel = panel, ...)
 
+  # Drop
+  drop_cols <- function(data,drop) {
+    if(is.null(drop)) return(data)
+    drop <- new_names(drop)
+    for(col in drop) {
+      data[[col]] <- NULL
+    }
+    data
+  }
+
+  data <- drop_cols(data, drop)
+
   # panel
   panel_insert <- tab_panel(data, panel, sumrows)
   data <- panel_insert$data
@@ -163,18 +175,6 @@ stable.data.frame <- function(data,
   data <- sumrow_insert$data
 
   add_hlines <- c(add_hlines, sumrow_insert$hlines)
-
-  # Drop
-  drop_cols <- function(data,drop) {
-    if(is.null(drop)) return(data)
-    drop <- new_names(drop)
-    for(col in drop) {
-      data[[col]] <- NULL
-    }
-    data
-  }
-
-  data <- drop_cols(data, drop)
 
   # Colgroups
   cols <- names(data)

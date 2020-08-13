@@ -86,7 +86,7 @@ stable(
 ```{r,results = 'asis'}
 stable(
   data, 
-  note_config = noteconf(type = "minipage", width = 0.65),
+  note_config = noteconf(type = "minipage", width = 0.85),
   notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
 ) %>% pt_wrap(stdout())
 ```
