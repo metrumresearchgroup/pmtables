@@ -263,6 +263,22 @@ stable(
 
 \clearpage
 
+# Drop column
+
+- name columns that can be dropped from the table
+
+```{r, results = 'asis'}
+stable(data[1:3,], drop = "STUDY,FORM,DOSE") %>% pt_wrap(stdout())
+```
+
+- this works when there is a panel
+
+```{r, results = 'asis'}
+stable(data[1:3,], drop = "SCR,FORM,DOSE", panel = "STUDY") %>% pt_wrap(stdout())
+```
+
+\clearpage
+
 # Colspan
 
 - Group columns with a spaning line and a title
