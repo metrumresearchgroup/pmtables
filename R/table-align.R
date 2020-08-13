@@ -2,14 +2,15 @@
 #' Set table column alignment
 #'
 #' @param .default the default column alignment
-#' @param ... exceptions to use from `default`; each argument should be named
-#' by a column in the data set; values should be either "l", "c", or "r"
+#' @param ... exceptions to use from `.default`; each argument should be named
+#' by a column in the data set; values should be either "l", "c", or "r";
+#' for example: `WT = "l"`
 #' @param .r column names as character vector or comma separated string
-#' to right justify
+#' to align right; for example: `.r = "WT,AGE"`
 #' @param .c column names as character vector or comma separated string
-#' to center
+#' to center; ; for example: `.c = "WT,AGE"`
 #' @param .l column names as character vector or comma separated string
-#' to right justify
+#' to align left; ; for example: `.l = "WT,AGE"`
 #' @param  .coltype should be p, m, or b
 #' @param .outer force the left-most column to the left (`l`), or the right-most
 #' column on the right (`r`), or both (`lr`)

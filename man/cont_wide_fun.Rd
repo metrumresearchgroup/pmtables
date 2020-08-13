@@ -11,7 +11,7 @@ cont_wide_fun(value, digit_fun = sig, id = NULL, digits = 3, ...)
 
 \item{digit_fun}{a function to format digits in the summaries}
 
-\item{id}{a vector of subjet IDs; same length as \code{value}}
+\item{id}{a vector of subject IDs; same length as \code{value}}
 
 \item{digits}{the number of digits in the summary; the current implementation
 passes \code{digits} to \code{digit_fun()}}
