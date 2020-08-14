@@ -229,6 +229,7 @@ pt_cont_wide <- function(data, cols,
 pt_cont_long <- function(data,
                          cols,
                          panel = ".total",
+                         panel_invert = FALSE,
                          table = NULL,
                          units = NULL,
                          digits = new_digits(),
@@ -240,6 +241,7 @@ pt_cont_long <- function(data,
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
   panel <- panel_data$col
+  names(panel) <- panel_data$prefix
 
   by <- panel
   summarize_all <- summarize_all & by != ".total"
@@ -305,6 +307,15 @@ pt_cont_long <- function(data,
     .panel <- panel_data
     .panel$prefix_skip <- all_name
   }
+
+  if(isTRUE(panel_invert) && has_panel) {
+    ans <- mutate(ans, !!sym(panel) := fct_inorder(!!sym(panel)))
+    ans <- arrange(ans, .data[["Variable"]], !!sym(panel))
+    ans <- rename(ans, !!sym(names(panel)) := !!sym(panel))
+    .panel$col <- "Variable"
+    .panel$prefix <- NULL
+  }
+
 
   out <- list(
     data = ans,
