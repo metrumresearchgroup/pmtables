@@ -473,3 +473,12 @@ data %>% slice(1:3) %>% stable(sizes = tab_size(row = 2))   %>% pt_wrap(stdout()
 ```{r,results = 'asis'}
 data %>% stable(sizes = tab_size(col = 20)) %>% pt_wrap(stdout())
 ```
+
+\clearpage
+
+# Still ok
+
+```{r, results = 'asis'}
+stable(data) %>% pt_wrap(stdout())
+```
+
