@@ -327,11 +327,14 @@ pt_cont_long <- function(data,
 
 invert_panel <- function(out, panel, units, all_name, panel_invert) {
   if(out$panel$null || !panel_invert) return(out)
+  out$data <- mutate(out$data, Variable = fct_inorder(.data[["Variable"]]))
   out$data <- mutate(out$data, !!sym(panel) := fct_inorder(!!sym(panel)))
   out$data <- arrange(out$data, .data[["Variable"]], !!sym(panel))
   out$sumrows <- sumrow(out$data[[panel]] == all_name, it = TRUE, hline = FALSE)
   out$data[["Variable"]] <- paste_units(out$data[["Variable"]], units)
-  out$data <- rename(out$data, !!sym(names(panel)) := !!sym(panel))
+  if(is_named(panel)) {
+    out$data <- rename(out$data, !!sym(names(panel)) := !!sym(panel))
+  }
   out$panel$col <- "Variable"
   out$panel$prefix <- NULL
   out
