@@ -65,12 +65,19 @@ spec <- yspec::ys_load("inst/datasets/analysis1.yml")
 data <- select(data, names(spec))
 data <- yspec::yspec_add_factors(data,spec,RF,SEX,CP,SEQ,STUDY,FORM,ASIAN,.suffix="f")
 
-
 saveRDS(file = "inst/datasets/all.RDS",data)
+
 id <- distinct(data,ID,.keep_all=TRUE)
 saveRDS(file = "inst/datasets/id.RDS",id)
+
 obs <- filter(data,SEQ > 0)
 saveRDS(file = "inst/datasets/obs.RDS",obs)
 
+data <- pmtables:::data("id")
 
+data <- group_by(data,STUDYf,SEXf) %>%
+  summarise(WT = mean(WT,na.rm=TRUE), SCR = mean(SCR,na.rm=TRUE),
+            ALB = mean(ALB,na.rm=TRUE), N = n(), .groups="drop")
+data <- mutate(data, across(WT:ALB, .fns=sig))
 
+saveRDS(file = "inst/datasets/ptdata.RDS", data)

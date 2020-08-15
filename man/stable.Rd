@@ -2,100 +2,77 @@
 % Please edit documentation in R/table-stable.R
 \name{stable}
 \alias{stable}
+\alias{stable.data.frame}
+\alias{stable.pmtable}
 \title{Create tabular output from an R data frame}
 \usage{
-stable(
+stable(data, ...)
+
+\method{stable}{data.frame}(
   data,
   align = cols_left(),
   panel = NULL,
-  units = NULL,
-  rm_dups = NULL,
   span = NULL,
-  span_split = NULL,
   notes = NULL,
-  hline_at = NULL,
-  hline_from = NULL,
   sumrows = NULL,
-  bold_cols = missing(panel),
-  col_rename = NULL,
-  col_replace = NULL,
-  row_space = 1.4,
-  col_space = 5,
-  note_space = 0.1,
-  fontsize = NULL,
-  prime_fun = tab_prime,
+  units = NULL,
+  drop = NULL,
+  sizes = tab_size(),
+  control = st_control(),
   escape_fun = tab_escape,
-  r_file = NULL,
-  r_file_label = getOption("r.file.label", "source code:"),
-  output_file = NULL,
-  output_file_label = getOption("out.file.label", "source file: ")
+  inspect = FALSE,
+  ...
 )
+
+\method{stable}{pmtable}(data, ...)
 }
 \arguments{
-\item{data}{a data.frame to convert to tabular table}
+\item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
 
-\item{align}{an alignment object created by \link{cols_align}, \link{cols_left},
-\link{cols_center}, or \link{cols_right}}
+\item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=tab_spanners]{tab_spanners()}},
+\code{\link[=tab_notes]{tab_notes()}}, \code{\link[=tab_cols]{tab_cols()}}, \code{\link[=tab_clear_reps]{tab_clear_reps()}} and \code{\link[=make_tabular]{make_tabular()}}}
+
+\item{align}{an alignment object created by \code{\link[=cols_align]{cols_align()}}, \code{\link[=cols_left]{cols_left()}},
+\code{\link[=cols_center]{cols_center()}}, or \code{\link[=cols_right]{cols_right()}}; see also \code{\link[=st_align]{st_align()}}}
 
 \item{panel}{character column name to use to section the table; sections will
-be created from unique values of \code{data[[panel]]}}
+be created from unique values of \code{data[[panel]]}; see also \code{\link[=st_panel]{st_panel()}}}
+
+\item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
+
+\item{notes}{a character vector of notes to include at the foot of the table;
+use \code{r_file} and \code{output_file} for source code and output file annotations;
+see \code{\link[=tab_notes]{tab_notes()}} for arguments to pass in order to configure the way notes
+appear in the output; see also \code{\link[=st_notes]{st_notes()}}}
+
+\item{sumrows}{an object created with \code{\link[=sumrow]{sumrow()}}; identifies summary rows
+and adds styling; see also \code{\link[=st_sumrow]{st_sumrow()}}}
 
 \item{units}{a named list with unit information; names should correspond to
 columns in the data frame}
 
-\item{rm_dups}{character vector of column names where duplicate values will
-be made blank (overwritten with \code{""})}
+\item{drop}{columns to remove prior to rendering the table}
 
-\item{span}{a list of objects created with \link{colgroup}}
+\item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
 
-\item{span_split}{not implemented at this time}
-
-\item{notes}{a character vector of notes to include at the foot of the table;
-use \code{r_file} and \code{output_file} for source code and output file annotations}
-
-\item{hline_at}{logical or integer vector specifying rows above which an
-\verb{\\hline} will be placed}
-
-\item{hline_from}{a character column name from which to separate the table
-with \verb{\\hline}; non-duplicated values of \code{hline_from} will be used to create
-the split}
-
-\item{sumrows}{an object created with \link{sumrow}; identifies summary rows
-and adds styling}
-
-\item{bold_cols}{if \code{TRUE}, table column names are rendered with bold font}
-
-\item{col_rename}{a \code{name = value} character vector to translate column names
-to table names}
-
-\item{col_replace}{a character vector with the same length as the number of
-output table columns; use this to completely replace the names (as opposed
-to one by on editing with \code{col_rename})}
-
-\item{row_space}{relative increase or decrease spacing between rows; use
-\verb{row_space > <default>} to increase}
-
-\item{col_space}{absolute column spacing amount (\code{pt})}
-
-\item{note_space}{separation for table notes}
-
-\item{fontsize}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
-
-\item{prime_fun}{function to prime the data frame to be converted to tabular}
+\item{control}{not used at the moment}
 
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}
 
-\item{r_file}{the name of the R file containg code to generate the table; the
-file name will be included in the notes in the table footer}
-
-\item{r_file_label}{prefix text for \code{r_file} note}
-
-\item{output_file}{the name of the output file where the table text will be
-saved; the file name will be included in the notes in the table footer}
-
-\item{output_file_label}{prefix text for \code{output_file} note}
+\item{inspect}{if \code{TRUE}, extra information is attached to the output
+as an attribute called \code{stable_data}; see \code{\link[=get_stable_data]{get_stable_data()}}}
 }
 \description{
 Create tabular output from an R data frame
+}
+\examples{
+data <- ptdata()
+
+a <- stable(data, r_file = "example.R", output_file = "output.tex")
+
+b <- stable(data, panel = "STUDY")
+
+c <- stable(data, span = colgroup("Covariates", STUDY:ALB))
+
 }

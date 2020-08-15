@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
       </span>
     </div>
 
@@ -85,40 +85,10 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -152,9 +122,9 @@
   <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>tot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>dv_col</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>dv_col</span>,
-  <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>bq_col</span>,
-  <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>id_col</span>,
+  <span class='kw'>dv_col</span> <span class='kw'>=</span> <span class='st'>"DV"</span>,
+  <span class='kw'>bq_col</span> <span class='kw'>=</span> <span class='st'>"BQL"</span>,
+  <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='st'>"ID"</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -192,7 +162,7 @@ and included in a single table (see examples)</p></td>
     </tr>
     <tr>
       <th>bq_col</th>
-      <td><p>character name of <code>BQL</code> column</p></td>
+      <td><p>character name of <code>BQL</code> column; see <code><a href='find_bq_col.html'>find_bq_col()</a></code></p></td>
     </tr>
     <tr>
       <th>id_col</th>
@@ -216,7 +186,7 @@ and included in a single table (see examples)</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

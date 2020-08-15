@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9053</span>
       </span>
     </div>
 
@@ -120,6 +120,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -154,7 +157,13 @@
   <span class='kw'>panel.label.add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>cont.long.fun</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>df_sum_2</span>,
   <span class='kw'>cont.wide.fun</span> <span class='kw'>=</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='no'>str_sum_2</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>notes.sanitize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>file.label.r</span> <span class='kw'>=</span> <span class='st'>"Source code: "</span>,
+  <span class='kw'>file.label.output</span> <span class='kw'>=</span> <span class='st'>"Source file: "</span>,
+  <span class='kw'>file.notes.fun</span> <span class='kw'>=</span> <span class='no'>form_file_notes</span>,
+  <span class='kw'>escape</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+  <span class='kw'>longtable.foot</span> <span class='kw'>=</span> <span class='fu'>longtable_foot</span>(<span class='st'>"continued on next page"</span>)
 )
 
 <span class='no'>pt_opts</span></pre>
@@ -196,14 +205,41 @@ to the panel variable value</p></td>
       <td><p>data summary function for continuous / wide summaries</p></td>
     </tr>
     <tr>
+      <th>notes.sanitize</th>
+      <td><p>if <code>TRUE</code>, should the notes be passed through the
+sanitize function</p></td>
+    </tr>
+    <tr>
       <th>digits</th>
       <td><p>a <code>digits</code> object</p></td>
+    </tr>
+    <tr>
+      <th>file.label.r</th>
+      <td><p>label to use when writing the R file annotation</p></td>
+    </tr>
+    <tr>
+      <th>file.label.output</th>
+      <td><p>label to use when writing the output file annotation</p></td>
+    </tr>
+    <tr>
+      <th>file.notes.fun</th>
+      <td><p>function to assemble <code>r_file</code> and <code>output_file</code> into
+table annotation</p></td>
+    </tr>
+    <tr>
+      <th>escape</th>
+      <td><p>vector of characters to escape when sanitizing table contents</p></td>
+    </tr>
+    <tr>
+      <th>longtable.foot</th>
+      <td><p>text to print at the bottom of longtable page when
+the table continues</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>pt_opts</code> (inherits from <code>environment</code>) of length 16.</p>
+    <p>An object of class <code>pt_opts</code> (inherits from <code>environment</code>) of length 22.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>pt_opts</code> is the options environment.</p>

@@ -1,16 +1,30 @@
 #' Save output from stable
 #'
-#' @param x a table formatted with [stable]
+#' @param x a table formatted with [stable()]
+#' @param file the file
+#' @param dir the directory where the file is to be saved
 #'
 #' @export
-stable_save <- function(x) {
-  file <- attr(x, "stable_file")
-  if(is.null(file)) {
+stable_save <- function(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir")) {
+
+  if(!inherits(x, "stable")) {
     stop(
-      "bad input - there is no stable_file attribute; ",
+      "bad input - x is not an 'stable' object; ",
       "maybe this object was corrupted or it wasn't generated from 'stable()'",
       call.=FALSE
     )
+  }
+  if(is.null(file)) {
+    miss <- ifelse(missing(file), "and the 'file' argument is missing", "")
+    stop(
+      "the value of 'file' is NULL; ",
+      "there is no stable_file attribute ",
+      miss,
+      call.=FALSE
+    )
+  }
+  if(!is.null(dir)) {
+    file <- file.path(dir,file)
   }
   writeLines(text = x, con = file)
 }
@@ -28,19 +42,25 @@ chunk_runs <- function(x) {
   cumsum(x != c(x[1], x[-length(x)]))+1
 }
 
+non_rep <- function(x) {
+  ans <- x != c(x[1],x[-length(x)])
+  ans[1] <- TRUE
+  ans
+}
+
 blank_each <- function(x) {
   rep("", length(x))
 }
 
 bold_each <- function(x) {
   flg <- nchar(x) > 0
-  x[flg] <- paste0("{\\bf ", x[flg], "}")
+  x[flg] <- paste0("\\textbf{", x[flg], "}")
   x
 }
 
 italics_each <- function(x) {
   flg <- nchar(x) > 0
-  x[flg] <- paste0("{\\it ", x[flg], "}")
+  x[flg] <- paste0("\\textit{", x[flg], "}")
   x
 }
 
@@ -55,21 +75,60 @@ require_col <- function(data,col,context=NULL) {
   }
 }
 
-# cvec_cs <- function(x) {
-#   if(is.null(x) | length(x)==0) return(character(0))
-#   if(!is.null(names(x))) return(x)
-#   x <- unlist(strsplit(as.character(x),",",fixed=TRUE),use.names=FALSE)
-#   x <- unlist(strsplit(x," ",fixed=TRUE),use.names=FALSE)
-#   x <- x[x!=""]
-#   if(length(x)==0) {
-#     return(character(0))
-#   } else {
-#     return(x)
-#   }
-# }
-
 gluet <- function(x,...) {
   x <- force(x)
   glue(x,.open = "<", .close = ">", .envir = parent.frame())
+}
+
+squote <- function(x) paste0("'", x, "'")
+
+#' Make bold
+#'
+#' @param x a string
+#' @param pattern a regular expression
+#'
+#' @export
+tex_bold <- function(x, pattern = "*") {
+  assert_that(is.character(x), msg = "'x' must be character")
+  w <- grepl(pattern,x) & nchar(x) > 0
+  x[w] <- paste0("\\textbf{", x[w], "}")
+  x
+}
+
+#' @rdname tex_bold
+#' @export
+tex_it <- function(x, pattern = "*") {
+  assert_that(is.character(x), msg = "'x' must be character")
+  w <- grepl(pattern,x) & nchar(x) > 0
+  x[w] <- paste0("\\textit{", x[w], "}")
+  x
+}
+
+grep_col <- function(x,pattern) {
+  which(str_detect(x,pattern))
+}
+
+#' Find matching rows in a data frame
+#'
+#' @param data a data frame to search
+#' @param pattern a regular expression
+#' @param cols a character vector of column names to search
+#'
+#'
+#' @export
+df_grep_rows <- function(data, pattern, cols = names(data)) {
+  rows <- df_grepl_rows(data, pattern, cols)
+  return(which(rows))
+}
+
+#' @rdname df_grep_rows
+#' @export
+df_grepl_rows <- function(data, pattern, cols = names(data)) {
+  assert_that(is.character(cols))
+  cols <- cols[cols %in% names(data)]
+  if(length(cols)==0) return(NULL)
+  rows <- map(data[,cols], grep_col, pattern = pattern)
+  rows <- flatten_int(rows)
+  seq(nrow(data)) %in% rows
 }
 

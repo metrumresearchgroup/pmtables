@@ -1,0 +1,29 @@
+---
+title: ""
+author: ""
+date: ""
+output: 
+  pdf_document: 
+    extra_dependencies: 
+      threeparttable:
+      booktabs:
+      array:
+      longtable:
+      mathdesign: utopia
+  header-includes: 
+    - "\\pagenumbering{gobble}"
+params: 
+  table_text: ""
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+```
+
+```{r}
+writeLines(params$table_text)
+```
+
+
+
+

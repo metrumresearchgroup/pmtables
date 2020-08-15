@@ -1,21 +1,18 @@
 #' Summarize categorical data
 #'
-#' @inheritParams pt_cont_study
-#' @inheritParams pt_cont_long
-#' @inheritParams pt_cat_long
-#'
-#' @param cols character vector of column names for summary
-#' @param by grouping variable name
+#' @inheritParams pt_cont_wide
 #' @param summarize_all logical indicating whether or not to include a summary
 #' of the full data in the output
+#' @param all_name label for full data summary
 #' @param nby number of unique levels for the `by` variable
 #' @param preshape if `TRUE`, returns summarized data prior to reshaping;
 #' this is intended for internal use
+#' @param wide `logical`; if `TRUE`, data frame will be returned in wide format;
+#' if `FALSE`, it will be returned in `long` format
 #'
 #' @examples
-#' data <- pmtables:::data("id")
 #'
-#' cat_data(data, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
+#' cat_data(pmt_first, cols = c(SEX = "SEXf", RF = "RFf"), by = "STUDYf")
 #'
 #' @export
 cat_data <- function(data, cols, by = ".total", panel = by,
@@ -66,25 +63,24 @@ cat_data <- function(data, cols, by = ".total", panel = by,
   ans
 }
 
-#' Create categorical data summary tables
+#' Discrete data summary in long format
 #'
 #' @inheritParams pt_cont_long
-#' @inheritParams pt_opts
-#'
-#' @param by variable name for grouping
 #' @param span variable name for column spanner
-#'
+#' @param by use `span` argument instead
 #'
 #' @export
-pt_cat_long <- function(data, cols, span  = by, by = ".total",
+pt_cat_long <- function(data, cols, span  =  ".total",
                         all_name = "All Groups", summarize_all = TRUE,
-                        table = NULL) {
+                        table = NULL, by = NULL) {
 
-  if(missing(by) & !missing(span)) {
-    by <- span
+  has_span <- !missing(span)
+
+  if(!missing(by) & missing(span)) {
+    warning("the 'by' argument was used; maybe you wanted 'span' instead?")
   }
 
-  if(by == ".total" & missing(all_name)) {
+  if(span == ".total" & missing(all_name)) {
     all_name <- "Summary"
   }
 
@@ -92,58 +88,75 @@ pt_cat_long <- function(data, cols, span  = by, by = ".total",
 
   data <- data_total_col(data, all_name)
 
-  assert_that(length(by)==1)
-  by <- new_names(by, table = table)
+  assert_that(length(span)==1)
+  span <- new_names(span, table = table)
 
-  bys <- levels(factor(data[[by]]))
-  nby <- length(bys)
+  spans <- levels(factor(data[[span]]))
+  nspan <- length(spans)
 
-  check_discrete(data = data, cols = cols, others = by)
+  check_discrete(data = data, cols = cols, others = span)
 
   ans <- cat_data(
     data = data,
     cols = cols,
-    by = by,
-    nby = nby
+    by = span,
+    nby = nspan
   )
 
-  summarize_all <- summarize_all & nby > 1
+  summarize_all <- summarize_all & nspan > 1
 
   if(summarize_all) {
     all <- cat_data(
       data,
       cols = cols,
       by = ".total",
-      nby = nby,
+      nby = nspan,
       all_name = all_name
     )
-    ans <- left_join(ans, all, by=c("name", "level"))
+    names(all)[ncol(all)] <- bold_each(names(all)[ncol(all)])
+    ans <- left_join(ans, all, by = c("name", "level"))
   }
 
-  tab <- gt(ans, rowname_col = "level", groupname_col = "name")
-
-  if(nby > 1) {
-    span_cols <- intersect(bys,names(ans))
-    span_label <- names(by)[1]
-    tab <- tab_spanner(
-      tab,
-      label = span_label,
-      columns = span_cols,
-      gather = FALSE
-    )
+  if(exists("level", ans)) {
+    ans <- rename(ans, "\\ " = .data[["level"]])
   }
 
-  tab <- tab_source_note(tab, "Summaries are count (percent)")
+  output_span <- NULL
+  if(has_span) {
+    output_span <- colgroup(names(span), unique(data[[span]]))
+  }
 
-  gt_opts_(tab)
+  out <- list(
+    data = ans,
+    span = output_span,
+    align = cols_center(.outer = 'l'),
+    col_rename = span,
+    panel = "name",
+    notes = "Summary is count (percent)"
+  )
+
+  out <- structure(out, class = "pmtable")
+
+  return(out)
 }
 
-#' @rdname pt_cat_long
+#' Discrete data summary in long format
+#'
+#' @inheritParams pt_cont_wide
+#' @param by a grouping variable for the summary; may be given as character
+#' vector or quosure
+#' @param summarize_all if `TRUE`, an overall summary will be appended to the
+#' table
+#'
 #' @export
-pt_cat_wide <- function(data,cols, by = ".total", panel = by,
-                        table = NULL, all_name="All data",
-                        summarize_all = TRUE,
-                        panel.label.add = pt_opts$panel.label_add) {
+pt_cat_wide <- function(data, cols, by = ".total", panel = by,
+                        table = NULL, all_name = "All data",
+                        summarize_all = TRUE) {
+
+  has_by <- !missing(by)
+  has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
 
   cols <- new_names(cols, table)
   by <- new_names(by, table)
@@ -157,26 +170,31 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   check_discrete(data = data, cols = cols, others = by)
 
-  summarize_all <- summarize_all & nby > 1
+  summarize_all <- summarize_all & (has_by | has_panel)
 
   ans <- cat_data(data, cols, by = by, panel = panel, wide = TRUE)
   ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
+
 
   if(summarize_all) {
 
     all <- cat_data(data, cols, by = ".total", panel = ".total", wide = TRUE)
 
-    if(panel != by) {
+    all_name_fmt <- paste0("\\hline \\hline {\\bf ",all_name,"}")
 
-      all <- mutate(all, !!sym(panel) := "Total")
-      if(isTRUE(panel.label.add)) {
-        ans <- mutate(
-          ans,
-          !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
-        )
+    if(has_panel) {
+      if(has_by) {
+        all <- mutate(all, !!sym(panel) := ".panel.waiver.")
+
+        all[[by]] <- all_name_fmt
+      } else {
+        all <- mutate(all, !!sym(panel) := all_name)
+      }
+    } else {
+      if(has_by) {
+        all <- mutate(all, !!sym(by) := all_name_fmt)
       }
     }
-    all <- mutate(all, !!sym(by) := all_name)
     ans <- bind_rows(ans, all)
   }
 
@@ -184,72 +202,26 @@ pt_cat_wide <- function(data,cols, by = ".total", panel = by,
 
   ans[[".total"]] <- NULL
 
-  if(panel==by) {
-    out <- gt(ans, row_group.sep = " ")
-  } else {
-    out <- gt(ans, row_group.sep=" ", groupname_col = panel, rowname_col = by)
-    out <- tab_stubhead(out, names(by))
+  .panel <- rowpanel(NULL)
+  if(has_panel) {
+    .panel <- panel_data
+    .panel$prefix_skip <- all_name
   }
 
-  if(exists(by,ans)) {
-    out <- cols_label(
-      out,
-      {{by}} := names(by)[1]
-    )
+  if(has_by) {
+    names(ans)[names(ans)==by] <- names(by)[1]
   }
 
-  out <- tab_sp_delim(out, delim = '.')
+  out <- list(
+    data = ans,
+    span_split = colsplit(sep = '.'),
+    align = cols_center(.outer = 'l'),
+    cols_rename = c(.panel$col,by),
+    panel = .panel,
+    notes = "Summary is count (percent)"
+  )
 
-  out <- tab_source_note(out, "Summaries are count (percent)")
+  out <- structure(out, class = "pmtable")
 
-  gt_opts_(out)
-}
-
-#' Discrete covariate table by study
-#'
-#' @inheritParams pt_cont_long
-#'
-#' @param study_col character name of the data set column containing the study
-#' identifier
-#' @param all_name label for full data summary
-#' @param table a named list to use for renaming columns (see details and
-#' examples)
-#' @param wide if `TRUE` the table will be rendered in a wide format
-#'
-#' @examples
-#'
-#' data <- pmtables:::data("id")
-#'
-#' ans <- pt_cat_study(data, cols = .cols(SEXf,FORMf), study = "STUDYf")
-#'
-#' ans <- pt_cat_study(data, cols = .cols(FORMf), study = "STUDYf", wide = TRUE)
-#'
-#' @export
-pt_cat_study<- function(data,
-                        cols,
-                        study_col = vars("Study ID" = all_of("STUDY")),
-                        summarize_all = TRUE,
-                        all_name = "All studies",
-                        table = NULL,
-                        wide = FALSE) {
-  if(wide) {
-    tab <- pt_cat_wide(
-      data = data,
-      cols = cols,
-      by = study_col,
-      all_name = all_name,
-      summarize_all = summarize_all,
-      table = table
-    )
-  } else {
-    tab <- pt_cat_long(
-      data = data,
-      cols = cols,
-      by = study_col,
-      all_name = all_name,
-      summarize_all = summarize_all,
-      table = table
-    )
-  }
-  tab
+  return(out)
 }

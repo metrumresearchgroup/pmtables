@@ -1,0 +1,67 @@
+SETUP__:
+  description: Example PopPK analysis data set.
+  sponsor: example-project
+  projectnumber: examp101F
+  use_internal_db: true
+C:
+NUM:
+ID:
+SUBJ:
+TIME:
+  short: time after first dose
+  unit: hour
+SEQ:
+  short: data type
+  values: [0,1,2,3]
+  decode: [Dose, "DEMO PK", "ESTRDIOL", "BMD"]
+CMT:
+EVID:
+AMT: !look
+  unit: mg
+DV:
+AGE:
+WT:
+CRCL:
+  about: [creatinine clearance, ml/min]
+ALB:
+BMI:
+AAG:
+  short: alpha-1-acid glycoprotein
+  unit: mg/dL
+SCR:
+  about: [serum creatinine, mg/dL]
+AST:
+  short: aspartate aminotransferase
+ALT:
+  short: alanine aminotransferase
+HT:
+CP:
+  short: Child-Pugh Score
+  values: {Score=0: 0, Score=1: 1, Score=2: 2, Score=3: 3}
+SEX:
+  values: [0,1]
+  decode: [male,female]
+BQL:
+  short: below limit of quantification
+  values:
+    - above QL: 1
+    - below Q: 0
+PHASE:
+  short: study phase indicator
+  values: 1
+STUDY:
+  short: full study number
+  values: [1,2,3,4]
+  decode: [12-DEMO-001,12-DEMO-002,11-DEMO-005,13-DEMO-001]
+STUDYN:
+  short: study number
+  values: [1,2,3,4]
+RF:
+  short: renal function stage
+  values: {normal: norm, mild: mild, moderate: mod, severe: sev}
+FORM:
+  short: formulation
+  values: [tablet,capsule,troche]
+ASIAN:
+  short: race indicator
+  values: [Asian, non-Asian]

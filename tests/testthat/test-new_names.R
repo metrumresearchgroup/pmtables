@@ -32,6 +32,24 @@ test_that("new names - quosure, table", {
   expect_length(x,3)
 })
 
+test_that("new names - panel", {
+  x <- rowpanel("a")
+  x <- pmtables:::new_names(x)
+  expect_identical(names(x),c("a"))
+  expect_equivalent(x,"a")
+  expect_is(x,"character")
+  expect_length(x,1)
+})
+
+test_that("new names - list", {
+  x <- list(a = "A", z = "Z")
+  x <- pmtables:::new_names(x)
+  expect_identical(names(x),c("a", "z"))
+  expect_equivalent(x, c("A", "Z"))
+  expect_is(x,"character")
+  expect_length(x,2)
+})
+
 test_that("duplicated values is error", {
   expect_error(pmtables:::new_names("a,b,c,a"))
   expect_error(pmtables:::new_names(dplyr::vars(a,b,c,a)))

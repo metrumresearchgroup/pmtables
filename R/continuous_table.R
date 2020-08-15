@@ -1,32 +1,34 @@
 #' Create continuous summary data frame
 #'
-#' @inheritParams pt_cont_study
+#' @inheritParams pt_cont_long
 #' @param by grouping variable name
 #' @param panel paneling variable name
 #' @param all_name label for full data summary
-#' @param digits named list specifing `digits` argument for `digit_fun`
+#' @param digits named list specifying `digits` argument for `digit_fun`
+#' @param wide `logical`; if `TRUE`, output will be wide; output will be long
+#' otherwise
 #' @param fun continuous data summary function
+#' @param id_col the ID column name
 #'
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
-                            all_name = "all", digits = NULL,
-                            fun = pt_opts$cont.long.fun) {
+                            all_name = "all", digits = new_digits(), id_col = "ID",
+                            fun = cont_long_fun) {
 
   cols <- unname(new_names(cols))
   by <- unname(new_names(by))
   panel <- unname(new_names(panel))
 
-  if(is.null(digits)) {
-    digits <- new_digits(sig,3)
-  }
+  data <- data_total_col(data, all_name = all_name)
+  check_continuous(data,cols)
+  check_discrete(data,by)
+  check_exists(data,id_col)
 
-  check_exists(data, pt_opts$id_col)
+  assert_that(inherits(digits, "digits"))
 
   digits <- update_digits(digits,cols)
   digit_fun <- get_digits_fun(digits)
   digit_data <- get_digits_list(digits)
-
-  data <- data_total_col(data, all_name = all_name)
 
   groups <- c("name")
   if(!is.null(by)) groups <- c(by,groups)
@@ -47,7 +49,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
     join_cols <- "name"
   }
 
-  if(packageVersion("dplyr") < '0.8.99') {
+  if(packageVersion("dplyr") < '0.8.99') { # nocov start
     d2 <- group_modify(
       d1,
       ~fun(
@@ -55,10 +57,10 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = .[[pt_opts$id_col]]
+        id = .[[id_col]]
       ),
       keep = TRUE
-    )
+    ) # nocov end
   } else {
     d2 <- group_modify(
       d1,
@@ -67,7 +69,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = .[[pt_opts$id_col]]
+        id = .[[id_col]]
       ),
       .keep = TRUE
     )
@@ -83,11 +85,27 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 
 #' Create a continuous data summary table in wide format
 #'
-#' @inheritParams pt_cont_long
-#' @inheritParams pt_opts
+#' @param data the data frame to summarize
+#' @param cols the columns to summarize; may be character vector or quosure
+#' @param by a grouping variable; may be character vector or quosure
+#' @param panel data set column name to stratify the summary
+#' @param table a named list to use for renaming columns (see details and
+#' examples)
+#' @param units a named list to use for unit lookup (see details and examples)
+#' @param digits a `digits` object (see [new_digits()])
+#' @param all_name a name to use for the complete data summary
+#' @param fun the data summary function (see details)
+#' @param id_col the ID column name
 #'
-#' @param by a grouping variable name
-#' @param panel a variable for paneling the summary
+#' @details
+#' The summary function (`fun`) should take `value` as the first argument and
+#' return a data frame or tibble with one row and one column named `summary`.
+#' The function can also accept an `id` argument which is a vector of `IDs`
+#' that is the same length as `value`. Be sure to include `...` to the function
+#' signature as other arguments will be passed along. Make sure your function
+#' completely formats the output ... it will appear in the table as you return
+#' from this function. See [cont_wide_fun()] for details on the default
+#' implementation.
 #'
 #' @export
 pt_cont_wide <- function(data, cols,
@@ -95,10 +113,16 @@ pt_cont_wide <- function(data, cols,
                          panel = by,
                          table = NULL,
                          units = NULL,
-                         digits = NULL,
+                         digits = new_digits(),
                          all_name = "All data",
-                         fun = str_sum_2,
-                         panel.label.add = pt_opts$panel.label.add) {
+                         fun = cont_wide_fun,
+                         id_col = "ID") {
+
+  has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
+
+  has_by <- !missing(by)
 
   tst <- fun(rnorm(10))
   assert_that(identical(names(tst),"summary"))
@@ -109,13 +133,11 @@ pt_cont_wide <- function(data, cols,
 
   data <- data_total_col(data, all_name = all_name)
 
-  check_continuous(data,cols)
-  check_discrete(data,by)
-
   ans <- cont_table_data(
     data = data,
     cols = cols,
     by = by,
+    id_col = id_col,
     panel = panel,
     fun = fun,
     digits = digits,
@@ -123,96 +145,85 @@ pt_cont_wide <- function(data, cols,
   )
 
   all_summary <- FALSE
-  if(by != ".total") {
+  if(has_panel || has_by) {
     all_summary <- TRUE
     ans2 <- cont_table_data(
-      data=data,
-      cols=cols,
-      by=".total",
+      data = data,
+      cols = cols,
+      by = ".total",
       panel = ".total",
       fun = fun,
       digits = digits,
       wide = TRUE
     )
-    ans2 <- mutate(ans2, outer := all_name)
-    if(panel != by) {
-      ans2 <- mutate(ans2, !!sym(panel) := "Total")
-      if(isTRUE(panel.label.add)) {
-        ans <- mutate(
-          ans,
-          !!sym(panel) := paste0(names(panel),": ", !!sym(panel))
-        )
+    all_name_fmt <- paste0("\\hline \\hline {\\bf ",all_name,"}")
+    if(has_panel) {
+      if(has_by) {
+        ans2 <- mutate(ans2, !!sym(panel) := ".panel.waiver.")
+        ans2[["outer"]] <- all_name_fmt
+      } else {
+        ans2 <- mutate(ans2, !!sym(panel) := all_name)
       }
+    }
+    if(!has_panel && has_by) {
+      ans2[["outer"]] <- all_name_fmt
     }
     ans <- bind_rows(ans,ans2)
   }
 
-  if(by != ".total") {
-    ans <- rename(ans,!!sym(names(by)) := outer)
+  if(has_by) {
+    ans <- rename(ans, !!sym(by) := outer)
   }
 
+  if(exists(by, ans)) {
+    where <- names(ans)==by
+    names(ans)[where] <- names(by)
+  }
+
+  ans[["outer"]] <- NULL
   ans[[".total"]] <- NULL
 
-  if(by==panel) ans[["outer"]] <- NULL
-
-  if(panel==by) {
-    out <- gt(ans, row_group.sep=" ")
-  } else {
-    out <- gt(ans, row_group.sep=" ", groupname_col=panel)
+  .panel <- rowpanel(NULL)
+  if(has_panel) {
+    .panel <- panel_data
+    .panel$prefix_skip <- all_name
   }
 
-  if(exists(by,ans)) {
-    out <- cols_label(out, !!sym(by) := names(by)[1])
-  }
+  out <- list(
+    data = ans,
+    align = cols_left(),
+    panel = .panel,
+    units = units,
+    bold_cols = !has_panel,
+    notes = "Summary is mean (sd) [count]"
+  )
 
-  if(is.list(units)) {
-    for(col in cols) {
-      if(exists(col,units)) {
-        lab <- paste0(col," ", units[[col]])
-        out <- cols_label(out, !!col := lab)
-      }
-    }
-  }
+  out <- structure(out, class = "pmtable")
 
-  out <- tab_stubhead(out,"Variable")
-  #out <- cols_align(out,"right")
-
-  if(is.list(table)) {
-    out <-
-      tab_source_note(
-        out,
-        source_note = foot(table,unname(cols))
-      )
-  }
-
-  if(is.logical(formals(fun)[["footnote"]])) {
-    out <- tab_source_note(out, fun(footnote = TRUE))
-  }
-
-  gt_opts_(out)
+  out
 }
 
 #' Continuous data summary in long format
 #'
-#'
-#' @inheritParams pt_cont_study
-#' @inheritParams pt_opts
-#' @param panel data set column name to stratify the summary
-#' @param table a named list to use for renaming columns (see details and
-#' examples)
-#' @param units a named list to use for unit lookup (see details and examples)
-#' @param digits a `digits` object (see [new_digits])
+#' @inheritParams pt_cont_wide
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
-#' @param all_name a name to use for the complete data summary
-#' @param fun the data summary function (see details)
+#'
+#' @details
+#' The summary function (`fun`) should take `value` as the first argument and
+#' return a data frame or tibble with one row as many columns as you wish to
+#' appear in the table. The function can also accept an `id` argument which is
+#' a vector of `IDs` that is the same length as `value`. Be sure to include
+#' `...` to the function signature as other arguments will be passed along.
+#' Make sure your function completely formats the output ... it will appear in
+#' the table as you return from this function. See [cont_long_fun()] for
+#' details on the default implementation.
 #'
 #' @examples
-#' data <- pmtables:::data("id")
 #'
-#' ans <- pt_cont_long(data, cols = .cols(WT,ALB,CRCL))
+#' ans <- pt_cont_long(pmt_first, cols = dplyr::vars(WT,ALB,CRCL))
 #'
-#' ans <- pt_cont_long(data, cols = "WT,CRCL", panel = "SEXf")
+#' ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", panel = "SEXf")
 #'
 #' @export
 pt_cont_long <- function(data,
@@ -220,11 +231,15 @@ pt_cont_long <- function(data,
                          panel = ".total",
                          table = NULL,
                          units = NULL,
-                         digits = pt_opts$digits,
+                         digits = new_digits(),
                          summarize_all = TRUE,
-                         all_name="All data",
-                         fun = df_sum_2,
-                         panel.label.add = pt_opts$panel.label.add) {
+                         all_name = "All data",
+                         fun = cont_long_fun,
+                         id_col = "ID") {
+
+  has_panel <- !missing(panel)
+  panel_data <- as.panel(panel)
+  panel <- panel_data$col
 
   by <- panel
   summarize_all <- summarize_all & by != ".total"
@@ -233,23 +248,17 @@ pt_cont_long <- function(data,
   cols <- new_names(cols,table)
   by <- new_names(by,table)
 
-  check_continuous(data,cols)
-  check_discrete(data,by)
-
   ans <- cont_table_data(
     data = data,
     cols = unname(cols),
     by = unname(by),
+    id_col = id_col,
     fun = fun,
     digits = digits,
     wide = FALSE
   )
 
-  if(isTRUE(panel.label.add)) {
-    ans <- mutate(ans,outer=paste(names(by)[1], outer, sep = ": "))
-  }
-
-  if(by==".total") ans <- mutate(ans, outer=all_name)
+  if(by==".total") ans <- mutate(ans, outer = all_name)
 
   if(summarize_all) {
     ans2 <- cont_table_data(
@@ -261,9 +270,9 @@ pt_cont_long <- function(data,
       wide = FALSE
     )
     ans2 <- mutate(ans2, outer = all_name)
+    #ans2[[panel]] <- ifelse(has_panel, "", ans[[panel]])
     ans <- bind_rows(ans,ans2)
   }
-
 
   .name <- as.character(ans$name)
   ans <- mutate(ans, name = as.character(names(cols)[.data[["name"]]]))
@@ -279,70 +288,31 @@ pt_cont_long <- function(data,
     )
   }
 
-  out <- gt(
-    ans,
-    row_group.sep=" ",
-    rowname_col = "name",
-    groupname_col = c("outer")
-  )
-
-  out <- cols_label(out, outer = names(by)[1])
-  out <- tab_stubhead(out,"Variable")
-  #out <- cols_align(out,"right")
-
-  if(exists("Min..Max", ans)) {
-    out <- cols_label(out, Min..Max = "Min / Max")
+  if(names(ans)[1]=="outer") {
+    names(ans)[1] <- unname(by)
   }
 
-  if(is.logical(formals(fun)[["footnote"]])) {
-    footn <- fun(footnote = TRUE)
-    if(is.list(footn)) {
-      for(this_foot in footn) {
-        out <- tab_footnote(
-          out,
-          footnote = this_foot$footnote,
-          locations = this_foot$locations
-        )
-      }
+  for(i in c(1,2)) {
+    if(names(ans)[i] == "name") {
+      names(ans)[i] <- "Variable"
     }
   }
 
-  gt_opts_(out)
+  ans[[".total"]] <- NULL
+
+  .panel <- rowpanel(NULL)
+  if(has_panel) {
+    .panel <- panel_data
+    .panel$prefix_skip <- all_name
+  }
+
+  out <- list(
+    data = ans,
+    align = cols_center(.outer = "lr"),
+    panel = .panel,
+    bold_cols = !has_panel
+  )
+  out <- structure(out, class = "pmtable")
+  out
 }
 
-#' Continuous covariate table by study
-#'
-#' @param data the data frame to summarize
-#' @param cols the columns to summarize; may be character vector or quosure
-#' @param study_col character name of the study ID column; passed to
-#' [pt_cont_long] as `panel` or [pt_cont_wide] as `by`
-#' @param wide if `TRUE` covariates are rendered west to east; if `FALSE` then
-#' they are rendered north to south
-#' @param ... other arguments passed to [pt_cont_long] or [pt_cont_wide]
-#'
-#' @examples
-#'
-#' data <- pmtables:::data("id")
-#'
-#' pt_cont_study(data, cols = "WT,ALB,SCR", study_col="STUDYf")
-#'
-#' pt_cont_study(data, cols = "WT,ALB,SCR", study_col="STUDYf", wide = TRUE)
-#'
-#' @export
-pt_cont_study <- function(data,cols,study_col = "STUDY", wide = FALSE,...) {
-  if(wide) {
-    pt_cont_wide(
-      data = data,
-      cols = cols,
-      by = study_col,
-      ...
-    )
-  } else {
-    pt_cont_long(
-      data = data,
-      cols = cols,
-      panel = study_col,
-      ...
-    )
-  }
-}

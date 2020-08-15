@@ -29,6 +29,10 @@ colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".", split = FAL
 }
 
 #' @rdname colgroup
+#' @export
+as.span <- colgroup
+
+#' @rdname colgroup
 #' @param split logical; if `TRUE` column groupings will be determined by
 #' splitting columns names on a separator
 #' @param sep character; the separator used for finding column groupings
@@ -169,6 +173,7 @@ form_span_tex <- function(spans) {
   span_tex <- map_chr(chunks, function(ch) {
     length <- nrow(ch)
     title <- ch$title[1]
+    title <- tab_escape(title)
     title <- bold_each(title)
     ans <- gluet("\\multicolumn{<length>}{<ch$align[1]>}{<title>}")
     ans
@@ -189,3 +194,50 @@ form_cline_tex <- function(spans) {
   })
   unname(clin)
 }
+
+#' Create groups of columns with spanners
+#'
+#' @inheritParams stable
+#' @param span_split not implemented at this time; ; see also [st_span_split()]
+#' @param cols a character vector of column names
+#' @param ... not used
+#' @export
+tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...) {
+
+  assert_that(is.character(cols))
+
+  do_span_split <- is.colsplit(span_split)
+
+  spans_from_split <- NULL
+
+  if(do_span_split) {
+    spans <- find_span_split(cols,span_split)
+    if(isTRUE(spans$any)) {
+      data <- data[,spans$recol]
+      cols <- spans$data$newcol
+      spans_from_split <- spans$data
+    }
+  }
+
+  if(is.null(span)) {
+    span <- list()
+  } else {
+    if(is.colgroup(span)) span <- list(span)
+    assert_that(is.list(span))
+    span <- map(span, process_colgroup, cols = cols)
+  }
+
+  all_span_tex <- NULL
+  all_spans <- NULL
+
+  if(length(span) > 0 || length(spans_from_split) > 0) {
+    all_spans <- combine_spans(span, spans_from_split, cols = cols)
+
+    all_span_tex <- map(rev(all_spans), make_span_tex)
+
+    all_span_tex <- flatten_chr(unname(all_span_tex))
+  }
+
+  return(list(tex = all_span_tex, cols = cols, span = all_spans))
+}
+

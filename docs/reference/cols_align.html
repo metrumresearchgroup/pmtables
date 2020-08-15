@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
       </span>
     </div>
 
@@ -85,40 +85,10 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -152,6 +122,7 @@
   <span class='kw'>.c</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.l</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.coltype</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
+  <span class='kw'>.outer</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"l"</span>, <span class='st'>"r"</span>, <span class='st'>"lr"</span>),
   <span class='kw'>.complete</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )
 
@@ -170,27 +141,33 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>exceptions to use from <code>default</code>; each argument should be named
-by a column in the data set; values should be either "l", "c", or "r"</p></td>
+      <td><p>exceptions to use from <code>.default</code>; each argument should be named
+by a column in the data set; values should be either "l", "c", or "r";
+for example: <code>WT = "l"</code></p></td>
     </tr>
     <tr>
       <th>.r</th>
       <td><p>column names as character vector or comma separated string
-to right justify</p></td>
+to align right; for example: <code>.r = "WT,AGE"</code></p></td>
     </tr>
     <tr>
       <th>.c</th>
       <td><p>column names as character vector or comma separated string
-to center</p></td>
+to center; ; for example: <code>.c = "WT,AGE"</code></p></td>
     </tr>
     <tr>
       <th>.l</th>
       <td><p>column names as character vector or comma separated string
-to right justify</p></td>
+to align left; ; for example: <code>.l = "WT,AGE"</code></p></td>
     </tr>
     <tr>
       <th>.coltype</th>
       <td><p>should be p, m, or b</p></td>
+    </tr>
+    <tr>
+      <th>.outer</th>
+      <td><p>force the left-most column to the left (<code>l</code>), or the right-most
+column on the right (<code>r</code>), or both (<code>lr</code>)</p></td>
     </tr>
     <tr>
       <th>.complete</th>
@@ -210,7 +187,7 @@ to right justify</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

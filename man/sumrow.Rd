@@ -4,7 +4,17 @@
 \alias{sumrow}
 \title{Identify and style summary rows}
 \usage{
-sumrow(rows, col = 1, hline = TRUE, bold = FALSE, blank = NULL, label = NULL)
+sumrow(
+  rows,
+  col = 1,
+  hline = TRUE,
+  hline2 = FALSE,
+  bold = FALSE,
+  it = FALSE,
+  blank = NULL,
+  label = NULL,
+  depanel = TRUE
+)
 }
 \arguments{
 \item{rows}{integer or logical vector of rows that are summary rows}
@@ -15,13 +25,22 @@ summary row}
 \item{hline}{logical; if \code{TRUE}, a horizontal line will be placed above the summary
 row}
 
+\item{hline2}{logical; if \code{TRUE} a second line is added above and below the
+summary row}
+
 \item{bold}{logical; if \code{TRUE}, then the cell(s) identified by \code{rows} and
 \code{col} will be rendered in bold font}
+
+\item{it}{logical; if \code{TRUE}, then the cell(s) identified by \code{rows} and
+\code{col} will be rendered in italic font}
 
 \item{blank}{integer column positions in the summary row(s) to be made blank}
 
 \item{label}{character label to replace text in cell(s) marked by \code{row(s)}
 and `col}
+
+\item{depanel}{if \code{TRUE}, then these rows are not included in panel
+determination}
 }
 \description{
 Identify and style summary rows

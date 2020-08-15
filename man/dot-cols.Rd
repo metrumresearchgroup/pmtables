@@ -12,7 +12,3 @@
 \description{
 Alias to \code{dplyr::vars}
 }
-\examples{
-.cols(a,b,c)
-
-}

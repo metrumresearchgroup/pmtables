@@ -10,11 +10,11 @@ pt_cont_long(
   panel = ".total",
   table = NULL,
   units = NULL,
-  digits = pt_opts$digits,
+  digits = new_digits(),
   summarize_all = TRUE,
   all_name = "All data",
-  fun = df_sum_2,
-  panel.label.add = pt_opts$panel.label.add
+  fun = cont_long_fun,
+  id_col = "ID"
 )
 }
 \arguments{
@@ -29,7 +29,7 @@ examples)}
 
 \item{units}{a named list to use for unit lookup (see details and examples)}
 
-\item{digits}{a \code{digits} object (see \link{new_digits})}
+\item{digits}{a \code{digits} object (see \code{\link[=new_digits]{new_digits()}})}
 
 \item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
 to the bottom of the table}
@@ -38,17 +38,25 @@ to the bottom of the table}
 
 \item{fun}{the data summary function (see details)}
 
-\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
-to the panel variable value}
+\item{id_col}{the ID column name}
 }
 \description{
 Continuous data summary in long format
 }
+\details{
+The summary function (\code{fun}) should take \code{value} as the first argument and
+return a data frame or tibble with one row as many columns as you wish to
+appear in the table. The function can also accept an \code{id} argument which is
+a vector of \code{IDs} that is the same length as \code{value}. Be sure to include
+\code{...} to the function signature as other arguments will be passed along.
+Make sure your function completely formats the output ... it will appear in
+the table as you return from this function. See \code{\link[=cont_long_fun]{cont_long_fun()}} for
+details on the default implementation.
+}
 \examples{
-data <- pmtables:::data("id")
 
-ans <- pt_cont_long(data, cols = .cols(WT,ALB,CRCL))
+ans <- pt_cont_long(pmt_first, cols = dplyr::vars(WT,ALB,CRCL))
 
-ans <- pt_cont_long(data, cols = "WT,CRCL", panel = "SEXf")
+ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", panel = "SEXf")
 
 }

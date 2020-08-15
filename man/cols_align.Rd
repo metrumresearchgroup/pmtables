@@ -14,6 +14,7 @@ cols_align(
   .c = NULL,
   .l = NULL,
   .coltype = "p",
+  .outer = c("none", "l", "r", "lr"),
   .complete = NULL
 )
 
@@ -26,19 +27,23 @@ cols_right(...)
 \arguments{
 \item{.default}{the default column alignment}
 
-\item{...}{exceptions to use from \code{default}; each argument should be named
-by a column in the data set; values should be either "l", "c", or "r"}
+\item{...}{exceptions to use from \code{.default}; each argument should be named
+by a column in the data set; values should be either "l", "c", or "r";
+for example: \code{WT = "l"}}
 
 \item{.r}{column names as character vector or comma separated string
-to right justify}
+to align right; for example: \code{.r = "WT,AGE"}}
 
 \item{.c}{column names as character vector or comma separated string
-to center}
+to center; ; for example: \code{.c = "WT,AGE"}}
 
 \item{.l}{column names as character vector or comma separated string
-to right justify}
+to align left; ; for example: \code{.l = "WT,AGE"}}
 
 \item{.coltype}{should be p, m, or b}
+
+\item{.outer}{force the left-most column to the left (\code{l}), or the right-most
+column on the right (\code{r}), or both (\code{lr})}
 
 \item{.complete}{not used}
 }

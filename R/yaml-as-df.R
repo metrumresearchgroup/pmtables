@@ -12,6 +12,7 @@
 yaml_as_df <- function(path) { #nocov start
   assert_that(requireNamespace("yaml"))
   x <- yaml::yaml.load_file(path)
+  meta <- list()
   if(exists("SETUP__", x)) {
     meta <- x[["SETUP__"]]
     x[["SETUP__"]] <- NULL

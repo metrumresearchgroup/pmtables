@@ -11,9 +11,9 @@ data_inventory_chunk(
   stacked = FALSE,
   tot = FALSE,
   all_name = "all",
-  dv_col = pt_opts$dv_col,
-  bq_col = pt_opts$bq_col,
-  id_col = pt_opts$id_col,
+  dv_col = "DV",
+  bq_col = "BQL",
+  id_col = "ID",
   ...
 )
 }
@@ -33,7 +33,7 @@ and included in a single table (see examples)}
 
 \item{dv_col}{character name of \code{DV} column}
 
-\item{bq_col}{character name of \code{BQL} column}
+\item{bq_col}{character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}}
 
 \item{id_col}{character name of \code{ID} column}
 

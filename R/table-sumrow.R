@@ -5,19 +5,28 @@
 #' summary row
 #' @param hline logical; if `TRUE`, a horizontal line will be placed above the summary
 #' row
+#' @param hline2 logical; if `TRUE` a second line is added above and below the
+#' summary row
 #' @param bold logical; if `TRUE`, then the cell(s) identified by `rows` and
 #' `col` will be rendered in bold font
+#' @param it logical; if `TRUE`, then the cell(s) identified by `rows` and
+#' `col` will be rendered in italic font
 #' @param blank integer column positions in the summary row(s) to be made blank
 #' @param label character label to replace text in cell(s) marked by `row(s)`
 #' and `col
+#' @param depanel if `TRUE`, then these rows are not included in panel
+#' determination
 #'
 #' @export
 sumrow <- function(rows,
                    col = 1,
                    hline = TRUE,
+                   hline2 = FALSE,
                    bold = FALSE,
+                   it = FALSE,
                    blank = NULL,
-                   label = NULL) {
+                   label = NULL,
+                   depanel = TRUE) {
   if(is.logical(rows)) rows <- which(rows)
   assert_that(is.numeric(rows))
   rows <- rows[rows >= 1]
@@ -32,9 +41,12 @@ sumrow <- function(rows,
     col = col[1],
     hline = as.logical(hline),
     bold = as.logical(bold),
+    it = as.logical(it),
     blank = as.integer(blank),
     label = label,
-    nrows = length(rows)
+    nrows = length(rows),
+    depanel = isTRUE(depanel),
+    hlinex2 = isTRUE(hline2)
   )
   structure(ans, class = "sumrow")
 }
@@ -45,7 +57,21 @@ sumrow_get_hline <- function(x) {
   ans
 }
 
+sumrow_get_hlinex2 <- function(x) {
+  ans <- NULL
+  if(isTRUE(x$hlinex2)) ans <- x$rows
+  ans
+}
+
+sumrow_depanel_rows <- function(x) {
+  if(x$depanel) return(x$rows)
+  return(integer(0))
+}
+
 sumrow_add_style <- function(x,data) {
+  if(is.null(data[[x$col]])) {
+    stop("sumrow column '", x$col, "' not in 'data'",call.=FALSE)
+  }
   for(r in x$rows) {
     data[[x$col]] <- as.character(data[[x$col]])
     if(!is_empty(x$blank)) {
@@ -57,8 +83,22 @@ sumrow_add_style <- function(x,data) {
     if(isTRUE(x$bold)) {
       data[r,x$col] <- bold_each(data[r,x$col])
     }
+    if(isTRUE(x$it)) {
+      data[r,x$col] <- it_each(data[r,x$col])
+    }
   }
   data
 }
 
-
+tab_find_sumrows <- function(data, sumrows = NULL) {
+  if(is.null(sumrows)) {
+    return(list(data = data, hlines = NULL))
+  }
+  hline_sums <- map(sumrows, sumrow_get_hline)
+  hline_sums_top <- flatten_int(hline_sums)-1
+  hlines <- hline_sums_top
+  for(this_sumrow in sumrows) {
+    data <- sumrow_add_style(this_sumrow,data)
+  }
+  return(list(data = data, hlines = hlines))
+}

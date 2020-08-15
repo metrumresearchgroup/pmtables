@@ -2,28 +2,16 @@
 % Please edit documentation in R/discrete_table.R
 \name{pt_cat_long}
 \alias{pt_cat_long}
-\alias{pt_cat_wide}
-\title{Create categorical data summary tables}
+\title{Discrete data summary in long format}
 \usage{
 pt_cat_long(
   data,
   cols,
-  span = by,
-  by = ".total",
+  span = ".total",
   all_name = "All Groups",
   summarize_all = TRUE,
-  table = NULL
-)
-
-pt_cat_wide(
-  data,
-  cols,
-  by = ".total",
-  panel = by,
   table = NULL,
-  all_name = "All data",
-  summarize_all = TRUE,
-  panel.label.add = pt_opts$panel.label_add
+  by = NULL
 )
 }
 \arguments{
@@ -33,8 +21,6 @@ pt_cat_wide(
 
 \item{span}{variable name for column spanner}
 
-\item{by}{variable name for grouping}
-
 \item{all_name}{a name to use for the complete data summary}
 
 \item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
@@ -43,11 +29,8 @@ to the bottom of the table}
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
 
-\item{panel}{data set column name to stratify the summary}
-
-\item{panel.label.add}{logical; if \code{TRUE}, panel variable name will be pasted
-to the panel variable value}
+\item{by}{use \code{span} argument instead}
 }
 \description{
-Create categorical data summary tables
+Discrete data summary in long format
 }

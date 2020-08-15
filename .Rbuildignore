@@ -1,3 +1,13 @@
+^data-raw$
+inst/demo-longtable\.log
+inst/demo-longtable\.tex
+inst/demo-pmtable\.log
+inst/demo-pmtable\.tex
+inst/demo-table\.log
+inst/demo-table\.tex
+inst/foo\.tex
+^test-.*\.R$
+^test-pmtables\.R$
 ^inst/demo\.pdf$
 ^inst/foo\.tex$
 ^data\.R$
@@ -15,6 +25,7 @@ inst/test_data\.R
 Makefile
 ^README\.Rmd$
 ^README\.md$
+^NEWS\.md$
 inst/covr
 \.drone.yml
 pmtables\.Rcheck

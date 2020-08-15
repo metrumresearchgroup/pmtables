@@ -1,3 +1,12 @@
+inst/demo-longtable.log
+inst/demo-longtable.tex
+inst/demo-pmtable.log
+inst/demo-pmtable.tex
+inst/demo-table.log
+inst/demo-table.tex
+inst/demo-pipe.tex
+inst/demo-pipe.log
+inst/foo.tex
 .DS_Store
 pmtables.Rcheck
 .Rproj.user

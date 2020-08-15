@@ -1,7 +1,5 @@
 emessage <- function(x) message(paste0("[pmtables] ", x))
 
-digit1 <- function(x) formatC(x,digits=1,format = 'f')
-
 cvec_cs <- function(x) {
   if(is.null(x) | length(x)==0) return(character(0))
   if(!is.null(names(x))) return(x)
@@ -15,28 +13,28 @@ cvec_cs <- function(x) {
   }
 }
 
-Update_List <- function(left, right) {
-  if(!all(is.list(left),is.list(right))) {
-    stop("input are not lists")
-  }
-  common <- intersect(names(left), names(right))
-  left[common] <-  right[common]
-  left
-}
-
-#' @title Significant Digits
-#' @description Set significant digits according to metrum SOP.
+#' Format digits
+#'
+#' Use [sig()] to set the number of significant digits; use [digit1()] to limit
+#' to one digit.  See examples.
+#'
 #' @param x numeric, value to manipulate
 #' @param digits numeric, number of significant digits Default: 3
 #' @param maxex numeric, maximum number of significant
 #' digits before moving to scientific notation, Default: NULL
-#' @return character
+#'
+#' @return character vector of formatted values
+#'
 #' @examples
 #' sig(1.123455)
 #' sig(0.123455)
 #' sig(1.123455,digits = 5)
 #' sig(1123,maxex = 3)
 #' sig(1123,maxex = 4)
+#'
+#' digit1(1.234)
+#' digit1(1321.123)
+#'
 #' @rdname sig
 #' @export
 sig <- function(x,digits=3,maxex=NULL) {
@@ -60,6 +58,10 @@ sig <- function(x,digits=3,maxex=NULL) {
   return(x)
 }
 
+#' @rdname sig
+#' @export
+digit1 <- function(x) formatC(x,digits=1,format = 'f')
+
 data_total_col <- function(data,all_name="all") {
   if(!exists(".total",data)) {
     data[[".total"]] <- all_name
@@ -67,29 +69,28 @@ data_total_col <- function(data,all_name="all") {
   return(data)
 }
 
-n_parens <- function(x) paste0("(n=",x,")")
-
-data <- function(domain = c("id", "obs", "all")) {
-  domain <- match.arg(domain)
-  file <- paste0(domain,".RDS")
-  file <- system.file("datasets", file, package = "pmtables")
-  readRDS(file)
-}
-
 #' Alias to `dplyr::vars`
 #'
 #' @param ... passed to [dplyr::vars]
 #'
-#' @examples
-#' .cols(a,b,c)
-#'
 #' @export
-.cols <- function(...) dplyr::vars(...)
+.cols <- function(...) { # nocov start
+  stop("this function is deprecated; use `dplyr::vars` instead")
+} # nocov end
 
-..letters <- c(letters,LETTERS)
-gt_opts_ <- function(x) {
-  mrggt::tab_options(
-    x,
-    footnotes.marks = ..letters
-  )
+combine_list <- function(left, right) {
+  if(!all(is.list(left),is.list(right))) {
+    stop("input are not lists")
+  }
+  left[names(right)] <-  right
+  left
+}
+
+Update_List <- function(left, right) {
+  if(!all(is.list(left),is.list(right))) {
+    stop("input are not lists")
+  }
+  common <- intersect(names(left), names(right))
+  left[common] <-  right[common]
+  left
 }

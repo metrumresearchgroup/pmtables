@@ -1,0 +1,140 @@
+--- 
+title: Simple Tables Demo Doc
+output: 
+  pdf_document: 
+    extra_dependencies: 
+      threeparttable:
+      booktabs:
+      longtable:
+      mathdesign: utopia
+      array:
+    number_sections: true
+    toc: true 
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r,message = FALSE, echo=FALSE}
+library(dplyr)
+library(purrr)
+```
+
+\clearpage
+
+# Data
+
+Mostly working with this data; but some others come in later to illustrate
+certain features.
+
+```{r}
+library(pmtables)
+library(yspec)
+spec <- ys_help$spec()
+
+data <- pmt_summarized
+
+data
+```
+
+
+# wrap
+
+There is a wrap function in this document.  Don't worry about that; it just 
+puts the output into a table environment and sends the output to get rendered
+in markdown.
+
+\clearpage
+
+# Simple table
+
+- Columns are in bold by default (can be turned off)
+
+```{r,results = 'asis'}
+data %>% stable() %>% pt_wrap(stdout())
+```
+\clearpage
+
+
+# Long table
+
+```{r}
+data <- ptdata()
+data <- map_dfr(1:2, ~ data) %>% arrange(STUDY,DOSE,FORM)
+```
+
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", cols_bold = TRUE,
+    units = ys_get_unit(spec, parens = TRUE),
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    cols_rename = c(Formulation  = "FORM"),
+    r_file = "foo.R", output_file = "../deliv/table/output.tex",
+    note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.2)
+  ) %>% as.character() %>% writeLines
+```
+
+
+\clearpage
+
+# Pass in the caption
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    lt_cap_text  = "This is a super-interesting table."
+  ) %>% as.character() %>% writeLines
+```
+
+
+\clearpage
+
+
+# Use a caption from tex macro
+
+```{r, results = "asis"}
+writeLines("\\newcommand{\\myfbtable}{This is a caption from a macro}\\vskip 0.5cm")
+```
+
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "FORM: formulation",
+    r_file = "demo-longtable.Rmd", 
+    output_file = "foo.tex",
+    clear_reps = "DOSE",
+    lt_cap_macro  = "myfbtable", 
+    note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.2)
+  ) %>% as.character() %>% writeLines
+```
+
+
+\clearpage
+
+
+# Annotate
+
+- Arguments to identify the name of the generating R script and the output file
+  name
+- The output file name is retained as an attribute to be used later when saving
+  the table data
+- Arbitrary notes are also allowed (encouraged)
+
+```{r,results = 'asis'}
+stable(
+  data[1:10,],
+  r_file = "foo.R",
+  output_file = "foo.tex",
+  notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
+) %>% pt_wrap(stdout())
+```
+

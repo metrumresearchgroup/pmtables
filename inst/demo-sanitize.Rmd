@@ -1,0 +1,93 @@
+--- 
+title: What gets sanitized
+output: 
+  pdf_document: 
+    extra_dependencies: 
+      threeparttable:
+      booktabs:
+      longtable:
+      mathdesign: utopia
+      array:
+    number_sections: true
+    toc: true 
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r,message = FALSE, echo=FALSE}
+library(dplyr)
+library(purrr)
+library(pmtables)
+```
+
+\clearpage
+
+# Notes are sanitized
+
+```{r}
+x <- ptdata() %>% st_new(notes = "EDA_summary = TRUE") %>% 
+  st_make(inspect = TRUE) %>% 
+  get_stable_data() 
+
+x$notes
+```
+
+
+\clearpage
+
+# File names are sanitized
+
+```{r}
+x <- ptdata() %>% st_new() %>% 
+  st_files(r = "my_script.R") %>% 
+  st_make(inspect = TRUE) %>% 
+  get_stable_data() 
+
+x$notes
+```
+
+
+# Column names are sanitized
+
+```{r}
+out <- 
+  tibble(a_1 = 5) %>% 
+  stable(inspect = TRUE) %>% 
+  get_stable_data()
+
+out$cols_new
+```
+
+# Data are sanitized
+
+```{r}
+out <- 
+  tibble(a = "5_2") %>% 
+  stable(inspect = TRUE) %>% 
+  get_stable_data()
+
+out$tab
+```
+
+# Span titles - sanitized
+
+```{r}
+out <- 
+  ptdata() %>% 
+  stable(inspect = TRUE, span = colgroup("foo_this", WT:SCR)) %>% 
+  get_stable_data()
+
+out$span_data
+```
+
+
+# Panel names
+
+```{r}
+data <- tibble(a = c("a_1", "a_1", "a_1", "a_2", "a_2"), 
+               b = letters[1:5])
+
+out <- stable(data, panel = "a") 
+out[grepl("multicolumn", out)]
+```
+

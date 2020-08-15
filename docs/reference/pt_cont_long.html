@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
       </span>
     </div>
 
@@ -85,40 +85,10 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pmtables.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/continuous-table.html">Continuous Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-inventory.html">Data Inventory Table</a>
-    </li>
-    <li>
-      <a href="../articles/data-summaries.html">Data Summaries</a>
-    </li>
-    <li>
-      <a href="../articles/digits.html">Custom Digits</a>
-    </li>
-    <li>
-      <a href="../articles/discrete-table.html">Discrete Data Table</a>
-    </li>
-    <li>
-      <a href="../articles/rename.html">(re)naming columns in your table</a>
-    </li>
-    <li>
-      <a href="../articles/units.html">Adding units</a>
-    </li>
-  </ul>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -151,11 +121,11 @@
   <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>digits</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='new_digits.html'>new_digits</a></span>(),
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>df_sum_2</span>,
-  <span class='kw'>panel.label.add</span> <span class='kw'>=</span> <span class='no'>pt_opts</span>$<span class='no'>panel.label.add</span>
+  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>cont_long_fun</span>,
+  <span class='kw'>id_col</span> <span class='kw'>=</span> <span class='st'>"ID"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -184,7 +154,7 @@ examples)</p></td>
     </tr>
     <tr>
       <th>digits</th>
-      <td><p>a <code>digits</code> object (see <a href='new_digits.html'>new_digits</a>)</p></td>
+      <td><p>a <code>digits</code> object (see <code><a href='new_digits.html'>new_digits()</a></code>)</p></td>
     </tr>
     <tr>
       <th>summarize_all</th>
@@ -200,19 +170,27 @@ to the bottom of the table</p></td>
       <td><p>the data summary function (see details)</p></td>
     </tr>
     <tr>
-      <th>panel.label.add</th>
-      <td><p>logical; if <code>TRUE</code>, panel variable name will be pasted
-to the panel variable value</p></td>
+      <th>id_col</th>
+      <td><p>the ID column name</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The summary function (<code>fun</code>) should take <code>value</code> as the first argument and
+return a data frame or tibble with one row as many columns as you wish to
+appear in the table. The function can also accept an <code>id</code> argument which is
+a vector of <code>IDs</code> that is the same length as <code>value</code>. Be sure to include
+<code>...</code> to the function signature as other arguments will be passed along.
+Make sure your function completely formats the output ... it will appear in
+the table as you return from this function. See <code><a href='cont_long_fun.html'>cont_long_fun()</a></code> for
+details on the default implementation.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>pmtables</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"id"</span>)
+    <pre class="examples"><div class='input'>
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>pmt_first</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>WT</span>,<span class='no'>ALB</span>,<span class='no'>CRCL</span>))
 
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='dot-cols.html'>.cols</a></span>(<span class='no'>WT</span>,<span class='no'>ALB</span>,<span class='no'>CRCL</span>))
-
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>data</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,CRCL"</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>"SEXf"</span>)</div></pre>
+<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>pt_cont_long</span>(<span class='no'>pmt_first</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"WT,CRCL"</span>, <span class='kw'>panel</span> <span class='kw'>=</span> <span class='st'>"SEXf"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +202,7 @@ to the panel variable value</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by Kyle Baron.</p>
 </div>
 
 <div class="pkgdown">

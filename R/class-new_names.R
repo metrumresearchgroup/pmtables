@@ -15,6 +15,7 @@ new_names.character <- function(x,table=NULL,...) {
   new_names_update_table(ans,table)
 }
 
+#' @export
 new_names.list <- function(x,...) {
   assert_that(is_named(x))
   if(any(duplicated(names(x)))) {
@@ -41,6 +42,13 @@ new_names.quosures <- function(x,table=NULL,chr=FALSE,...) {
   .names[.names==""] <- ans[.names==""]
   names(ans) <- .names
   new_names_update_table(ans,table)
+}
+
+#' @export
+new_names.rowpanel <- function(x,...) {
+  out <- x$col
+  names(out) <- x$col
+  out
 }
 
 new_names_update_table <- function(x,table=NULL,...) {
