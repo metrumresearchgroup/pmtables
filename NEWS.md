@@ -1,4 +1,4 @@
-# pmtables (development version)
+# pmtables 0.1.0
 - Adding NEWS file
 - Add `duplicates_ok` argument to rowpanel
 - Error if duplicate panel names found and `duplicates_ok` is FALSE

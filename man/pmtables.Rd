@@ -23,7 +23,7 @@ functions; finally, create an stable object with \code{\link[=st_make]{st_make()
 
 \itemize{
 \item The functions \code{\link[=tab_prime]{tab_prime()}} and \code{\link[=triage_data]{triage_data()}} are called to get the data
-frame ready to be in tablular format (see \code{\link[=make_tabular]{make_tabular()}}
+frame ready to be in tabular format (see \code{\link[=make_tabular]{make_tabular()}}
 \item The function \code{\link[=tab_escape]{tab_escape()}} is used to escape \verb{\%} and \verb{_} in the table
 (sanitization); use \code{options(pmtables.escape = ...)} to change the set of
 escape characters or set that option to \code{NULL} to prevent any sanitization

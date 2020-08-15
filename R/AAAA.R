@@ -37,7 +37,7 @@ NULL
 #'
 #' @section Table data and grooming:
 #' - The functions [tab_prime()] and [triage_data()] are called to get the data
-#'   frame ready to be in tablular format (see [make_tabular()]
+#'   frame ready to be in tabular format (see [make_tabular()]
 #' - The function [tab_escape()] is used to escape `%` and `_` in the table
 #'   (sanitization); use `options(pmtables.escape = ...)` to change the set of
 #'   escape characters or set that option to `NULL` to prevent any sanitization

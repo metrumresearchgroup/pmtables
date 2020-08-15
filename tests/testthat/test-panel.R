@@ -46,3 +46,14 @@ test_that("panel with sumrow", {
   all <- grepl("^All", tab)
   expect_equal(sum(all),2)
 })
+
+test_that("panel with drop", {
+  data <- ptdata()
+  out <- inspect(data, panel = "STUDY", drop  = "N,WT,DOSE")
+  n <- ncol(data) - 3 - 1
+  expect_equal(n, out$nc)
+  expect_equal(n, length(out$cols_new))
+  expect <- paste0("\\multicolumn{",n,"}")
+  ans <- sum(str_count(out$tab, fixed(expect)))
+  expect_equal(ans,length(unique(data[["STUDY"]])))
+})
