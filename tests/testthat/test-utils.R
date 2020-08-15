@@ -19,6 +19,6 @@ test_that("digit1", {
 })
 
 test_that("check if regular expression is valid", {
-  expect_true(pmtables:::is_re("^abc$"))
-  expect_false(pmtables:::is_re("\\textbf{foo}"))
+  expect_true(pmtables:::is_regex("^abc$"))
+  expect_false(pmtables:::is_regex("\\textbf{foo}"))
 })
