@@ -17,3 +17,8 @@ test_that("digit1", {
   expect_equal(digit1(1.2345), "1.2")
   expect_equal(digit1(100202.2345), "100202.2")
 })
+
+test_that("check if regular expression is valid", {
+  expect_true(pmtables:::is_re("^abc$"))
+  expect_false(pmtables:::is_re("\\textbf{foo}"))
+})

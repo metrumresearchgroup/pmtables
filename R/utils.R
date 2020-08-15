@@ -94,3 +94,8 @@ Update_List <- function(left, right) {
   left[common] <-  right[common]
   left
 }
+
+is_re <- function(x) {
+  x <- suppressWarnings(try(grep(x, "abcde"),silent = TRUE))
+  !inherits(x, "try-error")
+}

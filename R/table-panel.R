@@ -112,7 +112,7 @@ panel_by <- function(data, x) {
   }
   prefix <- rep(prefix, length(lab))
   if(is.character(x$prefix_skip)) {
-    skip <- grepl(x$prefix_skip,lab)
+    skip <- grepl(x$prefix_skip,lab, fixed = !is_re(x$prefix_skip))
     if(any(skip)) {
       prefix[skip] <- rep("",sum(skip))
     }
