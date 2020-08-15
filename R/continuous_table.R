@@ -206,6 +206,10 @@ pt_cont_wide <- function(data, cols,
 #' Continuous data summary in long format
 #'
 #' @inheritParams pt_cont_wide
+#' @param panel_invert if `TRUE` and `panel` is passed, the table will be
+#' paneled by the covariate name and the `panel` variable will be repeated
+#' underneath the covariate name; this allows the reader to see how one
+#' covariate value varies within the different levels of `panel`
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
 #'
@@ -272,7 +276,6 @@ pt_cont_long <- function(data,
       wide = FALSE
     )
     ans2 <- mutate(ans2, outer = all_name)
-    #ans2[[panel]] <- ifelse(has_panel, "", ans[[panel]])
     ans <- bind_rows(ans,ans2)
   }
 
@@ -308,22 +311,28 @@ pt_cont_long <- function(data,
     .panel$prefix_skip <- all_name
   }
 
-  if(isTRUE(panel_invert) && has_panel) {
-    ans <- mutate(ans, !!sym(panel) := fct_inorder(!!sym(panel)))
-    ans <- arrange(ans, .data[["Variable"]], !!sym(panel))
-    ans <- rename(ans, !!sym(names(panel)) := !!sym(panel))
-    .panel$col <- "Variable"
-    .panel$prefix <- NULL
-  }
-
-
   out <- list(
     data = ans,
     align = cols_center(.outer = "lr"),
     panel = .panel,
     bold_cols = !has_panel
   )
+
+  out <- invert_panel(out, panel, units, all_name, panel_invert)
+
   out <- structure(out, class = "pmtable")
+
   out
 }
 
+invert_panel <- function(out, panel, units, all_name, panel_invert) {
+  if(out$panel$null || !panel_invert) return(out)
+  out$data <- mutate(out$data, !!sym(panel) := fct_inorder(!!sym(panel)))
+  out$data <- arrange(out$data, .data[["Variable"]], !!sym(panel))
+  out$sumrows <- sumrow(out$data[[panel]] == all_name, it = TRUE, hline = FALSE)
+  out$data[["Variable"]] <- paste_units(out$data[["Variable"]], units)
+  out$data <- rename(out$data, !!sym(names(panel)) := !!sym(panel))
+  out$panel$col <- "Variable"
+  out$panel$prefix <- NULL
+  out
+}

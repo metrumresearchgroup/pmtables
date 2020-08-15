@@ -8,6 +8,7 @@ pt_cont_long(
   data,
   cols,
   panel = ".total",
+  panel_invert = FALSE,
   table = NULL,
   units = NULL,
   digits = new_digits(),
@@ -23,6 +24,11 @@ pt_cont_long(
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
 \item{panel}{data set column name to stratify the summary}
+
+\item{panel_invert}{if \code{TRUE} and \code{panel} is passed, the table will be
+paneled by the covariate name and the \code{panel} variable will be repeated
+underneath the covariate name; this allows the reader to see how one
+covariate value varies within the different levels of \code{panel}}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
