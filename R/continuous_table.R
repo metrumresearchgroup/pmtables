@@ -186,7 +186,7 @@ pt_cont_wide <- function(data, cols,
   .panel <- rowpanel(NULL)
   if(has_panel) {
     .panel <- panel_data
-    .panel$prefix_skip <- fixed(all_name)
+    .panel$prefix_skip <- all_name
   }
 
   out <- list(
