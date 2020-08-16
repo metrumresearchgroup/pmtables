@@ -70,4 +70,6 @@ ans <- pt_cont_long(pmt_first, cols = dplyr::vars(WT,ALB,CRCL))
 
 ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", panel = "SEXf")
 
+ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", by = "SEXf")
+
 }

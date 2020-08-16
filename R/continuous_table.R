@@ -254,7 +254,7 @@ pt_cont_long <- function(data,
 
   if(!missing(by)) {
     panel <- as.panel(by)
-    assert_that(!x$null, msg = "'by' should not be NULL")
+    assert_that(!panel$null, msg = "'by' should not be NULL")
     switch_panel_by <- TRUE
   }
 
