@@ -29,10 +29,6 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
   } else {
     col <- new_names(col)
   }
-  #skip <- ifelse(is.null(skip), "", skip)
-  #prefix_skip <- ifelse(is.null(prefix_skip), "", prefix_skip)
-  #if(!is_str_regex(skip)) skip <- fixed(skip)
-  #assert_that(is.character(skip))
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
