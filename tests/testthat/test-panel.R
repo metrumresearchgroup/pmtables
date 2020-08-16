@@ -54,6 +54,18 @@ test_that("panel with drop", {
   expect_equal(n, out$nc)
   expect_equal(n, length(out$cols_new))
   expect <- paste0("\\multicolumn{",n,"}")
-  ans <- sum(str_count(out$tab, fixed(expect)))
+  ans <- sum(stringr::str_count(out$tab, stringr::fixed(expect)))
   expect_equal(ans,length(unique(data[["STUDY"]])))
+})
+
+test_that("panel invalid regex in panel_skip", {
+  x <- "\\textbf{c}"
+  data <- data.frame(A = c("a", "b", x), B = "B", C = "C")
+  out <- inspect(data, panel  = as.panel("A",skip  = x))
+  expect_equal(sum(stringr::str_count(out$tab, "multicolumn")),2)
+
+  out <- inspect(data, panel  = as.panel("A", prefix_skip  = x, prefix = "FOO"))
+  expect_match(out$tab, "\\textbf{FOO a}", all = FALSE, fixed = TRUE)
+  expect_match(out$tab, "\\textbf{FOO b}", all = FALSE, fixed = TRUE)
+  expect_match(out$tab, "\\textbf{c}", all = FALSE, fixed = TRUE)
 })

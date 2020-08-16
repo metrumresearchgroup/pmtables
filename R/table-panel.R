@@ -29,8 +29,10 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
   } else {
     col <- new_names(col)
   }
-  prefix <- ifelse(is.null(prefix), "", prefix)
-  assert_that(is.character(skip))
+  #skip <- ifelse(is.null(skip), "", skip)
+  #prefix_skip <- ifelse(is.null(prefix_skip), "", prefix_skip)
+  #if(!is_str_regex(skip)) skip <- fixed(skip)
+  #assert_that(is.character(skip))
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
@@ -97,7 +99,9 @@ panel_by <- function(data, x) {
   uc <- xpanel[ui]
   drop <- uc == ""
   drop <- drop | uc == ".panel.waiver."
-  drop <- drop | grepl(x$skip,uc)
+  if(!is.null(x$skip)) {
+    drop <- drop | str_detect(uc,as_str_regex(x$skip))
+  }
   ui <- ui[!drop]
   uc <- uc[!drop]
   where <- ui
@@ -111,8 +115,8 @@ panel_by <- function(data, x) {
     )
   }
   prefix <- rep(prefix, length(lab))
-  if(is.character(x$prefix_skip)) {
-    skip <- grepl(x$prefix_skip,lab, fixed = !is_regex(x$prefix_skip))
+  if(!is.null(x$prefix_skip)) {
+    skip <- str_detect(lab,as_str_regex(x$prefix_skip))
     if(any(skip)) {
       prefix[skip] <- rep("",sum(skip))
     }
