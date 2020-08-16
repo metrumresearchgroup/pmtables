@@ -8,7 +8,7 @@ pt_cont_long(
   data,
   cols,
   panel = ".total",
-  panel_invert = FALSE,
+  by = NULL,
   table = NULL,
   units = NULL,
   digits = new_digits(),
@@ -25,10 +25,9 @@ pt_cont_long(
 
 \item{panel}{data set column name to stratify the summary}
 
-\item{panel_invert}{if \code{TRUE} and \code{panel} is passed, the table will be
-paneled by the covariate name and the \code{panel} variable will be repeated
-underneath the covariate name; this allows the reader to see how one
-covariate value varies within the different levels of \code{panel}}
+\item{by}{a grouping variable that will silently overwrite the value of
+\code{panel} if \code{panel} is also passed; see details and the differences in table
+output when either \code{panel} or \code{by} are passed}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
@@ -50,6 +49,12 @@ to the bottom of the table}
 Continuous data summary in long format
 }
 \details{
+Passing the \code{panel} variable will partition the table in panels defined by
+the non-repeating values of that data column, and \code{cols} will form the rows
+within each panel. Alternatively, passing in the \code{by} variable will panel by
+the different levels of \code{cols} and the levels of \code{by} will form the rows
+within each panel.
+
 The summary function (\code{fun}) should take \code{value} as the first argument and
 return a data frame or tibble with one row as many columns as you wish to
 appear in the table. The function can also accept an \code{id} argument which is

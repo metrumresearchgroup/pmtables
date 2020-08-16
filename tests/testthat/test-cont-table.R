@@ -18,9 +18,9 @@ test_that("invert panel and cols", {
     table = table
   )
   ans2 <- pt_cont_long(
-    data, col = "WT,ALB,SCR", panel = "STUDYf",
-    table = table,
-    panel_invert = TRUE
+    data, col = "WT,ALB,SCR",
+    by = "STUDYf",
+    table = table
   )
   u_var1 <- unique(ans1$data$Variable)
   expect_identical(u_var1, c("weight", "albumin", "creat"))
@@ -34,16 +34,6 @@ test_that("invert panel and cols", {
   expect_null(ans1$sumrows)
   expect_null(ans2$panel$prefix)
   expect_is(ans2$sumrows, "sumrow")
-   ans3 <- pt_cont_long(
-    data, col = "WT,ALB,SCR",
-    table = table
-  )
-  ans4 <- pt_cont_long(
-    data, col = "WT,ALB,SCR",
-    table = table,
-    panel_invert = TRUE
-  )
-  expect_identical(ans3,ans4)
 })
 
 test_that("continuous data table - wide", {
