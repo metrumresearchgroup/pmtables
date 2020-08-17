@@ -1,6 +1,7 @@
 library(testthat)
 library(pmtables)
 library(dplyr)
+library(stringr)
 
 inspect <- function(...) {
   get_stable_data(stable(..., inspect = TRUE))
