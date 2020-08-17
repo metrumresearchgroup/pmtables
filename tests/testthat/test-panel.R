@@ -1,6 +1,7 @@
 library(testthat)
 library(pmtables)
 library(dplyr)
+library(stringr)
 
 inspect <- function(...) {
   get_stable_data(stable(..., inspect = TRUE))
@@ -54,6 +55,6 @@ test_that("panel with drop", {
   expect_equal(n, out$nc)
   expect_equal(n, length(out$cols_new))
   expect <- paste0("\\multicolumn{",n,"}")
-  ans <- sum(str_count(out$tab, fixed(expect)))
+  ans <- sum(stringr::str_count(out$tab, fixed(expect)))
   expect_equal(ans,length(unique(data[["STUDY"]])))
 })

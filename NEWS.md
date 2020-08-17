@@ -1,3 +1,7 @@
+# pmtables (development version)
+- Add `panel_invert` argument to `pt_cont_long` so that, when `panel` is also 
+  passed, the table is paneled by `col` and is "by" the `panel` variable #92
+
 # pmtables 0.1.0
 - Adding NEWS file
 - Add `duplicates_ok` argument to rowpanel

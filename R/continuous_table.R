@@ -206,10 +206,20 @@ pt_cont_wide <- function(data, cols,
 #' Continuous data summary in long format
 #'
 #' @inheritParams pt_cont_wide
+#' @param by a grouping variable that will silently overwrite the value of
+#' `panel` if `panel` is also passed; see details and the differences in table
+#' output when either `panel` or `by` are passed
 #' @param summarize_all if `TRUE` then a complete data summary will be appended
 #' to the bottom of the table
 #'
 #' @details
+#' Passing the `panel` variable will partition the table in panels defined by
+#' the non-repeating values of that data column, and `cols` will form the rows
+#' within each panel. Alternatively, passing in the `by` variable will panel by
+#' the different levels of `cols` and the levels of `by` will form the rows
+#' within each panel.
+#'
+#'
 #' The summary function (`fun`) should take `value` as the first argument and
 #' return a data frame or tibble with one row as many columns as you wish to
 #' appear in the table. The function can also accept an `id` argument which is
@@ -225,10 +235,13 @@ pt_cont_wide <- function(data, cols,
 #'
 #' ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", panel = "SEXf")
 #'
+#' ans <- pt_cont_long(pmt_first, cols = "WT,CRCL", by = "SEXf")
+#'
 #' @export
 pt_cont_long <- function(data,
                          cols,
                          panel = ".total",
+                         by = NULL,
                          table = NULL,
                          units = NULL,
                          digits = new_digits(),
@@ -237,9 +250,18 @@ pt_cont_long <- function(data,
                          fun = cont_long_fun,
                          id_col = "ID") {
 
-  has_panel <- !missing(panel)
+  switch_panel_by <- FALSE
+
+  if(!missing(by)) {
+    panel <- as.panel(by)
+    assert_that(!panel$null, msg = "'by' should not be NULL")
+    switch_panel_by <- TRUE
+  }
+
+  has_panel <- !missing(panel) || !missing(by)
   panel_data <- as.panel(panel)
   panel <- panel_data$col
+  names(panel) <- panel_data$prefix
 
   by <- panel
   summarize_all <- summarize_all & by != ".total"
@@ -270,7 +292,6 @@ pt_cont_long <- function(data,
       wide = FALSE
     )
     ans2 <- mutate(ans2, outer = all_name)
-    #ans2[[panel]] <- ifelse(has_panel, "", ans[[panel]])
     ans <- bind_rows(ans,ans2)
   }
 
@@ -312,7 +333,27 @@ pt_cont_long <- function(data,
     panel = .panel,
     bold_cols = !has_panel
   )
+
+  if(switch_panel_by) {
+    out <- invert_panel_by(out, panel, units, all_name)
+  }
+
   out <- structure(out, class = "pmtable")
+
   out
 }
 
+invert_panel_by <- function(out, panel, units, all_name) {
+  if(out$panel$null) return(out)
+  out$data <- mutate(out$data, Variable = fct_inorder(.data[["Variable"]]))
+  out$data <- mutate(out$data, !!sym(panel) := fct_inorder(!!sym(panel)))
+  out$data <- arrange(out$data, .data[["Variable"]], !!sym(panel))
+  out$sumrows <- sumrow(out$data[[panel]] == all_name, it = TRUE, hline = FALSE)
+  out$data[["Variable"]] <- paste_units(out$data[["Variable"]], units)
+  if(is_named(panel)) {
+    out$data <- rename(out$data, !!sym(names(panel)) := !!sym(panel))
+  }
+  out$panel$col <- "Variable"
+  out$panel$prefix <- NULL
+  out
+}

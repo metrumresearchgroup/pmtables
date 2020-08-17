@@ -132,3 +132,13 @@ df_grepl_rows <- function(data, pattern, cols = names(data)) {
   seq(nrow(data)) %in% rows
 }
 
+paste_units <- function(cols, units) {
+  if(is.null(units) || length(cols)==0) return(cols)
+  unit_match <- match(cols,names(units))
+  col_match <- which(!is.na(unit_match))
+  unit_match <- na.omit(unit_match)
+  for(i in seq_along(col_match)) {
+    cols[[col_match[i]]] <- paste(cols[[col_match[i]]],units[[unit_match[i]]])
+  }
+  cols
+}
