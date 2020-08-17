@@ -135,7 +135,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     notes = "Summary is count (percent)"
   )
 
-  out <- structure(out, class = "pmtable")
+  out <- structure(out, class = c("pmtable", class(out)))
 
   return(out)
 }
@@ -221,7 +221,7 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
     notes = "Summary is count (percent)"
   )
 
-  out <- structure(out, class = "pmtable")
+  out <- structure(out, class = c("pmtable", class(out)))
 
   return(out)
 }
