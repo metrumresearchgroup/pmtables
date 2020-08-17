@@ -94,3 +94,22 @@ Update_List <- function(left, right) {
   left[common] <-  right[common]
   left
 }
+
+is_regex <- function(x) {
+  if(!is.character(x)) return(FALSE)
+  x <- suppressWarnings(try(grep(x, "abcde"),silent = TRUE))
+  !inherits(x, "try-error")
+}
+
+is_str_regex <- function(x) {
+  if(!is.character(x)) return(FALSE)
+  is_regex(x) || (inherits(x, "fixed") && inherits(x, "pattern"))
+}
+
+as_str_regex <- function(x) {
+  if(!is.character(x)) return(fixed(basename(tempfile("invalid-regex-"))))
+  if(!is_str_regex(x)) {
+    return(fixed(x))
+  }
+  x
+}
