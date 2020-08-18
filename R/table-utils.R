@@ -66,6 +66,16 @@ italics_each <- function(x) {
 
 it_each <- italics_each
 
+split_bold <- function(x) {
+  if(!str_detect(x,fixed("..."))) {
+    return(bold_each(x))
+  }
+  x <- str_split(x, fixed("..."))
+  x <- map(x, bold_each)
+  x <- flatten_chr(x)
+  paste0(x, collapse = "...")
+}
+
 require_col <- function(data,col,context=NULL) {
   if(!exists(col,data)) {
     if(!is.null(context)) {

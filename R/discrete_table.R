@@ -1,3 +1,21 @@
+cat_long_all <- function(data, group = ".total", all_name = "All data") {
+  N <- nrow(data)
+  data_long <- pivot_longer(
+    data,
+    cols = all_of(group),
+    values_to = "by"
+  )
+  data_long <- group_by(data_long, by)
+  data_summ <- summarise(
+    data_long,
+    level = all_name,
+    N = .env[["N"]],
+    value = paste(n(), paste0("(",digit1(100*n()/N),")")),
+    .groups = "drop"
+  )
+  pivot_wider(data_summ, names_from = "by")
+}
+
 #' Summarize categorical data
 #'
 #' @inheritParams pt_cont_wide
@@ -5,8 +23,6 @@
 #' of the full data in the output
 #' @param all_name label for full data summary
 #' @param nby number of unique levels for the `by` variable
-#' @param preshape if `TRUE`, returns summarized data prior to reshaping;
-#' this is intended for internal use
 #' @param wide `logical`; if `TRUE`, data frame will be returned in wide format;
 #' if `FALSE`, it will be returned in `long` format
 #'
@@ -17,7 +33,7 @@
 #' @export
 cat_data <- function(data, cols, by = ".total", panel = by,
                      summarize_all = TRUE, all_name = "All",
-                     wide = FALSE, nby = NULL, preshape = FALSE) {
+                     wide = FALSE, nby = NULL) {
 
   cols <- new_names(cols)
 
@@ -43,8 +59,6 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 
   ans <- mutate(ans,name=names(cols)[.data[["name"]]])
 
-  if(preshape) return(ans)
-
   if(wide) {
     ans <- pivot_wider(
       ans,
@@ -53,6 +67,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       names_sep = '.'
     )
   } else {
+    ans[["N"]] <- NULL
     ans <- pivot_wider(
       ans,
       names_from = by,
@@ -67,11 +82,15 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #'
 #' @inheritParams pt_cont_long
 #' @param span variable name for column spanner
+#' @param all_name_span table column name to use for data summaries across
+#' levels of `span` if it is provided
 #' @param by use `span` argument instead
 #'
 #' @export
 pt_cat_long <- function(data, cols, span  =  ".total",
-                        all_name = "All Groups", summarize_all = TRUE,
+                        all_name = "All Data",
+                        all_name_span = "All Groups",
+                        summarize_all = TRUE,
                         table = NULL, by = NULL) {
 
   has_span <- !missing(span)
@@ -80,13 +99,13 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     warning("the 'by' argument was used; maybe you wanted 'span' instead?")
   }
 
-  if(span == ".total" & missing(all_name)) {
-    all_name <- "Summary"
+  if(span == ".total" & missing(all_name_span)) {
+    all_name_span <- "Summary"
   }
 
   cols <- new_names(cols, table = table)
 
-  data <- data_total_col(data, all_name)
+  data <- data_total_col(data, all_name_span)
 
   assert_that(length(span)==1)
   span <- new_names(span, table = table)
@@ -103,18 +122,24 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     nby = nspan
   )
 
-  summarize_all <- summarize_all & nspan > 1
-
   if(summarize_all) {
-    all <- cat_data(
-      data,
-      cols = cols,
-      by = ".total",
-      nby = nspan,
-      all_name = all_name
-    )
-    names(all)[ncol(all)] <- bold_each(names(all)[ncol(all)])
-    ans <- left_join(ans, all, by = c("name", "level"))
+    if(has_span) {
+      all <- cat_data(
+        data,
+        cols = cols,
+        by = ".total",
+        nby = nspan,
+        all_name = all_name_span
+      )
+      all[["N"]] <- NULL
+      ans <- left_join(ans, all, by = c("name", "level"))
+    }
+    bot <- cat_long_all(data, unname(span))
+    bot[[all_name_span]] <- paste(nrow(data), "(100.0)")
+    bot[["N"]] <- NULL
+    ans <- bind_rows(ans,bot)
+    to_bold <- ncol(ans)
+    names(ans)[to_bold] <- split_bold(names(ans)[to_bold])
   }
 
   if(exists("level", ans)) {
@@ -122,6 +147,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
   }
 
   output_span <- NULL
+
   if(has_span) {
     output_span <- colgroup(names(span), unique(data[[span]]))
   }
@@ -132,7 +158,9 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     align = cols_center(.outer = 'l'),
     col_rename = span,
     panel = "name",
-    notes = "Summary is count (percent)"
+    notes = "Summary is count (percent)",
+    hline_at = nrow(ans),
+    sumrows = sumrow(nrow(ans), label = all_name, bold = TRUE, hline = TRUE)
   )
 
   out <- structure(out, class = c("pmtable", class(out)))

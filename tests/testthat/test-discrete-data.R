@@ -45,7 +45,8 @@ test_that("discrete data summary wide - simple", {
     length(unique(data[[cols[3]]]))
   )
   expect_equal(nrow(ans),1)
-  expect_equal(ncol(ans),l + 1)
+  # add 1 for summary, 1 for N
+  expect_equal(ncol(ans),l + 1 + 1)
 })
 
 test_that("discrete data summary wide - by", {
@@ -59,5 +60,6 @@ test_that("discrete data summary wide - by", {
     length(unique(data[[cols[3]]]))
   )
   expect_equal(nrow(ans),length(unique(data[["STUDY"]])))
-  expect_equal(ncol(ans),l + 1)
+  # add 1 for summary, 1 for N
+  expect_equal(ncol(ans),l + 1 + 1)
 })

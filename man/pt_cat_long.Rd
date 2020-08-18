@@ -8,7 +8,8 @@ pt_cat_long(
   data,
   cols,
   span = ".total",
-  all_name = "All Groups",
+  all_name = "All Data",
+  all_name_span = "All Groups",
   summarize_all = TRUE,
   table = NULL,
   by = NULL
@@ -22,6 +23,9 @@ pt_cat_long(
 \item{span}{variable name for column spanner}
 
 \item{all_name}{a name to use for the complete data summary}
+
+\item{all_name_span}{table column name to use for data summaries across
+levels of \code{span} if it is provided}
 
 \item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
 to the bottom of the table}
