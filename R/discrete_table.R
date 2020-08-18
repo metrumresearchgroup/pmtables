@@ -175,11 +175,12 @@ pt_cat_long <- function(data, cols, span  =  ".total",
 #' vector or quosure
 #' @param summarize_all if `TRUE`, an overall summary will be appended to the
 #' table
+#' @param drop passed to [stable()]
 #'
 #' @export
 pt_cat_wide <- function(data, cols, by = ".total", panel = by,
                         table = NULL, all_name = "All data",
-                        summarize_all = TRUE) {
+                        summarize_all = TRUE, drop = character(0)) {
 
   has_by <- !missing(by)
   has_panel <- !missing(panel)
@@ -240,13 +241,19 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
     names(ans)[names(ans)==by] <- names(by)[1]
   }
 
+  notes <- "Summary is count (percent)"
+  if(!is.element("N", drop)) {
+    notes <- c(notes, "N: subject count for the row")
+  }
+
   out <- list(
     data = ans,
     span_split = colsplit(sep = '.'),
     align = cols_center(.outer = 'l'),
     cols_rename = c(.panel$col,by),
     panel = .panel,
-    notes = c("Summary is count (percent)", "N: subject count for the row")
+    notes = notes,
+    drop = drop
   )
 
   out <- structure(out, class = c("pmtable", class(out)))

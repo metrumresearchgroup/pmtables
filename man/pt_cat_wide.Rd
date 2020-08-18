@@ -11,7 +11,8 @@ pt_cat_wide(
   panel = by,
   table = NULL,
   all_name = "All data",
-  summarize_all = TRUE
+  summarize_all = TRUE,
+  drop = character(0)
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ examples)}
 
 \item{summarize_all}{if \code{TRUE}, an overall summary will be appended to the
 table}
+
+\item{drop}{passed to \code{\link[=stable]{stable()}}}
 }
 \description{
 Discrete data summary in long format
