@@ -424,7 +424,14 @@ y <- mutate(
   name = gsub("-", "", name, fixed = TRUE)
 )
 
-expected <- y
+# Aug 18, 2020 we now have a summary row at the bottom
+all <- tibble(name = NA_character_, value = "All data",
+              Summary = paste0(nrow(data), " (100.0)"))
+
+y2 <- bind_rows(y,all)
+
+
+expected <- y2
 test <- out$data
 
 test_that("demo-check long categorical", {
@@ -474,7 +481,17 @@ z <- mutate(z, troche = replace_na(troche, "0 (0.0)"))
 z <- mutate(z, val = as.character(val))
 z <- rename(z, `\\ ` = val, `\\textbf{All Groups}` = ALL)
 
-expected <- z
+
+long <- pivot_longer(data, "FORMf")
+long <- group_by(long, value) %>%
+  summarise(Summary = paste0(n(), " (", digit1(100*n()/nrow(data)), ")"),
+            .groups = "drop")
+wide <- pivot_wider(long, names_from="value", values_from="Summary")
+wide <- mutate(wide, `\\textbf{All Groups}` = "160 (100.0)", "\\ "  = "All data")
+
+
+expected <- bind_rows(z,wide)
+
 test <- out$data
 
 test_that("demo-check long categorical grouped", {
