@@ -218,7 +218,7 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
     align = cols_center(.outer = 'l'),
     cols_rename = c(.panel$col,by),
     panel = .panel,
-    notes = "Summary is count (percent)"
+    notes = c("Summary is count (percent)", "N: subject count for the row")
   )
 
   out <- structure(out, class = c("pmtable", class(out)))
