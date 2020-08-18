@@ -1,0 +1,32 @@
+--- 
+title: Test pmtable to long
+output: 
+  pdf_document: 
+    extra_dependencies: 
+      threeparttable:
+      booktabs:
+      longtable:
+      mathdesign: utopia
+      array:
+    number_sections: true
+    toc: true 
+params:
+  save: true
+  dir: '.'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, results = 'asis'}
+library(dplyr)
+library(pmtables)
+
+pt_cont_long(
+  pmt_first,
+  cols = "WT,SCR,ALB,AST,CRCL,AAG,BMI,HT,AGE",
+  panel = "STUDYf"
+) %>% as_stable(long = TRUE) %>% writeLines(stdout())
+```
+
