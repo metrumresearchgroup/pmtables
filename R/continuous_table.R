@@ -198,7 +198,7 @@ pt_cont_wide <- function(data, cols,
     notes = "Summary is mean (sd) [count]"
   )
 
-  out <- structure(out, class = c("pmtable", class(out)))
+  out <- structure(out, class = "pmtable")
 
   out
 }
@@ -338,7 +338,7 @@ pt_cont_long <- function(data,
     out <- invert_panel_by(out, panel, units, all_name)
   }
 
-  out <- structure(out, class = c("pmtable", class(out)))
+  out <- structure(out, class = "pmtable")
 
   out
 }

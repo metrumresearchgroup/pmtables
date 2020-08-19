@@ -380,7 +380,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     notes = notes
   )
 
-  out <- structure(out, class = c("pmtable", class(out)))
+  out <- structure(out, class = "pmtable")
 
   return(out)
 }

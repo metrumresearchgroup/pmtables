@@ -276,12 +276,10 @@ stable.pmtable <- function(data, ...) as_stable(data, ...)
 #'
 as_stable <- function(x, ...) UseMethod("as_stable")
 
-#' @param long if `TRUE`, render with [stable_long()] to create a longtable;
-#' otherwise, by default process with [stable()]
 #' @rdname as_stable
 #' @keywords internal
 #' @export
-as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE) {
+as_stable.pmtable <- function(x, ..., wrap = FALSE, wrapw = FALSE) {
   up <- list(...)
   replace <- intersect(names(up),names(x))
   if(length(replace) > 0) {
@@ -292,10 +290,7 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE)
   valid <- intersect(names(x),stable_argument_names())
   x <- x[valid]
 
-  fun <- ifelse(isTRUE(long), stable_long, stable)
-
-  ans <- do.call(fun, args = x)
-
+  ans <- do.call(stable, args = x)
   if(isTRUE(wrap) || isTRUE(wrapw)) {
     ans <- pt_wrap(ans)
   }

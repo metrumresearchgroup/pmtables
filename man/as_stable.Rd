@@ -8,7 +8,7 @@
 \usage{
 as_stable(x, ...)
 
-\method{as_stable}{pmtable}(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE)
+\method{as_stable}{pmtable}(x, ..., wrap = FALSE, wrapw = FALSE)
 
 \method{as_stable}{stable}(x, ...)
 }
@@ -17,9 +17,6 @@ as_stable(x, ...)
 
 \item{...}{for the \code{pmtable} method, these are extra named arguments to pass
 to \code{\link[=stable]{stable()}}}
-
-\item{long}{if \code{TRUE}, render with \code{\link[=stable_long]{stable_long()}} to create a longtable;
-otherwise, by default process with \code{\link[=stable]{stable()}}}
 
 \item{wrap}{if \code{TRUE}, the stable output will be wrapped in a latex table
 environment}
