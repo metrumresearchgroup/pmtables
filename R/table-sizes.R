@@ -13,15 +13,18 @@
 #' recommend fixing to `-0.2` when `row` is 1 and smaller if `row` is less
 #' than 1
 #' @param lt_row extra row space for longtables; this is used instead of
-#' `row_space` when rendering longtable
+#' `row_space` when rendering longtable; this can be a positive or negative
+#' number and a value of 0 indicates to neither add or subtract row space
 #'
 #' @export
 tab_size <- function(row = 1.4, col = 5, font = NULL,
-                     header_row = -0.4*row, lt_row = 0.3) {
+                     header_row = -0.4*row, lt_row = 0) {
 
   assert_that(is.numeric(row))
   assert_that(is.numeric(col))
   assert_that(is.null(font) || is.character(font))
+  assert_that(is.numeric(lt_row))
+  assert_that(is.numeric(header_row))
 
   # Column and row stretch --------------
   col_row_sp <- list()
