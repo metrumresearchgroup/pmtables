@@ -463,8 +463,8 @@ x2 <- group_by(w,name,value) %>% summarise(
   number = length(unique(ID)),
   percent = pmtables:::digit1(100*number/N),
   .groups = "drop"
-) %>% mutate(FORMf = "ALL")
-x <- bind_rows(x1,x2)
+)
+x <- x1# bind_rows(x1,x2)
 
 y <- mutate(
   x,
@@ -479,7 +479,7 @@ y <- mutate(
 z <- pivot_wider(y)
 z <- mutate(z, troche = replace_na(troche, "0 (0.0)"))
 z <- mutate(z, val = as.character(val))
-z <- rename(z, `\\ ` = val, `\\textbf{All Groups}` = ALL)
+z <- rename(z, `\\ ` = val)
 
 
 long <- pivot_longer(data, "FORMf")
@@ -487,9 +487,7 @@ long <- group_by(long, value) %>%
   summarise(Summary = paste0(n(), " (", digit1(100*n()/nrow(data)), ")"),
             .groups = "drop")
 wide <- pivot_wider(long, names_from="value", values_from="Summary")
-wide <- mutate(wide, `\\textbf{All Groups}` = "160 (100.0)", "\\ "  = "All data")
-
-
+wide <- mutate(wide, `\\ ` = "All data")
 expected <- bind_rows(z,wide)
 
 test <- out$data

@@ -188,7 +188,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
 #' @param by a grouping variable for the summary; may be given as character
 #' vector or quosure
 #' @param summarize where to put an all-data summary; choose `none` to omit the
-#' summary
+#' summary from the table
 #' @param drop passed to [stable()]
 #'
 #' @export

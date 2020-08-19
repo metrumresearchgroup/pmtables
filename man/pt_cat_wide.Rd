@@ -31,7 +31,7 @@ examples)}
 \item{all_name}{a name to use for the complete data summary}
 
 \item{summarize}{where to put an all-data summary; choose \code{none} to omit the
-summary}
+summary from the table}
 
 \item{drop}{passed to \code{\link[=stable]{stable()}}}
 }
