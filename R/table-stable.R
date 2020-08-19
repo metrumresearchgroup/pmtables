@@ -16,7 +16,8 @@ stable_argument_names <- function() {
       names(formals(tab_clear_reps)),
       names(formals(make_tabular)),
       names(formals(tab_cols)),
-      names(formals(tab_size))
+      names(formals(tab_size)),
+      names(formals(stable_long))
     )
   )
 }
