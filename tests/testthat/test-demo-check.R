@@ -464,7 +464,7 @@ x2 <- group_by(w,name,value) %>% summarise(
   percent = pmtables:::digit1(100*number/N),
   .groups = "drop"
 )
-x <- x1# bind_rows(x1,x2)
+x <- x1
 
 y <- mutate(
   x,
