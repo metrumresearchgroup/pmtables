@@ -4,13 +4,7 @@
 \alias{tab_size}
 \title{Adjustments for row padding, column padding, and font size}
 \usage{
-tab_size(
-  row = 1.4,
-  col = 5,
-  font = NULL,
-  header_row = -0.4 * row,
-  lt_row = 0.3
-)
+tab_size(row = 1.4, col = 5, font = NULL, header_row = -0.4 * row, lt_row = 0)
 }
 \arguments{
 \item{row}{relative increase or decrease spacing between rows; use
@@ -27,7 +21,8 @@ recommend fixing to \code{-0.2} when \code{row} is 1 and smaller if \code{row} i
 than 1}
 
 \item{lt_row}{extra row space for longtables; this is used instead of
-\code{row_space} when rendering longtable}
+\code{row_space} when rendering longtable; this can be a positive or negative
+number and a value of 0 indicates to neither add or subtract row space}
 }
 \description{
 Adjustments for row padding, column padding, and font size
