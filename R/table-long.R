@@ -79,6 +79,7 @@ stable_long <- function(data,
 
   longtab <- c(
     "{\\normalsize",
+    "{\\linespread{1}",
     extra_row_height,
     start,
     head,
@@ -98,7 +99,7 @@ stable_long <- function(data,
     "\\end{longtable}",
     "\\setlength{\\extrarowheight}{0em}",
     lt_notes,
-    "}" # Ends
+    "}}" # Ends
   )
   out <- structure(longtab, class = c("stable_long", "stable"))
 

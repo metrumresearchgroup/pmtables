@@ -8,6 +8,8 @@ output:
       longtable:
       mathdesign: utopia
       array:
+      fontenc: T1
+      setspace:
     number_sections: true
     toc: true 
 editor_options: 
@@ -50,7 +52,7 @@ in markdown.
 - Columns are in bold by default (can be turned off)
 
 ```{r,results = 'asis'}
-data %>% stable() %>% pt_wrap(stdout())
+data %>% stable(units = ys_get_unit(spec, parens = TRUE)) %>% pt_wrap(stdout())
 ```
 \clearpage
 
@@ -75,7 +77,6 @@ data %>%
     note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.2)
   ) %>% as.character() %>% writeLines
 ```
-
 
 \clearpage
 
