@@ -20,7 +20,7 @@ local r_env_vars = {
 # generally, only the second element should be modified
 local ci_images = [
   "mpn-dev:latest",      # latest MPN snapshot
-  "mpn-dev:2020-03-24",  # oldest compatible snapshot
+  "mpn-dev:2020-06-08",  # oldest compatible snapshot
   "cran-latest:latest",  # latest MPN snapshot for MRG packages + current CRAN
 ];
 
