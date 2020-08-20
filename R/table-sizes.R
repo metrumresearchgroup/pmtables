@@ -17,7 +17,7 @@
 #' number and a value of 0 indicates to neither add or subtract row space
 #'
 #' @export
-tab_size <- function(row = 1.4, col = 5, font = NULL,
+tab_size <- function(row = 1.3, col = 5, font = NULL,
                      header_row = -0.4*row, lt_row = 0) {
 
   assert_that(is.numeric(row))

@@ -4,7 +4,7 @@
 \alias{tab_size}
 \title{Adjustments for row padding, column padding, and font size}
 \usage{
-tab_size(row = 1.4, col = 5, font = NULL, header_row = -0.4 * row, lt_row = 0)
+tab_size(row = 1.3, col = 5, font = NULL, header_row = -0.4 * row, lt_row = 0)
 }
 \arguments{
 \item{row}{relative increase or decrease spacing between rows; use

@@ -213,10 +213,17 @@ stable.data.frame <- function(data,
   # notes
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
+  row_space <- gluet("\\renewcommand\\arraystretch{<sizes$row_space>}")
+  col_space <- gluet("\\setlength{\\tabcolsep}{<sizes$col_space>pt}")
+
   out <- c(
     sizes$font_size$start,
-    sizes$col_row_sp$start,
+    #sizes$col_row_sp$start,
+    #"\\setlength{\\tabcolsep}{5pt}",
+    col_space,
     start_tpt,
+    #"\\renewcommand\\arraystretch{1.4}",
+    row_space,
     open_tabular,
     "\\hline",
     span_data$tex,
@@ -227,7 +234,7 @@ stable.data.frame <- function(data,
     "\\end{tabular}",
     note_data$t_notes,
     end_tpt,
-    sizes$col_row_sp$end,
+    #sizes$col_row_sp$end,
     note_data$m_notes,
     sizes$font_size$end
   )
