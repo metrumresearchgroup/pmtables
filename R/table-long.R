@@ -79,7 +79,6 @@ stable_long <- function(data,
 
   longtab <- c(
     "{\\normalsize",
-    "{\\linespread{1}",
     extra_row_height,
     start,
     head,
