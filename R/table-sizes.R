@@ -4,8 +4,10 @@
 #'
 #'
 #' @param row relative increase or decrease spacing between rows; use
-#' `row_space > <default>` to increase; ; see also [st_space()]
-#' @param col absolute column spacing amount (`pt`); see also [st_space()]
+#' `row_space > <default>` to increase; this parameter applies to both long tables
+#' ans tabular tables; see also [st_space()]
+#' @param col absolute column spacing amount (`pt`);  this parameter applies to both
+#' long tables and tabular tables; see also [st_space()]
 #' @param font for the table (e.g. `normalsize`, `small`, `scriptsize`, etc)
 #' @param header_row extra space between rows in the header
 #' section of the table (column names and units); this should be a negative
@@ -26,12 +28,6 @@ tab_size <- function(row = 1.3, col = 5, font = NULL,
   assert_that(is.numeric(lt_row))
   assert_that(is.numeric(header_row))
 
-  # Column and row stretch --------------
-  col_row_sp <- list()
-  col_row_sp$start <- "{\\def\\arraystretch{<row>}\\tabcolsep=<col>pt"
-  col_row_sp$end <- "}"
-  col_row_sp$start <- gluet(col_row_sp$start)
-
   # Font size ----------------------------------
   font_size <- list()
   if(is.character(font)) {
@@ -44,7 +40,6 @@ tab_size <- function(row = 1.3, col = 5, font = NULL,
     col_space = col,
     lt_row_space = lt_row,
     font_size = font_size,
-    col_row_sp = col_row_sp,
     header_row = header_row
   )
 
