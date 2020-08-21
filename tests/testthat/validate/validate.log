@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2020.1.7)  20 AUG 2020 23:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2020.1.7)  20 AUG 2020 23:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1250,80 +1250,80 @@ LaTeX Font Info:    Try loading font information for T1+lmtt on input line 129.
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2]
 LaTeX Font Info:    Font shape `OT1/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 160.
+(Font)              scaled to size 9.40002pt on input line 159.
 LaTeX Font Info:    Font shape `OT1/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 160.
+(Font)              scaled to size 6.58002pt on input line 159.
 LaTeX Font Info:    Font shape `OT1/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 160.
+(Font)              scaled to size 4.70001pt on input line 159.
 LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 9.40002pt on input line 160.
+(Font)              scaled to size 9.40002pt on input line 159.
 
 Package microtype Warning: I cannot find a protrusion list for font
 (microtype)                `OML/mdput/m/it/10'. Switching off
-(microtype)                protrusion for this font on input line 160.
+(microtype)                protrusion for this font on input line 159.
 
 LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 6.58002pt on input line 160.
+(Font)              scaled to size 6.58002pt on input line 159.
 LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 4.70001pt on input line 160.
+(Font)              scaled to size 4.70001pt on input line 159.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 160.
+(Font)              scaled to size 9.40002pt on input line 159.
 
 Package microtype Warning: I cannot find a protrusion list for font
 (microtype)                `OMS/mdput/m/n/10'. Switching off
-(microtype)                protrusion for this font on input line 160.
+(microtype)                protrusion for this font on input line 159.
 
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 160.
+(Font)              scaled to size 6.58002pt on input line 159.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 160.
+(Font)              scaled to size 4.70001pt on input line 159.
 LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 160.
+(Font)              scaled to size 9.40002pt on input line 159.
 LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 160.
+(Font)              scaled to size 6.58002pt on input line 159.
 LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 160.
+(Font)              scaled to size 4.70001pt on input line 159.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 160.
+(Font)              scaled to size 9.40002pt on input line 159.
 
 Package microtype Warning: I cannot find a protrusion list for font
 (microtype)                `OML/mdput/m/n/10'. Switching off
-(microtype)                protrusion for this font on input line 160.
+(microtype)                protrusion for this font on input line 159.
 
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 160.
+(Font)              scaled to size 6.58002pt on input line 159.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 160.
+(Font)              scaled to size 4.70001pt on input line 159.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 160.
+(Font)              scaled to size 9.40002pt on input line 159.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 160.
+(Font)              scaled to size 6.58002pt on input line 159.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 160.
+(Font)              scaled to size 4.70001pt on input line 159.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 160.
+(Font)              scaled to size 9.40002pt on input line 159.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 160.
+(Font)              scaled to size 6.58002pt on input line 159.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 160.
+(Font)              scaled to size 4.70001pt on input line 159.
 [3
 
 ] [4
 
 ]
 LaTeX Font Info:    Font shape `T1/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 280.
+(Font)              scaled to size 6.58002pt on input line 275.
 [5
 
 ] [6
 
 ]
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 361
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 353
 .
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 400--402
+Underfull \hbox (badness 10000) in paragraph at lines 391--393
 
  []
 
@@ -1360,7 +1360,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 400--402
 ] [22
 
 ]
-Overfull \hbox (39.36267pt too wide) in paragraph at lines 1215--1236
+Overfull \hbox (39.36267pt too wide) in paragraph at lines 1174--1195
  [] 
  []
 
@@ -1368,15 +1368,17 @@ Overfull \hbox (39.36267pt too wide) in paragraph at lines 1215--1236
 
 ]
 LaTeX Font Info:    Try loading font information for TS1+mdput on input line 12
-55.
+13.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/mathdesign/mdput/ts1mdput.fd
 File: ts1mdput.fd 2013/08/29 Fontinst v1.933 font definitions for TS1/mdput.
 )
 LaTeX Font Info:    Font shape `TS1/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 1255.
+(Font)              scaled to size 9.40002pt on input line 1213.
 [24
 
-] [25] [26
+] [25
+
+] [26
 
 ] [27
 
@@ -1386,29 +1388,27 @@ LaTeX Font Info:    Font shape `TS1/mdput/m/n' will be
 
 ] [30
 
-] [31
-
 ]
 LaTeX Font Info:    Font shape `T1/mdput/m/it' will be
-(Font)              scaled to size 9.40002pt on input line 1701.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1730.
-[32
+(Font)              scaled to size 9.40002pt on input line 1644.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1672.
+[31
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1730.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1672.
 (./validate.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1730.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1730.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1730.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1672.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1672.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1672.
  ) 
 Here is how much of TeX's memory you used:
- 14905 strings out of 493014
- 216146 string characters out of 6133352
+ 14904 strings out of 493014
+ 216139 string characters out of 6133352
  312308 words of memory out of 5000000
  18062 multiletter control sequences out of 15000+600000
  103079 words of font info for 112 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,11n,41p,394b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,11n,41p,394b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/usr/lo
 cal/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2
 016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/2016/texmf-dist
@@ -1418,10 +1418,10 @@ mathdesign/mdput/md-utr8t.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/a
 dobe/utopia/putb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/ut
 opia/putr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/pu
 tri8a.pfb>
-Output written on validate.pdf (32 pages, 152235 bytes).
+Output written on validate.pdf (31 pages, 151884 bytes).
 PDF statistics:
- 370 PDF objects out of 1000 (max. 8388607)
- 326 compressed objects within 4 object streams
- 92 named destinations out of 1000 (max. 500000)
+ 366 PDF objects out of 1000 (max. 8388607)
+ 323 compressed objects within 4 object streams
+ 91 named destinations out of 1000 (max. 500000)
  20713 words of extra memory for PDF output out of 20736 (max. 10000000)
 
