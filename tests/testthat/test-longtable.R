@@ -32,6 +32,7 @@ test_that("longtable - caption macro", {
 test_that("longtable - row spacing is set", {
   out <- inspect_long(data = mtcars, sizes = tab_size(lt_row = 0.15))
   expect_match(out$tab,"extrarowheight}{0.15em}", all = FALSE, fixed  = TRUE)
-  out <- inspect_long(data = mtcars, sizes = tab_size(lt_row = -0.11))
+  out <- inspect_long(data = mtcars, sizes = tab_size(lt_row = -0.11, row = 1.3))
   expect_match(out$tab,"extrarowheight}{-0.11em}", all = FALSE, fixed  = TRUE)
+  expect_match(out$tab,"renewcommand{\\arraystretch}{1.3}", all = FALSE, fixed  = TRUE)
 })
