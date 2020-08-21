@@ -218,16 +218,9 @@ stable.data.frame <- function(data,
 
   out <- c(
     sizes$font_size$start,
-    #"\\let\\oldarray\\arraystretch",
-    #"\\renewcommand\\arraystretch{1.4}",
-    #sizes$col_row_sp$start,
-    #"\\setlength{\\tabcolsep}{5pt}",
     col_space,
     start_tpt,
-    #"\\renewcommand\\arraystretch{1.4}",
-    #"% set row space",
     row_space,
-    #"% open tabular",
     open_tabular,
     "\\hline",
     span_data$tex,
@@ -238,10 +231,8 @@ stable.data.frame <- function(data,
     "\\end{tabular}",
     note_data$t_notes,
     end_tpt,
-    #sizes$col_row_sp$end,
     note_data$m_notes,
-    sizes$font_size$end#,
-    #"\\let\\arraystretch\\oldarray}"
+    sizes$font_size$end
   )
 
   out <- structure(out, class = "stable", stable_file = note_data$output_file)

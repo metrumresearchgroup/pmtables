@@ -9,7 +9,7 @@ tab_size(
   col = 5,
   font = NULL,
   header_row = -0.4 * row,
-  lt_row = 0.25
+  lt_row = 0.15
 )
 }
 \arguments{

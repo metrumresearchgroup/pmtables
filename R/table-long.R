@@ -71,6 +71,8 @@ stable_long <- function(data,
 
   extra_height <- x$sizes$lt_row_space
   extra_row_height <- gluet("\\setlength{\\extrarowheight}{<extra_height>em}")
+  row_space <- gluet("\\renewcommand{\\arraystretch}{<x$sizes$row_space>}")
+  col_space <- gluet("\\setlength{\\tabcolsep}{<x$sizes$col_space>pt} ")
 
   nc <- x$nc
   head <- gluet(head)
@@ -79,6 +81,8 @@ stable_long <- function(data,
 
   longtab <- c(
     "{\\normalsize",
+    row_space,
+    col_space,
     extra_row_height,
     start,
     head,
@@ -96,7 +100,6 @@ stable_long <- function(data,
     x$tab,
     "\\hline",
     "\\end{longtable}",
-    "\\setlength{\\extrarowheight}{0em}",
     lt_notes,
     "}" # Ends
   )

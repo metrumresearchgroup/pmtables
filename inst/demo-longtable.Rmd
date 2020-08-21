@@ -122,6 +122,43 @@ data %>%
 
 \clearpage
 
+# Reduce row space
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "FORM: formulation",
+    r_file = "demo-longtable.Rmd", 
+    output_file = "foo.tex",
+    clear_reps = "DOSE",
+    sizes = tab_size(row = 1),
+    note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
+  ) %>% st_latex(stdout())
+```
+
+
+\clearpage
+
+# Increase col space
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "FORM: formulation",
+    r_file = "demo-longtable.Rmd", 
+    output_file = "foo.tex",
+    clear_reps = "DOSE",
+    sizes = tab_size(row = 1, col = 1),
+    note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
+  ) %>% st_latex(stdout())
+```
+
+
+\clearpage
 
 # Annotate
 

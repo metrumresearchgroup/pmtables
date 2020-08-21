@@ -12,13 +12,13 @@
 #' number if you wish to compress header rows; the default is `-0.4*row`;
 #' recommend fixing to `-0.2` when `row` is 1 and smaller if `row` is less
 #' than 1
-#' @param lt_row extra row space for longtables; this is used instead of
-#' `row_space` when rendering longtable; this can be a positive or negative
+#' @param lt_row extra row space for longtables; this is only needed for
+#' extra control over row height; this can be a positive or negative
 #' number and a value of 0 indicates to neither add or subtract row space
 #'
 #' @export
 tab_size <- function(row = 1.3, col = 5, font = NULL,
-                     header_row = -0.4*row, lt_row = 0.25) {
+                     header_row = -0.4*row, lt_row = 0.0) {
 
   assert_that(is.numeric(row))
   assert_that(is.numeric(col))
