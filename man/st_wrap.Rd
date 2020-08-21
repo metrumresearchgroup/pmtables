@@ -8,7 +8,7 @@
 \usage{
 st_wrap(
   x,
-  con = NULL,
+  con = stdout(),
   table = TRUE,
   center = TRUE,
   caption = NULL,
@@ -17,19 +17,21 @@ st_wrap(
 
 pt_wrap(
   x,
-  con = NULL,
+  con = stdout(),
   table = TRUE,
   center = TRUE,
   caption = NULL,
   context = c("rmd", "tex")
 )
 
-st_latex(x, con = NULL, center = TRUE, context = c("rmd", "tex"))
+st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 }
 \arguments{
 \item{x}{tabular text}
 
 \item{con}{where to write the output}
+
+\item{table}{if \code{TRUE}, the code is wrapped in latex table environment}
 
 \item{center}{if \code{TRUE}, center the table}
 

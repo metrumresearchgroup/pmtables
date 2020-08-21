@@ -3,6 +3,7 @@
 #'
 #' @param x tabular text
 #' @param con where to write the output
+#' @param table if `TRUE`, the code is wrapped in latex table environment
 #' @param center if `TRUE`, center the table
 #' @param caption the table caption
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
@@ -25,7 +26,7 @@ st_wrap <- function(x, con = stdout(), table = TRUE, center = TRUE, caption = NU
   } else {
     ans <- x
   }
-  if(isTRUE(center)) {
+  if(isTRUE(center) && !isTRUE(table)) {
     ans <- c("\\begin{center}", ans, "\\end{center}")
   }
   if(context=="rmd") {
