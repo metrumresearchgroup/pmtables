@@ -2,24 +2,37 @@
 #' Wrap stable output in table environment
 #'
 #' @param x tabular text
+#' @param con where to write the output
 #' @param center if `TRUE`, center the table
 #' @param caption the table caption
-#' @param con where to write the output
+#' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
+#' code block; if `tex`, then the fencing is omitted
+
 #'
 #' @export
-st_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) { # nocov start
+st_wrap <- function(x, con = stdout(), table = TRUE, center = TRUE, caption = NULL,
+                    context = c("rmd", "tex")) { # nocov start
+  context <- match.arg(context)
   ans <- c()
-  ans <- c(ans,"\\begin{table}[h]")
+  if(isTRUE(table)) {
+    ans <- c(ans, "\\begin{table}[h]")
+    if(isTRUE(center)) ans <- c(ans, "\\centering")
+    if(is.character(caption)) {
+      ans <- c(ans, paste0("\\caption{",caption,"}"))
+    }
+    ans <- c(ans, x)
+    ans <- c(ans,"\\end{table}")
+  } else {
+    ans <- x
+  }
   if(isTRUE(center)) {
-    ans <- c(ans, "\\centering")
+    ans <- c("\\begin{center}", ans, "\\end{center}")
   }
-  if(is.character(caption)) {
-    ans <- c(ans, paste0("\\caption{",caption,"}"))
+  if(context=="rmd") {
+    ans <- c("```{=latex}", ans, "```")
   }
-  ans <- c(ans, x)
-  ans <- c(ans,"\\end{table}")
-  if(!missing(con)) {
-    writeLines(text=ans, con = con)
+  if(!is.null(con)) {
+    writeLines(text = ans, con = con)
   }
   return(invisible(ans))
 } # nocov end
@@ -28,4 +41,20 @@ st_wrap <- function(x, con = NULL, center = TRUE, caption = NULL) { # nocov star
 #' @export
 pt_wrap <- st_wrap
 
+#' @rdname st_wrap
+#' @export
+st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")) {
+  context <- match.arg(context)
+  ans <- x
+  if(isTRUE(center)) {
+    ans <- c("\\begin{center}", ans, "\\end{center}")
+  }
+  if(context=="rmd") {
+    ans <- c("```{=latex}", ans, "```")
+  }
+  if(!is.null(con)) {
+    writeLines(text = ans, con = con)
+  }
+  return(invisible(ans))
 
+}

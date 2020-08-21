@@ -8,6 +8,7 @@ output:
       longtable:
       mathdesign: utopia
       array:
+      setspace:
     number_sections: true
     toc: true 
 editor_options: 
@@ -51,7 +52,7 @@ in markdown.
 - The table is created with threeparttable
 
 
-```{r,results = 'asis'}
+```{r, bblock1, results = "asis"}
 data %>% stable(cols_bold=TRUE) %>% pt_wrap(stdout())
 ```
 
@@ -66,7 +67,7 @@ data %>% stable(cols_bold=TRUE) %>% pt_wrap(stdout())
 - Arbitrary notes are also allowed, provided as a character vector; item in the 
 vector is placed on its own line
 
-```{r,results = 'asis'}
+```{r, block2, results = "asis"}
 stable(
   data, 
   r_file = "foo.R", 
@@ -433,7 +434,7 @@ long %>%
     cols_rename = c(Formulation  = "FORM"),
     r_file = "foo.R", output_file = "../deliv/table/output.tex",
     note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.2)
-  ) %>% as.character() %>% writeLines
+  ) %>% st_wrap(table = FALSE)
 ```
 
 

@@ -3,11 +3,28 @@
 \name{st_wrap}
 \alias{st_wrap}
 \alias{pt_wrap}
+\alias{st_latex}
 \title{Wrap stable output in table environment}
 \usage{
-st_wrap(x, con = NULL, center = TRUE, caption = NULL)
+st_wrap(
+  x,
+  con = NULL,
+  table = TRUE,
+  center = TRUE,
+  caption = NULL,
+  context = c("rmd", "tex")
+)
 
-pt_wrap(x, con = NULL, center = TRUE, caption = NULL)
+pt_wrap(
+  x,
+  con = NULL,
+  table = TRUE,
+  center = TRUE,
+  caption = NULL,
+  context = c("rmd", "tex")
+)
+
+st_latex(x, con = NULL, center = TRUE, context = c("rmd", "tex"))
 }
 \arguments{
 \item{x}{tabular text}
@@ -17,6 +34,9 @@ pt_wrap(x, con = NULL, center = TRUE, caption = NULL)
 \item{center}{if \code{TRUE}, center the table}
 
 \item{caption}{the table caption}
+
+\item{context}{if \code{rmd}, then the code is enclosed in a pandoc \code{latex} fenced
+code block; if \code{tex}, then the fencing is omitted}
 }
 \description{
 Wrap stable output in table environment

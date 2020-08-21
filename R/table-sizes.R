@@ -18,7 +18,7 @@
 #'
 #' @export
 tab_size <- function(row = 1.3, col = 5, font = NULL,
-                     header_row = -0.4*row, lt_row = 0) {
+                     header_row = -0.4*row, lt_row = 0.25) {
 
   assert_that(is.numeric(row))
   assert_that(is.numeric(col))
