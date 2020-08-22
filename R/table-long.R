@@ -69,8 +69,7 @@ stable_long <- function(data,
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"
 
-  extra_height <- x$sizes$lt_row_space
-  extra_row_height <- gluet("\\setlength{\\extrarowheight}{<extra_height>em}")
+  extra_row_height <- gluet("\\setlength{\\extrarowheight}{<x$sizes$lt_row_space>em}")
   row_space <- gluet("\\renewcommand{\\arraystretch}{<x$sizes$row_space>}")
   col_space <- gluet("\\setlength{\\tabcolsep}{<x$sizes$col_space>pt} ")
 
