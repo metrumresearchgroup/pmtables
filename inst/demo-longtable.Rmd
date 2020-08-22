@@ -138,6 +138,36 @@ data %>%
   ) %>% st_latex(stdout())
 ```
 
+\clearpage
+
+# Extra spance
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "FORM: formulation",
+    r_file = "demo-longtable.Rmd", 
+    output_file = "foo.tex",
+    clear_reps = "DOSE",
+    sizes = tab_size(lt_row = 2),
+    note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
+  ) %>% st_latex(stdout())
+```
+
+\clearpage
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "FORM: formulation",
+    r_file = "demo-longtable.Rmd", 
+    output_file = "foo.tex",
+    clear_reps = "DOSE",
+    note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
+  ) %>% st_latex(stdout())
+```
 
 \clearpage
 
