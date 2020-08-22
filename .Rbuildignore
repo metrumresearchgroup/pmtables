@@ -1,3 +1,4 @@
+\.drone\.jsonnet
 ^data-raw$
 inst/demo-longtable\.log
 inst/demo-longtable\.tex

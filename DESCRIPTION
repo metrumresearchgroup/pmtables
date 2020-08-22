@@ -1,7 +1,7 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.1.0.8001
+Version: 0.1.0.8004
 Author: Kyle Baron
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Summarize data sets and create publication-quality tables for 
