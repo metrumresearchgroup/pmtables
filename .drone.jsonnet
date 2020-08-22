@@ -319,6 +319,7 @@ local release(name, r_major_minor, image) =
           "R_LIBS_USER": "/opt/rpkgs/" + r_major_minor,
         },
         "commands": [
+          "pip install --upgrade awscli"
           # git config needs to sit next to pkgpub
           "git config --global user.email " + default_git_email,
           "git config --global user.name " + default_git_user,
