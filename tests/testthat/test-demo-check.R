@@ -424,14 +424,7 @@ y <- mutate(
   name = gsub("-", "", name, fixed = TRUE)
 )
 
-# Aug 18, 2020 we now have a summary row at the bottom
-all <- tibble(name = NA_character_, value = "All data",
-              Summary = paste0(nrow(data), " (100.0)"))
-
-y2 <- bind_rows(y,all)
-
-
-expected <- y2
+expected <- y
 test <- out$data
 
 test_that("demo-check long categorical", {
@@ -440,6 +433,18 @@ test_that("demo-check long categorical", {
   }
 })
 
+#' We also need to check this
+#'
+out$cols_extra
+total <- nrow(data)
+wide <- tibble(Summary = paste0("n = ", total))
+test <- out$cols_extra
+expected <- wide
+test_that("demo-check long categorical - n", {
+  for(col in names(expected)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
 
 #' ## Grouped (by formulation)
 
@@ -479,16 +484,9 @@ y <- mutate(
 z <- pivot_wider(y)
 z <- mutate(z, troche = replace_na(troche, "0 (0.0)"))
 z <- mutate(z, val = as.character(val))
-z <- rename(z, `\\ ` = val)
+z <- rename(z, level = val)
 
-
-long <- pivot_longer(data, "FORMf")
-long <- group_by(long, value) %>%
-  summarise(Summary = paste0(n(), " (", digit1(100*n()/nrow(data)), ")"),
-            .groups = "drop")
-wide <- pivot_wider(long, names_from="value", values_from="Summary")
-wide <- mutate(wide, `\\ ` = "All data")
-expected <- bind_rows(z,wide)
+expected <- z
 
 test <- out$data
 
@@ -497,6 +495,23 @@ test_that("demo-check long categorical grouped", {
     expect_identical(test[[col]], expected[[col]])
   }
 })
+
+#' We also need to check this
+#'
+out$cols_extra
+n <- count(data, FORMf)
+total <- sum(n$n)
+n <- mutate(n, n = paste0("n = ", n))
+wide <- pivot_wider(n, names_from="FORMf", values_from="n")
+wide$Summary <- paste0("n = ", total)
+test <- out$cols_extra
+expected <- wide
+test_that("demo-check long categorical grouped - n", {
+  for(col in names(expected)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
+
 
 
 #' # Wide continuous table
