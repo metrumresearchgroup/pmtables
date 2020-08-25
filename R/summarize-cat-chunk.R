@@ -4,7 +4,7 @@ summarize_cat_chunk <- function(data, cols) {
   ans <- map_dfr(cols, summarize_cat_col, data = data)
   ans <- mutate(ans, name = fct_inorder(.data[["name"]]))
   ans <- mutate(ans, summary = paste0(n," (",.data[["Percent"]],")"))
-  mutate(ans,n=NULL,N = NULL,Percent=NULL)
+  mutate(ans,n=NULL,Percent=NULL)
 }
 
 summarize_cat_col <- function(name, data) {

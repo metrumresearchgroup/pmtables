@@ -12,8 +12,7 @@ cat_data(
   summarize_all = TRUE,
   all_name = "All",
   wide = FALSE,
-  nby = NULL,
-  preshape = FALSE
+  nby = NULL
 )
 }
 \arguments{
@@ -34,9 +33,6 @@ of the full data in the output}
 if \code{FALSE}, it will be returned in \code{long} format}
 
 \item{nby}{number of unique levels for the \code{by} variable}
-
-\item{preshape}{if \code{TRUE}, returns summarized data prior to reshaping;
-this is intended for internal use}
 }
 \description{
 Summarize categorical data

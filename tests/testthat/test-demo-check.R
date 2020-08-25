@@ -433,6 +433,18 @@ test_that("demo-check long categorical", {
   }
 })
 
+#' We also need to check this
+#'
+out$cols_extra
+total <- nrow(data)
+wide <- tibble(Summary = paste0("n = ", total))
+test <- out$cols_extra
+expected <- wide
+test_that("demo-check long categorical - n", {
+  for(col in names(expected)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
 
 #' ## Grouped (by formulation)
 
@@ -456,8 +468,8 @@ x2 <- group_by(w,name,value) %>% summarise(
   number = length(unique(ID)),
   percent = pmtables:::digit1(100*number/N),
   .groups = "drop"
-) %>% mutate(FORMf = "ALL")
-x <- bind_rows(x1,x2)
+)
+x <- x1
 
 y <- mutate(
   x,
@@ -472,9 +484,10 @@ y <- mutate(
 z <- pivot_wider(y)
 z <- mutate(z, troche = replace_na(troche, "0 (0.0)"))
 z <- mutate(z, val = as.character(val))
-z <- rename(z, `\\ ` = val, `\\textbf{All Groups}` = ALL)
+z <- rename(z, level = val)
 
 expected <- z
+
 test <- out$data
 
 test_that("demo-check long categorical grouped", {
@@ -482,6 +495,23 @@ test_that("demo-check long categorical grouped", {
     expect_identical(test[[col]], expected[[col]])
   }
 })
+
+#' We also need to check this
+#'
+out$cols_extra
+n <- count(data, FORMf)
+total <- sum(n$n)
+n <- mutate(n, n = paste0("n = ", n))
+wide <- pivot_wider(n, names_from="FORMf", values_from="n")
+wide$Summary <- paste0("n = ", total)
+test <- out$cols_extra
+expected <- wide
+test_that("demo-check long categorical grouped - n", {
+  for(col in names(expected)) {
+    expect_identical(test[[col]], expected[[col]])
+  }
+})
+
 
 
 #' # Wide continuous table
