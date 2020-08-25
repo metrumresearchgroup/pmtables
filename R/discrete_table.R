@@ -84,15 +84,15 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' @param span variable name for column spanner
 #' @param all_name_span table column name to use for data summaries across
 #' levels of `span` if it is provided
-#' @param summarize where to include an all-data (`bottom`) or by-panel group
-#' summary ("both"); choose `none` to omit any data summary
+#' @param summarize where to include a data summary across subgroups;
+#' use `none` to drop the summary from the table
 #' @param by use `span` argument instead
 #'
 #' @export
 pt_cat_long <- function(data, cols, span  =  ".total",
-                        all_name = "All Data",
-                        all_name_span = "All Groups",
-                        summarize = c("bottom", "both", "none"),
+                        all_name = "Total",
+                        all_name_span = "By category",
+                        summarize = c("right", "none"),
                         table = NULL, by = NULL) {
 
   summarize <- match.arg(summarize)
@@ -128,7 +128,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
   )
 
   if(summarize_all) {
-    if(has_span && summarize == "both") {
+    if(has_span && summarize %in% c("right", "both")) {
       all <- cat_data(
         data,
         cols = cols,
@@ -145,16 +145,14 @@ pt_cat_long <- function(data, cols, span  =  ".total",
         bot[[all_name_span]] <- paste(nrow(data), "(100.0)")
       }
       bot[["N"]] <- NULL
-      ans <- bind_rows(ans,bot)
-      to_bold <- ncol(ans)
+      bot[["level"]] <- all_name
+      bot[["name"]] <- ""
+      ans <- bind_rows(bot, ans)
     }
-    if(summarize == "both") {
+    if(summarize %in% c("right", "both")) {
+      to_bold <- which(names(ans)==all_name_span)
       names(ans)[to_bold] <- split_bold(names(ans)[to_bold])
     }
-  }
-
-  if(exists("level", ans)) {
-    ans <- rename(ans, "\\ " = .data[["level"]])
   }
 
   output_span <- NULL
@@ -167,7 +165,8 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     data = ans,
     span = output_span,
     align = cols_center(.outer = 'l'),
-    col_rename = span,
+    cols_rename = span,
+    cols_blank = "level",
     panel = "name",
     notes = "Summary is count (percent)"
   )
@@ -175,8 +174,8 @@ pt_cat_long <- function(data, cols, span  =  ".total",
   out <- structure(out, class = c("pmtable", class(out)))
 
   if(summarize %in% c("bottom", "both")) {
-    out$sumrows <- sumrow(nrow(ans), label = all_name, bold = TRUE, hline = TRUE)
-    out$hine_at <- nrow(ans)
+    out$sumrows <- sumrow(ans[["level"]] == all_name, label = all_name, bold = TRUE, hline = TRUE, it = FALSE)
+    out$hline_at <- which(ans[["level"]] == all_name) + 1
   }
 
   return(out)

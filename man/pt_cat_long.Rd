@@ -8,9 +8,9 @@ pt_cat_long(
   data,
   cols,
   span = ".total",
-  all_name = "All Data",
-  all_name_span = "All Groups",
-  summarize = c("bottom", "both", "none"),
+  all_name = "Total",
+  all_name_span = "By category",
+  summarize = c("right", "none"),
   table = NULL,
   by = NULL
 )
@@ -27,8 +27,8 @@ pt_cat_long(
 \item{all_name_span}{table column name to use for data summaries across
 levels of \code{span} if it is provided}
 
-\item{summarize}{where to include an all-data (\code{bottom}) or by-panel group
-summary ("both"); choose \code{none} to omit any data summary}
+\item{summarize}{where to include a data summary across subgroups;
+use \code{none} to drop the summary from the table}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
