@@ -354,6 +354,7 @@ local release(name, r_major_minor, image) =
         ],
       },
       s3_publish_tag("${DRONE_TAG}", "${DRONE_TAG}", temp_volume),
+      s3_publish_tag("${DRONE_TAG}", "latest_tag", temp_volume),
     ],
   };
 
