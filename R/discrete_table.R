@@ -10,7 +10,8 @@ cat_long_all <- function(data, group = ".total", all_name = "All data") {
     data_long,
     level = all_name,
     N = .env[["N"]],
-    value = paste(n(), paste0("(",digit1(100*n()/N),")")),
+    #value = paste(n(), paste0("(",digit1(100*n()/N),")")),
+    value = paste0("n = ", n()),
     .groups = "drop"
   )
   pivot_wider(data_summ, names_from = "by")
@@ -90,9 +91,9 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #'
 #' @export
 pt_cat_long <- function(data, cols, span  =  ".total",
-                        all_name = "Total",
-                        all_name_span = "By category",
-                        summarize = c("right", "none"),
+                        all_name = " ",
+                        all_name_span = "Summary",
+                        summarize = c("both", "right", "top", "none"),
                         table = NULL, by = NULL) {
 
   summarize <- match.arg(summarize)
@@ -139,20 +140,6 @@ pt_cat_long <- function(data, cols, span  =  ".total",
       all[["N"]] <- NULL
       ans <- left_join(ans, all, by = c("name", "level"))
     }
-    if(summarize %in% c("bottom", "both")) {
-      bot <- cat_long_all(data, unname(span))
-      if(summarize=="both") {
-        bot[[all_name_span]] <- paste(nrow(data), "(100.0)")
-      }
-      bot[["N"]] <- NULL
-      bot[["level"]] <- all_name
-      bot[["name"]] <- ""
-      ans <- bind_rows(bot, ans)
-    }
-    if(summarize %in% c("right", "both")) {
-      to_bold <- which(names(ans)==all_name_span)
-      names(ans)[to_bold] <- split_bold(names(ans)[to_bold])
-    }
   }
 
   output_span <- NULL
@@ -171,12 +158,17 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     notes = "Summary is count (percent)"
   )
 
-  out <- structure(out, class = c("pmtable", class(out)))
-
-  if(summarize %in% c("bottom", "both")) {
-    out$sumrows <- sumrow(ans[["level"]] == all_name, label = all_name, bold = TRUE, hline = TRUE, it = FALSE)
-    out$hline_at <- which(ans[["level"]] == all_name) + 1
+  if(summarize %in% c("top", "both")) {
+    bot <- cat_long_all(data, unname(span))
+    if(summarize=="both") {
+      bot[[all_name_span]] <- paste0("n = ", nrow(data))
+    }
+    bot[["N"]] <- NULL
+    bot[["level"]] <- ""
+    out$cols_extra <- bot
   }
+
+  out <- structure(out, class = c("pmtable", class(out)))
 
   return(out)
 }

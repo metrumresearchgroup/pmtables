@@ -8,9 +8,9 @@ pt_cat_long(
   data,
   cols,
   span = ".total",
-  all_name = "Total",
-  all_name_span = "By category",
-  summarize = c("right", "none"),
+  all_name = " ",
+  all_name_span = "Summary",
+  summarize = c("both", "right", "top", "none"),
   table = NULL,
   by = NULL
 )

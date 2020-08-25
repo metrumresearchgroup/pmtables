@@ -1,3 +1,4 @@
+library(testthat)
 
 context("test-discrete-table")
 
@@ -16,22 +17,21 @@ test_that("discrete - long, summaries", {
   nrf <- length(levels(data$RFf))
   ncp <- length(levels(data$CPf))
   nr <- ns + nrf + ncp
-  expect_equal(nrow(res), nr + 1)
-  expect_equal(res[nr+1,"\\ "], "All data")
+  expect_equal(nrow(res), nr)
   nc <- ncol(res)
   ans <- pt_cat_long(
     data, cols = "SEXf,RFf,CPf", span = "STUDYf",
-    summarize = "both"
+    summarize = "right"
   )
-  expect_equal(ncol(ans$data), nc + 1)
-  expect_equal(nrow(ans$data), nr + 1)
-  expect_equal(names(ans$data)[(nc+1)], "\\textbf{All Groups}")
+  expect_equal(ncol(ans$data), nc)
+  expect_equal(nrow(ans$data), nr)
+  expect_equal(names(ans$data)[(nc)], "Summary")
   ans <- pt_cat_long(
     data, cols = "SEXf,RFf,CPf", span = "STUDYf",
     summarize = "none"
   )
   expect_equal(nrow(ans$data), nr)
-  expect_equal(ncol(ans$data), nc)
+  expect_equal(ncol(ans$data), nc-1)
 })
 
 test_that("discrete data table - wide", {

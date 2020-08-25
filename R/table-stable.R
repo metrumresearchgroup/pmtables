@@ -190,7 +190,9 @@ stable.data.frame <- function(data,
     cols_new = cols_data$new,
     units = units,
     newline = cols_data$newline,
-    bold = cols_data$bold
+    bold = cols_data$bold,
+    extra = cols_data$extra,
+    panel = panel
   )
 
   cols_tex <- header_matrix_tex(header_data, sizes)
