@@ -9,7 +9,8 @@ st2article(
   .list = NULL,
   npdf = 1,
   stem = "article",
-  output_dir = tempdir()
+  output_dir = tempdir(),
+  margin = NULL
 )
 }
 \arguments{
@@ -17,9 +18,11 @@ st2article(
 
 \item{.list}{a list of stable objects}
 
-\item{npdf}{number of times to build the pdf file}
-
 \item{stem}{name for the article, without extension}
+
+\item{margin}{the left and right margin in \code{cm}; default is 3 cm}
+
+\item{ntex}{number of times to build the pdf file}
 }
 \description{
 This is experimental

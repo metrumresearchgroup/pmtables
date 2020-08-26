@@ -85,8 +85,9 @@ st_preview <- function(x,...) { # nocov start
 #'
 #' @param ... stable objects
 #' @param .list a list of stable objects
-#' @param npdf number of times to build the pdf file
+#' @param ntex number of times to build the pdf file
 #' @param stem name for the article, without extension
+#' @param margin the left and right margin in `cm`; default is 3 cm
 #'
 #' @details
 #' It is important to review the different latex dependencies in the
@@ -103,7 +104,7 @@ st_preview <- function(x,...) { # nocov start
 #' }
 #'
 st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
-                       output_dir = tempdir()) { #nocov start
+                       output_dir = tempdir(), margin = NULL) { #nocov start
   tables <- c(list(...),.list)
   assert_that(all(map_lgl(tables, inherits, what = "stable")))
   template <- system.file("article", "article.tex", package="pmtables")
@@ -116,6 +117,12 @@ st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
   w <- grep("st2article_input", temp)
   for(i in w) {
     temp[i] <- glue::glue(temp[i], .open = "<<<", .close = ">>>")
+  }
+  w <- grep("% set-margin", temp, fixed = TRUE)
+  if(length(w) > 0 && is.numeric(margin)) {
+    for(i in w) {
+      temp[i] <- paste0("\\newcommand{\\lrmargin}{",margin,"}")
+    }
   }
   wrap_with_caption <- function(text, i) {
     cap <- paste0("st2article preview output - ", i)
@@ -133,7 +140,7 @@ st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
   }
 
   if(file.exists(texfile)) {
-    for(i in seq_len(npdf)) {
+    for(i in seq_len(ntex)) {
       out <- paste0("-output-directory=", output_dir)
       result <- system2("pdflatex", args=c("-halt-on-error",texfile, out))
       if(!identical(result, 0L)) {
