@@ -16,7 +16,9 @@ stable_long(
 )
 }
 \arguments{
-\item{data}{data frame passed to \code{\link[=stable]{stable()}}}
+\item{data}{data frame passed to \code{\link[=stable]{stable()}}; the user should filter
+or subset so that \code{data} contains exactly the rows (and columns) to be
+processed; pmtables will not add or remove rows prior to processing \code{data}}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}

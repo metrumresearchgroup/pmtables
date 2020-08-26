@@ -85,7 +85,9 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 
 #' Create a continuous data summary table in wide format
 #'
-#' @param data the data frame to summarize
+#' @param data the data frame to summarize; the user should filter or subset
+#' so that `data` contains exactly the records to be summarized; pmtables will
+#' not add or remove rows prior to summarizing `data`
 #' @param cols the columns to summarize; may be character vector or quosure
 #' @param by a grouping variable; may be character vector or quosure
 #' @param panel data set column name to stratify the summary

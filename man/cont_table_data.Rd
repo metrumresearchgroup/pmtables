@@ -17,7 +17,9 @@ cont_table_data(
 )
 }
 \arguments{
-\item{data}{the data frame to summarize}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that \code{data} contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing \code{data}}
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 

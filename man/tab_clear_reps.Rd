@@ -13,7 +13,10 @@ tab_clear_reps(
 )
 }
 \arguments{
-\item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
+\item{data}{a data.frame to convert to tabular table; the user should filter
+or subset so that \code{data} contains exactly the rows (and columns) to be
+processed; pmtables will not add or remove rows prior to processing \code{data};
+see also \code{\link[=st_new]{st_new()}}}
 
 \item{clear_reps}{character vector of column names where duplicate values will
 be made blank (overwritten with \code{""}); see also \code{\link[=st_clear_reps]{st_clear_reps()}}}

@@ -17,7 +17,9 @@ st_arg_names <- c(
 #' The st object will collect various configuration settings and pass those
 #' to [stable()] when the object is passed to [st_make()].
 #'
-#' @param data the data frame to pass to [stable()]
+#' @param data the data frame to pass to [stable()]; the user should filter
+#' or subset so that `data` contains exactly the rows (and columns) to be
+#' processed; pmtables will not add or remove rows prior to processing `data`
 #' @param ... additional arguments passed to [stable()]
 #'
 #' @examples

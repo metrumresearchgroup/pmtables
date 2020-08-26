@@ -190,7 +190,9 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
 #'
 #' This is a convenience wrapper around [pt_data_inventory]
 #'
-#' @param data the data frame to summarize
+#' @param data the data frame to summarize; the user should filter or subset
+#' so that `data` contains exactly the records to be summarized; pmtables will
+#' not add or remove rows prior to summarizing `data`
 #' @param study_col the name of the column containing the study identifier;
 #' may be character or quosure (see [dplyr::vars])
 #' @param panel another categorical data set column name to stratify the

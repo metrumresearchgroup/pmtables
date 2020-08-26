@@ -71,7 +71,10 @@ triage_data <- function(data) {
 
 #' Create tabular output from an R data frame
 #'
-#' @param data a data.frame to convert to tabular table; see also [st_new()]
+#' @param data a data.frame to convert to tabular table; the user should filter
+#' or subset so that `data` contains exactly the rows (and columns) to be
+#' processed; pmtables will not add or remove rows prior to processing `data`;
+#' see also [st_new()]
 #' @param align an alignment object created by [cols_align()], [cols_left()],
 #' [cols_center()], or [cols_right()]; see also [st_align()]
 #' @param panel character column name to use to section the table; sections will
