@@ -36,3 +36,10 @@ test_that("longtable - row spacing is set", {
   expect_match(out$tab,"extrarowheight}{-0.11em}", all = FALSE, fixed  = TRUE)
   expect_match(out$tab,"renewcommand{\\arraystretch}{1.3}", all = FALSE, fixed  = TRUE)
 })
+
+test_that("longtable - output file is saved", {
+  out <- stable_long(ptdata(), output_file = "../path/foo.tex")
+  expect_equal(attributes(out)$stable_file, "../path/foo.tex")
+})
+
+
