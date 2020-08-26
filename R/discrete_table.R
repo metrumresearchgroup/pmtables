@@ -89,6 +89,9 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' use `none` to drop the summary from the table
 #' @param by use `span` argument instead
 #'
+#' @details
+#' The notes in this table are generated with [pt_cat_long_notes()].
+#'
 #' @export
 pt_cat_long <- function(data, cols, span  =  ".total",
                         all_name = " ",
@@ -155,7 +158,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     cols_rename = span,
     cols_blank = "level",
     panel = "name",
-    notes = "Summary is count (percent)"
+    notes = pt_cat_long_notes()
   )
 
   if(summarize %in% c("top", "both")) {
@@ -173,6 +176,23 @@ pt_cat_long <- function(data, cols, span  =  ".total",
   return(out)
 }
 
+#' Return table notes for pt_cat_long
+#'
+#' See [pt_cat_long()].
+#'
+#' @param include_n if `TRUE`, add a note for `n`
+#' @param note_add additional notes to include
+#'
+#' @export
+pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
+  ans <- note_add
+  ans <- c(ans, "Summary is count (percent)")
+  if(isTRUE(include_n)) {
+    ans <- c(ans, "n: number of records summarized")
+  }
+  ans
+}
+
 #' Discrete data summary in long format
 #'
 #' @inheritParams pt_cont_wide
@@ -180,13 +200,14 @@ pt_cat_long <- function(data, cols, span  =  ".total",
 #' vector or quosure
 #' @param summarize where to put an all-data summary; choose `none` to omit the
 #' summary from the table
-#' @param drop passed to [stable()]
+#'
+#' @details
+#' The notes in this table are generated with [pt_cat_wide_notes()].
 #'
 #' @export
 pt_cat_wide <- function(data, cols, by = ".total", panel = by,
                         table = NULL, all_name = "All data",
-                        summarize = c("bottom", "none"),
-                        drop = character(0)) {
+                        summarize = c("bottom", "none")) {
 
   summarize <- match.arg(summarize)
   summarize_all <- summarize != "none"
@@ -240,6 +261,10 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
 
   ans[[".total"]] <- NULL
 
+  if("N" %in% names(ans)) {
+    ans <- rename(ans, n = .data[["N"]])
+  }
+
   .panel <- rowpanel(NULL)
   if(has_panel) {
     .panel <- panel_data
@@ -250,22 +275,34 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
     names(ans)[names(ans)==by] <- names(by)[1]
   }
 
-  notes <- "Summary is count (percent)"
-  if(!is.element("N", drop)) {
-    notes <- c(notes, "N: subject count for the row")
-  }
-
   out <- list(
     data = ans,
     span_split = colsplit(sep = '.'),
     align = cols_center(.outer = 'l'),
     cols_rename = c(.panel$col,by),
     panel = .panel,
-    notes = notes,
-    drop = drop
+    notes = pt_cat_wide_notes()
   )
 
   out <- structure(out, class = c("pmtable", class(out)))
 
   return(out)
+}
+
+
+#' Return table notes for pt_cat_wide
+#'
+#' See [pt_cat_wide()].
+#'
+#' @param include_n include the note for `n` column
+#' @param note_add additional notes to include
+#'
+#' @export
+pt_cat_wide_notes <- function(include_n = TRUE, note_add = NULL) {
+  ans <- note_add
+  ans <- c(ans, "Summary is count (percent)")
+  if(isTRUE(include_n)) {
+    ans <- c(ans, "n: number of records summarized")
+  }
+  ans
 }

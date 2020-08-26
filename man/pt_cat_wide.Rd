@@ -11,8 +11,7 @@ pt_cat_wide(
   panel = by,
   table = NULL,
   all_name = "All data",
-  summarize = c("bottom", "none"),
-  drop = character(0)
+  summarize = c("bottom", "none")
 )
 }
 \arguments{
@@ -32,9 +31,10 @@ examples)}
 
 \item{summarize}{where to put an all-data summary; choose \code{none} to omit the
 summary from the table}
-
-\item{drop}{passed to \code{\link[=stable]{stable()}}}
 }
 \description{
 Discrete data summary in long format
+}
+\details{
+The notes in this table are generated with \code{\link[=pt_cat_wide_notes]{pt_cat_wide_notes()}}.
 }

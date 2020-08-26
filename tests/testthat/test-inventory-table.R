@@ -70,3 +70,13 @@ test_that("inventory table - no bq col", {
   ans <- pt_data_inventory(data)
   expect_false(any(grepl("BQL", names(ans$data), fixed = TRUE)))
 })
+
+test_that("notes - inventory", {
+  ans <- pt_data_inventory(pmt_pk)$notes
+  expect_is(ans, "character")
+  expect_length(ans,4)
+  expect_match(ans[1], "SUBJ: subjects", fixed = TRUE)
+  expect_match(ans[2], "below", fixed = TRUE)
+  expect_match(ans[3], "MISS: missing", fixed = TRUE)
+  expect_match(ans[4], "OBS: observations", fixed = TRUE)
+})
