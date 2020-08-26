@@ -79,3 +79,51 @@ st_preview <- function(x,...) { # nocov start
   )
 } # nocov end
 
+#' Preview tables in a TeX article
+#'
+#' This is experimental
+#'
+#' @param ... stable objects
+#' @param .list a list of stable objects
+#' @param npdf number of times to build the pdf file
+#' @param stem name for the article, without extension
+#'
+st2article <- function(..., .list = NULL, npdf = 1, stem  = "article") { #nocov start
+  tables <- c(list(...),.list)
+  assert_that(all(map_lgl(tables, inherits, what = "stable")))
+  template <- system.file("article", "article.tex", package="pmtables")
+  texstem <- file.path(tempdir(), stem)
+  texfile <- paste0(texstem, ".tex")
+  pdffile <- basename(paste0(texstem, ".pdf"))
+  tablefile <- paste0(stem, "-tables.tex")
+  st2article_input <- file.path(tempdir(),tablefile)
+  temp <- readLines(template)
+  w <- grep("st2article_input", temp)
+  for(i in w) {
+    temp[i] <- glue::glue(temp[i], .open = "<<<", .close = ">>>")
+  }
+  wrap_with_caption <- function(text, i) {
+    cap <- paste0("st2article preview item: ", i)
+    pt_wrap(text, context = "tex", caption = cap, con = NULL)
+  }
+  tables <- imap(tables, wrap_with_caption)
+  tables <- map(tables, ~ c(.x, "\\clearpage"))
+  tables <- flatten_chr(tables)
+
+  writeLines(tables,st2article_input)
+  writeLines(temp, texfile)
+
+  if(file.exists(texfile)) {
+    for(i in seq_len(npdf)) {
+      system2("pdflatex", args=c("-halt-on-error",texfile))
+    }
+  } else {
+    stop("there was an error - could not locate the article tex file")
+  }
+  if(file.exists(pdffile)) {
+    fs::file_show(pdffile)
+  } else {
+    stop("there was an error - could not locate the output pdf file")
+  }
+  return(invisible(NULL))
+} # nocov end
