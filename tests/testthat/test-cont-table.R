@@ -57,3 +57,9 @@ test_that("notes - cont-long", {
   expect_match(ans[2], "standard deviation", fixed = TRUE)
   expect_match(ans[3], "minimum", fixed = TRUE)
 })
+
+test_that("cont long table has n", {
+  ans <- pt_cont_long(pmt_first, cols = "WT,ALB")$data
+  expect_true("n" %in% names(ans))
+})
+

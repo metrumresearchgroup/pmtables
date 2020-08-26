@@ -68,3 +68,16 @@ test_that("notes - cat-long", {
   expect_match(ans[1], "count (percent)", fixed = TRUE)
   expect_match(ans[2], "number of records summarized", fixed = TRUE)
 })
+
+test_that("cat wide table has n", {
+  ans <- pt_cat_wide(pmt_first, cols = "FORMf,STUDYf")$data
+  expect_true("n" %in% names(ans))
+})
+
+test_that("cat long table has cols_extra", {
+  ans <- pt_cat_long(pmt_first, cols = "FORMf,STUDYf", span = "SEXf")$cols_extra
+  expect_is(ans,"data.frame")
+  expect_equal(ans$Summary ,"n = 160")
+  expect_equal(ans$male ,"n = 80")
+  expect_equal(ans$female ,"n = 80")
+})
