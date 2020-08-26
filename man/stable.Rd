@@ -4,6 +4,7 @@
 \alias{stable}
 \alias{stable.data.frame}
 \alias{stable.pmtable}
+\alias{stable.stable}
 \title{Create tabular output from an R data frame}
 \usage{
 stable(data, ...)
@@ -25,6 +26,8 @@ stable(data, ...)
 )
 
 \method{stable}{pmtable}(data, ...)
+
+\method{stable}{stable}(data, ...)
 }
 \arguments{
 \item{data}{a data.frame to convert to tabular table; the user should filter

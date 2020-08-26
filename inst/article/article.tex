@@ -1,0 +1,97 @@
+\documentclass{article}
+
+\usepackage{datetime}
+\newcommand{\todayabc}{\the\year-\twodigit{\month}-\twodigit{\day}}
+
+\usepackage{fancyhdr, lastpage}
+\setlength{\headheight}{23pt}
+
+%%%%%%%%%%%% Header %%%%%%%%%%%%
+\rhead{pmtables}
+\chead{} %Blank
+\lhead{st2article preview}
+
+%%%%%%%%%%%% Footer %%%%%%%%%%%%
+\renewcommand{\footrulewidth}{0.4pt}
+\lfoot{pmtables st2article preview, \todayabc}
+\cfoot{} %Blank
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+
+\usepackage{graphicx}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\\\}
+
+\usepackage[onehalfspacing]{setspace}
+
+\usepackage[margin=3cm]{geometry}
+
+\pagestyle{fancy}
+
+\renewcommand{\labelitemiii}{$\circ$}
+
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage[T1]{fontenc}
+\usepackage[utopia]{mathdesign}
+\usepackage{courier}
+\usepackage{tocbibind}
+\usepackage[parfill]{parskip}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage[draft,inline,nomargin,index]{fixme}
+\fxsetup{theme=color,mode=multiuser}
+\FXRegisterAuthor{au}{aut}{\color{BurntOrange}Author}
+\FXRegisterAuthor{re}{rev}{\color{Green}Reviewer}
+
+\usepackage{upgreek}
+\usepackage{textpos}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{appendix}
+\usepackage{upquote}
+\usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage{textcomp}
+\usepackage[hyphens]{url}
+\urlstyle{same}
+\usepackage{float}
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+\usepackage{caption}
+\setlength{\belowcaptionskip}{10pt}
+\usepackage[colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue,breaklinks=true,linktoc=all,bookmarksnumbered=true,bookmarksopen]{hyperref}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\DeclareCaptionTextFormat{figbook}{\currentpdfbookmark{Figure \thefigure: #1}{F \thefigure}#1}
+\captionsetup[figure]{textformat=figbook}
+
+\DeclareCaptionTextFormat{tablesbm}{\currentpdfbookmark{Table \thetable: #1}{T \thetable}#1}
+\captionsetup[table]{textformat=tablesbm}
+
+\usepackage{embedfile}
+\usepackage{hypgotoe}
+\usepackage{listliketab}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{threeparttable}
+
+\usepackage[style=superheader,shortcuts,nonumberlist,toc]{glossaries}
+\glsdisablehyper
+\makenoidxglossaries
+\renewcommand*{\glspostdescription}{}
+\renewcommand*{\glsgroupskip}{}
+
+\begin{document}
+
+\listoftables
+
+\clearpage
+
+\singlespacing
+% \input{tables}
+
+\end{document}

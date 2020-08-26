@@ -270,6 +270,10 @@ stable.data.frame <- function(data,
 #' @export
 stable.pmtable <- function(data, ...) as_stable(data, ...)
 
+#' @rdname stable
+#' @export
+stable.stable <- function(data, ...) return(data)
+
 #' Create stable from pmtable
 #'
 #' @param x object to convert to stable

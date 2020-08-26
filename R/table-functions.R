@@ -8,11 +8,14 @@
 #' @param caption the table caption
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
 #' code block; if `tex`, then the fencing is omitted
-
+#' @param ... not used
 #'
 #' @export
-st_wrap <- function(x, con = stdout(), table = TRUE, center = TRUE, caption = NULL,
-                    context = c("rmd", "tex")) { # nocov start
+st_wrap <- function(x,...) UseMethod("st_wrap")
+#' @rdname st_wrap
+#' @export
+st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # nocov start
+                            caption = NULL, context = c("rmd", "tex"), ...) {
   context <- match.arg(context)
   ans <- c()
   if(isTRUE(table)) {
@@ -37,6 +40,12 @@ st_wrap <- function(x, con = stdout(), table = TRUE, center = TRUE, caption = NU
   }
   return(invisible(ans))
 } # nocov end
+
+#' @rdname st_wrap
+#' @export
+st_wrap.stable_long <- function(x, table = FALSE, ...) {
+  st_wrap.default(x, ..., table = FALSE)
+}
 
 #' @rdname st_wrap
 #' @export
