@@ -13,6 +13,8 @@
 - Add `n` summary column to `pt_cat_wide()` #80
 - Add functions that return table notes for continuous and discrete data 
   summaries and data inventory tables #114
+- Make `pt_wrap()` generic; add method for `stable_long` that doesn't wrap 
+  with table #121
 
 # pmtables 0.1.0
 - Adding NEWS file
