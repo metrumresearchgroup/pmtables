@@ -4,7 +4,13 @@
 \alias{st2article}
 \title{Preview tables in a TeX article}
 \usage{
-st2article(..., .list = NULL, npdf = 1, stem = "article")
+st2article(
+  ...,
+  .list = NULL,
+  npdf = 1,
+  stem = "article",
+  output_dir = tempdir()
+)
 }
 \arguments{
 \item{...}{stable objects}

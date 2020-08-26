@@ -88,7 +88,22 @@ st_preview <- function(x,...) { # nocov start
 #' @param npdf number of times to build the pdf file
 #' @param stem name for the article, without extension
 #'
-st2article <- function(..., .list = NULL, npdf = 1, stem  = "article") { #nocov start
+#' @details
+#' It is important to review the different latex dependencies in the
+#' document template.  It is assumed that all of these dependencies are
+#' available.
+#'
+#' @examples
+#' template_file <- system.file("article", "article.tex", package = "pmtables")
+#' template_contents <- readLines(template_file)
+#'
+#' \dontrun{
+#'   tab <- stable(ptdata())
+#'   pmtables:::st2article(tab)
+#' }
+#'
+st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
+                       output_dir = tempdir()) { #nocov start
   tables <- c(list(...),.list)
   assert_that(all(map_lgl(tables, inherits, what = "stable")))
   template <- system.file("article", "article.tex", package="pmtables")
@@ -113,17 +128,25 @@ st2article <- function(..., .list = NULL, npdf = 1, stem  = "article") { #nocov 
   writeLines(tables,st2article_input)
   writeLines(temp, texfile)
 
+  if(file.exists(pdffile)) {
+    unlink(pdffile)
+  }
+
   if(file.exists(texfile)) {
     for(i in seq_len(npdf)) {
-      system2("pdflatex", args=c("-halt-on-error",texfile))
+      out <- paste0("-output-directory=", output_dir)
+      result <- system2("pdflatex", args=c("-halt-on-error",texfile, out))
+      if(!identical(result, 0L)) {
+        warning("non-zero exit from pdflatex", call.=FALSE)
+      }
     }
   } else {
-    stop("there was an error - could not locate the article tex file")
+    stop("could not locate the article tex file", call.=FALSE)
   }
   if(file.exists(pdffile)) {
     fs::file_show(pdffile)
   } else {
-    stop("there was an error - could not locate the output pdf file")
+    stop("could not locate the output pdf file", call.=FALSE)
   }
   return(invisible(NULL))
 } # nocov end
