@@ -118,7 +118,7 @@ st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
     temp[i] <- glue::glue(temp[i], .open = "<<<", .close = ">>>")
   }
   wrap_with_caption <- function(text, i) {
-    cap <- paste0("st2article preview item: ", i)
+    cap <- paste0("st2article preview output - ", i)
     pt_wrap(text, context = "tex", caption = cap, con = NULL)
   }
   tables <- imap(tables, wrap_with_caption)
