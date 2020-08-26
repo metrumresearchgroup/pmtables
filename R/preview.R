@@ -129,9 +129,14 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
 
   temp <- readLines(template)
 
-  w <- grep("st2article_input", temp)
-  for(i in w) {
-    temp[i] <- glue::glue(temp[i], .open = "<<<", .close = ">>>")
+  w <- grep("\\input{tables}", temp, fixed = TRUE)
+  if(length(w)==1) {
+    temp[w] <- paste0("\\input{", st2article_input, "}")
+  } else {
+    stop(
+      "problem processing the template; couldn't find input statement",
+      call.=FALSE
+    )
   }
   if(is.numeric(margin)) {
     w <- grep("[margin=3cm]{geometry}", temp, fixed = TRUE)
