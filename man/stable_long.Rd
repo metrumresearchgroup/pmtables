@@ -7,7 +7,7 @@
 stable_long(
   data,
   note_config = noteconf(type = "minipage"),
-  inspect = TRUE,
+  inspect = FALSE,
   lt_cap_macro = NULL,
   lt_cap_text = NULL,
   lt_cap_label = NULL,

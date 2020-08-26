@@ -52,7 +52,7 @@ longtable_notes <- function(notes) {
 #' @export
 stable_long <- function(data,
                         note_config = noteconf(type="minipage"),
-                        inspect = TRUE,
+                        inspect = FALSE,
                         lt_cap_macro = NULL,
                         lt_cap_text = NULL,
                         lt_cap_label = NULL,
@@ -102,7 +102,11 @@ stable_long <- function(data,
     lt_notes,
     "}" # Ends
   )
-  out <- structure(longtab, class = c("stable_long", "stable"))
+  out <- structure(
+    longtab,
+    class = c("stable_long", "stable"),
+    stable_file = x$stable_file
+  )
 
   if(isTRUE(inspect)) {
     stable_data <- x
