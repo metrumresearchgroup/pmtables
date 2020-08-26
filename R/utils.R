@@ -116,7 +116,7 @@ as_str_regex <- function(x) {
 
 repattern_df <- function(data, pattern, warn = TRUE, context = NULL) {
   data <- select(data, intersect(names(data), names(pattern)))
-  if(ncol(data)==0) return(data)
+  if(ncol(data)==0) return(data[0,0])
   assertthat::assert_that(ncol(pattern) > 0)
   assertthat::assert_that(nrow(pattern) > 0)
   if(ncol(data) == 0) {
