@@ -38,3 +38,6 @@ examples)}
 \description{
 Discrete data summary in long format
 }
+\details{
+The notes in this table are generated with \code{\link[=pt_cat_long_notes]{pt_cat_long_notes()}}.
+}
