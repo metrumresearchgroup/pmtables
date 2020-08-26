@@ -7,7 +7,9 @@
 pt_data_study(data, study_col = "STUDY", panel = study_col, ...)
 }
 \arguments{
-\item{data}{the data frame to summarize}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that \code{data} contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing \code{data}}
 
 \item{study_col}{the name of the column containing the study identifier;
 may be character or quosure (see \link[dplyr:vars]{dplyr::vars})}

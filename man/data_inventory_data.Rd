@@ -14,7 +14,9 @@ data_inventory_data(
 )
 }
 \arguments{
-\item{data}{the data frame to summarize}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that \code{data} contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing \code{data}}
 
 \item{by}{the outer grouping variable; may be character or quosure}
 

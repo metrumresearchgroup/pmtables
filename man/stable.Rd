@@ -27,7 +27,10 @@ stable(data, ...)
 \method{stable}{pmtable}(data, ...)
 }
 \arguments{
-\item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
+\item{data}{a data.frame to convert to tabular table; the user should filter
+or subset so that \code{data} contains exactly the rows (and columns) to be
+processed; pmtables will not add or remove rows prior to processing \code{data};
+see also \code{\link[=st_new]{st_new()}}}
 
 \item{...}{passed to other functions: \code{\link[=tab_hlines]{tab_hlines()}}, \code{\link[=tab_spanners]{tab_spanners()}},
 \code{\link[=tab_notes]{tab_notes()}}, \code{\link[=tab_cols]{tab_cols()}}, \code{\link[=tab_clear_reps]{tab_clear_reps()}} and \code{\link[=make_tabular]{make_tabular()}}}
