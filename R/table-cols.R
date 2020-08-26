@@ -69,6 +69,7 @@ header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
   sp <- map(sp, trimws)
   if(nrow(extra) > 0) {
     assert_that(ncol(extra) == length(cols))
+    extra <- tab_prime(extra)
     for(j in seq_len(ncol(extra))) {
       add <- as.character(extra[[j]])
       add <- add[!is.na(add)]

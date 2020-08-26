@@ -113,3 +113,21 @@ as_str_regex <- function(x) {
   }
   x
 }
+
+repattern_df <- function(data, pattern, warn = TRUE, context = NULL) {
+  data <- select(data, intersect(names(data), names(pattern)))
+  if(ncol(data)==0) return(data[0,0])
+  assertthat::assert_that(ncol(pattern) > 0)
+  assertthat::assert_that(nrow(pattern) > 0)
+  if(ncol(data) == 0) {
+    if(isTRUE(warn)) {
+      if(is.character(context)) {
+        message("context: ", context)
+      }
+      warning("could not repattern data frame", call.=FALSE)
+    }
+    return(data[0,0])
+  }
+  combined <- bind_rows(slice(pattern,1), data)
+  slice(combined, seq(2, nrow(combined)))
+}

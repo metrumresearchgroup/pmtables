@@ -29,3 +29,17 @@ test_that("check if regular expression is valid", {
   expect_match(x, "invalid-regex-")
 })
 
+test_that("repattern data frame", {
+  a <- data.frame(a = 1, b = 2, c = 3)
+  b <- data.frame(a = 4, d = 5, z = 5, c = 4)
+  c <- data.frame(j = 5, m = 2)
+  d <- data.frame(c = 100)
+  x1 <- pmtables:::repattern_df(data = a, pattern = b)
+  expect_identical(names(x1), names(b))
+  x2 <- pmtables:::repattern_df(data = c, pattern = b)
+  expect_equal(nrow(x2),0)
+  x3 <- pmtables:::repattern_df(data = d, pattern = b)
+  expect_identical(names(x3), names(b))
+  x4 <- pmtables:::repattern_df(data = data.frame(), pattern = b)
+  expect_equal(nrow(x4),0)
+})

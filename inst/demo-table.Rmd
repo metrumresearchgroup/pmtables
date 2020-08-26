@@ -154,6 +154,37 @@ stable(
 
 \clearpage
 
+# Extra column information
+
+- Pass in a data frame any number of rows but same column layout (number and 
+order) as the input data to add information to the header row
+- I'm adding units in this example, but think of this as having general
+  application
+
+```{r}
+tmp <- slice(ptdata(), 1:5)
+
+xtra0 <- slice(tmp,1) %>% mutate(across(everything(), ~""))
+xtra0
+
+xtra1 <- mutate(xtra0, DOSE = "(mg)", N = "(number)", WT = "(kg)")
+
+xtra2 <- mutate(xtra0, WT = "[baseline]")
+
+xtra <- bind_rows(xtra2,xtra1)
+
+xtra
+```
+
+```{r,results = "asis"}
+stable(tmp, cols_extra = xtra) %>% st_wrap()
+
+```
+
+
+
+\clearpage
+
 # Math
 
 - Columns with at least two `$` are "math" and will not be sanitized
