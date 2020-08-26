@@ -4,7 +4,7 @@
 - Refactor `pt_cat_long` so that summary numbers are shown underneath column 
   labels #102
 - Refactor longtable row and column spacing so that they use `row` and `col` 
-  in `tab_size()` with the same behavior as tabluar / `stable()` #105
+  in `tab_size()` with the same behavior as tabular / `stable()` #105
 - Add `cols_extra` feature, allowing extra column header information passed
   as a data frame (see `tab_cols()`) #102, #118
 - Added documentation for `data` arguments to reinforce that pmtables doesn't
