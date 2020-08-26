@@ -42,5 +42,18 @@ test_that("continuous data table - wide", {
   expect_is(ans,"pmtable")
 })
 
+test_that("notes - cont-wide", {
+  ans <- pt_cont_wide(pmt_first, cols = "WT,ALB")$notes
+  expect_is(ans, "character")
+  expect_length(ans,1)
+  expect_match(ans, "mean (sd) [count]", fixed = TRUE)
+})
 
-
+test_that("notes - cont-long", {
+  ans <- pt_cont_long(pmt_first, cols = "WT,ALB")$notes
+  expect_is(ans, "character")
+  expect_length(ans,3)
+  expect_match(ans[1], "number of records", fixed = TRUE)
+  expect_match(ans[2], "standard deviation", fixed = TRUE)
+  expect_match(ans[3], "minimum", fixed = TRUE)
+})

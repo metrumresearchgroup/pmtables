@@ -53,3 +53,18 @@ test_that("discrete - wide, summaries", {
   expect_equal(nrow(ans$data), nr)
 })
 
+test_that("notes - cat-wide", {
+  ans <- pt_cat_wide(pmt_first, cols = "FORMf,SEXf")$notes
+  expect_is(ans, "character")
+  expect_length(ans,2)
+  expect_match(ans[1], "count (percent)", fixed = TRUE)
+  expect_match(ans[2], "number of records summarized", fixed = TRUE)
+})
+
+test_that("notes - cat-long", {
+  ans <- pt_cat_long(pmt_first, cols = "STUDYf")$notes
+  expect_is(ans, "character")
+  expect_length(ans,2)
+  expect_match(ans[1], "count (percent)", fixed = TRUE)
+  expect_match(ans[2], "number of records summarized", fixed = TRUE)
+})
