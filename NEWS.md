@@ -11,6 +11,8 @@
   filter or subset `data` prior to processing or summarizing #120
 - Fix bug in `stable_long()` where `stable_file` wasn't getting saved
 - Add `n` summary column to `pt_cat_wide()` #80
+- Add functions that return table notes for continuous and discrete data 
+  summaries and data inventory tables #114
 
 # pmtables 0.1.0
 - Adding NEWS file
