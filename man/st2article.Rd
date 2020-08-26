@@ -24,3 +24,18 @@ st2article(
 \description{
 This is experimental
 }
+\details{
+It is important to review the different latex dependencies in the
+document template.  It is assumed that all of these dependencies are
+available.
+}
+\examples{
+template_file <- system.file("article", "article.tex", package = "pmtables")
+template_contents <- readLines(template_file)
+
+\dontrun{
+  tab <- stable(ptdata())
+  pmtables:::st2article(tab)
+}
+
+}
