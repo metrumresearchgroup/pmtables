@@ -7,10 +7,11 @@
 st2article(
   ...,
   .list = NULL,
-  npdf = 1,
+  ntex = 1,
   stem = "article",
   output_dir = tempdir(),
-  margin = NULL
+  margin = NULL,
+  template = NULL
 )
 }
 \arguments{
@@ -18,19 +19,30 @@ st2article(
 
 \item{.list}{a list of stable objects}
 
-\item{stem}{name for the article, without extension}
-
-\item{margin}{the left and right margin in \code{cm}; default is 3 cm}
-
 \item{ntex}{number of times to build the pdf file}
+
+\item{stem}{name for the article file, without extension}
+
+\item{output_dir}{the output directory for the rendered pdf file}
+
+\item{margin}{the horizontal margin in \code{cm}; default is 3 cm; the vertical
+margin is fixed to 3 cm}
+
+\item{template}{an optional template for rendering the article; this normally
+shouldn't be used}
 }
 \description{
-This is experimental
+This is experimental. Pass in either \code{stable} or \code{stable_long} objects,
+and \code{\link[=st2article]{st2article()}} will write the output to temporary file and render the
+collection of tables in a pdf document without using Rmarkdown or pandoc.
+The rendering is accomplished through system call to \code{pdflatex}. See
+\code{details}.
 }
 \details{
-It is important to review the different latex dependencies in the
-document template.  It is assumed that all of these dependencies are
-available.
+A working tex distribution is required to run this function.It is important
+to review the different latex dependencies in the document template.  It is
+assumed that all of these dependencies are available. See \code{examples} below
+for code to open the template for review.
 }
 \examples{
 template_file <- system.file("article", "article.tex", package = "pmtables")

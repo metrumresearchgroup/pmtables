@@ -81,18 +81,27 @@ st_preview <- function(x,...) { # nocov start
 
 #' Preview tables in a TeX article
 #'
-#' This is experimental
+#' This is experimental. Pass in either `stable` or `stable_long` objects,
+#' and [st2article()] will write the output to temporary file and render the
+#' collection of tables in a pdf document without using Rmarkdown or pandoc.
+#' The rendering is accomplished through system call to `pdflatex`. See
+#' `details`.
 #'
 #' @param ... stable objects
 #' @param .list a list of stable objects
 #' @param ntex number of times to build the pdf file
-#' @param stem name for the article, without extension
-#' @param margin the left and right margin in `cm`; default is 3 cm
+#' @param stem name for the article file, without extension
+#' @param output_dir the output directory for the rendered pdf file
+#' @param margin the horizontal margin in `cm`; default is 3 cm; the vertical
+#' margin is fixed to 3 cm
+#' @param template an optional template for rendering the article; this normally
+#' shouldn't be used
 #'
 #' @details
-#' It is important to review the different latex dependencies in the
-#' document template.  It is assumed that all of these dependencies are
-#' available.
+#' A working tex distribution is required to run this function.It is important
+#' to review the different latex dependencies in the document template.  It is
+#' assumed that all of these dependencies are available. See `examples` below
+#' for code to open the template for review.
 #'
 #' @examples
 #' template_file <- system.file("article", "article.tex", package = "pmtables")
@@ -103,37 +112,50 @@ st_preview <- function(x,...) { # nocov start
 #'   pmtables:::st2article(tab)
 #' }
 #'
-st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
-                       output_dir = tempdir(), margin = NULL) { #nocov start
+st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov start
+                       output_dir = tempdir(), margin = NULL,
+                       template = NULL) {
   tables <- c(list(...),.list)
-  assert_that(all(map_lgl(tables, inherits, what = "stable")))
-  template <- system.file("article", "article.tex", package="pmtables")
-  texstem <- file.path(tempdir(), stem)
-  texfile <- paste0(texstem, ".tex")
-  pdffile <- basename(paste0(texstem, ".pdf"))
-  tablefile <- paste0(stem, "-tables.tex")
-  st2article_input <- file.path(tempdir(),tablefile)
+  assert_that(dir.exists(output_dir))
+  tables_are_stable <- map_lgl(tables, inherits, what = "stable")
+  assert_that(all(tables_are_stable))
+  if(is.null(template)) {
+    template <- system.file("article", "article.tex", package = "pmtables")
+  }
+  assert_that(file.exists(template))
+  texfile <- paste0(stem,".tex")
+  pdffile <- paste0(stem,".pdf")
+  st2article_input <- paste0(stem,"-tables.tex")
+
   temp <- readLines(template)
+
   w <- grep("st2article_input", temp)
   for(i in w) {
     temp[i] <- glue::glue(temp[i], .open = "<<<", .close = ">>>")
   }
-  w <- grep("% set-margin", temp, fixed = TRUE)
-  if(length(w) > 0 && is.numeric(margin)) {
-    for(i in w) {
-      temp[i] <- paste0("\\newcommand{\\lrmargin}{",margin,"}")
+  if(is.numeric(margin)) {
+    w <- grep("[margin=3cm]{geometry}", temp, fixed = TRUE)
+    if(length(w)==1) {
+      geo <- paste0("\\usepackage[vmargin=3cm,hmargin=",margin,"cm]{geometry}")
+      temp[w] <- geo
     }
   }
   wrap_with_caption <- function(text, i) {
+    if(is.null(i)) i <- "<no name given>"
     cap <- paste0("st2article preview output - ", i)
     pt_wrap(text, context = "tex", caption = cap, con = NULL)
   }
+
   tables <- imap(tables, wrap_with_caption)
   tables <- map(tables, ~ c(.x, "\\clearpage"))
   tables <- flatten_chr(tables)
 
+  cwd <- getwd()
+  on.exit(setwd(cwd))
+  setwd(tempdir())
+
   writeLines(tables,st2article_input)
-  writeLines(temp, texfile)
+  writeLines(temp,texfile)
 
   if(file.exists(pdffile)) {
     unlink(pdffile)
@@ -141,8 +163,7 @@ st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
 
   if(file.exists(texfile)) {
     for(i in seq_len(ntex)) {
-      out <- paste0("-output-directory=", output_dir)
-      result <- system2("pdflatex", args=c("-halt-on-error",texfile, out))
+      result <- system2("pdflatex", args=c("-halt-on-error ",texfile))
       if(!identical(result, 0L)) {
         warning("non-zero exit from pdflatex", call.=FALSE)
       }
@@ -150,10 +171,18 @@ st2article <- function(..., .list = NULL, npdf = 1, stem  = "article",
   } else {
     stop("could not locate the article tex file", call.=FALSE)
   }
-  if(file.exists(pdffile)) {
-    fs::file_show(pdffile)
+
+  if(output_dir != tempdir()) {
+    file.copy(pdffile, file.path(output_dir,pdffile), overwrite=TRUE)
+  }
+
+  pdfshow <- file.path(output_dir,pdffile)
+
+  if(file.exists(pdfshow)) {
+    fs::file_show(pdfshow)
   } else {
     stop("could not locate the output pdf file", call.=FALSE)
   }
+
   return(invisible(NULL))
 } # nocov end

@@ -7,6 +7,7 @@ inst/demo-table.log
 inst/demo-table.tex
 inst/demo-pipe.tex
 inst/demo-pipe.log
+inst/demo-sanitize.log
 inst/foo.tex
 .DS_Store
 pmtables.Rcheck

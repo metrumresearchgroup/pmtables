@@ -2,32 +2,34 @@
 % Please edit documentation in R/table-functions.R
 \name{st_wrap}
 \alias{st_wrap}
+\alias{st_wrap.default}
+\alias{st_wrap.stable_long}
 \alias{pt_wrap}
 \alias{st_latex}
 \title{Wrap stable output in table environment}
 \usage{
-st_wrap(
+st_wrap(x, ...)
+
+\method{st_wrap}{default}(
   x,
   con = stdout(),
   table = TRUE,
   center = TRUE,
   caption = NULL,
-  context = c("rmd", "tex")
+  context = c("rmd", "tex"),
+  ...
 )
 
-pt_wrap(
-  x,
-  con = stdout(),
-  table = TRUE,
-  center = TRUE,
-  caption = NULL,
-  context = c("rmd", "tex")
-)
+\method{st_wrap}{stable_long}(x, table = FALSE, ...)
+
+pt_wrap(x, ...)
 
 st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 }
 \arguments{
 \item{x}{tabular text}
+
+\item{...}{not used}
 
 \item{con}{where to write the output}
 
