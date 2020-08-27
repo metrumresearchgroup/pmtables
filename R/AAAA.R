@@ -105,6 +105,35 @@ NULL
 #' @section Save s-tables:
 #' - Use [stable_save()] to write an `stable` or `stable_long` object to file
 #'
+#' @section Latex / markdown information:
+#'
+#' The following latex packages are required in your `Rmd` or `latex` document:
+#'
+#' - `threeparttable`
+#' - `array`
+#' - `booktabs`
+#' - `longtable` (only when long tables are in the document)
+#'
+#' In `Rmd`, include these as `extra_dependencies`.
+#'
+#' You may also want to include this package:
+#'
+#' - `mathdesign` with option `utopia`
+#'
+#' The tables are generated with defaults that look sensible when the table is
+#' rendered with single spacing.  If you are working in a 1.5 spaced
+#' environment, the table may look roomy.  In that case, load the `setspace`
+#' package and switch to `singlespacing` prior to sourcing the table.
+#'
+#' If you render tables in an `Rmarkdown` document with processing by `pandoc`,
+#' `pandoc` may make mistakes when parsing the `latex` code.  To keep `pandoc`
+#' from making parsing errors, use `latex` code fence.  This formatting can
+#' be added to your table with the [st_latex()] command.  You can see what the
+#' fence looks like by running `st_latex("abc")`. Asserting that the code is
+#' `latex` can also be accomplished with [pt_wrap()] and using the
+#' `context = "rmd"` option. See [st2article()] for instructions on
+#' how to view a complete working `latex` example.
+#'
 #' @section Data sets:
 #' - [analysis1] - a NMTRAN-style data set; the basis for most other
 #'   example data sets
