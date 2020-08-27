@@ -19,7 +19,7 @@ functions; finally, create an stable object with \code{\link[=st_make]{st_make()
 }
 }
 
-\section{Table data and grooming}{
+\section{Table data grooming and sanitization}{
 
 \itemize{
 \item The functions \code{\link[=tab_prime]{tab_prime()}} and \code{\link[=triage_data]{triage_data()}} are called to get the data
@@ -27,6 +27,15 @@ frame ready to be in tabular format (see \code{\link[=make_tabular]{make_tabular
 \item The function \code{\link[=tab_escape]{tab_escape()}} is used to escape \verb{\%} and \verb{_} in the table
 (sanitization); use \code{options(pmtables.escape = ...)} to change the set of
 escape characters or set that option to \code{NULL} to prevent any sanitization
+\item Any unit of data that has a character escaped with double backslash
+(\verb{\\\\}) or that contains a math expression with two \code{$} will not be
+sanitized
+\item The function \code{\link[=tab_escape]{tab_escape()}} also performs the following substitutions:
+\itemize{
+\item change \code{~} to \verb{$\\\\sim$}
+\item change \code{>} to \verb{$>$}
+\item change \code{<} to \verb{$<$}
+}
 }
 }
 
@@ -91,16 +100,22 @@ horizontal line above
 \itemize{
 \item Use \code{\link[=st_preview]{st_preview()}} to send s-table output to \code{texPreview}
 \item Use \code{\link[=st2doc]{st2doc()}} to render a pdf file with one or more tables
-\item Use \code{\link[=pt_wrap]{pt_wrap()}} to wrap s-table output in a \code{table} environment and
-optionally send the output to \code{\link[=stdout]{stdout()}}; this is helpful when rendering
-tables in Rmarkdown documents
+\item Use \code{\link[=pt_wrap]{pt_wrap()}} or \code{\link[=st_wrap]{st_wrap()}}  to wrap s-table output in a \code{table}
+environment and optionally send the output to \code{\link[=stdout]{stdout()}}; this is helpful
+when rendering tables in Rmarkdown documents.  There is a \code{pt_wrap()}
+method for longtables that won't add the table environment.
+\item Use the non-exported function \code{\link[=st2article]{st2article()}} to render several tables in
+a stand-alone tex document rendered directly by \code{pdflatex} (no involvement
+of \code{Rmarkdown} or \code{pandoc}; this requires \code{pdflatex} to be installed and
+in your \code{PATH}.  Because this function is not exported, you will have to
+call it with \code{pmtables:::st2article(...)}.
 }
 }
 
 \section{Save s-tables}{
 
 \itemize{
-\item Use \code{\link[=stable_save]{stable_save()}} to write an s-table object to file
+\item Use \code{\link[=stable_save]{stable_save()}} to write an \code{stable} or \code{stable_long} object to file
 }
 }
 
