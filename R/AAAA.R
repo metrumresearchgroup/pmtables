@@ -35,12 +35,19 @@ NULL
 #'   st-functions; see the documentation links in [stable()] to discover these
 #'   functions; finally, create an stable object with [st_make()]
 #'
-#' @section Table data and grooming:
+#' @section Table data grooming and sanitization:
 #' - The functions [tab_prime()] and [triage_data()] are called to get the data
 #'   frame ready to be in tabular format (see [make_tabular()]
 #' - The function [tab_escape()] is used to escape `%` and `_` in the table
 #'   (sanitization); use `options(pmtables.escape = ...)` to change the set of
 #'   escape characters or set that option to `NULL` to prevent any sanitization
+#' - Any unit of data that has a character escaped with double backslash
+#'   (`\\`) or that contains a math expression with two `$` will not be
+#'   sanitized
+#' - The function [tab_escape()] also performs the following substitutions:
+#'   - change `~` to `$\\sim$`
+#'   - change `>` to `$>$`
+#'   - change `<` to `$<$`
 #'
 #' @section Summarizing and creating tables:
 #' - Use [pt_cont_wide()] to create continuous data summary in wide format
@@ -85,12 +92,18 @@ NULL
 #' @section Preview tables:
 #' - Use [st_preview()] to send s-table output to `texPreview`
 #' - Use [st2doc()] to render a pdf file with one or more tables
-#' - Use [pt_wrap()] to wrap s-table output in a `table` environment and
-#'   optionally send the output to [stdout()]; this is helpful when rendering
-#'   tables in Rmarkdown documents
+#' - Use [pt_wrap()] or [st_wrap()]  to wrap s-table output in a `table`
+#'   environment and optionally send the output to [stdout()]; this is helpful
+#'   when rendering tables in Rmarkdown documents.  There is a `pt_wrap()`
+#'   method for longtables that won't add the table environment.
+#' - Use the non-exported function [st2article()] to render several tables in
+#'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
+#'   of `Rmarkdown` or `pandoc`; this requires `pdflatex` to be installed and
+#'   in your `PATH`.  Because this function is not exported, you will have to
+#'   call it with `pmtables:::st2article(...)`.
 #'
 #' @section Save s-tables:
-#' - Use [stable_save()] to write an s-table object to file
+#' - Use [stable_save()] to write an `stable` or `stable_long` object to file
 #'
 #' @section Data sets:
 #' - [analysis1] - a NMTRAN-style data set; the basis for most other

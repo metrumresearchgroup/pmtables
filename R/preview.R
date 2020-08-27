@@ -103,6 +103,10 @@ st_preview <- function(x,...) { # nocov start
 #' assumed that all of these dependencies are available. See `examples` below
 #' for code to open the template for review.
 #'
+#' This function requires `pdflatex` to be installed and in your path to build
+#' the document.  Run `system2("pdflatex", "-v")` to see if `pdflatex` properly
+#' installed.
+#'
 #' @examples
 #' template_file <- system.file("article", "article.tex", package = "pmtables")
 #' template_contents <- readLines(template_file)

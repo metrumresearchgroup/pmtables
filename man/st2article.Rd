@@ -43,6 +43,10 @@ A working tex distribution is required to run this function.It is important
 to review the different latex dependencies in the document template.  It is
 assumed that all of these dependencies are available. See \code{examples} below
 for code to open the template for review.
+
+This function requires \code{pdflatex} to be installed and in your path to build
+the document.  Run \code{system2("pdflatex", "-v")} to see if \code{pdflatex} properly
+installed.
 }
 \examples{
 template_file <- system.file("article", "article.tex", package = "pmtables")
