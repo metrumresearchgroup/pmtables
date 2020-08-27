@@ -21,3 +21,9 @@ Installation information to be updated when ready.
 
   - Standard table examples:
     [inst/demo-pmtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pmtable.pdf)
+
+  - Long table examples:
+    [inst/demo-longtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-longtable.pdf)
+
+  - What is sanitized:
+    [inst/demo-sanitize.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-sanitize.pdf)
