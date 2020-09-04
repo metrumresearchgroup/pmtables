@@ -73,7 +73,7 @@ inclusion in 'tex' documents." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@ st-functions; see the documentation links in <code><a href='stable.html'>stable(
 functions; finally, create an stable object with <code><a href='st_make.html'>st_make()</a></code></p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="table-data-and-grooming"><a class="anchor" href="#table-data-and-grooming"></a>Table data and grooming</h2>
+    <h2 class="hasAnchor" id="table-data-grooming-and-sanitization"><a class="anchor" href="#table-data-grooming-and-sanitization"></a>Table data grooming and sanitization</h2>
 
     
 
@@ -141,6 +141,14 @@ frame ready to be in tabular format (see <code><a href='make_tabular.html'>make_
 <li><p>The function <code><a href='tab_prime.html'>tab_escape()</a></code> is used to escape <code>%</code> and <code>_</code> in the table
 (sanitization); use <code><a href='https://rdrr.io/r/base/options.html'>options(pmtables.escape = ...)</a></code> to change the set of
 escape characters or set that option to <code>NULL</code> to prevent any sanitization</p></li>
+<li><p>Any unit of data that has a character escaped with double backslash
+(<code>\\</code>) or that contains a math expression with two <code>$</code> will not be
+sanitized</p></li>
+<li><p>The function <code><a href='tab_prime.html'>tab_escape()</a></code> also performs the following substitutions:</p><ul>
+<li><p>change <code>~</code> to <code>$\\sim$</code></p></li>
+<li><p>change <code>&gt;</code> to <code>$&gt;$</code></p></li>
+<li><p>change <code>&lt;</code> to <code>$&lt;$</code></p></li>
+</ul></li>
 </ul>
 
     <h2 class="hasAnchor" id="summarizing-and-creating-tables"><a class="anchor" href="#summarizing-and-creating-tables"></a>Summarizing and creating tables</h2>
@@ -210,9 +218,15 @@ horizontal line above</p></li>
 <ul>
 <li><p>Use <code><a href='st_preview.html'>st_preview()</a></code> to send s-table output to <code>texPreview</code></p></li>
 <li><p>Use <code><a href='st2doc.html'>st2doc()</a></code> to render a pdf file with one or more tables</p></li>
-<li><p>Use <code><a href='st_wrap.html'>pt_wrap()</a></code> to wrap s-table output in a <code>table</code> environment and
-optionally send the output to <code><a href='https://rdrr.io/r/base/showConnections.html'>stdout()</a></code>; this is helpful when rendering
-tables in Rmarkdown documents</p></li>
+<li><p>Use <code><a href='st_wrap.html'>pt_wrap()</a></code> or <code><a href='st_wrap.html'>st_wrap()</a></code>  to wrap s-table output in a <code>table</code>
+environment and optionally send the output to <code><a href='https://rdrr.io/r/base/showConnections.html'>stdout()</a></code>; this is helpful
+when rendering tables in Rmarkdown documents.  There is a <code><a href='st_wrap.html'>pt_wrap()</a></code>
+method for longtables that won't add the table environment.</p></li>
+<li><p>Use the non-exported function <code><a href='st2article.html'>st2article()</a></code> to render several tables in
+a stand-alone tex document rendered directly by <code>pdflatex</code> (no involvement
+of <code>Rmarkdown</code> or <code>pandoc</code>; this requires <code>pdflatex</code> to be installed and
+in your <code>PATH</code>.  Because this function is not exported, you will have to
+call it with <code>pmtables:::st2article(...)</code>.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="save-s-tables"><a class="anchor" href="#save-s-tables"></a>Save s-tables</h2>
@@ -220,9 +234,38 @@ tables in Rmarkdown documents</p></li>
     
 
 <ul>
-<li><p>Use <code><a href='stable_save.html'>stable_save()</a></code> to write an s-table object to file</p></li>
+<li><p>Use <code><a href='stable_save.html'>stable_save()</a></code> to write an <code>stable</code> or <code>stable_long</code> object to file</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="latex-markdown-information"><a class="anchor" href="#latex-markdown-information"></a>Latex / markdown information</h2>
+
+    
+
+
+<p>The following latex packages are required in your <code>Rmd</code> or <code>latex</code> document:</p><ul>
+<li><p><code>threeparttable</code></p></li>
+<li><p><code>array</code></p></li>
+<li><p><code>booktabs</code></p></li>
+<li><p><code>longtable</code> (only when long tables are in the document)</p></li>
+</ul>
+
+<p>In <code>Rmd</code>, include these as <code>extra_dependencies</code>.</p>
+<p>You may also want to include this package:</p><ul>
+<li><p><code>mathdesign</code> with option <code>utopia</code></p></li>
+</ul>
+
+<p>The tables are generated with defaults that look sensible when the table is
+rendered with single spacing.  If you are working in a 1.5 spaced
+environment, the table may look roomy.  In that case, load the <code>setspace</code>
+package and switch to <code>singlespacing</code> prior to sourcing the table.</p>
+<p>If you render tables in an <code>Rmarkdown</code> document with processing by <code>pandoc</code>,
+<code>pandoc</code> may make mistakes when parsing the <code>latex</code> code.  To keep <code>pandoc</code>
+from making parsing errors, use <code>latex</code> code fence.  This formatting can
+be added to your table with the <code><a href='st_wrap.html'>st_latex()</a></code> command.  You can see what the
+fence looks like by running <code><a href='st_wrap.html'>st_latex("abc")</a></code>. Asserting that the code is
+<code>latex</code> can also be accomplished with <code><a href='st_wrap.html'>pt_wrap()</a></code> and using the
+<code>context = "rmd"</code> option. See <code><a href='st2article.html'>st2article()</a></code> for instructions on
+how to view a complete working <code>latex</code> example.</p>
     <h2 class="hasAnchor" id="data-sets"><a class="anchor" href="#data-sets"></a>Data sets</h2>
 
     

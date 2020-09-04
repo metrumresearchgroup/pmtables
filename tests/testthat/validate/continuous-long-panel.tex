@@ -1,5 +1,6 @@
-{\def\arraystretch{1.4}\tabcolsep=5pt
+\setlength{\tabcolsep}{5pt} 
 \begin{threeparttable}
+\renewcommand{\arraystretch}{1.3}
 \begin{tabular}[h]{lccccr}
 \hline
 Variable & n & Mean & Median & SD & Min / Max \\
@@ -26,5 +27,9 @@ CRCL (ml/min) & 154 & 92.1 & 98.8 & 25.5 & 15.4 / 126 \\
 ALB (g/dL) & 156 & 4.20 & 4.32 & 0.793 & 1.28 / 5.39 \\
 \hline
 \end{tabular}
+\begin{tablenotes}[flushleft]
+\item n: number of records summarized
+\item SD: standard deviation
+\item Min: minimum; Max: maximum
+\end{tablenotes}
 \end{threeparttable}
-}

@@ -2,21 +2,45 @@
 % Please edit documentation in R/table-functions.R
 \name{st_wrap}
 \alias{st_wrap}
+\alias{st_wrap.default}
+\alias{st_wrap.stable_long}
 \alias{pt_wrap}
+\alias{st_latex}
 \title{Wrap stable output in table environment}
 \usage{
-st_wrap(x, con = NULL, center = TRUE, caption = NULL)
+st_wrap(x, ...)
 
-pt_wrap(x, con = NULL, center = TRUE, caption = NULL)
+\method{st_wrap}{default}(
+  x,
+  con = stdout(),
+  table = TRUE,
+  center = TRUE,
+  caption = NULL,
+  context = c("rmd", "tex"),
+  ...
+)
+
+\method{st_wrap}{stable_long}(x, table = FALSE, ...)
+
+pt_wrap(x, ...)
+
+st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 }
 \arguments{
 \item{x}{tabular text}
 
+\item{...}{not used}
+
 \item{con}{where to write the output}
+
+\item{table}{if \code{TRUE}, the code is wrapped in latex table environment}
 
 \item{center}{if \code{TRUE}, center the table}
 
 \item{caption}{the table caption}
+
+\item{context}{if \code{rmd}, then the code is enclosed in a pandoc \code{latex} fenced
+code block; if \code{tex}, then the fencing is omitted}
 }
 \description{
 Wrap stable output in table environment

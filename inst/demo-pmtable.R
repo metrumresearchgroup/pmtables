@@ -104,7 +104,7 @@ pt_data_inventory(
 #' - Wide refers to the fact that the covariates go across the table
 #'
 
-##' ## Basic
+##' ## Ungrouped
 
 #+ results = 'asis'
 
@@ -155,6 +155,21 @@ pt_cat_wide(
 
 #' \clearpage
 
+#' ## No summary
+
+#+ results = 'asis'
+
+pt_cat_wide(
+  data = data,
+  summarize = "none",
+  cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
+  panel = as.panel("STUDYf", prefix = "Study: "),
+  by = c("RF Group" = "RFf")) %>%
+  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+
+#' \clearpage
+
+
 #+ include = TRUE
 
 #' # Long categorical table
@@ -172,9 +187,7 @@ pt_cat_long(
 
 #' \clearpage
 
-
-
-#' ## Gropued (by formulation)
+#' ## Grouped (by formulation)
 
 #+ results = 'asis'
 pt_cat_long(
@@ -182,6 +195,36 @@ pt_cat_long(
   cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf),
   span = c(Formulation = "FORMf")) %>%
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+
+#' \clearpage
+
+#' ## Summary on bottom and right
+
+#+ results = 'asis'
+
+pt_cat_long(
+  data = data,
+  summarize = "both",
+  cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
+  span = vars(Study = STUDYf)
+  ) %>%
+  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+
+
+#' \clearpage
+
+#' ## No summary
+
+#+ results = 'asis'
+
+pt_cat_long(
+  data = data,
+  summarize = "none",
+  cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
+  span = vars(Study = STUDYf)
+  ) %>%
+  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+
 
 #' \clearpage
 
@@ -258,6 +301,8 @@ pt_cont_long(
   as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
 
 #' \clearpage
+
+#' ## Paneled
 
 #+ results='asis'
 pt_cont_long(

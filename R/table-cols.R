@@ -14,12 +14,17 @@
 #' used to remove the tag; for example, a column named `x.WT` would be renamed
 #' `WT` if `cols_split` was set to `.`
 #' @param cols_break character sequence to break column names into new lines
+#' @param cols_extra a data frame with extra column header information; the data
+#' frame should have the same columns, in the same order as the table data
+#' frame (see `data` argument to [stable()]); the data frame can have any number
+#' of rows; all of the rows in `cols_extra` will be placed between the column
+#' label and the unit (if `units` is supplied)
 #' @param ... not used
 #'
 #' @export
 tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
                      cols_blank = NULL, cols_split = NULL, cols_bold = FALSE,
-                     cols_break = "...", ...) {
+                     cols_break = "...", cols_extra = NULL, ...) {
   cols0 <- cols
 
   # Work on columns and column names
@@ -41,19 +46,37 @@ tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
     cols_new <- map_chr(split_cols, last)
   }
 
+  if(!is.data.frame(cols_extra)) {
+    cols_extra <- data.frame()[0,]
+  }
+
   ans <- list(
     new = cols_new, cols = cols0, newline = cols_break,
-    bold = cols_bold
+    bold = cols_bold, extra = cols_extra
   )
 
   structure(ans, class = "from_tab_cols")
 }
 
 header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
-                          bold = FALSE) {
+                          bold = FALSE, extra = NULL, panel = rowpanel()) {
+
+  if(!panel$null) {
+    extra[[panel$col]] <- NULL
+  }
 
   sp <- str_split(cols_new, fixed(newline))
   sp <- map(sp, trimws)
+  if(nrow(extra) > 0) {
+    assert_that(ncol(extra) == length(cols))
+    extra <- tab_prime(extra)
+    for(j in seq_len(ncol(extra))) {
+      add <- as.character(extra[[j]])
+      add <- add[!is.na(add)]
+      add <- add[nchar(add) > 0]
+      sp[[j]] <- c(sp[[j]], add)
+    }
+  }
   nsplit <- map_int(sp,length)
   u <- header_matrix_unit(sp, cols, units)
   nunit <- !map_int(u, is.null)

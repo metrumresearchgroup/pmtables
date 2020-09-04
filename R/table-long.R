@@ -39,7 +39,9 @@ longtable_notes <- function(notes) {
 
 #' Create longtable output from an R data frame
 #' @inheritParams tab_notes
-#' @param data data frame passed to [stable()]
+#' @param data data frame passed to [stable()]; the user should filter
+#' or subset so that `data` contains exactly the rows (and columns) to be
+#' processed; pmtables will not add or remove rows prior to processing `data`
 #' @param ... passed to [stable()]
 #' @param inspect fixed to `TRUE` and passed to [stable()]
 #' @param lt_cap_macro the name of a macro that will hold caption text; to not lead with
@@ -52,7 +54,7 @@ longtable_notes <- function(notes) {
 #' @export
 stable_long <- function(data,
                         note_config = noteconf(type="minipage"),
-                        inspect = TRUE,
+                        inspect = FALSE,
                         lt_cap_macro = NULL,
                         lt_cap_text = NULL,
                         lt_cap_label = NULL,
@@ -69,8 +71,9 @@ stable_long <- function(data,
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"
 
-  extra_height <- max(x$sizes$lt_row_space,0)
-  extra <- gluet("\\setlength{\\extrarowheight}{<extra_height>em}")
+  extra_row_height <- gluet("\\setlength{\\extrarowheight}{<x$sizes$lt_row_space>em}")
+  row_space <- gluet("\\renewcommand{\\arraystretch}{<x$sizes$row_space>}")
+  col_space <- gluet("\\setlength{\\tabcolsep}{<x$sizes$col_space>pt} ")
 
   nc <- x$nc
   head <- gluet(head)
@@ -79,7 +82,9 @@ stable_long <- function(data,
 
   longtab <- c(
     "{\\normalsize",
-    "\\setlength{\\extrarowheight}{0.3em}",
+    row_space,
+    col_space,
+    extra_row_height,
     start,
     head,
     cap,
@@ -96,11 +101,14 @@ stable_long <- function(data,
     x$tab,
     "\\hline",
     "\\end{longtable}",
-    "\\setlength{\\extrarowheight}{0em}",
     lt_notes,
     "}" # Ends
   )
-  out <- structure(longtab, class = c("stable_long", "stable"))
+  out <- structure(
+    longtab,
+    class = c("stable_long", "stable"),
+    stable_file = x$stable_file
+  )
 
   if(isTRUE(inspect)) {
     stable_data <- x

@@ -11,11 +11,13 @@ pt_cat_wide(
   panel = by,
   table = NULL,
   all_name = "All data",
-  summarize_all = TRUE
+  summarize = c("bottom", "none")
 )
 }
 \arguments{
-\item{data}{the data frame to summarize}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that \code{data} contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing \code{data}}
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
@@ -29,9 +31,12 @@ examples)}
 
 \item{all_name}{a name to use for the complete data summary}
 
-\item{summarize_all}{if \code{TRUE}, an overall summary will be appended to the
-table}
+\item{summarize}{where to put an all-data summary; choose \code{none} to omit the
+summary from the table}
 }
 \description{
 Discrete data summary in long format
+}
+\details{
+The notes in this table are generated with \code{\link[=pt_cat_wide_notes]{pt_cat_wide_notes()}}.
 }

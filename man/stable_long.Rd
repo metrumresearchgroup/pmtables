@@ -7,7 +7,7 @@
 stable_long(
   data,
   note_config = noteconf(type = "minipage"),
-  inspect = TRUE,
+  inspect = FALSE,
   lt_cap_macro = NULL,
   lt_cap_text = NULL,
   lt_cap_label = NULL,
@@ -16,7 +16,9 @@ stable_long(
 )
 }
 \arguments{
-\item{data}{data frame passed to \code{\link[=stable]{stable()}}}
+\item{data}{data frame passed to \code{\link[=stable]{stable()}}; the user should filter
+or subset so that \code{data} contains exactly the rows (and columns) to be
+processed; pmtables will not add or remove rows prior to processing \code{data}}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}

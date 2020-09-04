@@ -91,3 +91,13 @@ out <- stable(data, panel = "a")
 out[grepl("multicolumn", out)]
 ```
 
+# cols_extra input
+
+```{r}
+x <- letters[1:5]
+data <- tibble(a = x, b = x, c = x)
+xtra <- tibble(a = "foo%", b = "$\\mu$g", c = "1234 \\% %")
+out <- stable(data, cols_extra = xtra)
+out[grepl("%", out, fixed = TRUE)]
+```
+

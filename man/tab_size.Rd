@@ -4,19 +4,15 @@
 \alias{tab_size}
 \title{Adjustments for row padding, column padding, and font size}
 \usage{
-tab_size(
-  row = 1.4,
-  col = 5,
-  font = NULL,
-  header_row = -0.4 * row,
-  lt_row = 0.3
-)
+tab_size(row = 1.3, col = 5, font = NULL, header_row = -0.4 * row, lt_row = 0)
 }
 \arguments{
 \item{row}{relative increase or decrease spacing between rows; use
-\verb{row_space > <default>} to increase; ; see also \code{\link[=st_space]{st_space()}}}
+\verb{row_space > <default>} to increase; this parameter applies to both long tables
+ans tabular tables; see also \code{\link[=st_space]{st_space()}}}
 
-\item{col}{absolute column spacing amount (\code{pt}); see also \code{\link[=st_space]{st_space()}}}
+\item{col}{absolute column spacing amount (\code{pt});  this parameter applies to both
+long tables and tabular tables; see also \code{\link[=st_space]{st_space()}}}
 
 \item{font}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
 
@@ -26,8 +22,9 @@ number if you wish to compress header rows; the default is \code{-0.4*row};
 recommend fixing to \code{-0.2} when \code{row} is 1 and smaller if \code{row} is less
 than 1}
 
-\item{lt_row}{extra row space for longtables; this is used instead of
-\code{row_space} when rendering longtable}
+\item{lt_row}{extra row space for longtables; this is only needed for
+extra control over row height; this can be a positive or negative
+number and a value of 0 indicates to neither add or subtract row space}
 }
 \description{
 Adjustments for row padding, column padding, and font size

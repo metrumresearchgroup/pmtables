@@ -8,14 +8,17 @@ pt_cat_long(
   data,
   cols,
   span = ".total",
-  all_name = "All Groups",
-  summarize_all = TRUE,
+  all_name = " ",
+  all_name_span = "Summary",
+  summarize = c("both", "right", "top", "none"),
   table = NULL,
   by = NULL
 )
 }
 \arguments{
-\item{data}{the data frame to summarize}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that \code{data} contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing \code{data}}
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
@@ -23,8 +26,11 @@ pt_cat_long(
 
 \item{all_name}{a name to use for the complete data summary}
 
-\item{summarize_all}{if \code{TRUE} then a complete data summary will be appended
-to the bottom of the table}
+\item{all_name_span}{table column name to use for data summaries across
+levels of \code{span} if it is provided}
+
+\item{summarize}{where to include a data summary across subgroups;
+use \code{none} to drop the summary from the table}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
@@ -33,4 +39,7 @@ examples)}
 }
 \description{
 Discrete data summary in long format
+}
+\details{
+The notes in this table are generated with \code{\link[=pt_cat_long_notes]{pt_cat_long_notes()}}.
 }

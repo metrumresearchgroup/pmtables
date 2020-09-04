@@ -1,3 +1,21 @@
+# pmtables 0.2.0
+- Add `by` argument to `pt_cont_long` so that, when `panel` is also 
+  passed, the table is paneled by `col` and is "by" the `panel` variable #92
+- Refactor `pt_cat_long` so that summary numbers are shown underneath column 
+  labels #102
+- Refactor longtable row and column spacing so that they use `row` and `col` 
+  in `tab_size()` with the same behavior as tabular / `stable()` #105
+- Add `cols_extra` feature, allowing extra column header information passed
+  as a data frame (see `tab_cols()`) #102, #118
+- Added documentation for `data` arguments to reinforce that pmtables doesn't
+  filter or subset `data` prior to processing or summarizing #120
+- Fix bug in `stable_long()` where `stable_file` wasn't getting saved
+- Add `n` summary column to `pt_cat_wide()` #80
+- Add functions that return table notes for continuous and discrete data 
+  summaries and data inventory tables #114
+- Make `pt_wrap()` generic; add method for `stable_long` that doesn't wrap 
+  with table #121
+
 # pmtables 0.1.0
 - Adding NEWS file
 - Add `duplicates_ok` argument to rowpanel

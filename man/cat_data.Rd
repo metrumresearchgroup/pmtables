@@ -12,12 +12,13 @@ cat_data(
   summarize_all = TRUE,
   all_name = "All",
   wide = FALSE,
-  nby = NULL,
-  preshape = FALSE
+  nby = NULL
 )
 }
 \arguments{
-\item{data}{the data frame to summarize}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that \code{data} contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing \code{data}}
 
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
@@ -34,9 +35,6 @@ of the full data in the output}
 if \code{FALSE}, it will be returned in \code{long} format}
 
 \item{nby}{number of unique levels for the \code{by} variable}
-
-\item{preshape}{if \code{TRUE}, returns summarized data prior to reshaping;
-this is intended for internal use}
 }
 \description{
 Summarize categorical data

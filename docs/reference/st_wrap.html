@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -115,9 +115,25 @@
     <p>Wrap stable output in table environment</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_wrap</span>(<span class='no'>x</span>, <span class='kw'>con</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>st_wrap</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>pt_wrap</span>(<span class='no'>x</span>, <span class='kw'>con</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='co'># S3 method for default</span>
+<span class='fu'>st_wrap</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>con</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/showConnections.html'>stdout</a></span>(),
+  <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>context</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"rmd"</span>, <span class='st'>"tex"</span>),
+  <span class='no'>...</span>
+)
+
+<span class='co'># S3 method for stable_long</span>
+<span class='fu'>st_wrap</span>(<span class='no'>x</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='fu'>pt_wrap</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>st_latex</span>(<span class='no'>x</span>, <span class='kw'>con</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/showConnections.html'>stdout</a></span>(), <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>context</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"rmd"</span>, <span class='st'>"tex"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -127,8 +143,16 @@
       <td><p>tabular text</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>not used</p></td>
+    </tr>
+    <tr>
       <th>con</th>
       <td><p>where to write the output</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>if <code>TRUE</code>, the code is wrapped in latex table environment</p></td>
     </tr>
     <tr>
       <th>center</th>
@@ -137,6 +161,11 @@
     <tr>
       <th>caption</th>
       <td><p>the table caption</p></td>
+    </tr>
+    <tr>
+      <th>context</th>
+      <td><p>if <code>rmd</code>, then the code is enclosed in a pandoc <code>latex</code> fenced
+code block; if <code>tex</code>, then the fencing is omitted</p></td>
     </tr>
     </table>
 

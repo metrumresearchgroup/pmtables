@@ -1,5 +1,6 @@
 library(testthat)
 library(pmtables)
+library(dplyr)
 
 inspect <- function(...) {
   get_stable_data(stable(..., inspect = TRUE))
@@ -88,4 +89,20 @@ test_that("de-tag column labels", {
   data <- tibble(x.a = 1, x.b = 2, y.a = 25, z.a = 3)
   x <- inspect(data, cols_split  = '.')
   expect_identical(x$cols_new, c("a", "b", "a", "a"))
+})
+
+test_that("tab-cols cols_extra", {
+  x <- letters[1:10]
+  data <- tibble(a = x, b = x, c = x)
+  xtra <- data[1,]
+  xtra$b <- "10%"
+  ans <- inspect(data, cols_extra  = xtra)
+  expect_length(ans$cols_tex, 2)
+  expect_match(ans$cols_tex[2], "10\\%", fixed = TRUE)
+  ans <- inspect(data)
+  expect_length(ans$cols_tex, 1)
+  expect_error(
+    inspect(data, cols_extra = xtra[,1:2]),
+    msg = "ncol(extra) not equal to length(cols)"
+  )
 })

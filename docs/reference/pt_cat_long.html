@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -119,8 +119,9 @@
   <span class='no'>data</span>,
   <span class='no'>cols</span>,
   <span class='kw'>span</span> <span class='kw'>=</span> <span class='st'>".total"</span>,
-  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All Groups"</span>,
-  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>" "</span>,
+  <span class='kw'>all_name_span</span> <span class='kw'>=</span> <span class='st'>"Summary"</span>,
+  <span class='kw'>summarize</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"right"</span>, <span class='st'>"top"</span>, <span class='st'>"none"</span>),
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
@@ -130,7 +131,9 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <td><p>the data frame to summarize; the user should filter or subset
+so that <code>data</code> contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing <code>data</code></p></td>
     </tr>
     <tr>
       <th>cols</th>
@@ -145,9 +148,14 @@
       <td><p>a name to use for the complete data summary</p></td>
     </tr>
     <tr>
-      <th>summarize_all</th>
-      <td><p>if <code>TRUE</code> then a complete data summary will be appended
-to the bottom of the table</p></td>
+      <th>all_name_span</th>
+      <td><p>table column name to use for data summaries across
+levels of <code>span</code> if it is provided</p></td>
+    </tr>
+    <tr>
+      <th>summarize</th>
+      <td><p>where to include a data summary across subgroups;
+use <code>none</code> to drop the summary from the table</p></td>
     </tr>
     <tr>
       <th>table</th>
@@ -160,6 +168,9 @@ examples)</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The notes in this table are generated with <code><a href='pt_cat_long_notes.html'>pt_cat_long_notes()</a></code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

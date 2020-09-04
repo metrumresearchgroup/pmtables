@@ -15,7 +15,9 @@ stable_argument_names <- function() {
       names(formals(tab_notes)),
       names(formals(tab_clear_reps)),
       names(formals(make_tabular)),
-      names(formals(tab_cols))
+      names(formals(tab_cols)),
+      names(formals(tab_size)),
+      names(formals(stable_long))
     )
   )
 }
@@ -69,7 +71,10 @@ triage_data <- function(data) {
 
 #' Create tabular output from an R data frame
 #'
-#' @param data a data.frame to convert to tabular table; see also [st_new()]
+#' @param data a data.frame to convert to tabular table; the user should filter
+#' or subset so that `data` contains exactly the rows (and columns) to be
+#' processed; pmtables will not add or remove rows prior to processing `data`;
+#' see also [st_new()]
 #' @param align an alignment object created by [cols_align()], [cols_left()],
 #' [cols_center()], or [cols_right()]; see also [st_align()]
 #' @param panel character column name to use to section the table; sections will
@@ -190,7 +195,9 @@ stable.data.frame <- function(data,
     cols_new = cols_data$new,
     units = units,
     newline = cols_data$newline,
-    bold = cols_data$bold
+    bold = cols_data$bold,
+    extra = cols_data$extra,
+    panel = panel
   )
 
   cols_tex <- header_matrix_tex(header_data, sizes)
@@ -211,10 +218,14 @@ stable.data.frame <- function(data,
   # notes
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
+  row_space <- gluet("\\renewcommand{\\arraystretch}{<sizes$row_space>}")
+  col_space <- gluet("\\setlength{\\tabcolsep}{<sizes$col_space>pt} ")
+
   out <- c(
     sizes$font_size$start,
-    sizes$col_row_sp$start,
+    col_space,
     start_tpt,
+    row_space,
     open_tabular,
     "\\hline",
     span_data$tex,
@@ -225,7 +236,6 @@ stable.data.frame <- function(data,
     "\\end{tabular}",
     note_data$t_notes,
     end_tpt,
-    sizes$col_row_sp$end,
     note_data$m_notes,
     sizes$font_size$end
   )
@@ -260,6 +270,10 @@ stable.data.frame <- function(data,
 #' @export
 stable.pmtable <- function(data, ...) as_stable(data, ...)
 
+#' @rdname stable
+#' @export
+stable.stable <- function(data, ...) return(data)
+
 #' Create stable from pmtable
 #'
 #' @param x object to convert to stable
@@ -276,10 +290,12 @@ stable.pmtable <- function(data, ...) as_stable(data, ...)
 #'
 as_stable <- function(x, ...) UseMethod("as_stable")
 
+#' @param long if `TRUE`, render with [stable_long()] to create a longtable;
+#' otherwise, by default process with [stable()]
 #' @rdname as_stable
 #' @keywords internal
 #' @export
-as_stable.pmtable <- function(x, ..., wrap = FALSE, wrapw = FALSE) {
+as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE) {
   up <- list(...)
   replace <- intersect(names(up),names(x))
   if(length(replace) > 0) {
@@ -290,7 +306,10 @@ as_stable.pmtable <- function(x, ..., wrap = FALSE, wrapw = FALSE) {
   valid <- intersect(names(x),stable_argument_names())
   x <- x[valid]
 
-  ans <- do.call(stable, args = x)
+  fun <- ifelse(isTRUE(long), stable_long, stable)
+
+  ans <- do.call(fun, args = x)
+
   if(isTRUE(wrap) || isTRUE(wrapw)) {
     ans <- pt_wrap(ans)
   }

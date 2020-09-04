@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -154,35 +154,37 @@ output</p></td>
 
 <span class='no'>ob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())
 
-<span class='fu'>st_make</span>(<span class='no'>ob</span>)</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"                                   
+<span class='fu'>st_make</span>(<span class='no'>ob</span>)</div><div class='output co'>#&gt;  [1] "\\setlength{\\tabcolsep}{5pt} "                                             
 #&gt;  [2] "\\begin{threeparttable}"                                                    
-#&gt;  [3] "\\begin{tabular}[h]{lllllllll}"                                             
-#&gt;  [4] "\\hline"                                                                    
-#&gt;  [5] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 
-#&gt;  [6] "\\hline"                                                                    
-#&gt;  [7] "12-DEMO-001 &amp; 100 mg &amp; tablet &amp; 80 &amp; 71.4 &amp; 104 &amp; 33.7 &amp; 4.20 &amp; 1.06 \\\\"  
-#&gt;  [8] "12-DEMO-001 &amp; 150 mg &amp; capsule &amp; 16 &amp; 89.4 &amp; 122 &amp; 24.4 &amp; 4.63 &amp; 1.12 \\\\" 
-#&gt;  [9] "12-DEMO-001 &amp; 150 mg &amp; tablet &amp; 48 &amp; 81.7 &amp; 104 &amp; 34.4 &amp; 3.83 &amp; 0.910 \\\\" 
-#&gt; [10] "12-DEMO-001 &amp; 150 mg &amp; troche &amp; 16 &amp; 94.0 &amp; 93.2 &amp; 27.4 &amp; 4.94 &amp; 1.25 \\\\" 
-#&gt; [11] "12-DEMO-001 &amp; 200 mg &amp; tablet &amp; 64 &amp; 67.9 &amp; 100 &amp; 27.5 &amp; 4.25 &amp; 1.10 \\\\"  
-#&gt; [12] "12-DEMO-001 &amp; 200 mg &amp; troche &amp; 16 &amp; 76.6 &amp; 99.2 &amp; 22.8 &amp; 4.54 &amp; 1.15 \\\\" 
-#&gt; [13] "12-DEMO-002 &amp; 100 mg &amp; capsule &amp; 36 &amp; 61.3 &amp; 113 &amp; 38.3 &amp; 4.04 &amp; 1.28 \\\\" 
-#&gt; [14] "12-DEMO-002 &amp; 100 mg &amp; tablet &amp; 324 &amp; 77.6 &amp; 106 &amp; 29.9 &amp; 4.31 &amp; 0.981 \\\\"
-#&gt; [15] "12-DEMO-002 &amp; 50 mg &amp; capsule &amp; 36 &amp; 74.1 &amp; 112 &amp; 37.1 &amp; 4.44 &amp; 0.900 \\\\" 
-#&gt; [16] "12-DEMO-002 &amp; 50 mg &amp; tablet &amp; 324 &amp; 71.2 &amp; 106 &amp; 34.1 &amp; 4.63 &amp; 0.868 \\\\" 
-#&gt; [17] "12-DEMO-002 &amp; 75 mg &amp; capsule &amp; 36 &amp; 72.4 &amp; 105 &amp; 38.2 &amp; 3.89 &amp; 0.900 \\\\" 
-#&gt; [18] "12-DEMO-002 &amp; 75 mg &amp; tablet &amp; 288 &amp; 71.6 &amp; 98.9 &amp; 34.2 &amp; 4.49 &amp; 0.991 \\\\"
-#&gt; [19] "12-DEMO-002 &amp; 75 mg &amp; troche &amp; 36 &amp; 73.6 &amp; 103 &amp; 49.2 &amp; 4.52 &amp; 0.930 \\\\"  
-#&gt; [20] "\\hline"                                                                    
-#&gt; [21] "\\end{tabular}"                                                             
-#&gt; [22] "\\end{threeparttable}"                                                      
-#&gt; [23] "}"                                                                          
+#&gt;  [3] "\\renewcommand{\\arraystretch}{1.3}"                                        
+#&gt;  [4] "\\begin{tabular}[h]{lllllllll}"                                             
+#&gt;  [5] "\\hline"                                                                    
+#&gt;  [6] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 
+#&gt;  [7] "\\hline"                                                                    
+#&gt;  [8] "12-DEMO-001 &amp; 100 mg &amp; tablet &amp; 80 &amp; 71.4 &amp; 104 &amp; 33.7 &amp; 4.20 &amp; 1.06 \\\\"  
+#&gt;  [9] "12-DEMO-001 &amp; 150 mg &amp; capsule &amp; 16 &amp; 89.4 &amp; 122 &amp; 24.4 &amp; 4.63 &amp; 1.12 \\\\" 
+#&gt; [10] "12-DEMO-001 &amp; 150 mg &amp; tablet &amp; 48 &amp; 81.7 &amp; 104 &amp; 34.4 &amp; 3.83 &amp; 0.910 \\\\" 
+#&gt; [11] "12-DEMO-001 &amp; 150 mg &amp; troche &amp; 16 &amp; 94.0 &amp; 93.2 &amp; 27.4 &amp; 4.94 &amp; 1.25 \\\\" 
+#&gt; [12] "12-DEMO-001 &amp; 200 mg &amp; tablet &amp; 64 &amp; 67.9 &amp; 100 &amp; 27.5 &amp; 4.25 &amp; 1.10 \\\\"  
+#&gt; [13] "12-DEMO-001 &amp; 200 mg &amp; troche &amp; 16 &amp; 76.6 &amp; 99.2 &amp; 22.8 &amp; 4.54 &amp; 1.15 \\\\" 
+#&gt; [14] "12-DEMO-002 &amp; 100 mg &amp; capsule &amp; 36 &amp; 61.3 &amp; 113 &amp; 38.3 &amp; 4.04 &amp; 1.28 \\\\" 
+#&gt; [15] "12-DEMO-002 &amp; 100 mg &amp; tablet &amp; 324 &amp; 77.6 &amp; 106 &amp; 29.9 &amp; 4.31 &amp; 0.981 \\\\"
+#&gt; [16] "12-DEMO-002 &amp; 50 mg &amp; capsule &amp; 36 &amp; 74.1 &amp; 112 &amp; 37.1 &amp; 4.44 &amp; 0.900 \\\\" 
+#&gt; [17] "12-DEMO-002 &amp; 50 mg &amp; tablet &amp; 324 &amp; 71.2 &amp; 106 &amp; 34.1 &amp; 4.63 &amp; 0.868 \\\\" 
+#&gt; [18] "12-DEMO-002 &amp; 75 mg &amp; capsule &amp; 36 &amp; 72.4 &amp; 105 &amp; 38.2 &amp; 3.89 &amp; 0.900 \\\\" 
+#&gt; [19] "12-DEMO-002 &amp; 75 mg &amp; tablet &amp; 288 &amp; 71.6 &amp; 98.9 &amp; 34.2 &amp; 4.49 &amp; 0.991 \\\\"
+#&gt; [20] "12-DEMO-002 &amp; 75 mg &amp; troche &amp; 36 &amp; 73.6 &amp; 103 &amp; 49.2 &amp; 4.52 &amp; 0.930 \\\\"  
+#&gt; [21] "\\hline"                                                                    
+#&gt; [22] "\\end{tabular}"                                                             
+#&gt; [23] "\\end{threeparttable}"                                                      
 #&gt; attr(,"class")
 #&gt; [1] "stable"</div><div class='input'>
-<span class='fu'>st_make</span>(<span class='no'>ob</span>, <span class='kw'>.cat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; \begin{table}[h]
+<span class='fu'>st_make</span>(<span class='no'>ob</span>, <span class='kw'>.cat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ```{=latex}
+#&gt; \begin{table}[h]
 #&gt; \centering
-#&gt; {\def\arraystretch{1.4}\tabcolsep=5pt
+#&gt; \setlength{\tabcolsep}{5pt} 
 #&gt; \begin{threeparttable}
+#&gt; \renewcommand{\arraystretch}{1.3}
 #&gt; \begin{tabular}[h]{lllllllll}
 #&gt; \hline
 #&gt; STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\
@@ -203,8 +205,8 @@ output</p></td>
 #&gt; \hline
 #&gt; \end{tabular}
 #&gt; \end{threeparttable}
-#&gt; }
-#&gt; \end{table}</div><div class='input'>
+#&gt; \end{table}
+#&gt; ```</div><div class='input'>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>st_make</span>(<span class='no'>ob</span>, <span class='kw'>.preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 }</div></pre>

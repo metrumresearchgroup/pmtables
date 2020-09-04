@@ -94,3 +94,40 @@ Update_List <- function(left, right) {
   left[common] <-  right[common]
   left
 }
+
+is_regex <- function(x) {
+  if(!is.character(x)) return(FALSE)
+  x <- suppressWarnings(try(grep(x, "abcde"),silent = TRUE))
+  !inherits(x, "try-error")
+}
+
+is_str_regex <- function(x) {
+  if(!is.character(x)) return(FALSE)
+  is_regex(x) || (inherits(x, "fixed") && inherits(x, "pattern"))
+}
+
+as_str_regex <- function(x) {
+  if(!is.character(x)) return(fixed(basename(tempfile("invalid-regex-"))))
+  if(!is_str_regex(x)) {
+    return(fixed(x))
+  }
+  x
+}
+
+repattern_df <- function(data, pattern, warn = TRUE, context = NULL) {
+  data <- select(data, intersect(names(data), names(pattern)))
+  if(ncol(data)==0) return(data[0,0])
+  assertthat::assert_that(ncol(pattern) > 0)
+  assertthat::assert_that(nrow(pattern) > 0)
+  if(ncol(data) == 0) {
+    if(isTRUE(warn)) {
+      if(is.character(context)) {
+        message("context: ", context)
+      }
+      warning("could not repattern data frame", call.=FALSE)
+    }
+    return(data[0,0])
+  }
+  combined <- bind_rows(slice(pattern,1), data)
+  slice(combined, seq(2, nrow(combined)))
+}

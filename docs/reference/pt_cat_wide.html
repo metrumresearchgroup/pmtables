@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@
   <span class='kw'>panel</span> <span class='kw'>=</span> <span class='no'>by</span>,
   <span class='kw'>table</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All data"</span>,
-  <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>summarize</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom"</span>, <span class='st'>"none"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -130,7 +130,9 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <td><p>the data frame to summarize; the user should filter or subset
+so that <code>data</code> contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing <code>data</code></p></td>
     </tr>
     <tr>
       <th>cols</th>
@@ -155,12 +157,15 @@ examples)</p></td>
       <td><p>a name to use for the complete data summary</p></td>
     </tr>
     <tr>
-      <th>summarize_all</th>
-      <td><p>if <code>TRUE</code>, an overall summary will be appended to the
-table</p></td>
+      <th>summarize</th>
+      <td><p>where to put an all-data summary; choose <code>none</code> to omit the
+summary from the table</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The notes in this table are generated with <code><a href='pt_cat_wide_notes.html'>pt_cat_wide_notes()</a></code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -123,6 +123,7 @@
   <span class='kw'>cols_split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>cols_bold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>cols_break</span> <span class='kw'>=</span> <span class='st'>"..."</span>,
+  <span class='kw'>cols_extra</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -163,6 +164,14 @@ used to remove the tag; for example, a column named <code>x.WT</code> would be r
     <tr>
       <th>cols_break</th>
       <td><p>character sequence to break column names into new lines</p></td>
+    </tr>
+    <tr>
+      <th>cols_extra</th>
+      <td><p>a data frame with extra column header information; the data
+frame should have the same columns, in the same order as the table data
+frame (see <code>data</code> argument to <code><a href='stable.html'>stable()</a></code>); the data frame can have any number
+of rows; all of the rows in <code>cols_extra</code> will be placed between the column
+label and the unit (if <code>units</code> is supplied)</p></td>
     </tr>
     <tr>
       <th>...</th>

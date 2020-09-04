@@ -10,7 +10,9 @@ st_new(data, ...)
 st_data(data, ...)
 }
 \arguments{
-\item{data}{the data frame to pass to \code{\link[=stable]{stable()}}}
+\item{data}{the data frame to pass to \code{\link[=stable]{stable()}}; the user should filter
+or subset so that \code{data} contains exactly the rows (and columns) to be
+processed; pmtables will not add or remove rows prior to processing \code{data}}
 
 \item{...}{additional arguments passed to \code{\link[=stable]{stable()}}}
 }

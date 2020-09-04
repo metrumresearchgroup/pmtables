@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@
     <pre class="usage"><span class='fu'>as_stable</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for pmtable</span>
-<span class='fu'>as_stable</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>wrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>wrapw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>as_stable</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>wrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>wrapw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for stable</span>
 <span class='fu'>as_stable</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
@@ -134,6 +134,11 @@
       <th>...</th>
       <td><p>for the <code>pmtable</code> method, these are extra named arguments to pass
 to <code><a href='stable.html'>stable()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td><p>if <code>TRUE</code>, render with <code><a href='stable_long.html'>stable_long()</a></code> to create a longtable;
+otherwise, by default process with <code><a href='stable.html'>stable()</a></code></p></td>
     </tr>
     <tr>
       <th>wrap</th>

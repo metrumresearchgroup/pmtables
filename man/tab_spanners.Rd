@@ -7,7 +7,10 @@
 tab_spanners(data, cols = NULL, span = NULL, span_split = NULL, ...)
 }
 \arguments{
-\item{data}{a data.frame to convert to tabular table; see also \code{\link[=st_new]{st_new()}}}
+\item{data}{a data.frame to convert to tabular table; the user should filter
+or subset so that \code{data} contains exactly the rows (and columns) to be
+processed; pmtables will not add or remove rows prior to processing \code{data};
+see also \code{\link[=st_new]{st_new()}}}
 
 \item{cols}{a character vector of column names}
 

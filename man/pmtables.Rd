@@ -19,7 +19,7 @@ functions; finally, create an stable object with \code{\link[=st_make]{st_make()
 }
 }
 
-\section{Table data and grooming}{
+\section{Table data grooming and sanitization}{
 
 \itemize{
 \item The functions \code{\link[=tab_prime]{tab_prime()}} and \code{\link[=triage_data]{triage_data()}} are called to get the data
@@ -27,6 +27,15 @@ frame ready to be in tabular format (see \code{\link[=make_tabular]{make_tabular
 \item The function \code{\link[=tab_escape]{tab_escape()}} is used to escape \verb{\%} and \verb{_} in the table
 (sanitization); use \code{options(pmtables.escape = ...)} to change the set of
 escape characters or set that option to \code{NULL} to prevent any sanitization
+\item Any unit of data that has a character escaped with double backslash
+(\verb{\\\\}) or that contains a math expression with two \code{$} will not be
+sanitized
+\item The function \code{\link[=tab_escape]{tab_escape()}} also performs the following substitutions:
+\itemize{
+\item change \code{~} to \verb{$\\\\sim$}
+\item change \code{>} to \verb{$>$}
+\item change \code{<} to \verb{$<$}
+}
 }
 }
 
@@ -91,17 +100,56 @@ horizontal line above
 \itemize{
 \item Use \code{\link[=st_preview]{st_preview()}} to send s-table output to \code{texPreview}
 \item Use \code{\link[=st2doc]{st2doc()}} to render a pdf file with one or more tables
-\item Use \code{\link[=pt_wrap]{pt_wrap()}} to wrap s-table output in a \code{table} environment and
-optionally send the output to \code{\link[=stdout]{stdout()}}; this is helpful when rendering
-tables in Rmarkdown documents
+\item Use \code{\link[=pt_wrap]{pt_wrap()}} or \code{\link[=st_wrap]{st_wrap()}}  to wrap s-table output in a \code{table}
+environment and optionally send the output to \code{\link[=stdout]{stdout()}}; this is helpful
+when rendering tables in Rmarkdown documents.  There is a \code{pt_wrap()}
+method for longtables that won't add the table environment.
+\item Use the non-exported function \code{\link[=st2article]{st2article()}} to render several tables in
+a stand-alone tex document rendered directly by \code{pdflatex} (no involvement
+of \code{Rmarkdown} or \code{pandoc}; this requires \code{pdflatex} to be installed and
+in your \code{PATH}.  Because this function is not exported, you will have to
+call it with \code{pmtables:::st2article(...)}.
 }
 }
 
 \section{Save s-tables}{
 
 \itemize{
-\item Use \code{\link[=stable_save]{stable_save()}} to write an s-table object to file
+\item Use \code{\link[=stable_save]{stable_save()}} to write an \code{stable} or \code{stable_long} object to file
 }
+}
+
+\section{Latex / markdown information}{
+
+
+The following latex packages are required in your \code{Rmd} or \code{latex} document:
+\itemize{
+\item \code{threeparttable}
+\item \code{array}
+\item \code{booktabs}
+\item \code{longtable} (only when long tables are in the document)
+}
+
+In \code{Rmd}, include these as \code{extra_dependencies}.
+
+You may also want to include this package:
+\itemize{
+\item \code{mathdesign} with option \code{utopia}
+}
+
+The tables are generated with defaults that look sensible when the table is
+rendered with single spacing.  If you are working in a 1.5 spaced
+environment, the table may look roomy.  In that case, load the \code{setspace}
+package and switch to \code{singlespacing} prior to sourcing the table.
+
+If you render tables in an \code{Rmarkdown} document with processing by \code{pandoc},
+\code{pandoc} may make mistakes when parsing the \code{latex} code.  To keep \code{pandoc}
+from making parsing errors, use \code{latex} code fence.  This formatting can
+be added to your table with the \code{\link[=st_latex]{st_latex()}} command.  You can see what the
+fence looks like by running \code{st_latex("abc")}. Asserting that the code is
+\code{latex} can also be accomplished with \code{\link[=pt_wrap]{pt_wrap()}} and using the
+\code{context = "rmd"} option. See \code{\link[=st2article]{st2article()}} for instructions on
+how to view a complete working \code{latex} example.
 }
 
 \section{Data sets}{
