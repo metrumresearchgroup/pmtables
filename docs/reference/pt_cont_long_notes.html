@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add row and column spacing information to st object — st_space • pmtables</title>
+<title>Return table notes for pt_cont_long — pt_cont_long_notes • pmtables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Add row and column spacing information to st object — st_space" />
-<meta property="og:description" content="See the row_space and col_space arguments to stable()." />
+<meta property="og:title" content="Return table notes for pt_cont_long — pt_cont_long_notes" />
+<meta property="og:description" content="See pt_cont_long()." />
 
 
 
@@ -106,66 +106,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add row and column spacing information to st object</h1>
+    <h1>Return table notes for pt_cont_long</h1>
     
-    <div class="hidden name"><code>st_space.Rd</code></div>
+    <div class="hidden name"><code>pt_cont_long_notes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See the <code>row_space</code> and <code>col_space</code> arguments to <code><a href='stable.html'>stable()</a></code>.</p>
+    <p>See <code><a href='pt_cont_long.html'>pt_cont_long()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>st_space</span>(<span class='no'>x</span>, <span class='kw'>row</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>5</span>)</pre>
+    <pre class="usage"><span class='fu'>pt_cont_long_notes</span>(<span class='kw'>note_add</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>an stobject</p></td>
-    </tr>
-    <tr>
-      <th>row</th>
-      <td><p>set <code>row_space</code>, passed to <code><a href='stable.html'>stable()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>col</th>
-      <td><p>set <code>col_space</code>, passed to <code><a href='stable.html'>stable()</a></code></p></td>
+      <th>note_add</th>
+      <td><p>additional notes to include</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-
-<span class='no'>ob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='fu'><a href='ptdata.html'>ptdata</a></span>())
-
-<span class='no'>ob</span> <span class='kw'>%&gt;%</span> <span class='fu'>st_space</span>(<span class='kw'>row</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "\\setlength{\\tabcolsep}{5pt} "                                             
-#&gt;  [2] "\\begin{threeparttable}"                                                    
-#&gt;  [3] "\\renewcommand{\\arraystretch}{1}"                                          
-#&gt;  [4] "\\begin{tabular}[h]{lllllllll}"                                             
-#&gt;  [5] "\\hline"                                                                    
-#&gt;  [6] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 
-#&gt;  [7] "\\hline"                                                                    
-#&gt;  [8] "12-DEMO-001 &amp; 100 mg &amp; tablet &amp; 80 &amp; 71.4 &amp; 104 &amp; 33.7 &amp; 4.20 &amp; 1.06 \\\\"  
-#&gt;  [9] "12-DEMO-001 &amp; 150 mg &amp; capsule &amp; 16 &amp; 89.4 &amp; 122 &amp; 24.4 &amp; 4.63 &amp; 1.12 \\\\" 
-#&gt; [10] "12-DEMO-001 &amp; 150 mg &amp; tablet &amp; 48 &amp; 81.7 &amp; 104 &amp; 34.4 &amp; 3.83 &amp; 0.910 \\\\" 
-#&gt; [11] "12-DEMO-001 &amp; 150 mg &amp; troche &amp; 16 &amp; 94.0 &amp; 93.2 &amp; 27.4 &amp; 4.94 &amp; 1.25 \\\\" 
-#&gt; [12] "12-DEMO-001 &amp; 200 mg &amp; tablet &amp; 64 &amp; 67.9 &amp; 100 &amp; 27.5 &amp; 4.25 &amp; 1.10 \\\\"  
-#&gt; [13] "12-DEMO-001 &amp; 200 mg &amp; troche &amp; 16 &amp; 76.6 &amp; 99.2 &amp; 22.8 &amp; 4.54 &amp; 1.15 \\\\" 
-#&gt; [14] "12-DEMO-002 &amp; 100 mg &amp; capsule &amp; 36 &amp; 61.3 &amp; 113 &amp; 38.3 &amp; 4.04 &amp; 1.28 \\\\" 
-#&gt; [15] "12-DEMO-002 &amp; 100 mg &amp; tablet &amp; 324 &amp; 77.6 &amp; 106 &amp; 29.9 &amp; 4.31 &amp; 0.981 \\\\"
-#&gt; [16] "12-DEMO-002 &amp; 50 mg &amp; capsule &amp; 36 &amp; 74.1 &amp; 112 &amp; 37.1 &amp; 4.44 &amp; 0.900 \\\\" 
-#&gt; [17] "12-DEMO-002 &amp; 50 mg &amp; tablet &amp; 324 &amp; 71.2 &amp; 106 &amp; 34.1 &amp; 4.63 &amp; 0.868 \\\\" 
-#&gt; [18] "12-DEMO-002 &amp; 75 mg &amp; capsule &amp; 36 &amp; 72.4 &amp; 105 &amp; 38.2 &amp; 3.89 &amp; 0.900 \\\\" 
-#&gt; [19] "12-DEMO-002 &amp; 75 mg &amp; tablet &amp; 288 &amp; 71.6 &amp; 98.9 &amp; 34.2 &amp; 4.49 &amp; 0.991 \\\\"
-#&gt; [20] "12-DEMO-002 &amp; 75 mg &amp; troche &amp; 36 &amp; 73.6 &amp; 103 &amp; 49.2 &amp; 4.52 &amp; 0.930 \\\\"  
-#&gt; [21] "\\hline"                                                                    
-#&gt; [22] "\\end{tabular}"                                                             
-#&gt; [23] "\\end{threeparttable}"                                                      
-#&gt; attr(,"class")
-#&gt; [1] "stable"</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

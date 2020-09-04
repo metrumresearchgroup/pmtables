@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -109,6 +109,21 @@
       
     </div>
 
+    <div id="pmtables-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#pmtables-development-version" class="anchor"></a>pmtables (development version)</h1>
+<ul>
+<li>Add <code>by</code> argument to <code>pt_cont_long</code> so that, when <code>panel</code> is also passed, the table is paneled by <code>col</code> and is “by” the <code>panel</code> variable #92</li>
+<li>Refactor <code>pt_cat_long</code> so that summary numbers are shown underneath column labels #102</li>
+<li>Refactor longtable row and column spacing so that they use <code>row</code> and <code>col</code> in <code><a href="../reference/tab_size.html">tab_size()</a></code> with the same behavior as tabular / <code><a href="../reference/stable.html">stable()</a></code> #105</li>
+<li>Add <code>cols_extra</code> feature, allowing extra column header information passed as a data frame (see <code><a href="../reference/tab_cols.html">tab_cols()</a></code>) #102, #118</li>
+<li>Added documentation for <code>data</code> arguments to reinforce that pmtables doesn’t filter or subset <code>data</code> prior to processing or summarizing #120</li>
+<li>Fix bug in <code><a href="../reference/stable_long.html">stable_long()</a></code> where <code>stable_file</code> wasn’t getting saved</li>
+<li>Add <code>n</code> summary column to <code><a href="../reference/pt_cat_wide.html">pt_cat_wide()</a></code> #80</li>
+<li>Add functions that return table notes for continuous and discrete data summaries and data inventory tables #114</li>
+<li>Make <code><a href="../reference/st_wrap.html">pt_wrap()</a></code> generic; add method for <code>stable_long</code> that doesn’t wrap with table #121</li>
+</ul>
+</div>
     <div id="pmtables-010" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#pmtables-010" class="anchor"></a>pmtables 0.1.0</h1>

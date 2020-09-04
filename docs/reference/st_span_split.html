@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -142,32 +142,32 @@
 
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file</span>)
 
-<span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='no'>data</span>) <span class='kw'>%&gt;%</span> <span class='fu'>st_span_split</span>(<span class='st'>'.'</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "{\\def\\arraystretch{1.4}\\tabcolsep=5pt"                                                               
+<span class='fu'><a href='st_new.html'>st_new</a></span>(<span class='no'>data</span>) <span class='kw'>%&gt;%</span> <span class='fu'>st_span_split</span>(<span class='st'>'.'</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='st_make.html'>st_make</a></span>()</div><div class='output co'>#&gt;  [1] "\\setlength{\\tabcolsep}{5pt} "                                                                         
 #&gt;  [2] "\\begin{threeparttable}"                                                                                
-#&gt;  [3] "\\begin{tabular}[h]{lllllll}"                                                                           
-#&gt;  [4] "\\hline"                                                                                                
-#&gt;  [5] "\\multicolumn{1}{c}{} &amp; \\multicolumn{3}{c}{\\textbf{Normal}} &amp; \\multicolumn{3}{c}{\\textbf{ESRD}}\\\\"
-#&gt;  [6] "\\cmidrule(lr){2-4}"                                                                                    
-#&gt;  [7] "\\cmidrule(lr){5-7}"                                                                                    
-#&gt;  [8] "STUDY &amp; WT &amp; CRCL &amp; ALB &amp; WT &amp; CRCL &amp; ALB \\\\"                                                         
-#&gt;  [9] "\\hline"                                                                                                
-#&gt; [10] "12-DEMO-001 &amp; 71.4 &amp; 104 &amp; 4.20 &amp; 78.5 &amp; 26.0 &amp; 2.10 \\\\"                                              
-#&gt; [11] "12-DEMO-001 &amp; 81.7 &amp; 104 &amp; 3.83 &amp; 89.9 &amp; 26.1 &amp; 1.92 \\\\"                                              
-#&gt; [12] "12-DEMO-001 &amp; 89.4 &amp; 122 &amp; 4.63 &amp; 98.4 &amp; 30.6 &amp; 2.32 \\\\"                                              
-#&gt; [13] "12-DEMO-001 &amp; 94.0 &amp; 93.2 &amp; 4.94 &amp; 103 &amp; 23.3 &amp; 2.47 \\\\"                                              
-#&gt; [14] "12-DEMO-001 &amp; 67.9 &amp; 100 &amp; 4.25 &amp; 74.7 &amp; 25.1 &amp; 2.13 \\\\"                                              
-#&gt; [15] "12-DEMO-001 &amp; 76.6 &amp; 99.2 &amp; 4.54 &amp; 84.2 &amp; 24.8 &amp; 2.27 \\\\"                                             
-#&gt; [16] "12-DEMO-002 &amp; 77.6 &amp; 106 &amp; 4.31 &amp; 85.4 &amp; 26.4 &amp; 2.16 \\\\"                                              
-#&gt; [17] "12-DEMO-002 &amp; 61.3 &amp; 113 &amp; 4.04 &amp; 67.4 &amp; 28.2 &amp; 2.02 \\\\"                                              
-#&gt; [18] "12-DEMO-002 &amp; 71.2 &amp; 106 &amp; 4.63 &amp; 78.3 &amp; 26.4 &amp; 2.32 \\\\"                                              
-#&gt; [19] "12-DEMO-002 &amp; 74.1 &amp; 112 &amp; 4.44 &amp; 81.5 &amp; 28.0 &amp; 2.22 \\\\"                                              
-#&gt; [20] "12-DEMO-002 &amp; 71.6 &amp; 98.9 &amp; 4.49 &amp; 78.8 &amp; 24.7 &amp; 2.25 \\\\"                                             
-#&gt; [21] "12-DEMO-002 &amp; 72.4 &amp; 105 &amp; 3.89 &amp; 79.6 &amp; 26.3 &amp; 1.94 \\\\"                                              
-#&gt; [22] "12-DEMO-002 &amp; 73.6 &amp; 103 &amp; 4.52 &amp; 81.0 &amp; 25.8 &amp; 2.26 \\\\"                                              
-#&gt; [23] "\\hline"                                                                                                
-#&gt; [24] "\\end{tabular}"                                                                                         
-#&gt; [25] "\\end{threeparttable}"                                                                                  
-#&gt; [26] "}"                                                                                                      
+#&gt;  [3] "\\renewcommand{\\arraystretch}{1.3}"                                                                    
+#&gt;  [4] "\\begin{tabular}[h]{lllllll}"                                                                           
+#&gt;  [5] "\\hline"                                                                                                
+#&gt;  [6] "\\multicolumn{1}{c}{} &amp; \\multicolumn{3}{c}{\\textbf{Normal}} &amp; \\multicolumn{3}{c}{\\textbf{ESRD}}\\\\"
+#&gt;  [7] "\\cmidrule(lr){2-4}"                                                                                    
+#&gt;  [8] "\\cmidrule(lr){5-7}"                                                                                    
+#&gt;  [9] "STUDY &amp; WT &amp; CRCL &amp; ALB &amp; WT &amp; CRCL &amp; ALB \\\\"                                                         
+#&gt; [10] "\\hline"                                                                                                
+#&gt; [11] "12-DEMO-001 &amp; 71.4 &amp; 104 &amp; 4.20 &amp; 78.5 &amp; 26.0 &amp; 2.10 \\\\"                                              
+#&gt; [12] "12-DEMO-001 &amp; 81.7 &amp; 104 &amp; 3.83 &amp; 89.9 &amp; 26.1 &amp; 1.92 \\\\"                                              
+#&gt; [13] "12-DEMO-001 &amp; 89.4 &amp; 122 &amp; 4.63 &amp; 98.4 &amp; 30.6 &amp; 2.32 \\\\"                                              
+#&gt; [14] "12-DEMO-001 &amp; 94.0 &amp; 93.2 &amp; 4.94 &amp; 103 &amp; 23.3 &amp; 2.47 \\\\"                                              
+#&gt; [15] "12-DEMO-001 &amp; 67.9 &amp; 100 &amp; 4.25 &amp; 74.7 &amp; 25.1 &amp; 2.13 \\\\"                                              
+#&gt; [16] "12-DEMO-001 &amp; 76.6 &amp; 99.2 &amp; 4.54 &amp; 84.2 &amp; 24.8 &amp; 2.27 \\\\"                                             
+#&gt; [17] "12-DEMO-002 &amp; 77.6 &amp; 106 &amp; 4.31 &amp; 85.4 &amp; 26.4 &amp; 2.16 \\\\"                                              
+#&gt; [18] "12-DEMO-002 &amp; 61.3 &amp; 113 &amp; 4.04 &amp; 67.4 &amp; 28.2 &amp; 2.02 \\\\"                                              
+#&gt; [19] "12-DEMO-002 &amp; 71.2 &amp; 106 &amp; 4.63 &amp; 78.3 &amp; 26.4 &amp; 2.32 \\\\"                                              
+#&gt; [20] "12-DEMO-002 &amp; 74.1 &amp; 112 &amp; 4.44 &amp; 81.5 &amp; 28.0 &amp; 2.22 \\\\"                                              
+#&gt; [21] "12-DEMO-002 &amp; 71.6 &amp; 98.9 &amp; 4.49 &amp; 78.8 &amp; 24.7 &amp; 2.25 \\\\"                                             
+#&gt; [22] "12-DEMO-002 &amp; 72.4 &amp; 105 &amp; 3.89 &amp; 79.6 &amp; 26.3 &amp; 1.94 \\\\"                                              
+#&gt; [23] "12-DEMO-002 &amp; 73.6 &amp; 103 &amp; 4.52 &amp; 81.0 &amp; 25.8 &amp; 2.26 \\\\"                                              
+#&gt; [24] "\\hline"                                                                                                
+#&gt; [25] "\\end{tabular}"                                                                                         
+#&gt; [26] "\\end{threeparttable}"                                                                                  
 #&gt; attr(,"class")
 #&gt; [1] "stable"</div><div class='input'>
 </div></pre>

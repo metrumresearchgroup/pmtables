@@ -73,7 +73,7 @@ to stable() when the object is passed to st_make()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -126,7 +126,9 @@ to <code><a href='stable.html'>stable()</a></code> when the object is passed to 
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>the data frame to pass to <code><a href='stable.html'>stable()</a></code></p></td>
+      <td><p>the data frame to pass to <code><a href='stable.html'>stable()</a></code>; the user should filter
+or subset so that <code>data</code> contains exactly the rows (and columns) to be
+processed; pmtables will not add or remove rows prior to processing <code>data</code></p></td>
     </tr>
     <tr>
       <th>...</th>

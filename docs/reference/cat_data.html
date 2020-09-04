@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -123,8 +123,7 @@
   <span class='kw'>summarize_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>all_name</span> <span class='kw'>=</span> <span class='st'>"All"</span>,
   <span class='kw'>wide</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>nby</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>preshape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>nby</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -132,7 +131,9 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>the data frame to summarize</p></td>
+      <td><p>the data frame to summarize; the user should filter or subset
+so that <code>data</code> contains exactly the records to be summarized; pmtables will
+not add or remove rows prior to summarizing <code>data</code></p></td>
     </tr>
     <tr>
       <th>cols</th>
@@ -163,11 +164,6 @@ if <code>FALSE</code>, it will be returned in <code>long</code> format</p></td>
     <tr>
       <th>nby</th>
       <td><p>number of unique levels for the <code>by</code> variable</p></td>
-    </tr>
-    <tr>
-      <th>preshape</th>
-      <td><p>if <code>TRUE</code>, returns summarized data prior to reshaping;
-this is intended for internal use</p></td>
     </tr>
     </table>
 

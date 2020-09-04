@@ -1,4 +1,4 @@
-# pmtables (development version)
+# pmtables 0.2.0
 - Add `by` argument to `pt_cont_long` so that, when `panel` is also 
   passed, the table is paneled by `col` and is "by" the `panel` variable #92
 - Refactor `pt_cat_long` so that summary numbers are shown underneath column 
