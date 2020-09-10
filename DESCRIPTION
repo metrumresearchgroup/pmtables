@@ -2,7 +2,25 @@ Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
 Version: 0.2.0.9000
-Author: Kyle Baron
+Authors@R: 
+    c(
+    person(given = "Kyle",
+           family = "Baron",
+           role = c("aut", "cre"),
+           email = "kyleb@metrumrg.com"), 
+    person(given = "Anna-Christina", 
+           family = "Nevison", 
+           role  = "ctb", 
+           email = "annan@metrumrg.com"), 
+    person(given = "Katherine", 
+           family = "Kay",
+           role = "ctb",
+           email = "katherinek@metrumrg.com"),      
+    person(given = "Devin",
+           family = "Pastoor",
+           role = "ctb",
+           email = "devin.pastoor@gmail.com")
+    )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Summarize data sets and create publication-quality tables for 
     inclusion in 'tex' documents.
