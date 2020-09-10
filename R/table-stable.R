@@ -280,10 +280,9 @@ stable.stable <- function(data, ...) return(data)
 #' @param ... for the `pmtable` method, these are extra named arguments to pass
 #' to [stable()]
 #' @param wrap if `TRUE`, the stable output will be wrapped in a latex table
-#' environment
+#' environment using [st_wrap()]
 #' @param wrapw if `TRUE`, the stable output will be wrapped in a latex table
-#' environment and
-#' the output will be written to [stdout()]; use this along with
+#' environment and the output will be written to [stdout()]; use this along with
 #' `results = "asis"` when rendering tables with [rmarkdown::render()]
 #'
 #' @export
@@ -292,10 +291,12 @@ as_stable <- function(x, ...) UseMethod("as_stable")
 
 #' @param long if `TRUE`, render with [stable_long()] to create a longtable;
 #' otherwise, by default process with [stable()]
+#' @param con passed to [st_wrap()]; used when `wrap` is `TRUE`
 #' @rdname as_stable
 #' @keywords internal
 #' @export
-as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE) {
+as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE,
+                              con = NULL) {
   up <- list(...)
   replace <- intersect(names(up),names(x))
   if(length(replace) > 0) {
@@ -311,7 +312,7 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE)
   ans <- do.call(fun, args = x)
 
   if(isTRUE(wrap) || isTRUE(wrapw)) {
-    ans <- pt_wrap(ans)
+    ans <- st_wrap(ans, con = con)
   }
   if(isTRUE(wrapw)) {
     writeLines(ans)

@@ -8,7 +8,7 @@
 \usage{
 as_stable(x, ...)
 
-\method{as_stable}{pmtable}(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE)
+\method{as_stable}{pmtable}(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE, con = NULL)
 
 \method{as_stable}{stable}(x, ...)
 }
@@ -22,12 +22,13 @@ to \code{\link[=stable]{stable()}}}
 otherwise, by default process with \code{\link[=stable]{stable()}}}
 
 \item{wrap}{if \code{TRUE}, the stable output will be wrapped in a latex table
-environment}
+environment using \code{\link[=st_wrap]{st_wrap()}}}
 
 \item{wrapw}{if \code{TRUE}, the stable output will be wrapped in a latex table
-environment and
-the output will be written to \code{\link[=stdout]{stdout()}}; use this along with
+environment and the output will be written to \code{\link[=stdout]{stdout()}}; use this along with
 \code{results = "asis"} when rendering tables with \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+
+\item{con}{passed to \code{\link[=st_wrap]{st_wrap()}}; used when \code{wrap} is \code{TRUE}}
 }
 \description{
 Create stable from pmtable
