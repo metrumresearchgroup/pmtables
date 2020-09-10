@@ -62,7 +62,7 @@ x <- pt_data_inventory(
   by = c(Study = "STUDYf"),
   panel = as.panel("SEQf", prefix = "Endpoint: "),
   stacked = TRUE
-) %>% as_stable( wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 
 #' \clearpage
@@ -78,7 +78,7 @@ pt_data_inventory(
   data_pk,
   by = c(Study = "STUDYf"),
   panel = "ASIANf"
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>%stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -89,7 +89,7 @@ pt_data_inventory(
 pt_data_inventory(
   data_pk,
   by = c(Study = "STUDYf")
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 
 #' \clearpage
@@ -111,7 +111,7 @@ pt_data_inventory(
 pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf,Sex = SEXf, "Race group" = ASIANf)) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 #'
@@ -125,7 +125,7 @@ out <- pt_cat_wide(
   data = data,
   cols = vars(Formulation = FORMf, Sex = SEXf, "Race group" = ASIANf),
   panel = as.panel("STUDYf", prefix = "Study: ")) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #+
 
@@ -138,7 +138,7 @@ pt_cat_wide(
   data = data,
   by = c(Sex = "SEXf"),
   cols = vars(Formulation = FORMf, "Race group" = ASIANf)) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -151,7 +151,7 @@ pt_cat_wide(
   cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
   panel = as.panel("STUDYf", prefix = "Study: "),
   by = c("RF Group" = "RFf")) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -165,7 +165,7 @@ pt_cat_wide(
   cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
   panel = as.panel("STUDYf", prefix = "Study: "),
   by = c("RF Group" = "RFf")) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -183,7 +183,7 @@ pt_cat_wide(
 pt_cat_long(
   data = data,
   cols = vars(Study = STUDYf, Sex = SEXf, "Race group" = ASIANf, "Child-Pugh" = CPf)) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -194,7 +194,7 @@ pt_cat_long(
   data = data,
   cols = vars(Study = STUDYf,Sex = SEXf,"Race group" = ASIANf, "Child-Pugh" = CPf),
   span = c(Formulation = "FORMf")) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -207,8 +207,7 @@ pt_cat_long(
   summarize = "both",
   cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
   span = vars(Study = STUDYf)
-  ) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  ) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 
 #' \clearpage
@@ -222,8 +221,7 @@ pt_cat_long(
   summarize = "none",
   cols = vars(Formulation = FORMf, Sex = SEXf,"Race group" = ASIANf),
   span = vars(Study = STUDYf)
-  ) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  ) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 
 #' \clearpage
@@ -243,7 +241,7 @@ pt_cont_wide(
   data = data,
   cols = "WT,SCR,AGE,ALB,HT",
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 
 ##' ## Paneled
@@ -254,7 +252,7 @@ pt_cont_wide(
   cols = "WT,SCR,AGE,ALB,HT",
   panel = c(Study = "STUDYf"),
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -266,7 +264,7 @@ pt_cont_wide(
   cols = "WT,SCR,AGE,ALB,HT",
   by = c(Study = "STUDYf"),
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -279,7 +277,7 @@ pt_cont_wide(
   by = c(Study = "STUDYf"),
   panel = c(Formulation = "FORMf"),
   units = units
-) %>% as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+) %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -298,7 +296,7 @@ pt_cont_long(
   data = data,
   cols = "WT,SCR,AGE",
   units = units) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
 #' \clearpage
 
@@ -310,5 +308,5 @@ pt_cont_long(
   cols = "WT,SCR,AGE",
   panel = vars(Study = STUDYf),
   units = units) %>%
-  as_stable(wrapw = TRUE, r_file = "test.R", output_file = "test.tex")
+  stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
 
