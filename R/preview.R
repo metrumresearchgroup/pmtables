@@ -25,17 +25,18 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
 
   if(is.list(text)) {
     tab <- map(text, .f = function(this_table) {
-      this_table <- as.character(this_table)
       if(!any(grepl("begin{table}", this_table, fixed = TRUE))) {
-        this_table <- pt_wrap(as.character(this_table))
+        this_table <- st_wrap(this_table, con = NULL)
       }
       c(this_table, "\\clearpage")
     })
     tab <- flatten_chr(tab)
   } else {
-    tab <- as.character(text)
-    if(!any(grepl("begin{table}", tab, fixed = TRUE))) {
-      tab <- pt_wrap(as.character(tab))
+    assert_that(is.character(text))
+    if(!any(grepl("begin{table}", text, fixed = TRUE))) {
+      tab <- st_wrap(text, con = NULL)
+    } else {
+      tab <- text
     }
   }
 
