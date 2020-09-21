@@ -54,7 +54,7 @@ find_hline_df <- function(data, re,  cols = NULL) {
   if(is.null(cols)) cols <- names(data)
   cols <- cols[cols %in% names(data)]
   if(length(cols)==0) return(NULL)
-  rows <- map(data[,cols], find_hline_col, re = re)
+  rows <- map(data[,cols,drop=FALSE], find_hline_col, re = re)
   rows <- flatten_int(rows)
   if(length(rows)==0) return(NULL)
   return(rows)
