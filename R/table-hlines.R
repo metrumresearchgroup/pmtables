@@ -35,8 +35,10 @@ tab_add_hlines <- function(tab, hlines, sumrows = NULL) {
     return(tab)
   }
   hlines <- sort(hlines)
+  mx <- length(tab)
   for(i in hlines) {
-    tab[i] <- paste0(tab[i], " \\hline")
+    j <- min(i, mx)
+    tab[j] <- paste0(tab[j], " \\hline")
   }
   if(is.list(sumrows)) {
     hlinex <- map(sumrows, sumrow_get_hlinex2)

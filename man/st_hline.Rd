@@ -10,7 +10,8 @@ st_hline(
   cols = names(x$data),
   n = 1,
   at = NULL,
-  from = NULL
+  from = NULL,
+  nudge = 0
 )
 }
 \arguments{
@@ -28,6 +29,9 @@ placed; passed to \code{\link[stringr:str_detect]{stringr::str_detect()}}}
 
 \item{from}{character column name used to divide a table; passed to
 \code{\link[=stable]{stable()}} as \code{hline_from}}
+
+\item{nudge}{push an hline down or up in the table; only applies to
+indices found from the \code{at} or \code{pattern} arguments}
 }
 \description{
 See the \code{hline_at} and \code{hline_from} arguments to \code{\link[=stable]{stable()}}.

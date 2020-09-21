@@ -472,21 +472,26 @@ st_clear_grouped <- function(x, ...) {
 #' `hline_at`
 #' @param from character column name used to divide a table; passed to
 #' [stable()] as `hline_from`
+#' @param nudge push an hline down or up in the table; only applies to
+#' indices found from the `at` or `pattern` arguments
 #'
 #' @export
 st_hline <- function(x, pattern = NULL, cols = names(x$data), n = 1,
-                     at = NULL, from = NULL) {
+                     at = NULL, from = NULL, nudge = 0) {
   check_st(x)
   if(!missing(at)) {
+    if(is.logical(at)) at <- which(at)
+    at <- at + nudge
     if(n > 1) at <- sort(rep(at, n))
-    x$hline_at <- at
+    x$hline_at <- c(x$hline_at,at)
   }
   if(!missing(from)) {
-    x$hline_from <- from
+    x$hline_from <- c(x$hline_from,from)
   }
   if(is.character(pattern)) {
     hline_re <- unique(find_hline_df(x$data, pattern, cols))
-    hline_re <- hline_re[hline_re > 1]
+    hline_re <- hline_re[hline_re > 1] + nudge
+    hline_re <- hline_re[hline_re < nrow(data)]
     if(n > 1) {
       hline_re <- sort(rep(hline_re,n))
     }
