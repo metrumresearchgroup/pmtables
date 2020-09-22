@@ -1,5 +1,6 @@
 library(testthat)
 library(pmtables)
+library(dplyr)
 
 inspect <- function(...) {
   get_stable_data(stable(..., inspect = TRUE))
@@ -53,4 +54,11 @@ test_that("test-hline st_hline nudge", {
   expect_false(grepl("hline", z$tab[3]))
 })
 
-
+test_that("test-hline st_hline accumulate", {
+  x <-
+    st_new(tibble(a = letters)) %>%
+    st_hline(at = c(1,2,3)) %>%
+    st_hline(at = c(4,5,6)) %>%
+    st_hline(at = letters %in% letters[c(10,20)])
+  expect_equal(x$hline_at, c(1,2,3,4,5,6,10,20))
+})
