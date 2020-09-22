@@ -1,5 +1,6 @@
 #' Function for continuous wide summaries
 #'
+#' @inheritParams pt_cont_wide
 #' @param value the data to summarize
 #' @param digit_fun a function to format digits in the summaries
 #' @param id a vector of subject IDs; same length as `value`
@@ -11,7 +12,8 @@
 #' pmtables:::cont_wide_fun(rnorm(100))
 #'
 #' @keywords internal
-cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
+cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
+                          na_action = "omit", na_fill = "--",...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
@@ -19,12 +21,11 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
   }
   value <- na.omit(value)
   if(length(value)==0) {
-    na_action <- getOption("pmtables.all.na", "omit")
     if(identical(na_action, "omit")) {
       return(tibble())
     }
     if(identical(na_action, "pass")) {
-      return(tibble(summary  = getOption("pmtables.na.fill", "--")))
+      return(tibble(summary  = na_fill))
     }
     stop("no non-missing values",call.=FALSE)
   }
@@ -41,7 +42,8 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
 #' pmtables:::cont_long_fun(rnorm(100))
 #'
 #' @keywords internal
-cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
+cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
+                          na_action = "omit", na_fill = "--",...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
@@ -49,18 +51,16 @@ cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
   }
   value <- na.omit(value)
   if(length(value)==0) {
-    na_action <- getOption("pmtables.all.na", "omit")
     if(identical(na_action, "omit")) {
       return(tibble()[0,])
     }
     if(identical(na_action, "pass")) {
-      miss <- getOption("pmtables.na.fill", "--")
       ans <-  tibble(
-        n = miss,
-        Mean = miss,
-        Median = miss,
-        SD = miss,
-        `Min / Max`  = miss
+        n = na_fill,
+        Mean = na_fill,
+        Median = na_fill,
+        SD = na_fill,
+        `Min / Max`  = na_fill
       )
       return(ans)
     }
