@@ -19,11 +19,11 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
   }
   value <- na.omit(value)
   if(length(value)==0) {
-    na_action <- getOption("na.action", "na.omit")
-    if(identical(na_action, "na.omit")) {
+    na_action <- getOption("pmtables.all.na", "omit")
+    if(identical(na_action, "omit")) {
       return(tibble())
     }
-    if(identical(na_action, "na.pass")) {
+    if(identical(na_action, "pass")) {
       return(tibble(summary  = getOption("pmtables.na.fill", "--")))
     }
     stop("no non-missing values",call.=FALSE)
@@ -49,11 +49,11 @@ cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
   }
   value <- na.omit(value)
   if(length(value)==0) {
-    na_action <- getOption("na.action", "na.omit")
-    if(identical(na_action, "na.omit")) {
+    na_action <- getOption("pmtables.all.na", "omit")
+    if(identical(na_action, "omit")) {
       return(tibble()[0,])
     }
-    if(identical(na_action, "na.pass")) {
+    if(identical(na_action, "pass")) {
       miss <- getOption("pmtables.na.fill", "--")
       ans <-  tibble(
         n = miss,
