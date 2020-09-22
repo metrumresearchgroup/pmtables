@@ -9,7 +9,6 @@ cont_wide_fun(
   digit_fun = sig,
   id = NULL,
   digits = 3,
-  na_action = "omit",
   na_fill = "--",
   ...
 )
@@ -24,12 +23,7 @@ cont_wide_fun(
 \item{digits}{the number of digits in the summary; the current implementation
 passes \code{digits} to \code{digit_fun()}}
 
-\item{na_action}{how to handle summaries that consiste of all missing values;
-if \code{omit}, try to omit this summary from the output; if \code{pass}, pass along
-a placeholder row or column filled with the value in \code{na_fill}}
-
-\item{na_fill}{used when \code{na_action} is set to \code{pass}; fills in summaries
-when all continuous values are missing}
+\item{na_fill}{value to fill with when all values in the summary are missing}
 
 \item{...}{not used}
 }

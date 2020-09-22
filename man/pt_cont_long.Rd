@@ -15,7 +15,6 @@ pt_cont_long(
   summarize_all = TRUE,
   all_name = "All data",
   fun = cont_long_fun,
-  na_action = c("omit", "pass"),
   na_fill = "--",
   id_col = "ID"
 )
@@ -47,12 +46,7 @@ to the bottom of the table}
 
 \item{fun}{the data summary function (see details)}
 
-\item{na_action}{how to handle summaries that consiste of all missing values;
-if \code{omit}, try to omit this summary from the output; if \code{pass}, pass along
-a placeholder row or column filled with the value in \code{na_fill}}
-
-\item{na_fill}{used when \code{na_action} is set to \code{pass}; fills in summaries
-when all continuous values are missing}
+\item{na_fill}{value to fill with when all values in the summary are missing}
 
 \item{id_col}{the ID column name}
 }

@@ -13,7 +13,7 @@
 #'
 #' @keywords internal
 cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
-                          na_action = "omit", na_fill = "--",...) {
+                          na_fill = "--",...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
@@ -21,13 +21,13 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
   }
   value <- na.omit(value)
   if(length(value)==0) {
-    if(identical(na_action, "omit")) {
+    if(is.null(na_fill)) {
       return(tibble())
     }
-    if(identical(na_action, "pass")) {
+    if(is.character(na_fill)) {
       return(tibble(summary  = na_fill))
     }
-    stop("no non-missing values",call.=FALSE)
+    stop("no non-missing values in the summary",call.=FALSE)
   }
   mn <- digit_fun(mean(value),digits=digits)
   sd <- digit_fun(sd(value),digits=digits)
@@ -43,7 +43,7 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
 #'
 #' @keywords internal
 cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
-                          na_action = "omit", na_fill = "--",...) {
+                          na_fill = "--",...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
@@ -51,10 +51,10 @@ cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
   }
   value <- na.omit(value)
   if(length(value)==0) {
-    if(identical(na_action, "omit")) {
+    if(is.null(na_fill)) {
       return(tibble()[0,])
     }
-    if(identical(na_action, "pass")) {
+    if(is.character(na_fill)) {
       ans <-  tibble(
         n = na_fill,
         Mean = na_fill,
@@ -64,7 +64,7 @@ cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
       )
       return(ans)
     }
-    stop("no non-missing values",call.=FALSE)
+    stop("no non-missing values in the summary",call.=FALSE)
   }
   rng <- digit_fun(range(value),digits=digits)
   rng <- paste0(rng[1]," / ", rng[2])
