@@ -1,6 +1,10 @@
 library(testthat)
 library(pmtables)
 
+inspect <- function(...) {
+  get_stable_data(stable(..., inspect = TRUE))
+}
+
 context("test-cont-table")
 
 test_that("continuous data table - long", {
@@ -14,7 +18,7 @@ test_that("invert panel and cols", {
   data <- pmt_first
   table <- list(WT = "weight", ALB = "albumin", SCR = "creat")
   ans1 <- pt_cont_long(
-    data, col = "WT,ALB,SCR", panel = vars(Study = "STUDYf"),
+    data, col = "WT,ALB,SCR", panel = dplyr::vars(Study = "STUDYf"),
     table = table
   )
   ans2 <- pt_cont_long(
@@ -63,3 +67,10 @@ test_that("cont long table has n", {
   expect_true("n" %in% names(ans))
 })
 
+test_that("cont table all missing", {
+  data <- dplyr::tibble(ID = 1:30,WT = runif(30,1,10), SCR = NA_real_, ALB = WT)
+  a <- pt_cont_wide(data, cols = "WT,SCR,ALB")
+  b <- pt_cont_long(data, cols = "WT,SCR,ALB")
+  expect_equal(names(a$data), c("WT", "ALB"))
+  expect_equal(b$data$Variable, c("WT", "ALB"))
+})

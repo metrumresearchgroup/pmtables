@@ -679,7 +679,7 @@ w <- pivot_longer(data, cols = c("WT", "SCR", "AGE"))
 w <- mutate(w, name = fct_inorder(name))
 x1 <- group_by(w, Variable = name)  %>%
   summarise(
-    n = length(value[!is.na(value)]),
+    n = as.character(length(value[!is.na(value)])),
     Mean = sig(mean(value, na.rm=TRUE)),
     Median = sig(median(value, na.rm = TRUE)),
     SD = sig(sd(value, na.rm = TRUE)),
@@ -711,7 +711,7 @@ w <- pivot_longer(data, cols = c("WT", "SCR", "AGE"))
 w <- mutate(w, name = fct_inorder(name))
 x1 <- group_by(w,STUDYf, Variable = name)  %>%
   summarise(
-    n = length(value[!is.na(value)]),
+    n = as.character(length(value[!is.na(value)])),
     Mean = sig(mean(value, na.rm=TRUE)),
     Median = sig(median(value, na.rm = TRUE)),
     SD = sig(sd(value, na.rm = TRUE)),
@@ -725,7 +725,7 @@ x2 <- ungroup(x2)
 
 x3 <- group_by(w, Variable = name)  %>%
   summarise(
-    n = length(value[!is.na(value)]),
+    n = as.character(length(value[!is.na(value)])),
     Mean = sig(mean(value, na.rm=TRUE)),
     Median = sig(median(value, na.rm = TRUE)),
     SD = sig(sd(value, na.rm = TRUE)),

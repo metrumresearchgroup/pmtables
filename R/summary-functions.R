@@ -18,7 +18,16 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
     n <- length(unique(id))
   }
   value <- na.omit(value)
-  if(length(value)==0) stop("no non-missing values",call.=FALSE)
+  if(length(value)==0) {
+    na_action <- getOption("na.action", "na.omit")
+    if(identical(na_action, "na.omit")) {
+      return(tibble())
+    }
+    if(identical(na_action, "na.pass")) {
+      return(tibble(summary  = getOption("pmtables.na.fill", "--")))
+    }
+    stop("no non-missing values",call.=FALSE)
+  }
   mn <- digit_fun(mean(value),digits=digits)
   sd <- digit_fun(sd(value),digits=digits)
   ans <- tibble(summary = paste0(mn, " (",sd,")", " [",n,"]"))
@@ -39,11 +48,28 @@ cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
     n <- length(unique(id))
   }
   value <- na.omit(value)
-  if(length(value)==0) stop("no non-missing values",call.=FALSE)
+  if(length(value)==0) {
+    na_action <- getOption("na.action", "na.omit")
+    if(identical(na_action, "na.omit")) {
+      return(tibble()[0,])
+    }
+    if(identical(na_action, "na.pass")) {
+      miss <- getOption("pmtables.na.fill", "--")
+      ans <-  tibble(
+        n = miss,
+        Mean = miss,
+        Median = miss,
+        SD = miss,
+        `Min / Max`  = miss
+      )
+      return(ans)
+    }
+    stop("no non-missing values",call.=FALSE)
+  }
   rng <- digit_fun(range(value),digits=digits)
   rng <- paste0(rng[1]," / ", rng[2])
   ans <- tibble(
-    n = n,
+    n = as.character(n),
     Mean = digit_fun(mean(value),digits = digits),
     Median = digit_fun(median(value),digits = digits),
     SD = digit_fun(sd(value),digits = digits),
