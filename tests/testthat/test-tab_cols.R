@@ -48,6 +48,13 @@ test_that("cols are bold", {
   expect_false(grepl("textbf", x$cols_tex))
 })
 
+test_that("cols are bold after sanitizing", {
+  data <- tibble(a_z = 1, b = 2, c = 3)
+  x <- inspect(data, cols_bold = TRUE)
+  cols <- str_split(x$cols_tex, " *& *")
+  expect_equal(cols[[1]][1], "\\textbf{a\\_z}")
+})
+
 test_that("units", {
   u <- list(b = "in",kyle = "baron", dd = 5, a = "mg")
   data <- tibble(a = 1, b = 2, c = 3)
