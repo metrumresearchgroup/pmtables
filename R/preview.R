@@ -6,6 +6,7 @@
 #' [fs::file_show()]
 #' @param output_dir passed to [rmarkdown::render()]
 #' @param output_file passed to [rmarkdown::render()]
+#' @param landscape passed to [st_wrap()]
 #'
 #' @return the `text` is returned invisibly
 #'
@@ -18,7 +19,8 @@
 #'
 #' @export
 st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
-                   output_file = "st2doc.pdf") {
+                   output_file = "st2doc.pdf", landscape = FALSE) {
+
   assert_that(requireNamespace("rmarkdown"))
   assert_that(requireNamespace("fs"))
   file <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
@@ -26,7 +28,7 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
   if(is.list(text)) {
     tab <- map(text, .f = function(this_table) {
       if(!any(grepl("begin{table}", this_table, fixed = TRUE))) {
-        this_table <- st_wrap(this_table, con = NULL)
+        this_table <- st_wrap(this_table, con = NULL, landscape = landscape)
       }
       c(this_table, "\\clearpage")
     })
@@ -34,7 +36,7 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
   } else {
     assert_that(is.character(text))
     if(!any(grepl("begin{table}", text, fixed = TRUE))) {
-      tab <- st_wrap(text, con = NULL)
+      tab <- st_wrap(text, con = NULL, landscape = landscape)
     } else {
       tab <- text
     }
@@ -47,9 +49,11 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
     output_file = output_file,
     params = list(table_text = tab)
   )
+
   if(file.exists(ans) && isTRUE(preview)) {
     fs::file_show(ans)
   }
+
   return(invisible(text))
 } # nocov end
 
@@ -196,3 +200,79 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
 
   return(invisible(NULL))
 } # nocov end
+
+
+#' Wrap stable output in table environment
+#'
+#' @param x tabular text
+#' @param con where to write the output
+#' @param table if `TRUE`, the code is wrapped in latex table environment
+#' @param center if `TRUE`, center the table
+#' @param landscape if `TRUE` render the table in landscape mode
+#' @param caption the table caption
+#' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
+#' code block; if `tex`, then the fencing is omitted
+#' @param ... not used
+#'
+#' @export
+st_wrap <- function(x,...) UseMethod("st_wrap")
+#' @rdname st_wrap
+#' @export
+st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # nocov start
+                            landscape = FALSE,
+                            caption = NULL, context = c("rmd", "tex"), ...) {
+  context <- match.arg(context)
+  ans <- c()
+  if(isTRUE(table)) {
+    ans <- c(ans, "\\begin{table}[h]")
+    if(isTRUE(center)) ans <- c(ans, "\\centering")
+    if(is.character(caption)) {
+      ans <- c(ans, paste0("\\caption{",caption,"}"))
+    }
+    ans <- c(ans, x)
+    ans <- c(ans,"\\end{table}")
+  } else {
+    ans <- x
+  }
+  if(isTRUE(center) && !isTRUE(table)) {
+    ans <- c("\\begin{center}", ans, "\\end{center}")
+  }
+  if(isTRUE(landscape)) {
+    ans <- c("\\begin{landscape}", ans, "\\end{landscape}")
+  }
+  if(context=="rmd") {
+    ans <- c("```{=latex}", ans, "```")
+  }
+  if(!is.null(con)) {
+    writeLines(text = ans, con = con)
+  }
+  return(invisible(ans))
+} # nocov end
+
+#' @rdname st_wrap
+#' @export
+st_wrap.stable_long <- function(x, table = FALSE, ...) {
+  st_wrap.default(x, ..., table = FALSE)
+}
+
+#' @rdname st_wrap
+#' @export
+pt_wrap <- st_wrap
+
+#' @rdname st_wrap
+#' @export
+st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")) {
+  context <- match.arg(context)
+  ans <- x
+  if(isTRUE(center)) {
+    ans <- c("\\begin{center}", ans, "\\end{center}")
+  }
+  if(context=="rmd") {
+    ans <- c("```{=latex}", ans, "```")
+  }
+  if(!is.null(con)) {
+    writeLines(text = ans, con = con)
+  }
+  return(invisible(ans))
+
+}

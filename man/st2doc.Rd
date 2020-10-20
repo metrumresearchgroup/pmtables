@@ -8,7 +8,8 @@ st2doc(
   text,
   preview = TRUE,
   output_dir = tempdir(),
-  output_file = "st2doc.pdf"
+  output_file = "st2doc.pdf",
+  landscape = FALSE
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ st2doc(
 \item{output_dir}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
 \item{output_file}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+
+\item{landscape}{passed to \code{\link[=st_wrap]{st_wrap()}}}
 }
 \value{
 the \code{text} is returned invisibly
