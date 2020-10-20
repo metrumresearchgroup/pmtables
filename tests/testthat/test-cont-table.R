@@ -1,6 +1,10 @@
 library(testthat)
 library(pmtables)
 
+inspect <- function(...) {
+  get_stable_data(stable(..., inspect = TRUE))
+}
+
 context("test-cont-table")
 
 test_that("continuous data table - long", {
@@ -14,7 +18,7 @@ test_that("invert panel and cols", {
   data <- pmt_first
   table <- list(WT = "weight", ALB = "albumin", SCR = "creat")
   ans1 <- pt_cont_long(
-    data, col = "WT,ALB,SCR", panel = vars(Study = "STUDYf"),
+    data, col = "WT,ALB,SCR", panel = dplyr::vars(Study = "STUDYf"),
     table = table
   )
   ans2 <- pt_cont_long(
@@ -63,3 +67,29 @@ test_that("cont long table has n", {
   expect_true("n" %in% names(ans))
 })
 
+test_that("cont table all missing", {
+  data <- dplyr::tibble(ID = 1:30,WT = runif(30,1,10), SCR = NA_real_, ALB = WT)
+  a <- pt_cont_wide(data, cols = "WT,SCR,ALB", na_fill = NULL)
+  b <- pt_cont_long(data, cols = "WT,SCR,ALB", na_fill = NULL)
+  expect_equal(names(a$data), c("WT", "ALB"))
+  expect_equal(b$data$Variable, c("WT", "ALB"))
+  c <- pt_cont_wide(data, cols = "WT,SCR,ALB")
+  d <- pt_cont_long(data, cols = "WT,SCR,ALB")
+  expect_equal(names(c$data), c("WT", "SCR", "ALB"))
+  expect_equal(c$data$SCR, "--")
+  expect_equal(d$data$Variable, c("WT", "SCR", "ALB"))
+  expect_equal(d$data$n[2], "--")
+  expect_equal(d$data$Mean[2], "--")
+  expect_equal(d$data$Median[2], "--")
+  expect_equal(d$data$SD[2], "--")
+  expect_equal(d$data$n[2], "--")
+  expect_equal(d$data$`Min / Max`[2], "--")
+  e <- pt_cont_wide(data, cols = "WT,SCR,ALB", na_fill = "NA")
+  expect_equal(e$data$SCR, "NA")
+  f <- pt_cont_long(data, cols = "WT,SCR,ALB", na_fill = "NA")
+  expect_equal(f$data$n[2], "NA")
+  expect_equal(f$data$Mean[2], "NA")
+  expect_equal(f$data$Median[2], "NA")
+  expect_equal(f$data$SD[2], "NA")
+  expect_equal(f$data$`Min / Max`[2], "NA")
+})

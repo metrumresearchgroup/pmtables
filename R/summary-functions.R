@@ -1,5 +1,6 @@
 #' Function for continuous wide summaries
 #'
+#' @inheritParams pt_cont_wide
 #' @param value the data to summarize
 #' @param digit_fun a function to format digits in the summaries
 #' @param id a vector of subject IDs; same length as `value`
@@ -11,14 +12,23 @@
 #' pmtables:::cont_wide_fun(rnorm(100))
 #'
 #' @keywords internal
-cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
+cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
+                          na_fill = "--",...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
     n <- length(unique(id))
   }
   value <- na.omit(value)
-  if(length(value)==0) stop("no non-missing values",call.=FALSE)
+  if(length(value)==0) {
+    if(is.null(na_fill)) {
+      return(tibble())
+    }
+    if(is.character(na_fill)) {
+      return(tibble(summary  = na_fill))
+    }
+    stop("no non-missing values in the summary",call.=FALSE)
+  }
   mn <- digit_fun(mean(value),digits=digits)
   sd <- digit_fun(sd(value),digits=digits)
   ans <- tibble(summary = paste0(mn, " (",sd,")", " [",n,"]"))
@@ -32,18 +42,34 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
 #' pmtables:::cont_long_fun(rnorm(100))
 #'
 #' @keywords internal
-cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,...) {
+cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
+                          na_fill = "--",...) {
   if(is.null(id)) {
     n <- sum(!is.na(value))
   } else {
     n <- length(unique(id))
   }
   value <- na.omit(value)
-  if(length(value)==0) stop("no non-missing values",call.=FALSE)
+  if(length(value)==0) {
+    if(is.null(na_fill)) {
+      return(tibble()[0,])
+    }
+    if(is.character(na_fill)) {
+      ans <-  tibble(
+        n = na_fill,
+        Mean = na_fill,
+        Median = na_fill,
+        SD = na_fill,
+        `Min / Max`  = na_fill
+      )
+      return(ans)
+    }
+    stop("no non-missing values in the summary",call.=FALSE)
+  }
   rng <- digit_fun(range(value),digits=digits)
   rng <- paste0(rng[1]," / ", rng[2])
   ans <- tibble(
-    n = n,
+    n = as.character(n),
     Mean = digit_fun(mean(value),digits = digits),
     Median = digit_fun(median(value),digits = digits),
     SD = digit_fun(sd(value),digits = digits),

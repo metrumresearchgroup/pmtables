@@ -13,6 +13,7 @@
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
                             all_name = "all", digits = new_digits(), id_col = "ID",
+                            na_fill = "--",
                             fun = cont_long_fun) {
 
   cols <- unname(new_names(cols))
@@ -57,7 +58,8 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = .[[id_col]]
+        id = .[[id_col]],
+        na_fill = na_fill
       ),
       keep = TRUE
     ) # nocov end
@@ -69,7 +71,8 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = .[[id_col]]
+        id = .[[id_col]],
+        na_fill = na_fill
       ),
       .keep = TRUE
     )
@@ -97,6 +100,7 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 #' @param digits a `digits` object (see [new_digits()])
 #' @param all_name a name to use for the complete data summary
 #' @param fun the data summary function (see details)
+#' @param na_fill value to fill with when all values in the summary are missing
 #' @param id_col the ID column name
 #'
 #' @details
@@ -120,6 +124,7 @@ pt_cont_wide <- function(data, cols,
                          digits = new_digits(),
                          all_name = "All data",
                          fun = cont_wide_fun,
+                         na_fill = "--",
                          id_col = "ID") {
 
   has_panel <- !missing(panel)
@@ -144,6 +149,7 @@ pt_cont_wide <- function(data, cols,
     id_col = id_col,
     panel = panel,
     fun = fun,
+    na_fill = na_fill,
     digits = digits,
     wide = TRUE
   )
@@ -157,6 +163,7 @@ pt_cont_wide <- function(data, cols,
       by = ".total",
       panel = ".total",
       fun = fun,
+      na_fill = na_fill,
       digits = digits,
       wide = TRUE
     )
@@ -266,6 +273,7 @@ pt_cont_long <- function(data,
                          summarize_all = TRUE,
                          all_name = "All data",
                          fun = cont_long_fun,
+                         na_fill = "--",
                          id_col = "ID") {
 
   switch_panel_by <- FALSE
@@ -294,6 +302,7 @@ pt_cont_long <- function(data,
     by = unname(by),
     id_col = id_col,
     fun = fun,
+    na_fill = na_fill,
     digits = digits,
     wide = FALSE
   )
@@ -306,6 +315,7 @@ pt_cont_long <- function(data,
       cols = unname(cols),
       by = ".total",
       fun = fun,
+      na_fill = na_fill,
       digits = digits,
       wide = FALSE
     )
