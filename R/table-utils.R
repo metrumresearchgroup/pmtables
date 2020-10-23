@@ -87,7 +87,7 @@ require_col <- function(data,col,context=NULL) {
 
 gluet <- function(x,...) {
   x <- force(x)
-  glue(x,.open = "<", .close = ">", .envir = parent.frame())
+  unclass(glue(x,.open = "<", .close = ">", .envir = parent.frame()))
 }
 
 squote <- function(x) paste0("'", x, "'")

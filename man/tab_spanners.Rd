@@ -4,7 +4,15 @@
 \alias{tab_spanners}
 \title{Create groups of columns with spanners}
 \usage{
-tab_spanners(data, cols = NULL, span = NULL, span_split = NULL, ...)
+tab_spanners(
+  data,
+  cols = NULL,
+  span = NULL,
+  span_split = NULL,
+  span_title_break = "...",
+  sizes = tab_size(),
+  ...
+)
 }
 \arguments{
 \item{data}{a data.frame to convert to tabular table; the user should filter
@@ -17,6 +25,11 @@ see also \code{\link[=st_new]{st_new()}}}
 \item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
 
 \item{span_split}{not implemented at this time; ; see also \code{\link[=st_span_split]{st_span_split()}}}
+
+\item{span_title_break}{a character sequence indicating where to split the
+title across multiple lines}
+
+\item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
 
 \item{...}{not used}
 }

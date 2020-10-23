@@ -183,7 +183,11 @@ stable.data.frame <- function(data,
 
   # Colgroups
   cols <- names(data)
-  span_data <- tab_spanners(data = data, cols = cols, span = span, ...)
+  span_data <- tab_spanners(
+    data = data, cols = cols, span = span,
+    sizes = sizes,
+    ...
+  )
   cols <- span_data$cols
 
   # Format cols
