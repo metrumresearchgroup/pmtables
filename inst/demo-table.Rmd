@@ -374,7 +374,7 @@ stable(
 
 You can include `...` in the title it will break in to multiple lines.  You can 
 alter the split sequence with the `span_title_break` argument (default is `...`) . 
-See `?span_title_break`.
+See `?tab_spanners`.
 
 This feature is in addition to the functionality allowing you to break column 
 names (control the split seqence with `cols_break`, where default is also `...`).
