@@ -127,15 +127,19 @@ st_preview <- function(x,...) { # nocov start
 #' the document.  Run `system2("pdflatex", "-v")` to see if `pdflatex` properly
 #' installed.
 #'
+#' To render a table in `landscape` environment, pass the `stable` object
+#' through `as_lscape`.
+#'
 #' @examples
 #' template_file <- system.file("article", "article.tex", package = "pmtables")
 #' template_contents <- readLines(template_file)
 #'
 #' \dontrun{
 #'   tab <- stable(ptdata())
-#'   pmtables:::st2article(tab)
+#'   pmtables::st2article(tab)
 #' }
 #'
+#' @export
 st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov start
                        output_dir = tempdir(), margin = NULL,
                        template = NULL) {
@@ -229,6 +233,7 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
 #' code block; if `tex`, then the fencing is omitted
 #' @param ... not used
 #'
+#'
 #' @export
 st_wrap <- function(x,...) UseMethod("st_wrap")
 #' @rdname st_wrap
@@ -302,9 +307,25 @@ st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")
 #'
 #' @param x output from either [stable()] or [stable_long()]
 #'
+#' @examples
+#'
+#' out <- stable(stdata())
+#' is_lscape(out)
+#'
+#' land <- as_lscape(out)
+#' is_lscape(land)
+#'
+#' st_wrap(as_lscape(out))
+#'
+#' @return
+#' For [as_lscape()], the input is returned, but with `stable_lscape`
+#' added to the `class` attribute.  For [is_lscape()], a logical value
+#' is returned, indicating whether or not the object inherits from
+#' `stable_lscape`.
+#'
 #' @export
 as_lscape <- function(x) {
-  structure(x, class = c(class(x), "stable_lscape"))
+  structure(x, class = unique(c(class(x), "stable_lscape")))
 }
 
 #' @rdname as_lscape

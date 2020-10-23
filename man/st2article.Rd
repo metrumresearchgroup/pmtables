@@ -47,6 +47,9 @@ for code to open the template for review.
 This function requires \code{pdflatex} to be installed and in your path to build
 the document.  Run \code{system2("pdflatex", "-v")} to see if \code{pdflatex} properly
 installed.
+
+To render a table in \code{landscape} environment, pass the \code{stable} object
+through \code{as_lscape}.
 }
 \examples{
 template_file <- system.file("article", "article.tex", package = "pmtables")
@@ -54,7 +57,7 @@ template_contents <- readLines(template_file)
 
 \dontrun{
   tab <- stable(ptdata())
-  pmtables:::st2article(tab)
+  pmtables::st2article(tab)
 }
 
 }

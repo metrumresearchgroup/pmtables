@@ -12,10 +12,27 @@ is_lscape(x)
 \arguments{
 \item{x}{output from either \code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}}}
 }
+\value{
+For \code{\link[=as_lscape]{as_lscape()}}, the input is returned, but with \code{stable_lscape}
+added to the \code{class} attribute.  For \code{\link[=is_lscape]{is_lscape()}}, a logical value
+is returned, indicating whether or not the object inherits from
+\code{stable_lscape}.
+}
 \description{
 \strong{Important}: this function doesn't actually make the table "landscape".
 It simply adds to the class attribute so that functions down the line
 can look for this tag and wrap the table in \code{landscape} environment. The
 \code{landscaping} is entirely the responsibility of some other function, just
 not this one.
+}
+\examples{
+
+out <- stable(stdata())
+is_lscape(out)
+
+land <- as_lscape(out)
+is_lscape(land)
+
+st_wrap(as_lscape(out))
+
 }
