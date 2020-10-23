@@ -10,6 +10,18 @@
 #'
 #' @return the `text` is returned invisibly
 #'
+#' @details
+#' In order to render the table in the pdf document, the following
+#' packages must be installed, regardless of the type of tabble
+#' you are trying to render:
+#'
+#' 1. `threeparttable`
+#' 1. `booktabs`
+#' 1. `array`
+#' 1. `longtable`
+#' 1. `mathpazo`
+#' 1. `pdflscape`
+#'
 #' @examples
 #'
 #' \dontrun{
@@ -17,9 +29,12 @@
 #'   ptdata()  %>% stable() %>% st2doc()
 #' }
 #'
+#' template <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
+#' # cat(readLines(template), sep = "\n")
+#'
 #' @export
 st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
-                   output_file = "st2doc.pdf", landscape = FALSE) {
+                   output_file = "st2doc.pdf", landscape = is_lscape(text)) {
 
   assert_that(requireNamespace("rmarkdown"))
   assert_that(requireNamespace("fs"))
@@ -219,7 +234,7 @@ st_wrap <- function(x,...) UseMethod("st_wrap")
 #' @rdname st_wrap
 #' @export
 st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # nocov start
-                            landscape = FALSE,
+                            landscape = is_lscape(x),
                             caption = NULL, context = c("rmd", "tex"), ...) {
   context <- match.arg(context)
   ans <- c()
@@ -276,3 +291,25 @@ st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")
   return(invisible(ans))
 
 }
+
+#' Mark table text for display in landscape environment
+#'
+#' **Important**: this function doesn't actually make the table "landscape".
+#' It simply adds to the class attribute so that functions down the line
+#' can look for this tag and wrap the table in `landscape` environment. The
+#' `landscaping` is entirely the responsibility of some other function, just
+#' not this one.
+#'
+#' @param x output from either [stable()] or [stable_long()]
+#'
+#' @export
+as_lscape <- function(x) {
+  structure(x, class = c(class(x), "stable_lscape"))
+}
+
+#' @rdname as_lscape
+#' @export
+is_lscape <- function(x) {
+  inherits(x, "stable_lscape")
+}
+

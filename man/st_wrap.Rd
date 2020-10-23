@@ -15,7 +15,7 @@ st_wrap(x, ...)
   con = stdout(),
   table = TRUE,
   center = TRUE,
-  landscape = FALSE,
+  landscape = is_lscape(x),
   caption = NULL,
   context = c("rmd", "tex"),
   ...

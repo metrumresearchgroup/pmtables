@@ -9,7 +9,7 @@ st2doc(
   preview = TRUE,
   output_dir = tempdir(),
   output_file = "st2doc.pdf",
-  landscape = FALSE
+  landscape = is_lscape(text)
 )
 }
 \arguments{
@@ -30,11 +30,27 @@ the \code{text} is returned invisibly
 \description{
 Render a table a pdf document
 }
+\details{
+In order to render the table in the pdf document, the following
+packages must be installed, regardless of the type of tabble
+you are trying to render:
+\enumerate{
+\item \code{threeparttable}
+\item \code{booktabs}
+\item \code{array}
+\item \code{longtable}
+\item \code{mathpazo}
+\item \code{pdflscape}
+}
+}
 \examples{
 
 \dontrun{
   library(dplyr)
   ptdata()  \%>\% stable() \%>\% st2doc()
 }
+
+template <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
+# cat(readLines(template), sep = "\n")
 
 }
