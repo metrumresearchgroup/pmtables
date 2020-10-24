@@ -1,3 +1,14 @@
+Lorem <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris."
+
+form_caption <- function(long = NULL, short = NULL, label = NULL) {
+  if(is.null(long)) return(NULL)
+  if(is.character(label)) {
+    label <- paste0(" \\", label)
+  }
+  paste0("\\caption[",short,"]{",long,label,"}")
+}
 
 #' Render a table a pdf document
 #'
@@ -12,7 +23,7 @@
 #'
 #' @details
 #' In order to render the table in the pdf document, the following
-#' packages must be installed, regardless of the type of tabble
+#' packages must be installed, regardless of the type of table
 #' you are trying to render:
 #'
 #' 1. `threeparttable`
@@ -101,11 +112,10 @@ st_preview <- function(x,...) { # nocov start
 
 #' Preview tables in a TeX article
 #'
-#' This is experimental. Pass in either `stable` or `stable_long` objects,
-#' and [st2article()] will write the output to temporary file and render the
-#' collection of tables in a pdf document without using Rmarkdown or pandoc.
-#' The rendering is accomplished through system call to `pdflatex`. See
-#' `details`.
+#' Use [st2article()] to see tables in a plain pdf TeX document. Use
+#' [st2report()] to see tables in a more formal, report-like document.
+#' [st2article()] might have a **slight** speed advantage for shorter
+#' development cycle and simpler presentation. See `details`.
 #'
 #' @param ... stable objects
 #' @param .list a list of stable objects
@@ -116,8 +126,18 @@ st_preview <- function(x,...) { # nocov start
 #' margin is fixed to 3 cm
 #' @param template an optional template for rendering the article; this normally
 #' shouldn't be used
+#' @param caption placeholder text to be included as a caption; this text will
+#' be used for every table that is passed in; this isn't intended to be the
+#' actual caption for the table, but just placeholder text as you preview the
+#' appearance of the table
 #'
 #' @details
+#'
+#' This is experimental. Pass in either `stable` or `stable_long` objects,
+#' and [st2article()] or [st2report()] will write the output to temporary file
+#' and render the collection of tables in a pdf document without using Rmarkdown
+#' or pandoc. The rendering is accomplished through system call to `pdflatex`.
+#'
 #' A working tex distribution is required to run this function.It is important
 #' to review the different latex dependencies in the document template.  It is
 #' assumed that all of these dependencies are available. See `examples` below
@@ -127,11 +147,18 @@ st_preview <- function(x,...) { # nocov start
 #' the document.  Run `system2("pdflatex", "-v")` to see if `pdflatex` properly
 #' installed.
 #'
+#' This function requires specific packages to be available. Review the
+#' `tex` template files in `/inst/article` for a complete specification of the
+#' requirements. If a requirement is not available, the document will not build.
+#'
 #' To render a table in `landscape` environment, pass the `stable` object
 #' through `as_lscape`.
 #'
 #' @examples
-#' template_file <- system.file("article", "article.tex", package = "pmtables")
+#' template_file <- system.file("tex", "article.tex", package = "pmtables")
+#' template_contents <- readLines(template_file)
+#'
+#' template_file <- system.file("tex", "report.tex", package = "pmtables")
 #' template_contents <- readLines(template_file)
 #'
 #' \dontrun{
@@ -141,21 +168,29 @@ st_preview <- function(x,...) { # nocov start
 #'
 #' @export
 st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov start
-                       output_dir = tempdir(), margin = NULL,
-                       template = NULL) {
+                       output_dir = tempdir(), margin = NULL, template = NULL,
+                       caption = NULL) {
+
   tables <- c(list(...),.list)
   assert_that(dir.exists(output_dir))
   tables_are_stable <- map_lgl(tables, inherits, what = "stable")
   assert_that(all(tables_are_stable))
+
   if(is.null(template)) {
-    template <- system.file("article", "article.tex", package = "pmtables")
+    template <- system.file("tex", "article.tex", package = "pmtables")
+  } else {
+    assert_that(file.exists(template))
   }
-  assert_that(file.exists(template))
+
   texfile <- paste0(stem,".tex")
   pdffile <- paste0(stem,".pdf")
   st2article_input <- paste0(stem,"-tables.tex")
 
   temp <- readLines(template)
+
+  if(length(tables)==1 || is.null(caption)) {
+    temp <- temp[!grepl("{.table-toc}", temp, fixed = TRUE)]
+  }
 
   w <- grep("\\input{tables}", temp, fixed = TRUE)
   if(length(w)==1) {
@@ -163,9 +198,10 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
   } else {
     stop(
       "problem processing the template; couldn't find input statement",
-      call.=FALSE
+      call. = FALSE
     )
   }
+
   if(is.numeric(margin)) {
     w <- grep("[margin=3cm]{geometry}", temp, fixed = TRUE)
     if(length(w)==1) {
@@ -173,13 +209,21 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
       temp[w] <- geo
     }
   }
-  wrap_with_caption <- function(text, i) {
-    if(is.null(i)) i <- "<no name given>"
-    cap <- paste0("st2article preview output - ", i)
-    pt_wrap(text, context = "tex", caption = cap, con = NULL)
+
+  if(is.character(caption)) {
+    wrap_with_caption <- function(text, i) {
+      if(is.null(i)) i <- "<no name given>"
+      short <- paste0("pmtables output preview - ", i)
+      pt_wrap(
+        text, context = "tex", caption = caption, short = short,
+        con = NULL
+      )
+    }
+    tables <- imap(tables, wrap_with_caption)
+  } else {
+    tables <- map(tables, pt_wrap, context = "tex", con = NULL)
   }
 
-  tables <- imap(tables, wrap_with_caption)
   tables <- map(tables, ~ c(.x, "\\clearpage"))
   tables <- flatten_chr(tables)
 
@@ -202,11 +246,11 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
       }
     }
   } else {
-    stop("could not locate the article tex file", call.=FALSE)
+    stop("could not locate the template tex file", call.=FALSE)
   }
 
   if(output_dir != tempdir()) {
-    file.copy(pdffile, file.path(output_dir,pdffile), overwrite=TRUE)
+    file.copy(pdffile, file.path(output_dir,pdffile), overwrite = TRUE)
   }
 
   pdfshow <- file.path(output_dir,pdffile)
@@ -214,12 +258,23 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
   if(file.exists(pdfshow)) {
     fs::file_show(pdfshow)
   } else {
-    stop("could not locate the output pdf file", call.=FALSE)
+    stop("could not locate the output pdf file", call. = FALSE)
   }
 
   return(invisible(NULL))
 } # nocov end
 
+
+#' @rdname st2article
+#' @export
+st2report <- function(..., template = "report.tex", caption = Lorem) {
+  if(missing(template)) {
+    template <- system.file("tex", template, package = "pmtables")
+  }
+  st2article(
+    ..., template = template, stem = "report", caption = caption
+  )
+}
 
 #' Wrap stable output in table environment
 #'
@@ -228,7 +283,8 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
 #' @param table if `TRUE`, the code is wrapped in latex table environment
 #' @param center if `TRUE`, center the table
 #' @param landscape if `TRUE` render the table in landscape mode
-#' @param caption the table caption
+#' @param caption the long table description
+#' @param short the short table description
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
 #' code block; if `tex`, then the fencing is omitted
 #' @param ... not used
@@ -240,15 +296,15 @@ st_wrap <- function(x,...) UseMethod("st_wrap")
 #' @export
 st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # nocov start
                             landscape = is_lscape(x),
-                            caption = NULL, context = c("rmd", "tex"), ...) {
+                            caption = NULL,
+                            short = NULL,
+                            context = c("rmd", "tex"), ...) {
   context <- match.arg(context)
   ans <- c()
   if(isTRUE(table)) {
     ans <- c(ans, "\\begin{table}[h]")
     if(isTRUE(center)) ans <- c(ans, "\\centering")
-    if(is.character(caption)) {
-      ans <- c(ans, paste0("\\caption{",caption,"}"))
-    }
+    ans <- c(ans, form_caption(caption,short))
     ans <- c(ans, x)
     ans <- c(ans,"\\end{table}")
   } else {

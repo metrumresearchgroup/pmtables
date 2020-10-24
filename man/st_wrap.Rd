@@ -17,6 +17,7 @@ st_wrap(x, ...)
   center = TRUE,
   landscape = is_lscape(x),
   caption = NULL,
+  short = NULL,
   context = c("rmd", "tex"),
   ...
 )
@@ -40,7 +41,9 @@ st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 
 \item{landscape}{if \code{TRUE} render the table in landscape mode}
 
-\item{caption}{the table caption}
+\item{caption}{the long table description}
+
+\item{short}{the short table description}
 
 \item{context}{if \code{rmd}, then the code is enclosed in a pandoc \code{latex} fenced
 code block; if \code{tex}, then the fencing is omitted}

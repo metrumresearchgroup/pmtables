@@ -32,7 +32,7 @@ Render a table a pdf document
 }
 \details{
 In order to render the table in the pdf document, the following
-packages must be installed, regardless of the type of tabble
+packages must be installed, regardless of the type of table
 you are trying to render:
 \enumerate{
 \item \code{threeparttable}

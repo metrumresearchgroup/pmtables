@@ -2,6 +2,7 @@
 % Please edit documentation in R/preview.R
 \name{st2article}
 \alias{st2article}
+\alias{st2report}
 \title{Preview tables in a TeX article}
 \usage{
 st2article(
@@ -11,8 +12,11 @@ st2article(
   stem = "article",
   output_dir = tempdir(),
   margin = NULL,
-  template = NULL
+  template = NULL,
+  caption = NULL
 )
+
+st2report(..., template = "report.tex", caption = Lorem)
 }
 \arguments{
 \item{...}{stable objects}
@@ -30,15 +34,24 @@ margin is fixed to 3 cm}
 
 \item{template}{an optional template for rendering the article; this normally
 shouldn't be used}
+
+\item{caption}{placeholder text to be included as a caption; this text will
+be used for every table that is passed in; this isn't intended to be the
+actual caption for the table, but just placeholder text as you preview the
+appearance of the table}
 }
 \description{
-This is experimental. Pass in either \code{stable} or \code{stable_long} objects,
-and \code{\link[=st2article]{st2article()}} will write the output to temporary file and render the
-collection of tables in a pdf document without using Rmarkdown or pandoc.
-The rendering is accomplished through system call to \code{pdflatex}. See
-\code{details}.
+Use \code{\link[=st2article]{st2article()}} to see tables in a plain pdf TeX document. Use
+\code{\link[=st2report]{st2report()}} to see tables in a more formal, report-like document.
+\code{\link[=st2article]{st2article()}} might have a \strong{slight} speed advantage for shorter
+development cycle and simpler presentation. See \code{details}.
 }
 \details{
+This is experimental. Pass in either \code{stable} or \code{stable_long} objects,
+and \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} will write the output to temporary file
+and render the collection of tables in a pdf document without using Rmarkdown
+or pandoc. The rendering is accomplished through system call to \code{pdflatex}.
+
 A working tex distribution is required to run this function.It is important
 to review the different latex dependencies in the document template.  It is
 assumed that all of these dependencies are available. See \code{examples} below
@@ -48,11 +61,18 @@ This function requires \code{pdflatex} to be installed and in your path to build
 the document.  Run \code{system2("pdflatex", "-v")} to see if \code{pdflatex} properly
 installed.
 
+This function requires specific packages to be available. Review the
+\code{tex} template files in \verb{/inst/article} for a complete specification of the
+requirements. If a requirement is not available, the document will not build.
+
 To render a table in \code{landscape} environment, pass the \code{stable} object
 through \code{as_lscape}.
 }
 \examples{
 template_file <- system.file("article", "article.tex", package = "pmtables")
+template_contents <- readLines(template_file)
+
+template_file <- system.file("article", "report.tex", package = "pmtables")
 template_contents <- readLines(template_file)
 
 \dontrun{
