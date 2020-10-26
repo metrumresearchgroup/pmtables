@@ -4,7 +4,14 @@
 \alias{tab_size}
 \title{Adjustments for row padding, column padding, and font size}
 \usage{
-tab_size(row = 1.3, col = 5, font = NULL, header_row = -0.4 * row, lt_row = 0)
+tab_size(
+  row = 1.3,
+  col = 5,
+  font = NULL,
+  header_row = -0.4 * row,
+  span_title_row = header_row,
+  lt_row = 0
+)
 }
 \arguments{
 \item{row}{relative increase or decrease spacing between rows; use
@@ -16,11 +23,16 @@ long tables and tabular tables; see also \code{\link[=st_space]{st_space()}}}
 
 \item{font}{for the table (e.g. \code{normalsize}, \code{small}, \code{scriptsize}, etc)}
 
-\item{header_row}{extra space between rows in the header
+\item{header_row}{extra (or less) space between rows in the header
 section of the table (column names and units); this should be a negative
 number if you wish to compress header rows; the default is \code{-0.4*row};
 recommend fixing to \code{-0.2} when \code{row} is 1 and smaller if \code{row} is less
 than 1}
+
+\item{span_title_row}{extra (or less) space betwen rows of the span titles
+when they are broken across multiple lines; this is equivalent to
+\code{header_row} (which applies to table column titles), but this applies to
+spanner titles}
 
 \item{lt_row}{extra row space for longtables; this is only needed for
 extra control over row height; this can be a positive or negative

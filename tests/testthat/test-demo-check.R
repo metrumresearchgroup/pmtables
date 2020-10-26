@@ -199,7 +199,7 @@ x <- group_by(w,name,value) %>% summarise(
 )
 y <- mutate(
   x,
-  name = paste0(name, '.', value),
+  name = paste0(name, '_._', value),
   value = paste0(number, " (", percent, ")"),
   number = NULL, percent=NULL,
   name = gsub("-", "", name, fixed = TRUE)
@@ -211,13 +211,13 @@ names(ans) <- y$name
 out$list <- as.list(out$data)
 
 check <- list(
-  c("ASIANf.Asian", "Race group.Asian"),
-  c("ASIANf.nonAsian", "Race group.non-Asian"),
-  c("FORMf.tablet", "Formulation.tablet"),
-  c("FORMf.capsule", "Formulation.capsule"),
-  c("FORMf.troche", "Formulation.troche"),
-  c("SEXf.male", "Sex.male"),
-  c("SEXf.female","Sex.female" )
+  c("ASIANf_._Asian", "Race group_._Asian"),
+  c("ASIANf_._nonAsian", "Race group_._non-Asian"),
+  c("FORMf_._tablet", "Formulation_._tablet"),
+  c("FORMf_._capsule", "Formulation_._capsule"),
+  c("FORMf_._troche", "Formulation_._troche"),
+  c("SEXf_._male", "Sex_._male"),
+  c("SEXf_._female","Sex_._female" )
 )
 
 test <- out$list
@@ -312,7 +312,7 @@ x <- bind_rows(x1,x2) %>% arrange(name)
 
 y <- mutate(
   x,
-  name = paste0(name, '.', value),
+  name = paste0(name, '_._', value),
   value = paste0(number, " (", percent, ")"),
   number = NULL, percent=NULL,
   name = gsub("-", "", name, fixed = TRUE)
@@ -320,11 +320,11 @@ y <- mutate(
 z <- pivot_wider(y)
 
 check <- list(
-  c("ASIANf.Asian", "Race group.Asian"),
-  c("ASIANf.nonAsian", "Race group.non-Asian"),
-  c("FORMf.tablet", "Formulation.tablet"),
-  c("FORMf.capsule", "Formulation.capsule"),
-  c("FORMf.troche", "Formulation.troche")
+  c("ASIANf_._Asian", "Race group_._Asian"),
+  c("ASIANf_._nonAsian", "Race group_._non-Asian"),
+  c("FORMf_._tablet", "Formulation_._tablet"),
+  c("FORMf_._capsule", "Formulation_._capsule"),
+  c("FORMf_._troche", "Formulation_._troche")
 )
 
 test <- out$data
@@ -363,23 +363,23 @@ x <- bind_rows(x1,x2) %>% arrange(name)
 
 y <- mutate(
   x,
-  name = paste0(name, '.', value),
+  name = paste0(name, '_._', value),
   value = paste0(number, " (", percent, ")"),
   number = NULL, percent=NULL,
   name = gsub("-", "", name, fixed = TRUE)
 )
 z <- pivot_wider(y)
 
-z <- mutate(z, FORMf.capsule = replace_na(FORMf.capsule,"0 (0.0)"))
+z <- mutate(z, FORMf_._capsule = replace_na(FORMf_._capsule,"0 (0.0)"))
 
 check <- list(
-  c("ASIANf.Asian", "Race group.Asian"),
-  c("ASIANf.nonAsian", "Race group.non-Asian"),
-  c("FORMf.tablet", "Formulation.tablet"),
-  c("FORMf.capsule", "Formulation.capsule"),
-  c("FORMf.troche", "Formulation.troche"),
-  c("SEXf.male", "Sex.male"),
-  c("SEXf.female", "Sex.female")
+  c("ASIANf_._Asian", "Race group_._Asian"),
+  c("ASIANf_._nonAsian", "Race group_._non-Asian"),
+  c("FORMf_._tablet", "Formulation_._tablet"),
+  c("FORMf_._capsule", "Formulation_._capsule"),
+  c("FORMf_._troche", "Formulation_._troche"),
+  c("SEXf_._male", "Sex_._male"),
+  c("SEXf_._female", "Sex_._female")
 )
 
 test <- out$data
