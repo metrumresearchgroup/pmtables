@@ -19,11 +19,12 @@ is returned, indicating whether or not the object inherits from
 \code{stable_lscape}.
 }
 \description{
-\strong{Important}: this function doesn't actually make the table "landscape".
-It simply adds to the class attribute so that functions down the line
-can look for this tag and wrap the table in \code{landscape} environment. The
-\code{landscaping} is entirely the responsibility of some other function, just
-not this one.
+\strong{Important}: this function will \strong{not} make your table render in
+landscape mode in a stand alone TeX document. This function doesn't actually
+make the table "landscape". It simply adds to the class attribute so that
+functions down the line can look for this tag and wrap the table in
+\code{landscape} environment. The \code{landscaping} is entirely the responsibility of
+some other function, just not this one.
 }
 \examples{
 
@@ -35,4 +36,7 @@ is_lscape(land)
 
 st_wrap(as_lscape(out))
 
+}
+\seealso{
+\code{\link[=st_wrap]{st_wrap()}}, \code{\link[=st2article]{st2article()}}, \code{\link[=st2report]{st2report()}}
 }

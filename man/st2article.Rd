@@ -11,9 +11,10 @@ st2article(
   ntex = 1,
   stem = "article",
   output_dir = tempdir(),
-  margin = NULL,
   template = NULL,
-  caption = NULL
+  margin = "3cm",
+  caption = NULL,
+  dry_run = FALSE
 )
 
 st2report(..., template = "report.tex", caption = Lorem)
@@ -29,16 +30,30 @@ st2report(..., template = "report.tex", caption = Lorem)
 
 \item{output_dir}{the output directory for the rendered pdf file}
 
-\item{margin}{the horizontal margin in \code{cm}; default is 3 cm; the vertical
-margin is fixed to 3 cm}
-
 \item{template}{an optional template for rendering the article; this normally
 shouldn't be used}
+
+\item{margin}{the page margins; this must be a character vector of length
+1 or 2 specifying the page margins; if length is 1, the data will be recycled
+into the second position (e.g. equal margins left/right and top/bottom);
+if length is 2, use the first position to set left & right margins and the
+second position to set top & bottom margins; when specifying the margin
+size, include both the number and the unit (e.g. \verb{3cm} or \verb{1in}; you must
+enter the unit and the input must be character)}
 
 \item{caption}{placeholder text to be included as a caption; this text will
 be used for every table that is passed in; this isn't intended to be the
 actual caption for the table, but just placeholder text as you preview the
 appearance of the table}
+
+\item{dry_run}{if \code{TRUE}, then the document and table code are returned
+(visibly) and no attempt is made to try to pass the document through
+\code{pdflatex}}
+}
+\value{
+If \code{dry_run} is \code{FALSE}, then a list (invisible) containing the document
+template as \code{doc} and the table data as \code{tables}. If \code{dry_run} is \code{TRUE},
+then the \code{doc} and \code{tables} are returned visibly (see \code{dry_run} argument).
 }
 \description{
 Use \code{\link[=st2article]{st2article()}} to see tables in a plain pdf TeX document. Use
@@ -69,10 +84,10 @@ To render a table in \code{landscape} environment, pass the \code{stable} object
 through \code{as_lscape}.
 }
 \examples{
-template_file <- system.file("article", "article.tex", package = "pmtables")
+template_file <- system.file("tex", "article.tex", package = "pmtables")
 template_contents <- readLines(template_file)
 
-template_file <- system.file("article", "report.tex", package = "pmtables")
+template_file <- system.file("tex", "report.tex", package = "pmtables")
 template_contents <- readLines(template_file)
 
 \dontrun{

@@ -122,14 +122,22 @@ st_preview <- function(x,...) { # nocov start
 #' @param ntex number of times to build the pdf file
 #' @param stem name for the article file, without extension
 #' @param output_dir the output directory for the rendered pdf file
-#' @param margin the horizontal margin in `cm`; default is 3 cm; the vertical
-#' margin is fixed to 3 cm
+#' @param margin the page margins; this must be a character vector of length
+#' 1 or 2 specifying the page margins; if length is 1, the data will be recycled
+#' into the second position (e.g. equal margins left/right and top/bottom);
+#' if length is 2, use the first position to set left & right margins and the
+#' second position to set top & bottom margins; when specifying the margin
+#' size, include both the number and the unit (e.g. `3cm` or `1in`; you must
+#' enter the unit and the input must be character)
 #' @param template an optional template for rendering the article; this normally
 #' shouldn't be used
 #' @param caption placeholder text to be included as a caption; this text will
 #' be used for every table that is passed in; this isn't intended to be the
 #' actual caption for the table, but just placeholder text as you preview the
 #' appearance of the table
+#' @param dry_run if `TRUE`, then the document and table code are returned
+#' (visibly) and no attempt is made to try to pass the document through
+#' `pdflatex`
 #'
 #' @details
 #'
@@ -154,6 +162,11 @@ st_preview <- function(x,...) { # nocov start
 #' To render a table in `landscape` environment, pass the `stable` object
 #' through `as_lscape`.
 #'
+#' @return
+#' If `dry_run` is `FALSE`, then a list (invisible) containing the document
+#' template as `doc` and the table data as `tables`. If `dry_run` is `TRUE`,
+#' then the `doc` and `tables` are returned visibly (see `dry_run` argument).
+#'
 #' @examples
 #' template_file <- system.file("tex", "article.tex", package = "pmtables")
 #' template_contents <- readLines(template_file)
@@ -168,11 +181,17 @@ st_preview <- function(x,...) { # nocov start
 #'
 #' @export
 st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov start
-                       output_dir = tempdir(), margin = NULL, template = NULL,
-                       caption = NULL) {
+                       output_dir = tempdir(), template = NULL,
+                       margin = "3cm", caption = NULL,
+                       dry_run = FALSE) {
 
   tables <- c(list(...),.list)
   assert_that(dir.exists(output_dir))
+  assert_that(is.character(margin))
+  if(length(margin)==1) {
+    margin <- c(margin, margin)
+  }
+  assert_that(length(margin) ==2)
   tables_are_stable <- map_lgl(tables, inherits, what = "stable")
   assert_that(all(tables_are_stable))
 
@@ -188,27 +207,17 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
 
   temp <- readLines(template)
 
+  env <- list()
+  env$list_of_tables <- c("\\listoftables", "\\clearpage")
+  env$input_file <- st2article_input
+  env$hmargin <- margin[1]
+  env$vmargin <- margin[2]
+
   if(length(tables)==1 || is.null(caption)) {
-    temp <- temp[!grepl("{.table-toc}", temp, fixed = TRUE)]
+    env$list_of_tables <- "% listoftables"
   }
 
-  w <- grep("\\input{tables}", temp, fixed = TRUE)
-  if(length(w)==1) {
-    temp[w] <- paste0("\\input{", st2article_input, "}")
-  } else {
-    stop(
-      "problem processing the template; couldn't find input statement",
-      call. = FALSE
-    )
-  }
-
-  if(is.numeric(margin)) {
-    w <- grep("[margin=3cm]{geometry}", temp, fixed = TRUE)
-    if(length(w)==1) {
-      geo <- paste0("\\usepackage[vmargin=3cm,hmargin=",margin,"cm]{geometry}")
-      temp[w] <- geo
-    }
-  }
+  temp <- mgluet(temp, .envir = env)
 
   if(is.character(caption)) {
     wrap_with_caption <- function(text, i) {
@@ -233,6 +242,9 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
 
   writeLines(tables,st2article_input)
   writeLines(temp,texfile)
+  ans <- list(doc = temp, tables = tables)
+
+  if(dry_run) return(ans)
 
   if(file.exists(pdffile)) {
     unlink(pdffile)
@@ -261,7 +273,7 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
     stop("could not locate the output pdf file", call. = FALSE)
   }
 
-  return(invisible(NULL))
+  return(invisible(ans))
 } # nocov end
 
 
@@ -355,11 +367,12 @@ st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")
 
 #' Mark table text for display in landscape environment
 #'
-#' **Important**: this function doesn't actually make the table "landscape".
-#' It simply adds to the class attribute so that functions down the line
-#' can look for this tag and wrap the table in `landscape` environment. The
-#' `landscaping` is entirely the responsibility of some other function, just
-#' not this one.
+#' **Important**: this function will __not__ make your table render in
+#' landscape mode in a stand alone TeX document. This function doesn't actually
+#' make the table "landscape". It simply adds to the class attribute so that
+#' functions down the line can look for this tag and wrap the table in
+#' `landscape` environment. The `landscaping` is entirely the responsibility of
+#' some other function, just not this one.
 #'
 #' @param x output from either [stable()] or [stable_long()]
 #'
@@ -378,6 +391,8 @@ st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")
 #' added to the `class` attribute.  For [is_lscape()], a logical value
 #' is returned, indicating whether or not the object inherits from
 #' `stable_lscape`.
+#'
+#' @seealso [st_wrap()], [st2article()], [st2report()]
 #'
 #' @export
 as_lscape <- function(x) {
