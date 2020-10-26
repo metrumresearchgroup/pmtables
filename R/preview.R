@@ -186,7 +186,7 @@ st_preview <- function(x,...) { # nocov start
 #'
 #' @export
 st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
-                       stem  = "view-st2article",
+                       stem = "view-st2article",
                        output_dir = tempdir(), template = NULL,
                        margin = "3cm", caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
@@ -325,7 +325,7 @@ st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # no
   context <- match.arg(context)
   ans <- c()
   if(isTRUE(table)) {
-    ans <- c(ans, "\\begin{table}[h]")
+    ans <- c(ans, "\\begin{table}[H]")
     if(isTRUE(center)) ans <- c(ans, "\\centering")
     ans <- c(ans, form_caption(caption,short))
     ans <- c(ans, x)
