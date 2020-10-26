@@ -11,7 +11,7 @@ all:
 	make build
 
 install:
-	R CMD install .
+	R CMD INSTALL .
 
 build:
 	R CMD build .
