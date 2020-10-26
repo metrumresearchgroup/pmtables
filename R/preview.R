@@ -185,7 +185,8 @@ st_preview <- function(x,...) { # nocov start
 #' }
 #'
 #' @export
-st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov start
+st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
+                       stem  = "view-st2article",
                        output_dir = tempdir(), template = NULL,
                        margin = "3cm", caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
@@ -241,6 +242,8 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
   tables <- map(tables, ~ c(.x, "\\clearpage"))
   tables <- flatten_chr(tables)
 
+  output_dir <- normalizePath(output_dir)
+
   cwd <- getwd()
   on.exit(setwd(cwd))
   setwd(tempdir())
@@ -292,7 +295,7 @@ st2report <- function(..., template = "report.tex", caption = Lorem) {
     template <- system.file("tex", template, package = "pmtables")
   }
   st2article(
-    ..., template = template, stem = "report", caption = caption
+    ..., template = template, stem = "view-st2report", caption = caption
   )
 }
 

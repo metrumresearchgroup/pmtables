@@ -9,7 +9,7 @@ st2article(
   ...,
   .list = NULL,
   ntex = 1,
-  stem = "article",
+  stem = "view-st2article",
   output_dir = tempdir(),
   template = NULL,
   margin = "3cm",
