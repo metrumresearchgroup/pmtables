@@ -141,6 +141,8 @@ st_preview <- function(x,...) { # nocov start
 #' @param stdout passed to [system2()]; by default, the `pdflatex` build output
 #' is suppressed; if you are having difficulty generating a pdf document,
 #' set `stdout = ""` and you'll see the output in the R console
+#' @param show if `TRUE`, then the rendered pdf file will be opened using
+#' [fs::file_show()]
 #'
 #' @details
 #'
@@ -186,7 +188,7 @@ st_preview <- function(x,...) { # nocov start
 st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov start
                        output_dir = tempdir(), template = NULL,
                        margin = "3cm", caption = NULL,
-                       dry_run = FALSE, stdout = FALSE) {
+                       dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
   tables <- c(list(...),.list)
   assert_that(dir.exists(output_dir))
@@ -270,12 +272,13 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
     file.copy(pdffile, file.path(output_dir,pdffile), overwrite = TRUE)
   }
 
-  pdfshow <- file.path(output_dir,pdffile)
-
-  if(file.exists(pdfshow)) {
-    fs::file_show(pdfshow)
-  } else {
-    stop("could not locate the output pdf file", call. = FALSE)
+  if(isTRUE(show_pdf)) {
+    pdfshow <- file.path(output_dir,pdffile)
+    if(file.exists(pdfshow)) {
+      fs::file_show(pdfshow)
+    } else {
+      stop("could not locate the output pdf file", call. = FALSE)
+    }
   }
 
   return(invisible(ans))

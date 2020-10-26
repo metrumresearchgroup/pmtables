@@ -15,7 +15,8 @@ st2article(
   margin = "3cm",
   caption = NULL,
   dry_run = FALSE,
-  stdout = FALSE
+  stdout = FALSE,
+  show_pdf = TRUE
 )
 
 st2report(..., template = "report.tex", caption = Lorem)
@@ -54,6 +55,9 @@ appearance of the table}
 \item{stdout}{passed to \code{\link[=system2]{system2()}}; by default, the \code{pdflatex} build output
 is suppressed; if you are having difficulty generating a pdf document,
 set \code{stdout = ""} and you'll see the output in the R console}
+
+\item{show}{if \code{TRUE}, then the rendered pdf file will be opened using
+\code{\link[fs:file_show]{fs::file_show()}}}
 }
 \value{
 If \code{dry_run} is \code{FALSE}, then a list (invisible) containing the document
