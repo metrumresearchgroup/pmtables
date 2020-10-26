@@ -95,11 +95,6 @@ fill_nospan <- function(span,cols) {
   ans
 }
 
-make_span_tex <- function(span) {
-  c(form_span_tex(span),
-    form_cline_tex(span))
-}
-
 combine_spans <- function(..., cols) {
   all_spans <- bind_rows(...)
   all_spans <- filter(all_spans, .data[["title"]] != "")
@@ -167,42 +162,18 @@ find_span_split <- function(cols,xsp) {
   )
 }
 
-form_span_tex <- function(spans) {
-  chunks <- split(spans, spans$flg)
-  out <- vector("list", length(chunks))
-  span_tex <- map_chr(chunks, function(ch) {
-    length <- nrow(ch)
-    title <- ch$title[1]
-    title <- tab_escape(title)
-    title <- bold_each(title)
-    ans <- gluet("\\multicolumn{<length>}{<ch$align[1]>}{<title>}")
-    ans
-  })
-  span_tex <- paste0(span_tex,collapse = " & ")
-  paste0(span_tex, "\\\\")
-}
-
-form_cline_tex <- function(spans) {
-  spans <- filter(spans, nchar(.data[["title"]]) > 0)
-  spans <- split(spans, spans$flg)
-  clin <- vector("list", length(spans))
-
-  clin <- map_chr(spans, function(ch) {
-    start <- min(ch$coln)
-    end <- max(ch$coln)
-    gluet("\\cmidrule(lr){<start>-<end>}")
-  })
-  unname(clin)
-}
-
 #' Create groups of columns with spanners
 #'
 #' @inheritParams stable
+#' @inheritParams tab_cols
 #' @param span_split not implemented at this time; ; see also [st_span_split()]
 #' @param cols a character vector of column names
+#' @param span_title_break a character sequence indicating where to split the
+#' title across multiple lines
 #' @param ... not used
 #' @export
-tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...) {
+tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
+                         span_title_break = "...", sizes = tab_size(), ...) {
 
   assert_that(is.character(cols))
 
@@ -231,9 +202,15 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...)
   all_spans <- NULL
 
   if(length(span) > 0 || length(spans_from_split) > 0) {
+
     all_spans <- combine_spans(span, spans_from_split, cols = cols)
 
-    all_span_tex <- map(rev(all_spans), make_span_tex)
+    all_span_tex <- map(
+      rev(all_spans),
+      make_span_header_tex,
+      title_break = span_title_break,
+      header_space = sizes$span_title_row
+    )
 
     all_span_tex <- flatten_chr(unname(all_span_tex))
   }
@@ -241,3 +218,50 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL, ...)
   return(list(tex = all_span_tex, cols = cols, span = all_spans))
 }
 
+make_span_header_tex <- function(x, ...) {
+  sp <- split(x, x$flg)
+  c(
+    span_header_box(sp, ... ),
+    form_cline_tex(sp)
+  )
+}
+
+span_header_box <- function(x, title_break = "...", header_space = -0.5) {
+
+  titles <-  map_chr(x, ~.x$title[1])
+
+  box <- header_matrix(
+    cols = titles,
+    newline = title_break
+  )
+
+  nr <- nrow(box)
+
+  ncols <- map_int(x, ~ nrow(.x))
+
+  for(i in seq_along(ncols)) {
+    length <- ncols[[i]]
+    box[[i]] <- gluet("\\multicolumn{<length>}{c}{<box[[i]]>}")
+  }
+
+  box <- apply(box, MARGIN = 1, FUN = form_tex_cols)
+
+  if(nr > 1) {
+    assert_that(is.numeric(header_space))
+    pb <- paste0(" [", header_space, "em]")
+    w <- seq(nr-1)
+    box[w] <- paste0(box[w], pb)
+  }
+
+  box
+}
+
+form_cline_tex <- function(spans) {
+  spans <- keep(spans, ~ nchar(.x[["title"]][[1]]) > 0)
+  clin <- map_chr(spans, function(ch) {
+    start <- min(ch$coln)
+    end <- max(ch$coln)
+    gluet("\\cmidrule(lr){<start>-<end>}")
+  })
+  unname(clin)
+}

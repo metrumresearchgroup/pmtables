@@ -65,7 +65,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       ans,
       names_from = c("name", "level"),
       values_from = "summary",
-      names_sep = '.'
+      names_sep = '_._'
     )
   } else {
     ans[["N"]] <- NULL
@@ -73,7 +73,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       ans,
       names_from = by,
       values_from = "summary",
-      names_sep = "."
+      names_sep = '_._'
     )
   }
   ans
@@ -277,7 +277,7 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
 
   out <- list(
     data = ans,
-    span_split = colsplit(sep = '.'),
+    span_split = colsplit(sep = '_._'),
     align = cols_center(.outer = 'l'),
     cols_rename = c(.panel$col,by),
     panel = .panel,

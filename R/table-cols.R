@@ -58,8 +58,8 @@ tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
   structure(ans, class = "from_tab_cols")
 }
 
-header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
-                          bold = FALSE, extra = NULL, panel = rowpanel()) {
+header_matrix <- function(cols, cols_new = cols, units = NULL, newline = "...",
+                          bold = FALSE, extra = data.frame(), panel = rowpanel()) {
 
   if(!panel$null) {
     extra[[panel$col]] <- NULL

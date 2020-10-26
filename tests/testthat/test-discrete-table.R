@@ -2,6 +2,10 @@ library(testthat)
 
 context("test-discrete-table")
 
+inspect <- function(...) {
+  get_stable_data(stable(..., inspect = TRUE))
+}
+
 test_that("discrete data table - long", {
   data <- pmt_first
   ans <- pt_cat_long(data, cols = "SEXf,RFf,CPf", span = "STUDYf")
@@ -81,3 +85,19 @@ test_that("cat long table has cols_extra", {
   expect_equal(ans$male ,"n = 80")
   expect_equal(ans$female ,"n = 80")
 })
+
+test_that("cat wide with spanner breaks", {
+  ans <- pt_cat_wide(
+    pmt_first,
+    cols = c("Formulation ... type" = "FORMf", "SEX" = "SEXf")
+  )
+  out <- inspect(ans)
+  expect_is(ans, "pmtable")
+  expect_length(out$span_data$tex, 4)
+  expect_match(out$span_data$tex[1], "{Formulation}", fixed = TRUE)
+  expect_match(out$span_data$tex[2], "{type}", fixed = TRUE)
+  lvls <- c(levels(pmt_first$FORMf),levels(pmt_first$SEXf))
+  expect_equal(out$span_data$cols, c("n", lvls))
+})
+
+
