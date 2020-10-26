@@ -138,6 +138,9 @@ st_preview <- function(x,...) { # nocov start
 #' @param dry_run if `TRUE`, then the document and table code are returned
 #' (visibly) and no attempt is made to try to pass the document through
 #' `pdflatex`
+#' @param stdout passed to [system2()]; by default, the `pdflatex` build output
+#' is suppressed; if you are having difficulty generating a pdf document,
+#' set `stdout = ""` and you'll see the output in the R console
 #'
 #' @details
 #'
@@ -183,7 +186,7 @@ st_preview <- function(x,...) { # nocov start
 st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov start
                        output_dir = tempdir(), template = NULL,
                        margin = "3cm", caption = NULL,
-                       dry_run = FALSE) {
+                       dry_run = FALSE, stdout = FALSE) {
 
   tables <- c(list(...),.list)
   assert_that(dir.exists(output_dir))
@@ -252,7 +255,9 @@ st2article <- function(..., .list = NULL, ntex = 1, stem  = "article", #nocov st
 
   if(file.exists(texfile)) {
     for(i in seq_len(ntex)) {
-      result <- system2("pdflatex", args=c("-halt-on-error ",texfile))
+      result <- system2(
+        "pdflatex",
+        args=c("-halt-on-error ",texfile),stdout=stdout)
       if(!identical(result, 0L)) {
         warning("non-zero exit from pdflatex", call.=FALSE)
       }
