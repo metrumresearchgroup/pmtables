@@ -2,17 +2,24 @@
 % Please edit documentation in R/preview.R
 \name{st2article}
 \alias{st2article}
+\alias{st2report}
 \title{Preview tables in a TeX article}
 \usage{
 st2article(
   ...,
   .list = NULL,
   ntex = 1,
-  stem = "article",
+  stem = "view-st2article",
   output_dir = tempdir(),
-  margin = NULL,
-  template = NULL
+  template = NULL,
+  margin = "3cm",
+  caption = NULL,
+  dry_run = FALSE,
+  stdout = FALSE,
+  show_pdf = TRUE
 )
+
+st2report(..., template = "report.tex", caption = Lorem)
 }
 \arguments{
 \item{...}{stable objects}
@@ -25,20 +32,50 @@ st2article(
 
 \item{output_dir}{the output directory for the rendered pdf file}
 
-\item{margin}{the horizontal margin in \code{cm}; default is 3 cm; the vertical
-margin is fixed to 3 cm}
-
 \item{template}{an optional template for rendering the article; this normally
 shouldn't be used}
+
+\item{margin}{the page margins; this must be a character vector of length
+1 or 2 specifying the page margins; if length is 1, the data will be recycled
+into the second position (e.g. equal margins left/right and top/bottom);
+if length is 2, use the first position to set left & right margins and the
+second position to set top & bottom margins; when specifying the margin
+size, include both the number and the unit (e.g. \verb{3cm} or \verb{1in}; you must
+enter the unit and the input must be character)}
+
+\item{caption}{placeholder text to be included as a caption; this text will
+be used for every table that is passed in; this isn't intended to be the
+actual caption for the table, but just placeholder text as you preview the
+appearance of the table}
+
+\item{dry_run}{if \code{TRUE}, then the document and table code are returned
+(visibly) and no attempt is made to try to pass the document through
+\code{pdflatex}}
+
+\item{stdout}{passed to \code{\link[=system2]{system2()}}; by default, the \code{pdflatex} build output
+is suppressed; if you are having difficulty generating a pdf document,
+set \code{stdout = ""} and you'll see the output in the R console}
+
+\item{show_pdf}{if \code{TRUE}, then the rendered pdf file will be opened using
+\code{\link[fs:file_show]{fs::file_show()}}}
+}
+\value{
+If \code{dry_run} is \code{FALSE}, then a list (invisible) containing the document
+template as \code{doc} and the table data as \code{tables}. If \code{dry_run} is \code{TRUE},
+then the \code{doc} and \code{tables} are returned visibly (see \code{dry_run} argument).
 }
 \description{
-This is experimental. Pass in either \code{stable} or \code{stable_long} objects,
-and \code{\link[=st2article]{st2article()}} will write the output to temporary file and render the
-collection of tables in a pdf document without using Rmarkdown or pandoc.
-The rendering is accomplished through system call to \code{pdflatex}. See
-\code{details}.
+Use \code{\link[=st2article]{st2article()}} to see tables in a plain pdf TeX document. Use
+\code{\link[=st2report]{st2report()}} to see tables in a more formal, report-like document.
+\code{\link[=st2article]{st2article()}} might have a \strong{slight} speed advantage for shorter
+development cycle and simpler presentation. See \code{details}.
 }
 \details{
+This is experimental. Pass in either \code{stable} or \code{stable_long} objects,
+and \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} will write the output to temporary file
+and render the collection of tables in a pdf document without using Rmarkdown
+or pandoc. The rendering is accomplished through system call to \code{pdflatex}.
+
 A working tex distribution is required to run this function.It is important
 to review the different latex dependencies in the document template.  It is
 assumed that all of these dependencies are available. See \code{examples} below
@@ -47,14 +84,24 @@ for code to open the template for review.
 This function requires \code{pdflatex} to be installed and in your path to build
 the document.  Run \code{system2("pdflatex", "-v")} to see if \code{pdflatex} properly
 installed.
+
+This function requires specific packages to be available. Review the
+\code{tex} template files in \verb{/inst/article} for a complete specification of the
+requirements. If a requirement is not available, the document will not build.
+
+To render a table in \code{landscape} environment, pass the \code{stable} object
+through \code{as_lscape}.
 }
 \examples{
-template_file <- system.file("article", "article.tex", package = "pmtables")
+template_file <- system.file("tex", "article.tex", package = "pmtables")
+template_contents <- readLines(template_file)
+
+template_file <- system.file("tex", "report.tex", package = "pmtables")
 template_contents <- readLines(template_file)
 
 \dontrun{
   tab <- stable(ptdata())
-  pmtables:::st2article(tab)
+  pmtables::st2article(tab)
 }
 
 }

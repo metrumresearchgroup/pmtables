@@ -9,11 +9,11 @@
 %%%%%%%%%%%% Header %%%%%%%%%%%%
 \rhead{pmtables}
 \chead{} %Blank
-\lhead{st2article preview}
+\lhead{st2report preview}
 
 %%%%%%%%%%%% Footer %%%%%%%%%%%%
 \renewcommand{\footrulewidth}{0.4pt}
-\lfoot{pmtables st2article preview, \todayabc}
+\lfoot{pmtables st2report preview, \todayabc}
 \cfoot{} %Blank
 \rfoot{Page \thepage\ of \pageref{LastPage}}
 
@@ -26,7 +26,7 @@
 
 \usepackage[onehalfspacing]{setspace}
 
-\usepackage[margin=3cm]{geometry}
+\usepackage[vmargin=<vmargin>,hmargin=<hmargin>]{geometry}
 
 \pagestyle{fancy}
 
@@ -85,11 +85,10 @@
 
 \begin{document}
 
-\listoftables
-
-\clearpage
+<list_of_tables>
 
 \singlespacing
-% \input{tables}
+
+\input{<input_file>}
 
 \end{document}

@@ -91,16 +91,17 @@ NULL
 #'
 #' @section Preview tables:
 #' - Use [st_preview()] to send s-table output to `texPreview`
-#' - Use [st2doc()] to render a pdf file with one or more tables
+#' - Use [st2article()] or [st2report()] to render several tables in
+#'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
+#'   of `Rmarkdown` or `pandoc`); this requires `pdflatex` to be installed and
+#'   in your `PATH`.
+#' - Use [st2doc()] to render a pdf file with one or more tables using pandoc
 #' - Use [pt_wrap()] or [st_wrap()]  to wrap s-table output in a `table`
 #'   environment and optionally send the output to [stdout()]; this is helpful
-#'   when rendering tables in Rmarkdown documents.  There is a `pt_wrap()`
+#'   when rendering tables in Rmarkdown documents.  There is an [st_wrap()]
 #'   method for longtables that won't add the table environment.
-#' - Use the non-exported function [st2article()] to render several tables in
-#'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
-#'   of `Rmarkdown` or `pandoc`; this requires `pdflatex` to be installed and
-#'   in your `PATH`.  Because this function is not exported, you will have to
-#'   call it with `pmtables:::st2article(...)`.
+#' - Use [as_lscape()] to mark [stable()] or [stable_long()] output for display
+#'   in landscape environment
 #'
 #' @section Save s-tables:
 #' - Use [stable_save()] to write an `stable` or `stable_long` object to file
@@ -112,6 +113,7 @@ NULL
 #' - `threeparttable`
 #' - `array`
 #' - `booktabs`
+#' - `pdflscape`
 #' - `longtable` (only when long tables are in the document)
 #'
 #' In `Rmd`, include these as `extra_dependencies`.
