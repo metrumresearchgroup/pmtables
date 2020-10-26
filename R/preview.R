@@ -141,7 +141,7 @@ st_preview <- function(x,...) { # nocov start
 #' @param stdout passed to [system2()]; by default, the `pdflatex` build output
 #' is suppressed; if you are having difficulty generating a pdf document,
 #' set `stdout = ""` and you'll see the output in the R console
-#' @param show if `TRUE`, then the rendered pdf file will be opened using
+#' @param show_pdf if `TRUE`, then the rendered pdf file will be opened using
 #' [fs::file_show()]
 #'
 #' @details

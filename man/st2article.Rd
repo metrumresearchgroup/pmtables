@@ -56,7 +56,7 @@ appearance of the table}
 is suppressed; if you are having difficulty generating a pdf document,
 set \code{stdout = ""} and you'll see the output in the R console}
 
-\item{show}{if \code{TRUE}, then the rendered pdf file will be opened using
+\item{show_pdf}{if \code{TRUE}, then the rendered pdf file will be opened using
 \code{\link[fs:file_show]{fs::file_show()}}}
 }
 \value{
