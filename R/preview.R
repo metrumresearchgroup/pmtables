@@ -325,8 +325,7 @@ st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # no
   context <- match.arg(context)
   ans <- c()
   if(isTRUE(table)) {
-    where <- "H"
-    ans <- c(ans, "\\begin{table}[",where,"]")
+    ans <- c(ans, "\\begin{table}[H]")
     if(isTRUE(center)) ans <- c(ans, "\\centering")
     ans <- c(ans, form_caption(caption,short))
     ans <- c(ans, x)
