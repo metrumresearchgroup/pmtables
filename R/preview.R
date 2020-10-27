@@ -319,7 +319,10 @@ st2report <- function(..., template = "report.tex", caption = Lorem) {
 st_wrap <- function(x,...) UseMethod("st_wrap")
 #' @rdname st_wrap
 #' @export
-st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # nocov start
+st_wrap.default <- function(x,  # nocov start
+                            con = stdout(),
+                            table = TRUE,
+                            center = TRUE,
                             landscape = is_lscape(x),
                             caption = NULL,
                             short = NULL,
