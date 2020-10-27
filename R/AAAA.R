@@ -26,7 +26,10 @@ NULL
 
 # GLOBAL object
 .internal <- new.env()
-.internal$using_packages <- NULL
+
+.onAttach <- function(libname, pkgname) {
+  st_reset_deps()
+}
 
 #' pmtables: Tables for Pharmacometrics.
 #'
@@ -120,8 +123,10 @@ NULL
 #' - `booktabs`
 #' - `pdflscape`
 #' - `longtable` (only when long tables are in the document)
+#' - `float` (mainly if you want to use `H` placement in your Rmd output)
 #'
-#' In `Rmd`, include these as `extra_dependencies`.
+#' In `Rmd`, include these as `extra_dependencies`. Or try using
+#' [st_use_deps()] to include these packages via [knitr::knit_meta_add()].
 #'
 #' You may also want to include this package:
 #'

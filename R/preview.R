@@ -309,7 +309,7 @@ st2report <- function(..., template = "report.tex", caption = Lorem) {
 #' @param caption the long table description
 #' @param short the short table description
 #' @param float the float specifier to if a `table` environment is used; this
-#' defaults to `H` if [st_usepackage()] has been called and `!ht` otherwise
+#' defaults to `H` if [st_use_deps()] has been called and `!ht` otherwise
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
 #' code block; if `tex`, then the fencing is omitted
 #' @param ... not used
@@ -329,7 +329,9 @@ st_wrap.default <- function(x,  # nocov start
                             float = ifelse(st_using_deps(), "H", "!ht"),
                             context = c("rmd", "tex"), ...) {
   context <- match.arg(context)
+
   ans <- c()
+
   if(isTRUE(table)) {
     ans <- c(ans, gluet("\\begin{table}[<float>]"))
     if(isTRUE(center)) ans <- c(ans, "\\centering")

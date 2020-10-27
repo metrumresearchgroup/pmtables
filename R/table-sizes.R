@@ -14,7 +14,7 @@
 #' number if you wish to compress header rows; the default is `-0.4*row`;
 #' recommend fixing to `-0.2` when `row` is 1 and smaller if `row` is less
 #' than 1
-#' @param span_title_row extra (or less) space betwen rows of the span titles
+#' @param span_title_row extra (or less) space between rows of the span titles
 #' when they are broken across multiple lines; this is equivalent to
 #' `header_row` (which applies to table column titles), but this applies to
 #' spanner titles

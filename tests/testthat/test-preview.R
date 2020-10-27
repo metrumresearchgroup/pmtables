@@ -13,3 +13,26 @@ test_that("wrap stable output in landscape", {
   expect_match(tex[2], "begin{landscape}", fixed = TRUE)
 })
 
+test_that("use latex dependencies for knit", {
+  expect_identical(st_using_deps(), FALSE)
+  st_use_deps()
+  expect_identical(st_using_deps(), FALSE)
+  st_use_deps(force = TRUE)
+  expect_identical(st_using_deps(), TRUE)
+  meta <- knitr::knit_meta()
+  deps <- purrr::map_chr(meta, "name")
+  test <- st_packages()
+  expect_true(all(test %in% deps))
+  pmtables:::st_reset_deps()
+})
+
+
+test_that("st-wrap table placement H", {
+  tab <- stable(stdata())
+  out1 <- st_wrap(tab, con = NULL)
+  expect_match(out1[2], "{table}[!ht]", fixed = TRUE)
+  st_use_deps(force = TRUE)
+  out2 <- st_wrap(tab, con = NULL)
+  expect_match(out2[2], "{table}[H]", fixed = TRUE)
+  pmtables:::st_reset_deps()
+})
