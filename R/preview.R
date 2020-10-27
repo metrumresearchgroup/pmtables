@@ -308,6 +308,8 @@ st2report <- function(..., template = "report.tex", caption = Lorem) {
 #' @param landscape if `TRUE` render the table in landscape mode
 #' @param caption the long table description
 #' @param short the short table description
+#' @param float the float specifier to if a `table` environment is used; this
+#' defaults to `H` if [st_usepackage()] has been called and `!ht` otherwise
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
 #' code block; if `tex`, then the fencing is omitted
 #' @param ... not used

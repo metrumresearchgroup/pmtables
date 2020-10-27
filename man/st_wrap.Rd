@@ -46,6 +46,9 @@ st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 
 \item{short}{the short table description}
 
+\item{float}{the float specifier to if a \code{table} environment is used; this
+defaults to \code{H} if \code{\link[=st_usepackage]{st_usepackage()}} has been called and \code{!ht} otherwise}
+
 \item{context}{if \code{rmd}, then the code is enclosed in a pandoc \code{latex} fenced
 code block; if \code{tex}, then the fencing is omitted}
 }
