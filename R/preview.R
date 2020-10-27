@@ -321,11 +321,12 @@ st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # no
                             landscape = is_lscape(x),
                             caption = NULL,
                             short = NULL,
+                            float = ifelse(st_using_deps(), "H", "!ht"),
                             context = c("rmd", "tex"), ...) {
   context <- match.arg(context)
   ans <- c()
   if(isTRUE(table)) {
-    ans <- c(ans, "\\begin{table}[H]")
+    ans <- c(ans, gluet("\\begin{table}[<float>]"))
     if(isTRUE(center)) ans <- c(ans, "\\centering")
     ans <- c(ans, form_caption(caption,short))
     ans <- c(ans, x)

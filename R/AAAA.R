@@ -23,6 +23,11 @@
 #'
 NULL
 
+
+# GLOBAL object
+.internal <- new.env()
+.internal$using_packages <- NULL
+
 #' pmtables: Tables for Pharmacometrics.
 #'
 #' Summarize data sets and create publication-quality tables for
@@ -218,24 +223,3 @@ stdata <- ptdata # nocov
 #'
 "pmt_summarized"
 
-latex_packages <- c(
-  "float", "booktabs", "longtable", "threeparttable",
-  "array", "caption"
-)
-
-latex_deps <- function(libname, pkgname) {
-  if(!requireNamespace("knitr")) {
-    stop("could not load knitr namespace")
-  }
-  if(!requireNamespace("rmarkdown")) {
-    stop("could not load rmarkdown namespace")
-  }
-  if(knitr::is_latex_output()) {
-    for(pkg in latex_packages) {
-      knitr::knit_meta_add(
-        list(rmarkdown::latex_dependency(pkg))
-      )
-    }
-  }
-  return(invisible(NULL))
-}
