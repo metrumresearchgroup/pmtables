@@ -46,12 +46,16 @@ st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 
 \item{short}{the short table description}
 
-\item{float}{the float specifier to if a \code{table} environment is used; this
-defaults to \code{H} if \code{\link[=st_use_deps]{st_use_deps()}} has been called and \code{!ht} otherwise}
+\item{float}{the float specifier to if a \code{table} environment is used; change
+this to \code{!ht} if the float package cannot be loaded for some reason; see
+\code{\link[=st_use_knit_deps]{st_use_knit_deps()}}}
 
 \item{context}{if \code{rmd}, then the code is enclosed in a pandoc \code{latex} fenced
 code block; if \code{tex}, then the fencing is omitted}
 }
 \description{
 Wrap stable output in table environment
+}
+\seealso{
+\code{\link[=st_use_knit_deps]{st_use_knit_deps()}}
 }

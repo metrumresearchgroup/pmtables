@@ -134,7 +134,8 @@ The following latex packages are required in your \code{Rmd} or \code{latex} doc
 }
 
 In \code{Rmd}, include these as \code{extra_dependencies}. Or try using
-\code{\link[=st_use_deps]{st_use_deps()}} to include these packages via \code{\link[knitr:knit_meta]{knitr::knit_meta_add()}}.
+\code{\link[=st_use_knit_deps]{st_use_knit_deps()}} to include these packages via \code{\link[knitr:knit_meta]{knitr::knit_meta_add()}};
+this is \strong{only} when you are including a table in a knit \code{Rmd} document.
 
 You may also want to include this package:
 \itemize{

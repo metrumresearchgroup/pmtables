@@ -32,7 +32,7 @@ covr:
 check:
 	make doc
 	make build
-	R CMD check $(TARBALL)
+	R CMD CHECK --no-manual $(TARBALL)
 
 pkgdown:
 	Rscript -e "options(pkdown.internet = FALSE); pkgdown::build_site()"

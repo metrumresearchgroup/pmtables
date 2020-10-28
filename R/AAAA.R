@@ -28,7 +28,7 @@ NULL
 .internal <- new.env()
 
 .onAttach <- function(libname, pkgname) {
-  st_reset_deps()
+  st_reset_knit_deps()
 }
 
 #' pmtables: Tables for Pharmacometrics.
@@ -126,7 +126,8 @@ NULL
 #' - `float` (mainly if you want to use `H` placement in your Rmd output)
 #'
 #' In `Rmd`, include these as `extra_dependencies`. Or try using
-#' [st_use_deps()] to include these packages via [knitr::knit_meta_add()].
+#' [st_use_knit_deps()] to include these packages via [knitr::knit_meta_add()];
+#' this is __only__ when you are including a table in a knit `Rmd` document.
 #'
 #' You may also want to include this package:
 #'
