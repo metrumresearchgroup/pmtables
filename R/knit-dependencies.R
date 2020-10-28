@@ -13,7 +13,7 @@
 #' Returns invisible `NULL`.
 #'
 #' @details
-#' The following packages will be invoked __when knitting a document__:
+#' Default set of packages that will be invoked __when knitting a document__:
 #'
 #' - `float`
 #' - `booktabs`

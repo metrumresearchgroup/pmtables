@@ -25,7 +25,7 @@ NULL
 
 
 # GLOBAL object
-.internal <- new.env()
+.internal <- new.env(parent = emptyenv())
 
 .onAttach <- function(libname, pkgname) {
   st_reset_knit_deps()
