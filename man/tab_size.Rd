@@ -29,7 +29,7 @@ number if you wish to compress header rows; the default is \code{-0.4*row};
 recommend fixing to \code{-0.2} when \code{row} is 1 and smaller if \code{row} is less
 than 1}
 
-\item{span_title_row}{extra (or less) space betwen rows of the span titles
+\item{span_title_row}{extra (or less) space between rows of the span titles
 when they are broken across multiple lines; this is equivalent to
 \code{header_row} (which applies to table column titles), but this applies to
 spanner titles}

@@ -308,24 +308,37 @@ st2report <- function(..., template = "report.tex", caption = Lorem) {
 #' @param landscape if `TRUE` render the table in landscape mode
 #' @param caption the long table description
 #' @param short the short table description
+#' @param float the float specifier to if a `table` environment is used; change
+#' this to `!ht` if the float package cannot be loaded for some reason; see
+#' [st_use_knit_deps()]
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
 #' code block; if `tex`, then the fencing is omitted
 #' @param ... not used
 #'
+#' @seealso [st_use_knit_deps()]
 #'
 #' @export
 st_wrap <- function(x,...) UseMethod("st_wrap")
 #' @rdname st_wrap
 #' @export
-st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # nocov start
+st_wrap.default <- function(x,  # nocov start
+                            con = stdout(),
+                            table = TRUE,
+                            center = TRUE,
                             landscape = is_lscape(x),
                             caption = NULL,
                             short = NULL,
+                            float = c("H", "!ht"),
                             context = c("rmd", "tex"), ...) {
+
   context <- match.arg(context)
+
+  float <- match.arg(float)
+
   ans <- c()
+
   if(isTRUE(table)) {
-    ans <- c(ans, "\\begin{table}[H]")
+    ans <- c(ans, gluet("\\begin{table}[<float>]"))
     if(isTRUE(center)) ans <- c(ans, "\\centering")
     ans <- c(ans, form_caption(caption,short))
     ans <- c(ans, x)
@@ -340,6 +353,7 @@ st_wrap.default <- function(x, con = stdout(), table = TRUE, center = TRUE, # no
     ans <- c("\\begin{landscape}", ans, "\\end{landscape}")
   }
   if(context=="rmd") {
+    if(!st_using_knit_deps()) st_use_knit_deps()
     ans <- c("```{=latex}", ans, "```")
   }
   if(!is.null(con)) {

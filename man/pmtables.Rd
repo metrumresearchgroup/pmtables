@@ -130,9 +130,12 @@ The following latex packages are required in your \code{Rmd} or \code{latex} doc
 \item \code{booktabs}
 \item \code{pdflscape}
 \item \code{longtable} (only when long tables are in the document)
+\item \code{float} (mainly if you want to use \code{H} placement in your Rmd output)
 }
 
-In \code{Rmd}, include these as \code{extra_dependencies}.
+In \code{Rmd}, include these as \code{extra_dependencies}. Or try using
+\code{\link[=st_use_knit_deps]{st_use_knit_deps()}} to include these packages via \code{\link[knitr:knit_meta]{knitr::knit_meta_add()}};
+this is \strong{only} when you are including a table in a knit \code{Rmd} document.
 
 You may also want to include this package:
 \itemize{

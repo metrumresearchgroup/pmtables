@@ -23,6 +23,14 @@
 #'
 NULL
 
+
+# GLOBAL object
+.internal <- new.env(parent = emptyenv())
+
+.onAttach <- function(libname, pkgname) {
+  st_reset_knit_deps()
+}
+
 #' pmtables: Tables for Pharmacometrics.
 #'
 #' Summarize data sets and create publication-quality tables for
@@ -115,8 +123,11 @@ NULL
 #' - `booktabs`
 #' - `pdflscape`
 #' - `longtable` (only when long tables are in the document)
+#' - `float` (mainly if you want to use `H` placement in your Rmd output)
 #'
-#' In `Rmd`, include these as `extra_dependencies`.
+#' In `Rmd`, include these as `extra_dependencies`. Or try using
+#' [st_use_knit_deps()] to include these packages via [knitr::knit_meta_add()];
+#' this is __only__ when you are including a table in a knit `Rmd` document.
 #'
 #' You may also want to include this package:
 #'
@@ -217,3 +228,4 @@ stdata <- ptdata # nocov
 #' @format A data frame with 13 rows and 9 variables
 #'
 "pmt_summarized"
+
