@@ -328,9 +328,12 @@ st_wrap.default <- function(x,  # nocov start
                             landscape = is_lscape(x),
                             caption = NULL,
                             short = NULL,
-                            float = "H",
+                            float = c("H", "!ht"),
                             context = c("rmd", "tex"), ...) {
+
   context <- match.arg(context)
+
+  float <- match.arg(float)
 
   ans <- c()
 
