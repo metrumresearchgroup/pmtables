@@ -8,7 +8,7 @@
 \usage{
 st_use_knit_deps(packages = NULL, force = FALSE)
 
-st_knit_deps(addl = NULL)
+st_knit_deps()
 
 st_using_knit_deps()
 }
@@ -19,8 +19,6 @@ default is to install packages returned by \code{\link[=st_knit_deps]{st_knit_de
 
 \item{force}{if \code{TRUE}, then add latex dependencies regardless of
 knit status; this is for internal testing use only}
-
-\item{addl}{additional packages to use}
 }
 \value{
 Returns invisible \code{NULL}.
@@ -29,7 +27,7 @@ Returns invisible \code{NULL}.
 Call this function when knitting a document that includes pmtables output.
 }
 \details{
-The following packages will be invoked \strong{when knitting a document}:
+Default set of packages that will be invoked \strong{when knitting a document}:
 \itemize{
 \item \code{float}
 \item \code{booktabs}

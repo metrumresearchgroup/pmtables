@@ -35,28 +35,31 @@ st_use_knit_deps <- function(packages = NULL, force = FALSE) {
       )
     }
     .internal$using_knit_deps <- TRUE
+    .internal$knit_deps <- packages
   }
   return(invisible(NULL))
 }
 
-#' @param addl additional packages to use
+
 #' @rdname st_use_knit_deps
 #' @export
-st_knit_deps <- function(addl = NULL) {
-  c(
-    "float",
-    "booktabs",
-    "longtable",
-    "threeparttable",
-    "pdflscape",
-    "array",
-    "caption",
-    addl
-  )
+st_knit_deps <- function() {
+  .internal$knit_deps
 }
 
 #' @rdname st_use_knit_deps
 #' @export
 st_using_knit_deps <- function() isTRUE(.internal$using_knit_deps)
 
-st_reset_knit_deps <- function() .internal$using_knit_deps <- FALSE
+st_reset_knit_deps <- function() {
+  .internal$using_knit_deps <- FALSE
+  .internal$knit_deps <- c(
+    "float",
+    "booktabs",
+    "longtable",
+    "threeparttable",
+    "pdflscape",
+    "array",
+    "caption"
+  )
+}

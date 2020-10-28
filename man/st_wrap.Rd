@@ -18,7 +18,7 @@ st_wrap(x, ...)
   landscape = is_lscape(x),
   caption = NULL,
   short = NULL,
-  float = "H",
+  float = c("H", "!ht"),
   context = c("rmd", "tex"),
   ...
 )
