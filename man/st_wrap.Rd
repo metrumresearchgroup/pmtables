@@ -5,6 +5,7 @@
 \alias{st_wrap.default}
 \alias{st_wrap.stable_long}
 \alias{pt_wrap}
+\alias{st_asis}
 \alias{st_latex}
 \title{Wrap stable output in table environment}
 \usage{
@@ -20,12 +21,15 @@ st_wrap(x, ...)
   short = NULL,
   float = c("H", "!ht"),
   context = c("rmd", "tex"),
+  asis = FALSE,
   ...
 )
 
 \method{st_wrap}{stable_long}(x, table = FALSE, ...)
 
 pt_wrap(x, ...)
+
+st_asis(x, ..., asis = NULL, con = NULL)
 
 st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 }
@@ -47,11 +51,13 @@ st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 \item{short}{the short table description}
 
 \item{float}{the float specifier to if a \code{table} environment is used; change
-this to \code{!ht} if the float package cannot be loaded for some reason; see
-\code{\link[=st_use_knit_deps]{st_use_knit_deps()}}}
+this to \code{!ht} if the float package cannot be loaded for some reason}
 
 \item{context}{if \code{rmd}, then the code is enclosed in a pandoc \code{latex} fenced
 code block; if \code{tex}, then the fencing is omitted}
+
+\item{asis}{if \code{TRUE}, the wrapped table is processed with
+\code{\link[knitr:asis_output]{knitr::asis_output()}} and returned}
 }
 \description{
 Wrap stable output in table environment

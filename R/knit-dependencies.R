@@ -62,4 +62,9 @@ st_reset_knit_deps <- function() {
     "array",
     "caption"
   )
+  .internal$knit_meta <- list()
+  if(requireNamespace("rmarkdown", quietly=TRUE)) {
+    .internal$knit_meta <- lapply(.internal$knit_deps, rmarkdown::latex_dependency)
+  }
 }
+

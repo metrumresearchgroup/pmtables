@@ -309,10 +309,11 @@ st2report <- function(..., template = "report.tex", caption = Lorem) {
 #' @param caption the long table description
 #' @param short the short table description
 #' @param float the float specifier to if a `table` environment is used; change
-#' this to `!ht` if the float package cannot be loaded for some reason; see
-#' [st_use_knit_deps()]
+#' this to `!ht` if the float package cannot be loaded for some reason
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
 #' code block; if `tex`, then the fencing is omitted
+#' @param asis if `TRUE`, the wrapped table is processed with
+#' [knitr::asis_output()] and returned
 #' @param ... not used
 #'
 #' @seealso [st_use_knit_deps()]
@@ -329,7 +330,8 @@ st_wrap.default <- function(x,  # nocov start
                             caption = NULL,
                             short = NULL,
                             float = c("H", "!ht"),
-                            context = c("rmd", "tex"), ...) {
+                            context = c("rmd", "tex"),
+                            asis = FALSE, ...) {
 
   context <- match.arg(context)
 
@@ -353,8 +355,15 @@ st_wrap.default <- function(x,  # nocov start
     ans <- c("\\begin{landscape}", ans, "\\end{landscape}")
   }
   if(context=="rmd") {
-    if(!st_using_knit_deps()) st_use_knit_deps()
     ans <- c("```{=latex}", ans, "```")
+    if(isTRUE(asis)) {
+      assert_that(requireNamespace("knitr"))
+      ans <- paste0(ans, collapse = "\n")
+      ans <- knitr::asis_output(ans, meta = .internal$knit_meta)
+      return(ans)
+    } else {
+      if(!st_using_knit_deps()) st_use_knit_deps()
+    }
   }
   if(!is.null(con)) {
     writeLines(text = ans, con = con)
@@ -374,6 +383,12 @@ pt_wrap <- st_wrap
 
 #' @rdname st_wrap
 #' @export
+st_asis <- function(x, ..., asis = NULL, con = NULL) {
+  st_wrap(x, ..., asis = TRUE, con = NULL)
+}
+
+#' @rdname st_wrap
+#' @export
 st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")) {
   context <- match.arg(context)
   ans <- x
@@ -387,7 +402,6 @@ st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")
     writeLines(text = ans, con = con)
   }
   return(invisible(ans))
-
 }
 
 #' Mark table text for display in landscape environment
