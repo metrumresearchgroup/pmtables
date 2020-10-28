@@ -29,7 +29,7 @@ test_that("use latex dependencies for knit", {
 
 test_that("st-wrap table placement H", {
   tab <- stable(stdata())
-  out1 <- st_wrap(tab, con = NULL)
+  out1 <- st_wrap(tab, con = NULL, float = "!ht")
   expect_match(out1[2], "{table}[!ht]", fixed = TRUE)
   st_use_deps(force = TRUE)
   out2 <- st_wrap(tab, con = NULL)

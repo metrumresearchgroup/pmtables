@@ -326,7 +326,7 @@ st_wrap.default <- function(x,  # nocov start
                             landscape = is_lscape(x),
                             caption = NULL,
                             short = NULL,
-                            float = ifelse(st_using_deps(), "H", "!ht"),
+                            float = "H",
                             context = c("rmd", "tex"), ...) {
   context <- match.arg(context)
 
@@ -348,6 +348,7 @@ st_wrap.default <- function(x,  # nocov start
     ans <- c("\\begin{landscape}", ans, "\\end{landscape}")
   }
   if(context=="rmd") {
+    if(!st_using_deps()) st_use_deps()
     ans <- c("```{=latex}", ans, "```")
   }
   if(!is.null(con)) {
