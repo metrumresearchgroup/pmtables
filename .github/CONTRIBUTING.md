@@ -1,3 +1,5 @@
+# Using issues for pmtables
+
 When opening an issue, please use the template with the single "Summary" header
 and write in user story format, completing the sentence: "As a user, I ...".
 Provide only the minimal set of details required to specifiy the user story, 
