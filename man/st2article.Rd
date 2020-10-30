@@ -19,7 +19,12 @@ st2article(
   show_pdf = TRUE
 )
 
-st2report(..., template = "report.tex", caption = Lorem)
+st2report(
+  ...,
+  template = "report.tex",
+  caption = Lorem,
+  stem = "view-st2report"
+)
 }
 \arguments{
 \item{...}{stable objects}

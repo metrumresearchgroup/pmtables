@@ -23,3 +23,6 @@ Preview an stable object
 ptdata() \%>\% stable() \%>\% st_preview()
 }
 }
+\seealso{
+\code{\link[=st2article]{st2article()}}, \code{\link[=st2report]{st2report()}}
+}

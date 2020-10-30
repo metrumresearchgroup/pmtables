@@ -93,6 +93,7 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
 #' \dontrun{
 #' ptdata() %>% stable() %>% st_preview()
 #' }
+#' @seealso [st2article()], [st2report()]
 #' @export
 st_preview <- function(x,...) { # nocov start
   if(inherits(x,what="pmtable")) x <- as_stable(x)
@@ -203,7 +204,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   if(length(margin)==1) {
     margin <- c(margin, margin)
   }
-  assert_that(length(margin) ==2)
+  assert_that(length(margin)==2)
   tables_are_stable <- map_lgl(tables, inherits, what = "stable")
   assert_that(all(tables_are_stable))
 
@@ -297,15 +298,15 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   return(invisible(ans))
 } # nocov end
 
-
 #' @rdname st2article
 #' @export
-st2report <- function(..., template = "report.tex", caption = Lorem) {
+st2report <- function(..., template = "report.tex", caption = Lorem,
+                      stem = "view-st2report") {
   if(missing(template)) {
     template <- system.file("tex", template, package = "pmtables")
   }
   st2article(
-    ..., template = template, stem = "view-st2report", caption = caption
+    ..., template = template, stem = stem, caption = caption
   )
 }
 
