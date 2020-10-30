@@ -12,6 +12,7 @@ output:
       fontenc: T1
       mathpazo:
       pdflscape:
+      float:
   header-includes: 
     - "\\pagenumbering{gobble}"
 params: 

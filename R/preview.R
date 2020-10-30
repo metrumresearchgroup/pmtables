@@ -12,6 +12,9 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
 
 #' Render a table a pdf document
 #'
+#' Please consider using [st2article()] rather than this function. It does the
+#' same thing and likely will replace [st2doc()].
+#'
 #' @param text [stable()] output
 #' @param preview if `TRUE`, the rendered pdf file is opened using
 #' [fs::file_show()]
@@ -43,6 +46,7 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
 #' template <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
 #' # cat(readLines(template), sep = "\n")
 #'
+#' @seealso [st2article()], [st2report()], [st2viewer()]
 #' @export
 st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
                    output_file = "st2doc.pdf", landscape = is_lscape(text)) {
