@@ -110,6 +110,10 @@ st_preview <- function(x,...) { # nocov start
   )
 } # nocov end
 
+#' @rdname st_preview
+#' @export
+st2viewer <- function(...) st_preview(...)
+
 #' Preview tables in a TeX article
 #'
 #' Use [st2article()] to see tables in a plain pdf TeX document. Use
