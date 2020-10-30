@@ -4,10 +4,12 @@
 \alias{yaml_as_df}
 \title{Read yaml input into data frame}
 \usage{
-yaml_as_df(path)
+yaml_as_df(path, quiet = FALSE)
 }
 \arguments{
 \item{path}{to the yaml source file}
+
+\item{quiet}{if \code{TRUE}, suppress messages}
 }
 \description{
 Read yaml input into data frame
