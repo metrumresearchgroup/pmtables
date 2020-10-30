@@ -192,6 +192,8 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
   tables <- c(list(...),.list)
+  output_dir <- normalizePath(output_dir)
+  build_dir <- normalizePath(tempdir())
   assert_that(dir.exists(output_dir))
   assert_that(is.character(margin))
   if(length(margin)==1) {
@@ -242,11 +244,9 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   tables <- map(tables, ~ c(.x, "\\clearpage"))
   tables <- flatten_chr(tables)
 
-  output_dir <- normalizePath(output_dir)
-
   cwd <- getwd()
   on.exit(setwd(cwd))
-  setwd(tempdir())
+  setwd(build_dir)
 
   writeLines(tables,st2article_input)
   writeLines(temp,texfile)
@@ -262,23 +262,29 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     for(i in seq_len(ntex)) {
       result <- system2(
         "pdflatex",
-        args=c("-halt-on-error ",texfile),stdout=stdout)
+        args=c("-halt-on-error ",texfile),stdout=stdout
+      )
       if(!identical(result, 0L)) {
         warning("non-zero exit from pdflatex", call.=FALSE)
       }
     }
   } else {
-    stop("could not locate the template tex file", call.=FALSE)
+    stop(
+      'could not locate the template tex file; ',
+      'pass `stdout=""` to see pdflatex build output',
+      call.=FALSE
+    )
   }
 
-  if(output_dir != tempdir()) {
-    file.copy(pdffile, file.path(output_dir,pdffile), overwrite = TRUE)
+  pdf_output <- file.path(output_dir,pdffile)
+
+  if(output_dir != build_dir) {
+    file.copy(pdffile, pdf_output, overwrite = TRUE)
   }
 
   if(isTRUE(show_pdf)) {
-    pdfshow <- file.path(output_dir,pdffile)
-    if(file.exists(pdfshow)) {
-      fs::file_show(pdfshow)
+    if(file.exists(pdf_output)) {
+      fs::file_show(pdf_output)
     } else {
       stop("could not locate the output pdf file", call. = FALSE)
     }
