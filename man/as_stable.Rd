@@ -4,6 +4,7 @@
 \alias{as_stable}
 \alias{as_stable.pmtable}
 \alias{as_stable.stable}
+\alias{as_stable.stobject}
 \title{Create stable from pmtable}
 \usage{
 as_stable(x, ...)
@@ -11,6 +12,8 @@ as_stable(x, ...)
 \method{as_stable}{pmtable}(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE, con = NULL)
 
 \method{as_stable}{stable}(x, ...)
+
+\method{as_stable}{stobject}(x, ...)
 }
 \arguments{
 \item{x}{object to convert to stable}
