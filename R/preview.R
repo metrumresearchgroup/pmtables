@@ -95,8 +95,9 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
 #' }
 #' @export
 st_preview <- function(x,...) { # nocov start
-  if(inherits(x,what="pmtable")) x <- as_stable(x)
-  if(is.stobject(x)) x <- st_make(x)
+  if(inherits(x, what = c("pmtable", "stobject"))) {
+    x <- as_stable(x)
+  }
   assert_that(requireNamespace("texPreview"))
   if(length(x) > 1) {
     x <- paste0(x,collapse = "\n")
