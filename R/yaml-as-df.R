@@ -3,11 +3,30 @@
 #' @param path to the yaml source file
 #' @param quiet if `TRUE`, suppress messages
 #'
+#' @section Prototyped tables:
+#'
+#' A prototyped table has one row identified as the prototype and
+#' defines the table column names as well as the required number of
+#' columns. This is similar behavior to what `dplyr::tribble()` does.
+#' Specify a prototype column name under `SETUP__:`.
+#' You must provide names for all columns in the prototype.  Other rows
+#' will inherit those names and you must enter a number of columns in
+#' other rows equal to the number found in the prototype. If a prototype row
+#' is used, then other rows do not need to be entered as (named) lists, but
+#' can be entered as arrays; they will be coerced to list and named according
+#' to the prototype.
+#'
 #' @examples
 #'
-#' path <- system.file("table.yml", package = "pmtables")
+#' path <- system.file("yaml", "table.yml", package = "pmtables")
 #'
 #' yaml_as_df(path)
+#'
+#' # Example prototyped table
+#' \dontrun{
+#' file <- system.file("yaml", "prototype.yaml", package = "pmtables")
+#' cat(readLines(file), sep = "\n")
+#' }
 #'
 #' @export
 yaml_as_df <- function(path, quiet = FALSE) { #nocov start
@@ -80,5 +99,5 @@ yaml_as_df_valid_outer <- function(x) {
 }
 
 yaml_as_df_valid_item <- function(x) {
-  all(is.atomic(x),length(x)==1)
+  all(rlang::is_atomic(x), length(x)==1)
 }

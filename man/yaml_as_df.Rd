@@ -14,10 +14,31 @@ yaml_as_df(path, quiet = FALSE)
 \description{
 Read yaml input into data frame
 }
+\section{Prototyped tables}{
+
+
+A prototyped table has one row identified as the prototype and
+defines the table column names as well as the required number of
+columns. This is similar behavior to what \code{dplyr::tribble()} does.
+Specify a prototype column name under \verb{SETUP__:}.
+You must provide names for all columns in the prototype.  Other rows
+will inherit those names and you must enter a number of columns in
+other rows equal to the number found in the prototype. If a prototype row
+is used, then other rows do not need to be entered as (named) lists, but
+can be entered as arrays; they will be coerced to list and named according
+to the prototype.
+}
+
 \examples{
 
-path <- system.file("table.yml", package = "pmtables")
+path <- system.file("yaml", "table.yml", package = "pmtables")
 
 yaml_as_df(path)
+
+# Example prototyped table
+\dontrun{
+file <- system.file("yaml", "prototype.yaml", package = "pmtables")
+cat(readLines(file), sep = "\n")
+}
 
 }
