@@ -76,12 +76,9 @@ yaml_as_df_valid <- function(x) {
 }
 
 yaml_as_df_valid_outer <- function(x) {
-  all(map_lgl(x, ~inherits(.x, "list")))
+  all(map_lgl(x, is.list))
 }
 
 yaml_as_df_valid_item <- function(x) {
-  all(
-    inherits(x, c("character", "logical", "numeric")),
-    length(x)==1
-  )
+  all(is.atomic(x),length(x)==1)
 }
