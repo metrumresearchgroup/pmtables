@@ -28,7 +28,8 @@ st2doc(
 the \code{text} is returned invisibly
 }
 \description{
-Render a table a pdf document
+Please consider using \code{\link[=st2article]{st2article()}} rather than this function. It does the
+same thing and likely will replace \code{\link[=st2doc]{st2doc()}}.
 }
 \details{
 In order to render the table in the pdf document, the following
@@ -53,4 +54,7 @@ you are trying to render:
 template <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
 # cat(readLines(template), sep = "\n")
 
+}
+\seealso{
+\code{\link[=st2article]{st2article()}}, \code{\link[=st2report]{st2report()}}, \code{\link[=st2viewer]{st2viewer()}}
 }

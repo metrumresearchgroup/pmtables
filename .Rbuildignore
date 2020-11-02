@@ -1,3 +1,4 @@
+\.github
 \.drone\.jsonnet
 ^data-raw$
 inst/demo-longtable\.log
