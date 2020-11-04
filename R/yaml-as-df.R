@@ -42,7 +42,7 @@ yaml_as_df <- function(path, quiet = FALSE) { #nocov start
       message("using column ", prototype, " as the prototype")
     }
   }
-  rename <- is.character(prototype)
+  rename <- is.character(prototype) | is.numeric(prototype)
   if(rename) {
     x <- yamdf_validate_prototype(x, prototype)
     prototype_names <- names(x[[prototype]])
