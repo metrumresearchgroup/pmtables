@@ -278,6 +278,12 @@ stable.pmtable <- function(data, ...) as_stable(data, ...)
 #' @export
 stable.stable <- function(data, ...) return(data)
 
+#' @rdname stable
+#' @export
+stable.stobject <- function(data, ... ) {
+  st_make(data, ...)
+}
+
 #' Create stable from pmtable
 #'
 #' @param x object to convert to stable
@@ -329,6 +335,13 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE,
 #' @export
 as_stable.stable <- function(x,...) {
   x
+}
+
+#' @rdname as_stable
+#' @keywords internal
+#' @export
+as_stable.stobject <- function(x, ...) {
+  st_make(x, ...)
 }
 
 #' Get debug information from stable object
