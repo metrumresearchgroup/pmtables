@@ -48,7 +48,7 @@ yaml_as_df <- function(path, quiet = FALSE) { #nocov start
     prototype_names <- names(x[[prototype]])
     x <- yamdf_rename(x)
   }
-  assert_that(yaml_as_df_valid(x))
+  assert_that(yaml_as_df_valid(x), msg = "invalid yaml input")
   ans <- map_dfr(x, as_tibble)
   if(rename) {
     names(ans) <- prototype_names
@@ -89,13 +89,30 @@ yamdf_rename <- function(x) {
 }
 
 yaml_as_df_valid <- function(x) {
-  a <- yaml_as_df_valid_outer(x)
-  b <- map_lgl(x, ~ all(map_lgl(.x, yaml_as_df_valid_item)))
-  all(a,b)
+  ok <- TRUE
+
+  found_list <- yaml_as_df_valid_outer(x)
+  if(!all(found_list)) {
+    w <- names(x)[!found_list]
+    for(col in w) {
+      message("row data in yaml is not a list: ", col)
+      ok <- FALSE
+    }
+  }
+
+  valid_items <- map_lgl(x, ~ all(map_lgl(.x, yaml_as_df_valid_item)))
+  if(!all(valid_items)) {
+    w <- names(x)[!valid_items]
+    for(col in w) {
+      message("row data in yaml contains invalid cell: ", col)
+      ok <- FALSE
+    }
+  }
+  ok
 }
 
 yaml_as_df_valid_outer <- function(x) {
-  all(map_lgl(x, is.list))
+  map_lgl(x, is.list)
 }
 
 yaml_as_df_valid_item <- function(x) {
