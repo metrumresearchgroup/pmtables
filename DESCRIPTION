@@ -26,9 +26,9 @@ Description: Summarize data sets and create publication-quality tables for
     inclusion in 'tex' documents.
 License: GPL (>=2)
 Imports: purrr, dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble, 
-    assertthat, tidyselect, stringr
+    assertthat, tidyselect, stringr, knitr, rmarkdown
 Depends: R (>= 3.5.0)
-Suggests: testthat, knitr, yaml, rmarkdown, fs, texPreview
+Suggests: testthat, yaml, fs, texPreview
 Encoding: UTF-8
 Language: en-US
 LazyData: true

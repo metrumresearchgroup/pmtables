@@ -25,9 +25,7 @@
 #'
 #' @export
 st_use_knit_deps <- function(packages = NULL, force = FALSE) {
-  assert_that(requireNamespace("knitr", quietly=TRUE))
   if((knitr::is_latex_output() || isTRUE(force)) && !st_using_knit_deps()) {
-    assert_that(requireNamespace("rmarkdown", quietly = TRUE))
     if(is.null(packages)) packages <- st_knit_deps()
     for(pkg in packages) {
       knitr::knit_meta_add(
@@ -63,8 +61,7 @@ st_reset_knit_deps <- function() {
     "caption"
   )
   .internal$knit_meta <- list()
-  if(requireNamespace("rmarkdown", quietly=TRUE)) {
-    .internal$knit_meta <- lapply(.internal$knit_deps, rmarkdown::latex_dependency)
-  }
+  .internal$knit_meta <- lapply(.internal$knit_deps, rmarkdown::latex_dependency)
+  return(invisible(NULL))
 }
 

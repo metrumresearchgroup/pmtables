@@ -51,7 +51,6 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
 st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
                    output_file = "st2doc.pdf", landscape = is_lscape(text)) {
 
-  assert_that(requireNamespace("rmarkdown"))
   assert_that(requireNamespace("fs"))
   file <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
 
@@ -372,7 +371,6 @@ st_wrap.default <- function(x,  # nocov start
   if(context=="rmd") {
     ans <- c("```{=latex}", ans, "```")
     if(isTRUE(asis)) {
-      assert_that(requireNamespace("knitr"))
       ans <- paste0(ans, collapse = "\n")
       ans <- knitr::asis_output(ans, meta = .internal$knit_meta)
       return(ans)
