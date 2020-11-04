@@ -399,7 +399,7 @@ pt_wrap <- st_wrap
 #' @rdname st_wrap
 #' @export
 st_asis <- function(x, ..., asis = NULL, con = NULL) {
-  st_wrap(x, ..., asis = TRUE, con = NULL)
+  st_wrap(x, ..., asis = asis, con = con)
 }
 
 #' @rdname st_wrap
