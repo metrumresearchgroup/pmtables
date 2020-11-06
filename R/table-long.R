@@ -49,8 +49,8 @@ longtable_notes <- function(notes) {
 #' @param inspect fixed to `TRUE` and passed to [stable()]
 #' @param lt_cap_macro the name of a macro that will hold caption text; to not lead with
 #' `\\` - this will be added for you
-#' @param lt_cap_text caption text
-#' @param lt_cap_short short caption text
+#' @param lt_cap_text full caption text, appearing where the table is rendered
+#' @param lt_cap_short short caption text, appearing in the list of tables
 #' @param lt_cap_label table label for use in latex document
 #' @param lt_continue longtable continuation message
 #'
