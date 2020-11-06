@@ -1,15 +1,32 @@
+SETUP__:
+  prototype: A
+AA:
+  a: Study MET01
+  b: MET01
+  c: |
+    A randomized, single ascending dose, Phase I trial to assess the safety,
+    tolerability, and \gls{PK} of once daily oral doses of \drugx\ in healthy adults.
+  d: '1'
+  e: Randomized, single ascending dose study
+  f: Healthy
+  g: 30 (5 per DG)
+  h: Single dose
+  i: 5, 10, 25, 100, 150, 200 mg
+  j: 0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 20, 24, 48, 72, and 96 hours post-dose
+  k: '15'
+  l: TBD
 A:
   Study: Study MET01
   fileEx: MET01
   Title: |
-    A randomized, single ascending dose, Phase I trial to assess the safety, 
+    A randomized, single ascending dose, Phase I trial to assess the safety,
     tolerability, and \gls{PK} of once daily oral doses of \drugx\ in healthy adults.
   Phase: '1'
   Short: Randomized, single ascending dose study
   Patients: Healthy
   nSub: 30 (5 per DG)
   nDose: Single dose
-  D_levels: 5, 10, 25, 100, 150, 200 mg 
+  D_levels: 5, 10, 25, 100, 150, 200 mg
   obTime: 0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 20, 24, 48, 72, and 96 hours post-dose
   nTime: '15'
   Conc: TBD
@@ -17,7 +34,7 @@ B:
   Study: Study MET02
   fileEx: MET02
   Title: |
-    A randomized, multiple ascending dose, Phase I trial to assess the safety, 
+    A randomized, multiple ascending dose, Phase I trial to assess the safety,
     tolerability, and \gls{PK} of \drugx\ in healthy adults.
   Phase: '1'
   Short: Randomized, multiple ascending dose study
@@ -37,12 +54,12 @@ C:
   Study: Study MET03
   fileEx: MET03
   Title: |
-    A randomized, multiple dose, Phase I trial to assess the impact of renal 
+    A randomized, multiple dose, Phase I trial to assess the impact of renal
     impairment on the safety, tolerability, and \gls{PK} of \drugx.
   Phase: '1'
   Short: Randomized, multiple dose study
   Patients: |
-    Normal ($\geq$90 mL/min), Mild (60-89 mL/min), Moderate (30-59 mL/min), and 
+    Normal ($\geq$90 mL/min), Mild (60-89 mL/min), Moderate (30-59 mL/min), and
     Severe impairment (15-29 mL/min))
   nSub: 40 (10 renal function group)
   nDose: Multiple doses (BID for 6 days)
@@ -50,7 +67,7 @@ C:
   obTime: |
     Post-first dose: 1, 1.5, 2, 4, 6, 8, and 12 (pre-dose) hours.
     Pre-third dose: A trough at 24 hours (pre-dose).
-    Post-dose: Samples were taken approx. 2 hours post-dose (+/- 1.5 hours) for doses 
+    Post-dose: Samples were taken approx. 2 hours post-dose (+/- 1.5 hours) for doses
     at 48, 72, 96, and 120 hours.
     Post-last dose: 1, 2, 3, 4, 6, 8, 10, 12, 24, 36, 60, and 84 hours post-dose.
   nTime: '24'
@@ -59,13 +76,13 @@ D:
   Study: Study MET04
   fileEx: MET04
   Title: |
-    A randomized,  single dose, Phase I trial to assess the impact of hepatic 
+    A randomized,  single dose, Phase I trial to assess the impact of hepatic
     impairment on the safety, tolerability, and \gls{PK} of \drugx.
   Phase: '1'
   Short: Randomized,  single dose
   Patients: |
-    Normal, Child-Pugh Class A (mild), 
-    Child-Pugh Class B (moderate), and 
+    Normal, Child-Pugh Class A (mild),
+    Child-Pugh Class B (moderate), and
     Child-Pugh Class C (severe)
   nSub: 40 (10 per hepatic function group)
   nDose: Single dose
