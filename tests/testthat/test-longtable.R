@@ -19,6 +19,16 @@ test_that("longtable - caption text", {
   expect_match(out$output, test, fixed = TRUE, all=FALSE)
 })
 
+test_that("longtable - caption with short", {
+  out <- inspect_long(
+    data = mtcars,
+    lt_cap_text = "Text caption",
+    lt_cap_short = "Short text"
+  )
+  test <- "\\caption[Short text]{Text caption}"
+  expect_match(out$output, test, fixed = TRUE, all=FALSE)
+})
+
 test_that("longtable - caption macro", {
   out <- inspect_long(data = mtcars, lt_cap_macro = "mylongtable")
   test <- "\\caption{\\mylongtable}"

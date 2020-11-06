@@ -122,6 +122,23 @@ data %>%
 
 \clearpage
 
+# Pass in the caption with short 
+
+```{r,results = "asis"}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    lt_cap_short = "a table",
+    lt_cap_text  = "This is a super-interesting table.", 
+    note_config = noteconf(type = "minipage", table_skip = 0.1)
+  ) %>% st_latex(stdout())
+```
+
+\clearpage
+
 # Reduce row space
 
 ```{r,results = "asis"}

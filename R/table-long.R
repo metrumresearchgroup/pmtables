@@ -7,17 +7,21 @@ head <- '
 \\endlastfoot
 '
 
-ltcaption <- function(macro = NULL, text = NULL, label = NULL) {
+ltcaption <- function(macro = NULL, text = NULL, short = NULL, label = NULL) {
   if(all(is.null(macro),is.null(text), is.null(label))) {
     return(NULL)
   }
-  lab <- NULL
+  temp <- "\\caption<short>{<text><label>} \\\\"
   if(is.character(label)) {
-    lab <- paste0("\\label{",label,"}")
+    label <- paste0(" \\label{",label,"}")
+  } else {
+    label <- ""
   }
-  cap1 <- "\\caption{"
-  cap3 <- "}\\\\"
-  cap2 <- NULL
+  if(is.character(short)) {
+    short <- paste0("[", short,"]")
+  } else {
+    short <- ""
+  }
   if(is.character(macro)) {
     if(substr(macro, 1, 1)=="\\") {
       macro <- substr(macro, 2, nchar(macro))
@@ -25,11 +29,10 @@ ltcaption <- function(macro = NULL, text = NULL, label = NULL) {
     if(str_detect(macro, "[^a-zA-Z]")) {
       stop(macro, " appears to be invalid for use in latex", call.=FALSE)
     }
-    cap2 <- paste0("\\", macro)
+    text <- paste0("\\", macro)
   }
-  if(is.character(text)) cap2 <- c(cap2, text)
-  cap3 <- paste0(lab, cap3)
-  paste0(c(cap1,cap2,cap3),collapse = "")
+  ans <- as.character(gluet(temp))
+  ans
 }
 
 longtable_notes <- function(notes) {
@@ -47,6 +50,7 @@ longtable_notes <- function(notes) {
 #' @param lt_cap_macro the name of a macro that will hold caption text; to not lead with
 #' `\\` - this will be added for you
 #' @param lt_cap_text caption text
+#' @param lt_cap_short short caption text
 #' @param lt_cap_label table label for use in latex document
 #' @param lt_continue longtable continuation message
 #'
@@ -57,6 +61,7 @@ stable_long <- function(data,
                         inspect = FALSE,
                         lt_cap_macro = NULL,
                         lt_cap_text = NULL,
+                        lt_cap_short = NULL,
                         lt_cap_label = NULL,
                         lt_continue = "\\footnotesize{continued on next page}",
                         ...) {
@@ -66,7 +71,7 @@ stable_long <- function(data,
   x <- stable(data = data, note_config = note_config, inspect = TRUE, ...)
   x <- get_stable_data(x)
 
-  cap <- ltcaption(lt_cap_macro, lt_cap_text, lt_cap_label)
+  cap <- ltcaption(lt_cap_macro, lt_cap_text, lt_cap_short, lt_cap_label)
 
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"

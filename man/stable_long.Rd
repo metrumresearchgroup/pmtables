@@ -10,6 +10,7 @@ stable_long(
   inspect = FALSE,
   lt_cap_macro = NULL,
   lt_cap_text = NULL,
+  lt_cap_short = NULL,
   lt_cap_label = NULL,
   lt_continue = "\\\\footnotesize{continued on next page}",
   ...
@@ -29,6 +30,8 @@ are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
 \verb{\\\\} - this will be added for you}
 
 \item{lt_cap_text}{caption text}
+
+\item{lt_cap_short}{short caption text}
 
 \item{lt_cap_label}{table label for use in latex document}
 
