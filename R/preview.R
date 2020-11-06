@@ -12,6 +12,9 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
 
 #' Render a table a pdf document
 #'
+#' Please consider using [st2article()] rather than this function. It does the
+#' same thing and likely will replace [st2doc()].
+#'
 #' @param text [stable()] output
 #' @param preview if `TRUE`, the rendered pdf file is opened using
 #' [fs::file_show()]
@@ -43,11 +46,11 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
 #' template <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
 #' # cat(readLines(template), sep = "\n")
 #'
+#' @seealso [st2article()], [st2report()], [st2viewer()]
 #' @export
 st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
                    output_file = "st2doc.pdf", landscape = is_lscape(text)) {
 
-  assert_that(requireNamespace("rmarkdown"))
   assert_that(requireNamespace("fs"))
   file <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
 
@@ -93,9 +96,12 @@ st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
 #' \dontrun{
 #' ptdata() %>% stable() %>% st_preview()
 #' }
+#' @seealso [st2article()], [st2report()]
 #' @export
 st_preview <- function(x,...) { # nocov start
-  if(inherits(x,what="pmtable")) x <- as_stable(x)
+  if(inherits(x, what = c("pmtable", "stobject"))) {
+    x <- as_stable(x)
+  }
   assert_that(requireNamespace("texPreview"))
   if(length(x) > 1) {
     x <- paste0(x,collapse = "\n")
@@ -109,6 +115,10 @@ st_preview <- function(x,...) { # nocov start
     ...
   )
 } # nocov end
+
+#' @rdname st_preview
+#' @export
+st2viewer <- function(...) st_preview(...)
 
 #' Preview tables in a TeX article
 #'
@@ -192,12 +202,14 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
   tables <- c(list(...),.list)
+  output_dir <- normalizePath(output_dir)
+  build_dir <- normalizePath(tempdir())
   assert_that(dir.exists(output_dir))
   assert_that(is.character(margin))
   if(length(margin)==1) {
     margin <- c(margin, margin)
   }
-  assert_that(length(margin) ==2)
+  assert_that(length(margin)==2)
   tables_are_stable <- map_lgl(tables, inherits, what = "stable")
   assert_that(all(tables_are_stable))
 
@@ -242,11 +254,9 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   tables <- map(tables, ~ c(.x, "\\clearpage"))
   tables <- flatten_chr(tables)
 
-  output_dir <- normalizePath(output_dir)
-
   cwd <- getwd()
   on.exit(setwd(cwd))
-  setwd(tempdir())
+  setwd(build_dir)
 
   writeLines(tables,st2article_input)
   writeLines(temp,texfile)
@@ -262,23 +272,29 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     for(i in seq_len(ntex)) {
       result <- system2(
         "pdflatex",
-        args=c("-halt-on-error ",texfile),stdout=stdout)
+        args=c("-halt-on-error ",texfile),stdout=stdout
+      )
       if(!identical(result, 0L)) {
         warning("non-zero exit from pdflatex", call.=FALSE)
       }
     }
   } else {
-    stop("could not locate the template tex file", call.=FALSE)
+    stop(
+      'could not locate the template tex file; ',
+      'pass `stdout=""` to see pdflatex build output',
+      call.=FALSE
+    )
   }
 
-  if(output_dir != tempdir()) {
-    file.copy(pdffile, file.path(output_dir,pdffile), overwrite = TRUE)
+  pdf_output <- file.path(output_dir,pdffile)
+
+  if(output_dir != build_dir) {
+    file.copy(pdffile, pdf_output, overwrite = TRUE)
   }
 
   if(isTRUE(show_pdf)) {
-    pdfshow <- file.path(output_dir,pdffile)
-    if(file.exists(pdfshow)) {
-      fs::file_show(pdfshow)
+    if(file.exists(pdf_output)) {
+      fs::file_show(pdf_output)
     } else {
       stop("could not locate the output pdf file", call. = FALSE)
     }
@@ -287,15 +303,15 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   return(invisible(ans))
 } # nocov end
 
-
 #' @rdname st2article
 #' @export
-st2report <- function(..., template = "report.tex", caption = Lorem) {
+st2report <- function(..., template = "report.tex", caption = Lorem,
+                      stem = "view-st2report") {
   if(missing(template)) {
     template <- system.file("tex", template, package = "pmtables")
   }
   st2article(
-    ..., template = template, stem = "view-st2report", caption = caption
+    ..., template = template, stem = stem, caption = caption
   )
 }
 
@@ -309,10 +325,11 @@ st2report <- function(..., template = "report.tex", caption = Lorem) {
 #' @param caption the long table description
 #' @param short the short table description
 #' @param float the float specifier to if a `table` environment is used; change
-#' this to `!ht` if the float package cannot be loaded for some reason; see
-#' [st_use_knit_deps()]
+#' this to `!ht` if the float package cannot be loaded for some reason
 #' @param context if `rmd`, then the code is enclosed in a pandoc `latex` fenced
 #' code block; if `tex`, then the fencing is omitted
+#' @param asis if `TRUE`, the wrapped table is processed with
+#' [knitr::asis_output()] and returned
 #' @param ... not used
 #'
 #' @seealso [st_use_knit_deps()]
@@ -329,7 +346,8 @@ st_wrap.default <- function(x,  # nocov start
                             caption = NULL,
                             short = NULL,
                             float = c("H", "!ht"),
-                            context = c("rmd", "tex"), ...) {
+                            context = c("rmd", "tex"),
+                            asis = FALSE, ...) {
 
   context <- match.arg(context)
 
@@ -353,8 +371,14 @@ st_wrap.default <- function(x,  # nocov start
     ans <- c("\\begin{landscape}", ans, "\\end{landscape}")
   }
   if(context=="rmd") {
-    if(!st_using_knit_deps()) st_use_knit_deps()
     ans <- c("```{=latex}", ans, "```")
+    if(isTRUE(asis)) {
+      ans <- paste0(ans, collapse = "\n")
+      ans <- knitr::asis_output(ans, meta = .internal$knit_meta)
+      return(ans)
+    } else {
+      if(!st_using_knit_deps()) st_use_knit_deps()
+    }
   }
   if(!is.null(con)) {
     writeLines(text = ans, con = con)
@@ -374,6 +398,12 @@ pt_wrap <- st_wrap
 
 #' @rdname st_wrap
 #' @export
+st_asis <- function(x, ..., asis = NULL, con = NULL) {
+  st_wrap(x, ..., asis = asis, con = con)
+}
+
+#' @rdname st_wrap
+#' @export
 st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")) {
   context <- match.arg(context)
   ans <- x
@@ -387,7 +417,6 @@ st_latex <- function(x, con = stdout(), center = TRUE, context = c("rmd", "tex")
     writeLines(text = ans, con = con)
   }
   return(invisible(ans))
-
 }
 
 #' Mark table text for display in landscape environment

@@ -2,9 +2,12 @@
 % Please edit documentation in R/preview.R
 \name{st_preview}
 \alias{st_preview}
+\alias{st2viewer}
 \title{Preview an stable object}
 \usage{
 st_preview(x, ...)
+
+st2viewer(...)
 }
 \arguments{
 \item{x}{an stable object}
@@ -19,4 +22,7 @@ Preview an stable object
 \dontrun{
 ptdata() \%>\% stable() \%>\% st_preview()
 }
+}
+\seealso{
+\code{\link[=st2article]{st2article()}}, \code{\link[=st2report]{st2report()}}
 }
