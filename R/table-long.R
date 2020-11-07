@@ -7,26 +7,26 @@ head <- '
 \\endlastfoot
 '
 
-ltcaption <- function(macro = NULL, text = NULL, short = NULL, label = NULL) {
-  if(all(is.null(macro),is.null(text), is.null(label))) {
+ltcaption <- function(macro = "", text = "", short = "", label = "") {
+  if(identical(c(macro, text, short), c("", "", ""))) {
     return(NULL)
   }
+  assert_that(is.character(macro))
+  assert_that(is.character(text))
+  assert_that(is.character(short))
+  assert_that(is.character(label))
   temp <- "\\caption<short>{<text><label>} \\\\"
-  if(is.character(label)) {
+  if(label != "") {
     label <- paste0(" \\label{",label,"}")
-  } else {
-    label <- ""
   }
-  if(is.character(short)) {
+  if(short != "") {
     short <- paste0("[", short,"]")
-  } else {
-    short <- ""
   }
-  if(is.character(macro)) {
+  if(macro != ""){
     if(substr(macro, 1, 1)=="\\") {
       macro <- substr(macro, 2, nchar(macro))
     }
-    if(str_detect(macro, "[^a-zA-Z]")) {
+    if(str_detect(macro, "[^a-zA-Z]")){
       stop(macro, " appears to be invalid for use in latex", call.=FALSE)
     }
     text <- paste0("\\", macro)
@@ -59,10 +59,10 @@ longtable_notes <- function(notes) {
 stable_long <- function(data,
                         note_config = noteconf(type="minipage"),
                         inspect = FALSE,
-                        lt_cap_macro = NULL,
-                        lt_cap_text = NULL,
-                        lt_cap_short = NULL,
-                        lt_cap_label = NULL,
+                        lt_cap_macro = "",
+                        lt_cap_text = "",
+                        lt_cap_short = "",
+                        lt_cap_label = "",
                         lt_continue = "\\footnotesize{continued on next page}",
                         ...) {
 

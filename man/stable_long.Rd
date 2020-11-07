@@ -8,10 +8,10 @@ stable_long(
   data,
   note_config = noteconf(type = "minipage"),
   inspect = FALSE,
-  lt_cap_macro = NULL,
-  lt_cap_text = NULL,
-  lt_cap_short = NULL,
-  lt_cap_label = NULL,
+  lt_cap_macro = "",
+  lt_cap_text = "",
+  lt_cap_short = "",
+  lt_cap_label = "",
   lt_continue = "\\\\footnotesize{continued on next page}",
   ...
 )
