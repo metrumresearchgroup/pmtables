@@ -29,7 +29,7 @@ st_wrap(x, ...)
 
 pt_wrap(x, ...)
 
-st_asis(x, ..., asis = NULL, con = NULL)
+st_asis(x, ..., asis = TRUE, con = NULL)
 
 st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 }

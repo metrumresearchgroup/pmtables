@@ -103,8 +103,11 @@ horizontal line above
 a stand-alone tex document rendered directly by \code{pdflatex} (no involvement
 of \code{Rmarkdown} or \code{pandoc}); this requires \code{pdflatex} to be installed and
 in your \code{PATH}.
-\item Use \code{\link[=st2doc]{st2doc()}} to render a pdf file with one or more tables using pandoc
-\item Use \code{\link[=pt_wrap]{pt_wrap()}} or \code{\link[=st_wrap]{st_wrap()}}  to wrap s-table output in a \code{table}
+\item Use \code{\link[=st2doc]{st2doc()}} to render a pdf file with one or more tables using pandoc;
+in general, use \code{st2article()} instead
+\item Pipe tables to \code{\link[=st_asis]{st_asis()}} to render a table in line while knitting an
+Rmd document
+\item Use \code{\link[=st_wrap]{st_wrap()}}  to wrap s-table output in a \code{table}
 environment and optionally send the output to \code{\link[=stdout]{stdout()}}; this is helpful
 when rendering tables in Rmarkdown documents.  There is an \code{\link[=st_wrap]{st_wrap()}}
 method for longtables that won't add the table environment.

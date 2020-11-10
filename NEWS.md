@@ -1,5 +1,27 @@
 # pmtables (development version)
 
+- Add landscape mode when previewing tables with `st2report()`, `st2article()`
+  or `st2doc()`; see `landscape` argument to `st_wrap()` #129
+- Add `lt_cap_short` argument to `stable_long()` to set a short table title 
+  that will appear in list of tables #131
+- Fix a bug in continuous data summary tables when no observations were found 
+  in a particular group; use `na_fill` argument to set placeholder #133
+- Add ability to accumulate `hline` indices when set with `st_hline()` #134
+- Fix a bug in `cols_bold` that prevented sanitizing text prior to styling as 
+  bold #141
+- Add ability to introduce row breaks in spanner titles #143
+- Add `st2report()` to quickly preview tables in a real-like report document, 
+  build directly with `pdflatex`  #148
+- Add `st2article()` to quickly preview tables in a latex `article`-like, 
+  built directly with `pdflatex` #148
+- Add `st_asis()` function and `asis` argument to `st_wrap()`; pipe tables to 
+  `st_asis()` or use `asis` argument to render tables in line in an Rmd
+  document; in addition to formatting output "as-is", latex dependencies are 
+  also invoked #149
+- Expand `yaml_as_df()` functionality to accept table columns by position, 
+  rather than name #154
+- Add `stable()` method for `stobject` #159
+
 # pmtables 0.2.0
 - Add `by` argument to `pt_cont_long` so that, when `panel` is also 
   passed, the table is paneled by `col` and is "by" the `panel` variable #92

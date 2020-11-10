@@ -103,8 +103,11 @@ NULL
 #'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
 #'   of `Rmarkdown` or `pandoc`); this requires `pdflatex` to be installed and
 #'   in your `PATH`.
-#' - Use [st2doc()] to render a pdf file with one or more tables using pandoc
-#' - Use [pt_wrap()] or [st_wrap()]  to wrap s-table output in a `table`
+#' - Use [st2doc()] to render a pdf file with one or more tables using pandoc;
+#'   in general, use `st2article()` instead
+#' - Pipe tables to [st_asis()] to render a table in line while knitting an
+#'   Rmd document
+#' - Use [st_wrap()]  to wrap s-table output in a `table`
 #'   environment and optionally send the output to [stdout()]; this is helpful
 #'   when rendering tables in Rmarkdown documents.  There is an [st_wrap()]
 #'   method for longtables that won't add the table environment.
