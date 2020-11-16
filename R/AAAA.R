@@ -98,13 +98,13 @@ NULL
 #'   horizontal line above
 #'
 #' @section Preview tables:
-#' - Use [st_preview()] to send s-table output to `texPreview`
+#' - Use [st_preview()] to send s-table output to [texPreview::tex_preview()]
 #' - Use [st2article()] or [st2report()] to render several tables in
 #'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
 #'   of `Rmarkdown` or `pandoc`); this requires `pdflatex` to be installed and
 #'   in your `PATH`.
 #' - Use [st2doc()] to render a pdf file with one or more tables using pandoc;
-#'   in general, use `st2article()` instead
+#'   in general, use [st2article()] instead
 #' - Pipe tables to [st_asis()] to render a table in line while knitting an
 #'   Rmd document
 #' - Use [st_wrap()]  to wrap s-table output in a `table`

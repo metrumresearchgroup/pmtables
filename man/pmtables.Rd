@@ -98,13 +98,13 @@ horizontal line above
 \section{Preview tables}{
 
 \itemize{
-\item Use \code{\link[=st_preview]{st_preview()}} to send s-table output to \code{texPreview}
+\item Use \code{\link[=st_preview]{st_preview()}} to send s-table output to \code{\link[texPreview:tex_preview]{texPreview::tex_preview()}}
 \item Use \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} to render several tables in
 a stand-alone tex document rendered directly by \code{pdflatex} (no involvement
 of \code{Rmarkdown} or \code{pandoc}); this requires \code{pdflatex} to be installed and
 in your \code{PATH}.
 \item Use \code{\link[=st2doc]{st2doc()}} to render a pdf file with one or more tables using pandoc;
-in general, use \code{st2article()} instead
+in general, use \code{\link[=st2article]{st2article()}} instead
 \item Pipe tables to \code{\link[=st_asis]{st_asis()}} to render a table in line while knitting an
 Rmd document
 \item Use \code{\link[=st_wrap]{st_wrap()}}  to wrap s-table output in a \code{table}
