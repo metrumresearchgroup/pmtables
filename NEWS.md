@@ -21,6 +21,7 @@
 - Expand `yaml_as_df()` functionality to accept table columns by position, 
   rather than name #154
 - Add `stable()` method for `stobject` #159
+- Fix bug where column spanners were not getting displayed in longtable #165
 
 # pmtables 0.2.0
 - Add `by` argument to `pt_cont_long` so that, when `panel` is also 
