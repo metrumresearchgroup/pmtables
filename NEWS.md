@@ -1,4 +1,4 @@
-# pmtables (development version)
+# pmtables 0.3.0
 
 - Add landscape mode when previewing tables with `st2report()`, `st2article()`
   or `st2doc()`; see `landscape` argument to `st_wrap()` #129
