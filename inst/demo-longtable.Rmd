@@ -78,6 +78,40 @@ data %>%
 
 \clearpage
 
+# With span
+```{r}
+data %>%
+  stable_long(
+    panel = "STUDY", cols_bold = TRUE,
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    span = colgroup("A Group of Columns", N:SCR),
+    cols_rename = c(Formulation  = "FORM"),
+    r_file = "foo.R", output_file = "../deliv/table/output.tex",
+    note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.1)
+  ) %>% st_asis()
+```
+
+\clearpage
+
+# With both
+```{r}
+data %>%
+  stable_long(
+    panel = "STUDY", cols_bold = TRUE,
+    units = ys_get_unit(spec, parens = TRUE),
+    span = colgroup("A Group of Columns", N:SCR),
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    cols_rename = c(Formulation  = "FORM"),
+    r_file = "foo.R", output_file = "../deliv/table/output.tex",
+    note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.1)
+  ) %>% st_asis()
+```
+
+\clearpage
+
+
 # Pass in the caption
 
 ```{r}
