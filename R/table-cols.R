@@ -58,8 +58,8 @@ tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
   structure(ans, class = "from_tab_cols")
 }
 
-header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
-                          bold = FALSE, extra = NULL, panel = rowpanel()) {
+header_matrix <- function(cols, cols_new = cols, units = NULL, newline = "...",
+                          bold = FALSE, extra = data.frame(), panel = rowpanel()) {
 
   if(!panel$null) {
     extra[[panel$col]] <- NULL
@@ -81,6 +81,9 @@ header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
   u <- header_matrix_unit(sp, cols, units)
   nunit <- !map_int(u, is.null)
   nrows <- max(nsplit+nunit)
+  esc <- getOption("pmtables.escape", c("_", "%"))
+  sp <- map(sp, tab_escape, escape = esc)
+  u <- map(u, tab_escape, escape = esc)
   if(isTRUE(bold)) {
     sp <- map(sp, bold_each)
   }
@@ -95,8 +98,6 @@ header_matrix <- function(cols, cols_new, units = NULL, newline = "...",
 header_matrix_tex <- function(sp, sizes = tab_size()) {
   sp <- unname(split(sp, seq(nrow(sp))))
   sp <- map(sp, flatten_chr)
-  esc <- getOption("pmtables.escape", c("_", "%"))
-  sp <- map(sp, tab_escape, escape = esc)
   sp <- map_chr(sp, form_tex_cols)
   nr <- length(sp)
   header_space <- sizes$header_row

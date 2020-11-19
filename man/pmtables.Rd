@@ -98,17 +98,21 @@ horizontal line above
 \section{Preview tables}{
 
 \itemize{
-\item Use \code{\link[=st_preview]{st_preview()}} to send s-table output to \code{texPreview}
-\item Use \code{\link[=st2doc]{st2doc()}} to render a pdf file with one or more tables
-\item Use \code{\link[=pt_wrap]{pt_wrap()}} or \code{\link[=st_wrap]{st_wrap()}}  to wrap s-table output in a \code{table}
-environment and optionally send the output to \code{\link[=stdout]{stdout()}}; this is helpful
-when rendering tables in Rmarkdown documents.  There is a \code{pt_wrap()}
-method for longtables that won't add the table environment.
-\item Use the non-exported function \code{\link[=st2article]{st2article()}} to render several tables in
+\item Use \code{\link[=st_preview]{st_preview()}} to send s-table output to \code{\link[texPreview:tex_preview]{texPreview::tex_preview()}}
+\item Use \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} to render several tables in
 a stand-alone tex document rendered directly by \code{pdflatex} (no involvement
-of \code{Rmarkdown} or \code{pandoc}; this requires \code{pdflatex} to be installed and
-in your \code{PATH}.  Because this function is not exported, you will have to
-call it with \code{pmtables:::st2article(...)}.
+of \code{Rmarkdown} or \code{pandoc}); this requires \code{pdflatex} to be installed and
+in your \code{PATH}.
+\item Use \code{\link[=st2doc]{st2doc()}} to render a pdf file with one or more tables using pandoc;
+in general, use \code{\link[=st2article]{st2article()}} instead
+\item Pipe tables to \code{\link[=st_asis]{st_asis()}} to render a table in line while knitting an
+Rmd document
+\item Use \code{\link[=st_wrap]{st_wrap()}}  to wrap s-table output in a \code{table}
+environment and optionally send the output to \code{\link[=stdout]{stdout()}}; this is helpful
+when rendering tables in Rmarkdown documents.  There is an \code{\link[=st_wrap]{st_wrap()}}
+method for longtables that won't add the table environment.
+\item Use \code{\link[=as_lscape]{as_lscape()}} to mark \code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}} output for display
+in landscape environment
 }
 }
 
@@ -127,10 +131,14 @@ The following latex packages are required in your \code{Rmd} or \code{latex} doc
 \item \code{threeparttable}
 \item \code{array}
 \item \code{booktabs}
+\item \code{pdflscape}
 \item \code{longtable} (only when long tables are in the document)
+\item \code{float} (mainly if you want to use \code{H} placement in your Rmd output)
 }
 
-In \code{Rmd}, include these as \code{extra_dependencies}.
+In \code{Rmd}, include these as \code{extra_dependencies}. Or try using
+\code{\link[=st_use_knit_deps]{st_use_knit_deps()}} to include these packages via \code{\link[knitr:knit_meta]{knitr::knit_meta_add()}};
+this is \strong{only} when you are including a table in a knit \code{Rmd} document.
 
 You may also want to include this package:
 \itemize{

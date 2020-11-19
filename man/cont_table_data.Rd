@@ -13,6 +13,7 @@ cont_table_data(
   all_name = "all",
   digits = new_digits(),
   id_col = "ID",
+  na_fill = "--",
   fun = cont_long_fun
 )
 }
@@ -35,6 +36,8 @@ otherwise}
 \item{digits}{named list specifying \code{digits} argument for \code{digit_fun}}
 
 \item{id_col}{the ID column name}
+
+\item{na_fill}{value to fill with when all values in the summary are missing}
 
 \item{fun}{continuous data summary function}
 }

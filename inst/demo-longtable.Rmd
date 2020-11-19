@@ -49,10 +49,8 @@ in markdown.
 
 # Simple table
 
-- Columns are in bold by default (can be turned off)
-
-```{r,results = 'asis'}
-data %>% stable(units = ys_get_unit(spec, parens = TRUE)) %>% pt_wrap(stdout())
+```{r}
+data %>% stable(units = ys_get_unit(spec, parens = TRUE)) %>% st_asis()
 ```
 \clearpage
 
@@ -65,7 +63,7 @@ data <- map_dfr(1:3, ~ data) %>% arrange(STUDY,DOSE,FORM)
 ```
 
 
-```{r,results = "asis"}
+```{r}
 data %>%
   stable_long(
     panel = "STUDY", cols_bold = TRUE,
@@ -75,14 +73,48 @@ data %>%
     cols_rename = c(Formulation  = "FORM"),
     r_file = "foo.R", output_file = "../deliv/table/output.tex",
     note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.1)
-  ) %>% st_wrap(stdout(), table = FALSE)
+  ) %>% st_asis()
 ```
 
 \clearpage
 
+# With span
+```{r}
+data %>%
+  stable_long(
+    panel = "STUDY", cols_bold = TRUE,
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    span = colgroup("A Group of Columns", N:SCR),
+    cols_rename = c(Formulation  = "FORM"),
+    r_file = "foo.R", output_file = "../deliv/table/output.tex",
+    note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.1)
+  ) %>% st_asis()
+```
+
+\clearpage
+
+# With both
+```{r}
+data %>%
+  stable_long(
+    panel = "STUDY", cols_bold = TRUE,
+    units = ys_get_unit(spec, parens = TRUE),
+    span = colgroup("A Group of Columns", N:SCR),
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    cols_rename = c(Formulation  = "FORM"),
+    r_file = "foo.R", output_file = "../deliv/table/output.tex",
+    note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.1)
+  ) %>% st_asis()
+```
+
+\clearpage
+
+
 # Pass in the caption
 
-```{r,results = "asis"}
+```{r}
 data %>%
   stable_long(
     panel = "STUDY", 
@@ -91,7 +123,7 @@ data %>%
     clear_reps = "DOSE",
     lt_cap_text  = "This is a super-interesting table.", 
     note_config = noteconf(type = "minipage", table_skip = 0.1)
-  ) %>% st_latex(stdout())
+  ) %>% st_asis()
 ```
 
 
@@ -100,12 +132,21 @@ data %>%
 
 # Use a caption from tex macro
 
-```{r, results = "asis"}
-writeLines("\\newcommand{\\myfbtable}{This is a caption from a macro}\\vskip 0.5cm")
+
+- Write this into your tex document
+```{text, eval=FALSE}
+\newcommand{\myfbtable}{This is a caption from a macro}\vskip 0.5cm
 ```
 
 
-```{r,results = "asis"}
+- Then create the table with:
+
+```{=latex}
+\newcommand{\myfbtable}{This is a caption from a macro}\vskip 0.5cm
+```
+
+
+```{r}
 data %>%
   stable_long(
     panel = "STUDY", 
@@ -116,15 +157,32 @@ data %>%
     clear_reps = "DOSE",
     lt_cap_macro  = "myfbtable", 
     note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
-  ) %>% st_latex(stdout())
+  ) %>% st_asis()
 ```
 
 
 \clearpage
 
+# Pass in the caption with short 
+
+```{r}
+data %>%
+  stable_long(
+    panel = "STUDY", 
+    cols_bold = TRUE,
+    notes = "The results look great!",
+    clear_reps = "DOSE",
+    lt_cap_short = "a table",
+    lt_cap_text  = "This is a super-interesting table.", 
+    note_config = noteconf(type = "minipage", table_skip = 0.1)
+  ) %>% st_asis()
+```
+
+\clearpage
+
 # Reduce row space
 
-```{r,results = "asis"}
+```{r}
 data %>%
   stable_long(
     panel = "STUDY", 
@@ -135,13 +193,13 @@ data %>%
     clear_reps = "DOSE",
     sizes = tab_size(row = 1),
     note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
-  ) %>% st_latex(stdout())
+  ) %>% st_asis()
 ```
 
 \clearpage
 
 # Extra spance
-```{r,results = "asis"}
+```{r}
 data %>%
   stable_long(
     panel = "STUDY", 
@@ -152,11 +210,11 @@ data %>%
     clear_reps = "DOSE",
     sizes = tab_size(lt_row = 2),
     note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
-  ) %>% st_latex(stdout())
+  ) %>% st_asis()
 ```
 
 \clearpage
-```{r,results = "asis"}
+```{r}
 data %>%
   stable_long(
     panel = "STUDY", 
@@ -166,14 +224,14 @@ data %>%
     output_file = "foo.tex",
     clear_reps = "DOSE",
     note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
-  ) %>% st_latex(stdout())
+  ) %>% st_asis()
 ```
 
 \clearpage
 
 # Increase col space
 
-```{r,results = "asis"}
+```{r}
 data %>%
   stable_long(
     panel = "STUDY", 
@@ -184,7 +242,7 @@ data %>%
     clear_reps = "DOSE",
     sizes = tab_size(row = 1, col = 1),
     note_config = noteconf(width = 0.7, type = "minipage", table_skip = 0.1)
-  ) %>% st_latex(stdout())
+  ) %>% st_asis()
 ```
 
 
@@ -198,12 +256,12 @@ data %>%
   the table data
 - Arbitrary notes are also allowed (encouraged)
 
-```{r,results = 'asis'}
+```{r}
 stable(
   data[1:10,],
   r_file = "foo.R",
   output_file = "foo.tex",
   notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 

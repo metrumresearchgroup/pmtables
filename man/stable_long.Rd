@@ -8,9 +8,10 @@ stable_long(
   data,
   note_config = noteconf(type = "minipage"),
   inspect = FALSE,
-  lt_cap_macro = NULL,
-  lt_cap_text = NULL,
-  lt_cap_label = NULL,
+  lt_cap_macro = "",
+  lt_cap_text = "",
+  lt_cap_short = "",
+  lt_cap_label = "",
   lt_continue = "\\\\footnotesize{continued on next page}",
   ...
 )
@@ -28,7 +29,9 @@ are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
 \item{lt_cap_macro}{the name of a macro that will hold caption text; to not lead with
 \verb{\\\\} - this will be added for you}
 
-\item{lt_cap_text}{caption text}
+\item{lt_cap_text}{full caption text, appearing where the table is rendered}
+
+\item{lt_cap_short}{short caption text, appearing in the list of tables}
 
 \item{lt_cap_label}{table label for use in latex document}
 

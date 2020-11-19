@@ -85,9 +85,16 @@ require_col <- function(data,col,context=NULL) {
   }
 }
 
-gluet <- function(x,...) {
+gluet <- function(x, .envir = parent.frame(), ...) {
   x <- force(x)
-  glue(x,.open = "<", .close = ">", .envir = parent.frame())
+  glue(x,.open = "<", .close = ">", .envir = .envir)
+}
+
+mgluet <- function(x, ...) {
+  if(length(x)==1) return(gluet(x, ...))
+  w <- grepl("<", x, fixed = TRUE)
+  x[w] <- map(x[w], gluet, ...)
+  flatten_chr(x)
 }
 
 squote <- function(x) paste0("'", x, "'")

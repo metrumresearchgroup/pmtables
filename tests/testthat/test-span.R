@@ -29,3 +29,18 @@ test_that("span from user", {
   expect_equal(nrow(span), ncol(ptdata()))
   expect_true(all(span$title[3:5] == "from us_er"))
 })
+
+test_that("span with breaks in title", {
+  data <- ptdata()
+  span <- colgroup("line 1 ~~~ line 2", WT:ALB)
+  out <- inspect(data, span = span, span_title_break = "~~~")
+  ans <- out$span_data$tex
+  expect_length(ans, 3)
+  sp <- strsplit(ans, " *& *")
+  expect_match(sp[[1]][1], "multicolumn{4}{c}{}", fixed = TRUE)
+  expect_match(sp[[2]][1], "multicolumn{4}{c}{}", fixed = TRUE)
+  expect_match(sp[[1]][2], "multicolumn{4}{c}{line 1}", fixed = TRUE)
+  expect_match(sp[[2]][2], "multicolumn{4}{c}{line 2}", fixed = TRUE)
+  expect_match(sp[[3]], "cmidrule(lr)", fixed = TRUE)
+})
+

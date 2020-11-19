@@ -19,6 +19,16 @@ test_that("longtable - caption text", {
   expect_match(out$output, test, fixed = TRUE, all=FALSE)
 })
 
+test_that("longtable - caption with short", {
+  out <- inspect_long(
+    data = mtcars,
+    lt_cap_text = "Text caption",
+    lt_cap_short = "Short text"
+  )
+  test <- "\\caption[Short text]{Text caption}"
+  expect_match(out$output, test, fixed = TRUE, all=FALSE)
+})
+
 test_that("longtable - caption macro", {
   out <- inspect_long(data = mtcars, lt_cap_macro = "mylongtable")
   test <- "\\caption{\\mylongtable}"
@@ -42,4 +52,51 @@ test_that("longtable - output file is saved", {
   expect_equal(attributes(out)$stable_file, "../path/foo.tex")
 })
 
+test_that("longtable - with span", {
+  data <- stdata()
+  span <- colgroup("a group of cols", 4:9)
+  out <- inspect_long(data, span = span)
+  expect_match(
+    out$output,
+    "multicolumn{6}{c}{a group of cols}",
+    fixed = TRUE,
+    all = FALSE
+  )
+})
 
+test_that("longtable - with units", {
+  data <- stdata()
+  units <- list(WT = "(kg)", AGE = "(years)")
+  out <- inspect_long(data, units = units )
+  expect_match(
+    out$output,
+    "(kg)",
+    fixed = TRUE,
+    all = FALSE
+  )
+  expect_match(
+    out$output,
+    "(years)",
+    fixed = TRUE,
+    all = FALSE
+  )
+})
+
+test_that("longtable - with span and units", {
+  data <- stdata()
+  units <- list(WT = "(kg)", AGE = "(years)")
+  span <- colgroup("a group of cols", 4:9)
+  out <- inspect_long(data, units = units, span = span )
+  expect_match(
+    out$output,
+    "(kg)",
+    fixed = TRUE,
+    all = FALSE
+  )
+  expect_match(
+    out$output,
+    "multicolumn{6}{c}{a group of cols}",
+    fixed = TRUE,
+    all = FALSE
+  )
+})

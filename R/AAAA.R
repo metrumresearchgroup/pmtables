@@ -9,7 +9,7 @@
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
-#' @importFrom rlang enquo enquos is_named
+#' @importFrom rlang enquo enquos is_named is_atomic
 #' @importFrom glue glue
 #' @importFrom tibble tibble as_tibble
 #' @importFrom stats median rnorm sd na.omit
@@ -22,6 +22,14 @@
 #' @include class-new_names.R
 #'
 NULL
+
+
+# GLOBAL object
+.internal <- new.env(parent = emptyenv())
+
+.onLoad <- function(libname, pkgname) {
+  st_reset_knit_deps()
+}
 
 #' pmtables: Tables for Pharmacometrics.
 #'
@@ -90,17 +98,21 @@ NULL
 #'   horizontal line above
 #'
 #' @section Preview tables:
-#' - Use [st_preview()] to send s-table output to `texPreview`
-#' - Use [st2doc()] to render a pdf file with one or more tables
-#' - Use [pt_wrap()] or [st_wrap()]  to wrap s-table output in a `table`
-#'   environment and optionally send the output to [stdout()]; this is helpful
-#'   when rendering tables in Rmarkdown documents.  There is a `pt_wrap()`
-#'   method for longtables that won't add the table environment.
-#' - Use the non-exported function [st2article()] to render several tables in
+#' - Use [st_preview()] to send s-table output to [texPreview::tex_preview()]
+#' - Use [st2article()] or [st2report()] to render several tables in
 #'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
-#'   of `Rmarkdown` or `pandoc`; this requires `pdflatex` to be installed and
-#'   in your `PATH`.  Because this function is not exported, you will have to
-#'   call it with `pmtables:::st2article(...)`.
+#'   of `Rmarkdown` or `pandoc`); this requires `pdflatex` to be installed and
+#'   in your `PATH`.
+#' - Use [st2doc()] to render a pdf file with one or more tables using pandoc;
+#'   in general, use [st2article()] instead
+#' - Pipe tables to [st_asis()] to render a table in line while knitting an
+#'   Rmd document
+#' - Use [st_wrap()]  to wrap s-table output in a `table`
+#'   environment and optionally send the output to [stdout()]; this is helpful
+#'   when rendering tables in Rmarkdown documents.  There is an [st_wrap()]
+#'   method for longtables that won't add the table environment.
+#' - Use [as_lscape()] to mark [stable()] or [stable_long()] output for display
+#'   in landscape environment
 #'
 #' @section Save s-tables:
 #' - Use [stable_save()] to write an `stable` or `stable_long` object to file
@@ -112,9 +124,13 @@ NULL
 #' - `threeparttable`
 #' - `array`
 #' - `booktabs`
+#' - `pdflscape`
 #' - `longtable` (only when long tables are in the document)
+#' - `float` (mainly if you want to use `H` placement in your Rmd output)
 #'
-#' In `Rmd`, include these as `extra_dependencies`.
+#' In `Rmd`, include these as `extra_dependencies`. Or try using
+#' [st_use_knit_deps()] to include these packages via [knitr::knit_meta_add()];
+#' this is __only__ when you are including a table in a knit `Rmd` document.
 #'
 #' You may also want to include this package:
 #'
@@ -215,3 +231,4 @@ stdata <- ptdata # nocov
 #' @format A data frame with 13 rows and 9 variables
 #'
 "pmt_summarized"
+

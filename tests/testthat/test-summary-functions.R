@@ -9,7 +9,7 @@ test_that("summary cont_long_fun", {
   ans <- pmtables:::cont_long_fun(x)
   expect_is(ans,"data.frame")
   expect_named(ans, c("n", "Mean", "Median", "SD", "Min / Max"))
-  expect_equal(ans$n, 1000)
+  expect_equal(ans$n, "1000")
   expect_equal(ans$Mean, pmtables:::sig(mean(x)))
   expect_equal(ans$Median, pmtables:::sig(median(x)))
   expect_equal(ans$SD, pmtables:::sig(sd(x)))

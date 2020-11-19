@@ -183,7 +183,11 @@ stable.data.frame <- function(data,
 
   # Colgroups
   cols <- names(data)
-  span_data <- tab_spanners(data = data, cols = cols, span = span, ...)
+  span_data <- tab_spanners(
+    data = data, cols = cols, span = span,
+    sizes = sizes,
+    ...
+  )
   cols <- span_data$cols
 
   # Format cols
@@ -274,16 +278,21 @@ stable.pmtable <- function(data, ...) as_stable(data, ...)
 #' @export
 stable.stable <- function(data, ...) return(data)
 
+#' @rdname stable
+#' @export
+stable.stobject <- function(data, ... ) {
+  st_make(data, ...)
+}
+
 #' Create stable from pmtable
 #'
 #' @param x object to convert to stable
 #' @param ... for the `pmtable` method, these are extra named arguments to pass
 #' to [stable()]
 #' @param wrap if `TRUE`, the stable output will be wrapped in a latex table
-#' environment
+#' environment using [st_wrap()]
 #' @param wrapw if `TRUE`, the stable output will be wrapped in a latex table
-#' environment and
-#' the output will be written to [stdout()]; use this along with
+#' environment and the output will be written to [stdout()]; use this along with
 #' `results = "asis"` when rendering tables with [rmarkdown::render()]
 #'
 #' @export
@@ -292,10 +301,12 @@ as_stable <- function(x, ...) UseMethod("as_stable")
 
 #' @param long if `TRUE`, render with [stable_long()] to create a longtable;
 #' otherwise, by default process with [stable()]
+#' @param con passed to [st_wrap()]; used when `wrap` is `TRUE`
 #' @rdname as_stable
 #' @keywords internal
 #' @export
-as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE) {
+as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE,
+                              con = NULL) {
   up <- list(...)
   replace <- intersect(names(up),names(x))
   if(length(replace) > 0) {
@@ -311,7 +322,7 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE)
   ans <- do.call(fun, args = x)
 
   if(isTRUE(wrap) || isTRUE(wrapw)) {
-    ans <- pt_wrap(ans)
+    ans <- st_wrap(ans, con = con)
   }
   if(isTRUE(wrapw)) {
     writeLines(ans)
@@ -324,6 +335,13 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE)
 #' @export
 as_stable.stable <- function(x,...) {
   x
+}
+
+#' @rdname as_stable
+#' @keywords internal
+#' @export
+as_stable.stobject <- function(x, ...) {
+  st_make(x, ...)
 }
 
 #' Get debug information from stable object

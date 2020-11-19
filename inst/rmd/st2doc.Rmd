@@ -9,12 +9,20 @@ output:
       booktabs:
       array:
       longtable:
-      mathdesign: utopia
+      fontenc: T1
+      mathpazo:
+      pdflscape:
+      float:
   header-includes: 
     - "\\pagenumbering{gobble}"
 params: 
   table_text: ""
 ---
+
+```{=latex}
+\pagenumbering{gobble}
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, results = "asis")

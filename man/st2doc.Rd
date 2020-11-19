@@ -8,7 +8,8 @@ st2doc(
   text,
   preview = TRUE,
   output_dir = tempdir(),
-  output_file = "st2doc.pdf"
+  output_file = "st2doc.pdf",
+  landscape = is_lscape(text)
 )
 }
 \arguments{
@@ -20,12 +21,28 @@ st2doc(
 \item{output_dir}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
 \item{output_file}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+
+\item{landscape}{passed to \code{\link[=st_wrap]{st_wrap()}}}
 }
 \value{
 the \code{text} is returned invisibly
 }
 \description{
-Render a table a pdf document
+Please consider using \code{\link[=st2article]{st2article()}} rather than this function. It does the
+same thing and likely will replace \code{\link[=st2doc]{st2doc()}}.
+}
+\details{
+In order to render the table in the pdf document, the following
+packages must be installed, regardless of the type of table
+you are trying to render:
+\enumerate{
+\item \code{threeparttable}
+\item \code{booktabs}
+\item \code{array}
+\item \code{longtable}
+\item \code{mathpazo}
+\item \code{pdflscape}
+}
 }
 \examples{
 
@@ -34,4 +51,10 @@ Render a table a pdf document
   ptdata()  \%>\% stable() \%>\% st2doc()
 }
 
+template <- system.file("rmd", "st2doc.Rmd", package = "pmtables")
+# cat(readLines(template), sep = "\n")
+
+}
+\seealso{
+\code{\link[=st2article]{st2article()}}, \code{\link[=st2report]{st2report()}}, \code{\link[=st2viewer]{st2viewer()}}
 }

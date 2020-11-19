@@ -39,8 +39,8 @@ head(data)
 # Simple table
 
 
-```{r,results = 'asis'}
-data %>% st_new() %>% st_make(cols_bold = TRUE, .cat = TRUE)
+```{r}
+data %>% st_new() %>% stable(cols_bold = TRUE) %>% st_asis()
 ```
 
 \clearpage
@@ -53,15 +53,14 @@ name
 the table data
 - Arbitrary notes are also allowed (encouraged)
 
-```{r,results = 'asis'}
+```{r}
 data %>% 
   st_data() %>%
   st_files(r = "foo.R", output = "foo.tex") %>%
   st_notes(
     "Data were analyzed in quadruplicate.", 
     "The results are very clear."
-  ) %>%
-  st_make(.cat =TRUE)
+  ) %>% stable() %>% st_asis()
 ```
 
 \clearpage
@@ -71,7 +70,7 @@ data %>%
 - By default, notes are put in the 3rd part of threeparttable
 - Alternatively, we can put them in a minipage just below the table
 
-```{r,results = 'asis'}
+```{r}
 data %>% 
   st_new() %>% 
   st_files("foo.R", "foo.tex") %>% 
@@ -79,12 +78,9 @@ data %>%
   st_notes(
     "Data were analyzed in quadruplicate.", 
     "The results are very clear."
-  ) %>%
-  st_make(.cat = TRUE)
+  ) %>% stable() %>% st_asis()
 
 ```
-
-
 
 \clearpage
 
@@ -94,11 +90,11 @@ data %>%
 - `STUDY` (left)
 - `DOSE` and `SCR` (right)
 
-```{r,results = 'asis'}
+```{r}
 data %>% 
   st_new() %>% 
   st_align("c", STUDY = 'l', .r = "DOSE,SCR") %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -109,24 +105,24 @@ data %>%
 
 - Automatically put units under the column name
 
-```{r,results = 'asis'}
+```{r}
 
 data %>% 
   st_new() %>% 
   st_center(STUDY = 'l', .r = "DOSE,SCR") %>% 
   st_units(WT = "kg", SCR = "mg/dL", DOSE = "mg") %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 Alternatively
-```{r,results = 'asis'}
+```{r}
 units <- ys_get_unit(spec, parens = TRUE)
 
 data[1:3,] %>% 
   st_new() %>% 
   st_center(STUDY = 'l', .r = "DOSE,SCR") %>% 
   st_units(units) %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 \clearpage
@@ -137,17 +133,18 @@ data[1:3,] %>%
 - Unlimited number
 - Use `...` to break
 
-```{r, results = 'asis'}
+```{r}
 data %>% 
   st_new() %>% 
   st_rename("Study...Number" = STUDY, "Serum...Albumin" = ALB) %>%
   st_units(units) %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
 
 \clearpage
+
 # Math
 
 - Columns with at least two `$` are "math" and will not be sanitized
@@ -161,12 +158,12 @@ ptab
 ```
 
 
-```{r, results = 'asis'}
+```{r}
 ptab %>% 
   st_data() %>% 
   st_center(Parameter = col_ragged(3), .l = "Symbol") %>%
   st_panel(".type") %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -177,10 +174,10 @@ ptab %>%
 
 - Use the column to determine where the hline should go
 
-```{r,results = 'asis'}
+```{r}
 st_new(data) %>% 
   st_hline(from = "STUDY") %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 \clearpage
@@ -189,47 +186,47 @@ st_new(data) %>%
 
 - Give row numbers for hline
 
-```{r,results = 'asis'}
+```{r}
 st_new(data) %>% 
   st_hline(at = c(3,nrow(data))-1) %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 \clearpage
 
 # hline pattern
 
-```{r, results = 'asis'}
+```{r}
 tmp <- readRDS("datasets/with-total.RDS")
 
 st_new(tmp) %>% 
   st_hline(pattern = "all", cols = "STUDY", n = 2) %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 \clearpage
 
 # hline multiple
 
-```{r, results = 'asis'}
+```{r}
 tmp <- readRDS("datasets/with-total.RDS")
 
 st_new(tmp) %>% 
   st_hline(at = 3, n = 2) %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 \clearpage
 
 # Mark a summary row (cf sumrows)
 
-```{r, results = 'asis'}
+```{r}
 tmp <- readRDS("datasets/with-total.RDS")
 
 st_new(tmp) %>% 
   st_hline(at = 3, n = 2) %>% 
   st_bold(cols = "STUDY", pattern = "all") %>%
   st_edit(pattern = "all", replacement = "All studies") %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -239,12 +236,12 @@ st_new(tmp) %>%
 
 - Discard repeating values in a column
 
-```{r,results = 'asis'}
+```{r}
 data %>% 
   st_new() %>% 
   st_hline(from = "STUDY") %>% 
   st_clear_reps("STUDY") %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 \clearpage
@@ -261,12 +258,12 @@ tmp <- ptdata()
 tmp <- mutate(tmp, STUDY = tex_bold(as.character(STUDY)))
 ```
 
-```{r,results = "asis"}
+```{r}
 tmp %>% 
   st_new() %>% 
   st_clear_reps(STUDY) %>%
   st_hline(from = "STUDY") %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -278,7 +275,7 @@ tmp %>%
 tmp <- ptdata()
 ```
 
-```{r,results = "asis"}
+```{r}
 
 tmp %>%
   st_new() %>%
@@ -288,7 +285,7 @@ tmp %>%
   st_it("DOSE") %>%
   st_edit("\\bmale", "dude") %>%
   st_edit("female", "gal") %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -299,13 +296,13 @@ tmp %>%
 - Divide the table using column contents
 - there's a bug somewhere there
 
-```{r,results = 'asis'}
+```{r}
 
 data %>% 
   st_new() %>% 
   st_center(DOSE = 'l', SCR = 'r') %>% 
   st_panel("STUDY", prefix = "Study number: ") %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 \clearpage
@@ -314,13 +311,12 @@ data %>%
 
 - Group columns
 
-```{r,results = 'asis'}
+```{r}
 data %>% 
   st_new() %>% 
   st_left(.c = "WT,AGE,CRCL") %>% 
   st_span("In final model", WT:CRCL) %>% 
-  st_make(.cat = TRUE)
-
+  stable() %>% st_asis()
 ```
 
 
@@ -331,7 +327,7 @@ data %>%
 - Multiple groupings
 - Multiple levels
 
-```{r,results = 'asis'}
+```{r}
 
 data %>% 
   st_new() %>% 
@@ -339,7 +335,7 @@ data %>%
   st_span("Hrm", AGE:CRCL) %>%
   st_span("Huh", ALB:SCR) %>% 
   st_span("Expert opinion", CRCL:SCR, level = 2) %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -354,11 +350,11 @@ dotdata <- readRDS("datasets/with-dots.RDS")
 head(dotdata, n=2)
 ```
 
-```{r,results = 'asis'}
+```{r}
 dotdata %>% 
   st_new() %>%
   st_span_split(sep = '.') %>%
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 \clearpage
@@ -366,20 +362,20 @@ dotdata %>%
 # Handle wide columns
 
 ## `descr is` taking over the table
-```{r,results = "asis"}
+```{r}
 ptable <- readRDS("datasets/ptable.RDS")
 
-ptable %>% st_new() %>% st_make(.cat = TRUE)
+ptable %>% st_new() %>% stable() %>% st_asis()
 ```
 
 
 ## Limit `descr` to 5 cm
 
-```{r, results = "asis"}
+```{r}
 ptable %>% 
   st_new() %>% 
   st_align(descr = col_ragged(5)) %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -395,10 +391,10 @@ df.total
 ```
 
 
-```{r, results = "asis"}
+```{r}
 st_new(df.total) %>% 
   st_sumrow(pattern = "all", label = "All studies", bold = TRUE) %>% 
-  st_make(.cat = TRUE)
+  stable() %>% st_asis()
 ```
 
 
@@ -409,8 +405,8 @@ st_new(df.total) %>%
 
 - Where's my glasses?
 
-```{r,results = 'asis'}
-data %>% st_new() %>% st_sizes(font = "tiny") %>% st_make(.cat = TRUE)
+```{r}
+data %>% st_new() %>% st_sizes(font = "tiny") %>% stable() %>% st_asis()
 ```
 
 
@@ -418,16 +414,16 @@ data %>% st_new() %>% st_sizes(font = "tiny") %>% st_make(.cat = TRUE)
 
 # Row space
 
-```{r,results = 'asis'}
+```{r}
 sl <- data %>% slice(1:3)
-sl %>% st_new() %>%                   st_make(.cat = TRUE)
-sl %>% st_new() %>% st_sizes(row = 0.9) %>% st_make(.cat = TRUE)
-sl %>% st_new() %>% st_sizes(row = 2  ) %>% st_make(.cat = TRUE)
+sl %>% st_new() %>%                         stable() %>% st_asis()
+sl %>% st_new() %>% st_sizes(row = 0.9) %>% stable() %>% st_asis()
+sl %>% st_new() %>% st_sizes(row = 2  ) %>% stable() %>% st_asis()
 ```
 \clearpage
 
 # Col space
 
-```{r,results = 'asis'}
-data %>% st_new() %>% st_sizes(col = 20) %>% st_make(.cat = TRUE)
+```{r}
+data %>% st_new() %>% st_sizes(col = 20) %>% stable() %>% st_asis()
 ```

@@ -4,7 +4,14 @@
 \alias{cont_wide_fun}
 \title{Function for continuous wide summaries}
 \usage{
-cont_wide_fun(value, digit_fun = sig, id = NULL, digits = 3, ...)
+cont_wide_fun(
+  value,
+  digit_fun = sig,
+  id = NULL,
+  digits = 3,
+  na_fill = "--",
+  ...
+)
 }
 \arguments{
 \item{value}{the data to summarize}
@@ -15,6 +22,8 @@ cont_wide_fun(value, digit_fun = sig, id = NULL, digits = 3, ...)
 
 \item{digits}{the number of digits in the summary; the current implementation
 passes \code{digits} to \code{digit_fun()}}
+
+\item{na_fill}{value to fill with when all values in the summary are missing}
 
 \item{...}{not used}
 }

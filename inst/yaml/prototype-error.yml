@@ -1,0 +1,12 @@
+SETUP__:
+  prototype: ptype
+ptype:
+  a: 1
+  b: 2
+  c: 3
+other:
+  - 4
+  - 5
+  - 6
+  - 999
+final: [7, 8, 9]

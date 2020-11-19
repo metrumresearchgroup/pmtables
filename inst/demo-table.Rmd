@@ -38,22 +38,24 @@ head(data)
 ```
 
 
-# wrap
+# asis
 
-There is a wrap function in this document.  Don't worry about that; it just 
-puts the output into a table environment and sends the output to get rendered
-in markdown.
+In this document, we are rendering tables inline as we knit.  To accomplish this
+we need to pipe tables to `st_asis()` and you will see that in every example. 
+If you are knitting a document and want to include a table, you should do this.
+If you are not knitting a document with included tables, you shouldn't use
+`st_asis()`
 
 \clearpage
 
 # Simple table
 
 - A data frame is wrapped in tabular environment
-- The table is created with threeparttable
+- The table is created with `threeparttable`
 
 
-```{r, bblock1, results = "asis"}
-data %>% stable(cols_bold=TRUE) %>% pt_wrap(stdout())
+```{r, bblock1}
+data %>% stable(cols_bold=TRUE) %>% st_asis()
 ```
 
 \clearpage
@@ -67,13 +69,13 @@ data %>% stable(cols_bold=TRUE) %>% pt_wrap(stdout())
 - Arbitrary notes are also allowed, provided as a character vector; item in the 
 vector is placed on its own line
 
-```{r, block2, results = "asis"}
+```{r, block2}
 stable(
   data, 
   r_file = "foo.R", 
   output_file = "foo.tex", 
   notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 \clearpage
@@ -84,12 +86,12 @@ stable(
 - Alternatively, we can put them in a minipage just below the table
 - The width of the minipage needs to be set by the user
 
-```{r,results = 'asis'}
+```{r}
 stable(
   data, 
   note_config = noteconf(type = "minipage", width = 0.85),
   notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 
@@ -108,10 +110,10 @@ pass exceptions to that default setting
   - `STUDY` (left)
   - `DOSE` and `SCR` (right)
 
-```{r,results = 'asis'}
+```{r}
 data %>% 
   stable(align = cols_center(STUDY = 'l', .r = "DOSE,SCR")) %>%
-  pt_wrap(stdout())
+  st_asis()
 ```
 
 
@@ -126,21 +128,21 @@ prior to renaming
 - The list can contain a subset of columns and can also contain names that are 
 not in the table (there is no warning or error for the latter)
 
-```{r,results = 'asis'}
+```{r}
 units <- ys_get_unit(spec, parens = TRUE)
 
 stable(
   data,
   units = units,
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 \clearpage
 
 # Expand header rows
 
-- Multiline table header 
+- Multi-line table header 
 - Unlimited number
-- Use `...` to break
+- Use `...` to break; pass `cols_break` to alter the break sequence
 - Units go on the bottom row when they are supplied
 - Items are always pushed to the bottom
 
@@ -149,7 +151,7 @@ stable(
   data, 
   cols_rename = vars("Study...Number" = STUDY, "Serum...Albumin" = ALB), 
   units = units
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 \clearpage
@@ -176,9 +178,8 @@ xtra <- bind_rows(xtra2,xtra1)
 xtra
 ```
 
-```{r,results = "asis"}
-stable(tmp, cols_extra = xtra) %>% st_wrap()
-
+```{r}
+stable(tmp, cols_extra = xtra) %>% st_asis()
 ```
 
 
@@ -198,12 +199,12 @@ ptab
 ```
 
 
-```{r, results = 'asis'}
+```{r}
 stable(
   ptab, 
   align = cols_center(Parameter =  col_ragged(3), .l = "Symbol"), 
   panel = ".type"
-  ) %>% pt_wrap(stdout())
+  ) %>% st_asis()
 ```
 
 
@@ -214,11 +215,11 @@ stable(
 
 - Use the column to determine where the hline should go
 
-```{r,results = 'asis'}
+```{r}
 stable(
   data,
   hline_from = "STUDY",
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 \clearpage
@@ -228,11 +229,11 @@ stable(
 
 - Give row numbers for hline as logical or integer vector
 
-```{r,results = 'asis'}
+```{r}
 stable(
   data,
   hline_at = c(3,nrow(data))-1,
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 
@@ -244,11 +245,11 @@ stable(
 - Also `clear_grouped_reps` which recursively groups by the column names supplied
 and clears the most distant column name in the groups
 
-```{r,results = 'asis'}
+```{r}
 stable(
   data,
   clear_reps = "STUDY",
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 \clearpage
@@ -266,12 +267,12 @@ tmp <- ptdata()
 tmp <- mutate(tmp, STUDY = tex_bold(as.character(STUDY)))
 ```
 
-```{r,results = "asis"}
+```{r}
 stable(
   tmp, 
   clear_reps = "STUDY", 
   hline_from = "STUDY", 
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 \clearpage
@@ -286,11 +287,11 @@ can be overridden
 the prefix can also come from the name of the supplied panel panel ID
 (e.g. `c(prefix_text = panel_name)`)
 
-```{r,results = 'asis'}
+```{r}
 stable(
   data,
   panel = as.panel("STUDY", prefix = "Study number: "),
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 \clearpage
@@ -299,39 +300,41 @@ stable(
 
 - name columns that can be dropped from the table
 
-```{r, results = 'asis'}
-stable(data[1:3,], drop = "STUDY,FORM,DOSE") %>% pt_wrap(stdout())
+```{r}
+stable(data[1:3,], drop = "STUDY,FORM,DOSE") %>% st_asis()
 ```
 
 - this works when there is a panel
 
-```{r, results = 'asis'}
-stable(data[1:3,], drop = "SCR,FORM,DOSE", panel = "STUDY") %>% pt_wrap(stdout())
+```{r}
+stable(data[1:3,], drop = "SCR,FORM,DOSE", panel = "STUDY") %>% st_asis()
 ```
 
 \clearpage
 
 # Colspan
 
+## Basic
+
 - Group columns with a spaning line and a title
 - The span goes above the highest row in the column header box
 
-```{r,results = 'asis'}
+```{r}
 stable(
   data,
   span = colgroup("In final model", WT:CRCL),
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 
 \clearpage
 
-# Colspan - multiple
+## Multiple
 
 - Multiple groupings
 - Multiple levels
 
-```{r,results = 'asis'}
+```{r}
 
 stable(
   data,
@@ -341,13 +344,13 @@ stable(
     colgroup("Huh", ALB:SCR), 
     colgroup("Expert opinion", CRCL:SCR, level = 2)
   )
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 
 \clearpage
 
-# Colspan - from cols
+## Split from columns
 
 - We have some columns of the form `tag.name`
 - These are split on the `sep` argument; the `tag` (common across columns in the 
@@ -359,14 +362,34 @@ dotdata <- readRDS("datasets/with-dots.RDS")
 head(dotdata, n=2)
 ```
 
-```{r,results = 'asis'}
+```{r}
 stable(
   dotdata,
   span_split = colsplit(sep = '.'),
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 \clearpage
+
+## With titles breaking across lines
+
+You can include `...` in the title it will break in to multiple lines.  You can 
+alter the split sequence with the `span_title_break` argument (default is `...`) . 
+See `?tab_spanners`.
+
+This feature is in addition to the functionality allowing you to break column 
+names (control the split seqence with `cols_break`, where default is also `...`).
+
+```{r, results = "asis"}
+out <- stable(
+  stdata(), 
+  span = colgroup("Final model ... Covariates", WT:SCR), 
+  cols_rename = c("Study Protocol ... Number" = "STUDY")
+) %>% st_asis()
+```
+
+\clearpage
+
 
 # Handle wide columns
 
@@ -378,7 +401,7 @@ a lot of text in it
 ```{r,results = "asis"}
 ptable <- readRDS("datasets/ptable.RDS")
 
-stable(ptable) %>% pt_wrap(stdout())
+stable(ptable) %>% st_asis()
 ```
 
 
@@ -388,7 +411,7 @@ stable(ptable) %>% pt_wrap(stdout())
 stable(
   ptable, 
   align = cols_center(descr = col_ragged(5))
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 
@@ -417,7 +440,7 @@ stable(
     label = "All Studies", 
     bold = TRUE
   )
-) %>% pt_wrap(stdout())
+) %>% st_asis()
 ```
 
 
@@ -478,8 +501,8 @@ long %>%
 - Tables should be rendered with `\\normalsize` for the most part
 - The font size can get bumped up or down in special circumstances
 
-```{r,results = 'asis'}
-data %>% stable(sizes = tab_size(font = "tiny")) %>% pt_wrap(stdout())
+```{r}
+data %>% stable(sizes = tab_size(font = "tiny")) %>% st_asis()
 ```
 
 
@@ -491,10 +514,10 @@ data %>% stable(sizes = tab_size(font = "tiny")) %>% pt_wrap(stdout())
 - The user can bring this up or down so that row spacing of 1 is no extension
 or compression of row padding
 
-```{r,results = 'asis'}
-data %>% slice(1:3) %>% stable() %>% pt_wrap(stdout())
-data %>% slice(1:3) %>% stable(sizes = tab_size(row = 0.9)) %>% pt_wrap(stdout())
-data %>% slice(1:3) %>% stable(sizes = tab_size(row = 2))   %>% pt_wrap(stdout())
+```{r}
+data %>% slice(1:3) %>% stable() %>% st_asis()
+data %>% slice(1:3) %>% stable(sizes = tab_size(row = 0.9)) %>% st_asis()
+data %>% slice(1:3) %>% stable(sizes = tab_size(row = 2))   %>% st_asis()
 ```
 \clearpage
 
@@ -502,8 +525,8 @@ data %>% slice(1:3) %>% stable(sizes = tab_size(row = 2))   %>% pt_wrap(stdout()
 
 - The default is 5
 
-```{r,results = 'asis'}
-data %>% stable(sizes = tab_size(col = 20)) %>% pt_wrap(stdout())
+```{r}
+data %>% stable(sizes = tab_size(col = 20)) %>% st_asis()
 ```
 
 \clearpage
@@ -511,6 +534,6 @@ data %>% stable(sizes = tab_size(col = 20)) %>% pt_wrap(stdout())
 # Still ok
 
 ```{r, results = 'asis'}
-stable(data) %>% pt_wrap(stdout())
+stable(data) %>% st_asis()
 ```
 
