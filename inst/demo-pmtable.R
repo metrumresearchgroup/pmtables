@@ -5,9 +5,6 @@
 #' output:
 #'   pdf_document:
 #'     extra_dependencies:
-#'       threeparttable:
-#'       array:
-#'       booktabs:
 #'       mathdesign: utopia
 #'     toc: true
 #'     number_sections: true

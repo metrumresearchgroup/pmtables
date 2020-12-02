@@ -3,12 +3,7 @@ title: Simple Tables Demo Doc
 output: 
   pdf_document: 
     extra_dependencies: 
-      threeparttable:
-      booktabs:
-      longtable:
       mathdesign: utopia
-      array:
-      setspace:
     number_sections: true
     toc: true 
 editor_options: 
@@ -380,7 +375,7 @@ See `?tab_spanners`.
 This feature is in addition to the functionality allowing you to break column 
 names (control the split seqence with `cols_break`, where default is also `...`).
 
-```{r, results = "asis"}
+```{r}
 out <- stable(
   stdata(), 
   span = colgroup("Final model ... Covariates", WT:SCR), 
@@ -398,7 +393,7 @@ a lot of text in it
 
 
 ## `descr is` taking over the table
-```{r,results = "asis"}
+```{r}
 ptable <- readRDS("datasets/ptable.RDS")
 
 stable(ptable) %>% st_asis()
@@ -407,7 +402,7 @@ stable(ptable) %>% st_asis()
 
 ## Limit `descr` to 5 cm
 
-```{r, results = "asis"}
+```{r}
 stable(
   ptable, 
   align = cols_center(descr = col_ragged(5))
@@ -432,7 +427,7 @@ df.total
 ```
 
 
-```{r, results = "asis"}
+```{r}
 stable(
   df.total, 
   sumrows = sumrow(
@@ -478,7 +473,7 @@ long <- map_dfr(1:2, ~ long) %>% arrange(STUDY,DOSE,FORM)
 ```
 
 
-```{r,results = "asis"}
+```{r}
 long %>%
   stable_long(
     panel = "STUDY", cols_bold = TRUE,
@@ -488,7 +483,7 @@ long %>%
     cols_rename = c(Formulation  = "FORM"),
     r_file = "foo.R", output_file = "../deliv/table/output.tex",
     note_config = noteconf(type = "minipage", width = 0.8,table_skip = 0.2)
-  ) %>% st_wrap(table = FALSE)
+  ) %>% st_asis()
 ```
 
 

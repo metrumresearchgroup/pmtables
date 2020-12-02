@@ -3,11 +3,7 @@ title: What gets sanitized
 output: 
   pdf_document: 
     extra_dependencies: 
-      threeparttable:
-      booktabs:
-      longtable:
       mathdesign: utopia
-      array:
     number_sections: true
     toc: true 
 editor_options: 

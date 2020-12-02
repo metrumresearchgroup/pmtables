@@ -3,10 +3,7 @@ title: Demo Doc - pipe interface
 output: 
   pdf_document: 
     extra_dependencies: 
-      threeparttable:
-      booktabs:
       mathdesign: utopia
-      array:
     number_sections: true
     toc: true 
 editor_options: 
