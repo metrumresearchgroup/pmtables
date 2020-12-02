@@ -3,13 +3,7 @@ title: Simple Tables Demo Doc
 output: 
   pdf_document: 
     extra_dependencies: 
-      threeparttable:
-      booktabs:
-      longtable:
       mathdesign: utopia
-      array:
-      fontenc: T1
-      setspace:
     number_sections: true
     toc: true 
 editor_options: 
