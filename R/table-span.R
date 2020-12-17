@@ -177,6 +177,14 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
 
   assert_that(is.character(cols))
 
+  if(is.null(span)) {
+    span <- list()
+  } else {
+    if(is.colgroup(span)) span <- list(span)
+    assert_that(is.list(span))
+    span <- map(span, process_colgroup, cols = cols)
+  }
+
   do_span_split <- is.colsplit(span_split)
 
   spans_from_split <- NULL
@@ -188,14 +196,6 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
       cols <- spans$data$newcol
       spans_from_split <- spans$data
     }
-  }
-
-  if(is.null(span)) {
-    span <- list()
-  } else {
-    if(is.colgroup(span)) span <- list(span)
-    assert_that(is.list(span))
-    span <- map(span, process_colgroup, cols = cols)
   }
 
   all_span_tex <- NULL
