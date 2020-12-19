@@ -303,6 +303,7 @@ st_space <- function(x, row = 1.5, col = 5) {
 #' times and will accumulate `span` data.
 #'
 #' @param x an stobject
+#' @param split if `TRUE`, then [st_span_split()] is called
 #' @param ... passed to [colgroup()]
 #'
 #' @examples
@@ -313,9 +314,12 @@ st_space <- function(x, row = 1.5, col = 5) {
 #' ob %>% st_span("Covariates", WT:ALB) %>% st_make()
 #'
 #' @export
-st_span <- function(x,...) {
+st_span <- function(x, ..., split = FALSE) {
+  if(isTRUE(split)) {
+    return(st_span_split(x, ..., split = split))
+  }
   check_st(x)
-  span <- colgroup(...)
+  span <- colgroup(..., split = FALSE)
   if(is.null(x$span)) {
     x$span <- list(span)
     return(x)
@@ -332,7 +336,8 @@ st_span <- function(x,...) {
 #' See the `span_split` argument to [stable()].
 #'
 #' @param x an stobject
-#' @param sep passed to [colsplit()]
+#' @param split passed to [colsplit()], if `split` is `FALSE`, then
+#' an error is generated
 #' @param ... passed to [colsplit()]
 #'
 #' @examples
@@ -345,9 +350,17 @@ st_span <- function(x,...) {
 #' st_new(data) %>% st_span_split('.') %>% st_make()
 #'
 #' @export
-st_span_split <- function(x, sep,...) {
+st_span_split <- function(x, ..., split = TRUE) {
+  assert_that(
+    isTRUE(split),
+    msg = "the `split` argument is FALSE; use `st_span()` instead"
+  )
   check_st(x)
-  x$span_split <- colsplit(sep = sep, ...)
+  span <- colsplit(..., split = split)
+  if(!is.null(x$span_split)) {
+    message("`span_split` is already set and will be replaced")
+  }
+  x$span_split <- span
   x
 }
 

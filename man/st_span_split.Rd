@@ -4,14 +4,15 @@
 \alias{st_span_split}
 \title{Add column split spanner information to st object}
 \usage{
-st_span_split(x, sep, ...)
+st_span_split(x, ..., split = TRUE)
 }
 \arguments{
 \item{x}{an stobject}
 
-\item{sep}{passed to \code{\link[=colsplit]{colsplit()}}}
-
 \item{...}{passed to \code{\link[=colsplit]{colsplit()}}}
+
+\item{split}{passed to \code{\link[=colsplit]{colsplit()}}, if \code{split} is \code{FALSE}, then
+an error is generated}
 }
 \description{
 See the \code{span_split} argument to \code{\link[=stable]{stable()}}.

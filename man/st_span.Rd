@@ -4,12 +4,14 @@
 \alias{st_span}
 \title{Add column spanner to st object}
 \usage{
-st_span(x, ...)
+st_span(x, ..., split = FALSE)
 }
 \arguments{
 \item{x}{an stobject}
 
 \item{...}{passed to \code{\link[=colgroup]{colgroup()}}}
+
+\item{split}{if \code{TRUE}, then \code{\link[=st_span_split]{st_span_split()}} is called}
 }
 \description{
 See the \code{span} argument to \code{\link[=stable]{stable()}}. This function can be called multiple
