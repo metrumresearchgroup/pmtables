@@ -9,7 +9,7 @@ st_span(x, ..., split = FALSE)
 \arguments{
 \item{x}{an stobject}
 
-\item{...}{passed to \code{\link[=colgroup]{colgroup()}}}
+\item{...}{passed to \code{\link[=colgroup]{colgroup()}} or \code{\link[=st_span_split]{st_span_split()}} if \code{split} is \code{TRUE}}
 
 \item{split}{if \code{TRUE}, then \code{\link[=st_span_split]{st_span_split()}} is called}
 }

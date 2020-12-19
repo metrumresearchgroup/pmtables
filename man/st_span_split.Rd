@@ -17,6 +17,12 @@ an error is generated}
 \description{
 See the \code{span_split} argument to \code{\link[=stable]{stable()}}.
 }
+\details{
+There can only be one \code{span_split} per table; if \code{st_span_split} is
+called more than once in a pipeline, a warning will be issued on every
+call after the first one and only the latest \code{span_split} data will be
+retained in the table.
+}
 \examples{
 library(dplyr)
 

@@ -304,7 +304,7 @@ st_space <- function(x, row = 1.5, col = 5) {
 #'
 #' @param x an stobject
 #' @param split if `TRUE`, then [st_span_split()] is called
-#' @param ... passed to [colgroup()]
+#' @param ... passed to [colgroup()] or [st_span_split()] if `split` is `TRUE`
 #'
 #' @examples
 #' library(dplyr)
@@ -340,6 +340,12 @@ st_span <- function(x, ..., split = FALSE) {
 #' an error is generated
 #' @param ... passed to [colsplit()]
 #'
+#' @details
+#' There can only be one `span_split` per table; if `st_span_split` is
+#' called more than once in a pipeline, a warning will be issued on every
+#' call after the first one and only the latest `span_split` data will be
+#' retained in the table.
+#'
 #' @examples
 #' library(dplyr)
 #'
@@ -358,7 +364,7 @@ st_span_split <- function(x, ..., split = TRUE) {
   check_st(x)
   span <- colsplit(..., split = split)
   if(!is.null(x$span_split)) {
-    message("`span_split` is already set and will be replaced")
+    warning("`span_split` is already set and will be replaced",call.=FALSE)
   }
   x$span_split <- span
   x

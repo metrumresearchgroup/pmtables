@@ -44,3 +44,19 @@ test_that("span with breaks in title", {
   expect_match(sp[[3]], "cmidrule(lr)", fixed = TRUE)
 })
 
+
+test_that("add span_split via st_span", {
+  data <- tibble(A = 2, B_A = 2, B_B = 3, B_C = 4)
+  x <- st_new(data) %>% st_span(sep = "_", split = TRUE) %>% inspect()
+  expect_equal(x$span_data$cols, c("A", "A", "B", "C"))
+  expect_equal(x$span_data$span[[1]]$title, c("", "B", "B", "B"))
+  expect_error(
+    st_new(data) %>% st_span_split(split = FALSE),
+    regexp = "the `split` argument is FALSE"
+  )
+  x <- st_new(data) %>% st_span_split(sep = "_")
+  expect_warning(
+    st_span_split(x, sep = "."),
+    regexp = "`span_split` is already set and will be replaced"
+  )
+})
