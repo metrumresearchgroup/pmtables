@@ -44,7 +44,7 @@ test_that("span with breaks in title", {
   expect_match(sp[[3]], "cmidrule(lr)", fixed = TRUE)
 })
 
-test_that("names are not clobbered with span and span_split", {
+test_that("names are not clobbered with span plus span_split", {
   data <- tibble(A = 2, B_A = 2, B_B = 3, B_C = 4)
   ans <- inspect(
     data, span_split = colsplit(sep = "_"),
