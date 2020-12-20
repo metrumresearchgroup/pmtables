@@ -319,7 +319,7 @@ st_span <- function(x, ..., split = FALSE) {
     return(st_span_split(x, ..., split = split))
   }
   check_st(x)
-  span <- colgroup(..., split = FALSE)
+  span <- colgroup(..., split = split)
   if(is.null(x$span)) {
     x$span <- list(span)
     return(x)
@@ -364,7 +364,10 @@ st_span_split <- function(x, ..., split = TRUE) {
   check_st(x)
   span <- colsplit(..., split = split)
   if(!is.null(x$span_split)) {
-    warning("`span_split` is already set and will be replaced",call.=FALSE)
+    warning(
+      "`span_split` is already set and will be replaced",
+      call. = FALSE
+    )
   }
   x$span_split <- span
   x
