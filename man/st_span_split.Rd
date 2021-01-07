@@ -4,17 +4,24 @@
 \alias{st_span_split}
 \title{Add column split spanner information to st object}
 \usage{
-st_span_split(x, sep, ...)
+st_span_split(x, ..., split = TRUE)
 }
 \arguments{
 \item{x}{an stobject}
 
-\item{sep}{passed to \code{\link[=colsplit]{colsplit()}}}
-
 \item{...}{passed to \code{\link[=colsplit]{colsplit()}}}
+
+\item{split}{passed to \code{\link[=colsplit]{colsplit()}}, if \code{split} is \code{FALSE}, then
+an error is generated}
 }
 \description{
 See the \code{span_split} argument to \code{\link[=stable]{stable()}}.
+}
+\details{
+There can only be one \code{span_split} per table; if \code{st_span_split} is
+called more than once in a pipeline, a warning will be issued on every
+call after the first one and only the latest \code{span_split} data will be
+retained in the table.
 }
 \examples{
 library(dplyr)
