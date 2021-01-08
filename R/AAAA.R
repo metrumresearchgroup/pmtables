@@ -66,8 +66,9 @@ NULL
 #'   individuals in a data set
 #' - All of the above functions return an object with class `pmtable`, which is
 #'   a list; you can access the summarized data by looking at the `data` slot;
-#'   otherwise, pass the `pmtable` object to [as_stable()] in order to create
-#'   the table
+#'   otherwise, pass the `pmtable` object to [stable()] or [as_stable()] in
+#'   order to create the table.  See [class-pmtable] for details around this
+#'   object
 #' - You can configure the digits in these summaries with [new_digits()]
 #'
 #' @section Helper functions for working with data frames:
@@ -98,7 +99,7 @@ NULL
 #'   horizontal line above
 #'
 #' @section Preview tables:
-#' - Use [st_preview()] to send s-table output to [texPreview::tex_preview()]
+#' - Use [st2viewer()] to send s-table output to [texPreview::tex_preview()]
 #' - Use [st2article()] or [st2report()] to render several tables in
 #'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
 #'   of `Rmarkdown` or `pandoc`); this requires `pdflatex` to be installed and

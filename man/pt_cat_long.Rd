@@ -37,9 +37,23 @@ examples)}
 
 \item{by}{use \code{span} argument instead}
 }
+\value{
+An object with class \code{pmtable}; see \link{class-pmtable}.
+}
 \description{
 Discrete data summary in long format
 }
 \details{
+The data summary for all cells in the table is \code{count (percent)}.
+
 The notes in this table are generated with \code{\link[=pt_cat_long_notes]{pt_cat_long_notes()}}.
+}
+\examples{
+
+out <- pt_cat_long(pmt_first, cols = "SEXf,ASIANf", span = "FORMf")
+
+\dontrun{
+st2report(stable(out))
+}
+
 }
