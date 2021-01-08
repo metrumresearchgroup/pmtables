@@ -121,6 +121,10 @@ in landscape environment
 
 \itemize{
 \item Use \code{\link[=stable_save]{stable_save()}} to write an \code{stable} or \code{stable_long} object to file
+\item Note that there is a \code{dir} argument to that function that lets you
+route the table to a specific directory; \code{dir} defaults to the
+\code{pmtables.dir} option, so setting \code{options(pmtables.dir = "../deliv/table")}
+will route the table to that directory without requiring additional input
 }
 }
 

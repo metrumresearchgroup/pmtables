@@ -118,6 +118,11 @@ NULL
 #' @section Save s-tables:
 #' - Use [stable_save()] to write an `stable` or `stable_long` object to file
 #'
+#' - Note that there is a `dir` argument to that function that lets you
+#'   route the table to a specific directory; `dir` defaults to the
+#'   `pmtables.dir` option, so setting `options(pmtables.dir = "../deliv/table")`
+#'   will route the table to that directory without requiring additional input
+#'
 #' @section Latex / markdown information:
 #'
 #' The following latex packages are required in your `Rmd` or `latex` document:
