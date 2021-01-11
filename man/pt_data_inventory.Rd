@@ -58,8 +58,11 @@ This function summarizes your data in a specific way and returns an object
 that can be converted into a \code{latex} table.
 }
 \details{
-Output columns include counts for subjects, observations, BQL observations,
-and missing observations and percentage of observations that are BQL.
+Output columns include counts for subjects (\code{SUBJ}), observations (\verb{OBS)},
+BQL observations, missing observations (\code{MISS}) and percentage of
+observations that are BQL. When a panels are requested, then the percentages
+for \code{OBS} and \code{BQL} are presented for the \code{Overall} data and for the panel
+\code{Group}.
 
 The summary function is expecting certain columns to be named in a certain
 way. This can be modified to suit your need by passing the following

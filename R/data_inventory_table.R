@@ -236,8 +236,11 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'
 #' @details
 #'
-#' Output columns include counts for subjects, observations, BQL observations,
-#' and missing observations and percentage of observations that are BQL.
+#' Output columns include counts for subjects (`SUBJ`), observations (`OBS)`,
+#' BQL observations, missing observations (`MISS`) and percentage of
+#' observations that are BQL. When a panels are requested, then the percentages
+#' for `OBS` and `BQL` are presented for the `Overall` data and for the panel
+#' `Group`.
 #'
 #' The summary function is expecting certain columns to be named in a certain
 #' way. This can be modified to suit your need by passing the following
