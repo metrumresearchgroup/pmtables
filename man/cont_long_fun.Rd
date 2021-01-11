@@ -27,6 +27,18 @@ passes \code{digits} to \code{digit_fun()}}
 
 \item{...}{not used}
 }
+\value{
+The function returns a tibble with one row and five columns:
+\enumerate{
+\item \code{n} the number of non-missing observations in \code{value}
+\item \code{Mean} the mean of \code{value}
+\item \code{Median} the median of \code{value}
+\item \code{SD} the standard deviation of \code{value}
+\item \code{Min / Max} the range of value
+}
+
+All columns are returned as \code{character}.
+}
 \description{
 Function for continuous long summaries
 }

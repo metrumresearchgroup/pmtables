@@ -90,7 +90,20 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' @param by use `span` argument instead
 #'
 #' @details
+#' The data summary for all cells in the table is `count (percent)`.
+#'
 #' The notes in this table are generated with [pt_cat_long_notes()].
+#'
+#' @examples
+#'
+#' out <- pt_cat_long(pmt_first, cols = "SEXf,ASIANf", span = "FORMf")
+#'
+#' \dontrun{
+#' st2report(stable(out))
+#' }
+#'
+#' @return
+#' An object with class `pmtable`; see [class-pmtable].
 #'
 #' @export
 pt_cat_long <- function(data, cols, span  =  ".total",
@@ -202,7 +215,27 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' summary from the table
 #'
 #' @details
+#' The data summary for this table is `count (percent)`. The number of
+#' data points for each row is also summarized as `n` on the left hand side
+#' of the table (either on the far left or just to the right of the `by`
+#' column).
+#'
 #' The notes in this table are generated with [pt_cat_wide_notes()].
+#'
+#' @examples
+#' out1 <- pt_cat_wide(pmt_first, cols = "SEXf,ASIANf")
+#' stable(out1)
+#'
+#' out2 <- pt_cat_wide(pmt_first, cols = "SEXf,ASIANf", by = "FORMf")
+#' stable(out2)
+#'
+#' \dontrun{
+#' st2report(stable(out1))
+#' st2report(stable(out2))
+#' }
+#'
+#' @return
+#' An object with class `pmtable`; see [class-pmtable].
 #'
 #' @export
 pt_cat_wide <- function(data, cols, by = ".total", panel = by,

@@ -50,8 +50,9 @@ sanitized
 individuals in a data set
 \item All of the above functions return an object with class \code{pmtable}, which is
 a list; you can access the summarized data by looking at the \code{data} slot;
-otherwise, pass the \code{pmtable} object to \code{\link[=as_stable]{as_stable()}} in order to create
-the table
+otherwise, pass the \code{pmtable} object to \code{\link[=stable]{stable()}} or \code{\link[=as_stable]{as_stable()}} in
+order to create the table.  See \link{class-pmtable} for details around this
+object
 \item You can configure the digits in these summaries with \code{\link[=new_digits]{new_digits()}}
 }
 }
@@ -98,7 +99,7 @@ horizontal line above
 \section{Preview tables}{
 
 \itemize{
-\item Use \code{\link[=st_preview]{st_preview()}} to send s-table output to \code{\link[texPreview:tex_preview]{texPreview::tex_preview()}}
+\item Use \code{\link[=st2viewer]{st2viewer()}} to send s-table output to \code{\link[texPreview:tex_preview]{texPreview::tex_preview()}}
 \item Use \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} to render several tables in
 a stand-alone tex document rendered directly by \code{pdflatex} (no involvement
 of \code{Rmarkdown} or \code{pandoc}); this requires \code{pdflatex} to be installed and
@@ -120,6 +121,10 @@ in landscape environment
 
 \itemize{
 \item Use \code{\link[=stable_save]{stable_save()}} to write an \code{stable} or \code{stable_long} object to file
+\item Note that there is a \code{dir} argument to that function that lets you
+route the table to a specific directory; \code{dir} defaults to the
+\code{pmtables.dir} option, so setting \code{options(pmtables.dir = "../deliv/table")}
+will route the table to that directory without requiring additional input
 }
 }
 

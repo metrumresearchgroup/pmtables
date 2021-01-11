@@ -1,7 +1,7 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.3.0.9001
+Version: 0.3.0.9003
 Authors@R: 
     c(
     person(given = "Kyle",
@@ -42,6 +42,7 @@ Collate:
     'summary-functions.R'
     'AAAA.R'
     'check.R'
+    'class-pmtable.R'
     'continuous_table.R'
     'data_inventory_table.R'
     'discrete_table.R'
