@@ -238,7 +238,7 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'
 #' Output columns include counts for subjects (`SUBJ`), observations (`OBS)`,
 #' BQL observations, missing observations (`MISS`) and percentage of
-#' observations that are BQL. When a panels are requested, then the percentages
+#' observations that are BQL. When panels are requested, then the percentages
 #' for `OBS` and `BQL` are presented for the `Overall` data and for the panel
 #' `Group`.
 #'

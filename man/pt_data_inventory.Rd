@@ -60,7 +60,7 @@ that can be converted into a \code{latex} table.
 \details{
 Output columns include counts for subjects (\code{SUBJ}), observations (\verb{OBS)},
 BQL observations, missing observations (\code{MISS}) and percentage of
-observations that are BQL. When a panels are requested, then the percentages
+observations that are BQL. When panels are requested, then the percentages
 for \code{OBS} and \code{BQL} are presented for the \code{Overall} data and for the panel
 \code{Group}.
 
