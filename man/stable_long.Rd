@@ -2,9 +2,14 @@
 % Please edit documentation in R/table-long.R
 \name{stable_long}
 \alias{stable_long}
+\alias{stable_long.data.frame}
+\alias{stable_long.stobject}
+\alias{stable_long.pmtable}
 \title{Create longtable output from an R data frame}
 \usage{
-stable_long(
+stable_long(data, ...)
+
+\method{stable_long}{data.frame}(
   data,
   note_config = noteconf(type = "minipage"),
   inspect = FALSE,
@@ -15,11 +20,17 @@ stable_long(
   lt_continue = "\\\\footnotesize{continued on next page}",
   ...
 )
+
+\method{stable_long}{stobject}(data, ...)
+
+\method{stable_long}{pmtable}(data, ...)
 }
 \arguments{
 \item{data}{data frame passed to \code{\link[=stable]{stable()}}; the user should filter
 or subset so that \code{data} contains exactly the rows (and columns) to be
 processed; pmtables will not add or remove rows prior to processing \code{data}}
+
+\item{...}{passed to \code{\link[=stable]{stable()}}}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
@@ -36,8 +47,6 @@ are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
 \item{lt_cap_label}{table label for use in latex document}
 
 \item{lt_continue}{longtable continuation message}
-
-\item{...}{passed to \code{\link[=stable]{stable()}}}
 }
 \description{
 Create longtable output from an R data frame

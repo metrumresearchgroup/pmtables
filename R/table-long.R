@@ -56,15 +56,19 @@ longtable_notes <- function(notes) {
 #'
 #'
 #' @export
-stable_long <- function(data,
-                        note_config = noteconf(type="minipage"),
-                        inspect = FALSE,
-                        lt_cap_macro = "",
-                        lt_cap_text = "",
-                        lt_cap_short = "",
-                        lt_cap_label = "",
-                        lt_continue = "\\footnotesize{continued on next page}",
-                        ...) {
+stable_long <- function(data, ...) UseMethod("stable_long")
+
+#' @rdname stable_long
+#' @export
+stable_long.data.frame <- function(data,
+                                   note_config = noteconf(type="minipage"),
+                                   inspect = FALSE,
+                                   lt_cap_macro = "",
+                                   lt_cap_text = "",
+                                   lt_cap_short = "",
+                                   lt_cap_label = "",
+                                   lt_continue = "\\footnotesize{continued on next page}",
+                                   ...) {
 
   assert_that(note_config$type=="minipage")
 
@@ -123,4 +127,16 @@ stable_long <- function(data,
   }
 
   out
+}
+
+#' @rdname stable_long
+#' @export
+stable_long.stobject <- function(data, ...) {
+  as_stable(data, ..., long = TRUE)
+}
+
+#' @rdname stable_long
+#' @export
+stable_long.pmtable <- function(data, ...) {
+  as_stable(data, ..., long = TRUE)
 }
