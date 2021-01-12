@@ -41,10 +41,13 @@ longtable_notes <- function(notes) {
 }
 
 #' Create longtable output from an R data frame
+#'
 #' @inheritParams tab_notes
-#' @param data data frame passed to [stable()]; the user should filter
-#' or subset so that `data` contains exactly the rows (and columns) to be
-#' processed; pmtables will not add or remove rows prior to processing `data`
+#' @param data an object to render as a long table; this could be a `data.frame`,
+#' a `pmtable` object or an `stobject`; when passing in a `data.frame`, the data
+#' should be filtered or subset so that `data` contains exactly the rows (and
+#' columns) to be processed; pmtables will not add or remove rows prior to
+#' processing `data`
 #' @param ... passed to [stable()]
 #' @param inspect fixed to `TRUE` and passed to [stable()]
 #' @param lt_cap_macro the name of a macro that will hold caption text; to not lead with
