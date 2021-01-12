@@ -356,21 +356,18 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     Number.BQL = .data[["NBQL"]]
   )
 
-  if(drop_miss) {
-    if(all(ans$MISS==0)) {
-      ans <- mutate(ans, MISS = NULL)
-    }
+  if(isTRUE(drop_miss)) {
+    ans <- mutate(ans, Number.MISS = NULL)
   }
-
 
   ans <- mutate(ans,.total = NULL)
   out <- ans
 
   notes <- pt_data_inventory_notes()
 
-  if(drop_miss) notes <- notes[!grepl("MISS", notes)]
+  if(isTRUE(drop_miss)) notes <- notes[!grepl("MISS", notes)]
 
-  if(drop_bql) {
+  if(isTRUE(drop_bql)) {
     notes <- notes[!grepl("below", notes)]
     out <- select(out, !contains("BQL"))
   }
