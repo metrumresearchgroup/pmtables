@@ -26,9 +26,11 @@ stable_long(data, ...)
 \method{stable_long}{pmtable}(data, ...)
 }
 \arguments{
-\item{data}{data frame passed to \code{\link[=stable]{stable()}}; the user should filter
-or subset so that \code{data} contains exactly the rows (and columns) to be
-processed; pmtables will not add or remove rows prior to processing \code{data}}
+\item{data}{an object to render as a long table; this could be a \code{data.frame},
+a \code{pmtable} object or an \code{stobject}; when passing in a \code{data.frame}, the data
+should be filtered or subset so that \code{data} contains exactly the rows (and
+columns) to be processed; pmtables will not add or remove rows prior to
+processing \code{data}}
 
 \item{...}{passed to \code{\link[=stable]{stable()}}}
 
@@ -37,8 +39,8 @@ are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
 
 \item{inspect}{fixed to \code{TRUE} and passed to \code{\link[=stable]{stable()}}}
 
-\item{lt_cap_macro}{the name of a macro that will hold caption text; to not lead with
-\verb{\\\\} - this will be added for you}
+\item{lt_cap_macro}{the name of a macro that will hold caption text; to not
+lead with \verb{\\\\} - this will be added for you}
 
 \item{lt_cap_text}{full caption text, appearing where the table is rendered}
 
