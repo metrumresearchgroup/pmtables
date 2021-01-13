@@ -135,11 +135,11 @@ stable_long.data.frame <- function(data,
 #' @rdname stable_long
 #' @export
 stable_long.stobject <- function(data, ...) {
-  as_stable.stobject(data, ..., long = TRUE)
+  as_stable(data, ..., long = TRUE)
 }
 
 #' @rdname stable_long
 #' @export
 stable_long.pmtable <- function(data, ...) {
-  as_stable.pmtable(data, ..., long = TRUE)
+  as_stable(data, ..., long = TRUE)
 }
