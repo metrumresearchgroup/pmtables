@@ -24,8 +24,17 @@ cols_align <- function(.default = 'l', ...,
                        .complete = NULL) {
 
   .outer <- match.arg(.outer)
+  .default <- match.arg(.default)
 
   to_update <- list(...)
+  if(length(to_update) > 0) {
+    chk <- unique(flatten_chr(to_update))
+    chk <- chk[!grepl("[[:punct:]]", chk)]
+    bad <- setdiff(chk, c("l", "c", "r"))
+    if(length(bad) > 0) {
+      stop("align should only be r, c, or l for left, center, or right alignment")
+    }
+  }
   to_update <- align_update(to_update, .r,  "r")
   to_update <- align_update(to_update, .l,  "l")
   to_update <- align_update(to_update, .c,  "c")
@@ -102,7 +111,6 @@ col_ragged <- function(..., ragged = "right") {
   col_fixed(..., ragged = ragged)
 }
 
-
 form_align <- function(x,cols,pipes = FALSE) {
 
   if(is.character(x$complete)) return(x$complete)
@@ -134,4 +142,3 @@ form_align <- function(x,cols,pipes = FALSE) {
 
   ans
 }
-
