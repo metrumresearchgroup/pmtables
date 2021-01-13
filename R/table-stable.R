@@ -326,8 +326,9 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE,
   }
   if(isTRUE(wrapw)) {
     writeLines(ans)
+    return(invisible(ans))
   }
-  return(invisible(ans))
+  return(ans)
 }
 
 #' @rdname as_stable

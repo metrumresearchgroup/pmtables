@@ -100,3 +100,16 @@ test_that("longtable - with span and units", {
     all = FALSE
   )
 })
+
+test_that("render long table from pmtable", {
+  a <- stable_long(pt_cont_long(pmt_first, cols = "WT,ALB,SCR"))
+  expect_is(a, "stable_long")
+  expect_is(a, "stable")
+})
+
+test_that("render long table from stobject", {
+  a <- st_new(stdata()) %>% stable_long()
+  expect_is(a, "stable_long")
+  expect_is(a, "stable")
+})
+
