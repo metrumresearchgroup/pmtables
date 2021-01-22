@@ -305,13 +305,15 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
 
 #' @rdname st2article
 #' @export
-st2report <- function(..., template = "report.tex", caption = Lorem,
-                      stem = "view-st2report") {
+st2report <- function(..., .list = NULL, template = "report.tex",
+                      caption = Lorem, stem = "view-st2report") {
   if(missing(template)) {
     template <- system.file("tex", template, package = "pmtables")
   }
+  tables <- c(list(...), .list)
+  tables <- rlang::flatten_if(tables, is.list)
   st2article(
-    ..., template = template, stem = stem, caption = caption
+    .list = tables, template = template, stem = stem, caption = caption
   )
 }
 
