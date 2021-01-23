@@ -381,16 +381,30 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `cols_rename`
+#' @param .map a named list containing rename information; the list names
+#' should be the current column names and the list data should be the new
+#' names
+#'
+#' @details
+#' It is important to note that when rename data is passed via `...` ,
+#' the new name is on the left hand side and the old name on the
+#' right (e.g. to rename `WT` to `Weight`, pass  `Weight = WT`).  However,
+#' rename information passed by .map is reversed (e.g. `list(Wt = "Weight")`).
 #'
 #' @examples
 #' library(dplyr)
 #'
-#' st_new(ptdata()) %>% st_rename(Weight = WT) %>% st_make()
+#' st_new(ptdata()) %>% st_rename(Weight = WT) %>% stable()
 #'
 #' @export
-st_rename <- function(x,...) {
+st_rename <- function(x,..., .map = NULL) {
   check_st(x)
   l <- new_names(enquos(...))
+  if(!is.null(.map)) {
+    ll <- new_names(.map)
+    ll <- setNames(names(ll), ll)
+    l <- c(l,ll)
+  }
   x$cols_rename <- c(x$cols_rename, l)
   x
 }

@@ -157,6 +157,16 @@ test_that("stobject equivalent rename", {
   expect_identical(x$output, y$output)
 })
 
+test_that("rename by named list", {
+  mt <- mtcars[1:3,]
+  y <- st_new(mt) %>%
+    st_rename(cylinder = cyl, .map = list(hp = "HorsePower")) %>%
+    inspect2()
+  tst <- y$cols_new
+  expect_identical(tst[4], "HorsePower")
+  expect_identical(tst[2], "cylinder")
+})
+
 test_that("stobject equivalent blank", {
   mt <- mtcars[1:3,]
   notes <- letters[1:3]

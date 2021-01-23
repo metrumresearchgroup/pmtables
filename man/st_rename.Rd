@@ -4,21 +4,31 @@
 \alias{st_rename}
 \title{Add column rename information to st object}
 \usage{
-st_rename(x, ...)
+st_rename(x, ..., .map = NULL)
 }
 \arguments{
 \item{x}{an stobject}
 
 \item{...}{column rename items in \code{new-name = old-name} format; passed
 to \code{\link[=stable]{stable()}} as \code{cols_rename}}
+
+\item{.map}{a named list containing rename information; the list names
+should be the current column names and the list data should be the new
+names}
 }
 \description{
 See the \code{cols_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
 multiple times and will accumulate \code{cols_rename} data.
 }
+\details{
+It is important to note that when rename data is passed via \code{...} ,
+the new name is on the left hand side and the old name on the
+right (e.g. to rename \code{WT} to \code{Weight}, pass  \code{Weight = WT}).  However,
+rename information passed by .map is reversed (e.g. \code{list(Wt = "Weight")}).
+}
 \examples{
 library(dplyr)
 
-st_new(ptdata()) \%>\% st_rename(Weight = WT) \%>\% st_make()
+st_new(ptdata()) \%>\% st_rename(Weight = WT) \%>\% stable()
 
 }
