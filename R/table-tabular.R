@@ -71,6 +71,8 @@ make_tabular <- function(data, prime_fun = tab_prime,
 
   data <- prime_fun(data, escape_fun)
 
+  data <- as.data.frame(data)
+
   tab <- modify(data, function(x) {
     formatC(x, width = max(nchar(x)))
   })
