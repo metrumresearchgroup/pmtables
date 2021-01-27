@@ -24,7 +24,8 @@ test_that("tex_bold and tex_it", {
 test_that("test-table-utils-stable_save", {
   tmp <- tempfile()
   x <- stable(data.frame(a = 1), output_file = tmp)
-  stable_save(x)
+  expect_invisible(ans <- stable_save(x))
+  expect_equal(ans, x)
   expect_true(file.exists(tmp))
   read <- readLines(tmp)
   expect_identical(as.character(x), read)
