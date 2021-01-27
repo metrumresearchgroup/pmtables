@@ -4,7 +4,7 @@
 \alias{st_rename}
 \title{Add column rename information to st object}
 \usage{
-st_rename(x, ..., .map = NULL)
+st_rename(x, ..., .list = NULL)
 }
 \arguments{
 \item{x}{an stobject}
@@ -12,8 +12,8 @@ st_rename(x, ..., .map = NULL)
 \item{...}{column rename items in \code{new-name = old-name} format; passed
 to \code{\link[=stable]{stable()}} as \code{cols_rename}}
 
-\item{.map}{a named list containing rename information; the list names
-should be the current column names and the list data should be the new
+\item{.list}{a named list containing rename information; the list
+names should be the current column names and the list data should be the new
 names}
 }
 \description{

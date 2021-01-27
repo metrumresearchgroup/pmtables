@@ -381,8 +381,8 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `cols_rename`
-#' @param .map a named list containing rename information; the list names
-#' should be the current column names and the list data should be the new
+#' @param .list a named list containing rename information; the list
+#' names should be the current column names and the list data should be the new
 #' names
 #'
 #' @details
@@ -397,11 +397,11 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' st_new(ptdata()) %>% st_rename(Weight = WT) %>% stable()
 #'
 #' @export
-st_rename <- function(x,..., .map = NULL) {
+st_rename <- function(x,..., .list = NULL) {
   check_st(x)
   l <- new_names(enquos(...))
-  if(!is.null(.map)) {
-    ll <- new_names(.map)
+  if(!is.null(.list)) {
+    ll <- new_names(.list)
     ll <- setNames(names(ll), ll)
     l <- c(l,ll)
   }
