@@ -9,7 +9,9 @@
 #'
 #' @export
 stable_save <- function(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir")) {
-
+  if(inherits(x, "list")) {
+    return(map(x, stable_save, dir = dir))
+  }
   if(!inherits(x, "stable")) {
     stop(
       "bad input - x is not an 'stable' object; ",

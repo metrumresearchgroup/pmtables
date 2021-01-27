@@ -35,6 +35,14 @@ test_that("test-table-utils-stable_save", {
   expect_error(stable_save(x), "and the 'file' argument is missing")
 })
 
+test_that("save a list of tables", {
+  a <- stable(stdata(), output_file = "a.tex")
+  b <- stable(stdata(), output_file = "b.tex")
+  l <- list(a,b)
+  ans <- stable_save(l)
+  expect_is(ans, "list")
+})
+
 test_that("table-utils paste units", {
   cols <- LETTERS[c(2,5,4,3,1)]
   units <- list(C = "pounds", X = "none", B = "mg", D = "kg", Z = "liters")
