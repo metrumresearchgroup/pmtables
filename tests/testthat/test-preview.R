@@ -36,3 +36,7 @@ test_that("st-wrap table placement H", {
   expect_match(out2[2], "{table}[H]", fixed = TRUE)
   pmtables:::st_reset_knit_deps()
 })
+
+test_that("error to try to view long table", {
+  expect_error(st2viewer(stable_long(stdata)))
+})

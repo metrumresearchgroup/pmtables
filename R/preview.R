@@ -102,6 +102,9 @@ st_preview <- function(x,...) { # nocov start
   if(inherits(x, what = c("pmtable", "stobject"))) {
     x <- as_stable(x)
   }
+  if(inherits(x, what = "stable_long")) {
+    stop("cannot preview long tables in the viewer window", call.=FALSE)
+  }
   assert_that(requireNamespace("texPreview"))
   if(length(x) > 1) {
     x <- paste0(x,collapse = "\n")
@@ -109,11 +112,12 @@ st_preview <- function(x,...) { # nocov start
   pk <- texPreview::build_usepackage(
     c("threeparttable", "array", "booktabs")
   )
-  texPreview::tex_preview(
+  foo <- texPreview::tex_preview(
     x,
     usrPackages = pk,
     ...
   )
+  return(invisible(x))
 } # nocov end
 
 #' @rdname st_preview
@@ -194,6 +198,9 @@ st2viewer <- function(...) st_preview(...)
 #'   pmtables::st2article(tab)
 #' }
 #'
+#' @return
+#' A list of the table inputs, invisibly.
+#'
 #' @export
 st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        stem = "view-st2article",
@@ -201,7 +208,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        margin = "3cm", caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
-  tables <- c(list(...),.list)
+  tables <-inputs <- c(list(...),.list)
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(tempdir())
   assert_that(dir.exists(output_dir))
@@ -300,7 +307,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     }
   }
 
-  return(invisible(ans))
+  return(invisible(inputs))
 } # nocov end
 
 #' @rdname st2article

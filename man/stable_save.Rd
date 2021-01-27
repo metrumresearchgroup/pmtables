@@ -13,6 +13,9 @@ stable_save(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir"))
 
 \item{dir}{the directory where the file is to be saved}
 }
+\value{
+The \code{stable} or \code{stable_long} object is returned invisibly.
+}
 \description{
 Save output from stable
 }
