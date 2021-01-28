@@ -205,7 +205,7 @@ st2viewer <- function(...) st_preview(...)
 st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        stem = "view-st2article",
                        output_dir = tempdir(), template = NULL,
-                       margin = "3cm", caption = NULL,
+                       margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
   tables <-inputs <- c(list(...),.list)
