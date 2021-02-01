@@ -383,11 +383,6 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' to [stable()] as `cols_rename`
 #' @param .list allows for the use of a list as an input alternative to `...`.
 #'
-#' @details
-#' It is important to note that when rename data is passed via `...` ,
-#' the new name is on the left hand side and the old name on the
-#' right (e.g. to rename `WT` to `Weight`, pass  `Weight = WT`).  However,
-#' rename information passed by .map is reversed (e.g. `list(Wt = "Weight")`).
 #'
 #' @examples
 #' library(dplyr)
@@ -399,7 +394,6 @@ st_rename <- function(x,..., .list = NULL) {
   check_st(x)
   if(!is.null(.list)) {
     l <- new_names(.list)
-    l <- setNames(names(l), l)
   } else {
     l <- new_names(enquos(...))
   }
@@ -407,6 +401,7 @@ st_rename <- function(x,..., .list = NULL) {
   x$cols_rename <- x$cols_rename[!duplicated(x$cols_rename)]
   x
 }
+
 
 #' Add column blank information to st object
 #'

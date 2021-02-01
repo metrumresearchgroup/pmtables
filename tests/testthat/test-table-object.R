@@ -168,7 +168,7 @@ test_that("rename by named list", {
   expect_identical(tst1[2], "cylinder")
 
   y2 <- st_new(mt) %>%
-    st_rename(cylinder = cyl, .list = list(hp = "HorsePower")) %>%
+    st_rename(cylinder = cyl, .list = list(HorsePower = "hp")) %>%
     inspect2()
   tst2 <- y2$cols_new
   expect_identical(tst2[4], "HorsePower")
