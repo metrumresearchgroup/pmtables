@@ -159,12 +159,21 @@ test_that("stobject equivalent rename", {
 
 test_that("rename by named list", {
   mt <- mtcars[1:3,]
-  y <- st_new(mt) %>%
+
+  y1 <- st_new(mt) %>%
+    st_rename(cylinder = cyl) %>%
+    inspect2()
+  tst1 <- y1$cols_new
+  expect_identical(tst1[4], "hp")
+  expect_identical(tst1[2], "cylinder")
+
+  y2 <- st_new(mt) %>%
     st_rename(cylinder = cyl, .list = list(hp = "HorsePower")) %>%
     inspect2()
-  tst <- y$cols_new
-  expect_identical(tst[4], "HorsePower")
-  expect_identical(tst[2], "cylinder")
+  tst2 <- y2$cols_new
+  expect_identical(tst2[4], "HorsePower")
+  expect_identical(tst2[2], "cyl")
+
 })
 
 test_that("stobject equivalent blank", {

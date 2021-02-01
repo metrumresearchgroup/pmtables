@@ -381,9 +381,7 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `cols_rename`
-#' @param .list a named list containing rename information; the list
-#' names should be the current column names and the list data should be the new
-#' names
+#' @param .list allows for the use of a list as an input alternative to `...`.
 #'
 #' @details
 #' It is important to note that when rename data is passed via `...` ,
@@ -399,13 +397,14 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' @export
 st_rename <- function(x,..., .list = NULL) {
   check_st(x)
-  l <- new_names(enquos(...))
   if(!is.null(.list)) {
-    ll <- new_names(.list)
-    ll <- setNames(names(ll), ll)
-    l <- c(l,ll)
+    l <- new_names(.list)
+    l <- setNames(names(l), l)
+  } else {
+    l <- new_names(enquos(...))
   }
   x$cols_rename <- c(x$cols_rename, l)
+  x$cols_rename <- x$cols_rename[!duplicated(x$cols_rename)]
   x
 }
 

@@ -12,9 +12,7 @@ st_rename(x, ..., .list = NULL)
 \item{...}{column rename items in \code{new-name = old-name} format; passed
 to \code{\link[=stable]{stable()}} as \code{cols_rename}}
 
-\item{.list}{a named list containing rename information; the list
-names should be the current column names and the list data should be the new
-names}
+\item{.list}{allows for the use of a list as an input alternative to \code{...}.}
 }
 \description{
 See the \code{cols_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
