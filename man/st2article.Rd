@@ -12,7 +12,7 @@ st2article(
   stem = "view-st2article",
   output_dir = tempdir(),
   template = NULL,
-  margin = "3cm",
+  margin = c("2.54cm", "3cm"),
   caption = NULL,
   dry_run = FALSE,
   stdout = FALSE,
@@ -21,6 +21,7 @@ st2article(
 
 st2report(
   ...,
+  .list = NULL,
   template = "report.tex",
   caption = Lorem,
   stem = "view-st2report"
