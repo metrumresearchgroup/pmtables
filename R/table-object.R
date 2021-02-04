@@ -398,10 +398,18 @@ st_span_split <- function(x, ..., split = TRUE) {
 st_rename <- function(x, ..., .list = NULL) {
   check_st(x)
   if(!is.null(.list)) {
-    .list <- setNames(
-      as.list(names(.list)),
-      unlist(.list, use.names = FALSE)
-    )
+    # This is also checked in new_names, but asserting here too to avoid breakage
+    assert_that(is_named(.list))
+    .old <- names(.list)
+    .new <- unlist(.list, use.names = FALSE)
+    if(!any(.old %in% names(x[["data"]]))) {
+      warning(
+        "rename data was passed as `.list`, but zero columns were matched\n",
+        "please check that the list was properly specified (?st_rename)",
+        call.=FALSE
+      )
+    }
+    .list <- setNames(.old, .new)
     l <- new_names(.list)
   } else {
     l <- new_names(enquos(...))
