@@ -381,23 +381,26 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `cols_rename`
-#' @param .list allows for the use of a list as an input alternative to `...`.
-#'
+#' @param .list a named list of rename data with the format
+#' `old-name = new-name`; this specification is similar passing items via
+#' `...`, but note that rename specification is reversed. The intended use for
+#' this argument is to utilize list output from the `yspec` package which takes
+#' the form `column-name = short-name` (e.g. `WT = weight` for the `WT` column).
 #'
 #' @examples
 #' library(dplyr)
 #'
-#' st_new(ptdata()) %>% st_rename(Weight = WT) %>% stable()
+#' st_new(stdata()) %>% st_rename(weight = WT) %>% stable()
+#'
+#' st_new(stdata()) %>% st_rename(.list = list(WT = "weight")) %>% stable()
 #'
 #' @export
-st_rename <- function(x,..., .list = NULL) {
+st_rename <- function(x, ..., .list = NULL) {
   check_st(x)
   if(!is.null(.list)) {
-    # .list is passed in old = new format
-    assert_that(rlang::is_named(.list))
     .list <- setNames(
       as.list(names(.list)),
-      unlist(.list, use.names=FALSE)
+      unlist(.list, use.names = FALSE)
     )
     l <- new_names(.list)
   } else {
