@@ -68,6 +68,8 @@ set \code{stdout = ""} and you'll see the output in the R console}
 If \code{dry_run} is \code{FALSE}, then a list (invisible) containing the document
 template as \code{doc} and the table data as \code{tables}. If \code{dry_run} is \code{TRUE},
 then the \code{doc} and \code{tables} are returned visibly (see \code{dry_run} argument).
+
+A list of the table inputs, invisibly.
 }
 \description{
 Use \code{\link[=st2article]{st2article()}} to see tables in a plain pdf TeX document. Use

@@ -24,7 +24,8 @@ test_that("tex_bold and tex_it", {
 test_that("test-table-utils-stable_save", {
   tmp <- tempfile()
   x <- stable(data.frame(a = 1), output_file = tmp)
-  stable_save(x)
+  expect_invisible(ans <- stable_save(x))
+  expect_equal(ans, x)
   expect_true(file.exists(tmp))
   read <- readLines(tmp)
   expect_identical(as.character(x), read)
@@ -32,6 +33,14 @@ test_that("test-table-utils-stable_save", {
   expect_error(stable_save(x, file = NULL), "the value of 'file' is NULL")
   x <- stable(data.frame(a = 1))
   expect_error(stable_save(x), "and the 'file' argument is missing")
+})
+
+test_that("save a list of tables", {
+  a <- stable(stdata(), output_file = "a.tex")
+  b <- stable(stdata(), output_file = "b.tex")
+  l <- list(a,b)
+  ans <- stable_save(l)
+  expect_is(ans, "list")
 })
 
 test_that("table-utils paste units", {
