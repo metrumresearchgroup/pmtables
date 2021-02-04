@@ -393,6 +393,12 @@ st_span_split <- function(x, ..., split = TRUE) {
 st_rename <- function(x,..., .list = NULL) {
   check_st(x)
   if(!is.null(.list)) {
+    # .list is passed in old = new format
+    assert_that(rlang::is_named(.list))
+    .list <- setNames(
+      as.list(names(.list)),
+      unlist(.list, use.names=FALSE)
+    )
     l <- new_names(.list)
   } else {
     l <- new_names(enquos(...))
