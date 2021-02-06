@@ -157,6 +157,32 @@ test_that("stobject equivalent rename", {
   expect_identical(x$output, y$output)
 })
 
+test_that("rename by named list", {
+  mt <- mtcars[1:3,]
+
+  y1 <- st_new(mt) %>%
+    st_rename(cylinder = cyl) %>%
+    inspect2()
+  tst1 <- y1$cols_new
+  expect_identical(tst1[4], "hp")
+  expect_identical(tst1[2], "cylinder")
+
+  y2 <- st_new(mt) %>%
+    st_rename(.list = list(hp = "HorsePower")) %>%
+    inspect2()
+
+  tst2 <- y2$cols_new
+
+  expect_identical(tst2[4], "HorsePower")
+  expect_identical(tst2[2], "cyl")
+
+  expect_warning(
+    st_rename(st_new(mt),.list = list(HorsePower = "hp")),
+    "rename data was passed as `.list`, but zero columns were matched"
+  )
+
+})
+
 test_that("stobject equivalent blank", {
   mt <- mtcars[1:3,]
   notes <- letters[1:3]

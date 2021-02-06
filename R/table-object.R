@@ -381,19 +381,44 @@ st_span_split <- function(x, ..., split = TRUE) {
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `cols_rename`
+#' @param .list a named list of rename data with the format
+#' `old-name = new-name`; this specification is similar passing items via
+#' `...`, but note that rename specification is reversed. The intended use for
+#' this argument is to utilize list output from the `yspec` package which takes
+#' the form `column-name = short-name` (e.g. `WT = weight` for the `WT` column).
 #'
 #' @examples
 #' library(dplyr)
 #'
-#' st_new(ptdata()) %>% st_rename(Weight = WT) %>% st_make()
+#' st_new(stdata()) %>% st_rename(weight = WT) %>% stable()
+#'
+#' st_new(stdata()) %>% st_rename(.list = list(WT = "weight")) %>% stable()
 #'
 #' @export
-st_rename <- function(x,...) {
+st_rename <- function(x, ..., .list = NULL) {
   check_st(x)
-  l <- new_names(enquos(...))
+  if(!is.null(.list)) {
+    # This is also checked in new_names, but asserting here too to avoid breakage
+    assert_that(is_named(.list))
+    .old <- names(.list)
+    .new <- unlist(.list, use.names = FALSE)
+    if(!any(.old %in% names(x[["data"]]))) {
+      warning(
+        "rename data was passed as `.list`, but zero columns were matched\n",
+        "please check that the list was properly specified (?st_rename)",
+        call.=FALSE
+      )
+    }
+    .list <- setNames(.old, .new)
+    l <- new_names(.list)
+  } else {
+    l <- new_names(enquos(...))
+  }
   x$cols_rename <- c(x$cols_rename, l)
+  x$cols_rename <- x$cols_rename[!duplicated(x$cols_rename)]
   x
 }
+
 
 #' Add column blank information to st object
 #'
