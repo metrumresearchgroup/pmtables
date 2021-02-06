@@ -1,5 +1,7 @@
 # pmtables (development version)
 
+- Add `.list` argument to `st_rename()` allowing user to pass rename information
+  as a named list with format `old name = new name` #189
 - Fix bug where `drop_miss` wasn't executing correctly #182
 - `stable_long()` is now a generic function with methods for `data.frame`, 
   `stobject` and `pmtable` #179
