@@ -1,4 +1,4 @@
-# pmtables (development version)
+# pmtables 0.3.1 
 
 - Add `.list` argument to `st_rename()` allowing user to pass rename information
   as a named list with format `old name = new name` #189
