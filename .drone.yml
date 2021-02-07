@@ -208,6 +208,9 @@ steps:
   - R -s -e 'pkgpub::create_tagged_repo(.dir = '"'"'/ephemeral'"'"')'
   environment:
     NOT_CRAN: true
+  volumes:
+  - name: cache
+    path: /ephemeral
 
 - name: "Publish package: ${DRONE_TAG}"
   pull: if-not-exists
@@ -217,6 +220,9 @@ steps:
     source: /ephemeral/${DRONE_TAG}/**/*
     strip_prefix: /ephemeral/${DRONE_TAG}/
     target: /releases/${DRONE_REPO_NAME}/${DRONE_TAG}
+  volumes:
+  - name: cache
+    path: /ephemeral
 
 - name: "Publish package: latest_tag"
   pull: if-not-exists
@@ -226,6 +232,9 @@ steps:
     source: /ephemeral/${DRONE_TAG}/**/*
     strip_prefix: /ephemeral/${DRONE_TAG}/
     target: /releases/${DRONE_REPO_NAME}/latest_tag
+  volumes:
+  - name: cache
+    path: /ephemeral
 
 volumes:
 - name: docker.sock
