@@ -534,7 +534,7 @@ fun <- function(x,id=1) {
 
 x1 <- summarise(
   data,
-  across(c(WT,SCR,AGE,ALB,HT), fun, id = data[["ID"]])
+  across(c(WT,SCR,AGE,ALB,HT), ~fun(.x,ID))
 )
 
 test <- out$data
