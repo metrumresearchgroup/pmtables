@@ -534,7 +534,7 @@ fun <- function(x,id=1) {
 
 x1 <- summarise(
   data,
-  across(c(WT,SCR,AGE,ALB,HT),fun, id = ID)
+  across(c(WT,SCR,AGE,ALB,HT), ~fun(.x,ID))
 )
 
 test <- out$data
@@ -566,13 +566,13 @@ fun <- function(x,id=1) {
 x1 <- data %>%
   group_by(STUDYf) %>%
   summarise(
-    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    across(c(WT,SCR,AGE,ALB,HT), ~fun(.x,ID)),
     .groups = "drop"
   )
 
 x2 <- data %>%
   summarise(
-    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    across(c(WT,SCR,AGE,ALB,HT), ~fun(.x,ID)),
     .groups = "drop"
   )
 
@@ -603,13 +603,13 @@ out <- pt_cont_wide(
 x1 <- data %>%
   group_by(STUDYf) %>%
   summarise(
-    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    across(c(WT,SCR,AGE,ALB,HT), ~ fun(.x,ID)),
     .groups = "drop"
   )
 
 x2 <- data %>%
   summarise(
-    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    across(c(WT,SCR,AGE,ALB,HT), ~fun(.x,ID)),
     .groups = "drop"
   ) %>% mutate(STUDYf = "\\hline \\hline {\\bf All data}")
 
@@ -640,13 +640,13 @@ out <- pt_cont_wide(
 x1 <- data %>%
   group_by(FORMf,STUDYf) %>%
   summarise(
-    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    across(c(WT,SCR,AGE,ALB,HT), ~fun(.x,ID)),
     .groups = "drop"
   )
 
 x2 <- data %>%
   summarise(
-    across(c(WT,SCR,AGE,ALB,HT),fun, id = ID),
+    across(c(WT,SCR,AGE,ALB,HT), ~fun(.x,ID)),
     .groups = "drop"
   )
 x2 <- mutate(x2, STUDYf = "\\hline \\hline {\\bf All data}")

@@ -1,3 +1,18 @@
+# pmtables 0.3.1 
+
+- Add `.list` argument to `st_rename()` allowing user to pass rename information
+  as a named list with format `old name = new name` #189
+- Fix bug where `drop_miss` wasn't executing correctly #182
+- `stable_long()` is now a generic function with methods for `data.frame`, 
+  `stobject` and `pmtable` #179
+- Expand documentation for data summary functions
+- `st_span()` was slightly refactored so that it would dispatch to
+  `st_span_split()` when the `split` argument was passed #173
+- Fixed a bug where `span_split()` was updating column names, but this was 
+  happening before other spans were calculated #172
+- The categorical data summary functions now check for missing values (`NA`)
+  and will replace them with the string `"NA"` and issue a warning #117
+  
 # pmtables 0.3.0
 
 - Add landscape mode when previewing tables with `st2report()`, `st2article()`

@@ -8,6 +8,9 @@
 #' passes `digits` to `digit_fun()`
 #' @param ... not used
 #'
+#' @return A tibble with one row and one column named `summary`; the summary
+#' has this format: `mean (sd) [count]` for all non-missing data in `value`.
+#'
 #' @examples
 #' pmtables:::cont_wide_fun(rnorm(100))
 #'
@@ -40,6 +43,16 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
 #'
 #' @examples
 #' pmtables:::cont_long_fun(rnorm(100))
+#'
+#' @return
+#' The function returns a tibble with one row and five columns:
+#' 1. `n` the number of non-missing observations in `value`
+#' 1. `Mean` the mean of `value`
+#' 1. `Median` the median of `value`
+#' 1. `SD` the standard deviation of `value`
+#' 1. `Min / Max` the range of value
+#'
+#' All columns are returned as `character`.
 #'
 #' @keywords internal
 cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,

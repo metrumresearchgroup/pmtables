@@ -27,4 +27,8 @@ This is a convenience wrapper around \link{pt_data_inventory}
 
 ans <- pt_data_study(pmt_pk, study_col = "STUDYf")
 
+\dontrun{
+st2report(stable(ans))
+}
+
 }

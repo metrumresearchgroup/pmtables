@@ -4,9 +4,14 @@
 #' @param file the file
 #' @param dir the directory where the file is to be saved
 #'
+#' @return
+#' The `stable` or `stable_long` object is returned invisibly.
+#'
 #' @export
 stable_save <- function(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir")) {
-
+  if(inherits(x, "list")) {
+    return(map(x, stable_save, dir = dir))
+  }
   if(!inherits(x, "stable")) {
     stop(
       "bad input - x is not an 'stable' object; ",
@@ -27,6 +32,7 @@ stable_save <- function(x, file = attr(x, "stable_file"), dir = getOption("pmtab
     file <- file.path(dir,file)
   }
   writeLines(text = x, con = file)
+  return(invisible(x))
 }
 
 insrt_vec <- function(vec, nw, where) {

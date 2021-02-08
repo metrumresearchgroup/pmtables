@@ -303,7 +303,8 @@ st_space <- function(x, row = 1.5, col = 5) {
 #' times and will accumulate `span` data.
 #'
 #' @param x an stobject
-#' @param ... passed to [colgroup()]
+#' @param split if `TRUE`, then [st_span_split()] is called
+#' @param ... passed to [colgroup()] or [st_span_split()] if `split` is `TRUE`
 #'
 #' @examples
 #' library(dplyr)
@@ -313,9 +314,12 @@ st_space <- function(x, row = 1.5, col = 5) {
 #' ob %>% st_span("Covariates", WT:ALB) %>% st_make()
 #'
 #' @export
-st_span <- function(x,...) {
+st_span <- function(x, ..., split = FALSE) {
+  if(isTRUE(split)) {
+    return(st_span_split(x, ..., split = split))
+  }
   check_st(x)
-  span <- colgroup(...)
+  span <- colgroup(..., split = split)
   if(is.null(x$span)) {
     x$span <- list(span)
     return(x)
@@ -332,8 +336,15 @@ st_span <- function(x,...) {
 #' See the `span_split` argument to [stable()].
 #'
 #' @param x an stobject
-#' @param sep passed to [colsplit()]
+#' @param split passed to [colsplit()], if `split` is `FALSE`, then
+#' an error is generated
 #' @param ... passed to [colsplit()]
+#'
+#' @details
+#' There can only be one `span_split` per table; if `st_span_split` is
+#' called more than once in a pipeline, a warning will be issued on every
+#' call after the first one and only the latest `span_split` data will be
+#' retained in the table.
 #'
 #' @examples
 #' library(dplyr)
@@ -345,9 +356,20 @@ st_span <- function(x,...) {
 #' st_new(data) %>% st_span_split('.') %>% st_make()
 #'
 #' @export
-st_span_split <- function(x, sep,...) {
+st_span_split <- function(x, ..., split = TRUE) {
+  assert_that(
+    isTRUE(split),
+    msg = "the `split` argument is FALSE; use `st_span()` instead"
+  )
   check_st(x)
-  x$span_split <- colsplit(sep = sep, ...)
+  span <- colsplit(..., split = split)
+  if(!is.null(x$span_split)) {
+    warning(
+      "`span_split` is already set and will be replaced",
+      call. = FALSE
+    )
+  }
+  x$span_split <- span
   x
 }
 
@@ -359,19 +381,44 @@ st_span_split <- function(x, sep,...) {
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
 #' to [stable()] as `cols_rename`
+#' @param .list a named list of rename data with the format
+#' `old-name = new-name`; this specification is similar passing items via
+#' `...`, but note that rename specification is reversed. The intended use for
+#' this argument is to utilize list output from the `yspec` package which takes
+#' the form `column-name = short-name` (e.g. `WT = weight` for the `WT` column).
 #'
 #' @examples
 #' library(dplyr)
 #'
-#' st_new(ptdata()) %>% st_rename(Weight = WT) %>% st_make()
+#' st_new(stdata()) %>% st_rename(weight = WT) %>% stable()
+#'
+#' st_new(stdata()) %>% st_rename(.list = list(WT = "weight")) %>% stable()
 #'
 #' @export
-st_rename <- function(x,...) {
+st_rename <- function(x, ..., .list = NULL) {
   check_st(x)
-  l <- new_names(enquos(...))
+  if(!is.null(.list)) {
+    # This is also checked in new_names, but asserting here too to avoid breakage
+    assert_that(is_named(.list))
+    .old <- names(.list)
+    .new <- unlist(.list, use.names = FALSE)
+    if(!any(.old %in% names(x[["data"]]))) {
+      warning(
+        "rename data was passed as `.list`, but zero columns were matched\n",
+        "please check that the list was properly specified (?st_rename)",
+        call.=FALSE
+      )
+    }
+    .list <- setNames(.old, .new)
+    l <- new_names(.list)
+  } else {
+    l <- new_names(enquos(...))
+  }
   x$cols_rename <- c(x$cols_rename, l)
+  x$cols_rename <- x$cols_rename[!duplicated(x$cols_rename)]
   x
 }
+
 
 #' Add column blank information to st object
 #'

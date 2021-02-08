@@ -80,3 +80,10 @@ test_that("notes - inventory", {
   expect_match(ans[3], "MISS: missing", fixed = TRUE)
   expect_match(ans[4], "OBS: observations", fixed = TRUE)
 })
+
+test_that("drop MISS column", {
+  ans1 <- pt_data_inventory(pmt_pk)$data
+  expect_equal(names(ans1)[2], "Number.MISS")
+  ans2 <- pt_data_inventory(pmt_pk, drop_miss = TRUE)$data
+  expect_equal(names(ans2)[2], "Number.OBS")
+})

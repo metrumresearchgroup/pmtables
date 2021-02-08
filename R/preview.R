@@ -102,6 +102,9 @@ st_preview <- function(x,...) { # nocov start
   if(inherits(x, what = c("pmtable", "stobject"))) {
     x <- as_stable(x)
   }
+  if(inherits(x, what = "stable_long")) {
+    stop("cannot preview long tables in the viewer window", call.=FALSE)
+  }
   assert_that(requireNamespace("texPreview"))
   if(length(x) > 1) {
     x <- paste0(x,collapse = "\n")
@@ -109,11 +112,12 @@ st_preview <- function(x,...) { # nocov start
   pk <- texPreview::build_usepackage(
     c("threeparttable", "array", "booktabs")
   )
-  texPreview::tex_preview(
+  foo <- texPreview::tex_preview(
     x,
     usrPackages = pk,
     ...
   )
+  return(invisible(x))
 } # nocov end
 
 #' @rdname st_preview
@@ -194,14 +198,19 @@ st2viewer <- function(...) st_preview(...)
 #'   pmtables::st2article(tab)
 #' }
 #'
+#' @return
+#' A list of the table inputs, invisibly.
+#'
 #' @export
 st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        stem = "view-st2article",
                        output_dir = tempdir(), template = NULL,
-                       margin = "3cm", caption = NULL,
+                       margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
   tables <- c(list(...),.list)
+  tables <- flatten_if(tables, is.list)
+  inputs <- tables
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(tempdir())
   assert_that(dir.exists(output_dir))
@@ -262,7 +271,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   writeLines(temp,texfile)
   ans <- list(doc = temp, tables = tables)
 
-  if(dry_run) return(ans)
+  if(dry_run) return(inputs)
 
   if(file.exists(pdffile)) {
     unlink(pdffile)
@@ -272,7 +281,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     for(i in seq_len(ntex)) {
       result <- system2(
         "pdflatex",
-        args=c("-halt-on-error ",texfile),stdout=stdout
+        args=c("-halt-on-error ",texfile), stdout = stdout
       )
       if(!identical(result, 0L)) {
         warning("non-zero exit from pdflatex", call.=FALSE)
@@ -300,19 +309,22 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     }
   }
 
-  return(invisible(ans))
+  return(invisible(inputs))
 } # nocov end
 
 #' @rdname st2article
 #' @export
-st2report <- function(..., template = "report.tex", caption = Lorem,
-                      stem = "view-st2report") {
+st2report <- function(..., .list = NULL, template = "report.tex",
+                      caption = Lorem, stem = "view-st2report") {
   if(missing(template)) {
     template <- system.file("tex", template, package = "pmtables")
   }
-  st2article(
-    ..., template = template, stem = stem, caption = caption
-  )
+  args <- list(...)
+  args[[".list"]] <- .list
+  args[["template"]] <- template
+  args[["caption"]] <- caption
+  args[["stem"]] <- stem
+  do.call(st2article, args)
 }
 
 #' Wrap stable output in table environment

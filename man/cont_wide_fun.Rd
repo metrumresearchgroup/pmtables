@@ -27,6 +27,10 @@ passes \code{digits} to \code{digit_fun()}}
 
 \item{...}{not used}
 }
+\value{
+A tibble with one row and one column named \code{summary}; the summary
+has this format: \code{mean (sd) [count]} for all non-missing data in \code{value}.
+}
 \description{
 Function for continuous wide summaries
 }

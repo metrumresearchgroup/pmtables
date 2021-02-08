@@ -17,6 +17,26 @@ cat_long_all <- function(data, group = ".total", all_name = "All data") {
   pivot_wider(data_summ, names_from = "by")
 }
 
+prep_cat_data <- function(data, cols) {
+  for(col in cols) {
+    if(anyNA(data[[col]])) {
+      warning(glue('col `{col}`: missing values replaced with "NA"'))
+      is_fctr <- is.factor(data[[col]])
+      if(is_fctr) {
+        lvls <- unique(c(levels(data[[col]]),"NA"))
+        data[[col]] <- as.character(data[[col]])
+      }
+      w <- is.na(data[[col]])
+      data[[col]][w] <- rep("NA", sum(w))
+      if(is_fctr) data[[col]] <- factor(data[[col]], levels = lvls)
+    }
+    if(!is.factor(data[[col]])) {
+      data[[col]] <- fct_inorder(data[[col]])
+    }
+  }
+  data
+}
+
 #' Summarize categorical data
 #'
 #' @inheritParams pt_cont_wide
@@ -43,12 +63,6 @@ cat_data <- function(data, cols, by = ".total", panel = by,
   data <- data_total_col(data, all_name)
 
   if(is.null(nby)) nby <- length(unique(data[[by]]))
-
-  for(col in cols) {
-    if(!is.factor(data[[col]])) {
-      data[[col]] <- fct_inorder(data[[col]])
-    }
-  }
 
   .groups <- unique(c(panel,by))
 
@@ -90,7 +104,20 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' @param by use `span` argument instead
 #'
 #' @details
+#' The data summary for all cells in the table is `count (percent)`.
+#'
 #' The notes in this table are generated with [pt_cat_long_notes()].
+#'
+#' @examples
+#'
+#' out <- pt_cat_long(pmt_first, cols = "SEXf,ASIANf", span = "FORMf")
+#'
+#' \dontrun{
+#' st2report(stable(out))
+#' }
+#'
+#' @return
+#' An object with class `pmtable`; see [class-pmtable].
 #'
 #' @export
 pt_cat_long <- function(data, cols, span  =  ".total",
@@ -123,6 +150,8 @@ pt_cat_long <- function(data, cols, span  =  ".total",
   nspan <- length(spans)
 
   check_discrete(data = data, cols = cols, others = span)
+
+  data <- prep_cat_data(data, cols)
 
   ans <- cat_data(
     data = data,
@@ -202,7 +231,27 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' summary from the table
 #'
 #' @details
+#' The data summary for this table is `count (percent)`. The number of
+#' data points for each row is also summarized as `n` on the left hand side
+#' of the table (either on the far left or just to the right of the `by`
+#' column).
+#'
 #' The notes in this table are generated with [pt_cat_wide_notes()].
+#'
+#' @examples
+#' out1 <- pt_cat_wide(pmt_first, cols = "SEXf,ASIANf")
+#' stable(out1)
+#'
+#' out2 <- pt_cat_wide(pmt_first, cols = "SEXf,ASIANf", by = "FORMf")
+#' stable(out2)
+#'
+#' \dontrun{
+#' st2report(stable(out1))
+#' st2report(stable(out2))
+#' }
+#'
+#' @return
+#' An object with class `pmtable`; see [class-pmtable].
 #'
 #' @export
 pt_cat_wide <- function(data, cols, by = ".total", panel = by,
@@ -230,6 +279,8 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
   check_discrete(data = data, cols = cols, others = by)
 
   summarize_all <- summarize_all & (has_by | has_panel)
+
+  data <- prep_cat_data(data, cols)
 
   ans <- cat_data(data, cols, by = by, panel = panel, wide = TRUE)
   ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))

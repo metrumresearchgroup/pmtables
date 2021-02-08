@@ -100,4 +100,12 @@ test_that("cat wide with spanner breaks", {
   expect_equal(out$span_data$cols, c("n", lvls))
 })
 
-
+test_that("cat table with missing value", {
+  data <- pmt_first
+  data$SEXf[20] <- NA_character_
+  expect_warning(
+    ans <- pt_cat_wide(data, cols = "FORMf,SEXf"),
+    regexp = "col `SEXf`: missing values replaced with "
+  )
+  expect_is(ans, "pmtable")
+})

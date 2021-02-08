@@ -26,7 +26,6 @@ test_that("use latex dependencies for knit", {
   pmtables:::st_reset_knit_deps()
 })
 
-
 test_that("st-wrap table placement H", {
   tab <- stable(stdata())
   out1 <- st_wrap(tab, con = NULL, float = "!ht")
@@ -36,3 +35,19 @@ test_that("st-wrap table placement H", {
   expect_match(out2[2], "{table}[H]", fixed = TRUE)
   pmtables:::st_reset_knit_deps()
 })
+
+test_that("error to try to view long table", {
+  expect_error(st2viewer(stable_long(stdata)))
+})
+
+test_that("pass a list of tables to st2report", {
+  tab <- stable(stdata())
+  tabs <- list(tab,tab,tab)
+  ans1 <- st2report(tabs, dry_run = TRUE)
+  expect_is(ans1, "list")
+  expect_length(ans1, 3)
+  ans2 <- st2report(tab,tab,tab, dry_run = TRUE)
+  expect_is(ans2, "list")
+  expect_length(ans2, 3)
+})
+

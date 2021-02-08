@@ -34,9 +34,30 @@ examples)}
 \item{summarize}{where to put an all-data summary; choose \code{none} to omit the
 summary from the table}
 }
+\value{
+An object with class \code{pmtable}; see \link{class-pmtable}.
+}
 \description{
 Discrete data summary in long format
 }
 \details{
+The data summary for this table is \code{count (percent)}. The number of
+data points for each row is also summarized as \code{n} on the left hand side
+of the table (either on the far left or just to the right of the \code{by}
+column).
+
 The notes in this table are generated with \code{\link[=pt_cat_wide_notes]{pt_cat_wide_notes()}}.
+}
+\examples{
+out1 <- pt_cat_wide(pmt_first, cols = "SEXf,ASIANf")
+stable(out1)
+
+out2 <- pt_cat_wide(pmt_first, cols = "SEXf,ASIANf", by = "FORMf")
+stable(out2)
+
+\dontrun{
+st2report(stable(out1))
+st2report(stable(out2))
+}
+
 }

@@ -4,13 +4,19 @@
 \alias{st_rename}
 \title{Add column rename information to st object}
 \usage{
-st_rename(x, ...)
+st_rename(x, ..., .list = NULL)
 }
 \arguments{
 \item{x}{an stobject}
 
 \item{...}{column rename items in \code{new-name = old-name} format; passed
 to \code{\link[=stable]{stable()}} as \code{cols_rename}}
+
+\item{.list}{a named list of rename data with the format
+\code{old-name = new-name}; this specification is similar passing items via
+\code{...}, but note that rename specification is reversed. The intended use for
+this argument is to utilize list output from the \code{yspec} package which takes
+the form \code{column-name = short-name} (e.g. \code{WT = weight} for the \code{WT} column).}
 }
 \description{
 See the \code{cols_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
@@ -19,6 +25,8 @@ multiple times and will accumulate \code{cols_rename} data.
 \examples{
 library(dplyr)
 
-st_new(ptdata()) \%>\% st_rename(Weight = WT) \%>\% st_make()
+st_new(stdata()) \%>\% st_rename(weight = WT) \%>\% stable()
+
+st_new(stdata()) \%>\% st_rename(.list = list(WT = "weight")) \%>\% stable()
 
 }

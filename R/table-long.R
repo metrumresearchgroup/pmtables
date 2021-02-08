@@ -41,14 +41,17 @@ longtable_notes <- function(notes) {
 }
 
 #' Create longtable output from an R data frame
+#'
 #' @inheritParams tab_notes
-#' @param data data frame passed to [stable()]; the user should filter
-#' or subset so that `data` contains exactly the rows (and columns) to be
-#' processed; pmtables will not add or remove rows prior to processing `data`
+#' @param data an object to render as a long table; this could be a `data.frame`,
+#' a `pmtable` object or an `stobject`; when passing in a `data.frame`, the data
+#' should be filtered or subset so that `data` contains exactly the rows (and
+#' columns) to be processed; pmtables will not add or remove rows prior to
+#' processing `data`
 #' @param ... passed to [stable()]
 #' @param inspect fixed to `TRUE` and passed to [stable()]
-#' @param lt_cap_macro the name of a macro that will hold caption text; to not lead with
-#' `\\` - this will be added for you
+#' @param lt_cap_macro the name of a macro that will hold caption text; to not
+#'   lead with `\\` - this will be added for you
 #' @param lt_cap_text full caption text, appearing where the table is rendered
 #' @param lt_cap_short short caption text, appearing in the list of tables
 #' @param lt_cap_label table label for use in latex document
@@ -56,15 +59,19 @@ longtable_notes <- function(notes) {
 #'
 #'
 #' @export
-stable_long <- function(data,
-                        note_config = noteconf(type="minipage"),
-                        inspect = FALSE,
-                        lt_cap_macro = "",
-                        lt_cap_text = "",
-                        lt_cap_short = "",
-                        lt_cap_label = "",
-                        lt_continue = "\\footnotesize{continued on next page}",
-                        ...) {
+stable_long <- function(data, ...) UseMethod("stable_long")
+
+#' @rdname stable_long
+#' @export
+stable_long.data.frame <- function(data,
+                                   note_config = noteconf(type="minipage"),
+                                   inspect = FALSE,
+                                   lt_cap_macro = "",
+                                   lt_cap_text = "",
+                                   lt_cap_short = "",
+                                   lt_cap_label = "",
+                                   lt_continue = "\\footnotesize{continued on next page}",
+                                   ...) {
 
   assert_that(note_config$type=="minipage")
 
@@ -123,4 +130,16 @@ stable_long <- function(data,
   }
 
   out
+}
+
+#' @rdname stable_long
+#' @export
+stable_long.stobject <- function(data, ...) {
+  as_stable(data, ..., long = TRUE)
+}
+
+#' @rdname stable_long
+#' @export
+stable_long.pmtable <- function(data, ...) {
+  as_stable(data, ..., long = TRUE)
 }

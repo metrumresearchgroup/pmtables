@@ -9,10 +9,10 @@
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
-#' @importFrom rlang enquo enquos is_named is_atomic
+#' @importFrom rlang enquo enquos is_named is_atomic flatten_if
 #' @importFrom glue glue
 #' @importFrom tibble tibble as_tibble
-#' @importFrom stats median rnorm sd na.omit
+#' @importFrom stats median rnorm sd na.omit setNames
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
 #'
@@ -66,8 +66,9 @@ NULL
 #'   individuals in a data set
 #' - All of the above functions return an object with class `pmtable`, which is
 #'   a list; you can access the summarized data by looking at the `data` slot;
-#'   otherwise, pass the `pmtable` object to [as_stable()] in order to create
-#'   the table
+#'   otherwise, pass the `pmtable` object to [stable()] or [as_stable()] in
+#'   order to create the table.  See [class-pmtable] for details around this
+#'   object
 #' - You can configure the digits in these summaries with [new_digits()]
 #'
 #' @section Helper functions for working with data frames:
@@ -98,7 +99,7 @@ NULL
 #'   horizontal line above
 #'
 #' @section Preview tables:
-#' - Use [st_preview()] to send s-table output to [texPreview::tex_preview()]
+#' - Use [st2viewer()] to send s-table output to [texPreview::tex_preview()]
 #' - Use [st2article()] or [st2report()] to render several tables in
 #'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
 #'   of `Rmarkdown` or `pandoc`); this requires `pdflatex` to be installed and
@@ -116,6 +117,11 @@ NULL
 #'
 #' @section Save s-tables:
 #' - Use [stable_save()] to write an `stable` or `stable_long` object to file
+#'
+#' - Note that there is a `dir` argument to that function that lets you
+#'   route the table to a specific directory; `dir` defaults to the
+#'   `pmtables.dir` option, so setting `options(pmtables.dir = "../deliv/table")`
+#'   will route the table to that directory without requiring additional input
 #'
 #' @section Latex / markdown information:
 #'
