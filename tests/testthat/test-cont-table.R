@@ -14,6 +14,7 @@ test_that("continuous data table - long", {
   expect_is(ans,"pmtable")
 })
 
+
 test_that("invert panel and cols", {
   data <- pmt_first
   table <- list(WT = "weight", ALB = "albumin", SCR = "creat")
@@ -44,6 +45,14 @@ test_that("continuous data table - wide", {
   data <- pmt_first
   ans <- pt_cont_wide(data, cols = "WT,ALB,SCR", panel = "STUDYf")
   expect_is(ans,"pmtable")
+
+  ans1 <- pt_cont_wide(data, cols = c(wt = "WT", alb = "ALB"))
+  tb <-  list(WT = "wt", ALB = "alb")
+  ans2 <- pt_cont_wide(data, cols = "WT,ALB", table = tb)
+  expect_identical(ans1, ans2)
+  ans1 <- inspect(ans1)
+  expect_equal(ans1$cols_new, c("wt", "alb"))
+  expect_equal(names(ans1$data), c("WT", "ALB"))
 })
 
 test_that("notes - cont-wide", {

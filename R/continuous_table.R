@@ -227,7 +227,8 @@ pt_cont_wide <- function(data, cols,
     panel = .panel,
     units = units,
     bold_cols = !has_panel,
-    notes = pt_cont_wide_notes()
+    notes = pt_cont_wide_notes(),
+    cols_rename = cols
   )
 
   out <- structure(out, class = c("pmtable", class(out)))
