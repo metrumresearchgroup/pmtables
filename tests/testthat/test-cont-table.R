@@ -14,7 +14,6 @@ test_that("continuous data table - long", {
   expect_is(ans,"pmtable")
 })
 
-
 test_that("invert panel and cols", {
   data <- pmt_first
   table <- list(WT = "weight", ALB = "albumin", SCR = "creat")
