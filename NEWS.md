@@ -1,4 +1,7 @@
 # pmtables (development version)
+- Fix cols renaming and utilization of table argument in pt_cont_wide; add tests
+  for column renaming for cat / cont / long / wide #199
+- Fix error message when duplicate panels are found #198
 
 # pmtables 0.3.1 
 
