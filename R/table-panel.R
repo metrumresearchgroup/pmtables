@@ -106,7 +106,7 @@ panel_by <- function(data, x) {
     stop(
       "panel labels are duplicated; ",
       "please sort the data frame by the panel column ",
-      "or set dup_is_error to FALSE",
+      "or set duplicates_ok to TRUE",
       call.=FALSE
     )
   }
