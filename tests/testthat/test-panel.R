@@ -11,7 +11,10 @@ context("test-panel")
 
 test_that("panel duplicates", {
   data <- data.frame(A = c(1,1,2,2,1,1), B = 3)
-  expect_error(stable(data, panel = as.panel("A")))
+  expect_error(
+    stable(data, panel = as.panel("A")),
+    msg = "or set duplicates_ok to TRUE"
+  )
   out <- inspect(data, panel = as.panel("A", duplicates_ok = TRUE))
   expect_equal(ncol(out$data),1L)
 })
