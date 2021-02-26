@@ -109,3 +109,30 @@ test_that("cat table with missing value", {
   )
   expect_is(ans, "pmtable")
 })
+
+test_that("cat wide with renamed cols", {
+  data <- pmt_first
+  ans1 <- pt_cat_wide(data, cols = c(Form = "FORMf", Sex = "SEXf"))
+  tb <-  list(FORMf = "Form", SEXf = "Sex")
+  ans2 <- pt_cat_wide(data, cols = "FORMf,SEXf", table = tb)
+  expect_identical(ans1, ans2)
+  ans1 <- inspect(ans1)
+  sp <- ans1$span_data$span[[1]]
+  a <- levels(data$FORMf)
+  b <- levels(data$SEXf)
+  an <- length(a)
+  bn <- length(b)
+  expect_equal(sp$newcol, c("n", c(a, b)))
+  expect_equal(sp$title, c("", rep("Form", an), rep("Sex", bn)))
+})
+
+test_that("cat long with renamed cols", {
+  data <- pmt_first
+  ans1 <- pt_cat_long(data, cols = c(Form = "FORMf", Sex = "SEXf"))
+  tb <-  list(FORMf = "Form", SEXf = "Sex")
+  ans2 <- pt_cat_long(data, cols = "FORMf,SEXf", table = tb)
+  expect_identical(ans1, ans2)
+  ans1 <- inspect(ans1)
+  expect_match(ans1$tab[1], "Form")
+  expect_match(ans1$tab[5], "Sex")
+})

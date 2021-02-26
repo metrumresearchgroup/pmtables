@@ -230,6 +230,10 @@ pt_cont_wide <- function(data, cols,
     notes = pt_cont_wide_notes()
   )
 
+  if(!all(names(cols)==cols)) {
+    out$cols_rename <- cols
+  }
+
   out <- structure(out, class = c("pmtable", class(out)))
 
   out

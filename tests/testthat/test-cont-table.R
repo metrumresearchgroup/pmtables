@@ -46,6 +46,29 @@ test_that("continuous data table - wide", {
   expect_is(ans,"pmtable")
 })
 
+test_that("cont wide with renamed cols", {
+  data <- pmt_first
+  ans1 <- pt_cont_wide(data, cols = c(wt = "WT", alb = "ALB"))
+  tb <-  list(WT = "wt", ALB = "alb")
+  ans2 <- pt_cont_wide(data, cols = "WT,ALB", table = tb)
+  expect_identical(ans1, ans2)
+  ans1 <- inspect(ans1)
+  expect_equal(ans1$cols_new, c("wt", "alb"))
+  expect_equal(names(ans1$data), c("WT", "ALB"))
+})
+
+test_that("cont long with renamed cols", {
+  data <- pmt_first
+  ans1 <- pt_cont_long(data, cols = c(`a a g` = "AAG", `b m i` = "BMI"))
+  tb <-  list(BMI = "b m i", AAG = "a a g")
+  ans2 <- pt_cont_long(data, cols = "AAG,BMI", table = tb)
+  expect_identical(ans1, ans2)
+  ans1 <- inspect(ans1)
+  variable <- substr(ans1$tab, 1, 5)
+  expect_equal(variable[1], c("a a g"))
+  expect_equal(variable[2], c("b m i"))
+})
+
 test_that("notes - cont-wide", {
   ans <- pt_cont_wide(pmt_first, cols = "WT,ALB")$notes
   expect_is(ans, "character")
