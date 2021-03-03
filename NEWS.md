@@ -1,5 +1,8 @@
 # pmtables (development version)
 
+- Fix bug where arguments could not be passed along to stable_long 
+  when coercing pmtable output #203
+
 # pmtables 0.3.2
 
 - Fix cols renaming and utilization of table argument in pt_cont_wide; add tests
