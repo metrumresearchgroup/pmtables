@@ -12,7 +12,8 @@ st_noteconf(x, ...)
 \item{...}{named arguments passed to \code{\link[=noteconf]{noteconf()}}}
 }
 \description{
-See the \code{note_config} argument to \code{\link[=stable]{stable()}}.
+See the \code{note_config} argument passed to \code{\link[=stable]{stable()}} and then to
+\code{\link[=tab_notes]{tab_notes()}}.
 }
 \examples{
 library(dplyr)

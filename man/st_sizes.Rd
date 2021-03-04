@@ -12,5 +12,5 @@ st_sizes(x, ...)
 \item{...}{passed to \code{\link[=tab_size]{tab_size()}}}
 }
 \description{
-Add table size information to st object
+See the \code{sizes} argument to \code{\link[=stable]{stable()}}, passed to \code{\link[=tab_size]{tab_size()}}.
 }

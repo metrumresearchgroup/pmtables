@@ -17,6 +17,22 @@ test_that("pass con to st_wrap in as_stable", {
   expect_equal(n,1)
 })
 
+test_that("pass args to stable_long when coercing stobject", {
+  x <- st_new(stdata())
+  y <- stable_long(x, lt_cap_text = "test pass caption")
+  n <- grep("caption", y)
+  expect_length(n, 1)
+  expect_match(y[n], "test pass caption")
+})
+
+test_that("pass args to stable when coercing stobject", {
+  x <- st_new(stdata())
+  y <- stable(x, drop = "N", inspect = TRUE)
+  z <- get_stable_data(y)
+  expect <- setdiff(names(stdata()), "N")
+  expect_identical(expect, z$cols_new)
+})
+
 test_that("pass args to stable_long when coercing pmtable", {
   x <- pt_cont_long(pmt_first, cols = "WT,ALB,SCR")
   y <- stable_long(x, lt_cap_text = "test pass caption")

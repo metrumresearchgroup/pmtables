@@ -9,12 +9,13 @@ st_space(x, row = 1.5, col = 5)
 \arguments{
 \item{x}{an stobject}
 
-\item{row}{set \code{row_space}, passed to \code{\link[=stable]{stable()}}}
+\item{row}{set \code{row_space}, passed to \code{\link[=stable]{stable()}} and then to \code{\link[=tab_size]{tab_size()}}}
 
-\item{col}{set \code{col_space}, passed to \code{\link[=stable]{stable()}}}
+\item{col}{set \code{col_space}, passed to \code{\link[=stable]{stable()}} and then to \code{\link[=tab_size]{tab_size()}}}
 }
 \description{
-See the \code{row_space} and \code{col_space} arguments to \code{\link[=stable]{stable()}}.
+See the \code{sizes} argument to \code{\link[=stable]{stable()}} and the \code{row_space} and \code{col_space}
+arguments to \code{\link[=tab_size]{tab_size()}}.
 }
 \examples{
 library(dplyr)

@@ -12,5 +12,5 @@ st_args(x, ...)
 \item{...}{named arguments to be passed to \code{\link[=stable]{stable()}}}
 }
 \description{
-Add other arguments to st object
+The arguments entered here are passed to \code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}}.
 }

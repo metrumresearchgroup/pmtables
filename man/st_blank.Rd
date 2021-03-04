@@ -13,6 +13,7 @@ st_blank(x, ...)
 \code{cols_blank}}
 }
 \description{
-See the \code{cols_blank} argument to \code{\link[=stable]{stable()}}.  This function can be called
-multiple times and will accumulate \code{cols_blank} data.
+See the \code{cols_blank} argument passed to \code{\link[=stable]{stable()}} and then \code{\link[=tab_cols]{tab_cols()}}.
+This function can be called multiple times and will accumulate \code{cols_blank}
+data.
 }

@@ -19,5 +19,6 @@ st_clear_grouped(x, ...)
 processing is done after the pipeline completes}
 }
 \description{
-See the \code{clear_reps} argument to \code{\link[=stable]{stable()}}.
+See the \code{clear_reps} argument passed to \code{\link[=stable]{stable()}} and then to
+\code{\link[=tab_clear_reps]{tab_clear_reps()}}.
 }

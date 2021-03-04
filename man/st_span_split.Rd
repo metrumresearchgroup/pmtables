@@ -15,7 +15,7 @@ st_span_split(x, ..., split = TRUE)
 an error is generated}
 }
 \description{
-See the \code{span_split} argument to \code{\link[=stable]{stable()}}.
+See the \code{span_split} argument passed to \code{\link[=stable]{stable()}} and then \code{\link[=tab_spanners]{tab_spanners()}}.
 }
 \details{
 There can only be one \code{span_split} per table; if \code{st_span_split} is

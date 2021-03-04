@@ -19,8 +19,9 @@ st_notes(x, ..., esc = NULL, config = NULL, collapse = NULL)
 single line separated by value of \code{collapse} (see \code{\link[base:paste]{base::paste0()}})}
 }
 \description{
-See the \code{notes} and \code{note_config} arguments to \code{\link[=stable]{stable()}}. The function can
-be called multiple times and will accumulate \code{notes} data.
+See the \code{notes} and \code{note_config} arguments passes to \code{\link[=stable]{stable()}} and then to
+\code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and will accumulate
+\code{notes} data.
 }
 \examples{
 library(dplyr)
