@@ -436,7 +436,27 @@ longd %>%
   st_new() %>% 
   st_files(r = "demo-pipe.Rmd") %>%
   st_notes("This example demonstrates how to make long table") %>%
-  stable_long(lt_cap_text = "Adding a caption to the table") %>% 
+  st_args(lt_cap_text = "Adding a caption to the table") %>% 
+  stable_long() %>% 
+  st_asis()
+```
+
+\clearpage 
+
+# Pass any argument to stable
+
+Rather than passing dots to `stable()` or `stable_long()`, you can 
+use `st_args()`.  But note that this is destructive to previous work; it assumes 
+you are completely specifying the contents for a given argument.  See this 
+example,
+
+```{r}
+data %>%
+  st_new() %>% 
+  st_notes("xyz") %>%
+  st_args(r_file = "demo-pipe.Rmd", notes = "abc") %>% 
+  st_args(output_file = "demo-pipe.tex") %>%
+  stable() %>% 
   st_asis()
 ```
 
