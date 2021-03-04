@@ -424,3 +424,19 @@ sl %>% st_new() %>% st_sizes(row = 2  ) %>% stable() %>% st_asis()
 ```{r}
 data %>% st_new() %>% st_sizes(col = 20) %>% stable() %>% st_asis()
 ```
+
+\clearpage
+
+# Render to long table
+
+```{r}
+longd <- bind_rows(data, data, data, data)
+
+longd %>% 
+  st_new() %>% 
+  st_files(r = "demo-pipe.Rmd") %>%
+  st_notes("This example demonstrates how to make long table") %>%
+  stable_long(lt_cap_text = "Adding a caption to the table") %>% 
+  st_asis()
+```
+
