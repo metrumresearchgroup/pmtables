@@ -437,6 +437,7 @@ longd %>%
   st_files(r = "demo-pipe.Rmd") %>%
   st_notes("This example demonstrates how to make long table") %>%
   st_args(lt_cap_text = "Adding a caption to the table") %>% 
+  st_args(lt_cap_label = "tab:demographics") %>%
   stable_long() %>% 
   st_asis()
 ```
