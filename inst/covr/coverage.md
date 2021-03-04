@@ -1,4 +1,4 @@
-# coverage: 91.23%
+# coverage: 91.21%
 
 |file                     | coverage|
 |:------------------------|--------:|
@@ -7,7 +7,7 @@
 |R/utils.R                |    68.42|
 |R/table-utils.R          |    70.13|
 |R/table-align.R          |    77.55|
-|R/table-object.R         |    78.50|
+|R/table-object.R         |    78.17|
 |R/table-tabular.R        |    81.08|
 |R/table-sumrow.R         |    87.76|
 |R/table-hlines.R         |    87.88|

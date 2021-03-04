@@ -574,9 +574,12 @@ st_sizes <- function(x,...) {
 st_args <- function(x,...) {
   check_st(x)
   args <- list(...)
+  assert_that(
+    is_named(args),
+    msg = "arguments passed to st_args must be named"
+  )
   if(length(args) > 0) {
-    args <- args[intersect(names(args),st_arg_names)]
-    x$args <- unique(c(args, x$args))
+    x$args <- combine_list(x$args, args)
   }
   x
 }
