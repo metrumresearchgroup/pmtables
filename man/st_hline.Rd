@@ -35,5 +35,5 @@ indices found from using either the \code{at} or \code{pattern} arguments}
 }
 \description{
 See the \code{hline_at} and \code{hline_from} arguments passed to \code{\link[=stable]{stable()}} and
-then to \code{\link[=tab_hline]{tab_hline()}},
+then to \code{\link[=tab_hlines]{tab_hlines()}},
 }

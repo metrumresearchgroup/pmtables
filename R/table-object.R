@@ -75,29 +75,16 @@ is.stobject <- function(x) inherits(x, "stobject")
 st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
   check_st(x)
   long <- isTRUE(long)
-
   # accumulated by the functions
   args <- as.list(x)
-  argnames <- attr(x,"argnames")
-  if(long) argnames <- c(argnames, "cap_text", "cap_macro")
-  bad_args <- setdiff(names(args), argnames)
-  if(length(bad_args) > 0) {
-    for(bad in bad_args) {
-      warning(glue("found invalid arg in stobject: {bad}"))
-    }
-  }
-  #args <- args[intersect(names(args), argnames)]
-
-  # misc args
+  # misc args passed in via st_args
   if(is.list(x$args)) {
     args <- combine_list(args, x$args)
   }
-
   dots <- list(...)
   if(length(dots) > 0) {
     args <- combine_list(args,dots)
   }
-
   if(long) {
     ans <- do.call(stable_long, args)
     if(isTRUE(.preview)) {
@@ -107,12 +94,10 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
   } else {
     ans <- do.call(stable, args)
   }
-
   if(.preview) { # nocov start
     .null <- st_preview(ans)
     return(invisible(ans))
   }
-
   if(.cat) {
     .null <- pt_wrap(ans,stdout())
     return(invisible(ans))
@@ -526,7 +511,7 @@ st_clear_grouped <- function(x, ...) {
 #' Add hline information to st object
 #'
 #' See the `hline_at` and `hline_from` arguments passed to [stable()] and
-#' then to [tab_hline()],
+#' then to [tab_hlines()],
 #'
 #' @param x and stobject
 #' @param pattern a regular expression to find rows where an `hline` will be
