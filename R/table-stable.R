@@ -315,9 +315,6 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE,
   }
   x <- c(x,up)
 
-  #valid <- intersect(names(x),stable_argument_names())
-  #x <- x[valid]
-
   fun <- ifelse(isTRUE(long), stable_long, stable)
 
   ans <- do.call(fun, args = x)
