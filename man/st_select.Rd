@@ -15,5 +15,6 @@ st_mutate(x, ...)
 \item{...}{passed to \code{\link[dplyr:select]{dplyr::select()}}, or \code{\link[dplyr:mutate]{dplyr::mutate()}}}
 }
 \description{
-Filter, select, or mutate data
+These functions modify the input data frame prior to passing it to
+\code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}}.
 }

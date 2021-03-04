@@ -4,12 +4,15 @@ check_st <- function(x) {
     msg = "the first argument (x) must be an st object"
   )
 }
+
 st_arg_names <- c(
   "data", "panel", "notes",
   "align", "r_file", "output_file",
   "span", "span_split", "cols_rename", "cols_blank",
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
-  "hline_at", "hline_from", "sizes", "units", "drop"
+  "hline_at", "hline_from", "sizes", "units", "drop",
+  "lt_cap_text", "lt_cap_macro", "lt_cap_label", "lt_cap_short", "lt_continue",
+  "args"
 )
 
 #' Create an st object
@@ -74,35 +77,27 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
   long <- isTRUE(long)
   # accumulated by the functions
   args <- as.list(x)
-  argnames <- attr(x,"argnames")
-  if(long) argnames <- c(argnames, "cap_text", "cap_macro")
-  args <- args[intersect(names(args),argnames)]
-
-  # misc args
+  # misc args passed in via st_args
   if(is.list(x$args)) {
     args <- combine_list(args, x$args)
   }
-
   dots <- list(...)
   if(length(dots) > 0) {
     args <- combine_list(args,dots)
   }
-
   if(long) {
     ans <- do.call(stable_long, args)
     if(isTRUE(.preview)) {
-      warning("cannot preview a long table; use st2doc() instead",call.=FALSE)
+      warning("cannot preview a long table; use st2report() instead", call.=FALSE)
       .preview <- FALSE
     }
   } else {
     ans <- do.call(stable, args)
   }
-
   if(.preview) { # nocov start
     .null <- st_preview(ans)
     return(invisible(ans))
   }
-
   if(.cat) {
     .null <- pt_wrap(ans,stdout())
     return(invisible(ans))
@@ -126,7 +121,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 #' ob %>% st_panel("STUDY") %>% st_make()
 #'
 #' @export
-st_panel <- function(x,...) {
+st_panel <- function(x, ...) {
   check_st(x)
   panel <- rowpanel(...)
   assert_that(is.rowpanel(panel))
@@ -136,8 +131,9 @@ st_panel <- function(x,...) {
 
 #' Add note information to st object
 #'
-#' See the `notes` and `note_config` arguments to [stable()]. The function can
-#' be called multiple times and will accumulate `notes` data.
+#' See the `notes` and `note_config` arguments passed to [stable()] and then to
+#' [tab_notes()]. The function can be called multiple times and will accumulate
+#' `notes` data.
 #'
 #' @param x an stobject
 #' @param ... table notes
@@ -175,7 +171,8 @@ st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = NULL) {
 
 #' Add note config information to st object
 #'
-#' See the `note_config` argument to [stable()].
+#' See the `note_config` argument passed to [stable()] and then to
+#' [tab_notes()].
 #'
 #' @param x an stobject
 #' @param ... named arguments passed to [noteconf()]
@@ -241,7 +238,8 @@ st_right <- function(x,...) {
 
 #' Add file name information to st object
 #'
-#' See the `r_file` and `output_file` arguments to [stable()].
+#' See the `r_file` and `output_file` arguments passed to [stable()] and then
+#' to [tab_notes()].
 #'
 #' @param x an stobject
 #' @param r set `r_file`, passed to [stable()]
@@ -272,11 +270,12 @@ st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
 
 #' Add row and column spacing information to st object
 #'
-#' See the `row_space` and `col_space` arguments to [stable()].
+#' See the `sizes` argument to [stable()] and the `row_space` and `col_space`
+#' arguments to [tab_size()].
 #'
 #' @param x an stobject
-#' @param row set `row_space`, passed to [stable()]
-#' @param col set `col_space`, passed to [stable()]
+#' @param row set `row_space`, passed to [stable()] and then to [tab_size()]
+#' @param col set `col_space`, passed to [stable()] and then to [tab_size()]
 #'
 #' @examples
 #' library(dplyr)
@@ -333,7 +332,7 @@ st_span <- function(x, ..., split = FALSE) {
 
 #' Add column split spanner information to st object
 #'
-#' See the `span_split` argument to [stable()].
+#' See the `span_split` argument passed to [stable()] and then [tab_spanners()].
 #'
 #' @param x an stobject
 #' @param split passed to [colsplit()], if `split` is `FALSE`, then
@@ -375,8 +374,9 @@ st_span_split <- function(x, ..., split = TRUE) {
 
 #' Add column rename information to st object
 #'
-#' See the `cols_rename` argument to [stable()]. This function can be called
-#' multiple times and will accumulate `cols_rename` data.
+#' See the `cols_rename` argument passed to [stable()] and then [tab_cols()].
+#' This function can be called multiple times and will accumulate `cols_rename`
+#' data.
 #'
 #' @param x an stobject
 #' @param ... column rename items in `new-name = old-name` format; passed
@@ -422,8 +422,9 @@ st_rename <- function(x, ..., .list = NULL) {
 
 #' Add column blank information to st object
 #'
-#' See the `cols_blank` argument to [stable()].  This function can be called
-#' multiple times and will accumulate `cols_blank` data.
+#' See the `cols_blank` argument passed to [stable()] and then [tab_cols()].
+#' This function can be called multiple times and will accumulate `cols_blank`
+#' data.
 #'
 #' @param x an stobject
 #' @param ... quoted or unquoted column names to be passed to [stable()] as
@@ -471,7 +472,8 @@ st_sumrow <- function(x, pattern = NULL, cols = names(x$data), rows = integer(0)
 
 #' Add clear rep information to st object
 #'
-#' See the `clear_reps` argument to [stable()].
+#' See the `clear_reps` argument passed to [stable()] and then to
+#' [tab_clear_reps()].
 #'
 #' @param x an stobject
 #' @param ... quoted or unquoted column names passed to [stable()] as
@@ -508,7 +510,8 @@ st_clear_grouped <- function(x, ...) {
 
 #' Add hline information to st object
 #'
-#' See the `hline_at` and `hline_from` arguments to [stable()].
+#' See the `hline_at` and `hline_from` arguments passed to [stable()] and
+#' then to [tab_hlines()],
 #'
 #' @param x and stobject
 #' @param pattern a regular expression to find rows where an `hline` will be
@@ -548,6 +551,8 @@ st_hline <- function(x, pattern = NULL, cols = names(x$data), n = 1,
 
 #' Add table size information to st object
 #'
+#' See the `sizes` argument to [stable()], passed to [tab_size()].
+#'
 #' @param x an stobject
 #' @param ... passed to [tab_size()]
 #'
@@ -560,6 +565,8 @@ st_sizes <- function(x,...) {
 
 #' Add other arguments to st object
 #'
+#' The arguments entered here are passed to [stable()] or [stable_long()].
+#'
 #' @param x an stobject
 #' @param ... named arguments to be passed to [stable()]
 #'
@@ -567,20 +574,23 @@ st_sizes <- function(x,...) {
 st_args <- function(x,...) {
   check_st(x)
   args <- list(...)
+  assert_that(
+    is_named(args),
+    msg = "arguments passed to st_args must be named"
+  )
   if(length(args) > 0) {
-    args <- args[intersect(names(args),st_arg_names)]
-    x$args <- c(x$args, args)
+    x$args <- combine_list(x$args, args)
   }
   x
 }
 
 #' Add unit information to st object
 #'
-#' Units can be passed either as `name=value` pairs or as a named list
-#' with [st_args()]. Units can alternatively be passed as an argument
-#' to [stable()] as a pre-formed, named list using [st_args()].  Passing
-#' as an argument this way will overwrite units specified with
-#' [st_units()]. It is recommended to use either [st_units()] or
+#' See the `units` argument to [stable()]. Units can be passed either as
+#' `name=value` pairs or as a named list with [st_args()]. Units can
+#' alternatively be passed as an argument to [stable()] as a pre-formed, named
+#' list using [st_args()].  Passing as an argument this way will overwrite units
+#' specified with [st_units()]. It is recommended to use either [st_units()] or
 #' [st_args()] but not both.
 #'
 #' @param x an stobject
@@ -609,6 +619,9 @@ st_units <- function(x, ..., parens = TRUE) {
 
 #' Render table data in bold or italic font
 #'
+#' These functions modify the input data frame prior to passing it to
+#' [stable()] or [stable_long()].
+#'
 #' @param x an stobject
 #' @param cols columns to make bold
 #' @param pattern passed to [tex_bold()] or [tex_it()]
@@ -636,6 +649,8 @@ st_it <- function(x, cols, pattern = "*") {
 
 #' Drop data columns
 #'
+#' See the `drop` argument to [stable()].
+#'
 #' @param x an stobject
 #' @param ... column names to drop
 #'
@@ -647,6 +662,9 @@ st_drop <- function(x, ...) {
 }
 
 #' Filter, select, or mutate data
+#'
+#' These functions modify the input data frame prior to passing it to
+#' [stable()] or [stable_long()].
 #'
 #' @param x an stobject
 #' @param ... passed to [dplyr::select()], or [dplyr::mutate()]
@@ -665,6 +683,9 @@ st_mutate <- function(x, ...) {
 }
 
 #' Edit table contents
+#'
+#' These functions modify the input data frame prior to passing to [stable()]
+#' or [stable_long()].
 #'
 #' @param x an stobject
 #' @param ... arguments passed to [tab_edit()]

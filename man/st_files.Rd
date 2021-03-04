@@ -16,7 +16,8 @@ st_files(x, r = getOption("mrg.script", NULL), output = NULL, esc = NULL)
 \item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping}
 }
 \description{
-See the \code{r_file} and \code{output_file} arguments to \code{\link[=stable]{stable()}}.
+See the \code{r_file} and \code{output_file} arguments passed to \code{\link[=stable]{stable()}} and then
+to \code{\link[=tab_notes]{tab_notes()}}.
 }
 \examples{
 library(dplyr)

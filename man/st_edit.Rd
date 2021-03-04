@@ -23,5 +23,6 @@ tab_edit(data, pattern, replacement, cols = names(data))
 \item{cols}{data columns to check for \code{pattern}}
 }
 \description{
-Edit table contents
+These functions modify the input data frame prior to passing to \code{\link[=stable]{stable()}}
+or \code{\link[=stable_long]{stable_long()}}.
 }

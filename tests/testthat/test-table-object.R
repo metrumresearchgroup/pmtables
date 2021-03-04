@@ -245,5 +245,20 @@ test_that("st_bold and st_it", {
   expect_equal(x$data$A, "\\textit{1}")
 })
 
+test_that("st_args overwrites any arg", {
+  x <- st_new(stdata())
+  x <- st_notes(x, "the original note")
+  y <- get_stable_data(stable(x, inspect = TRUE))
+  expect_identical(y$notes, "the original note")
+  x <- st_args(x, notes = "a new note")
+  z <- get_stable_data(stable(x, inspect = TRUE))
+  expect_identical(z$notes, "a new note")
+})
 
-
+test_that("arguments to st_args must be named", {
+  x <- st_new(stdata())
+  expect_error(
+    st_args(x, "the original note"),
+    regexp = "must be named"
+  )
+})

@@ -239,6 +239,14 @@ data %>%
   ) %>% st_asis()
 ```
 
+\clearpage 
+
+# Change the font size
+
+```{r}
+stable_long(stdata(), sizes = tab_size(font = "scriptsize")) %>% 
+  st_asis()
+```
 
 \clearpage
 
@@ -251,11 +259,10 @@ data %>%
 - Arbitrary notes are also allowed (encouraged)
 
 ```{r}
-stable(
+stable_long(
   data[1:10,],
   r_file = "foo.R",
   output_file = "foo.tex",
   notes = c("Data were analyzed in quadruplicate.", "The results are very clear."),
 ) %>% st_asis()
 ```
-

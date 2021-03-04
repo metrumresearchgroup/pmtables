@@ -247,7 +247,7 @@ out <- pt_cont_wide(
   units = units
 )
 
-out %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_wrap()
+out %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_asis()
 
 
 ##' ## Paneled
