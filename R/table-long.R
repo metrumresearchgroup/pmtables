@@ -93,7 +93,7 @@ stable_long.data.frame <- function(data,
   lt_notes <- longtable_notes(x$mini_notes)
 
   longtab <- c(
-    "{\\normalsize",
+    x$sizes$font_size$start,
     row_space,
     col_space,
     extra_row_height,
@@ -114,7 +114,7 @@ stable_long.data.frame <- function(data,
     "\\hline",
     "\\end{longtable}",
     lt_notes,
-    "}" # Ends
+    x$sizes$font_size$end
   )
   out <- structure(
     longtab,
