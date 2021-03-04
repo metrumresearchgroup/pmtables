@@ -448,8 +448,9 @@ longd %>%
 
 Rather than passing dots to `stable()` or `stable_long()`, you can 
 use `st_args()`.  But note that this is destructive to previous work; it assumes 
-you are completely specifying the contents for a given argument.  See this 
-example,
+you are completely specifying the contents for a given argument. Note that you 
+can pass arguments through `st_args()` or directly to `stable()` (or 
+`stable_long()`), but you shouldn't need to do both. See this example:
 
 ```{r}
 data %>%
