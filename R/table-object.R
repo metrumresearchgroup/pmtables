@@ -131,7 +131,7 @@ st_panel <- function(x, ...) {
 
 #' Add note information to st object
 #'
-#' See the `notes` and `note_config` arguments passes to [stable()] and then to
+#' See the `notes` and `note_config` arguments passed to [stable()] and then to
 #' [tab_notes()]. The function can be called multiple times and will accumulate
 #' `notes` data.
 #'
