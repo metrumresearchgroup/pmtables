@@ -1,10 +1,10 @@
 # pmtables (development version)
 
-- Fix bug where arguments could not be passed along to stable_long 
-  when coercing pmtable output #203
+- Fix bug where arguments could not be passed along to `stable_long()` 
+  when coercing pmtable output (#203)
 
 - Fix bug where user-specified font size was not getting propagated to 
-  long table #204
+  long table output with `stable_long()` (#204)
 
 # pmtables 0.3.2
 
