@@ -44,3 +44,10 @@ also \code{\link[=st_files]{st_files()}}}
 \description{
 Form table notes
 }
+\examples{
+tab <- stable(
+  stdata(),
+  note_config = noteconf(type = "mini")
+)
+
+}
