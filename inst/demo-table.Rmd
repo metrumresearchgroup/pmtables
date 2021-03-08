@@ -376,7 +376,7 @@ This feature is in addition to the functionality allowing you to break column
 names (control the split seqence with `cols_break`, where default is also `...`).
 
 ```{r}
-out <- stable(
+stable(
   stdata(), 
   span = colgroup("Final model ... Covariates", WT:SCR), 
   cols_rename = c("Study Protocol ... Number" = "STUDY")

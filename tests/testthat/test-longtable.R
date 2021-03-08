@@ -113,3 +113,10 @@ test_that("render long table from stobject", {
   expect_is(a, "stable")
 })
 
+test_that("set font size in longtable", {
+  a <- stable_long(stdata(), inspect = TRUE)
+  expect_match(a[1], "\\arraystretch", fixed = TRUE)
+  sz <- tab_size(font = "scriptsize")
+  b <- stable_long(stdata(), sizes = sz, inspect = TRUE)
+  expect_match(b[1], "\\scriptsize", fixed = TRUE)
+})

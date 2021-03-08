@@ -12,5 +12,5 @@ st_drop(x, ...)
 \item{...}{column names to drop}
 }
 \description{
-Drop data columns
+See the \code{drop} argument to \code{\link[=stable]{stable()}}.
 }

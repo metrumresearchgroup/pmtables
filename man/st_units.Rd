@@ -16,10 +16,10 @@ of units}
 character is not \code{(}}
 }
 \description{
-Units can be passed either as \code{name=value} pairs or as a named list
-with \code{\link[=st_args]{st_args()}}. Units can alternatively be passed as an argument
-to \code{\link[=stable]{stable()}} as a pre-formed, named list using \code{\link[=st_args]{st_args()}}.  Passing
-as an argument this way will overwrite units specified with
-\code{\link[=st_units]{st_units()}}. It is recommended to use either \code{\link[=st_units]{st_units()}} or
+See the \code{units} argument to \code{\link[=stable]{stable()}}. Units can be passed either as
+\code{name=value} pairs or as a named list with \code{\link[=st_args]{st_args()}}. Units can
+alternatively be passed as an argument to \code{\link[=stable]{stable()}} as a pre-formed, named
+list using \code{\link[=st_args]{st_args()}}.  Passing as an argument this way will overwrite units
+specified with \code{\link[=st_units]{st_units()}}. It is recommended to use either \code{\link[=st_units]{st_units()}} or
 \code{\link[=st_args]{st_args()}} but not both.
 }

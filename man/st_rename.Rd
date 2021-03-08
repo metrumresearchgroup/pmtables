@@ -19,8 +19,9 @@ this argument is to utilize list output from the \code{yspec} package which take
 the form \code{column-name = short-name} (e.g. \code{WT = weight} for the \code{WT} column).}
 }
 \description{
-See the \code{cols_rename} argument to \code{\link[=stable]{stable()}}. This function can be called
-multiple times and will accumulate \code{cols_rename} data.
+See the \code{cols_rename} argument passed to \code{\link[=stable]{stable()}} and then \code{\link[=tab_cols]{tab_cols()}}.
+This function can be called multiple times and will accumulate \code{cols_rename}
+data.
 }
 \examples{
 library(dplyr)

@@ -17,5 +17,6 @@ st_it(x, cols, pattern = "*")
 \item{pattern}{passed to \code{\link[=tex_bold]{tex_bold()}} or \code{\link[=tex_it]{tex_it()}}}
 }
 \description{
-Render table data in bold or italic font
+These functions modify the input data frame prior to passing it to
+\code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}}.
 }

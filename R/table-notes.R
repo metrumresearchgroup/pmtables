@@ -14,6 +14,12 @@
 #' @param output_file_label a prefix for `output_file`
 #' @param ... not used
 #'
+#' @examples
+#' tab <- stable(
+#'   stdata(),
+#'   note_config = noteconf(type = "mini")
+#' )
+#'
 #'@export
 tab_notes <- function(notes, escape_fun = tab_escape,
                       note_config = noteconf(type = "tpt"),

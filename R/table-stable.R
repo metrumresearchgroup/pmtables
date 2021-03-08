@@ -17,7 +17,7 @@ stable_argument_names <- function() {
       names(formals(make_tabular)),
       names(formals(tab_cols)),
       names(formals(tab_size)),
-      names(formals(stable_long))
+      names(formals(stable_long.data.frame))
     )
   )
 }
@@ -314,8 +314,6 @@ as_stable.pmtable <- function(x, ..., long = FALSE, wrap = FALSE, wrapw = FALSE,
     up[replace] <- NULL
   }
   x <- c(x,up)
-  valid <- intersect(names(x),stable_argument_names())
-  x <- x[valid]
 
   fun <- ifelse(isTRUE(long), stable_long, stable)
 
