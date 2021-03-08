@@ -1,4 +1,4 @@
-# pmtables (development version)
+# pmtables 0.3.3
 
 - Fix bug where arguments could not be passed along to `stable_long()` 
   when coercing pmtable output (#203)
