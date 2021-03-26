@@ -225,16 +225,17 @@ stable.data.frame <- function(data,
   row_space <- gluet("\\renewcommand{\\arraystretch}{<sizes$row_space>}")
   col_space <- gluet("\\setlength{\\tabcolsep}{<sizes$col_space>pt} ")
 
+  head_rows <- form_headrows(span_data, cols_tex, cols_data)
+
   out <- c(
     sizes$font_size$start,
     col_space,
     start_tpt,
     row_space,
     open_tabular,
-    "\\hline",
-    span_data$tex,
-    cols_tex,
-    "\\hline",
+    # opening hline + span data + header_matrix
+    head_rows,
+    # head_rows also includes hline at the top of table data
     tab,
     "\\hline",
     "\\end{tabular}",
@@ -249,6 +250,7 @@ stable.data.frame <- function(data,
   if(isTRUE(inspect)) {
     stable_data <- structure(list(), class = "stable_data")
     stable_data$data <- data
+    stable_data$head_rows <- head_rows
     stable_data$cols <- cols_data$cols
     stable_data$nc <- ncol(data)
     stable_data$cols_new <- cols_data$new

@@ -107,3 +107,17 @@ form_unit <- function(units, cols) { # nocov start
 form_open <- function(align) {
   paste0("\\begin{tabular}[h]{", align, "}")
 }
+
+# all the rows above top headline for rows
+form_headrows <- function(span_data, cols_tex, cols_data) {
+  hl1 <-  hl2 <- "\\hline"
+  if(cols_data$omit) {
+    cols_tex <- NULL
+    if(is.null(span_data$span)) {
+      hl1 <- NULL
+    } else {
+      hl2 <- NULL
+    }
+  }
+  c(hl1, span_data$tex, cols_tex, hl2)
+}

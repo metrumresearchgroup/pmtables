@@ -19,12 +19,15 @@
 #' frame (see `data` argument to [stable()]); the data frame can have any number
 #' of rows; all of the rows in `cols_extra` will be placed between the column
 #' label and the unit (if `units` is supplied)
+#' @param cols_omit if `TRUE`, then column names are suppressed in the table
+#' output along with units and any span data
 #' @param ... not used
 #'
 #' @export
 tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
                      cols_blank = NULL, cols_split = NULL, cols_bold = FALSE,
-                     cols_break = "...", cols_extra = NULL, ...) {
+                     cols_break = "...", cols_extra = NULL, cols_omit = NULL,
+                     ...) {
   cols0 <- cols
 
   # Work on columns and column names
@@ -52,7 +55,7 @@ tab_cols <- function(cols, cols_replace = NULL, cols_rename = NULL,
 
   ans <- list(
     new = cols_new, cols = cols0, newline = cols_break,
-    bold = cols_bold, extra = cols_extra
+    bold = cols_bold, extra = cols_extra, omit = isTRUE(cols_omit)
   )
 
   structure(ans, class = "from_tab_cols")
