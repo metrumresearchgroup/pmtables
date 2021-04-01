@@ -242,6 +242,22 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' for `OBS` and `BQL` are presented for the `Overall` data and for the panel
 #' `Group`.
 #'
+#' Specifically, please note that:
+#' - `MISS` is the number of data records that are missing (`NA`) and where
+#'   the `BQL` (or `BLQ`) colum is `0`
+#' - `OBS` is the number of data records which are not missing (non-`NA`) and
+#'   are not `BQL`
+#' - `BQL` are records where the `BQL` (or `BLQ`) column is not equal to `0`
+#'
+#' The sum of `MISS` + `OBS` + `BQL` should equal the number of rows in the
+#' data frame passed to `pt_data_inventory()`.
+#'
+#' When calculating percent `OBS` and percent `BQL`, we use `OBS + BQL` as the
+#' denominator such that the percent `BQL` and percent `OBS` sum to `100`
+#' within a group or panel. When the `panel` argument is set, these percentages
+#' are calculated for the group (or `panel`)  as well as overall.
+#'
+#
 #' The summary function is expecting certain columns to be named in a certain
 #' way. This can be modified to suit your need by passing the following
 #' arguments: `dv_col` (for observations), `bq_col` (for BQL observations),
