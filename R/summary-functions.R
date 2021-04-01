@@ -96,8 +96,12 @@ n_missing <- function(x,bql) {
 }
 
 # ncov start
-n_non_missing <- function(x) {
-  sum(!is.na(x))
+n_non_missing <- function(x, bql) {
+  length(x) - n_missing(x, bql)
+}
+
+n_obs <- function(x,bql) {
+  sum(!is.na(x) & bql==0)
 }
 
 n_total <- function(x) {

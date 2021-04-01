@@ -70,20 +70,20 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
 
   if(stacked) {
     data <- group_by(data, !!sym(panel))
-    data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
+    data <- mutate(data, .N = n_non_missing(!!sym(dv_col),!!sym(bq_col)))
     data <- ungroup(data)
   } else {
-    data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
+    data <- mutate(data, .N = n_non_missing(!!sym(dv_col),!!sym(bq_col)))
     data <- ungroup(data)
   }
   data <- group_by(data, !!sym(panel))
-  data <- mutate(data,..n = n_non_missing(!!sym(dv_col)))
+  data <- mutate(data,..n = n_non_missing(!!sym(dv_col),!!sym(bq_col)))
   data <- ungroup(data)
   data <- group_by(data, !!!syms(.groups))
   body <- summarise(
     data,
     SUBJ = n_unique(!!sym(id_col)),
-    NOBS = n_non_missing(!!sym(dv_col)),
+    NOBS = n_obs(!!sym(dv_col),!!sym(bq_col)),
     NMISS = n_missing(!!sym(dv_col), !!sym(bq_col)),
     POBS = digit1(100*.data[["NOBS"]]/first(.data[["..n"]])),
     OOBS = digit1(100*.data[["NOBS"]]/first(.data[[".N"]]))
