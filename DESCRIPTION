@@ -45,6 +45,7 @@ Collate:
     'class-pmtable.R'
     'continuous_table.R'
     'data_inventory_table.R'
+    'demographics-table.R'
     'discrete_table.R'
     'knit-dependencies.R'
     'preview.R'
