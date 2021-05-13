@@ -7,10 +7,10 @@ test_that("demographics data summary - simple", {
     cols_cont = c('Age'='AGE', 'Weight'='WT'),
     cols_cat = c(Sex='SEXf',Race='ASIANf'),
     span = c("Study"="STUDYf"),
-    units = list(WT="kg", AGE="yrs"),
+    units = list(WT="kg"),
     stat_name = "Statistic"
   )
-  #out %>% stable() %>% st_preview()
+  out %>% stable() %>% st_preview()
 
   expect_true(all(class(out)==c("pmtable", "list")))
 

@@ -8,6 +8,7 @@ pt_demographics(
   data,
   cols_cont,
   cols_cat,
+  sum_func = smr,
   span,
   units = NULL,
   stat_name = "Statistic",
@@ -20,6 +21,8 @@ pt_demographics(
 \item{cols_cont}{the continuous columns to summarize; may be character vector or quosure}
 
 \item{cols_cat}{the categorical columns to summarize; may be character vector or quosure}
+
+\item{sum_func}{The summary function to use for summarizing the continuous data. Default is \code{\link[=smr]{smr()}}.}
 
 \item{span}{variable name for column spanner}
 

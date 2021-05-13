@@ -1,5 +1,13 @@
 
-
+#' Default summary function in pt_demographics for continuous variables
+#' @param value a vector or column to summarize
+#'
+#' @return A tibble with one row and two columns named `mean (sd)` and `min-max`
+#'
+#' @examples
+#' pmtables:::smr(value = seq(1,5))
+#'
+#' @keywords internal
 smr <- function(value = seq(1,5)) {
   tibble(
     `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
@@ -14,6 +22,7 @@ smr <- function(value = seq(1,5)) {
 #' @param data 	the data frame to summarize; the user should filter or subset so that data contains exactly the records to be summarized; pmtables will not add or remove rows prior to summarizing data
 #' @param cols_cont the continuous columns to summarize; may be character vector or quosure
 #' @param cols_cat the categorical columns to summarize; may be character vector or quosure
+#' @param sum_func The summary function to use for summarizing the continuous data. Default is [smr()].
 #' @param span variable name for column spanner
 #' @param stat_name name of statistic column
 #' @param units optional units for each summarized column; must be a named list
@@ -39,7 +48,7 @@ smr <- function(value = seq(1,5)) {
 #' @return An object with class pmtable; see class-pmtable.
 #'
 #' @export
-pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
+pt_demographics <- function(data, cols_cont, cols_cat, sum_func = smr, span, units = NULL,
                             stat_name = "Statistic", stat_width = 2) {
 
   assert_that(is.data.frame(data))
@@ -54,18 +63,18 @@ pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
   cont_table <- pivot_longer(data, cols = all_of(unname(cols_cont)))
   cont_table <- mutate(cont_table, name = fct_inorder(name))
   cont_table <- group_by(cont_table, name, !!sym(span))
-  cont_table <- summarise(cont_table, smr(value), .groups = "drop")
+  cont_table <- summarise(cont_table, sum_func(value), .groups = "drop")
   cont_table <- pivot_wider(
     cont_table,
     names_from  = "name",
-    values_from = names(smr()),
+    values_from = names(sum_func()),
     names_glue  = "{name}_{.value}"
   )
   cont_table <- pivot_longer(cont_table, -!!sym(span))
   cont_table <- pivot_wider(cont_table, names_from = all_of(unname(span)))
   cont_table <- separate(cont_table, .data[["name"]], c("name", "level"), sep="_")
   cont_table <- arrange(cont_table, .data[["name"]])
-  #cont_table <- mutate(cont_table, name = names(cols_cont)[match(name, cols_cont)])
+  cont_table <- mutate(cont_table, name = fct_inorder(name))
   cont_table <- mutate(cont_table, name = names(cols_cont)[.data[["name"]]])
 
   ### Categorical Variables ###
@@ -84,7 +93,6 @@ pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
   units <- validate_units(units,data)
   if(!is.null(units)){
     all_cols <- as.list(c(cols_cont,cols_cat))
-    units <- units[match(names(units),all_cols)]
     names(units) <- names(all_cols[match(names(units),all_cols)])
 
     unit_names <- lapply(seq(units), function(i){
