@@ -51,22 +51,22 @@ pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
   span_lvl <- levels(fct_inorder(data[[unname(span)]]))
 
   ### Continuous Variables ###
-  cont_table <- pt_cont_long(
-    data,
-    cols = cols_cont,
-    by = span
+  cont_table <- pivot_longer(data, cols = all_of(unname(cols_cont)))
+  cont_table <- mutate(cont_table, name = fct_inorder(name))
+  cont_table <- group_by(cont_table, name, !!sym(span))
+  cont_table <- summarise(cont_table, smr(value), .groups = "drop")
+  cont_table <- pivot_wider(
+    cont_table,
+    names_from  = "name",
+    values_from = names(smr()),
+    names_glue  = "{name}_{.value}"
   )
-  # Change formatting
-  cont_table <- unite(separate(cont_table$data,`Min / Max`,c("min","max"),sep=" / "), "min-max", min:max,sep=" - ")
-  cont_table <- unite(cont_table,'mean (sd)',c("Mean","SD"), sep = " (")
-  cont_table <- mutate(cont_table,'mean (sd)'= paste0(`mean (sd)`,")"))
-  cont_table <- dplyr::select(cont_table,-c(Median,n))
-
-  # rearrange
-  cont_table <- pivot_longer(cont_table, cols = c("mean (sd)", "min-max"))
-  cont_table <- pivot_wider(cont_table, names_from = names(span), values_from = "value")
-  cont_table <- dplyr::select(cont_table,-c(`All data`))
-  cont_table <- dplyr::rename(cont_table, name=Variable, level=name)
+  cont_table <- pivot_longer(cont_table, -!!sym(span))
+  cont_table <- pivot_wider(cont_table, names_from = all_of(unname(span)))
+  cont_table <- separate(cont_table, .data[["name"]], c("name", "level"), sep="_")
+  cont_table <- arrange(cont_table, .data[["name"]])
+  #cont_table <- mutate(cont_table, name = names(cols_cont)[match(name, cols_cont)])
+  cont_table <- mutate(cont_table, name = names(cols_cont)[.data[["name"]]])
 
   ### Categorical Variables ###
   cat_table <- pt_cat_long(
