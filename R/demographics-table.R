@@ -7,7 +7,7 @@ smr <- function(value = seq(1,5)) {
   )
 }
 
-#' This is the title
+#' Summarize continuous and categorical data in long format
 #'
 #' This function makes a single table from both continuous and categorical data.
 #'

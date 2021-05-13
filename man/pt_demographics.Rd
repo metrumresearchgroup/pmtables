@@ -2,7 +2,7 @@
 % Please edit documentation in R/demographics-table.R
 \name{pt_demographics}
 \alias{pt_demographics}
-\title{This is the title}
+\title{Summarize continuous and categorical data in long format}
 \usage{
 pt_demographics(
   data,
