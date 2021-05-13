@@ -9,20 +9,45 @@ pt_demographics(
   cols_cont,
   cols_cat,
   span,
+  units = NULL,
   stat_name = "Statistic",
   stat_width = 2
 )
 }
 \arguments{
-\item{cols_cat}{}
+\item{data}{the data frame to summarize; the user should filter or subset so that data contains exactly the records to be summarized; pmtables will not add or remove rows prior to summarizing data}
+
+\item{cols_cont}{the continuous columns to summarize; may be character vector or quosure}
+
+\item{cols_cat}{the categorical columns to summarize; may be character vector or quosure}
+
+\item{span}{variable name for column spanner}
+
+\item{units}{optional units for each summarized column; must be a named list}
+
+\item{stat_name}{name of statistic column}
+
+\item{stat_width}{distance (in cm) between the statistic and summarized columns}
 }
 \value{
 An object of class \code{pmtable}
+
+An object with class pmtable; see class-pmtable.
 }
 \description{
 This function makes a single table from both continuous and categorical data.
 }
+\details{
+The data is summarized using \code{\link[=pt_cont_long]{pt_cont_long()}} and \code{\link[=pt_cat_long]{pt_cat_long()}} for the continuous and categorical data respectively.
+}
 \examples{
+out <- pt_demographics(
+data = pmt_first,
+cols_cont = c('Age (yrs)'='AGE', 'Weight (kg)'='WT'),
+cols_cat = c(Sex='SEXf',Race='ASIANf'),
+span = c("Study"="STUDYf"),
+stat_name = "Statistic"
+)
 
 }
 \seealso{
