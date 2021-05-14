@@ -5,10 +5,10 @@
 #' @return A tibble with one row and two columns named `mean (sd)` and `min-max`
 #'
 #' @examples
-#' pmtables:::smr(value = seq(1,5))
+#' pmtables:::sum_cont(value = seq(1,5))
 #'
 #' @keywords internal
-smr <- function(value = seq(1,5)) {
+sum_cont <- function(value = seq(1,5)) {
   tibble(
     `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
     `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
@@ -22,7 +22,7 @@ smr <- function(value = seq(1,5)) {
 #' @param data 	the data frame to summarize; the user should filter or subset so that data contains exactly the records to be summarized; pmtables will not add or remove rows prior to summarizing data
 #' @param cols_cont the continuous columns to summarize; may be character vector or quosure
 #' @param cols_cat the categorical columns to summarize; may be character vector or quosure
-#' @param sum_func The summary function to use for summarizing the continuous data. Default is [smr()].
+#' @param sum_func The summary function to use for summarizing the continuous data. Default is [sum_cont()].
 #' @param span variable name for column spanner
 #' @param stat_name name of statistic column
 #' @param units optional units for each summarized column; must be a named list
@@ -32,26 +32,44 @@ smr <- function(value = seq(1,5)) {
 #' An object of class `pmtable`
 #'
 #' @examples
-#'out <- pt_demographics(
-#' data = pmt_first,
-#' cols_cont = c('Age (yrs)'='AGE', 'Weight (kg)'='WT'),
-#' cols_cat = c(Sex='SEXf',Race='ASIANf'),
-#' span = c("Study"="STUDYf"),
-#' stat_name = "Statistic"
+#'
+#' # Example summary function
+#' sum_cont <- function(value = seq(1,5)) {
+#'  tibble(
+#'   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
+#'   `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
+#' )
+#' }
+#'
+#' out <- pt_demographics(
+#'   data = pmt_first,
+#'   cols_cont = c('Age'='AGE', 'Weight'='WT'),
+#'   cols_cat = c(Sex='SEXf',Race='ASIANf'),
+#'   units = list(WT="kg"),
+#'   span = c("Study"="STUDYf"),
+#'   stat_name = "Statistic"
 #')
 #'
 #' @details
 #' The data is summarized using [pt_cont_long()] and [pt_cat_long()] for the continuous and categorical data respectively.
+#' The default summary function for summarizing continuous variables ([sum_cont()]) returns a tibble with
+#' one row and two columns named `mean (sd)` and `min-max`:
+#'
+
+#'
+#' If you wish to define your own function, please ensure the output is in the same format. Any number of columns is acceptable.
 #'
 #' @seealso [pt_cont_long()], [pt_cat_long()]
 #'
 #' @return An object with class pmtable; see class-pmtable.
 #'
 #' @export
-pt_demographics <- function(data, cols_cont, cols_cat, sum_func = smr, span, units = NULL,
+pt_demographics <- function(data, cols_cont, cols_cat, sum_func = sum_cont, span, units = NULL,
                             stat_name = "Statistic", stat_width = 2) {
 
   assert_that(is.data.frame(data))
+  pmtables:::check_continuous(data, cols_cont)
+  pmtables:::check_discrete(data, cols_cat)
 
   cols_cont <- new_names(cols_cont)
   cols_cat <- new_names(cols_cat)

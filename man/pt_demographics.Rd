@@ -8,7 +8,7 @@ pt_demographics(
   data,
   cols_cont,
   cols_cat,
-  sum_func = smr,
+  sum_func = sum_cont,
   span,
   units = NULL,
   stat_name = "Statistic",
@@ -22,7 +22,7 @@ pt_demographics(
 
 \item{cols_cat}{the categorical columns to summarize; may be character vector or quosure}
 
-\item{sum_func}{The summary function to use for summarizing the continuous data. Default is \code{\link[=smr]{smr()}}.}
+\item{sum_func}{The summary function to use for summarizing the continuous data. Default is \code{\link[=sum_cont]{sum_cont()}}.}
 
 \item{span}{variable name for column spanner}
 
@@ -42,14 +42,28 @@ This function makes a single table from both continuous and categorical data.
 }
 \details{
 The data is summarized using \code{\link[=pt_cont_long]{pt_cont_long()}} and \code{\link[=pt_cat_long]{pt_cat_long()}} for the continuous and categorical data respectively.
+The default summary function for summarizing continuous variables (\code{\link[=sum_cont]{sum_cont()}}) returns a tibble with
+one row and two columns named \code{mean (sd)} and \code{min-max}:
+
+If you wish to define your own function, please ensure the output is in the same format. Any number of columns is acceptable.
 }
 \examples{
+
+# Example summary function
+sum_cont <- function(value = seq(1,5)) {
+ tibble(
+  `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
+  `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
+)
+}
+
 out <- pt_demographics(
-data = pmt_first,
-cols_cont = c('Age (yrs)'='AGE', 'Weight (kg)'='WT'),
-cols_cat = c(Sex='SEXf',Race='ASIANf'),
-span = c("Study"="STUDYf"),
-stat_name = "Statistic"
+  data = pmt_first,
+  cols_cont = c('Age'='AGE', 'Weight'='WT'),
+  cols_cat = c(Sex='SEXf',Race='ASIANf'),
+  units = list(WT="kg"),
+  span = c("Study"="STUDYf"),
+  stat_name = "Statistic"
 )
 
 }
