@@ -34,7 +34,7 @@ check_sum_func <- function(sum_func){
 #'
 #' @keywords internal
 dem_cont_fun <- function(value = seq(1,5), digits = 3) {
-  tibble(
+  tibble::tibble(
     `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE), digits), " (", sig(sd(value,na.rm=TRUE),digits), ")"),
     `min-max` = paste0(sig(range(value,na.rm=TRUE), digits), collapse = " - ")
   )
