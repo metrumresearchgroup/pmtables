@@ -11,7 +11,7 @@
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
 #' @importFrom rlang enquo enquos is_named is_atomic flatten_if
 #' @importFrom glue glue
-#' @importFrom tibble tibble as_tibble
+#' @importFrom tibble tibble as_tibble is_tibble
 #' @importFrom stats median rnorm sd na.omit setNames
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
