@@ -321,3 +321,21 @@ out <- pt_cont_long(
 
 out %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_asis()
 
+#' \clearpage
+
+
+#' # Combined continuous and categorical table (long)
+#'
+#' - Continuous and categorical summary table in long format
+#' - Long indicates that covariates go down the table
+#'
+out <- pt_demographics(
+  data = pmt_first,
+  cols_cont = c(Age='AGE', Weight='WT'),
+  cols_cat = c(Sex='SEXf',Race='ASIANf'),
+  span = c("Study"="STUDYf"),
+  units = list(WT="kg", AGE="yr"),
+  stat_name = "Statistic"
+)
+
+out %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_asis()
