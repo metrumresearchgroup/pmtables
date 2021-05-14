@@ -50,7 +50,7 @@ If you wish to define your own function, please ensure the output is in the same
 
 # Example summary function
 new_fun <- function(value = seq(1,5)) {
- tibble(
+ data.frame(
   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
   `median` = paste0(sig(median(value, na.rm = TRUE))),
   `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
