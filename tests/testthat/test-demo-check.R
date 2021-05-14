@@ -1,4 +1,3 @@
-
 library(testthat)
 library(dplyr)
 library(purrr)
@@ -38,7 +37,7 @@ b <- summarize(
   NOBS = sum(!is.na(DV)),
   .groups = "drop"
 )
-dd <- group_by(b, SEQf) %>% mutate(TOBS = sum(NOBS), TBQL = sum(NBQL)) %>% ungroup()
+dd <- group_by(b, SEQf) %>% mutate(TOBS = sum(NOBS)+sum(NBQL), TBQL = sum(NBQL)) %>% ungroup()
 e <- mutate(dd, POBS = 100*NOBS/TOBS, PBQL = 100*NBQL/TOBS)
 f <- mutate(e, across(c(POBS,PBQL), .fns = ~ifelse(is.nan(.x), 0, .x)))
 g <- f
@@ -80,10 +79,10 @@ b <- summarize(
   .groups = "drop"
 )
 dd <- b %>%
-  mutate(TOBS = sum(NOBS), TBQL = sum(NBQL)) %>%
+  mutate(TOBS = sum(NOBS)+sum(NBQL), TBQL = sum(NBQL)) %>%
   ungroup()
 ddd <- group_by(dd, ASIANf) %>%
-  mutate(GOBS = sum(NOBS), GBQL = sum(NBQL)) %>%
+  mutate(GOBS = sum(NOBS)+sum(NBQL), GBQL = sum(NBQL)) %>%
   ungroup()
 
 e <- mutate(
@@ -142,7 +141,7 @@ b <- summarize(
   NOBS = sum(!is.na(DV)),
   .groups = "drop"
 )
-dd <- b %>% mutate(TOBS = sum(NOBS), TBQL = sum(NBQL)) %>% ungroup()
+dd <- b %>% mutate(TOBS = sum(NOBS)+sum(NBQL), TBQL = sum(NBQL)) %>% ungroup()
 e <- mutate(
   dd,
   POBS = 100*NOBS/TOBS,
@@ -749,3 +748,4 @@ test_that("demo-check long continuous panel", {
     expect_identical(test[[col]],expected[[col]])
   }
 })
+

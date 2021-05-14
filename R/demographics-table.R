@@ -60,7 +60,7 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #'
 #' # Example summary function
 #' new_fun <- function(value = seq(1,5)) {
-#'  data.frame(
+#'  tibble::tibble(
 #'   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
 #'   `median` = paste0(sig(median(value, na.rm = TRUE))),
 #'   `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
@@ -147,7 +147,7 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun, 
     names(unit_names) <- names(units)
 
     for(i in 1:length(unit_names)){
-      table_data <- mutate(table_data, name = ifelse(name==names(unit_names[i]), unit_names[[i]], .data[["name"]]))
+      table_data <- mutate(table_data, name = ifelse(.data[["name"]]==names(unit_names[i]), unit_names[[i]], .data[["name"]]))
     }
   }
 
