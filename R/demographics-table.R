@@ -1,17 +1,42 @@
+#' Check if summary function evaluates to the correct format
+#' @param sum_func The summary function to use for summarizing the continuous data in [pt_demographics()]
+#' @keywords internal
+check_sum_func <- function(sum_func){
+  if(!identical(sum_func,dem_cont_fun)){
+    tmp <- sum_func(seq(1,5))
+    empty <- is_empty(tmp)
+    struc <- !(is_tibble(tmp) | is.data.frame(tmp))
+    row_n <- ifelse(!struc, nrow(tmp)!=1,TRUE)
+    if(empty | struc| row_n){
+      vals <- c(empty=empty, struc=struc, row_n=row_n)
+      msgs = c("- Your function returned an empty object.",
+               "- Your function does not return values in the correct format. Output must be a tibble or data frame.",
+               "- Your function does not summarize data to a single row.")
+      msg <- glue::glue("{paste(msgs[vals],collapse = '\n')} \nPlease see pmtables::dem_cont_fun() for more information.")
+      stop(msg)
+    }
+  }
+}
+
+
 
 #' Default summary function in pt_demographics for continuous variables
 #' @param value a vector or column to summarize
+#' @param digits the number of digits in the summary; the current implementation passes digits to [sig()]
 #'
-#' @return A tibble with one row and two columns named `mean (sd)` and `min-max`
+#' @return
+#' A tibble with one row and two columns:
+#'  1. `mean (sd)` the mean and standard deviation of `value`
+#'  2. `min-max` the range of the `value`
 #'
 #' @examples
-#' pmtables:::sum_cont(value = seq(1,5))
+#' pmtables:::dem_cont_fun(value = seq(1,7), digits = 2)
 #'
 #' @keywords internal
-sum_cont <- function(value = seq(1,5)) {
+dem_cont_fun <- function(value = seq(1,5), digits = 3) {
   tibble(
-    `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
-    `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
+    `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE), digits), " (", sig(sd(value,na.rm=TRUE),digits), ")"),
+    `min-max` = paste0(sig(range(value,na.rm=TRUE), digits), collapse = " - ")
   )
 }
 
@@ -22,7 +47,7 @@ sum_cont <- function(value = seq(1,5)) {
 #' @param data 	the data frame to summarize; the user should filter or subset so that data contains exactly the records to be summarized; pmtables will not add or remove rows prior to summarizing data
 #' @param cols_cont the continuous columns to summarize; may be character vector or quosure
 #' @param cols_cat the categorical columns to summarize; may be character vector or quosure
-#' @param sum_func The summary function to use for summarizing the continuous data. Default is [sum_cont()].
+#' @param sum_func The summary function to use for summarizing the continuous data. Default is [dem_cont_fun()].
 #' @param span variable name for column spanner
 #' @param stat_name name of statistic column
 #' @param units optional units for each summarized column; must be a named list
@@ -34,11 +59,12 @@ sum_cont <- function(value = seq(1,5)) {
 #' @examples
 #'
 #' # Example summary function
-#' sum_cont <- function(value = seq(1,5)) {
+#' new_fun <- function(value = seq(1,5)) {
 #'  tibble(
 #'   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
+#'   `median` = paste0(sig(median(value, na.rm = TRUE))),
 #'   `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
-#' )
+#'  )
 #' }
 #'
 #' out <- pt_demographics(
@@ -46,14 +72,15 @@ sum_cont <- function(value = seq(1,5)) {
 #'   cols_cont = c('Age'='AGE', 'Weight'='WT'),
 #'   cols_cat = c(Sex='SEXf',Race='ASIANf'),
 #'   units = list(WT="kg"),
+#'   sum_func = new_fun,
 #'   span = c("Study"="STUDYf"),
 #'   stat_name = "Statistic"
 #')
 #'
 #' @details
-#' The data is summarized using [pt_cont_long()] and [pt_cat_long()] for the continuous and categorical data respectively.
-#' The default summary function for summarizing continuous variables ([sum_cont()]) returns a tibble with
-#' one row and two columns named `mean (sd)` and `min-max`:
+#'
+#' The categorical data is summarized using [pt_cat_long()].
+#' The default summary function for continuous variables is [dem_cont_fun()]. Please review that documentation for details on the default summary for this table.
 #'
 
 #'
@@ -64,12 +91,13 @@ sum_cont <- function(value = seq(1,5)) {
 #' @return An object with class pmtable; see class-pmtable.
 #'
 #' @export
-pt_demographics <- function(data, cols_cont, cols_cat, sum_func = sum_cont, span, units = NULL,
+pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun, span, units = NULL,
                             stat_name = "Statistic", stat_width = 2) {
 
   assert_that(is.data.frame(data))
   pmtables:::check_continuous(data, cols_cont)
   pmtables:::check_discrete(data, cols_cat)
+  pmtables:::check_sum_func(sum_func)
 
   cols_cont <- new_names(cols_cont)
   cols_cat <- new_names(cols_cat)

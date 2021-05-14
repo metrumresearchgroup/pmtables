@@ -8,7 +8,7 @@ pt_demographics(
   data,
   cols_cont,
   cols_cat,
-  sum_func = sum_cont,
+  sum_func = dem_cont_fun,
   span,
   units = NULL,
   stat_name = "Statistic",
@@ -22,7 +22,7 @@ pt_demographics(
 
 \item{cols_cat}{the categorical columns to summarize; may be character vector or quosure}
 
-\item{sum_func}{The summary function to use for summarizing the continuous data. Default is \code{\link[=sum_cont]{sum_cont()}}.}
+\item{sum_func}{The summary function to use for summarizing the continuous data. Default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.}
 
 \item{span}{variable name for column spanner}
 
@@ -41,20 +41,20 @@ An object with class pmtable; see class-pmtable.
 This function makes a single table from both continuous and categorical data.
 }
 \details{
-The data is summarized using \code{\link[=pt_cont_long]{pt_cont_long()}} and \code{\link[=pt_cat_long]{pt_cat_long()}} for the continuous and categorical data respectively.
-The default summary function for summarizing continuous variables (\code{\link[=sum_cont]{sum_cont()}}) returns a tibble with
-one row and two columns named \code{mean (sd)} and \code{min-max}:
+The categorical data is summarized using \code{\link[=pt_cat_long]{pt_cat_long()}}.
+The default summary function for continuous variables is \code{\link[=dem_cont_fun]{dem_cont_fun()}}. Please review that documentation for details on the default summary for this table.
 
 If you wish to define your own function, please ensure the output is in the same format. Any number of columns is acceptable.
 }
 \examples{
 
 # Example summary function
-sum_cont <- function(value = seq(1,5)) {
+new_fun <- function(value = seq(1,5)) {
  tibble(
   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
+  `median` = paste0(sig(median(value, na.rm = TRUE))),
   `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
-)
+ )
 }
 
 out <- pt_demographics(
@@ -62,6 +62,7 @@ out <- pt_demographics(
   cols_cont = c('Age'='AGE', 'Weight'='WT'),
   cols_cat = c(Sex='SEXf',Race='ASIANf'),
   units = list(WT="kg"),
+  sum_func = new_fun,
   span = c("Study"="STUDYf"),
   stat_name = "Statistic"
 )
