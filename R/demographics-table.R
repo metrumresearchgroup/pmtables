@@ -131,7 +131,7 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
   cont_table <- pivot_wider(
     cont_table,
     names_from  = "name",
-    values_from = names(sum_func()),
+    values_from = names(sum_func(1:10)),
     names_glue  = "{name}_{.value}"
   )
   cont_table <- pivot_longer(cont_table, -!!sym(span))
@@ -156,7 +156,6 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
   # add units
   units <- validate_units(units, data)
   if(!is.null(units)) {
-    units <- ensure_parens(units)
     all_cols <- c(cols_cont, cols_cat)
     has_unit <- match(names(units), all_cols)
     nw <- names(all_cols)
