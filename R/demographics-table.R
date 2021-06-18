@@ -19,10 +19,10 @@ check_sum_func <- function(sum_func){
 }
 
 
-
 #' Default summary function in pt_demographics for continuous variables
 #' @param value a vector or column to summarize
-#' @param digits the number of digits in the summary; the current implementation passes digits to [sig()]
+#' @param digits the number of digits in the summary; the current implementation
+#' passes digits to [sig()]
 #'
 #' @return
 #' A tibble with one row and two columns:
@@ -34,9 +34,12 @@ check_sum_func <- function(sum_func){
 #'
 #' @keywords internal
 dem_cont_fun <- function(value = seq(1,5), digits = 3) {
-  tibble::tibble(
-    `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE), digits), " (", sig(sd(value,na.rm=TRUE),digits), ")"),
-    `min-max` = paste0(sig(range(value,na.rm=TRUE), digits), collapse = " - ")
+  Mean  <- sig(mean(value, na.rm = TRUE), digits = digits)
+  Sd    <- sig(sd(value, na.rm = TRUE), digits = digits)
+  Range <- sig(range(value, na.rm = TRUE), digits = digits)
+  tibble(
+    `mean (sd)` = paste0(Mean, " (", Sd, ")"),
+    `min-max` = paste0(Range, collapse = " - ")
   )
 }
 
@@ -44,14 +47,20 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #'
 #' This function makes a single table from both continuous and categorical data.
 #'
-#' @param data 	the data frame to summarize; the user should filter or subset so that data contains exactly the records to be summarized; pmtables will not add or remove rows prior to summarizing data
-#' @param cols_cont the continuous columns to summarize; may be character vector or quosure
-#' @param cols_cat the categorical columns to summarize; may be character vector or quosure
-#' @param sum_func The summary function to use for summarizing the continuous data. Default is [dem_cont_fun()].
+#' @param data 	the data frame to summarize; the user should filter or subset
+#' so that data contains exactly the records to be summarized; pmtables will not
+#' add or remove rows prior to summarizing data
+#' @param cols_cont the continuous columns to summarize; may be character
+#' vector or quosure
+#' @param cols_cat the categorical columns to summarize; may be character vector
+#' or quosure
+#' @param sum_func The summary function to use for summarizing the continuous
+#' data. Default is [dem_cont_fun()].
 #' @param span variable name for column spanner
 #' @param stat_name name of statistic column
 #' @param units optional units for each summarized column; must be a named list
-#' @param stat_width distance (in cm) between the statistic and summarized columns
+#' @param stat_width distance (in cm) between the statistic and summarized
+#' columns
 #'
 #' @return
 #' An object of class `pmtable`
@@ -80,21 +89,26 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' @details
 #'
 #' The categorical data is summarized using [pt_cat_long()].
-#' The default summary function for continuous variables is [dem_cont_fun()]. Please review that documentation for details on the default summary for this table.
+#' The default summary function for continuous variables is [dem_cont_fun()].
+#' Please review that documentation for details on the default summary for this
+#' table.
 #'
 
 #'
-#' If you wish to define your own function, please ensure the output is in the same format. Any number of columns is acceptable.
+#' If you wish to define your own function, please ensure the output is in the
+#' same format. Any number of columns is acceptable.
 #'
 #' @seealso [pt_cont_long()], [pt_cat_long()]
 #'
 #' @return An object with class pmtable; see class-pmtable.
 #'
 #' @export
-pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun, span, units = NULL,
-                            stat_name = "Statistic", stat_width = 2) {
+pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
+                            span, units = NULL, stat_name = "Statistic",
+                            stat_width = 2) {
 
   assert_that(is.data.frame(data))
+  data <- as.data.frame(data)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
   check_sum_func(sum_func)
@@ -109,7 +123,11 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun, 
   cont_table <- pivot_longer(data, cols = all_of(unname(cols_cont)))
   cont_table <- mutate(cont_table, name = fct_inorder(.data[["name"]]))
   cont_table <- group_by(cont_table, .data[["name"]], !!sym(span))
-  cont_table <- summarise(cont_table, sum_func(.data[["value"]]), .groups = "drop")
+  cont_table <- summarise(
+    cont_table,
+    sum_func(.data[["value"]]),
+    .groups = "drop"
+  )
   cont_table <- pivot_wider(
     cont_table,
     names_from  = "name",
@@ -136,22 +154,16 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun, 
   table_data <- rename(table_data, !!sym(stat_name) := .data[["level"]])
 
   # add units
-  units <- validate_units(units,data)
-  if(!is.null(units)){
-    all_cols <- as.list(c(cols_cont,cols_cat))
-    names(units) <- names(all_cols[match(names(units),all_cols)])
-
-    unit_names <- lapply(seq(units), function(i){
-      ifelse(units[[i]]!="",paste0(names(units[i]), " (",units[[i]],")"),names(units[i]))
-    })
-    names(unit_names) <- names(units)
-
-    for(i in 1:length(unit_names)){
-      table_data <- mutate(table_data, name = ifelse(.data[["name"]]==names(unit_names[i]), unit_names[[i]], .data[["name"]]))
-    }
+  units <- validate_units(units, data)
+  if(!is.null(units)) {
+    units <- ensure_parens(units)
+    all_cols <- c(cols_cont, cols_cat)
+    has_unit <- match(names(units), all_cols)
+    nw <- names(all_cols)
+    nw[has_unit] <- paste0(nw[has_unit], " ",  unlist(units))
+    names(nw) <- names(all_cols)
+    table_data[["name"]] <- nw[table_data[["name"]]]
   }
-
-
 
   align <- cols_left()
   ragged <- list(col_ragged(stat_width))

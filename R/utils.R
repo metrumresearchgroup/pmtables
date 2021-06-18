@@ -131,3 +131,9 @@ repattern_df <- function(data, pattern, warn = TRUE, context = NULL) {
   combined <- bind_rows(slice(pattern,1), data)
   slice(combined, seq(2, nrow(combined)))
 }
+
+ensure_parens <- function(x) {
+  where <- !sapply(x, grepl, pattern = "^\\s*\\(")
+  x[where] <- paste0("(", x[where], ")")
+  x
+}

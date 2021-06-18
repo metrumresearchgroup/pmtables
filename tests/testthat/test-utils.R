@@ -43,3 +43,36 @@ test_that("repattern data frame", {
   x4 <- pmtables:::repattern_df(data = data.frame(), pattern = b)
   expect_equal(nrow(x4),0)
 })
+
+
+test_that("add parens to vector if not there", {
+  a <- letters[1:3]
+  ans <- pmtables:::ensure_parens(a)
+  expect_equal(ans, c("(a)", "(b)", "(c)"))
+
+  b <- a
+  b[2] <- "(b)"
+  ans <- pmtables:::ensure_parens(b)
+  expect_equal(ans, c("(a)", "(b)", "(c)"))
+
+  c <- b
+  c[3] <- "(c"
+  ans <- pmtables:::ensure_parens(c)
+  expect_equal(ans, c("(a)", "(b)", "(c"))
+
+  aa <- as.list(a)
+  ans <- pmtables:::ensure_parens(aa)
+  expect_equal(ans, list("(a)", "(b)", "(c)"))
+
+  bb <- as.list(b)
+  ans <- pmtables:::ensure_parens(bb)
+  expect_equal(ans, list("(a)", "(b)", "(c)"))
+
+  cc <- as.list(c)
+  ans <- pmtables:::ensure_parens(cc)
+  expect_equal(ans, list("(a)", "(b)", "(c"))
+
+  d <- seq(3)
+  ans <- pmtables:::ensure_parens(d)
+  expect_equal(ans, c("(1)", "(2)", "(3)"))
+})

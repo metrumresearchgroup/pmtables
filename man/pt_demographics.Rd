@@ -16,13 +16,18 @@ pt_demographics(
 )
 }
 \arguments{
-\item{data}{the data frame to summarize; the user should filter or subset so that data contains exactly the records to be summarized; pmtables will not add or remove rows prior to summarizing data}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that data contains exactly the records to be summarized; pmtables will not
+add or remove rows prior to summarizing data}
 
-\item{cols_cont}{the continuous columns to summarize; may be character vector or quosure}
+\item{cols_cont}{the continuous columns to summarize; may be character
+vector or quosure}
 
-\item{cols_cat}{the categorical columns to summarize; may be character vector or quosure}
+\item{cols_cat}{the categorical columns to summarize; may be character vector
+or quosure}
 
-\item{sum_func}{The summary function to use for summarizing the continuous data. Default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.}
+\item{sum_func}{The summary function to use for summarizing the continuous
+data. Default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.}
 
 \item{span}{variable name for column spanner}
 
@@ -30,7 +35,8 @@ pt_demographics(
 
 \item{stat_name}{name of statistic column}
 
-\item{stat_width}{distance (in cm) between the statistic and summarized columns}
+\item{stat_width}{distance (in cm) between the statistic and summarized
+columns}
 }
 \value{
 An object of class \code{pmtable}
@@ -42,15 +48,18 @@ This function makes a single table from both continuous and categorical data.
 }
 \details{
 The categorical data is summarized using \code{\link[=pt_cat_long]{pt_cat_long()}}.
-The default summary function for continuous variables is \code{\link[=dem_cont_fun]{dem_cont_fun()}}. Please review that documentation for details on the default summary for this table.
+The default summary function for continuous variables is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.
+Please review that documentation for details on the default summary for this
+table.
 
-If you wish to define your own function, please ensure the output is in the same format. Any number of columns is acceptable.
+If you wish to define your own function, please ensure the output is in the
+same format. Any number of columns is acceptable.
 }
 \examples{
 
 # Example summary function
 new_fun <- function(value = seq(1,5)) {
- data.frame(
+ tibble::tibble(
   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
   `median` = paste0(sig(median(value, na.rm = TRUE))),
   `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
