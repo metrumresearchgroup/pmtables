@@ -112,7 +112,7 @@ test_that("demographics data summary - column renaming (with units)", {
     cols_cont = c('Age'='AGE', 'Weight'='WT'),
     cols_cat = c(Sex='SEXf',Race='ASIANf', `Drug Form`='FORMf'),
     span = c("Study"="STUDYf"),
-    units = list(WT="kg", AGE="yr", FORMf="type"),
+    units = ensure_parens(list(WT="kg", AGE="yr", FORMf="type")),
     stat_name = "Statistic"
   )
   expect_equal(unique(out$data$name), c("Age (yr)", "Weight (kg)", "Sex", "Race", "Drug Form (type)"))

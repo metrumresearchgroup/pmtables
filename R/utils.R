@@ -147,7 +147,7 @@ repattern_df <- function(data, pattern, warn = TRUE, context = NULL) {
 #'
 #' ensure_parens(as.list(letters[1:4]))
 #'
-#' ensure_parens(c("(a)", "b", "(c")))
+#' ensure_parens(c("(a)", "b", "(c)"))
 #'
 #' @export
 ensure_parens <- function(x) {

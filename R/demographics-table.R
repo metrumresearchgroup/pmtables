@@ -54,13 +54,18 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' vector or quosure
 #' @param cols_cat the categorical columns to summarize; may be character vector
 #' or quosure
-#' @param sum_func The summary function to use for summarizing the continuous
-#' data. Default is [dem_cont_fun()].
 #' @param span variable name for column spanner
-#' @param stat_name name of statistic column
+
 #' @param units optional units for each summarized column; must be a named list
+#' @param stat_name name of statistic column
 #' @param stat_width distance (in cm) between the statistic and summarized
 #' columns
+#' @param summarize_all logical; if `TRUE`, summaries across all `span`
+#' levels will be appended to the right hand side of the table
+#' @param all_name a character name for the all data summary invoked by
+#' `summarize_all`
+#' @param fun The summary function to use for summarizing the continuous
+#' data; the default is [dem_cont_fun()]
 #'
 #' @return
 #' An object of class `pmtable`
@@ -78,11 +83,11 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #'
 #' out <- pt_demographics(
 #'   data = pmt_first,
-#'   cols_cont = c('Age'='AGE', 'Weight'='WT'),
-#'   cols_cat = c(Sex='SEXf',Race='ASIANf'),
-#'   units = list(WT="kg"),
-#'   sum_func = new_fun,
-#'   span = c("Study"="STUDYf"),
+#'   cols_cont = c('Age' = 'AGE', 'Weight' = 'WT'),
+#'   cols_cat = c(Sex = 'SEXf',Race = 'ASIANf'),
+#'   units = list(WT = "kg"),
+#'   fun = new_fun,
+#'   span = c("Study" = "STUDYf"),
 #'   stat_name = "Statistic"
 #')
 #'
@@ -103,15 +108,17 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' @return An object with class pmtable; see class-pmtable.
 #'
 #' @export
-pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
-                            span, units = NULL, stat_name = "Statistic",
-                            stat_width = 2) {
+pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
+                            stat_name = "Statistic", stat_width = 2,
+                            summarize_all = TRUE, all_name = "All data",
+                            fun = dem_cont_fun) {
 
   assert_that(is.data.frame(data))
   data <- as.data.frame(data)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
-  check_sum_func(sum_func)
+  check_sum_func(fun)
+  summarize_all <- isTRUE(summarize_all)
 
   cols_cont <- new_names(cols_cont)
   cols_cat <- new_names(cols_cat)
@@ -119,21 +126,23 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
   span <- new_names(span)
   span_lvl <- levels(fct_inorder(data[[unname(span)]]))
 
-  ### Continuous Variables ###
-  cont_table <- pivot_longer(data, cols = all_of(unname(cols_cont)))
-  cont_table <- mutate(cont_table, name = fct_inorder(.data[["name"]]))
-  cont_table <- group_by(cont_table, .data[["name"]], !!sym(span))
+  # Continuous Variables
+  cont_table0 <- pivot_longer(data, cols = all_of(unname(cols_cont)))
+  cont_table0 <- mutate(cont_table0, name = fct_inorder(.data[["name"]]))
+
+  cont_table <- group_by(cont_table0, .data[["name"]], !!sym(span))
   cont_table <- summarise(
     cont_table,
-    sum_func(.data[["value"]]),
+    fun(.data[["value"]]),
     .groups = "drop"
   )
   cont_table <- pivot_wider(
     cont_table,
     names_from  = "name",
-    values_from = names(sum_func(1:10)),
+    values_from = names(fun(1:10)),
     names_glue  = "{name}_{.value}"
   )
+
   cont_table <- pivot_longer(cont_table, -!!sym(span))
   cont_table <- pivot_wider(cont_table, names_from = all_of(unname(span)))
   cont_table <- separate(cont_table, .data[["name"]], c("name", "level"), sep="_")
@@ -141,17 +150,61 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
   cont_table <- mutate(cont_table, name = fct_inorder(.data[["name"]]))
   cont_table <- mutate(cont_table, name = names(cols_cont)[.data[["name"]]])
 
-  ### Categorical Variables ###
+  if(summarize_all) {
+    cont_table_all <- group_by(cont_table0, .data[["name"]])
+    cont_table_all <- summarise(
+      cont_table_all,
+      fun(.data[["value"]]),
+      .groups = "drop"
+    )
+    cont_table_all <- pivot_wider(
+      cont_table_all,
+      names_from  = "name",
+      values_from = names(fun(1:10)),
+      names_glue  = "{name}_{.value}"
+    )
+    cont_table_all <- pivot_longer(cont_table_all, everything())
+    cont_table_all <- separate(cont_table_all, .data[["name"]], c("name", "level"), sep="_")
+    cont_table_all <- arrange(cont_table_all, .data[["name"]])
+    cont_table_all <- mutate(cont_table_all, name = fct_inorder(.data[["name"]]))
+    cont_table_all <- mutate(cont_table_all, name = names(cols_cont)[.data[["name"]]])
+  }
+
+
+  # Categorical Variables ###
   cat_table <- pt_cat_long(
     data,
     cols = all_of(cols_cat),
     span = span,
     summarize = "top"
   )
+  if(summarize_all) {
+    cat_table_all0 <- pt_cat_long(
+      data,
+      cols = all_of(cols_cat),
+      summarize = "top"
+    )
+  }
 
-  ### Combined Table ###
+  # Combined Table ###
   table_data <- bind_rows(cont_table, cat_table[["data"]])
   table_data <- rename(table_data, !!sym(stat_name) := .data[["level"]])
+  cols_extra <- cat_table$cols_extra
+
+  if(summarize_all) {
+    cat_table_all <- rename(cat_table_all0[["data"]], value = "Summary")
+    table_data_all <- bind_rows(cont_table_all, cat_table_all)
+    table_data_all <- rename(table_data_all, !!sym(stat_name) := .data[["level"]])
+    table_data <- left_join(table_data, table_data_all, by = c("name", stat_name))
+    table_data <- rename(table_data, !!sym(all_name) := .data[["value"]])
+    cols_extra <- left_join(
+      cols_extra,
+      cat_table_all0$cols_extra,
+      by = "level"
+    )
+  }
+
+
 
   # add units
   units <- validate_units(units, data)
@@ -159,7 +212,7 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
     all_cols <- c(cols_cont, cols_cat)
     has_unit <- match(names(units), all_cols)
     nw <- names(all_cols)
-    nw[has_unit] <- paste0(nw[has_unit], " ",  unlist(units))
+    nw[has_unit] <- paste(nw[has_unit],  unlist(units))
     names(nw) <- names(all_cols)
     table_data[["name"]] <- nw[table_data[["name"]]]
   }
@@ -174,7 +227,7 @@ pt_demographics <- function(data, cols_cont, cols_cat, sum_func = dem_cont_fun,
     span = as.span(title = names(span), vars = all_of(span_lvl)),
     panel = as.panel("name"),
     align = align,
-    cols_extra = cat_table$cols_extra
+    cols_extra = cols_extra
   )
 
   structure(ans, class = c("pmtable", class(ans)))

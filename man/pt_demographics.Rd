@@ -8,11 +8,13 @@ pt_demographics(
   data,
   cols_cont,
   cols_cat,
-  sum_func = dem_cont_fun,
   span,
   units = NULL,
   stat_name = "Statistic",
-  stat_width = 2
+  stat_width = 2,
+  summarize_all = TRUE,
+  all_name = "All data",
+  fun = dem_cont_fun
 )
 }
 \arguments{
@@ -26,9 +28,6 @@ vector or quosure}
 \item{cols_cat}{the categorical columns to summarize; may be character vector
 or quosure}
 
-\item{sum_func}{The summary function to use for summarizing the continuous
-data. Default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.}
-
 \item{span}{variable name for column spanner}
 
 \item{units}{optional units for each summarized column; must be a named list}
@@ -37,6 +36,15 @@ data. Default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.}
 
 \item{stat_width}{distance (in cm) between the statistic and summarized
 columns}
+
+\item{summarize_all}{logical; if \code{TRUE}, summaries across all \code{span}
+levels will be appended to the right hand side of the table}
+
+\item{all_name}{a character name for the all data summary invoked by
+\code{summarize_all}}
+
+\item{fun}{The summary function to use for summarizing the continuous
+data; the default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}}
 }
 \value{
 An object of class \code{pmtable}
@@ -68,11 +76,11 @@ new_fun <- function(value = seq(1,5)) {
 
 out <- pt_demographics(
   data = pmt_first,
-  cols_cont = c('Age'='AGE', 'Weight'='WT'),
-  cols_cat = c(Sex='SEXf',Race='ASIANf'),
-  units = list(WT="kg"),
-  sum_func = new_fun,
-  span = c("Study"="STUDYf"),
+  cols_cont = c('Age' = 'AGE', 'Weight' = 'WT'),
+  cols_cat = c(Sex = 'SEXf',Race = 'ASIANf'),
+  units = list(WT = "kg"),
+  fun = new_fun,
+  span = c("Study" = "STUDYf"),
   stat_name = "Statistic"
 )
 

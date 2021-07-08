@@ -21,6 +21,6 @@ ensure_parens(letters[1:4])
 
 ensure_parens(as.list(letters[1:4]))
 
-ensure_parens(c("(a)", "b", "(c")))
+ensure_parens(c("(a)", "b", "(c)"))
 
 }
