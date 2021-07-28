@@ -8,7 +8,7 @@ pt_demographics(
   data,
   cols_cont,
   cols_cat,
-  span,
+  span = NULL,
   units = NULL,
   stat_name = "Statistic",
   stat_width = 2,

@@ -39,7 +39,8 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
   Range <- sig(range(value, na.rm = TRUE), digits = digits)
   tibble(
     `mean (sd)` = paste0(Mean, " (", Sd, ")"),
-    `min-max` = paste0(Range, collapse = " - ")
+    `min-max` = paste0(Range, collapse = " - "),
+    `non-missing` = as.character(sum(!is.na(value)))
   )
 }
 
@@ -108,103 +109,102 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' @return An object with class pmtable; see class-pmtable.
 #'
 #' @export
-pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
+pt_demographics <- function(data, cols_cont, cols_cat, span = NULL, units = NULL,
                             stat_name = "Statistic", stat_width = 2,
                             summarize_all = TRUE, all_name = "All data",
                             fun = dem_cont_fun) {
+
+  summarize_all <- isTRUE(summarize_all)
+  summarize_span <- !is.null(span)
+  summarize_all <- isTRUE(summarize_all) || !summarize_span
 
   assert_that(is.data.frame(data))
   data <- as.data.frame(data)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
   check_sum_func(fun)
-  summarize_all <- isTRUE(summarize_all)
 
   cols_cont <- new_names(cols_cont)
   cols_cat <- new_names(cols_cat)
 
-  span <- new_names(span)
-  span_lvl <- levels(fct_inorder(data[[unname(span)]]))
+  if(summarize_span) {
+    span <- new_names(span)
+    span_lvl <- levels(fct_inorder(data[[unname(span)]]))
+    new_span <- as.span(title = names(span), vars = span_lvl)
+  } else {
+    new_span <- NULL
+  }
 
   # Continuous Variables
   cont_table0 <- pivot_longer(data, cols = all_of(unname(cols_cont)))
   cont_table0 <- mutate(cont_table0, name = fct_inorder(.data[["name"]]))
 
-  cont_table <- group_by(cont_table0, .data[["name"]], !!sym(span))
-  cont_table <- summarise(
-    cont_table,
-    fun(.data[["value"]]),
-    .groups = "drop"
-  )
-  cont_table <- pivot_wider(
-    cont_table,
-    names_from  = "name",
-    values_from = names(fun(1:10)),
-    names_glue  = "{name}_{.value}"
-  )
-
-  cont_table <- pivot_longer(cont_table, -!!sym(span))
-  cont_table <- pivot_wider(cont_table, names_from = all_of(unname(span)))
-  cont_table <- separate(cont_table, .data[["name"]], c("name", "level"), sep="_")
-  cont_table <- arrange(cont_table, .data[["name"]])
-  cont_table <- mutate(cont_table, name = fct_inorder(.data[["name"]]))
-  cont_table <- mutate(cont_table, name = names(cols_cont)[.data[["name"]]])
-
   if(summarize_all) {
-    cont_table_all <- group_by(cont_table0, .data[["name"]])
-    cont_table_all <- summarise(
-      cont_table_all,
-      fun(.data[["value"]]),
-      .groups = "drop"
+    cont_table0[[".span"]] <- "value"
+    cont_table_all <- demo_summarize_cont(
+      data = cont_table0,
+      span = ".span",
+      cols = cols_cont,
+      fun = fun
     )
-    cont_table_all <- pivot_wider(
-      cont_table_all,
-      names_from  = "name",
-      values_from = names(fun(1:10)),
-      names_glue  = "{name}_{.value}"
-    )
-    cont_table_all <- pivot_longer(cont_table_all, everything())
-    cont_table_all <- separate(cont_table_all, .data[["name"]], c("name", "level"), sep="_")
-    cont_table_all <- arrange(cont_table_all, .data[["name"]])
-    cont_table_all <- mutate(cont_table_all, name = fct_inorder(.data[["name"]]))
-    cont_table_all <- mutate(cont_table_all, name = names(cols_cont)[.data[["name"]]])
   }
 
+  if(summarize_span) {
+    cont_table <- demo_summarize_cont(
+      data = cont_table0,
+      span = span,
+      cols = cols_cont,
+      fun = fun
+    )
+  }
 
   # Categorical Variables ###
-  cat_table <- pt_cat_long(
-    data,
-    cols = all_of(cols_cat),
-    span = span,
-    summarize = "top"
-  )
+  if(summarize_span) {
+    cat_table <- pt_cat_long(
+      data,
+      cols = all_of(cols_cat),
+      span = span,
+      summarize = "top"
+    )
+  }
+
   if(summarize_all) {
     cat_table_all0 <- pt_cat_long(
       data,
       cols = all_of(cols_cat),
       summarize = "top"
     )
+    cat_table_all <- rename(cat_table_all0[["data"]], value = "Summary")
   }
 
-  # Combined Table ###
-  table_data <- bind_rows(cont_table, cat_table[["data"]])
-  table_data <- rename(table_data, !!sym(stat_name) := .data[["level"]])
-  cols_extra <- cat_table$cols_extra
-
-  if(summarize_all) {
-    cat_table_all <- rename(cat_table_all0[["data"]], value = "Summary")
-    table_data_all <- bind_rows(cont_table_all, cat_table_all)
-    table_data_all <- rename(table_data_all, !!sym(stat_name) := .data[["level"]])
-    table_data <- left_join(table_data, table_data_all, by = c("name", stat_name))
-    table_data <- rename(table_data, !!sym(all_name) := .data[["value"]])
+  if(summarize_all && summarize_span) {
+    cont_df <- left_join(cont_table, cont_table_all, by = c("name", "level"))
+    cat_df <- left_join(cat_table[["data"]], cat_table_all, by = c("name", "level"))
     cols_extra <- left_join(
-      cols_extra,
+      cat_table$cols_extra,
       cat_table_all0$cols_extra,
       by = "level"
     )
   }
+  if(summarize_all && !summarize_span) {
+    cont_df <- cont_table_all
+    cat_df <- cat_table_all
+    cols_extra <- cat_table_all[["cols_extra"]]
+  }
+  if(!summarize_all && summarize_span) {
+    cont_df <- cont_table
+    cat_df <- cat_table[["data"]]
+    cols_extra <- cat_table[["cols_extra"]]
+  }
 
 
+  # Combined Table ###
+  table_data <- bind_rows(cont_df, cat_df)
+  table_data <- rename(table_data, !!sym(stat_name) := .data[["level"]])
+
+  if(summarize_all) {
+    table_data <- rename(table_data, !!sym(all_name) := .data[["value"]])
+  }
 
   # add units
   units <- validate_units(units, data)
@@ -224,7 +224,7 @@ pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
 
   ans <- list(
     data = table_data,
-    span = as.span(title = names(span), vars = all_of(span_lvl)),
+    span = new_span,
     panel = as.panel("name"),
     align = align,
     cols_extra = cols_extra
@@ -233,5 +233,27 @@ pt_demographics <- function(data, cols_cont, cols_cat, span, units = NULL,
   structure(ans, class = c("pmtable", class(ans)))
 }
 
-#' @rdname pt_demographics
-#'
+demo_summarize_cont <- function(data, span, cols, fun) {
+
+  cont_table <- group_by(data, .data[["name"]], !!sym(span))
+  cont_table <- summarise(
+    cont_table,
+    fun(.data[["value"]]),
+    .groups = "drop"
+  )
+
+  cont_table <- pivot_wider(
+    cont_table,
+    names_from  = "name",
+    values_from = names(fun(1:10)),
+    names_glue  = "{name}_{.value}"
+  )
+  cont_table <- pivot_longer(cont_table, -!!sym(span))
+  cont_table <- pivot_wider(cont_table, names_from = all_of(unname(span)))
+  cont_table <- separate(cont_table, .data[["name"]], c("name", "level"), sep="_")
+
+  cont_table <- mutate(cont_table, name = factor(name, levels = unname(cols)))
+  cont_table <- arrange(cont_table, .data[["name"]])
+  cont_table <- mutate(cont_table, name = names(cols)[.data[["name"]]])
+  cont_table
+}
