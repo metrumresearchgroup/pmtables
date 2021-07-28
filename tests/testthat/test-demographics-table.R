@@ -1,3 +1,6 @@
+library(testthat)
+library(pmtables)
+
 context("test-demographics-table")
 
 test_that("demographics data summary - simple", {
@@ -29,7 +32,7 @@ test_that("demographics data summary - summary function", {
   out <- pt_demographics(
     data = pmt_first,
     cols_cont = c('AGE', 'WT'), cols_cat = c('SEXf','ASIANf'),
-    span = c("Study"="STUDYf"), sum_func = new_fun
+    span = c("Study"="STUDYf"), fun = new_fun
   )
   expect_true("median" %in% out$data$Statistic)
 
@@ -44,7 +47,7 @@ test_that("demographics data summary - summary function", {
   out <- pt_demographics(
     data = pmt_first,
     cols_cont = c('AGE', 'WT'), cols_cat = c('SEXf','ASIANf'),
-    span = c("Study"="STUDYf"), sum_func = new_fun
+    span = c("Study"="STUDYf"), fun = new_fun
   )
   expect_true("median" %in% out$data$Statistic)
 })
@@ -61,7 +64,7 @@ test_that("demographics data summary - summary function errors", {
   expect_error(
     pt_demographics(data = pmt_first, cols_cont = c('AGE', 'WT'),
                     cols_cat = c('SEXf','ASIANf'),
-                    span = c("Study"="STUDYf"), sum_func = new_fun),
+                    span = c("Study"="STUDYf"), fun = new_fun),
     "- Your function does not return values in the correct format. Output must be a tibble or data frame. \nPlease see pmtables::dem_cont_fun() for more information.",
     fixed = TRUE
   )
@@ -77,7 +80,7 @@ test_that("demographics data summary - summary function errors", {
   expect_error(
     pt_demographics(data = pmt_first, cols_cont = c('AGE', 'WT'),
                     cols_cat = c('SEXf','ASIANf'),
-                    span = c("Study"="STUDYf"), sum_func = new_fun),
+                    span = c("Study"="STUDYf"), fun = new_fun),
     "- Your function does not summarize data to a single row. \nPlease see pmtables::dem_cont_fun() for more information.",
     fixed = TRUE
   )
@@ -89,7 +92,7 @@ test_that("demographics data summary - units", {
     cols_cont = c('AGE', 'WT'),
     cols_cat = c('SEXf','ASIANf'),
     span = c("Study"="STUDYf"),
-    units = list(WT="kg", AGE="yr"),
+    units = ensure_parens(list(WT="kg", AGE="yr")),
     stat_name = "Statistic"
   )
   expect_equal(unique(out$data$name), c("AGE (yr)", "WT (kg)", "SEXf", "ASIANf"))
@@ -122,7 +125,7 @@ test_that("demographics data summary - spot check values", {
   data <- pmt_first
   cols_cont <- c('AGE', 'WT')
   span <- "STUDYf"
-  sum_func <- dem_cont_fun
+  sum_func <- pmtables:::dem_cont_fun
   cont_table <- pivot_longer(data, cols = all_of(unname(cols_cont)))
   cont_table <- mutate(cont_table, name = fct_inorder(name))
   cont_table <- group_by(cont_table, name, !!sym(span))
@@ -137,6 +140,7 @@ test_that("demographics data summary - spot check values", {
   )
 
   expect_true(out$data$`12-DEMO-001`[1] == cont_table$`mean (sd)`[1])
-  expect_true(out$data$`12-DEMO-001`[2] == cont_table$`min-max`[1])
-  expect_true(out$data$`12-DEMO-002`[4] == cont_table$`min-max`[6])
+  mm <- filter(out$data, Statistic=="min-max")
+  expect_true(mm$`12-DEMO-001`[1] == cont_table$`min-max`[1])
+  expect_true(mm$`12-DEMO-002`[2] == cont_table$`min-max`[6])
 })
