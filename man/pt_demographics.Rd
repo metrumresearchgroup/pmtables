@@ -8,21 +8,27 @@ pt_demographics(
   data,
   cols_cont,
   cols_cat,
-  sum_func = dem_cont_fun,
-  span,
+  span = NULL,
   units = NULL,
   stat_name = "Statistic",
-  stat_width = 2
+  stat_width = 2,
+  summarize_all = TRUE,
+  all_name = "All data",
+  fun = dem_cont_fun,
+  notes = pt_demographics_notes(),
+  paneled = TRUE
 )
 }
 \arguments{
-\item{data}{the data frame to summarize; the user should filter or subset so that data contains exactly the records to be summarized; pmtables will not add or remove rows prior to summarizing data}
+\item{data}{the data frame to summarize; the user should filter or subset
+so that data contains exactly the records to be summarized; pmtables will not
+add or remove rows prior to summarizing data}
 
-\item{cols_cont}{the continuous columns to summarize; may be character vector or quosure}
+\item{cols_cont}{the continuous columns to summarize; may be character
+vector or quosure}
 
-\item{cols_cat}{the categorical columns to summarize; may be character vector or quosure}
-
-\item{sum_func}{The summary function to use for summarizing the continuous data. Default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.}
+\item{cols_cat}{the categorical columns to summarize; may be character vector
+or quosure}
 
 \item{span}{variable name for column spanner}
 
@@ -30,7 +36,23 @@ pt_demographics(
 
 \item{stat_name}{name of statistic column}
 
-\item{stat_width}{distance (in cm) between the statistic and summarized columns}
+\item{stat_width}{distance (in cm) between the statistic and summarized
+columns}
+
+\item{summarize_all}{logical; if \code{TRUE}, summaries across all \code{span}
+levels will be appended to the right hand side of the table}
+
+\item{all_name}{a character name for the all data summary invoked by
+\code{summarize_all}}
+
+\item{fun}{The summary function to use for summarizing the continuous
+data; the default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}}
+
+\item{notes}{notes a character vector of notes to place under the table}
+
+\item{paneled}{if \code{TRUE} (default), the table will be paneled with the covariate
+names; otherwise, the covariate names will appear as the left-most column
+with non-repeating names cleared and separated with \code{hline} (see examples)}
 }
 \value{
 An object of class \code{pmtable}
@@ -42,30 +64,43 @@ This function makes a single table from both continuous and categorical data.
 }
 \details{
 The categorical data is summarized using \code{\link[=pt_cat_long]{pt_cat_long()}}.
-The default summary function for continuous variables is \code{\link[=dem_cont_fun]{dem_cont_fun()}}. Please review that documentation for details on the default summary for this table.
+The default summary function for continuous variables is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.
+Please review that documentation for details on the default summary for this
+table.
 
-If you wish to define your own function, please ensure the output is in the same format. Any number of columns is acceptable.
+If you wish to define your own function, please ensure the output is in the
+same format. Any number of columns is acceptable.
 }
 \examples{
 
 # Example summary function
 new_fun <- function(value = seq(1,5)) {
- data.frame(
+ tibble::tibble(
   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
   `median` = paste0(sig(median(value, na.rm = TRUE))),
-  `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
+  `min-max` = paste0(sig(range(value, na.rm=TRUE)), collapse = " - ")
  )
 }
 
 out <- pt_demographics(
   data = pmt_first,
-  cols_cont = c('Age'='AGE', 'Weight'='WT'),
-  cols_cat = c(Sex='SEXf',Race='ASIANf'),
-  units = list(WT="kg"),
-  sum_func = new_fun,
-  span = c("Study"="STUDYf"),
+  cols_cont = c('Age' = 'AGE', 'Weight' = 'WT'),
+  cols_cat = c(Sex = 'SEXf',Race = 'ASIANf'),
+  units = list(WT = "kg"),
+  fun = new_fun,
+  span = c("Study" = "STUDYf"),
   stat_name = "Statistic"
 )
+
+out <- pt_demographics(
+  data = pmt_first,
+  cols_cont = "AGE,WT",
+  cols_cat = "SEXf,ASIANf",
+  paneled = FALSE,
+  span = "FORMf"
+)
+tab <- stable(out)
+
 
 }
 \seealso{

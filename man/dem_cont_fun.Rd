@@ -9,7 +9,8 @@ dem_cont_fun(value = seq(1, 5), digits = 3)
 \arguments{
 \item{value}{a vector or column to summarize}
 
-\item{digits}{the number of digits in the summary; the current implementation passes digits to \code{\link[=sig]{sig()}}}
+\item{digits}{the number of digits in the summary; the current implementation
+passes digits to \code{\link[=sig]{sig()}}}
 }
 \value{
 A tibble with one row and two columns:

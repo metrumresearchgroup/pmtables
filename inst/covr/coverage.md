@@ -1,18 +1,19 @@
-# coverage: 91.21%
+# coverage: 91.44%
 
 |file                     | coverage|
 |:------------------------|--------:|
 |R/AAAA.R                 |     0.00|
 |R/preview.R              |    55.56|
-|R/utils.R                |    68.42|
 |R/table-utils.R          |    70.13|
+|R/utils.R                |    71.67|
 |R/table-align.R          |    77.55|
-|R/table-object.R         |    78.17|
 |R/table-tabular.R        |    81.08|
+|R/table-object.R         |    81.50|
 |R/table-sumrow.R         |    87.76|
 |R/table-hlines.R         |    87.88|
-|R/summary-functions.R    |    88.89|
+|R/summary-functions.R    |    89.13|
 |R/yaml-as-df.R           |    89.19|
+|R/demographics-table.R   |    89.54|
 |R/table-stable.R         |    89.94|
 |R/check.R                |    91.67|
 |R/table-clear_reps.R     |    95.83|
