@@ -67,6 +67,10 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' `summarize_all`
 #' @param fun The summary function to use for summarizing the continuous
 #' data; the default is [dem_cont_fun()]
+#' @param notes notes a character vector of notes to place under the table
+#' @param paneled if `TRUE` (default), the table will be paneled with the covariate
+#' names; otherwise, the covariate names will appear as the left-most column
+#' with non-repeating names cleared and separated with `hline` (see examples)
 #'
 #' @return
 #' An object of class `pmtable`
@@ -78,7 +82,7 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #'  tibble::tibble(
 #'   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
 #'   `median` = paste0(sig(median(value, na.rm = TRUE))),
-#'   `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
+#'   `min-max` = paste0(sig(range(value, na.rm=TRUE)), collapse = " - ")
 #'  )
 #' }
 #'
@@ -90,7 +94,17 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #'   fun = new_fun,
 #'   span = c("Study" = "STUDYf"),
 #'   stat_name = "Statistic"
-#')
+#' )
+#'
+#' out <- pt_demographics(
+#'   data = pmt_first,
+#'   cols_cont = "AGE,WT",
+#'   cols_cat = "SEXf,ASIANf",
+#'   paneled = FALSE,
+#'   span = "FORMf"
+#' )
+#' tab <- stable(out)
+#'
 #'
 #' @details
 #'
@@ -112,20 +126,25 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 pt_demographics <- function(data, cols_cont, cols_cat, span = NULL, units = NULL,
                             stat_name = "Statistic", stat_width = 2,
                             summarize_all = TRUE, all_name = "All data",
-                            fun = dem_cont_fun) {
+                            fun = dem_cont_fun,
+                            notes = pt_demographics_notes(),
+                            paneled = TRUE) {
 
   summarize_all <- isTRUE(summarize_all)
   summarize_span <- !is.null(span)
   summarize_all <- isTRUE(summarize_all) || !summarize_span
+  paneled <- isTRUE(paneled)
 
   assert_that(is.data.frame(data))
+  assert_that(is.character(notes))
   data <- as.data.frame(data)
+  cols_cont <- new_names(cols_cont)
+  cols_cat <- new_names(cols_cat)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
   check_sum_func(fun)
 
-  cols_cont <- new_names(cols_cont)
-  cols_cat <- new_names(cols_cat)
+
 
   if(summarize_span) {
     span <- new_names(span)
@@ -223,13 +242,27 @@ pt_demographics <- function(data, cols_cont, cols_cat, span = NULL, units = NULL
   align[["update"]] <- ragged
 
   ans <- list(
-    data = table_data,
     span = new_span,
     panel = as.panel("name"),
     align = align,
-    cols_extra = cols_extra
+    cols_extra = cols_extra,
+    notes = notes
   )
 
+  if(!paneled) {
+    ans[["panel"]] <- as.panel(NULL)
+    ans[["clear_reps"]] <- "Covariate"
+    if(!is.null(new_span)) {
+      ans[["cols_extra"]] <- bind_cols(
+        tibble(Covariate = ""),
+        ans[["cols_extra"]]
+      )
+    }
+    ans[["hline_from"]] <- "Covariate"
+    table_data <- select(table_data, Covariate = .data[["name"]], everything())
+  }
+
+  ans[["data"]] <- table_data
   structure(ans, class = c("pmtable", class(ans)))
 }
 
@@ -250,10 +283,28 @@ demo_summarize_cont <- function(data, span, cols, fun) {
   )
   cont_table <- pivot_longer(cont_table, -!!sym(span))
   cont_table <- pivot_wider(cont_table, names_from = all_of(unname(span)))
-  cont_table <- separate(cont_table, .data[["name"]], c("name", "level"), sep="_")
+  cont_table <- separate(
+    cont_table,
+    .data[["name"]],
+    c("name", "level"),
+    sep = "_"
+  )
 
-  cont_table <- mutate(cont_table, name = factor(name, levels = unname(cols)))
+  cont_table <- mutate(
+    cont_table,
+    name = factor(.data[["name"]], levels = unname(cols))
+  )
   cont_table <- arrange(cont_table, .data[["name"]])
   cont_table <- mutate(cont_table, name = names(cols)[.data[["name"]]])
   cont_table
+}
+
+pt_demographics_notes <- function() {
+  cat_notes <- "Categorical summary is count (percent)"
+  cont_notes <- c(
+    "sd: standard deviation",
+    "min: minimum",
+    "max: maximum"
+  )
+  c(cat_notes, cont_notes)
 }

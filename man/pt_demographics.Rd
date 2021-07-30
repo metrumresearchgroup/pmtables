@@ -14,7 +14,9 @@ pt_demographics(
   stat_width = 2,
   summarize_all = TRUE,
   all_name = "All data",
-  fun = dem_cont_fun
+  fun = dem_cont_fun,
+  notes = pt_demographics_notes(),
+  paneled = TRUE
 )
 }
 \arguments{
@@ -45,6 +47,12 @@ levels will be appended to the right hand side of the table}
 
 \item{fun}{The summary function to use for summarizing the continuous
 data; the default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}}
+
+\item{notes}{notes a character vector of notes to place under the table}
+
+\item{paneled}{if \code{TRUE} (default), the table will be paneled with the covariate
+names; otherwise, the covariate names will appear as the left-most column
+with non-repeating names cleared and separated with \code{hline} (see examples)}
 }
 \value{
 An object of class \code{pmtable}
@@ -70,7 +78,7 @@ new_fun <- function(value = seq(1,5)) {
  tibble::tibble(
   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
   `median` = paste0(sig(median(value, na.rm = TRUE))),
-  `min-max` = paste0(sig(range(value,na.rm=TRUE)), collapse = " - ")
+  `min-max` = paste0(sig(range(value, na.rm=TRUE)), collapse = " - ")
  )
 }
 
@@ -83,6 +91,16 @@ out <- pt_demographics(
   span = c("Study" = "STUDYf"),
   stat_name = "Statistic"
 )
+
+out <- pt_demographics(
+  data = pmt_first,
+  cols_cont = "AGE,WT",
+  cols_cat = "SEXf,ASIANf",
+  paneled = FALSE,
+  span = "FORMf"
+)
+tab <- stable(out)
+
 
 }
 \seealso{
