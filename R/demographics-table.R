@@ -73,7 +73,7 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' with non-repeating names cleared and separated with `hline` (see examples)
 #'
 #' @return
-#' An object of class `pmtable`
+#' An object of class `pmtable`.
 #'
 #' @examples
 #'
