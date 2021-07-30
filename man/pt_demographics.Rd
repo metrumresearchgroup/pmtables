@@ -101,6 +101,8 @@ out <- pt_demographics(
 )
 tab <- stable(out)
 
+pmtables:::pt_demographics_notes()
+
 
 }
 \seealso{

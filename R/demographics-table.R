@@ -105,6 +105,8 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' )
 #' tab <- stable(out)
 #'
+#' pmtables:::pt_demographics_notes()
+#'
 #'
 #' @details
 #'
@@ -123,7 +125,8 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' @return An object with class pmtable; see class-pmtable.
 #'
 #' @export
-pt_demographics <- function(data, cols_cont, cols_cat, span = NULL, units = NULL,
+pt_demographics <- function(data, cols_cont, cols_cat,
+                            span = NULL, units = NULL,
                             stat_name = "Statistic", stat_width = 2,
                             summarize_all = TRUE, all_name = "All data",
                             fun = dem_cont_fun,
@@ -143,8 +146,6 @@ pt_demographics <- function(data, cols_cont, cols_cat, span = NULL, units = NULL
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
   check_sum_func(fun)
-
-
 
   if(summarize_span) {
     span <- new_names(span)
@@ -205,17 +206,18 @@ pt_demographics <- function(data, cols_cont, cols_cat, span = NULL, units = NULL
       by = "level"
     )
   }
+
   if(summarize_all && !summarize_span) {
     cont_df <- cont_table_all
     cat_df <- cat_table_all
     cols_extra <- cat_table_all[["cols_extra"]]
   }
+
   if(!summarize_all && summarize_span) {
     cont_df <- cont_table
     cat_df <- cat_table[["data"]]
     cols_extra <- cat_table[["cols_extra"]]
   }
-
 
   # Combined Table ###
   table_data <- bind_rows(cont_df, cat_df)
