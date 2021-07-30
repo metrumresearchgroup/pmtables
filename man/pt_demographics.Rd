@@ -55,7 +55,7 @@ names; otherwise, the covariate names will appear as the left-most column
 with non-repeating names cleared and separated with \code{hline} (see examples)}
 }
 \value{
-An object of class \code{pmtable}
+An object of class \code{pmtable}.
 
 An object with class pmtable; see class-pmtable.
 }
