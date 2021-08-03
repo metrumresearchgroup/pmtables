@@ -24,20 +24,22 @@ pt_demographics(
 so that data contains exactly the records to be summarized; pmtables will not
 add or remove rows prior to summarizing data}
 
-\item{cols_cont}{the continuous columns to summarize; may be character
-vector or quosure}
+\item{cols_cont}{the continuous data columns to summarize; this argument
+may be specified as a character vector, comma-separated string or
+quosure}
 
-\item{cols_cat}{the categorical columns to summarize; may be character vector
-or quosure}
+\item{cols_cat}{the categorical columns to summarize; this argument
+may be specified as a character vector, comma-separated string or
+quosure}
 
 \item{span}{variable name for column spanner}
 
-\item{units}{optional units for each summarized column; must be a named list}
+\item{units}{optional units for each summarized column; must be a named list
+where the names correspond with continuous data columns in \code{data}}
 
 \item{stat_name}{name of statistic column}
 
-\item{stat_width}{distance (in cm) between the statistic and summarized
-columns}
+\item{stat_width}{width (in cm) of the statistic column}
 
 \item{summarize_all}{logical; if \code{TRUE}, summaries across all \code{span}
 levels will be appended to the right hand side of the table}
@@ -50,9 +52,10 @@ data; the default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}}
 
 \item{notes}{notes a character vector of notes to place under the table}
 
-\item{paneled}{if \code{TRUE} (default), the table will be paneled with the covariate
-names; otherwise, the covariate names will appear as the left-most column
-with non-repeating names cleared and separated with \code{hline} (see examples)}
+\item{paneled}{logical; if \code{TRUE}, the table will be paneled with the
+covariate names; otherwise, the covariate names will appear as the left-most
+column with non-repeating names cleared and separated with \code{hline} (see
+examples)}
 }
 \value{
 An object of class \code{pmtable}.
@@ -73,23 +76,12 @@ same format. Any number of columns is acceptable.
 }
 \examples{
 
-# Example summary function
-new_fun <- function(value = seq(1,5)) {
- tibble::tibble(
-  `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
-  `median` = paste0(sig(median(value, na.rm = TRUE))),
-  `min-max` = paste0(sig(range(value, na.rm=TRUE)), collapse = " - ")
- )
-}
-
 out <- pt_demographics(
   data = pmt_first,
-  cols_cont = c('Age' = 'AGE', 'Weight' = 'WT'),
-  cols_cat = c(Sex = 'SEXf',Race = 'ASIANf'),
+  cols_cont = c("Age" = "AGE", Weight = "WT"),
+  cols_cat = c(Sex = "SEXf", Race = "ASIANf"),
   units = list(WT = "kg"),
-  fun = new_fun,
-  span = c("Study" = "STUDYf"),
-  stat_name = "Statistic"
+  span = c(Study = "STUDYf")
 )
 
 out <- pt_demographics(
@@ -102,6 +94,25 @@ out <- pt_demographics(
 tab <- stable(out)
 
 pmtables:::pt_demographics_notes()
+
+new_fun <- function(value = seq(1,5)) {
+value <- value[!is.na(value)]
+ tibble::tibble(
+  `mean` = sig(mean(value)),
+  `median` = sig(median(value)),
+  `min-max` = paste0(sig(range(value)), collapse = " - ")
+ )
+}
+
+out <- pt_demographics(
+  data = pmt_first,
+  cols_cont = "AGE,WT",
+  cols_cat = "SEXf,ASIANf",
+  fun = new_fun
+)
+
+pmtables:::dem_cont_fun(rnorm(20))
+new_fun(rnorm(20))
 
 
 }

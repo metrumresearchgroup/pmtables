@@ -244,7 +244,7 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'
 #' Specifically, please note that:
 #' - `MISS` is the number of data records that are missing (`NA`) and where
-#'   the `BQL` (or `BLQ`) colum is `0`
+#'   the `BQL` (or `BLQ`) column is `0`
 #' - `OBS` is the number of data records which are not missing (non-`NA`) and
 #'   are not `BQL`
 #' - `BQL` are records where the `BQL` (or `BLQ`) column is not equal to `0`

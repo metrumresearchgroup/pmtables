@@ -51,16 +51,17 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' @param data 	the data frame to summarize; the user should filter or subset
 #' so that data contains exactly the records to be summarized; pmtables will not
 #' add or remove rows prior to summarizing data
-#' @param cols_cont the continuous columns to summarize; may be character
-#' vector or quosure
-#' @param cols_cat the categorical columns to summarize; may be character vector
-#' or quosure
+#' @param cols_cont the continuous data columns to summarize; this argument
+#' may be specified as a character vector, comma-separated string or
+#' quosure
+#' @param cols_cat the categorical columns to summarize; this argument
+#' may be specified as a character vector, comma-separated string or
+#' quosure
 #' @param span variable name for column spanner
-
 #' @param units optional units for each summarized column; must be a named list
+#' where the names correspond with continuous data columns in `data`
 #' @param stat_name name of statistic column
-#' @param stat_width distance (in cm) between the statistic and summarized
-#' columns
+#' @param stat_width width (in cm) of the statistic column
 #' @param summarize_all logical; if `TRUE`, summaries across all `span`
 #' levels will be appended to the right hand side of the table
 #' @param all_name a character name for the all data summary invoked by
@@ -68,32 +69,22 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' @param fun The summary function to use for summarizing the continuous
 #' data; the default is [dem_cont_fun()]
 #' @param notes notes a character vector of notes to place under the table
-#' @param paneled if `TRUE` (default), the table will be paneled with the covariate
-#' names; otherwise, the covariate names will appear as the left-most column
-#' with non-repeating names cleared and separated with `hline` (see examples)
+#' @param paneled logical; if `TRUE`, the table will be paneled with the
+#' covariate names; otherwise, the covariate names will appear as the left-most
+#' column with non-repeating names cleared and separated with `hline` (see
+#' examples)
 #'
 #' @return
 #' An object of class `pmtable`.
 #'
 #' @examples
 #'
-#' # Example summary function
-#' new_fun <- function(value = seq(1,5)) {
-#'  tibble::tibble(
-#'   `mean (sd)` = paste0(sig(mean(value, na.rm = TRUE)), " (", sig(sd(value,na.rm=TRUE)), ")"),
-#'   `median` = paste0(sig(median(value, na.rm = TRUE))),
-#'   `min-max` = paste0(sig(range(value, na.rm=TRUE)), collapse = " - ")
-#'  )
-#' }
-#'
 #' out <- pt_demographics(
 #'   data = pmt_first,
-#'   cols_cont = c('Age' = 'AGE', 'Weight' = 'WT'),
-#'   cols_cat = c(Sex = 'SEXf',Race = 'ASIANf'),
+#'   cols_cont = c("Age" = "AGE", Weight = "WT"),
+#'   cols_cat = c(Sex = "SEXf", Race = "ASIANf"),
 #'   units = list(WT = "kg"),
-#'   fun = new_fun,
-#'   span = c("Study" = "STUDYf"),
-#'   stat_name = "Statistic"
+#'   span = c(Study = "STUDYf")
 #' )
 #'
 #' out <- pt_demographics(
@@ -107,6 +98,25 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #'
 #' pmtables:::pt_demographics_notes()
 #'
+#' new_fun <- function(value = seq(1,5)) {
+#' value <- value[!is.na(value)]
+#'  tibble::tibble(
+#'   `mean` = sig(mean(value)),
+#'   `median` = sig(median(value)),
+#'   `min-max` = paste0(sig(range(value)), collapse = " - ")
+#'  )
+#' }
+#'
+#' out <- pt_demographics(
+#'   data = pmt_first,
+#'   cols_cont = "AGE,WT",
+#'   cols_cat = "SEXf,ASIANf",
+#'   fun = new_fun
+#' )
+#'
+#' pmtables:::dem_cont_fun(rnorm(20))
+#' new_fun(rnorm(20))
+#'
 #'
 #' @details
 #'
@@ -114,8 +124,6 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' The default summary function for continuous variables is [dem_cont_fun()].
 #' Please review that documentation for details on the default summary for this
 #' table.
-#'
-
 #'
 #' If you wish to define your own function, please ensure the output is in the
 #' same format. Any number of columns is acceptable.

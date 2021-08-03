@@ -67,7 +67,7 @@ for \code{OBS} and \code{BQL} are presented for the \code{Overall} data and for 
 Specifically, please note that:
 \itemize{
 \item \code{MISS} is the number of data records that are missing (\code{NA}) and where
-the \code{BQL} (or \code{BLQ}) colum is \code{0}
+the \code{BQL} (or \code{BLQ}) column is \code{0}
 \item \code{OBS} is the number of data records which are not missing (non-\code{NA}) and
 are not \code{BQL}
 \item \code{BQL} are records where the \code{BQL} (or \code{BLQ}) column is not equal to \code{0}
