@@ -31,7 +31,6 @@ test_that("pt_demographics - call with span, no summary", {
     span = c("STUDYf"),
     summarize_all = FALSE
   )
-
   expect_is(out, "pmtable")
   ustudy <- unique(as.character(pmt_first$STUDYf))
   expect_equal(
@@ -230,4 +229,3 @@ test_that("set width of Statistic column", {
   out <- pt_demographics(pmt_first, cont, cat, stat_width = 5)
   expect_match(out$align$update$Statistic, "5cm")
 })
-
