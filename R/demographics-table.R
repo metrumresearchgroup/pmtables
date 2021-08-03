@@ -9,15 +9,14 @@ check_sum_func <- function(sum_func){
     row_n <- ifelse(!struc, nrow(tmp)!=1,FALSE)
     if(empty | struc| row_n){
       vals <- c(empty=empty, struc=struc, row_n=row_n)
-      msgs = c("- Your function returned an empty object.",
-               "- Your function does not return values in the correct format. Output must be a tibble or data frame.",
-               "- Your function does not summarize data to a single row.")
-      msg <- paste0(glue::glue("{paste(msgs[vals],collapse = '\n')} \nPlease see pmtables::dem_cont_fun() for more information."))
+      msgs = c("`fun` returned an empty object.",
+               "`fun` must return a data frame.",
+               "`fun` must return a data frame with a single row.")
+      msg <- paste0(glue::glue("{paste(msgs[vals],collapse = '\n')} See ?pmtables:::dem_cont_fun."))
       stop(msg)
     }
   }
 }
-
 
 #' Default summary function in pt_demographics for continuous variables
 #' @param value a vector or column to summarize
@@ -28,6 +27,7 @@ check_sum_func <- function(sum_func){
 #' A tibble with one row and two columns:
 #'  1. `mean (sd)` the mean and standard deviation of `value`
 #'  2. `min-max` the range of the `value`
+#'  3. `non-missing` the number of non-missing `values`
 #'
 #' @examples
 #' pmtables:::dem_cont_fun(value = seq(1,7), digits = 2)
@@ -270,6 +270,8 @@ pt_demographics <- function(data, cols_cont, cols_cat,
 
 demo_summarize_cont <- function(data, span, cols, fun) {
 
+  summary_names <- names(fun(1:5))
+
   cont_table <- group_by(data, .data[["name"]], !!sym(span))
   cont_table <- summarise(
     cont_table,
@@ -277,10 +279,12 @@ demo_summarize_cont <- function(data, span, cols, fun) {
     .groups = "drop"
   )
 
+  cont_table <- mutate_at(cont_table, .vars = summary_names, as.character)
+
   cont_table <- pivot_wider(
     cont_table,
     names_from  = "name",
-    values_from = names(fun(1:10)),
+    values_from = summary_names,
     names_glue  = "{name}_{.value}"
   )
   cont_table <- pivot_longer(cont_table, -!!sym(span))

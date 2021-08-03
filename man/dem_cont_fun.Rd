@@ -17,6 +17,7 @@ A tibble with one row and two columns:
 \enumerate{
 \item \code{mean (sd)} the mean and standard deviation of \code{value}
 \item \code{min-max} the range of the \code{value}
+\item \code{non-missing} the number of non-missing \code{values}
 }
 }
 \description{
