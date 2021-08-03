@@ -3,17 +3,54 @@ library(pmtables)
 
 context("test-demographics-table")
 
-test_that("demographics data summary - basic call", {
+cont <- "AGE,WT"
+cat <- "SEXf,ASIANf"
+
+test_that("pt_demographics - call with span and summary", {
   out <- pt_demographics(
     data = pmt_first,
-    cols_cont = c('AGE', 'WT'),
-    cols_cat = c('SEXf','ASIANf'),
-    span = c("STUDYf"),
-    stat_name = "Statistic"
+    cols_cont = cont,
+    cols_cat = cat,
+    span = c("STUDYf")
   )
-  expect_true(all(class(out)==c("pmtable", "list")))
+  expect_is(out, "pmtable")
   expect_equal(unique(out$data$name), c("AGE", "WT", "SEXf", "ASIANf"))
   expect_equal(out$span$title,"STUDYf")
+  ustudy <- unique(as.character(pmt_first$STUDYf))
+  expect_equal(
+    names(out$data),
+    c("name", "Statistic", ustudy, "All data")
+  )
+})
+
+test_that("pt_demographics - call with span, no summary", {
+  out <- pt_demographics(
+    data = pmt_first,
+    cols_cont = cont,
+    cols_cat = cat,
+    span = c("STUDYf"),
+    summarize_all = FALSE
+  )
+
+  expect_is(out, "pmtable")
+  ustudy <- unique(as.character(pmt_first$STUDYf))
+  expect_equal(
+    names(out$data),
+    c("name", "Statistic", ustudy)
+  )
+})
+
+test_that("pt_demographics - call with summary, no span", {
+  out <- pt_demographics(
+    data = pmt_first,
+    cols_cont = cont,
+    cols_cat = cat
+  )
+  expect_is(out, "pmtable")
+  expect_equal(
+    names(out$data),
+    c("name", "Statistic", "All data")
+  )
 })
 
 test_that("demographics data summary - summary function", {
@@ -159,8 +196,6 @@ test_that("demographics data summary - spot check values", {
   expect_true(out$data$`12-DEMO-002`[2] == ab2)
 })
 
-cont <- "AGE,WT"
-cat <- "SEXf,ASIANf"
 test_that("statistic column gets renamed", {
   out <- pt_demographics(pmt_first, cont, cat, stat_name = "Test")
   expect_equal(names(out$data)[2], "Test")
@@ -195,3 +230,4 @@ test_that("set width of Statistic column", {
   out <- pt_demographics(pmt_first, cont, cat, stat_width = 5)
   expect_match(out$align$update$Statistic, "5cm")
 })
+

@@ -1,4 +1,4 @@
-# coverage: 91.44%
+# coverage: 91.88%
 
 |file                     | coverage|
 |:------------------------|--------:|
@@ -13,9 +13,9 @@
 |R/table-hlines.R         |    87.88|
 |R/summary-functions.R    |    89.13|
 |R/yaml-as-df.R           |    89.19|
-|R/demographics-table.R   |    89.54|
 |R/table-stable.R         |    89.94|
 |R/check.R                |    91.67|
+|R/demographics-table.R   |    95.65|
 |R/table-clear_reps.R     |    95.83|
 |R/table-panel.R          |    96.70|
 |R/table-span.R           |    96.93|
