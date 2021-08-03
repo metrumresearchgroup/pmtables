@@ -48,14 +48,15 @@ levels will be appended to the right hand side of the table}
 \code{summarize_all}}
 
 \item{fun}{The summary function to use for summarizing the continuous
-data; the default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}}
+data; the default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}. The result will be validated with
+\code{\link[=validate_dem_fun]{validate_dem_fun()}}.}
 
 \item{notes}{notes a character vector of notes to place under the table}
 
 \item{paneled}{logical; if \code{TRUE}, the table will be paneled with the
 covariate names; otherwise, the covariate names will appear as the left-most
 column with non-repeating names cleared and separated with \code{hline} (see
-examples)}
+examples).}
 }
 \value{
 An object of class \code{pmtable}.
@@ -78,7 +79,7 @@ same format. Any number of columns is acceptable.
 
 out <- pt_demographics(
   data = pmt_first,
-  cols_cont = c("Age" = "AGE", Weight = "WT"),
+  cols_cont = c(Age = "AGE", Weight = "WT"),
   cols_cat = c(Sex = "SEXf", Race = "ASIANf"),
   units = list(WT = "kg"),
   span = c(Study = "STUDYf")

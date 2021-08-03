@@ -13,7 +13,7 @@ dem_cont_fun(value = seq(1, 5), digits = 3)
 passes digits to \code{\link[=sig]{sig()}}}
 }
 \value{
-A tibble with one row and two columns:
+A tibble with one row and three columns:
 \enumerate{
 \item \code{mean (sd)} the mean and standard deviation of \code{value}
 \item \code{min-max} the range of the \code{value}
@@ -22,6 +22,11 @@ A tibble with one row and two columns:
 }
 \description{
 Default summary function in pt_demographics for continuous variables
+}
+\details{
+The summary function must return a data frame (or tibble) with a single
+row and data summaries in the columns. Results will be coerced to
+character.
 }
 \examples{
 pmtables:::dem_cont_fun(value = seq(1,7), digits = 2)
