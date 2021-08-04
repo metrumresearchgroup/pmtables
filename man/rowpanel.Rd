@@ -13,7 +13,8 @@ rowpanel(
   prefix_skip = NULL,
   duplicates_ok = FALSE,
   bold = TRUE,
-  it = FALSE
+  it = FALSE,
+  hline = TRUE
 )
 
 is.rowpanel(x)

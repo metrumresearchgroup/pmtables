@@ -73,3 +73,12 @@ test_that("panel invalid regex in panel_skip", {
   expect_match(out$tab, "\\textbf{FOO b}", all = FALSE, fixed = TRUE)
   expect_match(out$tab, "\\textbf{c}", all = FALSE, fixed = TRUE)
 })
+
+test_that("omit hline from panel", {
+  data <- stdata()
+  tab1 <- stable(data, panel = as.panel("STUDY"))
+  tab2 <- stable(data, panel = as.panel("STUDY", hline = FALSE))
+  where <- grep("12-DEMO-002", tab1)
+  expect_match(tab1[where], "\\hline", fixed = TRUE)
+  expect_no_match(tab2[where], "\\hline", fixed = TRUE)
+})
