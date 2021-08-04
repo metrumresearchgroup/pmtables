@@ -51,3 +51,9 @@ test_that("pass a list of tables to st2report", {
   expect_length(ans2, 3)
 })
 
+test_that("st2report - list names are escaped", {
+  l <- list(a = stable(stdata()), `a_b` = stable(stdata()))
+  a <- st2report(l, dry_run = TRUE)
+  expect_equal(
+    names(a), c("a", "a\\_b"))
+})
