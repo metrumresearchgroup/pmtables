@@ -13,7 +13,8 @@ rowpanel(
   prefix_skip = NULL,
   duplicates_ok = FALSE,
   bold = TRUE,
-  it = FALSE
+  it = FALSE,
+  hline = TRUE
 )
 
 is.rowpanel(x)
@@ -37,6 +38,9 @@ panel will have the same header}
 \item{bold}{render panel title in bold font face}
 
 \item{it}{render panel title in italic font face}
+
+\item{hline}{logical indicating whether or not to draw an \code{hline} above
+the panel row; the first panel row never receives an \code{hline}}
 
 \item{x}{an object to test}
 }

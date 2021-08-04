@@ -13,6 +13,8 @@
 #' panel will have the same header
 #' @param bold render panel title in bold font face
 #' @param it render panel title in italic font face
+#' @param hline logical indicating whether or not to draw an `hline` above
+#' the panel row; the first panel row never receives an `hline`
 #'
 #' @seealso [as.panel()]
 #'
@@ -20,7 +22,7 @@
 rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
                      prefix_name = FALSE,
                      prefix_skip = NULL, duplicates_ok = FALSE,
-                     bold = TRUE, it = FALSE) {
+                     bold = TRUE, it = FALSE, hline = TRUE) {
   null <- FALSE
   if(is.null(col)) {
     col <- NULL
@@ -32,7 +34,7 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
-    bold = isTRUE(bold), it = isTRUE(it), skip = skip
+    bold = isTRUE(bold), it = isTRUE(it), skip = skip, hline = isTRUE(hline)
   )
   structure(ans, class = "rowpanel")
 }
@@ -126,7 +128,7 @@ panel_by <- function(data, x) {
     lab <- it_each(lab)
   }
   insrt <- paste0("\\multicolumn{", nc,"}{l}{", lab,"}\\\\")
-  if(length(insrt) > 1) {
+  if(length(insrt) > 1 && x$hline) {
     insrt[seq(2,length(insrt))] <- paste0("\\hline ", insrt[seq(2,length(insrt))])
   }
   list(insert_row = where, insert_data = insrt, insert = TRUE)
