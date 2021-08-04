@@ -210,6 +210,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
 
   tables <- c(list(...),.list)
   tables <- flatten_if(tables, is.list)
+  names(tables) <- tab_escape(names(tables))
   inputs <- tables
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(tempdir())
