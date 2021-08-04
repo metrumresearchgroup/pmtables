@@ -80,5 +80,5 @@ test_that("omit hline from panel", {
   tab2 <- stable(data, panel = as.panel("STUDY", hline = FALSE))
   where <- grep("12-DEMO-002", tab1)
   expect_match(tab1[where], "\\hline", fixed = TRUE)
-  expect_no_match(tab2[where], "\\hline", fixed = TRUE)
+  expect_false(grepl("\\hline", tab2[where], fixed = TRUE))
 })
