@@ -87,3 +87,41 @@ test_that("drop MISS column", {
   ans2 <- pt_data_inventory(pmt_pk, drop_miss = TRUE)$data
   expect_equal(names(ans2)[2], "Number.OBS")
 })
+
+test_that("inventory table - denominator", {
+  non_miss <- filter(pmt_pk, !(is.na(DV) & BQL==0))
+  ans <- pt_data_inventory(pmt_pk)$data
+  miss <- ans$Number.MISS
+  obs <- ans$Number.OBS
+  bql <- ans$Number.BQL
+  expect_equal(miss + obs + bql, nrow(pmt_pk))
+  expect_equal(nrow(non_miss), obs + bql)
+  den <- obs + bql
+  pobs <- ans$Percent.OBS
+  pbq <- ans$Percent.BQL
+  expect_equal(pmtables:::digit1(100*obs/den), pobs)
+  expect_equal(pmtables:::digit1(100*bql/den), pbq)
+})
+
+test_that("inventory table - bql", {
+  x <- c(rep(0,10), rep(1,2), rep(3,5))
+  expect_equal(pmtables:::n_bql(x), 7)
+  expect_equal(sum(pmtables:::is_bql(x)), 7)
+})
+
+test_that("inventory table - obs", {
+  dv <-  c(1,2,3,4,5,6,7,8)
+  bql <- c(0,0,1,0,0,2,0,0)
+  ans <- pmtables:::n_obs(dv, bql)
+  expect_equal(ans, 6)
+})
+
+test_that("inventory table - missing / non-missing", {
+  x <- NA_real_
+  dv <-  c(0,1,x,3,4,5,x,7,8,x)
+  bql <- c(0,0,0,1,0,0,2,0,0,0)
+  ans <- pmtables:::n_missing(dv, bql)
+  expect_equal(ans, 2)
+  ans <- pmtables:::n_non_missing(dv, bql)
+  expect_equal(ans, 8)
+})

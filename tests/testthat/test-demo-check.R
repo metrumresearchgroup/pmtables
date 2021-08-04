@@ -33,11 +33,11 @@ b <- summarize(
   a,
   NID = length(unique(SUBJ)),
   NMISS = sum(is.na(DV) & BQL==0),
-  NBQL = sum(BQL !=0),
-  NOBS = sum(!is.na(DV)),
+  NBQL = sum(BQL != 0),
+  NOBS = sum(!is.na(DV) & BQL==0),
   .groups = "drop"
 )
-dd <- group_by(b, SEQf) %>% mutate(TOBS = sum(NOBS)+sum(NBQL), TBQL = sum(NBQL)) %>% ungroup()
+dd <- group_by(b, SEQf) %>% mutate(TBQL = sum(NBQL),TOBS = sum(NOBS) + TBQL) %>% ungroup()
 e <- mutate(dd, POBS = 100*NOBS/TOBS, PBQL = 100*NBQL/TOBS)
 f <- mutate(e, across(c(POBS,PBQL), .fns = ~ifelse(is.nan(.x), 0, .x)))
 g <- f
@@ -74,15 +74,15 @@ b <- summarize(
   a,
   NID = length(unique(SUBJ)),
   NMISS = sum(is.na(DV) & BQL==0),
-  NBQL = sum(BQL !=0),
-  NOBS = sum(!is.na(DV)),
+  NBQL = sum(BQL != 0),
+  NOBS = sum(!is.na(DV) & BQL==0),
   .groups = "drop"
 )
 dd <- b %>%
-  mutate(TOBS = sum(NOBS)+sum(NBQL), TBQL = sum(NBQL)) %>%
+  mutate(TBQL = sum(NBQL),TOBS = sum(NOBS) + TBQL) %>%
   ungroup()
 ddd <- group_by(dd, ASIANf) %>%
-  mutate(GOBS = sum(NOBS)+sum(NBQL), GBQL = sum(NBQL)) %>%
+  mutate(GBQL = sum(NBQL), GOBS = sum(NOBS) + GBQL ) %>%
   ungroup()
 
 e <- mutate(
@@ -138,10 +138,11 @@ b <- summarize(
   NID = length(unique(SUBJ)),
   NMISS = sum(is.na(DV) & BQL==0),
   NBQL = sum(BQL !=0),
-  NOBS = sum(!is.na(DV)),
+  NOBS = sum(!is.na(DV) & BQL==0),
   .groups = "drop"
 )
-dd <- b %>% mutate(TOBS = sum(NOBS)+sum(NBQL), TBQL = sum(NBQL)) %>% ungroup()
+
+dd <- b %>% mutate(TBQL = sum(NBQL),TOBS = sum(NOBS) + TBQL) %>% ungroup()
 e <- mutate(
   dd,
   POBS = 100*NOBS/TOBS,

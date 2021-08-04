@@ -66,10 +66,10 @@ for \code{OBS} and \code{BQL} are presented for the \code{Overall} data and for 
 
 Specifically, please note that:
 \itemize{
-\item \code{MISS} is the number of data records that are missing (\code{NA}) and where
+\item \code{MISS} is the number of data records where \code{DV} is missing (\code{NA}) and where
 the \code{BQL} (or \code{BLQ}) column is \code{0}
-\item \code{OBS} is the number of data records which are not missing (non-\code{NA}) and
-are not \code{BQL}
+\item \code{OBS} is the number of data records where \code{DV} is not missing (non-\code{NA})
+and the \code{BQL} (or \code{BLQ}) column is \code{0}
 \item \code{BQL} are records where the \code{BQL} (or \code{BLQ}) column is not equal to \code{0}
 }
 
@@ -79,8 +79,10 @@ data frame passed to \code{pt_data_inventory()}.
 When calculating percent \code{OBS} and percent \code{BQL}, we use \code{OBS + BQL} as the
 denominator such that the percent \code{BQL} and percent \code{OBS} sum to \code{100}
 within a group or panel. When the \code{panel} argument is set, these percentages
-are calculated for the group (or \code{panel})  as well as overall.
-
+are calculated for the group (or \code{panel})  as well as overall. In other
+words, records that are \code{MISS} are not factored into totals for \code{OBS} or
+\code{BQL} and similarly are not factored into calculation of percent \code{OBS} or
+percent \code{BQL}.
 The summary function is expecting certain columns to be named in a certain
 way. This can be modified to suit your need by passing the following
 arguments: \code{dv_col} (for observations), \code{bq_col} (for BQL observations),
