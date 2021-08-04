@@ -383,7 +383,7 @@ st_wrap.default <- function(x,  # nocov start
     ans <- c("\\begin{landscape}", ans, "\\end{landscape}")
   }
   if(context=="rmd") {
-    ans <- c("```{=latex}", ans, "```")
+    ans <- c("```{=latex}", ans, "```\n\n")
     if(isTRUE(asis)) {
       ans <- paste0(ans, collapse = "\n")
       ans <- knitr::asis_output(ans, meta = .internal$knit_meta)
