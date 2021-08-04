@@ -13,6 +13,8 @@
 #' panel will have the same header
 #' @param bold render panel title in bold font face
 #' @param it render panel title in italic font face
+#' @param hline logical indicating whether or not to draw an `hline` above
+#' the panel row; the first panel row never receives an `hline`
 #'
 #' @seealso [as.panel()]
 #'

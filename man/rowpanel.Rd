@@ -39,6 +39,9 @@ panel will have the same header}
 
 \item{it}{render panel title in italic font face}
 
+\item{hline}{logical indicating whether or not to draw an \code{hline} above
+the panel row; the first panel row never receives an \code{hline}}
+
 \item{x}{an object to test}
 }
 \description{
