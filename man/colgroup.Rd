@@ -52,7 +52,7 @@ column names; level 1 is one step away (up) from the column names, etc}
 splitting columns names on a separator}
 
 \item{title_side}{which side of the split should be taken as the \code{title}?
-defaults to \code{.left} but can also take the \code{.right} side of the splits}
+defaults to left (\code{.l}) but can also take the right (\code{.r}) side of the split}
 
 \item{x}{an R object}
 }

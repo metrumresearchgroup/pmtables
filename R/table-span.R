@@ -10,7 +10,7 @@
 #' splitting columns names on a separator
 #' @param sep character; the separator used for finding column groupings
 #' @param title_side which side of the split should be taken as the `title`?
-#' defaults to `.left` but can also take the `.right` side of the splits
+#' defaults to left (`.l`) but can also take the right (`.r`) side of the split
 #' @return an object with class `colgroup`
 #' @export
 colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".",
