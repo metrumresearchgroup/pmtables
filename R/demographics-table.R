@@ -162,7 +162,11 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   cols_cat <- new_names(cols_cat)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
-  if(!missing(fun)) validate_dem_fun(fun)
+  # Validate custom fun and check notes
+  if(!missing(fun)) {
+    validate_dem_fun(fun)
+    if(missing(notes)) notes <- character(0)
+  }
   if(summarize_span) {
     span <- new_names(span)
     span_lvl <- levels(fct_inorder(data[[unname(span)]]))
