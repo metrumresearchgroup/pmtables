@@ -46,7 +46,7 @@ of rows; all of the rows in \code{cols_extra} will be placed between the column
 label and the unit (if \code{units} is supplied)}
 
 \item{cols_omit}{if \code{TRUE}, then column names are suppressed in the table
-output along with units and any span data}
+output along with units; column spanners are retained}
 
 \item{...}{not used}
 }

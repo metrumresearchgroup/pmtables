@@ -20,7 +20,7 @@
 #' of rows; all of the rows in `cols_extra` will be placed between the column
 #' label and the unit (if `units` is supplied)
 #' @param cols_omit if `TRUE`, then column names are suppressed in the table
-#' output along with units and any span data
+#' output along with units; column spanners are retained
 #' @param ... not used
 #'
 #' @export
