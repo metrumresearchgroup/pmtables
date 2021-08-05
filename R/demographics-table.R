@@ -81,6 +81,12 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' column with non-repeating names cleared and separated with `hline` (see
 #' examples).
 #'
+#' @details
+#' When a continuous data summary function (`fun`) is passed, the user should
+#' also pass a set of notes that explain the summary statistics produced
+#' by that function. If no notes are passed, no notes will appear under the
+#' table.
+#'
 #' @return
 #' An object of class `pmtable`.
 #'

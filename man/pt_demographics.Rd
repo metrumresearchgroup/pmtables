@@ -67,6 +67,11 @@ An object with class pmtable; see class-pmtable.
 This function makes a single table from both continuous and categorical data.
 }
 \details{
+When a continuous data summary function (\code{fun}) is passed, the user should
+also pass a set of notes that explain the summary statistics produced
+by that function. If no notes are passed, no notes will appear under the
+table.
+
 The categorical data is summarized using \code{\link[=pt_cat_long]{pt_cat_long()}}.
 The default summary function for continuous variables is \code{\link[=dem_cont_fun]{dem_cont_fun()}}.
 Please review that documentation for details on the default summary for this
