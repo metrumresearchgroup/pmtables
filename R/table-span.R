@@ -9,12 +9,12 @@
 #' @param split logical; if `TRUE` column groupings will be determined by
 #' splitting columns names on a separator
 #' @param sep character; the separator used for finding column groupings
-#' @param title_from which side of the split should be taken as the `title`?
+#' @param title_side which side of the split should be taken as the `title`?
 #' defaults to `.left` but can also take the `.right` side of the splits
 #' @return an object with class `colgroup`
 #' @export
 colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".",
-                     split = FALSE, title_from = c(".left", ".right")) {
+                     split = FALSE, title_side = c(".l", ".r")) {
 
   if(isTRUE(split)) {
     ans <- colsplit(
@@ -22,7 +22,7 @@ colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".",
       level = level,
       sep = sep,
       split = TRUE,
-      title_from = title_from
+      title_side = title_side
     )
     return(ans)
   }
@@ -47,13 +47,13 @@ as.span <- colgroup
 #' @rdname colgroup
 #' @export
 colsplit <- function(sep, level = 1, split = TRUE, title = NULL,
-                     title_from = c(".left", ".right")) {
+                     title_side = c(".l", ".r")) {
   assert_that(is.null(title) || is.list(title))
   if(is.list(title)) {
     assert_that(is_named(title))
   }
-  title_from <- match.arg(title_from)
-  tagn <- ifelse(title_from == ".left", 1, 2)
+  title_side <- match.arg(title_side)
+  tagn <- ifelse(title_side == ".l", 1, 2)
   structure(
     list(
       title = title,
