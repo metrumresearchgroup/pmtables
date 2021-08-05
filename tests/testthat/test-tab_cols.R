@@ -114,7 +114,7 @@ test_that("tab-cols cols_extra", {
   )
 })
 
-test_that("cols_omit drops column names", {
+test_that("cols_omit drops column names - stable", {
   a <- stable(stdata(), cols_omit = FALSE)
   b <- stable(stdata(), cols_omit = TRUE)
   expect_equal(length(a) - length(b), 2)
@@ -122,6 +122,13 @@ test_that("cols_omit drops column names", {
   expect_match(a[1:7], " & CRCL &", all = FALSE, fixed = TRUE)
   expect_false(any(grepl("STUDY", b)))
   expect_false(any(grepl("CRCL", b)))
+})
+
+test_that("cols_omit drops column names - longtable", {
+  a <- stable_long(stdata(), cols_omit = FALSE)
+  b <- stable_long(stdata(), cols_omit = TRUE)
+  expect_match(a[1:7], "STUDY &", all = FALSE, fixed = TRUE)
+  expect_match(a[1:7], " & CRCL &", all = FALSE, fixed = TRUE)
 })
 
 test_that("cols_omit drops units", {
@@ -139,6 +146,3 @@ test_that("cols_omit keeps span data", {
   expect_match(a, "title", all = FALSE, fixed = TRUE)
   expect_match(b, "title", all = FALSE, fixed = TRUE)
 })
-
-
-
