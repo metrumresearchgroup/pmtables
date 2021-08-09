@@ -319,10 +319,9 @@ demo_summarize_cont <- function(data, span, cols, fun) {
 pt_demographics_notes <- function() {
   cat_notes <- "Categorical summary is count (percent)"
   cont_notes <- c(
+    "n: number of records summarized",
     "SD: standard deviation",
-    "Min: minimum",
-    "Max: maximum",
-    "n: number of records summarized"
+    "Min: minimum; Max: maximum"
   )
   c(cat_notes, cont_notes)
 }
