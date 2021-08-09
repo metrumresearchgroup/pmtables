@@ -183,7 +183,7 @@ test_that("demographics data summary - spot check values", {
   ab1 <- paste(a,b)
   study2 <- dplyr::filter(pmt_first, STUDYf=="12-DEMO-002")
   a <- sig(range(study2$AGE, na.rm = TRUE))
-  ab2 <- paste0(a, collapse = " - ")
+  ab2 <- paste0(a, collapse = " / ")
   out <- pt_demographics(
     data = pmt_first,
     cols_cont = c('AGE', 'WT'),

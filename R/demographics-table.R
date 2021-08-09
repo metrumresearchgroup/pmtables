@@ -26,9 +26,9 @@ validate_dem_fun <- function(fun){
 #'
 #' @return
 #' A tibble with one row and three columns:
-#'  1. `mean (sd)` the mean and standard deviation of `value`
-#'  2. `min-max` the range of the `value`
-#'  3. `non-missing` the number of non-missing `values`
+#'  1. `Mean (SD)` the mean and standard deviation of `value`
+#'  2. `Min / Max` the range of the `value`
+#'  3. `Missing` the number of missing `values`
 #'
 #' @details
 #' The summary function must return a data frame (or tibble) with a single
@@ -44,9 +44,9 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
   Sd    <- sig(sd(value,    na.rm = TRUE), digits = digits)
   Range <- sig(range(value, na.rm = TRUE), digits = digits)
   tibble(
-    `mean (sd)` = paste0(Mean, " (", Sd, ")"),
-    `min-max` = paste0(Range, collapse = " - "),
-    `non-missing` = as.character(sum(!is.na(value)))
+    `Mean (SD)` = paste0(Mean, " (", Sd, ")"),
+    `Min / Max` = paste0(Range, collapse = " / "),
+    `Missing` = as.character(sum(is.na(value)))
   )
 }
 
@@ -318,9 +318,10 @@ demo_summarize_cont <- function(data, span, cols, fun) {
 pt_demographics_notes <- function() {
   cat_notes <- "Categorical summary is count (percent)"
   cont_notes <- c(
-    "sd: standard deviation",
-    "min: minimum",
-    "max: maximum"
+    "SD: standard deviation",
+    "Min: minimum",
+    "Max: maximum",
+    "n: number of records summarized"
   )
   c(cat_notes, cont_notes)
 }

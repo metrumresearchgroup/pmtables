@@ -15,9 +15,9 @@ passes digits to \code{\link[=sig]{sig()}}}
 \value{
 A tibble with one row and three columns:
 \enumerate{
-\item \code{mean (sd)} the mean and standard deviation of \code{value}
-\item \code{min-max} the range of the \code{value}
-\item \code{non-missing} the number of non-missing \code{values}
+\item \code{Mean (SD)} the mean and standard deviation of \code{value}
+\item \code{Min / Max} the range of the \code{value}
+\item \code{Missing} the number of missing \code{values}
 }
 }
 \description{
