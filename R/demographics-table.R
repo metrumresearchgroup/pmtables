@@ -229,7 +229,8 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   if(summarize_all && !summarize_span) {
     cont_df <- cont_table_all
     cat_df <- cat_table_all
-    cols_extra <- cat_table_all[["cols_extra"]]
+    cols_extra <- cat_table_all0[["cols_extra"]]
+    cols_extra <- bind_cols(tibble(name = ""), cols_extra)
   }
   if(!summarize_all && summarize_span) {
     cont_df <- cont_table
