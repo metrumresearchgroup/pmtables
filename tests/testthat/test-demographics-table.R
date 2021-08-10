@@ -231,9 +231,10 @@ test_that("set width of Statistic column", {
 })
 
 test_that("table argument is implemented", {
-  tab <- list(WT = "Weight (kg)", SCR = "Creat")
+  tab <- list(WT = "Weight (kg)", SCR = "Creat", ASIANf = "Asian")
   out <- pt_demographics(pmt_first, "WT,AGE,SCR", cat, table = tab)
   expect_equal(out$data$name[1], "Weight (kg)")
   expect_equal(out$data$name[4], "AGE")
   expect_equal(out$data$name[7], "Creat")
+  expect_equal(out$data$name[12], "Asian")
 })

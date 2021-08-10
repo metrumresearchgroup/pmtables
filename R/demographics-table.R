@@ -167,8 +167,8 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   assert_that(is.data.frame(data))
   assert_that(is.character(notes))
   data <- as.data.frame(data)
-  cols_cont <- new_names(cols_cont,table)
-  cols_cat <- new_names(cols_cat)
+  cols_cont <- new_names(cols_cont, table)
+  cols_cat <- new_names(cols_cat, table)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
   # Validate custom fun and check notes
