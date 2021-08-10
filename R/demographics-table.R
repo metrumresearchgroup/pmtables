@@ -81,6 +81,8 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #' column with non-repeating names cleared and separated with `hline` (see
 #' examples).
 #'
+#' @inheritParams pt_cont_long
+#'
 #' @details
 #' When a continuous data summary function (`fun`) is passed, the user should
 #' also pass a set of notes that explain the summary statistics produced
@@ -149,6 +151,7 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 pt_demographics <- function(data, cols_cont, cols_cat,
                             span = NULL,
                             units = NULL,
+                            table = NULL,
                             stat_name = "Statistic",
                             stat_width = 2,
                             summarize_all = TRUE,
@@ -164,7 +167,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   assert_that(is.data.frame(data))
   assert_that(is.character(notes))
   data <- as.data.frame(data)
-  cols_cont <- new_names(cols_cont)
+  cols_cont <- new_names(cols_cont,table)
   cols_cat <- new_names(cols_cat)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
@@ -325,3 +328,4 @@ pt_demographics_notes <- function() {
   )
   c(cat_notes, cont_notes)
 }
+

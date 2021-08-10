@@ -10,6 +10,7 @@ pt_demographics(
   cols_cat,
   span = NULL,
   units = NULL,
+  table = NULL,
   stat_name = "Statistic",
   stat_width = 2,
   summarize_all = TRUE,
@@ -36,6 +37,9 @@ quosure}
 
 \item{units}{optional units for each summarized column; must be a named list
 where the names correspond with continuous data columns in \code{data}}
+
+\item{table}{a named list to use for renaming columns (see details and
+examples)}
 
 \item{stat_name}{name of statistic column}
 
