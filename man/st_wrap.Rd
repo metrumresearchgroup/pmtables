@@ -4,6 +4,7 @@
 \alias{st_wrap}
 \alias{st_wrap.default}
 \alias{st_wrap.stable_long}
+\alias{st_wrap.pmtable}
 \alias{pt_wrap}
 \alias{st_asis}
 \alias{st_latex}
@@ -27,6 +28,8 @@ st_wrap(x, ...)
 
 \method{st_wrap}{stable_long}(x, table = FALSE, ...)
 
+\method{st_wrap}{pmtable}(x, ...)
+
 pt_wrap(x, ...)
 
 st_asis(x, ..., asis = TRUE, con = NULL)
@@ -34,7 +37,7 @@ st_asis(x, ..., asis = TRUE, con = NULL)
 st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 }
 \arguments{
-\item{x}{tabular text}
+\item{x}{an object that inherits from \code{stable}}
 
 \item{...}{not used}
 
@@ -60,7 +63,17 @@ code block; if \code{tex}, then the fencing is omitted}
 \code{\link[knitr:asis_output]{knitr::asis_output()}} and returned}
 }
 \description{
-Wrap stable output in table environment
+Use this function to wrap \code{stable} or \code{stable_long} objects so they can be
+included inline in an Rmarkdown document. Typically, call \code{st_asis()} (see
+examples).
+}
+\examples{
+\dontrun{
+ # this is only needed in an Rmd environment
+ library(dplyr)
+ stdata() \%>\% stable() \%>\% st_asis()
+}
+
 }
 \seealso{
 \code{\link[=st_use_knit_deps]{st_use_knit_deps()}}
