@@ -18,6 +18,13 @@ test_that("digit1", {
   expect_equal(digit1(100202.2345), "100202.2")
 })
 
+test_that("rnd is a very simple wrapper for round", {
+  x <- rnorm(1000)
+  a <- round(x, 5)
+  b <- rnd(x, 5, foo = "bar")
+  expect_identical(a,b)
+})
+
 test_that("check if regular expression is valid", {
   expect_true(pmtables:::is_regex("^abc$"))
   expect_false(pmtables:::is_regex("\\textbf{foo}"))
