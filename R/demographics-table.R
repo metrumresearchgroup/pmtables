@@ -28,9 +28,9 @@ validate_dem_fun <- function(fun){
 #' @param value a vector or column to summarize
 #' @param name the name of the variable currently being summarized
 #' @param ... other arguments passed to `fmt`
-#' @param fmt a function to format the continuous data summary
+#' @param fmt a function to format the numbers in the continuous data summary
 #' @param digits passed to `fmt`
-#' @param maxex passed to `fmt
+#' @param maxex passed to `fmt`
 #'
 #' @return
 #' A tibble with one row and three columns:
@@ -42,7 +42,17 @@ validate_dem_fun <- function(fun){
 #' The summary function should have these arguments:
 #' - `value` the data to summarize
 #' - `name` the name of the data column being summarized; length 1
-#' - `digits` can be used to limit significant digits in the summary
+#' - `...` absorbs other arguments that might get passed
+#'
+#' These are the important arguments; `name` is not required as a formal
+#' argument but `...` is.  The idea is that the custom summary function
+#' receives the data to be summarized, the name of that data, and other
+#' arguments. Since you are in charge of the function, you can make decisions
+#' about both summaries and the formatting of those summaries inside the
+#' function you are maintaining. Notice that `dem_cont_fun` also contains
+#' arguments `fmt` (a formatting function) and `digits` and `maxex` (arguments
+#' to be passed to `fmt`). This means that you can have your summary function
+#' call the default summary function but with different formatting parameters.
 #'
 #' The summary function should return a data frame, with summary statistics
 #' in the columns.
