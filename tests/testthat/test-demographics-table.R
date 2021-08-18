@@ -55,7 +55,7 @@ test_that("pt_demographics - call with summary, no span", {
 test_that("demographics data summary - summary function", {
 
   # With tibble
-  new_fun <- function(value = seq(1,5)) {
+  new_fun <- function(value = seq(1,5), ...) {
     dplyr::tibble(
       Mean = "1.32",
       Median = "1.45"
@@ -70,7 +70,7 @@ test_that("demographics data summary - summary function", {
   expect_true("Median" %in% out$data$Statistic)
 
   # With data.frame
-  new_fun <- function(value = seq(1,5)) {
+  new_fun <- function(value = seq(1,5), ...) {
     data.frame(Mean = mean(value), Median = median(value))
   }
   out <- pt_demographics(
@@ -84,7 +84,7 @@ test_that("demographics data summary - summary function", {
 
 test_that("handle numeric values from cont summary function", {
   # Values coerced to character
-  new_fun <- function(value = seq(1,5)) {
+  new_fun <- function(value = seq(1,5), ...) {
     dplyr::tibble(
       Mean = 1.32,
       Median = "1.45929342"
@@ -103,7 +103,7 @@ test_that("handle numeric values from cont summary function", {
 
 test_that("demographics data summary - summary function errors", {
   # Wrong structure (list)
-  new_fun <- function(value = seq(1,5)) {
+  new_fun <- function(value = seq(1,5), ...) {
     list(a = value[1], b = value[2])
   }
   expect_error(
@@ -118,7 +118,7 @@ test_that("demographics data summary - summary function errors", {
   )
 
   # Wrong number of rows
-  new_fun <- function(value = seq(1,5)) {
+  new_fun <- function(value = seq(1,5), ...) {
     data.frame(x = value)
   }
   expect_error(

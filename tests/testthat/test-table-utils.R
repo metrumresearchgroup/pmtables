@@ -39,7 +39,7 @@ test_that("save a list of tables", {
   a <- stable(stdata(), output_file = "a.tex")
   b <- stable(stdata(), output_file = "b.tex")
   l <- list(a,b)
-  ans <- stable_save(l)
+  ans <- stable_save(l, dir = tempdir())
   expect_is(ans, "list")
 })
 

@@ -105,7 +105,7 @@ tab <- stable(out)
 
 pmtables:::pt_demographics_notes()
 
-new_fun <- function(value = seq(1,5)) {
+new_fun <- function(value = seq(1,5), name = "", ...) {
 value <- value[!is.na(value)]
  tibble::tibble(
   `mean` = sig(mean(value)),

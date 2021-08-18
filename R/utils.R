@@ -22,6 +22,7 @@ cvec_cs <- function(x) {
 #' @param digits numeric, number of significant digits Default: 3
 #' @param maxex numeric, maximum number of significant
 #' digits before moving to scientific notation, Default: NULL
+#' @param ... other arguments that may be passed but not used
 #'
 #' @return character vector of formatted values
 #'
@@ -37,7 +38,7 @@ cvec_cs <- function(x) {
 #'
 #' @rdname sig
 #' @export
-sig <- function(x,digits=3,maxex=NULL) {
+sig <- function(x,digits=3,maxex=NULL, ...) {
   if(class(x)=="integer") return(x)
   namez <- names(x)
 
@@ -60,7 +61,11 @@ sig <- function(x,digits=3,maxex=NULL) {
 
 #' @rdname sig
 #' @export
-digit1 <- function(x) formatC(x,digits=1,format = 'f')
+digit1 <- function(x, ...) formatC(x,digits=1,format = 'f')
+
+#' @rdname sig
+#' @export
+rnd <- function(x, digits = 0, ...) round(x, digits)
 
 data_total_col <- function(data,all_name="all") {
   if(!exists(".total",data)) {

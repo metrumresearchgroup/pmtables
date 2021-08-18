@@ -3,7 +3,12 @@
 #' @keywords internal
 validate_dem_fun <- function(fun){
   see <- "See ?pmtables:::dem_cont_fun."
-  result <- fun(seq(1,5))
+  form <- formals(fun)
+  assert_that(
+    is.element("...",names(form)),
+    msg = "`fun` must have `...` as a formal argument"
+  )
+  result <- fun(seq(1,5), name = "")
   assert_that(
     !is_empty(result),
     msg = glue("`fun` returned an empty object. {see}")
@@ -21,8 +26,11 @@ validate_dem_fun <- function(fun){
 #' Default summary function in pt_demographics for continuous variables
 #'
 #' @param value a vector or column to summarize
-#' @param digits the number of digits in the summary; the current implementation
-#' passes digits to [sig()]
+#' @param name the name of the variable currently being summarized
+#' @param ... other arguments passed to `fmt`
+#' @param fmt a function to format the continuous data summary
+#' @param digits passed to `fmt`
+#' @param maxex passed to `fmt
 #'
 #' @return
 #' A tibble with one row and three columns:
@@ -31,23 +39,33 @@ validate_dem_fun <- function(fun){
 #'  3. `Missing` the number of missing `values`
 #'
 #' @details
-#' The summary function must return a data frame (or tibble) with a single
-#' row and data summaries in the columns. Results will be coerced to
-#' character.
+#' The summary function should have these arguments:
+#' - `value` the data to summarize
+#' - `name` the name of the data column being summarized; length 1
+#' - `digits` can be used to limit significant digits in the summary
+#'
+#' The summary function should return a data frame, with summary statistics
+#' in the columns.
 #'
 #' @examples
 #' pmtables:::dem_cont_fun(value = seq(1,7), digits = 2)
 #'
 #' @keywords internal
-dem_cont_fun <- function(value = seq(1,5), digits = 3) {
-  Mean  <- sig(mean(value,  na.rm = TRUE), digits = digits)
-  Sd    <- sig(sd(value,    na.rm = TRUE), digits = digits)
-  Range <- sig(range(value, na.rm = TRUE), digits = digits)
+dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
+                         digits = 3, maxex = 5) {
   tibble(
-    `Mean (SD)` = paste0(Mean, " (", Sd, ")"),
-    `Min / Max` = paste0(Range, collapse = " / "),
-    `Missing` = as.character(sum(is.na(value)))
+    `Mean (SD)` = .mean_sd(value, fmt = fmt, digits = digits, maxex = maxex),
+    `Min / Max` = .min_max(value, fmt = fmt, digits = digits, maxex = maxex),
+    `Missing` = as.character(sum(is.na(value)), digits = digits, maxex = maxex)
   )
+}
+.min_max <- function(value, sep = " / ", fmt = sig, ...) {
+  paste0(fmt(range(value, na.rm = TRUE), ...), collapse = sep)
+}
+.mean_sd <- function(value, fmt = sig, ...) {
+  Mean <- fmt(mean(value, na.rm = TRUE), ...)
+  Sd <- fmt(sd(value, na.rm = TRUE), ...)
+  paste0(Mean, " (", Sd, ")")
 }
 
 #' Summarize continuous and categorical data in long format
@@ -113,7 +131,7 @@ dem_cont_fun <- function(value = seq(1,5), digits = 3) {
 #'
 #' pmtables:::pt_demographics_notes()
 #'
-#' new_fun <- function(value = seq(1,5)) {
+#' new_fun <- function(value = seq(1,5), name = "", ...) {
 #' value <- value[!is.na(value)]
 #'  tibble::tibble(
 #'   `mean` = sig(mean(value)),
@@ -171,6 +189,11 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   cols_cat <- new_names(cols_cat, table)
   check_continuous(data, cols_cont)
   check_discrete(data, cols_cat)
+  #assert_that(inherits(digits, "digits"))
+  # digits <- update_digits(digits,cols_cont)
+  # digit_fun <- get_digits_fun(digits)
+  # digit_data <- get_digits_list(digits)
+
   # Validate custom fun and check notes
   if(!missing(fun)) {
     validate_dem_fun(fun)
@@ -288,11 +311,11 @@ pt_demographics <- function(data, cols_cont, cols_cat,
 }
 
 demo_summarize_cont <- function(data, span, cols, fun) {
-  summary_names <- names(fun(1:5))
+  summary_names <- names(fun(1:5, name = ""))
   cont_table <- group_by(data, .data[["name"]], !!sym(span))
   cont_table <- summarise(
     cont_table,
-    fun(.data[["value"]]),
+    fun(.data[["value"]], name = .data[["name"]][1]),
     .groups = "drop"
   )
   cont_table <- mutate_at(cont_table, .vars = summary_names, as.character)
@@ -328,4 +351,3 @@ pt_demographics_notes <- function() {
   )
   c(cat_notes, cont_notes)
 }
-

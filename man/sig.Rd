@@ -3,11 +3,14 @@
 \name{sig}
 \alias{sig}
 \alias{digit1}
+\alias{rnd}
 \title{Format digits}
 \usage{
-sig(x, digits = 3, maxex = NULL)
+sig(x, digits = 3, maxex = NULL, ...)
 
-digit1(x)
+digit1(x, ...)
+
+rnd(x, digits = 0, ...)
 }
 \arguments{
 \item{x}{numeric, value to manipulate}
@@ -16,6 +19,8 @@ digit1(x)
 
 \item{maxex}{numeric, maximum number of significant
 digits before moving to scientific notation, Default: NULL}
+
+\item{...}{other arguments that may be passed but not used}
 }
 \value{
 character vector of formatted values

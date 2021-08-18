@@ -4,13 +4,27 @@
 \alias{dem_cont_fun}
 \title{Default summary function in pt_demographics for continuous variables}
 \usage{
-dem_cont_fun(value = seq(1, 5), digits = 3)
+dem_cont_fun(
+  value = seq(1, 5),
+  name = "",
+  ...,
+  fmt = sig,
+  digits = 3,
+  maxex = 5
+)
 }
 \arguments{
 \item{value}{a vector or column to summarize}
 
-\item{digits}{the number of digits in the summary; the current implementation
-passes digits to \code{\link[=sig]{sig()}}}
+\item{name}{the name of the variable currently being summarized}
+
+\item{...}{other arguments passed to \code{fmt}}
+
+\item{fmt}{a function to format the continuous data summary}
+
+\item{digits}{passed to \code{fmt}}
+
+\item{maxex}{passed to `fmt}
 }
 \value{
 A tibble with one row and three columns:
@@ -24,9 +38,15 @@ A tibble with one row and three columns:
 Default summary function in pt_demographics for continuous variables
 }
 \details{
-The summary function must return a data frame (or tibble) with a single
-row and data summaries in the columns. Results will be coerced to
-character.
+The summary function should have these arguments:
+\itemize{
+\item \code{value} the data to summarize
+\item \code{name} the name of the data column being summarized; length 1
+\item \code{digits} can be used to limit significant digits in the summary
+}
+
+The summary function should return a data frame, with summary statistics
+in the columns.
 }
 \examples{
 pmtables:::dem_cont_fun(value = seq(1,7), digits = 2)
