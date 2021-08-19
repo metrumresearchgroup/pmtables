@@ -8,11 +8,31 @@
 \alias{is.colsplit}
 \title{Set spans to group columns}
 \usage{
-colgroup(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE)
+colgroup(
+  title = NULL,
+  vars = c(),
+  level = 1,
+  sep = ".",
+  split = FALSE,
+  title_side = c(".l", ".r")
+)
 
-as.span(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE)
+as.span(
+  title = NULL,
+  vars = c(),
+  level = 1,
+  sep = ".",
+  split = FALSE,
+  title_side = c(".l", ".r")
+)
 
-colsplit(sep, level = 1, split = TRUE, title = NULL)
+colsplit(
+  sep,
+  level = 1,
+  split = TRUE,
+  title = NULL,
+  title_side = c(".l", ".r")
+)
 
 is.colgroup(x)
 
@@ -30,6 +50,9 @@ column names; level 1 is one step away (up) from the column names, etc}
 
 \item{split}{logical; if \code{TRUE} column groupings will be determined by
 splitting columns names on a separator}
+
+\item{title_side}{which side of the split should be taken as the \code{title}?
+defaults to left (\code{.l}) but can also take the right (\code{.r}) side of the split}
 
 \item{x}{an R object}
 }

@@ -6,13 +6,25 @@
 #' @param level relative position for the grouping spanner; level 0 is the
 #' column names; level 1 is one step away (up) from the column names, etc
 #' @param sep character on which to split column names
-#'
+#' @param split logical; if `TRUE` column groupings will be determined by
+#' splitting columns names on a separator
+#' @param sep character; the separator used for finding column groupings
+#' @param title_side which side of the split should be taken as the `title`?
+#' defaults to left (`.l`) but can also take the right (`.r`) side of the split
 #' @return an object with class `colgroup`
 #' @export
-colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".", split = FALSE) {
+colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".",
+                     split = FALSE, title_side = c(".l", ".r")) {
 
   if(isTRUE(split)) {
-    return(colsplit(title = title, level = level, sep = sep, split = TRUE))
+    ans <- colsplit(
+      title = title,
+      level = level,
+      sep = sep,
+      split = TRUE,
+      title_side = title_side
+    )
+    return(ans)
   }
 
   assert_that(is.character(title))
@@ -33,20 +45,23 @@ colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".", split = FAL
 as.span <- colgroup
 
 #' @rdname colgroup
-#' @param split logical; if `TRUE` column groupings will be determined by
-#' splitting columns names on a separator
-#' @param sep character; the separator used for finding column groupings
 #' @export
-colsplit <- function(sep, level = 1, split = TRUE, title = NULL) {
+colsplit <- function(sep, level = 1, split = TRUE, title = NULL,
+                     title_side = c(".l", ".r")) {
   assert_that(is.null(title) || is.list(title))
-  if(!is.null(title)) assert_that(is_named(title))
+  if(is.list(title)) {
+    assert_that(is_named(title))
+  }
+  title_side <- match.arg(title_side)
+  tagn <- ifelse(title_side == ".l", 1, 2)
   structure(
     list(
       title = title,
       level = level,
       split = split,
       sep = sep,
-      gather = FALSE
+      gather = FALSE,
+      tagn = tagn
     ),
     class = "colsplit"
   )
@@ -109,13 +124,22 @@ combine_spans <- function(..., cols) {
 
 find_span_split <- function(cols,xsp) {
   x <- str_split(cols, fixed(xsp$sep), n = 2)
+
+  sp <- list(
+    newcol = map_chr(x, last),
+    tag = map_chr(x, first)
+  )
+  if(xsp$tagn ==2) {
+    names(sp) <- rev(names(sp))
+  }
   spans <- tibble(
     coln = seq_along(x),
     col = cols,
-    newcol = map_chr(x,last),
-    tag  = map_chr(x,1),
+    newcol = sp$newcol,
+    tag  = sp$tag,
     tagf = fct_inorder(.data[["tag"]])
   )
+
   if(xsp$gather) spans <- arrange(spans, .data[["tagf"]])
   spans <- mutate(
     spans,
@@ -132,7 +156,8 @@ find_span_split <- function(cols,xsp) {
   spans <- map(spans, ~ c(.x$tag[1],.x$col[1],.x$col[nrow(.x)]))
   resort <- !identical(spandf$coln,seq_len(nrow(spandf)))
 
-  if(!is.null(xsp$title)) {
+  # title is a list to rename
+  if(is.list(xsp$title)) {
     assert_that(rlang::is_named(xsp$title))
     title <- spandf$tag
     if(!all(names(xsp$title) %in% title)) {
