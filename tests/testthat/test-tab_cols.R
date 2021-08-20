@@ -129,6 +129,8 @@ test_that("cols_omit drops column names - longtable", {
   b <- stable_long(stdata(), cols_omit = TRUE)
   expect_match(a[1:7], "STUDY &", all = FALSE, fixed = TRUE)
   expect_match(a[1:7], " & CRCL &", all = FALSE, fixed = TRUE)
+  expect_false(any(grepl("STUDY", b)))
+  expect_false(any(grepl("CRCL", b)))
 })
 
 test_that("cols_omit drops units", {
