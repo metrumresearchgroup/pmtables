@@ -13,6 +13,7 @@ tab_cols(
   cols_bold = FALSE,
   cols_break = "...",
   cols_extra = NULL,
+  cols_omit = NULL,
   ...
 )
 }
@@ -43,6 +44,9 @@ frame should have the same columns, in the same order as the table data
 frame (see \code{data} argument to \code{\link[=stable]{stable()}}); the data frame can have any number
 of rows; all of the rows in \code{cols_extra} will be placed between the column
 label and the unit (if \code{units} is supplied)}
+
+\item{cols_omit}{if \code{TRUE}, then column names are suppressed in the table
+output along with units; column spanners are retained}
 
 \item{...}{not used}
 }
