@@ -40,15 +40,15 @@ We maintain a pmtables book
 
 ### Data Disposition
 
-<img src="man/figures/table-1.png" style="width:85.0%" />
+<img src="man/figures/table-1.png" style="width:80.0%" />
 
 ### Continuous Covariate Summary
 
-<img src="man/figures/table-2.png" style="width:85.0%" />
+<img src="man/figures/table-2.png" style="width:80.0%" />
 
 ### Discrete Covariate Summary
 
-<img src="man/figures/table-3.png" style="width:85.0%" />
+<img src="man/figures/table-3.png" style="width:80.0%" />
 
 # Examples in working docs
 

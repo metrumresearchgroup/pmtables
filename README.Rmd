@@ -54,13 +54,13 @@ We maintain a pmtables book [here](https://github.com/metrumresearchgroup/pmt-bo
 ## Examples
 
 ### Data Disposition
-![](man/figures/table-1.png){ width=85% }
+![](man/figures/table-1.png){ width=80% }
 
 ### Continuous Covariate Summary
-![](man/figures/table-2.png){ width=85% }
+![](man/figures/table-2.png){ width=80% }
 
 ### Discrete Covariate Summary
-![](man/figures/table-3.png){ width=85% }
+![](man/figures/table-3.png){ width=80% }
 
 
 # Examples in working docs
