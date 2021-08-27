@@ -1,18 +1,24 @@
 ---
-output: 
-  github_document: 
-    html_preview: FALSE
-    keep_html: FALSE
+output: github_document
 ---
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 ```{r, include = FALSE}
-set.seed(11010)
+set.seed(1010)
 knitr::opts_chunk$set(
-  fig.path = "man/figures/README-"
+  collapse = TRUE,
+  comment = ".",
+  fig.path = "man/figures/README-",
+  warning = FALSE, 
+  message = FALSE,
+  fig.width = 5, 
+  fig.height = 4
 )
 ```
 
-# pmtables
+
+# pmtables <img align="right" src = "man/figures/metrum_pmtables_git_logo.png" width="135px">
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -21,15 +27,46 @@ Tables for pharmacometrics
 
 ## Installation
 
-Installation information to be updated when ready.
+You can install the released version of pmtables from [MPN](https://mpn.metworx.com/docs/) with:
+
+
+```r
+mpn <- "https://mpn.metworx.com/snapshots/stable/2021-06-20"
+install.packages("pmtables", repos = mpn)
+```
+
+This installs from a specific, dated snapshot. Please check 
+https://mpn.metworx.com/docs/snapshots/ for the most recent snapshot date.
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("metrumresearchgroup/pmplots")
+```
+
+# Documentation 
+
+We maintain a pmtables book [here](https://github.com/metrumresearchgroup/pmt-book)
 
 
 ## Examples
 
+### Data Disposition
+![](man/figures/table-1.png){ width=85% }
+
+### Continuous Covariate Summary
+![](man/figures/table-2.png){ width=85% }
+
+### Discrete Covariate Summary
+![](man/figures/table-3.png){ width=85% }
+
+
+# Examples in working docs
+
 - General table examples: [inst/demo-table.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-table.pdf) 
 
 - General tables - pipe interface: [inst/demo-pipe.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pipe.pdf) 
-
 - Standard table examples: [inst/demo-pmtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pmtable.pdf)
 
 - Long table examples: [inst/demo-longtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-longtable.pdf)
