@@ -54,7 +54,7 @@ We maintain a pmtables book [here](https://github.com/metrumresearchgroup/pmt-bo
 ## Examples
 
 ### Data Disposition
-![](man/figures/table-1.png){ width=80% }
+![](man/figures/table-1.png)
 
 ### Continuous Covariate Summary
 ![](man/figures/table-2.png){ width=80% }

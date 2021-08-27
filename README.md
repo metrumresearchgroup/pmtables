@@ -40,7 +40,7 @@ We maintain a pmtables book
 
 ### Data Disposition
 
-<img src="man/figures/table-1.png" style="width:80.0%" />
+![](man/figures/table-1.png)
 
 ### Continuous Covariate Summary
 
