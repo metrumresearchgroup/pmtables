@@ -6,7 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-Tables for pharmacometrics
+The goal of pmtables is to create summary tables commonly used in
+pharmacometrics.
 
 ## Installation
 
