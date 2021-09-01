@@ -19,7 +19,11 @@ Authors@R:
     person(given = "Devin",
            family = "Pastoor",
            role = "ctb",
-           email = "devin.pastoor@gmail.com")
+           email = "devin.pastoor@gmail.com"),
+    person(given = "Kyle",
+           family = "Barrett",
+           role = "ctb",
+           email = "barrettk@metrumrg.com") 
     )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Summarize data sets and create publication-quality tables for 
