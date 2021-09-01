@@ -1,4 +1,26 @@
-# pmtables (development version)
+# pmtables 0.4.0
+
+- Add `cols_omit` option to omit column header data  (#213)
+
+- Add `pt_demographics` function to generate a new table of both continuous and
+  categorical data (#186, #249)
+
+- Add `title_side` argument to `colsplit()` so that the title can be taken from
+  left or right side of split (#231)
+
+- Add `hline` argument to `rowgroup()` constructor to make the horizontal line
+  above the panel data optional (#215)
+
+- Refactor `pt_data_inventory()` to calculate percent BLQ using denomninator
+  that is the sum of the number of observations BLQ and non-BLQ / non-missing
+  (#221, #222)
+
+- `st_asis()` gains a method for `pmtable` objects (#236)
+
+- List names are now escaped when passing a list of tables to `st2report()` 
+  and friends (#232)
+
+- Add newline after printing table text using `st_asis()` (#224)
 
 # pmtables 0.3.3
 
@@ -7,6 +29,7 @@
 
 - Fix bug where user-specified font size was not getting propagated to 
   long table output with `stable_long()` (#204)
+  
 
 # pmtables 0.3.2
 
