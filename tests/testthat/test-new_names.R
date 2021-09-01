@@ -7,6 +7,10 @@ test_that("new names - character", {
   expect_identical(unname(x),names(x))
   expect_is(x,"character")
   expect_length(x,3)
+  x <- pmtables:::new_names(c("a", "b", "c"))
+  expect_equal(x, c(a = "a", b = "b", c = "c"))
+  x <- pmtables:::new_names(c("a", B = "b", "c", zz = "z"))
+  expect_equal(x, c(a = "a", B = "b", c = "c", zz = "z"))
 })
 
 test_that("new names - quosure, unnamed", {

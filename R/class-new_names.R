@@ -1,17 +1,17 @@
 new_names <- function(x,...) UseMethod("new_names")
 
 #' @export
-new_names.character <- function(x,table=NULL,...) {
-  if(rlang::is_named(x)) return(x)
+new_names.character <- function(x, table = NULL, ...) {
   ans <- cvec_cs(x)
+  have <- have_name(ans)
   if(any(duplicated(ans))) {
     dup <- ans[duplicated(ans)]
     for(d in dup) {
       message(" duplicate value: ", d)
     }
-    stop("duplicated values",call.=FALSE)
+    stop("duplicated values", call. = FALSE)
   }
-  names(ans) <- ans
+  names(ans)[!have] <- ans[!have]
   new_names_update_table(ans,table)
 }
 

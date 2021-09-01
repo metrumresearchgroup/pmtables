@@ -1,4 +1,3 @@
-
 library(testthat)
 library(dplyr)
 library(purrr)
@@ -142,6 +141,7 @@ b <- summarize(
   NOBS = sum(!is.na(DV) & BQL==0),
   .groups = "drop"
 )
+
 dd <- b %>% mutate(TBQL = sum(NBQL),TOBS = sum(NOBS) + TBQL) %>% ungroup()
 e <- mutate(
   dd,
@@ -749,3 +749,4 @@ test_that("demo-check long continuous panel", {
     expect_identical(test[[col]],expected[[col]])
   }
 })
+
