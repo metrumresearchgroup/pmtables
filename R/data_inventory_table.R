@@ -68,33 +68,34 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
 
   data <- ungroup(data)
 
+  # .N is the overall n
+  # ..n is the panel n
   if(stacked) {
     data <- group_by(data, !!sym(panel))
-    data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
-    data <- ungroup(data)
+    data <- mutate(data, .N = n_non_missing(!!sym(dv_col), !!sym(bq_col)))
   } else {
-    data <- mutate(data,.N = n_non_missing(!!sym(dv_col)))
-    data <- ungroup(data)
+    data <- mutate(data, .N = n_non_missing(!!sym(dv_col), !!sym(bq_col)))
   }
+  data <- ungroup(data)
   data <- group_by(data, !!sym(panel))
-  data <- mutate(data,..n = n_non_missing(!!sym(dv_col)))
+  data <- mutate(data, ..n = n_non_missing(!!sym(dv_col), !!sym(bq_col)))
   data <- ungroup(data)
   data <- group_by(data, !!!syms(.groups))
   body <- summarise(
     data,
     SUBJ = n_unique(!!sym(id_col)),
-    NOBS = n_non_missing(!!sym(dv_col)),
+    NOBS = n_obs(!!sym(dv_col), !!sym(bq_col)),
     NMISS = n_missing(!!sym(dv_col), !!sym(bq_col)),
     POBS = digit1(100*.data[["NOBS"]]/first(.data[["..n"]])),
     OOBS = digit1(100*.data[["NOBS"]]/first(.data[[".N"]]))
   )
   bq <- summarise(
     data,
-    NBQL = sum(!!sym(bq_col) !=0),
+    NBQL = n_bql(!!sym(bq_col)),
     PBQL = digit1(100*.data[["NBQL"]]/first(.data[["..n"]])),
     OBQL = digit1(100*.data[["NBQL"]]/first(.data[[".N"]]))
   )
-  summ <- left_join(body,bq,by = unique(c(by,panel)))
+  summ <- left_join(body, bq, by = unique(c(by, panel)))
   summ <- select(
     summ,
     !!sym(by),
@@ -242,6 +243,24 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' for `OBS` and `BQL` are presented for the `Overall` data and for the panel
 #' `Group`.
 #'
+#' Specifically, please note that:
+#' - `MISS` is the number of data records where `DV` is missing (`NA`) and where
+#'   the `BQL` (or `BLQ`) column is `0`
+#' - `OBS` is the number of data records where `DV` is not missing (non-`NA`)
+#'   and the `BQL` (or `BLQ`) column is `0`
+#' - `BQL` are records where the `BQL` (or `BLQ`) column is not equal to `0`
+#'
+#' The sum of `MISS` + `OBS` + `BQL` should equal the number of rows in the
+#' data frame passed to `pt_data_inventory()`.
+#'
+#' When calculating percent `OBS` and percent `BQL`, we use `OBS + BQL` as the
+#' denominator such that the percent `BQL` and percent `OBS` sum to `100`
+#' within a group or panel. When the `panel` argument is set, these percentages
+#' are calculated for the group (or `panel`)  as well as overall. In other
+#' words, records that are `MISS` are not factored into totals for `OBS` or
+#' `BQL` and similarly are not factored into calculation of percent `OBS` or
+#' percent `BQL`.
+#
 #' The summary function is expecting certain columns to be named in a certain
 #' way. This can be modified to suit your need by passing the following
 #' arguments: `dv_col` (for observations), `bq_col` (for BQL observations),

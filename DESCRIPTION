@@ -1,7 +1,7 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.3.3
+Version: 0.4.0
 Authors@R: 
     c(
     person(given = "Kyle",
@@ -19,7 +19,11 @@ Authors@R:
     person(given = "Devin",
            family = "Pastoor",
            role = "ctb",
-           email = "devin.pastoor@gmail.com")
+           email = "devin.pastoor@gmail.com"),
+    person(given = "Kyle",
+           family = "Barrett",
+           role = "ctb",
+           email = "barrettk@metrumrg.com") 
     )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Summarize data sets and create publication-quality tables for 
@@ -45,6 +49,7 @@ Collate:
     'class-pmtable.R'
     'continuous_table.R'
     'data_inventory_table.R'
+    'demographics-table.R'
     'discrete_table.R'
     'knit-dependencies.R'
     'preview.R'

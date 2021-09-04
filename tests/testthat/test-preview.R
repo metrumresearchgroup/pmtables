@@ -51,3 +51,21 @@ test_that("pass a list of tables to st2report", {
   expect_length(ans2, 3)
 })
 
+test_that("call st_asis on a pmtable object", {
+  x <- pt_cont_long(pmt_first, cols = "WT")
+  ans <- st_asis(x)
+  expect_is(ans, "knit_asis")
+})
+
+test_that("error to call st_asis on non-stable object", {
+  expect_error(
+    st_asis(stdata()),
+    msg = "x does not inherit from class stable"
+  )
+})
+          
+test_that("st2report - list names are escaped", {
+  l <- list(a = stable(stdata()), `a_b` = stable(stdata()))
+  a <- st2report(l, dry_run = TRUE)
+  expect_equal(names(a), c("a", "a\\_b"))
+})

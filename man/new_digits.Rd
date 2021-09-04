@@ -25,7 +25,7 @@ names and the values are custom digit information.
 }
 \examples{
 
-x <- new_digits(round, default = 2, WT = 1, ALB = 3)
+x <- new_digits(round, .default = 2, WT = 1, ALB = 3)
 
 as.list(x)
 

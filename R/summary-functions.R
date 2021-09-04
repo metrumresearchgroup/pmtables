@@ -91,13 +91,29 @@ cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
   ans
 }
 
-n_missing <- function(x,bql) {
-  sum(is.na(x) & bql==0)
+is_not_bql <- function(x) {
+  x == 0
+}
+
+is_bql <- function(x) {
+  x != 0
+}
+
+n_bql <- function(x) {
+  sum(is_bql(x))
+}
+
+n_missing <- function(x, bql) {
+  sum(is.na(x) & is_not_bql(bql))
 }
 
 # ncov start
-n_non_missing <- function(x) {
-  sum(!is.na(x))
+n_non_missing <- function(x, bql) {
+  length(x) - n_missing(x, bql)
+}
+
+n_obs <- function(x, bql) {
+  sum(!is.na(x) & is_not_bql(bql))
 }
 
 n_total <- function(x) {

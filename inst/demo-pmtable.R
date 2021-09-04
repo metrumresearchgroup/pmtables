@@ -321,3 +321,26 @@ out <- pt_cont_long(
 
 out %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_asis()
 
+#' \clearpage
+
+
+#' # Combined continuous and categorical table (long)
+#'
+#' - Continuous and categorical summary table in long format (covariates
+#'   go down the length of the table)
+#' - Additional arguments
+#'   - Rename the statistic column or "all data" column
+#'   - Pass `table` or `units` to customize the display of continuous or
+#'     categorical variables
+#'   - Pass `fun` for a custom continuous data summary
+#'   - Opt out of the paneling when the table is too skinny for the page
+#'
+out <- pt_demographics(
+  data = pmt_first,
+  cols_cont = c(Age = "AGE", Weight = "WT"),
+  cols_cat = c(Sex = "SEXf", Race = "ASIANf"),
+  span = c("Study" = "STUDYf"),
+  units = list(WT = "kg", AGE = "yr")
+)
+
+out %>% stable(r_file = "test.R", output_file = "test.tex") %>% st_asis()

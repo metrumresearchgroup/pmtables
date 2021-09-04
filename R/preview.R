@@ -210,6 +210,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
 
   tables <- c(list(...),.list)
   tables <- flatten_if(tables, is.list)
+  names(tables) <- tab_escape(names(tables))
   inputs <- tables
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(tempdir())
@@ -329,7 +330,11 @@ st2report <- function(..., .list = NULL, template = "report.tex",
 
 #' Wrap stable output in table environment
 #'
-#' @param x tabular text
+#' Use this function to wrap `stable` or `stable_long` objects so they can be
+#' included inline in an Rmarkdown document. Typically, call `st_asis()` (see
+#' examples).
+#'
+#' @param x an object that inherits from `stable`
 #' @param con where to write the output
 #' @param table if `TRUE`, the code is wrapped in latex table environment
 #' @param center if `TRUE`, center the table
@@ -343,6 +348,13 @@ st2report <- function(..., .list = NULL, template = "report.tex",
 #' @param asis if `TRUE`, the wrapped table is processed with
 #' [knitr::asis_output()] and returned
 #' @param ... not used
+#'
+#' @examples
+#' \dontrun{
+#'  # this is only needed in an Rmd environment
+#'  library(dplyr)
+#'  stdata() %>% stable() %>% st_asis()
+#' }
 #'
 #' @seealso [st_use_knit_deps()]
 #'
@@ -360,6 +372,8 @@ st_wrap.default <- function(x,  # nocov start
                             float = c("H", "!ht"),
                             context = c("rmd", "tex"),
                             asis = FALSE, ...) {
+
+  assert_that(inherits(x, "stable"))
 
   context <- match.arg(context)
 
@@ -383,7 +397,7 @@ st_wrap.default <- function(x,  # nocov start
     ans <- c("\\begin{landscape}", ans, "\\end{landscape}")
   }
   if(context=="rmd") {
-    ans <- c("```{=latex}", ans, "```")
+    ans <- c("```{=latex}", ans, "```\n\n")
     if(isTRUE(asis)) {
       ans <- paste0(ans, collapse = "\n")
       ans <- knitr::asis_output(ans, meta = .internal$knit_meta)
@@ -402,6 +416,11 @@ st_wrap.default <- function(x,  # nocov start
 #' @export
 st_wrap.stable_long <- function(x, table = FALSE, ...) {
   st_wrap.default(x, ..., table = FALSE)
+}
+
+#' @rdname st_wrap
+st_wrap.pmtable <- function(x, ...) {
+  st_wrap.default(stable(x),...)
 }
 
 #' @rdname st_wrap

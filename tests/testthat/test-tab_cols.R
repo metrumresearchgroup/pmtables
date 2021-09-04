@@ -113,3 +113,38 @@ test_that("tab-cols cols_extra", {
     msg = "ncol(extra) not equal to length(cols)"
   )
 })
+
+test_that("cols_omit drops column names - stable", {
+  a <- stable(stdata(), cols_omit = FALSE)
+  b <- stable(stdata(), cols_omit = TRUE)
+  expect_equal(length(a) - length(b), 2)
+  expect_match(a[1:7], "STUDY &", all = FALSE, fixed = TRUE)
+  expect_match(a[1:7], " & CRCL &", all = FALSE, fixed = TRUE)
+  expect_false(any(grepl("STUDY", b)))
+  expect_false(any(grepl("CRCL", b)))
+})
+
+test_that("cols_omit drops column names - longtable", {
+  a <- stable_long(stdata(), cols_omit = FALSE)
+  b <- stable_long(stdata(), cols_omit = TRUE)
+  expect_match(a[1:7], "STUDY &", all = FALSE, fixed = TRUE)
+  expect_match(a[1:7], " & CRCL &", all = FALSE, fixed = TRUE)
+  expect_false(any(grepl("STUDY", b)))
+  expect_false(any(grepl("CRCL", b)))
+})
+
+test_that("cols_omit drops units", {
+  u <- list(WT = "kg")
+  a <- stable(stdata(), units = u)
+  b <- stable(stdata(), cols_omit = TRUE, units = u)
+  expect_match(a, "kg", all = FALSE, fixed = TRUE)
+  expect_false(any(grepl("kg", b)))
+})
+
+test_that("cols_omit keeps span data", {
+  sp <- as.span("title", WT:SCR)
+  a <- stable(stdata(), span = sp)
+  b <- stable(stdata(), cols_omit = TRUE,  span = sp)
+  expect_match(a, "title", all = FALSE, fixed = TRUE)
+  expect_match(b, "title", all = FALSE, fixed = TRUE)
+})

@@ -14,6 +14,16 @@ test_that("span split", {
   expect_equal(out$span_data$span[[1]]$title, c("a", "a", "", "z", "z"))
 })
 
+test_that("span split with reversed title / col", {
+  data1 <- data.frame(a.A = 1, a.B = 2, C = 3, z.Y = 4, z.Z = 5)
+  data2 <- data.frame(A.a = 1, B.a = 2, C = 3, Y.z = 4, Z.z = 5)
+  out1 <- inspect(data1, span_split = colsplit(sep = '.'))
+  out2 <- inspect(data2, span_split = colsplit(sep = '.', title_side = ".r"))
+  expect_identical(out1$output, out2$output)
+  expect_equal(out2$cols_new, c("A", "B", "C", "Y", "Z"))
+  expect_equal(out2$span_data$span[[1]]$title, c("a", "a", "", "z", "z"))
+})
+
 test_that("span split with title", {
   data <- data.frame(a.A = 1, a.B = 2, C = 3, z.Y = 4, z.Z = 5)
   title <- list(a = "First Split", z = "Last Split")
