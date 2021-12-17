@@ -14,7 +14,8 @@ rowpanel(
   duplicates_ok = FALSE,
   bold = TRUE,
   it = FALSE,
-  hline = TRUE
+  hline = TRUE,
+  outdent = 0
 )
 
 is.rowpanel(x)
@@ -41,6 +42,9 @@ panel will have the same header}
 
 \item{hline}{logical indicating whether or not to draw an \code{hline} above
 the panel row; the first panel row never receives an \code{hline}}
+
+\item{outdent}{amount (in TeX \code{ex} units) by which the panel headers are
+exdented}
 
 \item{x}{an object to test}
 }

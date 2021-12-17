@@ -15,6 +15,8 @@
 #' @param it render panel title in italic font face
 #' @param hline logical indicating whether or not to draw an `hline` above
 #' the panel row; the first panel row never receives an `hline`
+#' @param jut amount (in TeX `ex` units) by which the panel headers are
+#' outdented from the first column in the main table
 #'
 #' @seealso [as.panel()]
 #'
@@ -22,7 +24,8 @@
 rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
                      prefix_name = FALSE,
                      prefix_skip = NULL, duplicates_ok = FALSE,
-                     bold = TRUE, it = FALSE, hline = TRUE) {
+                     bold = TRUE, it = FALSE, hline = TRUE,
+                     jut = 0) {
   null <- FALSE
   if(is.null(col)) {
     col <- NULL
@@ -34,7 +37,8 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
-    bold = isTRUE(bold), it = isTRUE(it), skip = skip, hline = isTRUE(hline)
+    bold = isTRUE(bold), it = isTRUE(it), skip = skip, hline = isTRUE(hline),
+    jut = jut
   )
   structure(ans, class = "rowpanel")
 }
@@ -109,7 +113,7 @@ panel_by <- function(data, x) {
       "panel labels are duplicated; ",
       "please sort the data frame by the panel column ",
       "or set duplicates_ok to TRUE",
-      call.=FALSE
+      call. = FALSE
     )
   }
   prefix <- rep(prefix, length(lab))
@@ -174,7 +178,3 @@ tab_panel_insert <- function(tab, panel_insert) {
     nw = panel_insert$insert_data
   )
 }
-
-
-
-
