@@ -1,11 +1,7 @@
-head <- '
-\\endhead
-\\hline
-\\multicolumn{<nc>}{r}{<lt_continue>}
-\\endfoot
-\\hline
-\\endlastfoot
-'
+
+lontable_head <- function(multicol) {
+  c("\\endhead", "\\hline", multicol, "\\endfoot", "\\hline", "\\endlastfoot")
+}
 
 ltcaption <- function(macro = "", text = "", short = "", label = "") {
   if(identical(c(macro, text, short), c("", "", ""))) {
@@ -87,8 +83,9 @@ stable_long.data.frame <- function(data,
   row_space <- gluet("\\renewcommand{\\arraystretch}{<x$sizes$row_space>}")
   col_space <- gluet("\\setlength{\\tabcolsep}{<x$sizes$col_space>pt} ")
 
-  nc <- x$nc
-  head <- gluet(head)
+  n_col <- x$nc
+  continued <- gluet("\\multicolumn{<n_col>}{r}{<lt_continue>}")
+  head <- longtable_head(continued)
 
   lt_notes <- longtable_notes(x$mini_notes)
 

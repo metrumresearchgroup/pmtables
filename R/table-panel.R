@@ -16,7 +16,8 @@
 #' @param hline logical indicating whether or not to draw an `hline` above
 #' the panel row; the first panel row never receives an `hline`
 #' @param jut amount (in TeX `ex` units) by which the panel headers are
-#' outdented from the first column in the main table
+#' outdented from the first column in the main table and header. Consider
+#' using a value of `2` for a clear offset.
 #'
 #' @seealso [as.panel()]
 #'

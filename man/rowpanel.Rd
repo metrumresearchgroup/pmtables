@@ -15,7 +15,7 @@ rowpanel(
   bold = TRUE,
   it = FALSE,
   hline = TRUE,
-  outdent = 0
+  jut = 0
 )
 
 is.rowpanel(x)
@@ -43,8 +43,9 @@ panel will have the same header}
 \item{hline}{logical indicating whether or not to draw an \code{hline} above
 the panel row; the first panel row never receives an \code{hline}}
 
-\item{outdent}{amount (in TeX \code{ex} units) by which the panel headers are
-exdented}
+\item{jut}{amount (in TeX \code{ex} units) by which the panel headers are
+outdented from the first column in the main table and header. Consider
+using a value of \code{2} for a clear offset.}
 
 \item{x}{an object to test}
 }
