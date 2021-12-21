@@ -18,6 +18,11 @@
 #' @param jut amount (in TeX `ex` units) by which the panel headers are
 #' outdented from the first column in the main table and header. Consider
 #' using a value of `2` for a clear offset.
+#' @param nopagebreak if `TRUE` (the default) then the page will not break
+#' immediately after a panel title _when creating a longtable_; this argument
+#' does nothing if you are not generating a `longtable`. Set to `FALSE` to
+#' prevent the `nopagebreak` command (implemented as `*`) in the longtable
+#' output.
 #'
 #' @seealso [as.panel()]
 #'
@@ -26,7 +31,7 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
                      prefix_name = FALSE,
                      prefix_skip = NULL, duplicates_ok = FALSE,
                      bold = TRUE, it = FALSE, hline = TRUE,
-                     jut = 0) {
+                     jut = 0, nopagebreak = TRUE) {
   null <- FALSE
   if(is.null(col)) {
     col <- NULL
@@ -39,7 +44,7 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
     bold = isTRUE(bold), it = isTRUE(it), skip = skip, hline = isTRUE(hline),
-    jut = jut
+    jut = jut, nopagebreak = isTRUE(nopagebreak)
   )
   structure(ans, class = "rowpanel")
 }
