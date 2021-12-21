@@ -236,7 +236,6 @@ stable.data.frame <- function(data,
   row_space <- gluet("\\renewcommand{\\arraystretch}{<sizes$row_space>}")
   col_space <- gluet("\\setlength{\\tabcolsep}{<sizes$col_space>pt} ")
 
-
   out <- c(
     sizes$font_size$start,
     col_space,

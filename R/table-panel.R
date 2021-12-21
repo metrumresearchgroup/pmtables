@@ -176,6 +176,22 @@ tab_panel_insert <- function(tab, panel_insert) {
   insrt_vec(
     vec = tab,
     where = panel_insert$insert_row,
-    nw = panel_insert$insert_data
+    nw = tab_panel_mark(panel_insert$insert_data)
   )
+}
+
+tab_panel_marker <- function() {
+  .internal$marker.panel
+}
+
+tab_panel_mark <- function(x) {
+  paste0(x, tab_panel_marker())
+}
+
+tab_panel_star <- function(x) {
+  marker <- tab_panel_marker()
+  where <- grepl(marker, x, fixed = TRUE)
+  if(!any(where)) return(x)
+  x[where] <- sub(marker, paste0("*", marker), x[where], fixed = TRUE)
+  x
 }

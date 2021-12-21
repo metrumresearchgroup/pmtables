@@ -1,5 +1,5 @@
 
-lontable_head <- function(multicol) {
+longtable_head <- function(multicol) {
   c("\\endhead", "\\hline", multicol, "\\endfoot", "\\hline", "\\endlastfoot")
 }
 
@@ -88,6 +88,11 @@ stable_long.data.frame <- function(data,
   head <- longtable_head(continued)
 
   lt_notes <- longtable_notes(x$mini_notes)
+
+  # Put stars on panel rows for long tables
+  if(!x$panel$null) {
+    x$tab <- tab_panel_star(x$tab)
+  }
 
   longtab <- c(
     x$sizes$font_size$start,
