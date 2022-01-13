@@ -4,7 +4,11 @@
 \alias{pt_data_inventory_notes}
 \title{Return table notes for pt_data_inventory}
 \usage{
-pt_data_inventory_notes(note_add = NULL)
+pt_data_inventory_notes(
+  bq = c("BQL", "BLQ"),
+  drop_bql = FALSE,
+  note_add = NULL
+)
 }
 \arguments{
 \item{note_add}{additional notes to include}

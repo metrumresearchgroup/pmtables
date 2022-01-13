@@ -375,6 +375,10 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     Number.BQL = .data[["NBQL"]]
   )
 
+  if(bq_col == "BLQ") {
+    names(ans) <- gsub(".BQL", ".BLQ", names(ans), fixed = TRUE)
+  }
+
   if(isTRUE(drop_miss)) {
     ans <- mutate(ans, Number.MISS = NULL)
   }
@@ -382,7 +386,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   ans <- mutate(ans,.total = NULL)
   out <- ans
 
-  notes <- pt_data_inventory_notes()
+  notes <- pt_data_inventory_notes(bq = bq_col, drop_bql = drop_bql)
 
   if(isTRUE(drop_miss)) notes <- notes[!grepl("MISS", notes)]
 
@@ -426,13 +430,25 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
 #' @param note_add additional notes to include
 #'
 #' @export
-pt_data_inventory_notes <- function(note_add = NULL) {
+pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note_add = NULL) {
+  l2 <- NULL
+  l3 <- "MISS: missing observations"
+  if(isFALSE(drop_bql)) {
+    bq <- match.arg(bq)
+    if(bq=="BQL") {
+      l2 <- "BQL: below quantification limit"
+    }
+    if(bq=="BLQ") {
+      l2 <- "BLQ: below limit of quantification"
+    }
+    l3 <- paste0(l3, " (non-", bq, ")")
+  }
   ans <- note_add
   ans <- c(
     ans,
     "SUBJ: subjects",
-    "BQL: below quantitation limit",
-    "MISS: missing observations (not BQL)",
+    l2,
+    l3,
     "OBS: observations"
   )
   ans
