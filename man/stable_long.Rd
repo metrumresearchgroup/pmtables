@@ -77,7 +77,7 @@ If you have panels in your table, the default is to prevent page breaks
 right after the panel title row using the \verb{\\\\*} command in the \code{longtable}
 package. This shouldn't need to be changed by the user, but if needed this
 can be suppressed by adding \code{nopagebreak = FALSE} when calling \code{\link[=as.panel]{as.panel()}}
-or \code{\link[=rowgroups]{rowgroups()}}.
+or \code{\link[=rowpanel]{rowpanel()}}.
 }
 \examples{
 stable_long(stdata())

@@ -76,7 +76,7 @@ longtable_notes <- function(notes) {
 #' right after the panel title row using the `\\*` command in the `longtable`
 #' package. This shouldn't need to be changed by the user, but if needed this
 #' can be suppressed by adding `nopagebreak = FALSE` when calling [as.panel()]
-#' or [rowgroups()].
+#' or [rowpanel()].
 #'
 #' @return A character vector with the TeX code for the table with `class`
 #' attribute set to `stable_long` and `stable`.

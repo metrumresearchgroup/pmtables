@@ -40,6 +40,8 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
   } else {
     col <- new_names(col)
   }
+  assert_that(is.numeric(jut))
+  assert_that(is.character(skip))
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
