@@ -142,15 +142,16 @@ tab_panel <- function(data, panel, sumrows) {
     ins$data <- data
     return(ins)
   }
-  require_col(data,panel$col,context = "panel column input name")
+  require_col(data,panel$col, context = "panel column input name")
   assert_that(
     ncol(data) > 1,
     msg = "must have more than one column to use 'panel' option"
   )
-  paneln <- match(panel$col,names(data))
+  paneln <- match(panel$col, names(data))
   if(any(is.na(paneln))) {
     stop("panel column not found: ", squote(panel$col), call.=FALSE)
   }
+  data[[paneln]] <- as.character(data[[paneln]])
   data[[paneln]] <- replace_na(data[[paneln]],"")
   # check summary rows
   if(!is.null(sumrows)) {
