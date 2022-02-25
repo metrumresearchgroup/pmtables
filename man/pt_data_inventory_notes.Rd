@@ -4,11 +4,20 @@
 \alias{pt_data_inventory_notes}
 \title{Return table notes for pt_data_inventory}
 \usage{
-pt_data_inventory_notes(note_add = NULL)
+pt_data_inventory_notes(
+  bq = c("BQL", "BLQ"),
+  drop_bql = FALSE,
+  note_add = NULL
+)
 }
 \arguments{
-\item{note_add}{additional notes to include}
+\item{bq}{Abbreviation for below limit of quantification.}
+
+\item{drop_bql}{If \code{TRUE}, the \code{BQL}/\code{BLQ} summary is omitted.}
+
+\item{note_add}{Additional notes to be include.}
 }
 \description{
-See \code{\link[=pt_data_inventory]{pt_data_inventory()}}.
+See \code{\link[=pt_data_inventory]{pt_data_inventory()}}. The function generates standard table notes for
+the table.
 }

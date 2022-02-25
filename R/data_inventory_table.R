@@ -221,18 +221,18 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #'
 #' @inheritParams pt_cont_long
 #'
-#' @param by the outer grouping variable; may be character or quosure
-#' @param panel the panel grouping variable; may be character or quosure
-#' @param inner_summary if `TRUE`, then a summary of the inner variable will
-#' be provided
-#' @param drop_miss if `TRUE`, then `MISS` will be dropped, but only when all
-#' `MISS` values are equal to zero
-#' @param stacked if `TRUE`, then independent summaries are created by `outer`
-#' and included in a single table (see examples)
-#' @param dv_col character name of `DV` column
-#' @param bq_col character name of `BQL` column; see [find_bq_col()]
-#' @param id_col character name of `ID` column
-#' @param ... other arguments passed to [data_inventory_chunk()]
+#' @param by The outer grouping variable; may be character or quosure.
+#' @param panel The panel grouping variable; may be character or quosure.
+#' @param inner_summary If `TRUE`, then a summary of the inner variable will
+#' be provided.
+#' @param drop_miss If `TRUE`, then `MISS` will be dropped, but only when all
+#' `MISS` values are equal to zero.
+#' @param stacked If `TRUE`, then independent summaries are created by `outer`
+#' and included in a single table (see examples).
+#' @param dv_col Character name of `DV` column.
+#' @param bq_col Character name of `BQL` column; see [find_bq_col()].
+#' @param id_col Character name of `ID` column.
+#' @param ... Other arguments passed to [data_inventory_chunk()].
 #'
 #'
 #' @details
@@ -303,7 +303,8 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               all_name = "all",
                               dv_col = "DV",
                               bq_col = find_bq_col(data),
-                              id_col = "ID", ...) {
+                              id_col = "ID",
+                              ...) {
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
@@ -375,6 +376,10 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     Number.BQL = .data[["NBQL"]]
   )
 
+  if(bq_col == "BLQ") {
+    names(ans) <- gsub(".BQL", ".BLQ", names(ans), fixed = TRUE)
+  }
+
   if(isTRUE(drop_miss)) {
     ans <- mutate(ans, Number.MISS = NULL)
   }
@@ -382,7 +387,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   ans <- mutate(ans,.total = NULL)
   out <- ans
 
-  notes <- pt_data_inventory_notes()
+  notes <- pt_data_inventory_notes(bq = bq_col, drop_bql = drop_bql)
 
   if(isTRUE(drop_miss)) notes <- notes[!grepl("MISS", notes)]
 
@@ -421,18 +426,34 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
 
 #' Return table notes for pt_data_inventory
 #'
-#' See [pt_data_inventory()].
+#' See [pt_data_inventory()]. The function generates standard table notes for
+#' the table.
 #'
-#' @param note_add additional notes to include
+#' @param bq Abbreviation for below limit of quantification.
+#' @param drop_bql If `TRUE`, the `BQL`/`BLQ` summary is omitted.
+#' @param note_add Additional notes to be include.
+
 #'
 #' @export
-pt_data_inventory_notes <- function(note_add = NULL) {
+pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note_add = NULL) {
+  l2 <- NULL
+  l3 <- "MISS: missing observations"
+  if(isFALSE(drop_bql)) {
+    bq <- match.arg(bq)
+    if(bq=="BQL") {
+      l2 <- "BQL: below quantification limit"
+    }
+    if(bq=="BLQ") {
+      l2 <- "BLQ: below limit of quantification"
+    }
+    l3 <- paste0(l3, " (non-", bq, ")")
+  }
   ans <- note_add
   ans <- c(
     ans,
     "SUBJ: subjects",
-    "BQL: below quantitation limit",
-    "MISS: missing observations (not BQL)",
+    l2,
+    l3,
     "OBS: observations"
   )
   ans

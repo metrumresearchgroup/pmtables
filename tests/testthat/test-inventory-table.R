@@ -62,7 +62,7 @@ test_that("inventory table - different BQL cols", {
   data2 <- rename(data1, BLQ = BQL)
   ans1 <- pt_data_inventory(data1)
   ans2 <- pt_data_inventory(data2)
-  expect_identical(ans1,ans2)
+  expect_false(identical(ans1,ans2))
 })
 
 test_that("inventory table - no bq col", {
@@ -124,4 +124,29 @@ test_that("inventory table - missing / non-missing", {
   expect_equal(ans, 2)
   ans <- pmtables:::n_non_missing(dv, bql)
   expect_equal(ans, 8)
+})
+
+test_that("handle BQL and BLQ inventory table", {
+
+  data1 <- pmt_first
+  data2 <- dplyr::rename(data1, BLQ = BQL)
+  data3 <- dplyr::mutate(data2, BLQ = NULL, BQL = NULL)
+
+  tab1 <- pt_data_inventory(data1, panel = "STUDYf")
+  tab2 <- pt_data_inventory(data2, panel = "STUDYf")
+  tab3 <- pt_data_inventory(data3, panel = "STUDYf")
+
+  expect_equal(names(tab1$data)[5], "Number.BQL")
+  expect_equal(names(tab2$data)[5], "Number.BLQ")
+  expect_false(any(grepl("BLQ|BQL", names(tab3$data))))
+
+  expect_length(tab1$notes, 4)
+  expect_length(tab2$notes, 4)
+  expect_length(tab3$notes, 3)
+
+  expect_equal(tab1$notes[2], "BQL: below quantification limit")
+  expect_equal(tab2$notes[2], "BLQ: below limit of quantification")
+  expect_equal(tab1$notes[3], "MISS: missing observations (non-BQL)" )
+  expect_equal(tab2$notes[3], "MISS: missing observations (non-BLQ)")
+  expect_equal(tab3$notes[2], "MISS: missing observations")
 })
