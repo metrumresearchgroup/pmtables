@@ -165,3 +165,9 @@ paste_units <- function(cols, units) {
   }
   cols
 }
+
+indent_tex <- function(x, n) {
+  if(n == 0) return(x)
+  prefix <- paste0("\\hskip ", n, "ex ")
+  paste0(prefix, x)
+}

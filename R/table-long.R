@@ -1,11 +1,7 @@
-head <- '
-\\endhead
-\\hline
-\\multicolumn{<nc>}{r}{<lt_continue>}
-\\endfoot
-\\hline
-\\endlastfoot
-'
+
+longtable_head <- function(multicol) {
+  c("\\endhead", "\\hline", multicol, "\\endfoot", "\\hline", "\\endlastfoot")
+}
 
 ltcaption <- function(macro = "", text = "", short = "", label = "") {
   if(identical(c(macro, text, short), c("", "", ""))) {
@@ -42,6 +38,12 @@ longtable_notes <- function(notes) {
 
 #' Create longtable output from an R data frame
 #'
+#' Use this function to allow your table to span multiple pages, with a
+#' "to be continued" statement at the bottom of each page. There are important
+#' differences between this `longtable` environment and the `tabular`
+#' environment that is used to generate tables from [stable()]. See the
+#' `details` section for more information.
+#'
 #' @inheritParams tab_notes
 #' @param data an object to render as a long table; this could be a `data.frame`,
 #' a `pmtable` object or an `stobject`; when passing in a `data.frame`, the data
@@ -57,6 +59,30 @@ longtable_notes <- function(notes) {
 #' @param lt_cap_label table label for use in latex document
 #' @param lt_continue longtable continuation message
 #'
+#' @details
+#'
+#' To create `longtable` output, `pmtables` first passes the data frame
+#' through [stable()] and then modifies the output to create a table in
+#' `longtable` environment. The `...` arguments to [stable_long()] are passed
+#' to [stable()] and can be used to configure the table. One important difference
+#' between `tablular` and `longtable` environments is that captions need to
+#' get inserted **inside** the `longtable` environment; this is why you see
+#' several additional arguments for [stable_long()].
+#'
+#' You may have to run `pdflatex` on your `longtable` more than once to get the
+#' table to render properly; this is not unexpected behavior for `longtable`.
+#'
+#' If you have panels in your table, the default is to prevent page breaks
+#' right after the panel title row using the `\\*` command in the `longtable`
+#' package. This shouldn't need to be changed by the user, but if needed this
+#' can be suppressed by adding `nopagebreak = FALSE` when calling [as.panel()]
+#' or [rowpanel()].
+#'
+#' @return A character vector with the TeX code for the table with `class`
+#' attribute set to `stable_long` and `stable`.
+#'
+#' @examples
+#' stable_long(stdata())
 #'
 #' @export
 stable_long <- function(data, ...) UseMethod("stable_long")
@@ -87,10 +113,16 @@ stable_long.data.frame <- function(data,
   row_space <- gluet("\\renewcommand{\\arraystretch}{<x$sizes$row_space>}")
   col_space <- gluet("\\setlength{\\tabcolsep}{<x$sizes$col_space>pt} ")
 
-  nc <- x$nc
-  head <- gluet(head)
+  n_col <- x$nc
+  continued <- gluet("\\multicolumn{<n_col>}{r}{<lt_continue>}")
+  head <- longtable_head(continued)
 
   lt_notes <- longtable_notes(x$mini_notes)
+
+  # Put stars on panel rows for long tables
+  if(!x$panel$null && x$panel$nopagebreak) {
+    x$tab <- tab_panel_star(x$tab)
+  }
 
   longtab <- c(
     x$sizes$font_size$start,

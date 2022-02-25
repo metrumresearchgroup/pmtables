@@ -26,6 +26,7 @@ NULL
 
 # GLOBAL object
 .internal <- new.env(parent = emptyenv())
+.internal$marker.panel <- "%--pmtables-insert-panel"
 
 .onLoad <- function(libname, pkgname) {
   st_reset_knit_deps()

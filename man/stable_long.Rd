@@ -50,6 +50,36 @@ lead with \verb{\\\\} - this will be added for you}
 
 \item{lt_continue}{longtable continuation message}
 }
+\value{
+A character vector with the TeX code for the table with \code{class}
+attribute set to \code{stable_long} and \code{stable}.
+}
 \description{
-Create longtable output from an R data frame
+Use this function to allow your table to span multiple pages, with a
+"to be continued" statement at the bottom of each page. There are important
+differences between this \code{longtable} environment and the \code{tabular}
+environment that is used to generate tables from \code{\link[=stable]{stable()}}. See the
+\code{details} section for more information.
+}
+\details{
+To create \code{longtable} output, \code{pmtables} first passes the data frame
+through \code{\link[=stable]{stable()}} and then modifies the output to create a table in
+\code{longtable} environment. The \code{...} arguments to \code{\link[=stable_long]{stable_long()}} are passed
+to \code{\link[=stable]{stable()}} and can be used to configure the table. One important difference
+between \code{tablular} and \code{longtable} environments is that captions need to
+get inserted \strong{inside} the \code{longtable} environment; this is why you see
+several additional arguments for \code{\link[=stable_long]{stable_long()}}.
+
+You may have to run \code{pdflatex} on your \code{longtable} more than once to get the
+table to render properly; this is not unexpected behavior for \code{longtable}.
+
+If you have panels in your table, the default is to prevent page breaks
+right after the panel title row using the \verb{\\\\*} command in the \code{longtable}
+package. This shouldn't need to be changed by the user, but if needed this
+can be suppressed by adding \code{nopagebreak = FALSE} when calling \code{\link[=as.panel]{as.panel()}}
+or \code{\link[=rowpanel]{rowpanel()}}.
+}
+\examples{
+stable_long(stdata())
+
 }

@@ -216,16 +216,25 @@ stable.data.frame <- function(data,
   # add hlines
   tab <- tab_add_hlines(tab, add_hlines, sumrows)
 
+  # indent if paneled
+  tab <- indent_tex(tab, panel$jut)
+
   # execute panel insertions
   tab <- tab_panel_insert(tab, panel_insert)
+
+  # Table header
+  head_rows <- form_headrows(
+    span_data,
+    cols_tex,
+    cols_data,
+    indent = panel$jut
+  )
 
   # notes
   note_data <- tab_notes(notes, escape_fun = escape_fun,  ...)
 
   row_space <- gluet("\\renewcommand{\\arraystretch}{<sizes$row_space>}")
   col_space <- gluet("\\setlength{\\tabcolsep}{<sizes$col_space>pt} ")
-
-  head_rows <- form_headrows(span_data, cols_tex, cols_data)
 
   out <- c(
     sizes$font_size$start,

@@ -82,3 +82,50 @@ test_that("omit hline from panel", {
   expect_match(tab1[where], "\\hline", fixed = TRUE)
   expect_false(grepl("\\hline", tab2[where], fixed = TRUE))
 })
+
+test_that("nopagebreak for panels in longtable", {
+  ans <- stable_long(stdata(), panel = "STUDY")
+  inserted <- grep(pmtables:::.internal$marker.panel, ans, fixed = TRUE)
+  check <- grep("DEMO", ans, fixed = TRUE)
+  expect_identical(inserted, check)
+  expect_match(
+    ans[inserted],
+    "\\\\*",
+    fixed = TRUE
+  )
+  ans <- stable_long(stdata(), panel = as.panel("STUDY", nopagebreak = FALSE))
+  inserted <- grep(pmtables:::.internal$marker.panel, ans, fixed = TRUE)
+  expect_no_match(
+    ans[inserted],
+    "\\\\*",
+    fixed = TRUE
+  )
+})
+
+test_that("jut de-indents panel rows", {
+  u <- list(WT = "kg")
+  ans <- inspect(stdata(), panel = rowpanel("STUDY", jut = 1), units = u)
+  code <- ans$output
+  tab <- ans$tab
+  header <- ans$head_rows
+  header <- header[-c(1, length(header))]
+  panels <- grepl("DEMO", tab, fixed = TRUE)
+  expect_match(
+    tab[!panels],
+    "\\hskip 1ex",
+    fixed = TRUE
+  )
+  expect_no_match(
+    tab[panels],
+    "\\hskip 1ex",
+    fixed = TRUE
+  )
+  expect_match(
+    header,
+    "\\hskip 1ex",
+    fixed = TRUE
+  )
+  indented <- c(header, tab[!panels])
+  pick <- code[grep("hskip", code)]
+  expect_identical(indented, skip)
+})
