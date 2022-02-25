@@ -85,7 +85,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
     ans[["N"]] <- NULL
     ans <- pivot_wider(
       ans,
-      names_from = by,
+      names_from = all_of(unname(by)),
       values_from = "summary",
       names_sep = '_._'
     )
