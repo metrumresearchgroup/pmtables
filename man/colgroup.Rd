@@ -14,7 +14,8 @@ colgroup(
   level = 1,
   sep = ".",
   split = FALSE,
-  title_side = c(".l", ".r")
+  title_side = c(".l", ".r"),
+  align = c("c", "l", "r")
 )
 
 as.span(
@@ -23,7 +24,8 @@ as.span(
   level = 1,
   sep = ".",
   split = FALSE,
-  title_side = c(".l", ".r")
+  title_side = c(".l", ".r"),
+  align = c("c", "l", "r")
 )
 
 colsplit(
@@ -31,7 +33,8 @@ colsplit(
   level = 1,
   split = TRUE,
   title = NULL,
-  title_side = c(".l", ".r")
+  title_side = c(".l", ".r"),
+  align = c("c", "l", "r")
 )
 
 is.colgroup(x)
