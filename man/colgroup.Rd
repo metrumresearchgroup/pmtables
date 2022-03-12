@@ -57,6 +57,8 @@ splitting columns names on a separator}
 \item{title_side}{which side of the split should be taken as the \code{title}?
 defaults to left (\code{.l}) but can also take the right (\code{.r}) side of the split}
 
+\item{align}{justify the span title to the center, left or right}
+
 \item{x}{an R object}
 }
 \value{

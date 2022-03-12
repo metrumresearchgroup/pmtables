@@ -127,5 +127,5 @@ test_that("jut de-indents panel rows", {
   )
   indented <- c(header, tab[!panels])
   pick <- code[grep("hskip", code)]
-  expect_identical(indented, skip)
+  expect_identical(indented, pick)
 })

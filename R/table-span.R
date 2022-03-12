@@ -150,7 +150,7 @@ find_span_split <- function(cols, xsp) {
   spans <- mutate(
     spans,
     tag = ifelse(col == .data[["newcol"]], "", .data[["tag"]]),
-    align = ifelse(tag == "", "c", xsp$align[1])
+    align = ifelse(.data[["tag"]] == "", "c", xsp$align[1])
   )
   spans <- mutate(spans, flg = chunk_runs(.data[["tag"]]))
   spans[["tagf"]] <- NULL
@@ -197,11 +197,12 @@ find_span_split <- function(cols, xsp) {
 #'
 #' @inheritParams stable
 #' @inheritParams tab_cols
-#' @param span_split not implemented at this time; ; see also [st_span_split()]
+#' @param span_split a `colsplit` object ; ; see also [st_span_split()]
 #' @param cols a character vector of column names
 #' @param span_title_break a character sequence indicating where to split the
 #' title across multiple lines
 #' @param ... not used
+#' @seealso [colgroup()], [colsplit()], [st_span()], [st_span_split()]
 #' @export
 tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
                          span_title_break = "...", sizes = tab_size(), ...) {
@@ -213,14 +214,22 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
   } else {
     if(is.colgroup(span)) span <- list(span)
     assert_that(is.list(span))
+    assert_that(
+      all(map_lgl(span, is.colgroup)),
+      msg = "All objects passed under `span` must have class `colgroup`."
+    )
     span <- map(span, process_colgroup, cols = cols)
   }
 
-  do_span_split <- is.colsplit(span_split)
+  if(!is.null(span_split)) {
+    assert_that(is.colsplit(span_split))
+  }
 
   spans_from_split <- NULL
+  all_span_tex <- NULL
+  all_spans <- NULL
 
-  if(do_span_split) {
+  if(is.colsplit(span_split)) {
     spans <- find_span_split(cols, span_split)
     if(isTRUE(spans$any)) {
       data <- data[,spans$recol]
@@ -228,9 +237,6 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
       spans_from_split <- spans$data
     }
   }
-
-  all_span_tex <- NULL
-  all_spans <- NULL
 
   if(length(span) > 0 || length(spans_from_split) > 0) {
 
