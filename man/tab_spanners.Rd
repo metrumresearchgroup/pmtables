@@ -24,7 +24,7 @@ see also \code{\link[=st_new]{st_new()}}}
 
 \item{span}{a list of objects created with \code{\link[=colgroup]{colgroup()}}; ; see also \code{\link[=st_span]{st_span()}}}
 
-\item{span_split}{not implemented at this time; ; see also \code{\link[=st_span_split]{st_span_split()}}}
+\item{span_split}{a \code{colsplit} object ; ; see also \code{\link[=st_span_split]{st_span_split()}}}
 
 \item{span_title_break}{a character sequence indicating where to split the
 title across multiple lines}
@@ -35,4 +35,7 @@ title across multiple lines}
 }
 \description{
 Create groups of columns with spanners
+}
+\seealso{
+\code{\link[=colgroup]{colgroup()}}, \code{\link[=colsplit]{colsplit()}}, \code{\link[=st_span]{st_span()}}, \code{\link[=st_span_split]{st_span_split()}}
 }
