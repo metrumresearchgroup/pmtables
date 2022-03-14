@@ -1,4 +1,18 @@
-# pmtables (development version)
+# pmtables 0.4.1
+
+- `colgroup()` (and `st_span()`) gains an `align` argument to position
+  the spanner title on left or right in addition to the center (default)
+  #260, #261.
+
+- `rowpanel()` (and `st_panel()`) gains `jut`argument to push non-panel
+  table contents to the right relative to the panel header row so that
+  contents under the panel header are indented #251, #253. 
+
+- Panel header rows are now modified so that the header row stays
+  with the first non-header row for longtable output #252, #253.
+
+- Consistent `BQL` / `BLQ` handling for column titles and table 
+  notes for `pt_data_inventory()` #254, #255. 
 
 # pmtables 0.4.0
 
