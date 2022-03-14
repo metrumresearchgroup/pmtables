@@ -27,7 +27,7 @@
 - Add `hline` argument to `rowgroup()` constructor to make the horizontal line
   above the panel data optional (#215)
 
-- Refactor `pt_data_inventory()` to calculate percent BLQ using denomninator
+- Refactor `pt_data_inventory()` to calculate percent BLQ using denominator
   that is the sum of the number of observations BLQ and non-BLQ / non-missing
   (#221, #222)
 
