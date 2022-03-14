@@ -104,6 +104,31 @@ test_that("align spanner - standard", {
   )
 })
 
+test_that("align spanner - multiple", {
+  sp <- list(
+    colgroup("LEFT", DOSE:FORM, align = 'l'),
+    colgroup("CENTER", WT:CRCL),
+    colgroup("RIGHT", AGE:SCR, align = 'r')
+  )
+  ans <- stable(stdata(), span = sp)
+  spans <- ans[grepl("multicolumn", ans)]
+  expect_match(
+    spans,
+    "multicolumn{2}{l}{LEFT}",
+    fixed = TRUE
+  )
+  expect_match(
+    spans,
+    "multicolumn{2}{c}{CENTER}",
+    fixed = TRUE
+  )
+  expect_match(
+    spans,
+    "multicolumn{3}{r}{RIGHT}",
+    fixed = TRUE
+  )
+})
+
 test_that("align spanner - via colsplit", {
   data <- rename(stdata(), AAA.CRCL= CRCL, AAA.WT = WT)
   ans1 <- stable(data, span_split = colsplit(sep = ".", align = 'r'))
@@ -115,3 +140,4 @@ test_that("align spanner - via colsplit", {
     all = FALSE
   )
 })
+
