@@ -1,3 +1,5 @@
+# pmtables (development version)
+
 # pmtables 0.4.1
 
 - `colgroup()` (and `st_span()`) gains an `align` argument to position
