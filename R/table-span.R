@@ -11,15 +11,18 @@
 #' @param sep character; the separator used for finding column groupings
 #' @param title_side which side of the split should be taken as the `title`?
 #' defaults to left (`.l`) but can also take the right (`.r`) side of the split
+#' @param align justify the span title to the center, left or right
 #' @return an object with class `colgroup`
 #' @export
 colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".",
-                     split = FALSE, title_side = c(".l", ".r")) {
+                     split = FALSE, title_side = c(".l", ".r"),
+                     align = c("c", "l", "r")) {
 
   if(isTRUE(split)) {
     ans <- colsplit(
       title = title,
       level = level,
+      align = align,
       sep = sep,
       split = TRUE,
       title_side = title_side
@@ -32,6 +35,7 @@ colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".",
   ans <- list(
     title = title,
     level = level,
+    align = match.arg(align),
     vars = enquo(vars),
     split = split,
     sep = sep,
@@ -47,7 +51,7 @@ as.span <- colgroup
 #' @rdname colgroup
 #' @export
 colsplit <- function(sep, level = 1, split = TRUE, title = NULL,
-                     title_side = c(".l", ".r")) {
+                     title_side = c(".l", ".r"), align = c("c", "l", "r")) {
   assert_that(is.null(title) || is.list(title))
   if(is.list(title)) {
     assert_that(is_named(title))
@@ -59,6 +63,7 @@ colsplit <- function(sep, level = 1, split = TRUE, title = NULL,
       title = title,
       level = level,
       split = split,
+      align = match.arg(align),
       sep = sep,
       gather = FALSE,
       tagn = tagn
@@ -84,28 +89,29 @@ process_colgroup <- function(x,cols) {
       coln = eval_select(x$vars, data = cols),
       col = names(cols)[.data[["coln"]]],
       newcol = col,
-      title = x$title
+      title = x$title,
+      align = x$align
     )
   ans <- mutate(ans, level = x$level)
   ans
 }
 
-fill_nospan <- function(span,cols) {
+fill_nospan <- function(span, cols) {
   nc <- length(cols)
   row_fill <- setdiff(seq(nc), span$coln)
-  tbl <- tibble(
+  non_span <- tibble(
     coln = row_fill,
     col = cols[.data[["coln"]]],
     newcol = col,
-    title = ""
+    title = "",
+    align = 'c' # placeholder only
   )
-  ans <- bind_rows(span,tbl)
-  ans <- arrange(ans,.data[["coln"]])
+  ans <- bind_rows(span, non_span)
+  ans <- arrange(ans, .data[["coln"]])
   ans <- mutate(
     ans,
     flg = chunk_runs(.data[["title"]]),
-    align = 'c',
-    level=span$level[1]
+    level = span$level[1]
   )
   ans
 }
@@ -122,7 +128,7 @@ combine_spans <- function(..., cols) {
   all
 }
 
-find_span_split <- function(cols,xsp) {
+find_span_split <- function(cols, xsp) {
   x <- str_split(cols, fixed(xsp$sep), n = 2)
 
   sp <- list(
@@ -144,7 +150,7 @@ find_span_split <- function(cols,xsp) {
   spans <- mutate(
     spans,
     tag = ifelse(col == .data[["newcol"]], "", .data[["tag"]]),
-    align = 'c'
+    align = ifelse(.data[["tag"]] == "", "c", xsp$align[1])
   )
   spans <- mutate(spans, flg = chunk_runs(.data[["tag"]]))
   spans[["tagf"]] <- NULL
@@ -191,11 +197,12 @@ find_span_split <- function(cols,xsp) {
 #'
 #' @inheritParams stable
 #' @inheritParams tab_cols
-#' @param span_split not implemented at this time; ; see also [st_span_split()]
+#' @param span_split a `colsplit` object ; ; see also [st_span_split()]
 #' @param cols a character vector of column names
 #' @param span_title_break a character sequence indicating where to split the
 #' title across multiple lines
 #' @param ... not used
+#' @seealso [colgroup()], [colsplit()], [st_span()], [st_span_split()]
 #' @export
 tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
                          span_title_break = "...", sizes = tab_size(), ...) {
@@ -207,24 +214,29 @@ tab_spanners <- function(data, cols = NULL, span = NULL, span_split = NULL,
   } else {
     if(is.colgroup(span)) span <- list(span)
     assert_that(is.list(span))
+    assert_that(
+      all(map_lgl(span, is.colgroup)),
+      msg = "All objects passed under `span` must have class `colgroup`."
+    )
     span <- map(span, process_colgroup, cols = cols)
   }
 
-  do_span_split <- is.colsplit(span_split)
+  if(!is.null(span_split)) {
+    assert_that(is.colsplit(span_split))
+  }
 
   spans_from_split <- NULL
+  all_span_tex <- NULL
+  all_spans <- NULL
 
-  if(do_span_split) {
-    spans <- find_span_split(cols,span_split)
+  if(is.colsplit(span_split)) {
+    spans <- find_span_split(cols, span_split)
     if(isTRUE(spans$any)) {
       data <- data[,spans$recol]
       cols <- spans$data$newcol
       spans_from_split <- spans$data
     }
   }
-
-  all_span_tex <- NULL
-  all_spans <- NULL
 
   if(length(span) > 0 || length(spans_from_split) > 0) {
 
@@ -263,10 +275,11 @@ span_header_box <- function(x, title_break = "...", header_space = -0.5) {
   nr <- nrow(box)
 
   ncols <- map_int(x, ~ nrow(.x))
+  align <- map_chr(x, ~ .x$align[1])
 
   for(i in seq_along(ncols)) {
     length <- ncols[[i]]
-    box[[i]] <- gluet("\\multicolumn{<length>}{c}{<box[[i]]>}")
+    box[[i]] <- gluet("\\multicolumn{<length>}{<align[[i]]>}{<box[[i]]>}")
   }
 
   box <- apply(box, MARGIN = 1, FUN = form_tex_cols)

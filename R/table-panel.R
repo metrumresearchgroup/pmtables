@@ -15,6 +15,14 @@
 #' @param it render panel title in italic font face
 #' @param hline logical indicating whether or not to draw an `hline` above
 #' the panel row; the first panel row never receives an `hline`
+#' @param jut amount (in TeX `ex` units) by which the panel headers are
+#' outdented from the first column in the main table and header. Consider
+#' using a value of `2` for a clear offset.
+#' @param nopagebreak if `TRUE` (the default) then the page will not break
+#' immediately after a panel title _when creating a longtable_; this argument
+#' does nothing if you are not generating a `longtable`. Set to `FALSE` to
+#' prevent the `nopagebreak` command (implemented as `*`) in the longtable
+#' output.
 #'
 #' @seealso [as.panel()]
 #'
@@ -22,7 +30,8 @@
 rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
                      prefix_name = FALSE,
                      prefix_skip = NULL, duplicates_ok = FALSE,
-                     bold = TRUE, it = FALSE, hline = TRUE) {
+                     bold = TRUE, it = FALSE, hline = TRUE,
+                     jut = 0, nopagebreak = TRUE) {
   null <- FALSE
   if(is.null(col)) {
     col <- NULL
@@ -31,10 +40,13 @@ rowpanel <- function(col = NULL, prefix = "", skip = ".panel.skip.",
   } else {
     col <- new_names(col)
   }
+  assert_that(is.numeric(jut))
+  assert_that(is.character(skip))
   ans <- list(
     col = col, prefix = prefix, prefix_name = isTRUE(prefix_name),
     prefix_skip = prefix_skip, null = null, dup_err = !isTRUE(duplicates_ok),
-    bold = isTRUE(bold), it = isTRUE(it), skip = skip, hline = isTRUE(hline)
+    bold = isTRUE(bold), it = isTRUE(it), skip = skip, hline = isTRUE(hline),
+    jut = jut, nopagebreak = isTRUE(nopagebreak)
   )
   structure(ans, class = "rowpanel")
 }
@@ -109,7 +121,7 @@ panel_by <- function(data, x) {
       "panel labels are duplicated; ",
       "please sort the data frame by the panel column ",
       "or set duplicates_ok to TRUE",
-      call.=FALSE
+      call. = FALSE
     )
   }
   prefix <- rep(prefix, length(lab))
@@ -142,15 +154,16 @@ tab_panel <- function(data, panel, sumrows) {
     ins$data <- data
     return(ins)
   }
-  require_col(data,panel$col,context = "panel column input name")
+  require_col(data,panel$col, context = "panel column input name")
   assert_that(
     ncol(data) > 1,
     msg = "must have more than one column to use 'panel' option"
   )
-  paneln <- match(panel$col,names(data))
+  paneln <- match(panel$col, names(data))
   if(any(is.na(paneln))) {
     stop("panel column not found: ", squote(panel$col), call.=FALSE)
   }
+  data[[paneln]] <- as.character(data[[paneln]])
   data[[paneln]] <- replace_na(data[[paneln]],"")
   # check summary rows
   if(!is.null(sumrows)) {
@@ -171,10 +184,22 @@ tab_panel_insert <- function(tab, panel_insert) {
   insrt_vec(
     vec = tab,
     where = panel_insert$insert_row,
-    nw = panel_insert$insert_data
+    nw = tab_panel_mark(panel_insert$insert_data)
   )
 }
 
+tab_panel_marker <- function() {
+  .internal$marker.panel
+}
 
+tab_panel_mark <- function(x) {
+  paste0(x, tab_panel_marker())
+}
 
-
+tab_panel_star <- function(x) {
+  marker <- tab_panel_marker()
+  where <- grepl(marker, x, fixed = TRUE)
+  if(!any(where)) return(x)
+  x[where] <- sub(marker, paste0("*", marker), x[where], fixed = TRUE)
+  x
+}

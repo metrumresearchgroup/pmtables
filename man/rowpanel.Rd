@@ -14,7 +14,9 @@ rowpanel(
   duplicates_ok = FALSE,
   bold = TRUE,
   it = FALSE,
-  hline = TRUE
+  hline = TRUE,
+  jut = 0,
+  nopagebreak = TRUE
 )
 
 is.rowpanel(x)
@@ -41,6 +43,16 @@ panel will have the same header}
 
 \item{hline}{logical indicating whether or not to draw an \code{hline} above
 the panel row; the first panel row never receives an \code{hline}}
+
+\item{jut}{amount (in TeX \code{ex} units) by which the panel headers are
+outdented from the first column in the main table and header. Consider
+using a value of \code{2} for a clear offset.}
+
+\item{nopagebreak}{if \code{TRUE} (the default) then the page will not break
+immediately after a panel title \emph{when creating a longtable}; this argument
+does nothing if you are not generating a \code{longtable}. Set to \code{FALSE} to
+prevent the \code{nopagebreak} command (implemented as \code{*}) in the longtable
+output.}
 
 \item{x}{an object to test}
 }

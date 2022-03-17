@@ -22,22 +22,22 @@ data_inventory_chunk(
 so that \code{data} contains exactly the records to be summarized; pmtables will
 not add or remove rows prior to summarizing \code{data}}
 
-\item{by}{the outer grouping variable; may be character or quosure}
+\item{by}{The outer grouping variable; may be character or quosure.}
 
-\item{panel}{the panel grouping variable; may be character or quosure}
+\item{panel}{The panel grouping variable; may be character or quosure.}
 
-\item{stacked}{if \code{TRUE}, then independent summaries are created by \code{outer}
-and included in a single table (see examples)}
+\item{stacked}{If \code{TRUE}, then independent summaries are created by \code{outer}
+and included in a single table (see examples).}
 
 \item{tot}{logical indicating if a summary row should be included}
 
 \item{all_name}{a name to use for the complete data summary}
 
-\item{dv_col}{character name of \code{DV} column}
+\item{dv_col}{Character name of \code{DV} column.}
 
-\item{bq_col}{character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}}
+\item{bq_col}{Character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}.}
 
-\item{id_col}{character name of \code{ID} column}
+\item{id_col}{Character name of \code{ID} column.}
 
 \item{...}{used to absorb other arguments; not used}
 }

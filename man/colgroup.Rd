@@ -14,7 +14,8 @@ colgroup(
   level = 1,
   sep = ".",
   split = FALSE,
-  title_side = c(".l", ".r")
+  title_side = c(".l", ".r"),
+  align = c("c", "l", "r")
 )
 
 as.span(
@@ -23,7 +24,8 @@ as.span(
   level = 1,
   sep = ".",
   split = FALSE,
-  title_side = c(".l", ".r")
+  title_side = c(".l", ".r"),
+  align = c("c", "l", "r")
 )
 
 colsplit(
@@ -31,7 +33,8 @@ colsplit(
   level = 1,
   split = TRUE,
   title = NULL,
-  title_side = c(".l", ".r")
+  title_side = c(".l", ".r"),
+  align = c("c", "l", "r")
 )
 
 is.colgroup(x)
@@ -53,6 +56,8 @@ splitting columns names on a separator}
 
 \item{title_side}{which side of the split should be taken as the \code{title}?
 defaults to left (\code{.l}) but can also take the right (\code{.r}) side of the split}
+
+\item{align}{justify the span title to the center, left or right}
 
 \item{x}{an R object}
 }

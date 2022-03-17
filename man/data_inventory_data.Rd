@@ -18,14 +18,14 @@ data_inventory_data(
 so that \code{data} contains exactly the records to be summarized; pmtables will
 not add or remove rows prior to summarizing \code{data}}
 
-\item{by}{the outer grouping variable; may be character or quosure}
+\item{by}{The outer grouping variable; may be character or quosure.}
 
-\item{panel}{the panel grouping variable; may be character or quosure}
+\item{panel}{The panel grouping variable; may be character or quosure.}
 
 \item{all_name}{a name to use for the complete data summary}
 
-\item{stacked}{if \code{TRUE}, then independent summaries are created by \code{outer}
-and included in a single table (see examples)}
+\item{stacked}{If \code{TRUE}, then independent summaries are created by \code{outer}
+and included in a single table (see examples).}
 
 \item{...}{passed to subsequent summary functions}
 }

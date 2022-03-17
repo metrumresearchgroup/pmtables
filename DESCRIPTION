@@ -1,7 +1,7 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: 
     c(
     person(given = "Kyle",
@@ -36,7 +36,7 @@ Suggests: testthat, yaml, fs, texPreview
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Collate: 

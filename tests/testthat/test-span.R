@@ -80,3 +80,64 @@ test_that("add span_split via st_span", {
     regexp = "`span_split` is already set and will be replaced"
   )
 })
+
+test_that("align spanner - standard", {
+  data <- stdata()
+  ans1 <- stable(stdata(), span = colgroup("FOO", AGE:SCR))
+  ans2 <- stable(stdata(), span = colgroup("FOO", AGE:SCR, align = 'l'))
+  check <- which(grepl("FOO", ans1))
+  expect_match(
+    ans1[[check]],
+    "multicolumn{3}{c}{FOO}",
+    fixed = TRUE,
+    all = FALSE
+  )
+  expect_match(
+    ans2[[check]],
+    "multicolumn{3}{l}{FOO}",
+    fixed = TRUE,
+    all = FALSE
+  )
+  expect_error(
+    stable(stdata(), span = colgroup("FOO", AGE:SCR, align = 'x')),
+    regexp='should be one of '
+  )
+})
+
+test_that("align spanner - multiple", {
+  sp <- list(
+    colgroup("LEFT", DOSE:FORM, align = 'l'),
+    colgroup("CENTER", WT:CRCL),
+    colgroup("RIGHT", AGE:SCR, align = 'r')
+  )
+  ans <- stable(stdata(), span = sp)
+  spans <- ans[grepl("multicolumn", ans)]
+  expect_match(
+    spans,
+    "multicolumn{2}{l}{LEFT}",
+    fixed = TRUE
+  )
+  expect_match(
+    spans,
+    "multicolumn{2}{c}{CENTER}",
+    fixed = TRUE
+  )
+  expect_match(
+    spans,
+    "multicolumn{3}{r}{RIGHT}",
+    fixed = TRUE
+  )
+})
+
+test_that("align spanner - via colsplit", {
+  data <- rename(stdata(), AAA.CRCL= CRCL, AAA.WT = WT)
+  ans1 <- stable(data, span_split = colsplit(sep = ".", align = 'r'))
+  check <- which(grepl("AAA", ans1))
+  expect_match(
+    ans1[[check]],
+    "multicolumn{2}{r}{AAA}",
+    fixed = TRUE,
+    all = FALSE
+  )
+})
+

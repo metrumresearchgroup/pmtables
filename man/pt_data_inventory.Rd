@@ -24,31 +24,31 @@ pt_data_inventory(
 so that \code{data} contains exactly the records to be summarized; pmtables will
 not add or remove rows prior to summarizing \code{data}}
 
-\item{by}{the outer grouping variable; may be character or quosure}
+\item{by}{The outer grouping variable; may be character or quosure.}
 
-\item{panel}{the panel grouping variable; may be character or quosure}
+\item{panel}{The panel grouping variable; may be character or quosure.}
 
-\item{inner_summary}{if \code{TRUE}, then a summary of the inner variable will
-be provided}
+\item{inner_summary}{If \code{TRUE}, then a summary of the inner variable will
+be provided.}
 
-\item{drop_miss}{if \code{TRUE}, then \code{MISS} will be dropped, but only when all
-\code{MISS} values are equal to zero}
+\item{drop_miss}{If \code{TRUE}, then \code{MISS} will be dropped, but only when all
+\code{MISS} values are equal to zero.}
 
-\item{stacked}{if \code{TRUE}, then independent summaries are created by \code{outer}
-and included in a single table (see examples)}
+\item{stacked}{If \code{TRUE}, then independent summaries are created by \code{outer}
+and included in a single table (see examples).}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
 
 \item{all_name}{a name to use for the complete data summary}
 
-\item{dv_col}{character name of \code{DV} column}
+\item{dv_col}{Character name of \code{DV} column.}
 
-\item{bq_col}{character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}}
+\item{bq_col}{Character name of \code{BQL} column; see \code{\link[=find_bq_col]{find_bq_col()}}.}
 
-\item{id_col}{character name of \code{ID} column}
+\item{id_col}{Character name of \code{ID} column.}
 
-\item{...}{other arguments passed to \code{\link[=data_inventory_chunk]{data_inventory_chunk()}}}
+\item{...}{Other arguments passed to \code{\link[=data_inventory_chunk]{data_inventory_chunk()}}.}
 }
 \value{
 An object with class \code{pmtable}; see \link{class-pmtable}.

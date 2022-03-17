@@ -109,7 +109,7 @@ form_open <- function(align) {
 }
 
 # all the rows above top headline for rows
-form_headrows <- function(span_data, cols_tex, cols_data) {
+form_headrows <- function(span_data, cols_tex, cols_data, indent = 0) {
   hl1 <-  hl2 <- "\\hline"
   if(cols_data$omit) {
     cols_tex <- NULL
@@ -119,5 +119,10 @@ form_headrows <- function(span_data, cols_tex, cols_data) {
       hl2 <- NULL
     }
   }
-  c(hl1, span_data$tex, cols_tex, hl2)
+  ans <- c(span_data$tex, cols_tex)
+  if(indent > 0) {
+    ans <- indent_tex(ans, indent)
+  }
+  c(hl1, ans, hl2)
 }
+
