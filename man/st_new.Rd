@@ -2,19 +2,25 @@
 % Please edit documentation in R/table-object.R
 \name{st_new}
 \alias{st_new}
+\alias{st_new.data.frame}
+\alias{st_new.pmtable}
 \alias{st_data}
 \title{Create an st object}
 \usage{
-st_new(data, ...)
+st_new(x, ...)
+
+\method{st_new}{data.frame}(x, ...)
+
+\method{st_new}{pmtable}(x, ...)
 
 st_data(data, ...)
 }
 \arguments{
+\item{...}{additional arguments passed to \code{\link[=stable]{stable()}}}
+
 \item{data}{the data frame to pass to \code{\link[=stable]{stable()}}; the user should filter
 or subset so that \code{data} contains exactly the rows (and columns) to be
 processed; pmtables will not add or remove rows prior to processing \code{data}}
-
-\item{...}{additional arguments passed to \code{\link[=stable]{stable()}}}
 }
 \description{
 The st object will collect various configuration settings and pass those

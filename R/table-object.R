@@ -30,12 +30,35 @@ st_arg_names <- c(
 #' ob <- st_data(ptdata())
 #'
 #' @export
-st_new <- function(data, ...) {
-  assert_that(is.data.frame(data))
+st_new <- function(x, ...) UseMethod("st_new")
+#' @rdname st_new
+#' @export
+st_new.data.frame <- function(x, ...) {
   x <- new.env()
-  x$data <- data
+  x$data <- x
   x$args <- list(...)
   structure(x, class = c("stobject","environment"), argnames = st_arg_names)
+}
+#' @rdname st_new
+#' @export
+st_new.pmtable <- function(x, ...) {
+  valid <- c(
+    "data", "panel", "cols_rename", "align", "notes", "cols_extra",
+    "cols_blank", "span_split", "units", "bold_cols"
+  )
+  incoming <- names(x)
+  if(!all(incoming %in% valid)) {
+    stop("internal error: invalid item in pmtable object.")
+  }
+  ans <- st_new(x$data)
+  foo <- lapply(incoming, function(slot) {
+    assign(slot, value = x[[slot]], envir = ans)
+  })
+  structure(
+    ans,
+    class = c("stobject", "stpmtable", "environment"),
+    argnames = st_arg_names
+  )
 }
 
 #' @rdname st_new
