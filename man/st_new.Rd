@@ -16,18 +16,32 @@ st_new(x, ...)
 st_data(data, ...)
 }
 \arguments{
-\item{...}{additional arguments passed to \code{\link[=stable]{stable()}}}
+\item{x}{either a data frame or an object of class \code{pmtable}. See details.}
 
-\item{data}{the data frame to pass to \code{\link[=stable]{stable()}}; the user should filter
-or subset so that \code{data} contains exactly the rows (and columns) to be
-processed; pmtables will not add or remove rows prior to processing \code{data}}
+\item{...}{additional arguments which will eventually get passed to the
+table render function (e.g. \code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}}).}
+}
+\value{
+And object with class \code{stobject} which can get piped to other functions. The
+\code{pmtable} method returns an object that also has class \code{stpmtable}.
 }
 \description{
 The st object will collect various configuration settings and pass those
 to \code{\link[=stable]{stable()}} when the object is passed to \code{\link[=st_make]{st_make()}}.
 }
+\details{
+Methods are included for \code{data.frame} and \code{pmtable}, an object that comes
+from one of the data summary functions (e.g. \code{\link[=pt_cont_wide]{pt_cont_wide()}}, or
+\code{\link[=pt_cat_long]{pt_cat_long()}} or \code{\link[=pt_demographics]{pt_demographics()}}).
+
+If using the data frame method, the user should filter or subset so that
+\code{data} contains exactly the rows (and columns) to be processed; pmtables
+will not add or remove rows prior to processing \code{data}.
+}
 \examples{
 ob <- st_new(ptdata())
 ob <- st_data(ptdata())
+
+ob <- st_new(pt_data_inventory(pmt_obs))
 
 }

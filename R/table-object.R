@@ -20,24 +20,38 @@ st_arg_names <- c(
 #' The st object will collect various configuration settings and pass those
 #' to [stable()] when the object is passed to [st_make()].
 #'
-#' @param data the data frame to pass to [stable()]; the user should filter
-#' or subset so that `data` contains exactly the rows (and columns) to be
-#' processed; pmtables will not add or remove rows prior to processing `data`
-#' @param ... additional arguments passed to [stable()]
+#' @details
+#' Methods are included for `data.frame` and `pmtable`, an object that comes
+#' from one of the data summary functions (e.g. [pt_cont_wide()], or
+#' [pt_cat_long()] or [pt_demographics()]).
+#'
+#' If using the data frame method, the user should filter or subset so that
+#' `data` contains exactly the rows (and columns) to be processed; pmtables
+#' will not add or remove rows prior to processing `data`.
+#'
+#' @param x either a data frame or an object of class `pmtable`. See details.
+#' @param ... additional arguments which will eventually get passed to the
+#' table render function (e.g. [stable()] or [stable_long()]).
+#'
+#' @return
+#' And object with class `stobject` which can get piped to other functions. The
+#' `pmtable` method returns an object that also has class `stpmtable`.
 #'
 #' @examples
 #' ob <- st_new(ptdata())
 #' ob <- st_data(ptdata())
+#'
+#' ob <- st_new(pt_data_inventory(pmt_obs))
 #'
 #' @export
 st_new <- function(x, ...) UseMethod("st_new")
 #' @rdname st_new
 #' @export
 st_new.data.frame <- function(x, ...) {
-  x <- new.env()
-  x$data <- x
-  x$args <- list(...)
-  structure(x, class = c("stobject","environment"), argnames = st_arg_names)
+  e <- new.env()
+  e$data <- x
+  e$args <- list(...)
+  structure(e, class = c("stobject", "environment"), argnames = st_arg_names)
 }
 #' @rdname st_new
 #' @export
@@ -67,6 +81,7 @@ st_data <- function(data,...) st_new(data,...)
 
 
 is.stobject <- function(x) inherits(x, "stobject")
+is.stpmtable <- function(x) inherits(x, "stpmtable")
 
 #' Convert st object to table output
 #'
@@ -155,41 +170,88 @@ st_panel <- function(x, ...) {
 #' Add note information to st object
 #'
 #' See the `notes` and `note_config` arguments passed to [stable()] and then to
-#' [tab_notes()]. The function can be called multiple times and will accumulate
-#' `notes` data.
+#' [tab_notes()]. The function can be called multiple times and can accumulate
+#' `notes` data in various ways.
 #'
 #' @param x an stobject
 #' @param ... table notes
 #' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notes
 #' @param config named list of arguments for [noteconf()]
-#' @param collapse if `is.character`, then the note will be collapsed into a
-#' single line separated by value of `collapse` (see [base::paste0()])
+#' @param collapse a character string to separate notes which are pasted
+#' together when flattening or appending; this should usually end in a single
+#' space (see default).
+#' @param append logical; if `TRUE`, then incoming notes are appended to the
+#' previous, single note in the notes list. When `...` contains multiple
+#' notes, then the notes are pasted together first.
+#' @param replace logical; if `TRUE`, remove any existing notes before procesing
+#' new notes.
+#' @param to_string logical; if `TRUE`, then all notes are collapsed to a single
+#' string.
 #'
 #' @examples
 #' library(dplyr)
 #'
 #' ob <- st_new(ptdata())
 #'
-#' ob %>% st_notes("ALB: albumin (g/dL)") %>% st_make()
+#' ob %>% st_notes("ALB: albumin (g/dL)") %>% stable()
 #'
 #' @export
-st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = NULL) {
+st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = "; ",
+                     append = FALSE, replace = FALSE, to_string = FALSE) {
   check_st(x)
+  if(isTRUE(replace)) {
+    x$notes <- NULL
+  }
   notes <- unlist(list(...))
   if(!is.null(notes)) {
     assert_that(is.character(notes))
     if(is.character(esc)) {
       notes <- tab_escape(notes, esc = esc)
     }
-    if(is.character(collapse) && length(notes) > 1) {
+    append <- isTRUE(append) && length(x$notes) > 0
+    tostr <- isTRUE(to_string) && length(notes) > 1
+    if(tostr || append) {
       notes <- paste0(notes, collapse = collapse)
     }
-    x$notes <- c(x$notes, notes)
+    if(isTRUE(append)) {
+      l <- length(x$notes)
+      x$notes[l] <- paste0(c(x$notes[l], notes), collapse = collapse)
+    } else {
+      x$notes <- c(x$notes, notes)
+    }
   }
   if(is.list(config)) {
-    x$note_config <- do.call(noteconf,config)
+    x$note_config <- do.call(noteconf, config)
   }
   x
+}
+
+#' @rdname st_notes
+#' @export
+st_notes_ap <- function(...) {
+  st_notes(..., append = TRUE)
+}
+
+#' Detach table notes from the table
+#'
+#' Detached notes are rendered underneath the table, in a separate minipage
+#' format. By default, there is an `hline` renered between the table and the
+#' notes. It is common to adjust the width of the minipage holding the notes
+#' depending on the width of the table and the extent of the notes.
+#'
+#' @param width passed to [noteconf()] via [st_noteconf()].
+#' @param type passed to [noteconf()] via [st_noteconf()]; this argument should
+#' not be changed if detached notes are desired.
+#' @param ... other arguments passed to [noteconf()] via [st_noteconf()].
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_detach <- function(x, width = 0.8, type = "minipage", ...) {
+  check_st(x)
+  st_noteconf(x, width = width, type = type, ...)
 }
 
 #' Add note config information to st object
@@ -442,7 +504,6 @@ st_rename <- function(x, ..., .list = NULL) {
   x
 }
 
-
 #' Add column blank information to st object
 #'
 #' See the `cols_blank` argument passed to [stable()] and then [tab_cols()].
@@ -694,14 +755,14 @@ st_drop <- function(x, ...) {
 #'
 #' @export
 st_select <- function(x, ...) {
-  x$data <- dplyr::select(x$data, ...)
+  x$data <- select(x$data, ...)
   x
 }
 
 #' @rdname st_select
 #' @export
 st_mutate <- function(x, ...) {
-  x$data <- dplyr::mutate(x$data, ...)
+  x$data <- mutate(x$data, ...)
   x
 }
 
@@ -736,7 +797,6 @@ tab_edit <- function(data, pattern, replacement, cols = names(data)) {
   }
   data
 }
-
 
 #' Methods for stobject
 #'

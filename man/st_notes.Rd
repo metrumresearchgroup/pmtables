@@ -2,9 +2,21 @@
 % Please edit documentation in R/table-object.R
 \name{st_notes}
 \alias{st_notes}
+\alias{st_notes_ap}
 \title{Add note information to st object}
 \usage{
-st_notes(x, ..., esc = NULL, config = NULL, collapse = NULL)
+st_notes(
+  x,
+  ...,
+  esc = NULL,
+  config = NULL,
+  collapse = "; ",
+  append = FALSE,
+  replace = FALSE,
+  flatten = FALSE
+)
+
+st_notes_ap(...)
 }
 \arguments{
 \item{x}{an stobject}
