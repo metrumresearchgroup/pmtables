@@ -16,7 +16,7 @@
 #' @export
 colgroup <- function(title = NULL, vars = c(), level = 1, sep = ".",
                      split = FALSE, title_side = c(".l", ".r"),
-                     align = c("c", "l", "r")) {
+                     align = c("c", "l", "r"), bold = FALSE) {
 
   if(isTRUE(split)) {
     ans <- colsplit(
