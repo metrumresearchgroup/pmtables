@@ -55,6 +55,7 @@ Collate:
     'preview.R'
     'summarize-cat-chunk.R'
     'table-align.R'
+    'table-cat-cat.R'
     'table-clear_reps.R'
     'table-cols.R'
     'table-control.R'
