@@ -81,6 +81,10 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       values_from = "summary",
       names_sep = '_._'
     )
+    ans <- complete(ans, !!!syms(unname(.groups)))
+    #print(ans)
+    ans <- mutate(ans, N = replace_na(N, 0))
+    #ans <- mutate(ans, across(everything(), replace_na, "0 (0.0)"))
   } else {
     ans[["N"]] <- NULL
     ans <- pivot_wider(
