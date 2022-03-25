@@ -40,6 +40,7 @@ prep_cat_data <- function(data, cols) {
 #' Summarize categorical data
 #'
 #' @inheritParams pt_cont_wide
+#' @inheritParams pt_cat_wide
 #' @param summarize_all logical indicating whether or not to include a summary
 #' of the full data in the output.
 #' @param all_name label for full data summary.

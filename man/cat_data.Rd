@@ -36,6 +36,9 @@ of the full data in the output.}
 if \code{FALSE}, it will be returned in \code{long} format.}
 
 \item{nby}{number of unique levels for the \code{by} variable.}
+
+\item{complete}{logial; if \code{TRUE}, then data the summary will be completed
+for missing levels of \code{by}and \code{panel}.}
 }
 \description{
 Summarize categorical data
