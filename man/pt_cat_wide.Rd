@@ -11,7 +11,8 @@ pt_cat_wide(
   panel = by,
   table = NULL,
   all_name = "All data",
-  summarize = c("bottom", "none")
+  summarize = c("bottom", "none"),
+  complete = FALSE
 )
 }
 \arguments{
@@ -22,7 +23,7 @@ not add or remove rows prior to summarizing \code{data}}
 \item{cols}{the columns to summarize; may be character vector or quosure}
 
 \item{by}{a grouping variable for the summary; may be given as character
-vector or quosure}
+vector or quosure.}
 
 \item{panel}{data set column name to stratify the summary}
 
@@ -32,7 +33,10 @@ examples)}
 \item{all_name}{a name to use for the complete data summary}
 
 \item{summarize}{where to put an all-data summary; choose \code{none} to omit the
-summary from the table}
+summary from the table.}
+
+\item{complete}{logial; if \code{TRUE}, then data the summary will be completed
+for missing levels of \code{by}and \code{panel}.}
 }
 \value{
 An object with class \code{pmtable}; see \link{class-pmtable}.

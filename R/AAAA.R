@@ -7,6 +7,7 @@
 #' @importFrom purrr map_dfr walk partial map map_chr modify flatten_chr imap
 #' @importFrom purrr flatten_int map_lgl modify_if map_int map2 keep flatten
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill separate unite
+#' @importFrom tidyr complete
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
 #' @importFrom rlang enquo enquos is_named is_atomic flatten_if have_name

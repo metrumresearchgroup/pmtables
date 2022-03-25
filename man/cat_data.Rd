@@ -12,7 +12,8 @@ cat_data(
   summarize_all = TRUE,
   all_name = "All",
   wide = FALSE,
-  nby = NULL
+  nby = NULL,
+  complete = FALSE
 )
 }
 \arguments{
@@ -27,14 +28,14 @@ not add or remove rows prior to summarizing \code{data}}
 \item{panel}{data set column name to stratify the summary}
 
 \item{summarize_all}{logical indicating whether or not to include a summary
-of the full data in the output}
+of the full data in the output.}
 
-\item{all_name}{label for full data summary}
+\item{all_name}{label for full data summary.}
 
 \item{wide}{\code{logical}; if \code{TRUE}, data frame will be returned in wide format;
-if \code{FALSE}, it will be returned in \code{long} format}
+if \code{FALSE}, it will be returned in \code{long} format.}
 
-\item{nby}{number of unique levels for the \code{by} variable}
+\item{nby}{number of unique levels for the \code{by} variable.}
 }
 \description{
 Summarize categorical data

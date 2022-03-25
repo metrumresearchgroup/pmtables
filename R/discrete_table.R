@@ -41,11 +41,11 @@ prep_cat_data <- function(data, cols) {
 #'
 #' @inheritParams pt_cont_wide
 #' @param summarize_all logical indicating whether or not to include a summary
-#' of the full data in the output
-#' @param all_name label for full data summary
-#' @param nby number of unique levels for the `by` variable
+#' of the full data in the output.
+#' @param all_name label for full data summary.
+#' @param nby number of unique levels for the `by` variable.
 #' @param wide `logical`; if `TRUE`, data frame will be returned in wide format;
-#' if `FALSE`, it will be returned in `long` format
+#' if `FALSE`, it will be returned in `long` format.
 #'
 #' @examples
 #'
@@ -54,7 +54,7 @@ prep_cat_data <- function(data, cols) {
 #' @export
 cat_data <- function(data, cols, by = ".total", panel = by,
                      summarize_all = TRUE, all_name = "All",
-                     wide = FALSE, nby = NULL) {
+                     wide = FALSE, nby = NULL, complete = FALSE) {
 
   cols <- new_names(cols)
 
@@ -64,7 +64,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 
   if(is.null(nby)) nby <- length(unique(data[[by]]))
 
-  .groups <- unique(c(panel,by))
+  .groups <- unique(c(panel, by))
 
   data <- group_by(data, !!!syms(unname(.groups)))
 
@@ -81,6 +81,14 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       values_from = "summary",
       names_sep = '_._'
     )
+    if(isTRUE(complete)) {
+      ans <- complete(ans, !!!syms(.groups))
+      nstart <- length(.groups)
+      nend <- ncol(ans)
+      ans <- mutate(ans, across(nstart+1, replace_na, "0"))
+      ans <- mutate(ans, across(seq(nstart+2, nend), replace_na, "0 (0.0)"))
+    }
+    ans
   } else {
     ans[["N"]] <- NULL
     ans <- pivot_wider(
@@ -128,6 +136,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
 
   summarize <- match.arg(summarize)
   summarize_all <- summarize != "none"
+  complete <- isTRUE(complete)
 
   has_span <- !missing(span)
 
@@ -226,9 +235,11 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #'
 #' @inheritParams pt_cont_wide
 #' @param by a grouping variable for the summary; may be given as character
-#' vector or quosure
+#' vector or quosure.
 #' @param summarize where to put an all-data summary; choose `none` to omit the
-#' summary from the table
+#' summary from the table.
+#' @param complete logial; if `TRUE`, then data the summary will be completed
+#' for missing levels of `by`and `panel`.
 #'
 #' @details
 #' The data summary for this table is `count (percent)`. The number of
@@ -256,7 +267,7 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' @export
 pt_cat_wide <- function(data, cols, by = ".total", panel = by,
                         table = NULL, all_name = "All data",
-                        summarize = c("bottom", "none")) {
+                        summarize = c("bottom", "none"), complete = FALSE) {
 
   summarize <- match.arg(summarize)
   summarize_all <- summarize != "none"
@@ -282,13 +293,27 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
 
   data <- prep_cat_data(data, cols)
 
-  ans <- cat_data(data, cols, by = by, panel = panel, wide = TRUE)
-  ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
+  ans <- cat_data(
+    data,
+    cols,
+    by = by,
+    panel = panel,
+    wide = TRUE,
+    complete = complete
+  )
 
+  ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
 
   if(summarize_all) {
 
-    all <- cat_data(data, cols, by = ".total", panel = ".total", wide = TRUE)
+    all <- cat_data(
+      data,
+      cols,
+      by = ".total",
+      panel = ".total",
+      wide = TRUE,
+      complete = complete
+    )
 
     all_name_fmt <- paste0("\\hline \\hline {\\bf ",all_name,"}")
 
