@@ -13,7 +13,8 @@ cat_data(
   all_name = "All",
   wide = FALSE,
   nby = NULL,
-  complete = FALSE
+  complete = FALSE,
+  denom = c("group", "total")
 )
 }
 \arguments{
@@ -39,6 +40,11 @@ if \code{FALSE}, it will be returned in \code{long} format.}
 
 \item{complete}{logial; if \code{TRUE}, then data the summary will be completed
 for missing levels of \code{by}and \code{panel}.}
+
+\item{denom}{the denominator to use when calculating percent for each level;
+\code{group} uses the total number in the chunk being summarized; \code{total} uses
+the total number in the data set; historically, \code{group} has been used, but
+\code{total} may be more what the reader is expecting.}
 }
 \description{
 Summarize categorical data

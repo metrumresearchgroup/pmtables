@@ -47,6 +47,10 @@ prep_cat_data <- function(data, cols) {
 #' @param nby number of unique levels for the `by` variable.
 #' @param wide `logical`; if `TRUE`, data frame will be returned in wide format;
 #' if `FALSE`, it will be returned in `long` format.
+#' @param denom the denominator to use when calculating percent for each level;
+#' `group` uses the total number in the chunk being summarized; `total` uses
+#' the total number in the data set; historically, `group` has been used, but
+#' `total` may be more what the reader is expecting.
 #'
 #' @examples
 #'
@@ -55,7 +59,10 @@ prep_cat_data <- function(data, cols) {
 #' @export
 cat_data <- function(data, cols, by = ".total", panel = by,
                      summarize_all = TRUE, all_name = "All",
-                     wide = FALSE, nby = NULL, complete = FALSE) {
+                     wide = FALSE, nby = NULL, complete = FALSE,
+                     denom = c("group", "total")) {
+
+  denom <- match.arg(denom)
 
   cols <- new_names(cols)
 
@@ -69,7 +76,10 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 
   data <- group_by(data, !!!syms(unname(.groups)))
 
-  ans <- group_modify(data, ~ summarize_cat_chunk(.,cols))
+  ans <- group_modify(
+    data,
+    ~ summarize_cat_chunk(.,cols, denom = denom, N = nrow(data))
+  )
 
   ans <- ungroup(ans)
 
@@ -133,9 +143,11 @@ pt_cat_long <- function(data, cols, span  =  ".total",
                         all_name = " ",
                         all_name_span = "Summary",
                         summarize = c("both", "right", "top", "none"),
-                        table = NULL, by = NULL) {
+                        table = NULL, by = NULL,
+                        denom = c("group", "total")) {
 
   summarize <- match.arg(summarize)
+  denom <- match.arg(denom)
   summarize_all <- summarize != "none"
   complete <- isTRUE(complete)
 
@@ -167,7 +179,8 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     data = data,
     cols = cols,
     by = span,
-    nby = nspan
+    nby = nspan,
+    denom = denom
   )
 
   if(summarize_all) {
@@ -177,7 +190,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
         cols = cols,
         by = ".total",
         nby = nspan,
-        all_name = all_name_span
+        all_name = all_name_span,
       )
       all[["N"]] <- NULL
       ans <- left_join(ans, all, by = c("name", "level"))
@@ -268,10 +281,12 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' @export
 pt_cat_wide <- function(data, cols, by = ".total", panel = by,
                         table = NULL, all_name = "All data",
-                        summarize = c("bottom", "none"), complete = FALSE) {
+                        summarize = c("bottom", "none"), complete = FALSE,
+                        denom = c("group", "total")) {
 
   summarize <- match.arg(summarize)
   summarize_all <- summarize != "none"
+  denom <- match.arg(denom)
 
   has_by <- !missing(by)
   has_panel <- !missing(panel)
@@ -300,7 +315,8 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
     by = by,
     panel = panel,
     wide = TRUE,
-    complete = complete
+    complete = complete,
+    denom = denom
   )
 
   ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))

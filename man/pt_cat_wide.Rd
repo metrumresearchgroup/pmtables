@@ -12,7 +12,8 @@ pt_cat_wide(
   table = NULL,
   all_name = "All data",
   summarize = c("bottom", "none"),
-  complete = FALSE
+  complete = FALSE,
+  denom = c("group", "total")
 )
 }
 \arguments{

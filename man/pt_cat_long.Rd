@@ -12,7 +12,8 @@ pt_cat_long(
   all_name_span = "Summary",
   summarize = c("both", "right", "top", "none"),
   table = NULL,
-  by = NULL
+  by = NULL,
+  denom = c("group", "total")
 )
 }
 \arguments{
