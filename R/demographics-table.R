@@ -82,6 +82,7 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
 #'
 #' This function makes a single table from both continuous and categorical data.
 #'
+#' @inheritParams pt_cont_long
 #' @param data 	the data frame to summarize; the user should filter or subset
 #' so that data contains exactly the records to be summarized; pmtables will not
 #' add or remove rows prior to summarizing data
@@ -108,8 +109,6 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
 #' covariate names; otherwise, the covariate names will appear as the left-most
 #' column with non-repeating names cleared and separated with `hline` (see
 #' examples).
-#'
-#' @inheritParams pt_cont_long
 #'
 #' @details
 #' When a continuous data summary function (`fun`) is passed, the user should
@@ -183,10 +182,11 @@ pt_demographics <- function(data, cols_cont, cols_cat,
                             stat_name = "Statistic",
                             stat_width = 2,
                             summarize_all = TRUE,
-                            all_name = "All data",
+                            all_name = "Summary",
                             fun = dem_cont_fun,
                             notes = pt_demographics_notes(),
-                            paneled = TRUE) {
+                            paneled = TRUE,
+                            denom = c("group", "total")) {
 
   summarize_all <- isTRUE(summarize_all)
   summarize_span <- !is.null(span)
@@ -242,14 +242,16 @@ pt_demographics <- function(data, cols_cont, cols_cat,
       data,
       cols = all_of(cols_cat),
       span = span,
-      summarize = "top"
+      summarize = "top",
+      denom = denom
     )
   }
   if(summarize_all) {
     cat_table_all0 <- pt_cat_long(
       data,
       cols = all_of(cols_cat),
-      summarize = "top"
+      summarize = "top",
+      denom = denom
     )
     cat_table_all <- rename(cat_table_all0[["data"]], value = "Summary")
   }

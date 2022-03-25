@@ -382,7 +382,6 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
   return(out)
 }
 
-
 #' Return table notes for pt_cat_wide
 #'
 #' See [pt_cat_wide()].
