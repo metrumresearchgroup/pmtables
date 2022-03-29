@@ -114,3 +114,56 @@ test_that("discrete data summary - with total denominator", {
   summ <- sum(ans)
   expect_true(summ > 99.5 & summ < 100.2)
 })
+
+test_that("discrete data - wide summary is completed", {
+  data <- data.frame(
+    ID = 1,
+    A = as.character(c(1, 2, 3, 4)),
+    B = as.character(c(1, 2, 1, 2)),
+    C = as.character(c("a", "b", "a", "b")),
+    stringsAsFactors = FALSE
+  )
+  ans1 <- pt_cat_wide(
+    data,
+    cols = "A",
+    by = "C",
+    panel = "B",
+    complete = FALSE,
+    summarize = "none"
+  )$data
+  expect_equal(nrow(ans1), 2L)
+  expect_equal(ans1$B, as.character(c(1,2)))
+  expect_equal(ans1$C, c("a", "b"))
+
+  ans2 <- pt_cat_wide(
+    data,
+    cols = "A",
+    by = "C",
+    panel = "B",
+    complete = TRUE,
+    summarize = "none"
+  )$data
+  expect_equal(nrow(ans2), 4L)
+  expect_equal(ans2$B, as.character(rep(c(1,2), each = 2)))
+  expect_equal(ans2$C, rep(c("a", "b"), times = 2))
+})
+
+test_that("discrete data - factor levels preserved in completed data", {
+  data <- data.frame(
+    ID = 1,
+    A = as.character(c(1, 2, 3, 4)),
+    B = factor(c(1, 2, 1, 2), levels = c(2,1)),
+    C = as.character(c("a", "b", "a", "b")),
+    stringsAsFactors = FALSE
+  )
+  ans <- pt_cat_wide(
+    data,
+    cols = "A",
+    by = "C",
+    panel = "B",
+    complete = TRUE,
+    summarize = "none"
+  )$data
+  expect_equal(as.character(ans$B), as.character(rep(c(2,1), each = 2)))
+  expect_equal(ans$C, rep(c("a", "b"), times = 2))
+})
