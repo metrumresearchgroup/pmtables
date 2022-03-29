@@ -238,3 +238,39 @@ test_that("table argument is implemented", {
   expect_equal(out$data$name[7], "Creat")
   expect_equal(out$data$name[12], "Asian")
 })
+
+test_that("demographics table has group argument", {
+  tab1a <- pt_demographics(
+    pmt_first,
+    cols_cont = "WT",
+    cols_cat = c("SEXf", "ASIANf"),
+    span = "FORMf"
+  )$data
+  tab1b <- pt_cat_long(
+    pmt_first,
+    cols = c("SEXf", "ASIANf"),
+    span = "FORMf"
+  )$data
+
+  test1 <- select(filter(tab1a, name != "WT"), -1, -2)
+  ref1 <- select(tab1b, -1, -2)
+  expect_identical(test1, ref1)
+
+  tab2a <- pt_demographics(
+    pmt_first,
+    cols_cont = "WT",
+    cols_cat = c("SEXf", "ASIANf"),
+    span = "FORMf",
+    denom = "total"
+  )$data
+  tab2b <- pt_cat_long(
+    pmt_first,
+    cols= c("SEXf", "ASIANf"),
+    span = "FORMf",
+    denom = "total"
+  )$data
+
+  test2 <- select(filter(tab2a, name != "WT"), -1, -2)
+  ref2 <- select(tab2b, -1, -2)
+  expect_identical(test2, ref2)
+})

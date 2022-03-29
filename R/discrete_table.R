@@ -78,12 +78,12 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 
   ans <- group_modify(
     data,
-    ~ summarize_cat_chunk(.,cols, denom = denom, N = nrow(data))
+    ~ summarize_cat_chunk(., cols = cols, N = nrow(data), denom = denom)
   )
 
   ans <- ungroup(ans)
 
-  ans <- mutate(ans,name=names(cols)[.data[["name"]]])
+  ans <- mutate(ans, name = names(cols)[.data[["name"]]])
 
   if(wide) {
     ans <- pivot_wider(
