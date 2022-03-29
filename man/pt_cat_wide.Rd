@@ -36,8 +36,13 @@ examples)}
 \item{summarize}{where to put an all-data summary; choose \code{none} to omit the
 summary from the table.}
 
-\item{complete}{logial; if \code{TRUE}, then data the summary will be completed
+\item{complete}{logical; if \code{TRUE}, then data the summary will be completed
 for missing levels of \code{by}and \code{panel}.}
+
+\item{denom}{the denominator to use when calculating percent for each level;
+\code{group} uses the total number in the chunk being summarized; \code{total} uses
+the total number in the data set; historically, \code{group} has been used as the
+default.}
 }
 \value{
 An object with class \code{pmtable}; see \link{class-pmtable}.
@@ -50,6 +55,11 @@ The data summary for this table is \code{count (percent)}. The number of
 data points for each row is also summarized as \code{n} on the left hand side
 of the table (either on the far left or just to the right of the \code{by}
 column).
+
+When \code{group} is selected for \code{denom}, \code{percent} is calculated with
+denominator set to \code{n}, the total for each row. When \code{total} is selected for
+\code{denom}, then \code{percent} is calculated by the total number of records in the
+input data.
 
 The notes in this table are generated with \code{\link[=pt_cat_wide_notes]{pt_cat_wide_notes()}}.
 }

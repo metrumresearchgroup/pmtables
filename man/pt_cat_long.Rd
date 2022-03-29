@@ -37,6 +37,11 @@ use \code{none} to drop the summary from the table}
 examples)}
 
 \item{by}{use \code{span} argument instead}
+
+\item{denom}{the denominator to use when calculating percent for each level;
+\code{group} uses the total number in the chunk being summarized; \code{total} uses
+the total number in the data set; historically, \code{group} has been used as the
+default.}
 }
 \value{
 An object with class \code{pmtable}; see \link{class-pmtable}.
@@ -45,7 +50,14 @@ An object with class \code{pmtable}; see \link{class-pmtable}.
 Discrete data summary in long format
 }
 \details{
-The data summary for all cells in the table is \code{count (percent)}.
+The data summary for all cells in the table is \code{count (percent)}. The number
+of data records in each column variable level is given under the column
+title as \code{n}.
+
+When \code{group} is selected for \code{denom}, \code{percent} is calculated with
+denominator set to \code{n}, the total for each column variable level. When
+\code{total} is selected for \code{denom}, then \code{percent} is calculated by the total
+number of records in the input data.
 
 The notes in this table are generated with \code{\link[=pt_cat_long_notes]{pt_cat_long_notes()}}.
 }

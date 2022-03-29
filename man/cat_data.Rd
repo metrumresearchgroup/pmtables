@@ -38,13 +38,13 @@ if \code{FALSE}, it will be returned in \code{long} format.}
 
 \item{nby}{number of unique levels for the \code{by} variable.}
 
-\item{complete}{logial; if \code{TRUE}, then data the summary will be completed
+\item{complete}{logical; if \code{TRUE}, then data the summary will be completed
 for missing levels of \code{by}and \code{panel}.}
 
 \item{denom}{the denominator to use when calculating percent for each level;
 \code{group} uses the total number in the chunk being summarized; \code{total} uses
-the total number in the data set; historically, \code{group} has been used, but
-\code{total} may be more what the reader is expecting.}
+the total number in the data set; historically, \code{group} has been used as the
+default.}
 }
 \description{
 Summarize categorical data

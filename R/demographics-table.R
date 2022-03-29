@@ -83,6 +83,7 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
 #' This function makes a single table from both continuous and categorical data.
 #'
 #' @inheritParams pt_cont_long
+#' @inheritParams cat_data
 #' @param data 	the data frame to summarize; the user should filter or subset
 #' so that data contains exactly the records to be summarized; pmtables will not
 #' add or remove rows prior to summarizing data

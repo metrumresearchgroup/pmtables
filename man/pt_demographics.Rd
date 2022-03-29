@@ -14,10 +14,11 @@ pt_demographics(
   stat_name = "Statistic",
   stat_width = 2,
   summarize_all = TRUE,
-  all_name = "All data",
+  all_name = "Summary",
   fun = dem_cont_fun,
   notes = pt_demographics_notes(),
-  paneled = TRUE
+  paneled = TRUE,
+  denom = c("group", "total")
 )
 }
 \arguments{
@@ -61,6 +62,11 @@ data; the default is \code{\link[=dem_cont_fun]{dem_cont_fun()}}. The result wil
 covariate names; otherwise, the covariate names will appear as the left-most
 column with non-repeating names cleared and separated with \code{hline} (see
 examples).}
+
+\item{denom}{the denominator to use when calculating percent for each level;
+\code{group} uses the total number in the chunk being summarized; \code{total} uses
+the total number in the data set; historically, \code{group} has been used as the
+default.}
 }
 \value{
 An object of class \code{pmtable}.

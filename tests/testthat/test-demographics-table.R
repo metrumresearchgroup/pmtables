@@ -19,7 +19,7 @@ test_that("pt_demographics - call with span and summary", {
   ustudy <- unique(as.character(pmt_first$STUDYf))
   expect_equal(
     names(out$data),
-    c("name", "Statistic", ustudy, "All data")
+    c("name", "Statistic", ustudy, "Summary")
   )
 })
 
@@ -48,7 +48,7 @@ test_that("pt_demographics - call with summary, no span", {
   expect_is(out, "pmtable")
   expect_equal(
     names(out$data),
-    c("name", "Statistic", "All data")
+    c("name", "Statistic", "Summary")
   )
 })
 
@@ -98,7 +98,7 @@ test_that("handle numeric values from cont summary function", {
   )
   expect_true("Median" %in% out$data$Statistic)
   cont <- dplyr::slice(out$data, 1:2)
-  expect_equal(cont$`All data`, c("1.32", "1.45929342"))
+  expect_equal(cont$Summary, c("1.32", "1.45929342"))
 })
 
 test_that("demographics data summary - summary function errors", {

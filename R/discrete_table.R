@@ -49,8 +49,8 @@ prep_cat_data <- function(data, cols) {
 #' if `FALSE`, it will be returned in `long` format.
 #' @param denom the denominator to use when calculating percent for each level;
 #' `group` uses the total number in the chunk being summarized; `total` uses
-#' the total number in the data set; historically, `group` has been used, but
-#' `total` may be more what the reader is expecting.
+#' the total number in the data set; historically, `group` has been used as the
+#' default.
 #'
 #' @examples
 #'
@@ -115,6 +115,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' Discrete data summary in long format
 #'
 #' @inheritParams pt_cont_long
+#' @inheritParams cat_data
 #' @param span variable name for column spanner
 #' @param all_name_span table column name to use for data summaries across
 #' levels of `span` if it is provided
@@ -123,7 +124,14 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' @param by use `span` argument instead
 #'
 #' @details
-#' The data summary for all cells in the table is `count (percent)`.
+#' The data summary for all cells in the table is `count (percent)`. The number
+#' of data records in each column variable level is given under the column
+#' title as `n`.
+#'
+#' When `group` is selected for `denom`, `percent` is calculated with
+#' denominator set to `n`, the total for each column variable level. When
+#' `total` is selected for `denom`, then `percent` is calculated by the total
+#' number of records in the input data.
 #'
 #' The notes in this table are generated with [pt_cat_long_notes()].
 #'
@@ -139,7 +147,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' An object with class `pmtable`; see [class-pmtable].
 #'
 #' @export
-pt_cat_long <- function(data, cols, span  =  ".total",
+pt_cat_long <- function(data, cols, span  = ".total",
                         all_name = " ",
                         all_name_span = "Summary",
                         summarize = c("both", "right", "top", "none"),
@@ -248,11 +256,12 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' Discrete data summary in long format
 #'
 #' @inheritParams pt_cont_wide
+#' @inheritParams cat_data
 #' @param by a grouping variable for the summary; may be given as character
 #' vector or quosure.
 #' @param summarize where to put an all-data summary; choose `none` to omit the
 #' summary from the table.
-#' @param complete logial; if `TRUE`, then data the summary will be completed
+#' @param complete logical; if `TRUE`, then data the summary will be completed
 #' for missing levels of `by`and `panel`.
 #'
 #' @details
@@ -260,6 +269,11 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' data points for each row is also summarized as `n` on the left hand side
 #' of the table (either on the far left or just to the right of the `by`
 #' column).
+#'
+#' When `group` is selected for `denom`, `percent` is calculated with
+#' denominator set to `n`, the total for each row. When `total` is selected for
+#' `denom`, then `percent` is calculated by the total number of records in the
+#' input data.
 #'
 #' The notes in this table are generated with [pt_cat_wide_notes()].
 #'
