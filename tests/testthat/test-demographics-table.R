@@ -19,7 +19,7 @@ test_that("pt_demographics - call with span and summary", {
   ustudy <- unique(as.character(pmt_first$STUDYf))
   expect_equal(
     names(out$data),
-    c("name", "Statistic", ustudy, "All data")
+    c("name", "Statistic", ustudy, "Summary")
   )
 })
 
@@ -48,7 +48,7 @@ test_that("pt_demographics - call with summary, no span", {
   expect_is(out, "pmtable")
   expect_equal(
     names(out$data),
-    c("name", "Statistic", "All data")
+    c("name", "Statistic", "Summary")
   )
 })
 
@@ -98,7 +98,7 @@ test_that("handle numeric values from cont summary function", {
   )
   expect_true("Median" %in% out$data$Statistic)
   cont <- dplyr::slice(out$data, 1:2)
-  expect_equal(cont$`All data`, c("1.32", "1.45929342"))
+  expect_equal(cont$Summary, c("1.32", "1.45929342"))
 })
 
 test_that("demographics data summary - summary function errors", {
@@ -237,4 +237,40 @@ test_that("table argument is implemented", {
   expect_equal(out$data$name[4], "AGE")
   expect_equal(out$data$name[7], "Creat")
   expect_equal(out$data$name[12], "Asian")
+})
+
+test_that("demographics table has group argument", {
+  tab1a <- pt_demographics(
+    pmt_first,
+    cols_cont = "WT",
+    cols_cat = c("SEXf", "ASIANf"),
+    span = "FORMf"
+  )$data
+  tab1b <- pt_cat_long(
+    pmt_first,
+    cols = c("SEXf", "ASIANf"),
+    span = "FORMf"
+  )$data
+
+  test1 <- select(filter(tab1a, name != "WT"), -1, -2)
+  ref1 <- select(tab1b, -1, -2)
+  expect_identical(test1, ref1)
+
+  tab2a <- pt_demographics(
+    pmt_first,
+    cols_cont = "WT",
+    cols_cat = c("SEXf", "ASIANf"),
+    span = "FORMf",
+    denom = "total"
+  )$data
+  tab2b <- pt_cat_long(
+    pmt_first,
+    cols= c("SEXf", "ASIANf"),
+    span = "FORMf",
+    denom = "total"
+  )$data
+
+  test2 <- select(filter(tab2a, name != "WT"), -1, -2)
+  ref2 <- select(tab2b, -1, -2)
+  expect_identical(test2, ref2)
 })

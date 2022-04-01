@@ -12,7 +12,9 @@ cat_data(
   summarize_all = TRUE,
   all_name = "All",
   wide = FALSE,
-  nby = NULL
+  nby = NULL,
+  complete = FALSE,
+  denom = c("group", "total")
 )
 }
 \arguments{
@@ -27,14 +29,22 @@ not add or remove rows prior to summarizing \code{data}}
 \item{panel}{data set column name to stratify the summary}
 
 \item{summarize_all}{logical indicating whether or not to include a summary
-of the full data in the output}
+of the full data in the output.}
 
-\item{all_name}{label for full data summary}
+\item{all_name}{label for full data summary.}
 
 \item{wide}{\code{logical}; if \code{TRUE}, data frame will be returned in wide format;
-if \code{FALSE}, it will be returned in \code{long} format}
+if \code{FALSE}, it will be returned in \code{long} format.}
 
-\item{nby}{number of unique levels for the \code{by} variable}
+\item{nby}{number of unique levels for the \code{by} variable.}
+
+\item{complete}{logical; if \code{TRUE}, then data the summary will be completed
+for missing levels of \code{by}and \code{panel}.}
+
+\item{denom}{the denominator to use when calculating percent for each level;
+\code{group} uses the total number in the chunk being summarized; \code{total} uses
+the total number in the data set; historically, \code{group} has been used as the
+default.}
 }
 \description{
 Summarize categorical data
