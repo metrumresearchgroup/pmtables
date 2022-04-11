@@ -7,14 +7,14 @@ inspect <- function(...) {
 
 context("test-cont-table")
 
-test_that("continuous data table - long", {
+test_that("continuous data table - long [PMT-TEST-0017]", {
   data <- pmt_first
   table <- list(WT = "Weight")
   ans <- pt_cont_long(data,cols="WT,ALB,SCR",panel="STUDYf",table=table)
   expect_is(ans,"pmtable")
 })
 
-test_that("invert panel and cols", {
+test_that("invert panel and cols [PMT-TEST-0018]", {
   data <- pmt_first
   table <- list(WT = "weight", ALB = "albumin", SCR = "creat")
   ans1 <- pt_cont_long(
@@ -40,13 +40,13 @@ test_that("invert panel and cols", {
   expect_is(ans2$sumrows, "sumrow")
 })
 
-test_that("continuous data table - wide", {
+test_that("continuous data table - wide [PMT-TEST-0019]", {
   data <- pmt_first
   ans <- pt_cont_wide(data, cols = "WT,ALB,SCR", panel = "STUDYf")
   expect_is(ans,"pmtable")
 })
 
-test_that("cont wide with renamed cols", {
+test_that("cont wide with renamed cols [PMT-TEST-0020]", {
   data <- pmt_first
   ans1 <- pt_cont_wide(data, cols = c(wt = "WT", alb = "ALB"))
   tb <-  list(WT = "wt", ALB = "alb")
@@ -57,7 +57,7 @@ test_that("cont wide with renamed cols", {
   expect_equal(names(ans1$data), c("WT", "ALB"))
 })
 
-test_that("cont long with renamed cols", {
+test_that("cont long with renamed cols [PMT-TEST-0021]", {
   data <- pmt_first
   ans1 <- pt_cont_long(data, cols = c(`a a g` = "AAG", `b m i` = "BMI"))
   tb <-  list(BMI = "b m i", AAG = "a a g")
@@ -69,14 +69,14 @@ test_that("cont long with renamed cols", {
   expect_equal(variable[2], c("b m i"))
 })
 
-test_that("notes - cont-wide", {
+test_that("notes - cont-wide [PMT-TEST-0022]", {
   ans <- pt_cont_wide(pmt_first, cols = "WT,ALB")$notes
   expect_is(ans, "character")
   expect_length(ans,1)
   expect_match(ans, "mean (sd) [count]", fixed = TRUE)
 })
 
-test_that("notes - cont-long", {
+test_that("notes - cont-long [PMT-TEST-0023]", {
   ans <- pt_cont_long(pmt_first, cols = "WT,ALB")$notes
   expect_is(ans, "character")
   expect_length(ans,3)
@@ -85,12 +85,12 @@ test_that("notes - cont-long", {
   expect_match(ans[3], "minimum", fixed = TRUE)
 })
 
-test_that("cont long table has n", {
+test_that("cont long table has n [PMT-TEST-0024]", {
   ans <- pt_cont_long(pmt_first, cols = "WT,ALB")$data
   expect_true("n" %in% names(ans))
 })
 
-test_that("cont table all missing", {
+test_that("cont table all missing [PMT-TEST-0025]", {
   data <- dplyr::tibble(ID = 1:30,WT = runif(30,1,10), SCR = NA_real_, ALB = WT)
   a <- pt_cont_wide(data, cols = "WT,SCR,ALB", na_fill = NULL)
   b <- pt_cont_long(data, cols = "WT,SCR,ALB", na_fill = NULL)

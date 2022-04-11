@@ -7,7 +7,7 @@ inspect <- function(...) {
 
 context("test-align")
 
-test_that("align helpers", {
+test_that("align helpers [PMT-TEST-0001]", {
   expect_identical(cols_center(), cols_align(.default = 'c'))
   expect_identical(cols_left(), cols_align(.default = 'l'))
   expect_identical(cols_right(), cols_align(.default = 'r'))

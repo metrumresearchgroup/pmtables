@@ -4,7 +4,7 @@ library(dplyr)
 
 context("test-summary-functions.R")
 
-test_that("summary cont_long_fun", {
+test_that("summary cont_long_fun [PMT-TEST-0196]", {
   x <- rnorm(1000)
   ans <- pmtables:::cont_long_fun(x)
   expect_is(ans,"data.frame")
@@ -17,7 +17,7 @@ test_that("summary cont_long_fun", {
   expect_equal(ans$`Min / Max`, rng)
 })
 
-test_that("summary cont_wide_fun", {
+test_that("summary cont_wide_fun [PMT-TEST-0197]", {
   x <- rnorm(1000)
   ans <- pmtables:::cont_wide_fun(x)
   expect_is(ans,"data.frame")
@@ -30,7 +30,7 @@ test_that("summary cont_wide_fun", {
   expect_equal(txt[3], "[1000]")
 })
 
-test_that("summary n missing", {
+test_that("summary n missing [PMT-TEST-0198]", {
   x <- rnorm(1000)
   miss <- sample(seq_len(1000), 10)
   bq <- sample(miss, 5)

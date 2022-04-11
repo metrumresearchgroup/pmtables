@@ -4,7 +4,7 @@ library(pmtables)
 
 context("test-utils-table.R")
 
-test_that("tex_bold and tex_it", {
+test_that("tex_bold and tex_it [PMT-TEST-0236]", {
   expect_error(tex_bold(1))
   expect_error(tex_it(1))
   ans <- tex_bold("a")
@@ -21,7 +21,7 @@ test_that("tex_bold and tex_it", {
   expect_identical(ans[3], "\\textbf{c}")
 })
 
-test_that("test-table-utils-stable_save", {
+test_that("test-table-utils-stable_save [PMT-TEST-0237]", {
   tmp <- tempfile()
   x <- stable(data.frame(a = 1), output_file = tmp)
   expect_invisible(ans <- stable_save(x))
@@ -35,7 +35,7 @@ test_that("test-table-utils-stable_save", {
   expect_error(stable_save(x), "and the 'file' argument is missing")
 })
 
-test_that("save a list of tables", {
+test_that("save a list of tables [PMT-TEST-0238]", {
   a <- stable(stdata(), output_file = "a.tex")
   b <- stable(stdata(), output_file = "b.tex")
   l <- list(a,b)
@@ -43,7 +43,7 @@ test_that("save a list of tables", {
   expect_is(ans, "list")
 })
 
-test_that("table-utils paste units", {
+test_that("table-utils paste units [PMT-TEST-0239]", {
   cols <- LETTERS[c(2,5,4,3,1)]
   units <- list(C = "pounds", X = "none", B = "mg", D = "kg", Z = "liters")
   cols_new <- pmtables:::paste_units(cols, units)

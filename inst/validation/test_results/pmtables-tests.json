@@ -1,0 +1,10 @@
+{
+  "date": "2022-04-11 14:25:42",
+  "executor": "barrettk",
+  "info": {
+    "env_vars": {
+      "METWORX_VERSION": "21.08",
+      "COMMIT_HASH": "7414d76186cc49f5e3bb412cbbd947eeedc04060"
+    }
+  }
+}
