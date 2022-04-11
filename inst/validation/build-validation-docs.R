@@ -33,8 +33,6 @@ if (fs::dir_exists(docs_dir)) fs::dir_delete(docs_dir)
 fs::dir_create(docs_dir)
 
 # run tests and write res to disk
-tarball <- "../mrgvalprep_0.0.4.tar.gz"
-renv::install(tarball, repos = NULL, dependencies = T)
 test_res <- mrgvalprep::parse_testthat_list_reporter(
   devtools::test(Reporter = testthat::ListReporter),
   roll_up_ids = TRUE
