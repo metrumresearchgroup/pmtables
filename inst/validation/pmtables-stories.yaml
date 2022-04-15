@@ -586,3 +586,13 @@ PMT-S077:
   - PMT-TEST-0193
   - PMT-TEST-0195
   - PMT-TEST-0194
+PMT-S078:
+  name: Stable() creates tabular output
+  description: As a user, I want to be able to create tabular output from an R data frame.
+  ProductRisk: low-risk
+  tests:
+  - PMT-TEST-0002
+  - PMT-TEST-0003
+  - PMT-TEST-0004
+  - PMT-TEST-0005
+  - PMT-TEST-0006
