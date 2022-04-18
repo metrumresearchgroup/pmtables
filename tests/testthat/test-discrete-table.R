@@ -6,13 +6,13 @@ inspect <- function(...) {
   get_stable_data(stable(..., inspect = TRUE))
 }
 
-test_that("discrete data table - long", {
+test_that("discrete data table - long [PMT-TEST-0073]", {
   data <- pmt_first
   ans <- pt_cat_long(data, cols = "SEXf,RFf,CPf", span = "STUDYf")
   expect_is(ans,"pmtable")
 })
 
-test_that("discrete - long, summaries", {
+test_that("discrete - long, summaries [PMT-TEST-0074]", {
   data <- pmt_first
   ans <- pt_cat_long(data, cols = "SEXf,RFf,CPf", span = "STUDYf")
   expect_is(ans,"pmtable")
@@ -38,13 +38,13 @@ test_that("discrete - long, summaries", {
   expect_equal(ncol(ans$data), nc-1)
 })
 
-test_that("discrete data table - wide", {
+test_that("discrete data table - wide [PMT-TEST-0075]", {
   data <- pmt_first
   ans <- pt_cat_wide(data, cols = "SEXf,RFf,CPf", by = "STUDYf")
   expect_is(ans,"pmtable")
 })
 
-test_that("discrete - wide, summaries", {
+test_that("discrete - wide, summaries [PMT-TEST-0076]", {
   data <- pmt_first
   ans <- pt_cat_wide(data, cols = "SEXf,RFf,CPf", by = "STUDYf")
   nr <- length(unique(data$STUDYf))
@@ -57,7 +57,7 @@ test_that("discrete - wide, summaries", {
   expect_equal(nrow(ans$data), nr)
 })
 
-test_that("notes - cat-wide", {
+test_that("notes - cat-wide [PMT-TEST-0077]", {
   ans <- pt_cat_wide(pmt_first, cols = "FORMf,SEXf")$notes
   expect_is(ans, "character")
   expect_length(ans,2)
@@ -65,7 +65,7 @@ test_that("notes - cat-wide", {
   expect_match(ans[2], "number of records summarized", fixed = TRUE)
 })
 
-test_that("notes - cat-long", {
+test_that("notes - cat-long [PMT-TEST-0078]", {
   ans <- pt_cat_long(pmt_first, cols = "STUDYf")$notes
   expect_is(ans, "character")
   expect_length(ans,2)
@@ -73,12 +73,12 @@ test_that("notes - cat-long", {
   expect_match(ans[2], "number of records summarized", fixed = TRUE)
 })
 
-test_that("cat wide table has n", {
+test_that("cat wide table has n [PMT-TEST-0079]", {
   ans <- pt_cat_wide(pmt_first, cols = "FORMf,STUDYf")$data
   expect_true("n" %in% names(ans))
 })
 
-test_that("cat long table has cols_extra", {
+test_that("cat long table has cols_extra [PMT-TEST-0080]", {
   ans <- pt_cat_long(pmt_first, cols = "FORMf,STUDYf", span = "SEXf")$cols_extra
   expect_is(ans,"data.frame")
   expect_equal(ans$Summary ,"n = 160")
@@ -86,7 +86,7 @@ test_that("cat long table has cols_extra", {
   expect_equal(ans$female ,"n = 80")
 })
 
-test_that("cat wide with spanner breaks", {
+test_that("cat wide with spanner breaks [PMT-TEST-0081]", {
   ans <- pt_cat_wide(
     pmt_first,
     cols = c("Formulation ... type" = "FORMf", "SEX" = "SEXf")
@@ -100,7 +100,7 @@ test_that("cat wide with spanner breaks", {
   expect_equal(out$span_data$cols, c("n", lvls))
 })
 
-test_that("cat table with missing value", {
+test_that("cat table with missing value [PMT-TEST-0082]", {
   data <- pmt_first
   data$SEXf[20] <- NA_character_
   expect_warning(
@@ -110,7 +110,7 @@ test_that("cat table with missing value", {
   expect_is(ans, "pmtable")
 })
 
-test_that("cat wide with renamed cols", {
+test_that("cat wide with renamed cols [PMT-TEST-0083]", {
   data <- pmt_first
   ans1 <- pt_cat_wide(data, cols = c(Form = "FORMf", Sex = "SEXf"))
   tb <-  list(FORMf = "Form", SEXf = "Sex")
@@ -126,7 +126,7 @@ test_that("cat wide with renamed cols", {
   expect_equal(sp$title, c("", rep("Form", an), rep("Sex", bn)))
 })
 
-test_that("cat long with renamed cols", {
+test_that("cat long with renamed cols [PMT-TEST-0084]", {
   data <- pmt_first
   ans1 <- pt_cat_long(data, cols = c(Form = "FORMf", Sex = "SEXf"))
   tb <-  list(FORMf = "Form", SEXf = "Sex")

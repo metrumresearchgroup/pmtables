@@ -1,7 +1,7 @@
 
 context("test-inventory-data")
 
-test_that("inventory data summary", {
+test_that("inventory data summary [PMT-TEST-0119]", {
   data <- pmt_first
   ans <- data_inventory_data(data, by = ".total")
   expect_equal(nrow(ans),1)
@@ -15,7 +15,7 @@ test_that("inventory data summary", {
   expect_identical(ans,ans2)
 })
 
-test_that("stacked inventory data summary", {
+test_that("stacked inventory data summary [PMT-TEST-0120]", {
   data <- pmt_first
   ans <- pmtables:::data_inventory_data_split(data, by = "STUDYf")
   nstudy <- length(unique(data[["STUDY"]]))
@@ -28,7 +28,7 @@ test_that("stacked inventory data summary", {
   )
 })
 
-test_that("missing columns", {
+test_that("missing columns [PMT-TEST-0121]", {
   data <- data.frame(DV = 1, ID = 2, BQL = 3, by = 'a')
   expect_silent(data_inventory_data(data, by = "by"))
   bad <- select(data, -DV)

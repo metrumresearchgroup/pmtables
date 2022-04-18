@@ -5,7 +5,7 @@ context("test-cat-data")
 
 cols <- pmtables:::new_names(c("CPf", "SEXf", "RFf"))
 
-test_that("discrete data summary long - simple", {
+test_that("discrete data summary long - simple [PMT-TEST-0065]", {
   data <- pmt_first
   ans <- cat_data(data, cols = cols)
   expect_is(ans,"data.frame")
@@ -20,7 +20,7 @@ test_that("discrete data summary long - simple", {
   expect_equal(ncol(ans),3)
 })
 
-test_that("discrete data summary long - by", {
+test_that("discrete data summary long - by [PMT-TEST-0066]", {
   data <- pmt_first
   ans <- cat_data(data, cols = cols, by = "STUDY")
   expect_is(ans,"data.frame")
@@ -36,7 +36,7 @@ test_that("discrete data summary long - by", {
   expect_equal(ncol(ans),nby + 2)
 })
 
-test_that("discrete data summary wide - simple", {
+test_that("discrete data summary wide - simple [PMT-TEST-0067]", {
   data <- pmt_first
   ans <- cat_data(data, cols = cols, wide = TRUE)
   expect_is(ans,"data.frame")
@@ -51,7 +51,7 @@ test_that("discrete data summary wide - simple", {
   expect_equal(ncol(ans),l + 1 + 1)
 })
 
-test_that("discrete data summary wide - by", {
+test_that("discrete data summary wide - by [PMT-TEST-0068]", {
   data <- pmt_first
   ans <- cat_data(data, cols = cols, wide = TRUE, by = "STUDY")
   expect_is(ans,"data.frame")
@@ -72,7 +72,7 @@ extract_pct <- function(x) {
   as.numeric(x)
 }
 
-test_that("discrete data summary - with group denominator", {
+test_that("discrete data summary - with group denominator [PMT-TEST-0069]", {
   data <- pmt_first
   cols <- c("FORMf")
   # The long summary sums by column
@@ -89,7 +89,7 @@ test_that("discrete data summary - with group denominator", {
   expect_true(all(rowSums(ans)==100))
 })
 
-test_that("discrete data summary - with total denominator", {
+test_that("discrete data summary - with total denominator [PMT-TEST-0070]", {
   data <- pmt_first
   cols <- c("FORMf")
   # The long table summs to 100% across everything
@@ -115,7 +115,7 @@ test_that("discrete data summary - with total denominator", {
   expect_true(summ > 99.5 & summ < 100.2)
 })
 
-test_that("discrete data - wide summary is completed", {
+test_that("discrete data - wide summary is completed [PMT-TEST-0071]", {
   data <- data.frame(
     ID = 1,
     A = as.character(c(1, 2, 3, 4)),
@@ -148,7 +148,7 @@ test_that("discrete data - wide summary is completed", {
   expect_equal(ans2$C, rep(c("a", "b"), times = 2))
 })
 
-test_that("discrete data - factor levels preserved in completed data", {
+test_that("discrete data - factor levels preserved in completed data [PMT-TEST-0072]", {
   data <- data.frame(
     ID = 1,
     A = as.character(c(1, 2, 3, 4)),

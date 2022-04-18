@@ -7,7 +7,7 @@ inspect <- function(...) {
 
 context("test-sumrow")
 
-test_that("summary row", {
+test_that("summary row [PMT-TEST-0199]", {
   file <- system.file("datasets", "with-total.RDS", package = "pmtables")
   data <- readRDS(file)
   n <- nrow(data)

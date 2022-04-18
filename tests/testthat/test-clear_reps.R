@@ -8,7 +8,7 @@ inspect <- function(...) {
 
 context("test-clear_reps")
 
-test_that("clear replicates", {
+test_that("clear replicates [PMT-TEST-0010]", {
   data <- data.frame(A = c(rep("a", 3), rep("b",2), rep('c', 3)))
   data$B <- letters[seq(nrow(data))]
   out <- tab_clear_reps(data, "A")
@@ -16,7 +16,7 @@ test_that("clear replicates", {
   expect_equal(out$A,ans)
 })
 
-test_that("clear grouped replicates - 1", {
+test_that("clear grouped replicates - 1 [PMT-TEST-0011]", {
   data <- pmt_first
   data <- count(data, STUDYf, FORMf, SEXf)
   data <- mutate(data, across(c(STUDYf,FORMf,SEXf),as.character))
@@ -35,7 +35,7 @@ test_that("clear grouped replicates - 1", {
   )
 })
 
-test_that("clear grouped replicates - 2", {
+test_that("clear grouped replicates - 2 [PMT-TEST-0012]", {
   data <- pmt_first
   data <- count(data,STUDYf,FORMf,SEXf)
   data <- mutate(data, across(STUDYf:SEXf, as.character))

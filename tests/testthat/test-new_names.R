@@ -2,7 +2,7 @@
 
 context("test-new_names")
 
-test_that("new names - character", {
+test_that("new names - character [PMT-TEST-0146]", {
   x <- pmtables:::new_names("a,b,c")
   expect_identical(unname(x),names(x))
   expect_is(x,"character")
@@ -13,14 +13,14 @@ test_that("new names - character", {
   expect_equal(x, c(a = "a", B = "b", c = "c", zz = "z"))
 })
 
-test_that("new names - quosure, unnamed", {
+test_that("new names - quosure, unnamed [PMT-TEST-0147]", {
   x <- pmtables:::new_names(dplyr::vars(a,b,c))
   expect_identical(unname(x),names(x))
   expect_is(x,"character")
   expect_length(x,3)
 })
 
-test_that("new names - quosure, named", {
+test_that("new names - quosure, named [PMT-TEST-0148]", {
   x <- pmtables:::new_names(dplyr::vars(j = a, k = b, c))
   expect_is(x,"character")
   expect_length(x,3)
@@ -28,7 +28,7 @@ test_that("new names - quosure, named", {
   expect_identical(names(x), c("j", "k", "c"))
 })
 
-test_that("new names - quosure, table", {
+test_that("new names - quosure, table [PMT-TEST-0149]", {
   table <- list(c = "d")
   x <- pmtables:::new_names(dplyr::vars(a,b,c),table)
   expect_identical(names(x),c("a", "b", "d"))
@@ -36,7 +36,7 @@ test_that("new names - quosure, table", {
   expect_length(x,3)
 })
 
-test_that("new names - panel", {
+test_that("new names - panel [PMT-TEST-0150]", {
   x <- rowpanel("a")
   x <- pmtables:::new_names(x)
   expect_identical(names(x),c("a"))
@@ -45,7 +45,7 @@ test_that("new names - panel", {
   expect_length(x,1)
 })
 
-test_that("new names - list", {
+test_that("new names - list [PMT-TEST-0151]", {
   x <- list(a = "A", z = "Z")
   x <- pmtables:::new_names(x)
   expect_identical(names(x),c("a", "z"))
@@ -54,7 +54,7 @@ test_that("new names - list", {
   expect_length(x,2)
 })
 
-test_that("duplicated values is error", {
+test_that("duplicated values is error [PMT-TEST-0152]", {
   expect_error(pmtables:::new_names("a,b,c,a"))
   expect_error(pmtables:::new_names(dplyr::vars(a,b,c,a)))
 })
