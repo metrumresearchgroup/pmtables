@@ -154,8 +154,8 @@ pt_cont_wide <- function(data, cols,
 
   has_by <- !missing(by)
 
-  tst <- fun(rnorm(10))
-  assert_that(identical(names(tst),"summary"))
+  tst <- fun(c(1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7))
+  assert_that(identical(names(tst), "summary"))
 
   cols <- new_names(cols,table)
   by <- new_names(by,table)
