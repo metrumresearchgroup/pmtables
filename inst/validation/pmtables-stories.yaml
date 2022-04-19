@@ -596,3 +596,10 @@ PMT-S078:
   - PMT-TEST-0004
   - PMT-TEST-0005
   - PMT-TEST-0006
+PMT-S079:
+  name: sig returns character when passed integer
+  description: >
+    As a user, I want sig() to return a character result when passed an integer.
+  ProductRisk: low-risk
+  tests:
+  - PMT-UTIL-0001
