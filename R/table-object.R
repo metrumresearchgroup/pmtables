@@ -5,6 +5,16 @@ check_st <- function(x) {
   )
 }
 
+stop_if_ptobject <- function(x) {
+  if(is.ptobject(x)) {
+    caller <- as.character(sys.call(-1))[1]
+    stop(
+      glue("the {caller}() function cannot be used to operate on pmtble objects."),
+      call. = FALSE
+    )
+  }
+}
+
 st_arg_names <- c(
   "data", "panel", "notes",
   "align", "r_file", "output_file",
@@ -35,7 +45,7 @@ st_arg_names <- c(
 #'
 #' @return
 #' And object with class `stobject` which can get piped to other functions. The
-#' `pmtable` method returns an object that also has class `stpmtable`.
+#' `pmtable` method returns an object that also has class `ptobject`.
 #'
 #' @examples
 #' ob <- st_new(ptdata())
@@ -56,12 +66,12 @@ st_new.data.frame <- function(x, ...) {
 #' @rdname st_new
 #' @export
 st_new.pmtable <- function(x, ...) {
-  valid <- c(
+  valid_arg_names <- c(
     "data", "panel", "cols_rename", "align", "notes", "cols_extra",
-    "cols_blank", "span_split", "units", "bold_cols"
+    "cols_blank", "span", "span_split", "units", "bold_cols"
   )
   incoming <- names(x)
-  if(!all(incoming %in% valid)) {
+  if(!all(incoming %in% valid_arg_names)) {
     stop("internal error: invalid item in pmtable object.")
   }
   ans <- st_new(x$data)
@@ -70,7 +80,7 @@ st_new.pmtable <- function(x, ...) {
   })
   structure(
     ans,
-    class = c("stobject", "stpmtable", "environment"),
+    class = c("stobject", "ptobject", "environment"),
     argnames = st_arg_names
   )
 }
@@ -79,9 +89,8 @@ st_new.pmtable <- function(x, ...) {
 #' @export
 st_data <- function(data,...) st_new(data,...)
 
-
 is.stobject <- function(x) inherits(x, "stobject")
-is.stpmtable <- function(x) inherits(x, "stpmtable")
+is.ptobject <- function(x) inherits(x, "ptobject")
 
 #' Convert st object to table output
 #'
@@ -146,7 +155,8 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 
 #' Add panel information to st object
 #'
-#' See the `panel` argument to [stable()].
+#' See the `panel` argument to [stable()]. This function cannot be used to
+#' operate on pmtable objects.
 #'
 #' @param x an stobject
 #' @param ... passed to [rowpanel()]
@@ -161,6 +171,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 #' @export
 st_panel <- function(x, ...) {
   check_st(x)
+  stop_if_ptobject(x)
   panel <- rowpanel(...)
   assert_that(is.rowpanel(panel))
   x$panel <- panel
@@ -409,7 +420,7 @@ st_span <- function(x, ..., split = FALSE) {
     return(x)
   }
   if(is.list(x$span)) {
-    x$span <- c(x$span,list(span))
+    x$span <- c(x$span, list(span))
     return(x)
   }
   x
@@ -443,9 +454,10 @@ st_span <- function(x, ..., split = FALSE) {
 st_span_split <- function(x, ..., split = TRUE) {
   assert_that(
     isTRUE(split),
-    msg = "the `split` argument is FALSE; use `st_span()` instead"
+    msg = "the `split` argument is FALSE; use `st_span()` instead."
   )
   check_st(x)
+  stop_if_ptobject(x)
   span <- colsplit(..., split = split)
   if(!is.null(x$span_split)) {
     warning(
@@ -670,7 +682,11 @@ st_args <- function(x,...) {
 
 #' Add unit information to st object
 #'
-#' See the `units` argument to [stable()]. Units can be passed either as
+#' See the `units` argument to [stable()]. This function cannot be used to
+#' work on pmtable objects.
+#'
+#' @details
+#' Units can be passed either as
 #' `name=value` pairs or as a named list with [st_args()]. Units can
 #' alternatively be passed as an argument to [stable()] as a pre-formed, named
 #' list using [st_args()].  Passing as an argument this way will overwrite units
@@ -686,12 +702,13 @@ st_args <- function(x,...) {
 #' @export
 st_units <- function(x, ..., parens = TRUE) {
   check_st(x)
+  stop_if_ptobject(x)
   units <- flatten(list(...))
   units <- map(units, trimws)
   if(isTRUE(parens)) {
-    u <- unlist(units, use.names=FALSE)
-    w <- substr(u,1,1) != "(" & nchar(u) > 0
-    units[w] <- paste0("(",units[w],")")
+    u <- unlist(units, use.names = FALSE)
+    w <- substr(u, 1, 1) != "(" & nchar(u) > 0
+    units[w] <- paste0("(", units[w], ")")
   }
   if(is.list(x$units)) {
     x$units <- combine_list(x$units, units)
@@ -712,6 +729,7 @@ st_units <- function(x, ..., parens = TRUE) {
 #'
 #' @export
 st_bold <- function(x, cols, pattern = "*") {
+  check_st(x)
   cols <- new_names(cols)
   assert_that(all(cols %in% names(x$data)))
   for(col in cols) {
@@ -723,6 +741,7 @@ st_bold <- function(x, cols, pattern = "*") {
 #' @rdname st_bold
 #' @export
 st_it <- function(x, cols, pattern = "*") {
+  check_st(x)
   cols <- new_names(cols)
   assert_that(all(cols %in% names(x$data)))
   for(col in cols) {
@@ -740,6 +759,7 @@ st_it <- function(x, cols, pattern = "*") {
 #'
 #' @export
 st_drop <- function(x, ...) {
+  check_st(x)
   dots <- new_names(enquos(...))
   x$drop <- c(x$drop, dots)
   x
@@ -755,6 +775,7 @@ st_drop <- function(x, ...) {
 #'
 #' @export
 st_select <- function(x, ...) {
+  check_st(x)
   x$data <- select(x$data, ...)
   x
 }
@@ -762,6 +783,7 @@ st_select <- function(x, ...) {
 #' @rdname st_select
 #' @export
 st_mutate <- function(x, ...) {
+  check_st(x)
   x$data <- mutate(x$data, ...)
   x
 }

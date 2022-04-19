@@ -13,7 +13,7 @@ st_notes(
   collapse = "; ",
   append = FALSE,
   replace = FALSE,
-  flatten = FALSE
+  to_string = FALSE
 )
 
 st_notes_ap(...)
@@ -27,19 +27,30 @@ st_notes_ap(...)
 
 \item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}}
 
-\item{collapse}{if \code{is.character}, then the note will be collapsed into a
-single line separated by value of \code{collapse} (see \code{\link[base:paste]{base::paste0()}})}
+\item{collapse}{a character string to separate notes which are pasted
+together when flattening or appending; this should usually end in a single
+space (see default).}
+
+\item{append}{logical; if \code{TRUE}, then incoming notes are appended to the
+previous, single note in the notes list. When \code{...} contains multiple
+notes, then the notes are pasted together first.}
+
+\item{replace}{logical; if \code{TRUE}, remove any existing notes before procesing
+new notes.}
+
+\item{to_string}{logical; if \code{TRUE}, then all notes are collapsed to a single
+string.}
 }
 \description{
 See the \code{notes} and \code{note_config} arguments passed to \code{\link[=stable]{stable()}} and then to
-\code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and will accumulate
-\code{notes} data.
+\code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and can accumulate
+\code{notes} data in various ways.
 }
 \examples{
 library(dplyr)
 
 ob <- st_new(ptdata())
 
-ob \%>\% st_notes("ALB: albumin (g/dL)") \%>\% st_make()
+ob \%>\% st_notes("ALB: albumin (g/dL)") \%>\% stable()
 
 }

@@ -23,7 +23,7 @@ table render function (e.g. \code{\link[=stable]{stable()}} or \code{\link[=stab
 }
 \value{
 And object with class \code{stobject} which can get piped to other functions. The
-\code{pmtable} method returns an object that also has class \code{stpmtable}.
+\code{pmtable} method returns an object that also has class \code{ptobject}.
 }
 \description{
 The st object will collect various configuration settings and pass those

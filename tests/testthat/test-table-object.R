@@ -262,3 +262,81 @@ test_that("arguments to st_args must be named", {
     regexp = "must be named"
   )
 })
+
+test_that("pipe pt_cat_wide to stobject", {
+  x <- pt_cat_wide(
+    pmt_first,
+    cols = c("SEXf", "ASIANf")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_cat_long to stobject", {
+  x <- pt_cat_long(
+    pmt_first,
+    cols = c("SEXf", "ASIANf")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_cont_wide to stobject", {
+  x <- pt_cont_long(
+    pmt_first,
+    cols = c("AGE", "WT")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_cont_long to stobject", {
+  x <- pt_cont_wide(
+    pmt_first,
+    cols = c("AGE", "WT")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_demographics to stobject", {
+  x <- pt_demographics(
+    pmt_first,
+    cols_cont = c("AGE", "WT"),
+    cols_cat = c("SEXf", "ASIANf")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("call st_col_split() on pmtable", {
+  expect_error(
+    pt_cat_wide(pmt_first, cols = c("SEXf")) %>%
+      st_new() %>% st_span_split(),
+    regexp = "the st_span_split() function cannot be used",
+    fixed = TRUE
+  )
+})
+
+test_that("call st_panel() on pmtable", {
+  expect_error(
+    pt_cat_wide(pmt_first, cols = c("SEXf")) %>%
+      st_new() %>% st_panel(),
+    regexp = "the st_panel() function cannot be used",
+    fixed = TRUE
+  )
+})
+
+test_that("call st_units() on pmtable", {
+  expect_error(
+    pt_cat_wide(pmt_first, cols = c("SEXf")) %>%
+      st_new() %>% st_units(),
+    regexp = "the st_units() function cannot be used",
+    fixed = TRUE
+  )
+})
