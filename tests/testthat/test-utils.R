@@ -83,3 +83,7 @@ test_that("add parens to vector if not there [PMT-TEST-0245]", {
   ans <- ensure_parens(d)
   expect_equal(ans, c("(1)", "(2)", "(3)"))
 })
+
+test_that("sig returns character when passed int [PMT-UTIL-0001]", {
+  expect_is(sig(1L), "character")
+})

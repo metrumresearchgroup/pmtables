@@ -16,30 +16,42 @@ cvec_cs <- function(x) {
 #' Format digits
 #'
 #' Use [sig()] to set the number of significant digits; use [digit1()] to limit
-#' to one digit.  See examples.
+#' to one digit. See examples.
 #'
-#' @param x numeric, value to manipulate
-#' @param digits numeric, number of significant digits Default: 3
-#' @param maxex numeric, maximum number of significant
-#' digits before moving to scientific notation, Default: NULL
-#' @param ... other arguments that may be passed but not used
+#' @details
+#' When `x` is an integer, `x` is returned after coercing to character, without
+#' further processing.
 #'
-#' @return character vector of formatted values
+#' @param x `numeric`; value to manipulate.
+#' @param digits `numeric`; number of significant digits.
+#' @param maxex `numeric`; maximum number of significant
+#' digits before moving to scientific notation.
+#' @param ... other arguments that are not used.
+#'
+#' @return
+#' A character vector of formatted values.
 #'
 #' @examples
 #' sig(1.123455)
 #' sig(0.123455)
-#' sig(1.123455,digits = 5)
-#' sig(1123,maxex = 3)
-#' sig(1123,maxex = 4)
+#' sig(1.123455, digits = 5)
+#' sig(1123, maxex = 3)
+#' sig(1123, maxex = 4)
+#'
+#' sig(1L)
 #'
 #' digit1(1.234)
 #' digit1(1321.123)
 #'
+#' @md
 #' @rdname sig
 #' @export
-sig <- function(x,digits=3,maxex=NULL, ...) {
-  if(class(x)=="integer") return(x)
+sig <- function(x, digits = 3, maxex = NULL, ...) {
+
+  if(identical(class(x), "integer")) {
+    return(as.character(x))
+  }
+
   namez <- names(x)
 
   x <- as.numeric(x)
@@ -61,7 +73,7 @@ sig <- function(x,digits=3,maxex=NULL, ...) {
 
 #' @rdname sig
 #' @export
-digit1 <- function(x, ...) formatC(x,digits=1,format = 'f')
+digit1 <- function(x, ...) formatC(x, digits = 1,format = 'f')
 
 #' @rdname sig
 #' @export
