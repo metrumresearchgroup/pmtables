@@ -2,14 +2,17 @@
 % Please edit documentation in R/table-object.R
 \name{st_noteconf}
 \alias{st_noteconf}
+\alias{st_notes_conf}
 \title{Add note config information to st object}
 \usage{
 st_noteconf(x, ...)
+
+st_notes_conf(x, ...)
 }
 \arguments{
-\item{x}{an stobject}
+\item{x}{an stobject.}
 
-\item{...}{named arguments passed to \code{\link[=noteconf]{noteconf()}}}
+\item{...}{named arguments passed to \code{\link[=noteconf]{noteconf()}}.}
 }
 \description{
 See the \code{note_config} argument passed to \code{\link[=stable]{stable()}} and then to

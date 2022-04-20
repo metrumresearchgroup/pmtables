@@ -341,19 +341,42 @@ test_that("call st_units() on pmtable", {
   )
 })
 
-test_that("remove notes from a st object", {
 
+test_that("remove notes from a st object", {
+  x <- pt_data_inventory(pmt_obs)
+  expect_true(is.character(x$notes))
+  expect_true(length(x$notes) > 0)
+  x <- st_new(x)
+  x <- st_notes_rm(x)
+  expect_null(x$notes)
 })
 
 test_that("append a note in a st object", {
-
+  x <- pt_data_inventory(pmt_obs)
+  x <- st_new(x)
+  nn <- x$notes
+  x <- st_notes_app(x, "more notes")
+  mm <- x$notes
+  l <- length(nn)
+  ans <- paste0(nn[l], "; more notes")
+  expect_equal(ans, mm[l])
 })
 
 test_that("collapse notes to a single string in st object", {
-
+  x <- pt_data_inventory(pmt_obs)
+  nn <- x$notes
+  x <- st_new(x)
+  x <- st_notes_str(x)
+  mm <- x$notes
+  ans <- paste0(nn, collapse = "; ")
+  expect_identical(ans, mm)
 
 })
 
 test_that("detach the notes in a st object", {
-
+  x <- st_new(pt_data_inventory(pmt_obs))
+  x <- st_notes_detach(x, 0.95)
+  conf <- x$note_config
+  expect_equal(conf$width, 0.95)
+  expect_equal(conf$type, "minipage")
 })

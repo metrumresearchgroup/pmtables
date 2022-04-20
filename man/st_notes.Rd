@@ -37,8 +37,8 @@ string.}
 \description{
 See the \code{notes} and \code{note_config} arguments passed to \code{\link[=stable]{stable()}} and then to
 \code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and can accumulate
-\code{notes} data in various ways. Use \code{\link[=st_notes_ap]{st_notes_ap()}} as a short cut to append
-a note to the previous line and \code{\link[=st_notes_ts]{st_notes_ts()}} to convert all existing
+\code{notes} data in various ways. Use \code{\link[=st_notes_app]{st_notes_app()}} as a short cut to append
+a note to the previous line and \code{\link[=st_notes_str]{st_notes_str()}} to convert all existing
 notes into a single string.
 }
 \examples{
@@ -50,5 +50,5 @@ ob \%>\% st_notes("ALB: albumin (g/dL)") \%>\% stable()
 
 }
 \seealso{
-\code{\link[=st_notes_detach]{st_notes_detach()}}, \code{\link[=st_notes_rm]{st_notes_rm()}}, \code{\link[=st_notes_ts]{st_notes_ts()}}, \code{\link[=st_notes_ap]{st_notes_ap()}}
+\code{\link[=st_notes_detach]{st_notes_detach()}}, \code{\link[=st_notes_rm]{st_notes_rm()}}, \code{\link[=st_notes_str]{st_notes_str()}}, \code{\link[=st_notes_app]{st_notes_app()}}
 }

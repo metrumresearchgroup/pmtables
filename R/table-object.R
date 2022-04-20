@@ -182,8 +182,8 @@ st_panel <- function(x, ...) {
 #'
 #' See the `notes` and `note_config` arguments passed to [stable()] and then to
 #' [tab_notes()]. The function can be called multiple times and can accumulate
-#' `notes` data in various ways. Use [st_notes_ap()] as a short cut to append
-#' a note to the previous line and [st_notes_ts()] to convert all existing
+#' `notes` data in various ways. Use [st_notes_app()] as a short cut to append
+#' a note to the previous line and [st_notes_str()] to convert all existing
 #' notes into a single string.
 #'
 #' @param x an stobject.
@@ -207,7 +207,7 @@ st_panel <- function(x, ...) {
 #' ob %>% st_notes("ALB: albumin (g/dL)") %>% stable()
 #'
 #' @seealso
-#' [st_notes_detach()], [st_notes_rm()], [st_notes_ts()], [st_notes_ap()]
+#' [st_notes_detach()], [st_notes_rm()], [st_notes_str()], [st_notes_app()]
 #'
 #' @export
 st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = "; ",
@@ -246,7 +246,7 @@ st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = "; ",
 #' @param ... passed to [st_notes()].
 #'
 #' @export
-st_notes_ap <- function(...) {
+st_notes_app <- function(...) {
   st_notes(..., append = TRUE)
 }
 
@@ -259,7 +259,7 @@ st_notes_ap <- function(...) {
 #' functions.
 #'
 #' @export
-st_notes_ts <- function(x, collapse = "; ") {
+st_notes_str <- function(x, collapse = "; ") {
   check_st(x)
   if(length(x$notes) == 0) return(x)
   x$notes <- paste0(x$notes, collapse = collapse)
@@ -312,8 +312,8 @@ st_notes_detach <- function(x, width = 0.8, type = "minipage", ...) {
 #' See the `note_config` argument passed to [stable()] and then to
 #' [tab_notes()].
 #'
-#' @param x an stobject
-#' @param ... named arguments passed to [noteconf()]
+#' @param x an stobject.
+#' @param ... named arguments passed to [noteconf()].
 #'
 #' @examples
 #' library(dplyr)
@@ -331,6 +331,10 @@ st_noteconf <- function(x,...) {
   x$note_config <- noteconf(...)
   x
 }
+
+#' @rdname st_noteconf
+#' @export
+st_notes_conf <- st_noteconf
 
 #' Add column alignment information to st object
 #'
