@@ -2,7 +2,7 @@
 % Please edit documentation in R/table-object.R
 \name{st_notes}
 \alias{st_notes}
-\alias{st_notes_ap}
+\alias{st_notes_ts}
 \title{Add note information to st object}
 \usage{
 st_notes(
@@ -12,20 +12,19 @@ st_notes(
   config = NULL,
   collapse = "; ",
   append = FALSE,
-  replace = FALSE,
   to_string = FALSE
 )
 
-st_notes_ap(...)
+st_notes_ts(x, collapse = "; ")
 }
 \arguments{
-\item{x}{an stobject}
+\item{x}{an stobject.}
 
-\item{...}{table notes}
+\item{...}{character; one or more table notes.}
 
-\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notes}
+\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notes.}
 
-\item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}}
+\item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}.}
 
 \item{collapse}{a character string to separate notes which are pasted
 together when flattening or appending; this should usually end in a single
@@ -35,16 +34,19 @@ space (see default).}
 previous, single note in the notes list. When \code{...} contains multiple
 notes, then the notes are pasted together first.}
 
-\item{replace}{logical; if \code{TRUE}, remove any existing notes before procesing
-new notes.}
-
 \item{to_string}{logical; if \code{TRUE}, then all notes are collapsed to a single
 string.}
+}
+\value{
+An updated object with class \code{stobject}, which can be piped to other
+functions.
 }
 \description{
 See the \code{notes} and \code{note_config} arguments passed to \code{\link[=stable]{stable()}} and then to
 \code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and can accumulate
-\code{notes} data in various ways.
+\code{notes} data in various ways. Use \code{\link[=st_notes_ap]{st_notes_ap()}} as a short cut to append
+a note to the previous line and \code{\link[=st_notes_st]{st_notes_st()}} to convert all existing
+notes into a single string.
 }
 \examples{
 library(dplyr)
@@ -53,4 +55,7 @@ ob <- st_new(ptdata())
 
 ob \%>\% st_notes("ALB: albumin (g/dL)") \%>\% stable()
 
+}
+\seealso{
+\code{\link[=st_notes_detach]{st_notes_detach()}}, \code{\link[=st_notes_rm]{st_notes_rm()}}, \code{\link[=st_notes_ts]{st_notes_ts()}}, \code{\link[=st_notes_ap]{st_notes_ap()}}
 }

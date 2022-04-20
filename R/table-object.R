@@ -182,20 +182,20 @@ st_panel <- function(x, ...) {
 #'
 #' See the `notes` and `note_config` arguments passed to [stable()] and then to
 #' [tab_notes()]. The function can be called multiple times and can accumulate
-#' `notes` data in various ways.
+#' `notes` data in various ways. Use [st_notes_ap()] as a short cut to append
+#' a note to the previous line and [st_notes_st()] to convert all existing
+#' notes into a single string.
 #'
-#' @param x an stobject
-#' @param ... table notes
-#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notes
-#' @param config named list of arguments for [noteconf()]
+#' @param x an stobject.
+#' @param ... character; one or more table notes.
+#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notes.
+#' @param config named list of arguments for [noteconf()].
 #' @param collapse a character string to separate notes which are pasted
 #' together when flattening or appending; this should usually end in a single
 #' space (see default).
 #' @param append logical; if `TRUE`, then incoming notes are appended to the
 #' previous, single note in the notes list. When `...` contains multiple
 #' notes, then the notes are pasted together first.
-#' @param replace logical; if `TRUE`, remove any existing notes before procesing
-#' new notes.
 #' @param to_string logical; if `TRUE`, then all notes are collapsed to a single
 #' string.
 #'
@@ -206,21 +206,21 @@ st_panel <- function(x, ...) {
 #'
 #' ob %>% st_notes("ALB: albumin (g/dL)") %>% stable()
 #'
+#' @seealso
+#' [st_notes_detach()], [st_notes_rm()], [st_notes_ts()], [st_notes_ap()]
+#'
 #' @export
 st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = "; ",
-                     append = FALSE, replace = FALSE, to_string = FALSE) {
+                     append = FALSE, to_string = FALSE) {
   check_st(x)
-  if(isTRUE(replace)) {
-    x$notes <- NULL
-  }
   notes <- unlist(list(...))
   if(!is.null(notes)) {
     assert_that(is.character(notes))
     if(is.character(esc)) {
       notes <- tab_escape(notes, esc = esc)
     }
-    append <- isTRUE(append) && length(x$notes) > 0
-    tostr <- isTRUE(to_string) && length(notes) > 1
+    append <- isTRUE(append)    && length(x$notes) > 0
+    tostr  <- isTRUE(to_string) && length(notes)   > 1
     if(tostr || append) {
       notes <- paste0(notes, collapse = collapse)
     }
@@ -237,10 +237,52 @@ st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = "; ",
   x
 }
 
-#' @rdname st_notes
+#' Append a note to the previous position of a note vector
+#'
+#' @details
+#' Note that the call to [st_notes()] will force in the argument
+#' `append = TRUE`.
+#'
+#' @param ... passed to [st_notes()].
+#'
 #' @export
 st_notes_ap <- function(...) {
   st_notes(..., append = TRUE)
+}
+
+#' Convert existing note vector into a single string
+#'
+#' @inheritParams st_notes
+#' @rdname st_notes
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_ts <- function(x, collapse = "; ") {
+  check_st(x)
+  if(length(x$notes) == 0) return(x)
+  x$notes <- paste0(x$notes, collapse = collapse)
+  x
+}
+
+#' Remove notes from the table
+#'
+#' The can be useful when manipulating an object from one of the pmtable
+#' functions (e.g. [pt_cont_long()] or [pt_demographics()], when notes are
+#' automatically added to the table.
+#'
+#' @param x an st object.
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_rm <- function(x) {
+  x$notes <- NULL
+  x
 }
 
 #' Detach table notes from the table
