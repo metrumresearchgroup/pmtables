@@ -2,7 +2,6 @@
 % Please edit documentation in R/table-object.R
 \name{st_notes}
 \alias{st_notes}
-\alias{st_notes_ts}
 \title{Add note information to st object}
 \usage{
 st_notes(
@@ -14,8 +13,6 @@ st_notes(
   append = FALSE,
   to_string = FALSE
 )
-
-st_notes_ts(x, collapse = "; ")
 }
 \arguments{
 \item{x}{an stobject.}
@@ -37,15 +34,11 @@ notes, then the notes are pasted together first.}
 \item{to_string}{logical; if \code{TRUE}, then all notes are collapsed to a single
 string.}
 }
-\value{
-An updated object with class \code{stobject}, which can be piped to other
-functions.
-}
 \description{
 See the \code{notes} and \code{note_config} arguments passed to \code{\link[=stable]{stable()}} and then to
 \code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and can accumulate
 \code{notes} data in various ways. Use \code{\link[=st_notes_ap]{st_notes_ap()}} as a short cut to append
-a note to the previous line and \code{\link[=st_notes_st]{st_notes_st()}} to convert all existing
+a note to the previous line and \code{\link[=st_notes_ts]{st_notes_ts()}} to convert all existing
 notes into a single string.
 }
 \examples{

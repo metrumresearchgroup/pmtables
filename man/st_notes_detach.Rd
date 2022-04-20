@@ -7,6 +7,8 @@
 st_notes_detach(x, width = 0.8, type = "minipage", ...)
 }
 \arguments{
+\item{x}{an stobject.}
+
 \item{width}{passed to \code{\link[=noteconf]{noteconf()}} via \code{\link[=st_noteconf]{st_noteconf()}}.}
 
 \item{type}{passed to \code{\link[=noteconf]{noteconf()}} via \code{\link[=st_noteconf]{st_noteconf()}}; this argument should

@@ -7,7 +7,7 @@
 st_notes_rm(x)
 }
 \arguments{
-\item{x}{an st object.}
+\item{x}{an stobject.}
 }
 \value{
 An updated object with class \code{stobject}, which can be piped to other

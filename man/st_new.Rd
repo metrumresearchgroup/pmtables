@@ -16,7 +16,7 @@ st_new(x, ...)
 st_data(data, ...)
 }
 \arguments{
-\item{x}{either a data frame or an object of class \code{pmtable}. See details.}
+\item{x}{either a data frame or an object of class \code{pmtable}; see details.}
 
 \item{...}{additional arguments which will eventually get passed to the
 table render function (e.g. \code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}}).}
@@ -35,8 +35,8 @@ from one of the data summary functions (e.g. \code{\link[=pt_cont_wide]{pt_cont_
 \code{\link[=pt_cat_long]{pt_cat_long()}} or \code{\link[=pt_demographics]{pt_demographics()}}).
 
 If using the data frame method, the user should filter or subset so that
-\code{data} contains exactly the rows (and columns) to be processed; pmtables
-will not add or remove rows prior to processing \code{data}.
+the data (\code{x}) contains exactly the rows (and columns) to be processed;
+pmtables will not add or remove rows prior to processing \code{x}.
 }
 \examples{
 ob <- st_new(ptdata())

@@ -36,10 +36,10 @@ st_arg_names <- c(
 #' [pt_cat_long()] or [pt_demographics()]).
 #'
 #' If using the data frame method, the user should filter or subset so that
-#' `data` contains exactly the rows (and columns) to be processed; pmtables
-#' will not add or remove rows prior to processing `data`.
+#' the data (`x`) contains exactly the rows (and columns) to be processed;
+#' pmtables will not add or remove rows prior to processing `x`.
 #'
-#' @param x either a data frame or an object of class `pmtable`. See details.
+#' @param x either a data frame or an object of class `pmtable`; see details.
 #' @param ... additional arguments which will eventually get passed to the
 #' table render function (e.g. [stable()] or [stable_long()]).
 #'
@@ -87,7 +87,7 @@ st_new.pmtable <- function(x, ...) {
 
 #' @rdname st_new
 #' @export
-st_data <- function(data,...) st_new(data,...)
+st_data <- function(data,...) st_new(x = data,...)
 
 is.stobject <- function(x) inherits(x, "stobject")
 is.ptobject <- function(x) inherits(x, "ptobject")
@@ -183,7 +183,7 @@ st_panel <- function(x, ...) {
 #' See the `notes` and `note_config` arguments passed to [stable()] and then to
 #' [tab_notes()]. The function can be called multiple times and can accumulate
 #' `notes` data in various ways. Use [st_notes_ap()] as a short cut to append
-#' a note to the previous line and [st_notes_st()] to convert all existing
+#' a note to the previous line and [st_notes_ts()] to convert all existing
 #' notes into a single string.
 #'
 #' @param x an stobject.
@@ -253,7 +253,6 @@ st_notes_ap <- function(...) {
 #' Convert existing note vector into a single string
 #'
 #' @inheritParams st_notes
-#' @rdname st_notes
 #'
 #' @return
 #' An updated object with class `stobject`, which can be piped to other
@@ -273,7 +272,7 @@ st_notes_ts <- function(x, collapse = "; ") {
 #' functions (e.g. [pt_cont_long()] or [pt_demographics()], when notes are
 #' automatically added to the table.
 #'
-#' @param x an st object.
+#' @inheritParams st_notes
 #'
 #' @return
 #' An updated object with class `stobject`, which can be piped to other
@@ -281,7 +280,7 @@ st_notes_ts <- function(x, collapse = "; ") {
 #'
 #' @export
 st_notes_rm <- function(x) {
-  x$notes <- NULL
+  rm("notes", envir = x)
   x
 }
 
@@ -292,6 +291,7 @@ st_notes_rm <- function(x) {
 #' notes. It is common to adjust the width of the minipage holding the notes
 #' depending on the width of the table and the extent of the notes.
 #'
+#' @inheritParams st_notes
 #' @param width passed to [noteconf()] via [st_noteconf()].
 #' @param type passed to [noteconf()] via [st_noteconf()]; this argument should
 #' not be changed if detached notes are desired.
