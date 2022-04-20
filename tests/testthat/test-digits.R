@@ -1,7 +1,7 @@
 
 context("test-digits")
 
-test_that("new digit object", {
+test_that("new digit object [PMT-TEST-0060]", {
   x <- new_digits(.fun = pmtables:::sig)
   expect_is(x,"digits")
   expect_true(pmtables:::is.digits(x))
@@ -10,7 +10,7 @@ test_that("new digit object", {
   expect_is(as.list(x),"list")
 })
 
-test_that("new digit object, with defaults", {
+test_that("new digit object, with defaults [PMT-TEST-0061]", {
   x <- new_digits(.fun = pmtables:::sig, A = 1, B = 2)
   expect_is(x,"digits")
   expect_equal(x$.default,3)
@@ -20,7 +20,7 @@ test_that("new digit object, with defaults", {
   expect_equal(x$.digits$B,2)
 })
 
-test_that("update digit object", {
+test_that("update digit object [PMT-TEST-0062]", {
   x <- new_digits(.fun = pmtables:::sig, A = 1, B = 1, C = 1)
   x <- pmtables:::update_digits(x, cols = c("B", "Z", "A"))
   data <- pmtables:::get_digits_list(x)
@@ -32,7 +32,7 @@ test_that("update digit object", {
   expect_equal(data$Z,x$.default)
 })
 
-test_that("print", {
+test_that("print [PMT-TEST-0063]", {
   x <- new_digits(.fun = pmtables:::sig, A = 1, B = 1, C = 1)
   ans <- capture.output(print(x))
   expect_is(ans,"character")
@@ -45,6 +45,6 @@ test_that("print", {
   expect_length(ans,2)
 })
 
-test_that("digits - invalid function", {
+test_that("digits - invalid function [PMT-TEST-0064]", {
   expect_error(new_digits(.fun = sum), "'digits' must be included")
 })

@@ -50,7 +50,7 @@ j <- mutate(i, across(POBS:PBQL, pmtables:::digit1))
 expected <- j
 test <- out$data
 
-test_that("demo-check data inventory stacked", {
+test_that("demo-check data inventory stacked [PMT-TEST-0026]", {
   expect_equal(test$Number.SUBJ,expected$NID)
   expect_equal(test$Number.OBS,expected$NOBS)
   expect_equal(test$Number.BQL,expected$NBQL)
@@ -118,7 +118,7 @@ chk <- names(out$data)[3:10]
 test <- out$data[chk]
 expected <- k[chk]
 
-test_that("demo-check paneled data inventory stacked", {
+test_that("demo-check paneled data inventory stacked [PMT-TEST-0027]", {
   for(col in names(test)) {
     expect_identical(expected[[col]],test[[col]])
   }
@@ -172,7 +172,7 @@ chk <- c(
 test <- out$data[chk]
 expected <- k[chk]
 
-test_that("demo-check grouped data inventory", {
+test_that("demo-check grouped data inventory [PMT-TEST-0028]", {
   for(col in names(test)) {
     expect_identical(expected[[col]],test[[col]])
   }
@@ -223,7 +223,7 @@ check <- list(
 test <- out$list
 expected <- ans
 
-test_that("demo-check wide categorical basic", {
+test_that("demo-check wide categorical basic [PMT-TEST-0029]", {
   for(col in check) {
     expect_identical(test[[col[2]]], expected[[col[1]]])
   }
@@ -278,7 +278,7 @@ check <- list(
 test <- out$data
 expected <- z
 
-test_that("demo-check wide categorical panel", {
+test_that("demo-check wide categorical panel [PMT-TEST-0030]", {
   for(col in check) {
     expect_identical(expected[[col[2]]], test[[col[1]]])
   }
@@ -330,7 +330,7 @@ check <- list(
 test <- out$data
 expected <- z
 
-test_that("demo-check wide categorical grouped", {
+test_that("demo-check wide categorical grouped [PMT-TEST-0031]", {
   for(col in check) {
     expect_identical(expected[[col[1]]], test[[col[2]]])
   }
@@ -385,7 +385,7 @@ check <- list(
 test <- out$data
 expected <- z
 
-test_that("demo-check wide categorical grouped paneled", {
+test_that("demo-check wide categorical grouped paneled [PMT-TEST-0032]", {
   for(col in check) {
     expect_identical(expected[[col[1]]], test[[col[2]]])
   }
@@ -427,7 +427,7 @@ y <- mutate(
 expected <- y
 test <- out$data
 
-test_that("demo-check long categorical", {
+test_that("demo-check long categorical [PMT-TEST-0033]", {
   for(col in c(2,3)) {
     expect_identical(expected[[col]], test[[col]])
   }
@@ -440,7 +440,7 @@ total <- nrow(data)
 wide <- tibble(Summary = paste0("n = ", total))
 test <- out$cols_extra
 expected <- wide
-test_that("demo-check long categorical - n", {
+test_that("demo-check long categorical - n [PMT-TEST-0034]", {
   for(col in names(expected)) {
     expect_identical(test[[col]], expected[[col]])
   }
@@ -490,7 +490,7 @@ expected <- z
 
 test <- out$data
 
-test_that("demo-check long categorical grouped", {
+test_that("demo-check long categorical grouped [PMT-TEST-0035]", {
   for(col in names(expected)) {
     expect_identical(test[[col]], expected[[col]])
   }
@@ -506,7 +506,7 @@ wide <- pivot_wider(n, names_from="FORMf", values_from="n")
 wide$Summary <- paste0("n = ", total)
 test <- out$cols_extra
 expected <- wide
-test_that("demo-check long categorical grouped - n", {
+test_that("demo-check long categorical grouped - n [PMT-TEST-0036]", {
   for(col in names(expected)) {
     expect_identical(test[[col]], expected[[col]])
   }
@@ -540,7 +540,7 @@ x1 <- summarise(
 test <- out$data
 expected <- x1
 
-test_that("demo-check wide continuous", {
+test_that("demo-check wide continuous [PMT-TEST-0037]", {
   for(col in names(expected)) {
     expect_identical(test[[col]], expected[[col]])
   }
@@ -583,7 +583,7 @@ x <- mutate(x, STUDYf = replace_na(STUDYf, "All data"))
 test <- out$data
 expected <- x
 
-test_that("demo-check wide continuous panel", {
+test_that("demo-check wide continuous panel [PMT-TEST-0038]", {
   for(col in names(expected)) {
     expect_identical(test[[col]],expected[[col]])
   }
@@ -619,7 +619,7 @@ x <- rename(x, Study = STUDYf)
 test <- out$data
 expected <- x
 
-test_that("demo-check wide continuous grouped", {
+test_that("demo-check wide continuous grouped [PMT-TEST-0039]", {
   for(col in names(test)) {
     expect_identical(test[[col]], expected[[col]])
   }
@@ -657,7 +657,7 @@ x <- mutate(x, FORMf = replace_na(FORMf, ".panel.waiver."))
 test <- out$data
 expected <- x
 
-test_that("demo-check wide continuous grouped panel", {
+test_that("demo-check wide continuous grouped panel [PMT-TEST-0040]", {
   for(col in names(test)) {
     expect_identical(test[[col]], expected[[col]])
   }
@@ -693,7 +693,7 @@ x <- mutate(x2, Variable = paste0(Variable, c(" (kg)", " (mg/dL)", " (years)")))
 test <- out$data
 expected <- x
 
-test_that("demo-check long continuous", {
+test_that("demo-check long continuous [PMT-TEST-0041]", {
   for(col in names(test)) {
     expect_identical(test[[col]],expected[[col]])
   }
@@ -744,7 +744,7 @@ x <- mutate(x, STUDYf = replace_na(STUDYf, "All data"))
 test <- out$data
 expected <- x
 
-test_that("demo-check long continuous panel", {
+test_that("demo-check long continuous panel [PMT-TEST-0042]", {
   for(col in names(test)) {
     expect_identical(test[[col]],expected[[col]])
   }

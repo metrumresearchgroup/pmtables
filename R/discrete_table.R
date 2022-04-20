@@ -40,12 +40,17 @@ prep_cat_data <- function(data, cols) {
 #' Summarize categorical data
 #'
 #' @inheritParams pt_cont_wide
+#' @inheritParams pt_cat_wide
 #' @param summarize_all logical indicating whether or not to include a summary
-#' of the full data in the output
-#' @param all_name label for full data summary
-#' @param nby number of unique levels for the `by` variable
+#' of the full data in the output.
+#' @param all_name label for full data summary.
+#' @param nby number of unique levels for the `by` variable.
 #' @param wide `logical`; if `TRUE`, data frame will be returned in wide format;
-#' if `FALSE`, it will be returned in `long` format
+#' if `FALSE`, it will be returned in `long` format.
+#' @param denom the denominator to use when calculating percent for each level;
+#' `group` uses the total number in the chunk being summarized; `total` uses
+#' the total number in the data set; historically, `group` has been used as the
+#' default.
 #'
 #' @examples
 #'
@@ -54,7 +59,10 @@ prep_cat_data <- function(data, cols) {
 #' @export
 cat_data <- function(data, cols, by = ".total", panel = by,
                      summarize_all = TRUE, all_name = "All",
-                     wide = FALSE, nby = NULL) {
+                     wide = FALSE, nby = NULL, complete = FALSE,
+                     denom = c("group", "total")) {
+
+  denom <- match.arg(denom)
 
   cols <- new_names(cols)
 
@@ -64,15 +72,18 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 
   if(is.null(nby)) nby <- length(unique(data[[by]]))
 
-  .groups <- unique(c(panel,by))
+  .groups <- unique(c(panel, by))
 
   data <- group_by(data, !!!syms(unname(.groups)))
 
-  ans <- group_modify(data, ~ summarize_cat_chunk(.,cols))
+  ans <- group_modify(
+    data,
+    ~ summarize_cat_chunk(., cols = cols, N = nrow(data), denom = denom)
+  )
 
   ans <- ungroup(ans)
 
-  ans <- mutate(ans,name=names(cols)[.data[["name"]]])
+  ans <- mutate(ans, name = names(cols)[.data[["name"]]])
 
   if(wide) {
     ans <- pivot_wider(
@@ -81,6 +92,14 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       values_from = "summary",
       names_sep = '_._'
     )
+    if(isTRUE(complete)) {
+      ans <- complete(ans, !!!syms(.groups))
+      nstart <- length(.groups)
+      nend <- ncol(ans)
+      ans <- mutate(ans, across(nstart+1, replace_na, 0))
+      ans <- mutate(ans, across(seq(nstart+2, nend), replace_na, "0 (0.0)"))
+    }
+    ans
   } else {
     ans[["N"]] <- NULL
     ans <- pivot_wider(
@@ -96,6 +115,7 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' Discrete data summary in long format
 #'
 #' @inheritParams pt_cont_long
+#' @inheritParams cat_data
 #' @param span variable name for column spanner
 #' @param all_name_span table column name to use for data summaries across
 #' levels of `span` if it is provided
@@ -104,7 +124,14 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' @param by use `span` argument instead
 #'
 #' @details
-#' The data summary for all cells in the table is `count (percent)`.
+#' The data summary for all cells in the table is `count (percent)`. The number
+#' of data records in each column variable level is given under the column
+#' title as `n`.
+#'
+#' When `group` is selected for `denom`, `percent` is calculated with
+#' denominator set to `n`, the total for each column variable level. When
+#' `total` is selected for `denom`, then `percent` is calculated by the total
+#' number of records in the input data.
 #'
 #' The notes in this table are generated with [pt_cat_long_notes()].
 #'
@@ -120,14 +147,17 @@ cat_data <- function(data, cols, by = ".total", panel = by,
 #' An object with class `pmtable`; see [class-pmtable].
 #'
 #' @export
-pt_cat_long <- function(data, cols, span  =  ".total",
+pt_cat_long <- function(data, cols, span  = ".total",
                         all_name = " ",
                         all_name_span = "Summary",
                         summarize = c("both", "right", "top", "none"),
-                        table = NULL, by = NULL) {
+                        table = NULL, by = NULL,
+                        denom = c("group", "total")) {
 
   summarize <- match.arg(summarize)
+  denom <- match.arg(denom)
   summarize_all <- summarize != "none"
+  complete <- isTRUE(complete)
 
   has_span <- !missing(span)
 
@@ -157,7 +187,8 @@ pt_cat_long <- function(data, cols, span  =  ".total",
     data = data,
     cols = cols,
     by = span,
-    nby = nspan
+    nby = nspan,
+    denom = denom
   )
 
   if(summarize_all) {
@@ -167,7 +198,7 @@ pt_cat_long <- function(data, cols, span  =  ".total",
         cols = cols,
         by = ".total",
         nby = nspan,
-        all_name = all_name_span
+        all_name = all_name_span,
       )
       all[["N"]] <- NULL
       ans <- left_join(ans, all, by = c("name", "level"))
@@ -225,16 +256,24 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' Discrete data summary in long format
 #'
 #' @inheritParams pt_cont_wide
+#' @inheritParams cat_data
 #' @param by a grouping variable for the summary; may be given as character
-#' vector or quosure
+#' vector or quosure.
 #' @param summarize where to put an all-data summary; choose `none` to omit the
-#' summary from the table
+#' summary from the table.
+#' @param complete logical; if `TRUE`, then data the summary will be completed
+#' for missing levels of `by`and `panel`.
 #'
 #' @details
 #' The data summary for this table is `count (percent)`. The number of
 #' data points for each row is also summarized as `n` on the left hand side
 #' of the table (either on the far left or just to the right of the `by`
 #' column).
+#'
+#' When `group` is selected for `denom`, `percent` is calculated with
+#' denominator set to `n`, the total for each row. When `total` is selected for
+#' `denom`, then `percent` is calculated by the total number of records in the
+#' input data.
 #'
 #' The notes in this table are generated with [pt_cat_wide_notes()].
 #'
@@ -256,10 +295,12 @@ pt_cat_long_notes <- function(include_n = TRUE, note_add = NULL) {
 #' @export
 pt_cat_wide <- function(data, cols, by = ".total", panel = by,
                         table = NULL, all_name = "All data",
-                        summarize = c("bottom", "none")) {
+                        summarize = c("bottom", "none"), complete = FALSE,
+                        denom = c("group", "total")) {
 
   summarize <- match.arg(summarize)
   summarize_all <- summarize != "none"
+  denom <- match.arg(denom)
 
   has_by <- !missing(by)
   has_panel <- !missing(panel)
@@ -282,13 +323,28 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
 
   data <- prep_cat_data(data, cols)
 
-  ans <- cat_data(data, cols, by = by, panel = panel, wide = TRUE)
-  ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
+  ans <- cat_data(
+    data,
+    cols,
+    by = by,
+    panel = panel,
+    wide = TRUE,
+    complete = complete,
+    denom = denom
+  )
 
+  ans <- mutate(ans, !!sym(by) := as.character(!!sym(by)))
 
   if(summarize_all) {
 
-    all <- cat_data(data, cols, by = ".total", panel = ".total", wide = TRUE)
+    all <- cat_data(
+      data,
+      cols,
+      by = ".total",
+      panel = ".total",
+      wide = TRUE,
+      complete = complete
+    )
 
     all_name_fmt <- paste0("\\hline \\hline {\\bf ",all_name,"}")
 
@@ -339,7 +395,6 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
 
   return(out)
 }
-
 
 #' Return table notes for pt_cat_wide
 #'

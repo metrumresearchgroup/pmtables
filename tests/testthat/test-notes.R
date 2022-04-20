@@ -8,7 +8,7 @@ inspect <- function(...) {
 
 context("test-notes")
 
-test_that("tpt notes", {
+test_that("tpt notes [PMT-TEST-0153]", {
   data <- tibble(a = 1)
   x <- inspect(data = data, notes = c("abcd", "xyz"))
   expect_equal(x$notes, c("abcd", "xyz"))
@@ -18,7 +18,7 @@ test_that("tpt notes", {
   expect_match(x$tpt_notes,"item xyz", fixed = TRUE, all = FALSE)
 })
 
-test_that("mini notes", {
+test_that("mini notes [PMT-TEST-0154]", {
   data <- tibble(a = 1)
   conf <- noteconf(
     type = "minipage", table_skip = 0.6, note_skip = 0.1,
@@ -38,13 +38,13 @@ test_that("mini notes", {
   expect_match(x$mini_notes, "\\vskip 0.1cm", fixed = TRUE, all = FALSE)
 })
 
-test_that("notes escape", {
+test_that("notes escape [PMT-TEST-0155]", {
   data <- tibble(a = 1)
   x <- inspect(data = data, notes = "abc_def")
   expect_equal(x$notes, c("abc\\_def"))
 })
 
-test_that("test-notes-files", {
+test_that("test-notes-files [PMT-TEST-0156]", {
   data <- tibble(a = 1)
   x <- inspect(
     data = data,
@@ -76,7 +76,7 @@ test_that("test-notes-files", {
   )
 })
 
-test_that("test-notes-basename-only", {
+test_that("test-notes-basename-only [PMT-TEST-0157]", {
   data <- tibble(a = 1)
   x <- inspect(
     data = data,
