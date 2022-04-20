@@ -340,3 +340,20 @@ test_that("call st_units() on pmtable", {
     fixed = TRUE
   )
 })
+
+test_that("remove notes from a st object", {
+
+})
+
+test_that("append a note in a st object", {
+
+})
+
+test_that("collapse notes to a single string in st object", {
+
+
+})
+
+test_that("detach the notes in a st object", {
+
+})
