@@ -87,7 +87,7 @@ st_new.pmtable <- function(x, ...) {
 
 #' @rdname st_new
 #' @export
-st_data <- function(data,...) st_new(x = data,...)
+st_data <- function(x,...) st_new(x = x,...)
 
 is.stobject <- function(x) inherits(x, "stobject")
 is.ptobject <- function(x) inherits(x, "ptobject")

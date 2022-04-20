@@ -13,7 +13,7 @@ st_new(x, ...)
 
 \method{st_new}{pmtable}(x, ...)
 
-st_data(data, ...)
+st_data(x, ...)
 }
 \arguments{
 \item{x}{either a data frame or an object of class \code{pmtable}; see details.}
