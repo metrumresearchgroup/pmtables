@@ -4,7 +4,13 @@
 \alias{stmagick}
 \title{Generate a preview}
 \usage{
-stmagick(x, width = -1, dir = tempdir(), stem = "pmt-magick-preview")
+stmagick(
+  x,
+  width = -1,
+  dir = tempdir(),
+  stem = "pmt-magick-preview",
+  dev_scale = 0.9
+)
 }
 \description{
 Generate a preview

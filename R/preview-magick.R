@@ -50,6 +50,8 @@ build_magick_preview <- function(text, stem, dir) {
 }
 
 
+
+
 #' Generate a preview
 #'
 #'
@@ -62,17 +64,20 @@ stmagick <- function(x, width = -1, dir = tempdir(),
     return()
   }
   img <- magick::image_read_pdf(ans)
-  if(width < 0) {
-    width <- dev_scale*grDevices::dev.size("px")
-  }
-  img <- magick::image_resize(
-    img,
-    magick::geometry_size_pixels(width = width[1])
-  )
-  print(img, info = FALSE)
-
-  return(invisible(ans))
+  # if(width < 0) {
+  #   width <- dev_scale*grDevices::dev.size("px")
+  # }
+  # img <- magick::image_resize(
+  #   img,
+  #   magick::geometry_size_pixels(width = width[1])
+  # )
+  ans <- list(file = ans, img = img)
+  class(ans) <- c("stmagick", "list")
+  return(ans)
 }
 
 
+#' @export
+st_as_figure <- function(x, ...) {
 
+}
