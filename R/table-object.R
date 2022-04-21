@@ -284,6 +284,57 @@ st_notes_rm <- function(x) {
   x
 }
 
+#' Edit lines in table notes
+#'
+#' This function allows the replacement of _an entire line_ in table notes.
+#' The line which is replaced is matched by a regular expression or identified
+#' directly with the integer position  in the notes vector to replace.
+#'
+#' @details
+#' A warning is generated if there are no notes already existing in `x`. A
+#' warning is also generated if a regular expression fails to match any lines.
+#' In case multiple lines are matched, only the first matching line is
+#' substituted.
+#'
+#' @inheritParams st_notes
+#' @param where a regular expression for finding a line in table notes to
+#' replace; alternatively, this can be an integer specifiying the line to
+#' replace.
+#' @param replacement the replacement text for line matching by `where`.
+#' @param fixed passed to [grep()] when `where` is character.
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_sub <- function(x, where, replacement, fixed = FALSE) {
+  check_st(x)
+  if(length(x$notes)==0) {
+    warning("did not find any notes in the object; returning.")
+    return(x)
+  }
+  assert_that(
+    inherits(where, c("character", "numeric")),
+    msg = "`where` must be either character or numeric."
+  )
+  assert_that(length(where)==1)
+  if(is.character(where)) {
+    m <- grep(where, x$notes, fixed = fixed)
+    if(length(m)==0) {
+      warning("did not find any matching notes; returning.")
+      return(x)
+    }
+    where <- m[1]
+  } else {
+    where <- floor(where)
+  }
+  note_number <- where
+  assert_that(note_number >= 0 && note_number <= length(x$notes))
+  x$notes[note_number] <- replacement
+  x
+}
+
 #' Detach table notes from the table
 #'
 #' Detached notes are rendered underneath the table, in a separate minipage

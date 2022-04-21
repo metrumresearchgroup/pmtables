@@ -370,7 +370,6 @@ test_that("collapse notes to a single string in st object", {
   mm <- x$notes
   ans <- paste0(nn, collapse = "; ")
   expect_identical(ans, mm)
-
 })
 
 test_that("detach the notes in a st object", {
@@ -379,4 +378,37 @@ test_that("detach the notes in a st object", {
   conf <- x$note_config
   expect_equal(conf$width, 0.95)
   expect_equal(conf$type, "minipage")
+})
+
+test_that("substitute lines in table notes", {
+  x <- pt_data_inventory(pmt_obs)
+  not <- x$notes
+  x <- st_new(x)
+
+  a <- st_notes_sub(x, "^MISS", "missing stuff")
+  expect_equal(a$notes[3], "missing stuff")
+
+  b <- st_notes_sub(x, 2, "below ql")
+  expect_equal(b$notes[2], "below ql")
+
+  expect_warning(
+    st_notes_sub(x, "kyle", "abc"),
+    regexp = "did not find any matching notes"
+  )
+
+  expect_error(
+    st_notes_sub(x, TRUE, "abc"),
+    regexp = "must be either character or numeric"
+  )
+
+  expect_error(
+    st_notes_sub(x, 100, "abc"),
+    regexp = "not less than or equal to"
+  )
+
+  xx <- st_notes_rm(x)
+  expect_warning(
+    st_notes_sub(xx, "kyle", "abc"),
+    regexp = "did not find any notes"
+  )
 })
