@@ -52,6 +52,7 @@ Collate:
     'demographics-table.R'
     'discrete_table.R'
     'knit-dependencies.R'
+    'preview-magick.R'
     'preview.R'
     'summarize-cat-chunk.R'
     'table-align.R'
