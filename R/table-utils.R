@@ -99,7 +99,7 @@ gluet <- function(x, .envir = parent.frame(), ...) {
 mgluet <- function(x, ...) {
   if(length(x)==1) return(gluet(x, ...))
   w <- grepl("<", x, fixed = TRUE)
-  x[w] <- map(x[w], gluet, ...)
+  x[w] <- lapply(x[w], gluet, ...)
   flatten_chr(x)
 }
 
