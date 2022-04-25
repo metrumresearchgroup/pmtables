@@ -17,8 +17,11 @@ st_aspdf(x, stem = "pmt-standalone-preview", dir = tempdir(), font = "roboto")
 for serif; only these two options are available at this time.}
 }
 \value{
-A string containing the full path to the rendered pdf file.
+A string containing the path to the rendered pdf file.
 }
 \description{
 Render stable object in pdf format
+}
+\seealso{
+\code{\link[=st_aspng]{st_aspng()}}, \code{\link[=st_as_image]{st_as_image()}}, \code{\link[=st_image_show]{st_image_show()}}
 }

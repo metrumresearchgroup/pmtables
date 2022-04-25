@@ -25,8 +25,14 @@ st_aspng(
 for serif; only these two options are available at this time.}
 }
 \value{
-A string containing the full path to the rendered png file.
+A string containing the path to the rendered png file.
 }
 \description{
-Render stable object in png format
+This function creates a standalone png snippet using \code{latex} and
+\code{dvipng} from an stable object; both functions are required to be installed
+for this to work. The resultant \code{png} file is saved on disk and the relative
+path to the file is returned.
+}
+\seealso{
+\code{\link[=st_aspdf]{st_aspdf()}}, \code{\link[=st_as_image]{st_as_image()}}, \code{\link[=st_image_show]{st_image_show()}}
 }
