@@ -4,7 +4,7 @@
 \alias{st_aspdf}
 \title{Render stable object in pdf format}
 \usage{
-st_aspdf(x, stem = "pmt-standalone-preview", dir = tempdir())
+st_aspdf(x, stem = "pmt-standalone-preview", dir = tempdir(), font = "roboto")
 }
 \arguments{
 \item{x}{an stable object.}
@@ -12,6 +12,9 @@ st_aspdf(x, stem = "pmt-standalone-preview", dir = tempdir())
 \item{stem}{for intermediate and output file names.}
 
 \item{dir}{directory for building the image.}
+
+\item{font}{the font to use; pass \code{roboto} for sans serif and \code{utopia}
+for serif; only these two options are available at this time.}
 }
 \value{
 A string containing the full path to the rendered pdf file.

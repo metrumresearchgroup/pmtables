@@ -83,17 +83,20 @@ st_to_standalone <- function(text, stem, dir, font = c("roboto", "utopia"),
 #' @param x an stable object.
 #' @param stem for intermediate and output file names.
 #' @param dir directory for building the image.
+#' @param font the font to use; pass `roboto` for sans serif and `utopia`
+#' for serif; only these two options are available at this time.
 #'
 #' @return
 #' A string containing the full path to the rendered pdf file.
 #'
 #' @export
-st_aspdf <- function(x, stem = "pmt-standalone-preview", dir = tempdir()) {
+st_aspdf <- function(x, stem = "pmt-standalone-preview", dir = tempdir(),
+                     font = "roboto") {
   assert_that(inherits(x, "stable"))
   if(inherits(x, "stable_long")) {
     stop("longtables cannot be rendered with this function.")
   }
-  ans <- st_to_standalone(x, stem, dir, command = "pdflatex")
+  ans <- st_to_standalone(x, stem, dir, command = "pdflatex", font = font)
   if(inherits(ans, "latex-failed")) {
     fail_pdf(unclass(ans))
   }
@@ -109,12 +112,13 @@ st_aspdf <- function(x, stem = "pmt-standalone-preview", dir = tempdir()) {
 #' A string containing the full path to the rendered png file.
 #'
 #' @export
-st_aspng <- function(x, stem = "pmt-standalone-preview", dir = tempdir(), dpi = 200) {
+st_aspng <- function(x, stem = "pmt-standalone-preview", dir = tempdir(),
+                     dpi = 200, font = "roboto") {
   assert_that(inherits(x, "stable"))
   if(inherits(x, "stable_long")) {
     stop("longtables cannot be rendered with this function.")
   }
-  outfile <- st_to_standalone(x, stem, dir, command = "latex")
+  outfile <- st_to_standalone(x, stem, dir, command = "latex", font = font)
   png_file <- sub("dvi$", "png", outfile, perl = TRUE)
   if(inherits(outfile, "latex-failed")) {
     fail_png(png_file)
@@ -175,4 +179,37 @@ st_image_show <- function(path, width = 0.95,
   )
   print(ans, info = FALSE)
   return(invisible(ans))
+}
+
+#' Display table from pdf image
+#'
+#' @details
+#' This function depends on the magick and pdftools packages being installed.
+#'
+#' 1. First, `x` is rendered with [st_aspdf()]
+#' 1. Next, the pdf file is read using [magick::image_read_pdf()]
+#' 2. Finally, the image is resized if `width` is passed.
+#'
+#' @inheritParams st_aspng
+#' @param width the width as percent; passed to
+#' [magick::geometry_size_percent()].
+#' @param ... arguments passed to [st_aspdf()].
+#'
+#' @return
+#' A possibly resized image object (see [magick::image_read_pdf()]).
+#'
+#' @export
+st_inline_pdf <- function(x, width = 100, ...) {
+  require_magick()
+  require_pdftools()
+  assert_that(inherits(x, "stable"))
+  if(inherits(x, "stable_long")) {
+    stop("longtables cannot be rendered with this function.")
+  }
+  ans <- st_aspdf(x, ...)
+  ans <- magick::image_read_pdf(ans())
+  if(!missing(width)) {
+    ans <- magick::image_resize(ans, magick::geometry_size_percent(width))
+  }
+  ans
 }

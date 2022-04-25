@@ -4,7 +4,13 @@
 \alias{st_aspng}
 \title{Render stable object in png format}
 \usage{
-st_aspng(x, stem = "pmt-standalone-preview", dir = tempdir(), dpi = 200)
+st_aspng(
+  x,
+  stem = "pmt-standalone-preview",
+  dir = tempdir(),
+  dpi = 200,
+  font = "roboto"
+)
 }
 \arguments{
 \item{x}{an stable object.}
@@ -14,6 +20,9 @@ st_aspng(x, stem = "pmt-standalone-preview", dir = tempdir(), dpi = 200)
 \item{dir}{directory for building the image.}
 
 \item{dpi}{dots per inch for the resulting png file.}
+
+\item{font}{the font to use; pass \code{roboto} for sans serif and \code{utopia}
+for serif; only these two options are available at this time.}
 }
 \value{
 A string containing the full path to the rendered png file.
