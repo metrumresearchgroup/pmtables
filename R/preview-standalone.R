@@ -177,11 +177,13 @@ st_image_show <- function(path, width = 0.95,
     img,
     magick::geometry_size_pixels(width*grDevices::dev.size("px"))
   )
-  print(ans, info = FALSE)
-  return(invisible(ans))
+  return(ans)
 }
 
 #' Display table from pdf image
+#'
+#' Use this function to run an stable object in to a high-quality pdf file
+#' and then include it into a html document.
 #'
 #' @details
 #' This function depends on the magick and pdftools packages being installed.
@@ -199,17 +201,18 @@ st_image_show <- function(path, width = 0.95,
 #' A possibly resized image object (see [magick::image_read_pdf()]).
 #'
 #' @export
-st_inline_pdf <- function(x, width = 100, ...) {
+st_inline_pdf <- function(x,
+                          width = getOption("pmtables.st_inline.width", 0.8),
+                          ...) {
   require_magick()
   require_pdftools()
   assert_that(inherits(x, "stable"))
+  assert_that(is.numeric(width))
+  assert_that(length(width)==1)
+  assert_that(width > 0 && width <= 1)
   if(inherits(x, "stable_long")) {
     stop("longtables cannot be rendered with this function.")
   }
-  ans <- st_aspdf(x, ...)
-  ans <- magick::image_read_pdf(ans())
-  if(!missing(width)) {
-    ans <- magick::image_resize(ans, magick::geometry_size_percent(width))
-  }
-  ans
+  pdf_file <- st_aspdf(x, ...)
+  st_image_show(pdf_file, width = width)
 }
