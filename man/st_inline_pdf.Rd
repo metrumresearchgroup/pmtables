@@ -4,7 +4,7 @@
 \alias{st_inline_pdf}
 \title{Display table from pdf image}
 \usage{
-st_inline_pdf(x, width = 100, ...)
+st_inline_pdf(x, width = getOption("pmtables.st_inline.width", 0.8), ...)
 }
 \arguments{
 \item{x}{an stable object.}
@@ -18,7 +18,8 @@ st_inline_pdf(x, width = 100, ...)
 A possibly resized image object (see \code{\link[magick:editing]{magick::image_read_pdf()}}).
 }
 \description{
-Display table from pdf image
+Use this function to run an stable object in to a high-quality pdf file
+and then include it into a html document.
 }
 \details{
 This function depends on the magick and pdftools packages being installed.
