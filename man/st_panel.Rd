@@ -12,7 +12,8 @@ st_panel(x, ...)
 \item{...}{passed to \code{\link[=rowpanel]{rowpanel()}}}
 }
 \description{
-See the \code{panel} argument to \code{\link[=stable]{stable()}}.
+See the \code{panel} argument to \code{\link[=stable]{stable()}}. This function cannot be used to
+operate on pmtable objects.
 }
 \examples{
 library(dplyr)
