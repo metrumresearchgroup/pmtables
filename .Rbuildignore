@@ -33,6 +33,7 @@ inst/covr
 pmtables\.Rcheck
 .*\.tar\.gz
 inst/vignette
+inst/old-vignettes
 docs
 vignettes/data-inventory.Rmd
 vignettes/continuous-table.Rmd
