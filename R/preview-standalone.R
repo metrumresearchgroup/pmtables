@@ -125,9 +125,9 @@ st_to_standalone <- function(text, stem, dir,
 
 #' Render stable object to pdf file
 #'
-#' Create a standalone `pdf` snippet`pdflatex` from an stable object. The
-#' resultant `pdf` file is saved on disk and the relative path to the file is
-#' returned.
+#' Create a "standalone" `pdf` snippet from an stable object using the
+#' `pdflatex` utility. The resultant `pdf` file is saved on disk and the
+#' relative path to the file is returned.
 #'
 #' @details
 #' The `pdf` file is built using `pdflatex` so this utility must be installed.
@@ -185,7 +185,7 @@ st_aspdf <- function(x,
                      stem = "pmt-standalone-preview",
                      dir = tempdir(),
                      font = "helvetica",
-                     textwidth = getOption("pmtables.text.width", 6.5),
+                     textwidth = getOption("pmtables.textwidth", 6.5),
                      border = "0.2cm 0.7cm") {
   assert_that(inherits(x, "stable"))
   ans <- st_to_standalone(
@@ -298,7 +298,8 @@ dvi_to_png <- function(dvifile, pngfile, dpi = 200) {
 #' @inheritParams st_aspdf
 #' @param width the relative width of the image; passed to [st_image_show()];
 #' this must be greater than 0 and less than or equal to 1.
-#' @param ... arguments passed to [st_aspdf()].
+#' @param ... arguments passed to [st_aspdf()]; please take the time to review
+#' the details in that help topic.
 #'
 #' @return
 #' A possibly resized `magick` image object (see [magick::image_read_pdf()]).
@@ -348,7 +349,7 @@ st_as_image <- function(x,
 #'
 #' @export
 st_image_show <- function(path,
-                          width = 0.95,
+                          width = getOption("pmtables.image.width", 0.95),
                           knitting = getOption('knitr.in.progress')) {
   require_magick()
   require_pdftools()

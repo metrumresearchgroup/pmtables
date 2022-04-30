@@ -21,7 +21,8 @@ this must be greater than 0 and less than or equal to 1.}
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
 
-\item{...}{arguments passed to \code{\link[=st_aspdf]{st_aspdf()}}.}
+\item{...}{arguments passed to \code{\link[=st_aspdf]{st_aspdf()}}; please take the time to review
+the details in that help topic.}
 }
 \value{
 A possibly resized \code{magick} image object (see \code{\link[magick:editing]{magick::image_read_pdf()}}).

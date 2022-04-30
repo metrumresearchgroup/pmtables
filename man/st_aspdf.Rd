@@ -9,7 +9,7 @@ st_aspdf(
   stem = "pmt-standalone-preview",
   dir = tempdir(),
   font = "helvetica",
-  textwidth = getOption("pmtables.text.width", 6.5),
+  textwidth = getOption("pmtables.textwidth", 6.5),
   border = "0.2cm 0.7cm"
 )
 }
@@ -34,9 +34,9 @@ details.}
 A string containing the path to the rendered \code{pdf} file.
 }
 \description{
-Create a standalone \code{pdf} snippet\code{pdflatex} from an stable object. The
-resultant \code{pdf} file is saved on disk and the relative path to the file is
-returned.
+Create a "standalone" \code{pdf} snippet from an stable object using the
+\code{pdflatex} utility. The resultant \code{pdf} file is saved on disk and the
+relative path to the file is returned.
 }
 \details{
 The \code{pdf} file is built using \code{pdflatex} so this utility must be installed.

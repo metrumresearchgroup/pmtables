@@ -4,7 +4,11 @@
 \alias{st_image_show}
 \title{Show table output that has been saved to pdf or png format}
 \usage{
-st_image_show(path, width = 0.95, knitting = getOption("knitr.in.progress"))
+st_image_show(
+  path,
+  width = getOption("pmtables.image.width", 0.95),
+  knitting = getOption("knitr.in.progress")
+)
 }
 \arguments{
 \item{path}{path to a png or pdf file saved on disk.}
