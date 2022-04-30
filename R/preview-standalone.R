@@ -22,15 +22,6 @@ require_knitr <- function() {
   }
 }
 
-#' Some settings for fonts; default is a san serif font
-#' @noRd
-fonts <- list(
-  helvetica  = "\\usepackage{helvet}\n\\renewcommand{\\familydefault}{\\sfdefault}",
-  utopia = "\\usepackage[adobe-utopia]{mathdesign}",
-  roboto = "\\usepackage[sfdefault]{roboto}"
-)
-
-
 #' If a build failed, copy an image into the output location that includes
 #' text communicating that it failed.
 #' @noRd
@@ -44,15 +35,31 @@ fail_pdf <- function(to_file) {
   file.copy(from_file, to_file)
 }
 
-#' Convert stable text to a standalone snippet
+#' Some settings for fonts; default is a san serif font
 #' @noRd
+fonts <- list(
+  helvetica  = "\\usepackage{helvet}\n\\renewcommand{\\familydefault}{\\sfdefault}",
+  utopia = "\\usepackage[adobe-utopia]{mathdesign}",
+  roboto = "\\usepackage[sfdefault]{roboto}"
+)
+
+#' Convert stable text to a standalone snippet
+#'
+#' @inheritParams st_aspdf
+#' @param text character vector of table text.
+#' @param command pass `pdflatex` when building a `pdf` file or `latex` when
+#' building `png`.
+#' @param textwidth used to set the width of the page.
+#' @keywords internal
 st_to_standalone <- function(text, stem, dir,
                              font = c("helvetica","roboto", "utopia"),
                              command = "latex",
-                             textwidth = 6.5) {
+                             textwidth = 6.5,
+                             border = "0.2cm 1cm") {
 
   out_ext <- ifelse(command=="latex", ".dvi", ".pdf")
   font <- match.arg(font)
+  assert_that(is.character(border) && length(border)==1)
 
   if(!dir.exists(dir)) dir.create(dir)
   cwd <- getwd()
@@ -82,7 +89,7 @@ st_to_standalone <- function(text, stem, dir,
   }
 
   env <- list(
-    border_cm = 0.2,
+    border = border,
     texfile = texfile,
     font = fonts[[font]],
     textw_tex = as.character(textw_tex)
@@ -114,18 +121,49 @@ st_to_standalone <- function(text, stem, dir,
   return(ans)
 }
 
-#' Render stable object in pdf format
+#' Render stable object to pdf file
 #'
-#' @param x an stable object.
-#' @param stem for intermediate and output file names.
-#' @param dir directory for building the image.
+#' Create a standalone `pdf` snippet`pdflatex` from an stable object. The
+#' resultant `pdf` file is saved on disk and the relative path to the file is
+#' returned.
+#'
+#' @details
+#' The `pdf` file is built using `pdflatex` so this utility must be installed.
+#'
+#' @param x an stable object; this can be the result of calling [stable()] or
+#' [stable_long()].
+#' @param stem used to build intermediate and output file names.
+#' @param dir directory for building the pdf file.
 #' @param font the font to use; alternative values include `roboto` and
-#' `utopia`.
-#' @param textwidth the page width when running `pdflatex`; passed to
-#' [st_aspdf()].
+#' `utopia`; passed to [st_to_standalone()].
+#' @param textwidth the page width when building with `pdflatex`; passed to
+#' [st_to_standalone()].
+#' @param border passed as an option to `standalone` latex output type; this
+#' can be one, two or four space-separated elements, each formatted as
+#' `"<number><unit>"` (e.g. "0.2cm"); pass one element to set the same border on
+#' all sides; two elements to set the border on left/right (first) and
+#' top/bottom (second); pass four elements to have separate borders for
+#' the left, bottom, right and top (see the documentation for the `standalone`
+#' latex package).
+#'
+#' @examples
+#'
+#' # check that pdflatex is installed
+#' \dontrun{
+#' Sys.which("pdflatex")
+#' }
+#'
+#' \dontrun{
+#' tab <- stable(stdata())
+#' st_aspdf(tab)
+#' }
+#'
+#' # the template for building the image
+#' temp <- system.file("tex", "standalone-preview.tex", package = "pmtables")
+#' cat(temp, sep = "\n")
 #'
 #' @return
-#' A string containing the path to the rendered pdf file.
+#' A string containing the path to the rendered `pdf` file.
 #'
 #' @seealso
 #' [st_aspng()], [st_as_image()], [st_image_show()]
@@ -135,7 +173,8 @@ st_aspdf <- function(x,
                      stem = "pmt-standalone-preview",
                      dir = tempdir(),
                      font = "helvetica",
-                     textwidth = getOption("pmtables.text.width", 6.5)) {
+                     textwidth = getOption("pmtables.text.width", 6.5),
+                     border = "0.2cm 0.7cm") {
   assert_that(inherits(x, "stable"))
   ans <- st_to_standalone(
     x,
@@ -143,12 +182,122 @@ st_aspdf <- function(x,
     dir,
     command = "pdflatex",
     font = font,
-    textwidth = textwidth
+    textwidth = textwidth,
+    border = border
   )
   if(inherits(ans, "latex-failed")) {
     fail_pdf(unclass(ans))
   }
   ans
+}
+
+#' Render stable object in png format
+#'
+#' Create a standalone png snippet using `latex` and `dvipng` from an stable
+#' object; both functions are required to be installed for this to work.
+#' The resultant `png` file is saved on disk and the relative path to the file
+#' is returned.
+#'
+#' @inheritParams st_aspdf
+#' @param dpi dots per inch for the resulting `png` file; used by `dvipng` when
+#' converting `dvi` file to the final `png` result.
+#'
+#' @examples
+#' \dontrun{
+#' Sys.which("latex")
+#' Sys.which("dvipng")
+#'
+#' tab <- stable(stdata())
+#' st_aspng(tab)
+#' }
+#'
+#'
+#' @return
+#' A string containing the path to the rendered `png` file.
+#'
+#' @seealso
+#' [st_aspdf()], [st_as_image()], [st_image_show()]
+#'
+#' @export
+st_aspng <- function(x,
+                     stem = "pmt-standalone-preview",
+                     dir = tempdir(),
+                     font = "helvetica",
+                     textwidth = getOption("pmtables.text.width", 6.5),
+                     border = "0.2cm 0.7cm",
+                     dpi = 200) {
+  assert_that(inherits(x, "stable"))
+  outfile <- st_to_standalone(
+    x,
+    stem,
+    dir,
+    command = "latex",
+    font = font,
+    textwidth = textwidth,
+    border = border
+  )
+  png_file <- sub("dvi$", "png", outfile, perl = TRUE)
+  if(inherits(outfile, "latex-failed")) {
+    fail_png(png_file)
+  } else {
+    ans <- dvi_to_png(outfile, png_file, dpi = dpi)
+    if(inherits(outfile, "dvipng-failed")) {
+      fail_png(png_file)
+    }
+  }
+  png_file
+}
+
+#' @keywords internal
+dvi_to_png <- function(dvifile, pngfile, dpi = 200) {
+
+  if(file.exists(pngfile)) file.remove(pngfile)
+  args <- c(
+    paste0("-D ", dpi),
+    paste0("-o ", pngfile),
+    "-q*",
+    dvifile
+  )
+  ans <- system2(
+    "dvipng",
+    args,
+    stdout = TRUE,
+    stderr = TRUE
+  )
+  if(!file.exists(pngfile)) {
+    pngfile <- structure(pngfile, class = "dvipng-failed")
+  }
+  return(pngfile)
+}
+
+#' Display table from pdf image
+#'
+#' Use this function to turn an stable object in to a high-quality pdf file,
+#' The result can be included in an Rmarkdown file rendered to `.html` or
+#' other uses.
+#'
+#' @details
+#' This function depends on the magick and pdftools packages being installed.
+#'
+#' 1. First, `x` is rendered with [st_aspdf()]
+#' 1. Next, the pdf file is read using [magick::image_read_pdf()]
+#' 2. Finally, the image is possibly resized via [st_image_show()]
+#'
+#' @inheritParams st_aspdf
+#' @param width the relative width of the image; passed to [st_image_show()];
+#' this must be greater than 0 and less than or equal to 1.
+#' @param ... arguments passed to [st_aspdf()].
+#'
+#' @return
+#' A possibly resized `magick` image object (see [magick::image_read_pdf()]).
+#'
+#' @export
+st_as_image <- function(x,
+                        width = getOption("pmtables.image.width", 0.95),
+                        border = "0.2cm 0.7cm", ...) {
+  assert_that(inherits(x, "stable"))
+  pdf_file <- st_aspdf(x, border = border, ...)
+  st_image_show(pdf_file, width = width)
 }
 
 #' Show table output that has been saved to pdf or png format
@@ -186,8 +335,9 @@ st_aspdf <- function(x,
 #' [st_aspng()], [st_aspdf()], [st_as_image()]
 #'
 #' @export
-st_image_show <- function(path, width = 0.95,
-                          knitting = getOption('knitr.in.progress') ) {
+st_image_show <- function(path,
+                          width = 0.95,
+                          knitting = getOption('knitr.in.progress')) {
   require_magick()
   require_pdftools()
 
@@ -200,12 +350,12 @@ st_image_show <- function(path, width = 0.95,
   if(requireNamespace("knitr")) {
     format <- knitr::opts_knit$get('rmarkdown.pandoc.to')
     format_pdf <- identical(format, "latex")
+  } else {
+    knitting <- FALSE
   }
-
   if(knitting && format_pdf) {
     return(knitr::include_graphics(path))
   }
-
   if(file_ext(path)=="pdf") {
     img <- magick::image_read_pdf(path)
   } else {
@@ -223,90 +373,4 @@ st_image_show <- function(path, width = 0.95,
     magick::geometry_size_pixels(width*grDevices::dev.size("px"))
   )
   return(ans)
-}
-
-#' Display table from pdf image
-#'
-#' Use this function to run an stable object in to a high-quality pdf file
-#' and then include it into a html document.
-#'
-#' @details
-#' This function depends on the magick and pdftools packages being installed.
-#'
-#' 1. First, `x` is rendered with [st_aspdf()]
-#' 1. Next, the pdf file is read using [magick::image_read_pdf()]
-#' 2. Finally, the image is possibly resized via [st_image_show()]
-#'
-#' @inheritParams st_aspdf
-#' @param width the relative width of the image; passed to [st_image_show()];
-#' this must be greater than 0 and less than or equal to 1.
-#' @param ... arguments passed to [st_aspdf()].
-#'
-#' @return
-#' A possibly resized `magick` image object (see [magick::image_read_pdf()]).
-#'
-#' @export
-st_as_image <- function(x,
-                        width = getOption("pmtables.image.width", 0.8),
-                        ...) {
-  assert_that(inherits(x, "stable"))
-  pdf_file <- st_aspdf(x, ...)
-  st_image_show(pdf_file, width = width)
-}
-
-
-
-#' Render stable object in png format
-#'
-#' Create a standalone png snippet
-#' using `latex` and `dvipng` from an stable object; both functions are required
-#' to be installed for this to work. The resultant `png` file is saved on disk
-#' and the relative path to the file is returned.
-#'
-#' @inheritParams st_aspdf
-#' @param dpi dots per inch for the resulting `png` file.
-#'
-#' @return
-#' A string containing the path to the rendered `png` file.
-#'
-#' @seealso
-#' [st_aspdf()], [st_as_image()], [st_image_show()]
-#'
-#' @export
-st_aspng <- function(x, stem = "pmt-standalone-preview", dir = tempdir(),
-                     dpi = 200, font = "roboto") {
-  assert_that(inherits(x, "stable"))
-  outfile <- st_to_standalone(x, stem, dir, command = "latex", font = font)
-  png_file <- sub("dvi$", "png", outfile, perl = TRUE)
-  if(inherits(outfile, "latex-failed")) {
-    fail_png(png_file)
-  } else {
-    ans <- dvi_to_png(outfile, png_file, dpi = dpi)
-    if(inherits(outfile, "dvipng-failed")) {
-      fail_png(png_file)
-    }
-  }
-  png_file
-}
-
-#' @keywords internal
-dvi_to_png <- function(dvifile, pngfile, dpi = 200) {
-
-  if(file.exists(pngfile)) file.remove(pngfile)
-  args <- c(
-    paste0("-D ", dpi),
-    paste0("-o ", pngfile),
-    "-q*",
-    dvifile
-  )
-  ans <- system2(
-    "dvipng",
-    args,
-    stdout = TRUE,
-    stderr = TRUE
-  )
-  if(!file.exists(pngfile)) {
-    pngfile <- structure(pngfile, class = "dvipng-failed")
-  }
-  return(pngfile)
 }

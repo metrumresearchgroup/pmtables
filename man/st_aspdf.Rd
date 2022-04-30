@@ -2,34 +2,66 @@
 % Please edit documentation in R/preview-standalone.R
 \name{st_aspdf}
 \alias{st_aspdf}
-\title{Render stable object in pdf format}
+\title{Render stable object to pdf file}
 \usage{
 st_aspdf(
   x,
   stem = "pmt-standalone-preview",
   dir = tempdir(),
   font = "helvetica",
-  textwidth = getOption("pmtables.text.width", 6.5)
+  textwidth = getOption("pmtables.text.width", 6.5),
+  border = "0.2cm 0.7cm"
 )
 }
 \arguments{
-\item{x}{an stable object.}
+\item{x}{an stable object; this can be the result of calling \code{\link[=stable]{stable()}} or
+\code{\link[=stable_long]{stable_long()}}.}
 
-\item{stem}{for intermediate and output file names.}
+\item{stem}{used to build intermediate and output file names.}
 
-\item{dir}{directory for building the image.}
+\item{dir}{directory for building the pdf file.}
 
 \item{font}{the font to use; alternative values include \code{roboto} and
-\code{utopia}.}
+\code{utopia}; passed to \code{\link[=st_to_standalone]{st_to_standalone()}}.}
 
-\item{textwidth}{the page width when running \code{pdflatex}; passed to
-\code{\link[=st_aspdf]{st_aspdf()}}.}
+\item{textwidth}{the page width when building with \code{pdflatex}; passed to
+\code{\link[=st_to_standalone]{st_to_standalone()}}.}
+
+\item{border}{passed as an option to \code{standalone} latex output type; this
+can be one, two or four space-separated elements, each formatted as
+\code{"<number><unit>"} (e.g. "0.2cm"); pass one element to set the same border on
+all sides; two elements to set the border on left/right (first) and
+top/bottom (second); pass four elements to have separate borders for
+the left, bottom, right and top (see the documentation for the \code{standalone}
+latex package).}
 }
 \value{
-A string containing the path to the rendered pdf file.
+A string containing the path to the rendered \code{pdf} file.
 }
 \description{
-Render stable object in pdf format
+Create a standalone \code{pdf} snippet\code{pdflatex} from an stable object. The
+resultant \code{pdf} file is saved on disk and the relative path to the file is
+returned.
+}
+\details{
+The \code{pdf} file is built using \code{pdflatex} so this utility must be installed.
+}
+\examples{
+
+# check that pdflatex is installed
+\dontrun{
+Sys.which("pdflatex")
+}
+
+\dontrun{
+tab <- stable(stdata())
+st_aspdf(tab)
+}
+
+# the template for building the image
+temp <- system.file("tex", "standalone-preview.tex", package = "pmtables")
+cat(temp, sep = "\n")
+
 }
 \seealso{
 \code{\link[=st_aspng]{st_aspng()}}, \code{\link[=st_as_image]{st_as_image()}}, \code{\link[=st_image_show]{st_image_show()}}

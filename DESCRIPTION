@@ -32,7 +32,7 @@ License: GPL (>=2)
 Imports: purrr, dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble, 
     assertthat, tidyselect, stringr, knitr, rmarkdown
 Depends: R (>= 3.5.0)
-Suggests: testthat, yaml, fs, texPreview
+Suggests: testthat, yaml, fs, texPreview, magick, pdftools
 Encoding: UTF-8
 Language: en-US
 LazyData: true

@@ -4,13 +4,27 @@
 \alias{st_as_image}
 \title{Display table from pdf image}
 \usage{
-st_as_image(x, width = getOption("pmtables.image.width", 0.8), ...)
+st_as_image(
+  x,
+  width = getOption("pmtables.image.width", 0.95),
+  border = "0.2cm 0.7cm",
+  ...
+)
 }
 \arguments{
-\item{x}{an stable object.}
+\item{x}{an stable object; this can be the result of calling \code{\link[=stable]{stable()}} or
+\code{\link[=stable_long]{stable_long()}}.}
 
 \item{width}{the relative width of the image; passed to \code{\link[=st_image_show]{st_image_show()}};
 this must be greater than 0 and less than or equal to 1.}
+
+\item{border}{passed as an option to \code{standalone} latex output type; this
+can be one, two or four space-separated elements, each formatted as
+\code{"<number><unit>"} (e.g. "0.2cm"); pass one element to set the same border on
+all sides; two elements to set the border on left/right (first) and
+top/bottom (second); pass four elements to have separate borders for
+the left, bottom, right and top (see the documentation for the \code{standalone}
+latex package).}
 
 \item{...}{arguments passed to \code{\link[=st_aspdf]{st_aspdf()}}.}
 }
@@ -18,8 +32,9 @@ this must be greater than 0 and less than or equal to 1.}
 A possibly resized \code{magick} image object (see \code{\link[magick:editing]{magick::image_read_pdf()}}).
 }
 \description{
-Use this function to run an stable object in to a high-quality pdf file
-and then include it into a html document.
+Use this function to turn an stable object in to a high-quality pdf file,
+The result can be included in an Rmarkdown file rendered to \code{.html} or
+other uses.
 }
 \details{
 This function depends on the magick and pdftools packages being installed.
