@@ -262,3 +262,153 @@ test_that("arguments to st_args must be named [PMT-TEST-0235]", {
     regexp = "must be named"
   )
 })
+
+test_that("pipe pt_cat_wide to stobject", {
+  x <- pt_cat_wide(
+    pmt_first,
+    cols = c("SEXf", "ASIANf")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_cat_long to stobject", {
+  x <- pt_cat_long(
+    pmt_first,
+    cols = c("SEXf", "ASIANf")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_cont_wide to stobject", {
+  x <- pt_cont_long(
+    pmt_first,
+    cols = c("AGE", "WT")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_cont_long to stobject", {
+  x <- pt_cont_wide(
+    pmt_first,
+    cols = c("AGE", "WT")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("pipe pt_demographics to stobject", {
+  x <- pt_demographics(
+    pmt_first,
+    cols_cont = c("AGE", "WT"),
+    cols_cat = c("SEXf", "ASIANf")
+  )
+  a <- st_new(x) %>% st_notes("a,b,c") %>% stable()
+  b <- stable(x, notes = c(x$notes, "a,b,c"))
+  expect_identical(a, b)
+})
+
+test_that("call st_col_split() on pmtable", {
+  expect_error(
+    pt_cat_wide(pmt_first, cols = c("SEXf")) %>%
+      st_new() %>% st_span_split(),
+    regexp = "the st_span_split() function cannot be used",
+    fixed = TRUE
+  )
+})
+
+test_that("call st_panel() on pmtable", {
+  expect_error(
+    pt_cat_wide(pmt_first, cols = c("SEXf")) %>%
+      st_new() %>% st_panel(),
+    regexp = "the st_panel() function cannot be used",
+    fixed = TRUE
+  )
+})
+
+test_that("call st_units() on pmtable", {
+  expect_error(
+    pt_cat_wide(pmt_first, cols = c("SEXf")) %>%
+      st_new() %>% st_units(),
+    regexp = "the st_units() function cannot be used",
+    fixed = TRUE
+  )
+})
+
+
+test_that("remove notes from a st object", {
+  x <- pt_data_inventory(pmt_obs)
+  expect_true(is.character(x$notes))
+  expect_true(length(x$notes) > 0)
+  x <- st_new(x)
+  x <- st_notes_rm(x)
+  expect_null(x$notes)
+})
+
+test_that("append a note in a st object", {
+  x <- pt_data_inventory(pmt_obs)
+  x <- st_new(x)
+  nn <- x$notes
+  x <- st_notes_app(x, "more notes")
+  mm <- x$notes
+  l <- length(nn)
+  ans <- paste0(nn[l], "; more notes")
+  expect_equal(ans, mm[l])
+})
+
+test_that("collapse notes to a single string in st object", {
+  x <- pt_data_inventory(pmt_obs)
+  nn <- x$notes
+  x <- st_new(x)
+  x <- st_notes_str(x)
+  mm <- x$notes
+  ans <- paste0(nn, collapse = "; ")
+  expect_identical(ans, mm)
+})
+
+test_that("detach the notes in a st object", {
+  x <- st_new(pt_data_inventory(pmt_obs))
+  x <- st_notes_detach(x, 0.95)
+  conf <- x$note_config
+  expect_equal(conf$width, 0.95)
+  expect_equal(conf$type, "minipage")
+})
+
+test_that("substitute lines in table notes", {
+  x <- pt_data_inventory(pmt_obs)
+  not <- x$notes
+  x <- st_new(x)
+
+  a <- st_notes_sub(x, "^MISS", "missing stuff")
+  expect_equal(a$notes[3], "missing stuff")
+
+  b <- st_notes_sub(x, 2, "below ql")
+  expect_equal(b$notes[2], "below ql")
+
+  expect_warning(
+    st_notes_sub(x, "kyle", "abc"),
+    regexp = "did not find any matching notes"
+  )
+
+  expect_error(
+    st_notes_sub(x, TRUE, "abc"),
+    regexp = "must be either character or numeric"
+  )
+
+  expect_error(
+    st_notes_sub(x, 100, "abc"),
+    regexp = "not less than or equal to"
+  )
+
+  xx <- st_notes_rm(x)
+  expect_warning(
+    st_notes_sub(xx, "kyle", "abc"),
+    regexp = "did not find any notes"
+  )
+})

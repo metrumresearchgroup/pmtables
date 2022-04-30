@@ -16,7 +16,11 @@ of units}
 character is not \code{(}}
 }
 \description{
-See the \code{units} argument to \code{\link[=stable]{stable()}}. Units can be passed either as
+See the \code{units} argument to \code{\link[=stable]{stable()}}. This function cannot be used to
+work on pmtable objects.
+}
+\details{
+Units can be passed either as
 \code{name=value} pairs or as a named list with \code{\link[=st_args]{st_args()}}. Units can
 alternatively be passed as an argument to \code{\link[=stable]{stable()}} as a pre-formed, named
 list using \code{\link[=st_args]{st_args()}}.  Passing as an argument this way will overwrite units

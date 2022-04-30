@@ -4,30 +4,51 @@
 \alias{st_notes}
 \title{Add note information to st object}
 \usage{
-st_notes(x, ..., esc = NULL, config = NULL, collapse = NULL)
+st_notes(
+  x,
+  ...,
+  esc = NULL,
+  config = NULL,
+  collapse = "; ",
+  append = FALSE,
+  to_string = FALSE
+)
 }
 \arguments{
-\item{x}{an stobject}
+\item{x}{an stobject.}
 
-\item{...}{table notes}
+\item{...}{character; one or more table notes.}
 
-\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notes}
+\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping the notes.}
 
-\item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}}
+\item{config}{named list of arguments for \code{\link[=noteconf]{noteconf()}}.}
 
-\item{collapse}{if \code{is.character}, then the note will be collapsed into a
-single line separated by value of \code{collapse} (see \code{\link[base:paste]{base::paste0()}})}
+\item{collapse}{a character string to separate notes which are pasted
+together when flattening or appending; this should usually end in a single
+space (see default).}
+
+\item{append}{logical; if \code{TRUE}, then incoming notes are appended to the
+previous, single note in the notes list. When \code{...} contains multiple
+notes, then the notes are pasted together first.}
+
+\item{to_string}{logical; if \code{TRUE}, then all notes are collapsed to a single
+string.}
 }
 \description{
 See the \code{notes} and \code{note_config} arguments passed to \code{\link[=stable]{stable()}} and then to
-\code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and will accumulate
-\code{notes} data.
+\code{\link[=tab_notes]{tab_notes()}}. The function can be called multiple times and can accumulate
+\code{notes} data in various ways. Use \code{\link[=st_notes_app]{st_notes_app()}} as a short cut to append
+a note to the previous line and \code{\link[=st_notes_str]{st_notes_str()}} to convert all existing
+notes into a single string.
 }
 \examples{
 library(dplyr)
 
 ob <- st_new(ptdata())
 
-ob \%>\% st_notes("ALB: albumin (g/dL)") \%>\% st_make()
+ob \%>\% st_notes("ALB: albumin (g/dL)") \%>\% stable()
 
+}
+\seealso{
+\code{\link[=st_notes_detach]{st_notes_detach()}}, \code{\link[=st_notes_rm]{st_notes_rm()}}, \code{\link[=st_notes_str]{st_notes_str()}}, \code{\link[=st_notes_app]{st_notes_app()}}
 }
