@@ -50,9 +50,13 @@ is returned.
 }
 \examples{
 \dontrun{
+Sys.which("latex")
+Sys.which("dvipng")
+
 tab <- stable(stdata())
 st_aspng(tab)
 }
+
 
 }
 \seealso{

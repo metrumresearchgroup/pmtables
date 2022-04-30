@@ -84,15 +84,18 @@ st_to_standalone <- function(text, stem, dir,
     textw_tex <- gluet(
       "\\setlength{\\textwidth}{<textwidth>in}"
     )
+    rule <- paste0("\\rule{", textwidth, "in}{0pt}")
   } else {
     textw_tex <- "% textwidth not set"
+    rule <- "% no rule"
   }
 
   env <- list(
     border = border,
     texfile = texfile,
     font = fonts[[font]],
-    textw_tex = as.character(textw_tex)
+    textw_tex = as.character(textw_tex),
+    rule = rule
   )
 
   temp_text <- mgluet(temp_text, .envir = env)
