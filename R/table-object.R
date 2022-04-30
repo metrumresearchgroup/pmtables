@@ -5,6 +5,16 @@ check_st <- function(x) {
   )
 }
 
+stop_if_ptobject <- function(x) {
+  if(is.ptobject(x)) {
+    caller <- as.character(sys.call(-1))[1]
+    stop(
+      glue("the {caller}() function cannot be used to operate on pmtble objects."),
+      call. = FALSE
+    )
+  }
+}
+
 st_arg_names <- c(
   "data", "panel", "notes",
   "align", "r_file", "output_file",
@@ -20,30 +30,67 @@ st_arg_names <- c(
 #' The st object will collect various configuration settings and pass those
 #' to [stable()] when the object is passed to [st_make()].
 #'
-#' @param data the data frame to pass to [stable()]; the user should filter
-#' or subset so that `data` contains exactly the rows (and columns) to be
-#' processed; pmtables will not add or remove rows prior to processing `data`
-#' @param ... additional arguments passed to [stable()]
+#' @details
+#' Methods are included for `data.frame` and `pmtable`, an object that comes
+#' from one of the data summary functions (e.g. [pt_cont_wide()], or
+#' [pt_cat_long()] or [pt_demographics()]).
+#'
+#' If using the data frame method, the user should filter or subset so that
+#' the data (`x`) contains exactly the rows (and columns) to be processed;
+#' pmtables will not add or remove rows prior to processing `x`.
+#'
+#' @param x either a data frame or an object of class `pmtable`; see details.
+#' @param ... additional arguments which will eventually get passed to the
+#' table render function (e.g. [stable()] or [stable_long()]).
+#'
+#' @return
+#' And object with class `stobject` which can get piped to other functions. The
+#' `pmtable` method returns an object that also has class `ptobject`.
 #'
 #' @examples
 #' ob <- st_new(ptdata())
 #' ob <- st_data(ptdata())
 #'
+#' ob <- st_new(pt_data_inventory(pmt_obs))
+#'
 #' @export
-st_new <- function(data, ...) {
-  assert_that(is.data.frame(data))
-  x <- new.env()
-  x$data <- data
-  x$args <- list(...)
-  structure(x, class = c("stobject","environment"), argnames = st_arg_names)
+st_new <- function(x, ...) UseMethod("st_new")
+#' @rdname st_new
+#' @export
+st_new.data.frame <- function(x, ...) {
+  e <- new.env()
+  e$data <- x
+  e$args <- list(...)
+  structure(e, class = c("stobject", "environment"), argnames = st_arg_names)
+}
+#' @rdname st_new
+#' @export
+st_new.pmtable <- function(x, ...) {
+  valid_arg_names <- c(
+    "data", "panel", "cols_rename", "align", "notes", "cols_extra",
+    "cols_blank", "span", "span_split", "units", "bold_cols"
+  )
+  incoming <- names(x)
+  if(!all(incoming %in% valid_arg_names)) {
+    stop("internal error: invalid item in pmtable object.")
+  }
+  ans <- st_new(x$data)
+  foo <- lapply(incoming, function(slot) {
+    assign(slot, value = x[[slot]], envir = ans)
+  })
+  structure(
+    ans,
+    class = c("stobject", "ptobject", "environment"),
+    argnames = st_arg_names
+  )
 }
 
 #' @rdname st_new
 #' @export
-st_data <- function(data,...) st_new(data,...)
-
+st_data <- function(x,...) st_new(x = x,...)
 
 is.stobject <- function(x) inherits(x, "stobject")
+is.ptobject <- function(x) inherits(x, "ptobject")
 
 #' Convert st object to table output
 #'
@@ -108,7 +155,8 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 
 #' Add panel information to st object
 #'
-#' See the `panel` argument to [stable()].
+#' See the `panel` argument to [stable()]. This function cannot be used to
+#' operate on pmtable objects.
 #'
 #' @param x an stobject
 #' @param ... passed to [rowpanel()]
@@ -123,6 +171,7 @@ st_make <- function(x, ..., .preview = FALSE, .cat = FALSE, long = FALSE) {
 #' @export
 st_panel <- function(x, ...) {
   check_st(x)
+  stop_if_ptobject(x)
   panel <- rowpanel(...)
   assert_that(is.rowpanel(panel))
   x$panel <- panel
@@ -132,25 +181,37 @@ st_panel <- function(x, ...) {
 #' Add note information to st object
 #'
 #' See the `notes` and `note_config` arguments passed to [stable()] and then to
-#' [tab_notes()]. The function can be called multiple times and will accumulate
-#' `notes` data.
+#' [tab_notes()]. The function can be called multiple times and can accumulate
+#' `notes` data in various ways. Use [st_notes_app()] as a short cut to append
+#' a note to the previous line and [st_notes_str()] to convert all existing
+#' notes into a single string.
 #'
-#' @param x an stobject
-#' @param ... table notes
-#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notes
-#' @param config named list of arguments for [noteconf()]
-#' @param collapse if `is.character`, then the note will be collapsed into a
-#' single line separated by value of `collapse` (see [base::paste0()])
+#' @param x an stobject.
+#' @param ... character; one or more table notes.
+#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping the notes.
+#' @param config named list of arguments for [noteconf()].
+#' @param collapse a character string to separate notes which are pasted
+#' together when flattening or appending; this should usually end in a single
+#' space (see default).
+#' @param append logical; if `TRUE`, then incoming notes are appended to the
+#' previous, single note in the notes list. When `...` contains multiple
+#' notes, then the notes are pasted together first.
+#' @param to_string logical; if `TRUE`, then all notes are collapsed to a single
+#' string.
 #'
 #' @examples
 #' library(dplyr)
 #'
 #' ob <- st_new(ptdata())
 #'
-#' ob %>% st_notes("ALB: albumin (g/dL)") %>% st_make()
+#' ob %>% st_notes("ALB: albumin (g/dL)") %>% stable()
+#'
+#' @seealso
+#' [st_notes_detach()], [st_notes_rm()], [st_notes_str()], [st_notes_app()]
 #'
 #' @export
-st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = NULL) {
+st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = "; ",
+                     append = FALSE, to_string = FALSE) {
   check_st(x)
   notes <- unlist(list(...))
   if(!is.null(notes)) {
@@ -158,15 +219,143 @@ st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = NULL) {
     if(is.character(esc)) {
       notes <- tab_escape(notes, esc = esc)
     }
-    if(is.character(collapse) && length(notes) > 1) {
+    append <- isTRUE(append)    && length(x$notes) > 0
+    tostr  <- isTRUE(to_string) && length(notes)   > 1
+    if(tostr || append) {
       notes <- paste0(notes, collapse = collapse)
     }
-    x$notes <- c(x$notes, notes)
+    if(isTRUE(append)) {
+      l <- length(x$notes)
+      x$notes[l] <- paste0(c(x$notes[l], notes), collapse = collapse)
+    } else {
+      x$notes <- c(x$notes, notes)
+    }
   }
   if(is.list(config)) {
-    x$note_config <- do.call(noteconf,config)
+    x$note_config <- do.call(noteconf, config)
   }
   x
+}
+
+#' Append a note to the previous position of a note vector
+#'
+#' @details
+#' Note that the call to [st_notes()] will force in the argument
+#' `append = TRUE`.
+#'
+#' @param ... passed to [st_notes()].
+#'
+#' @export
+st_notes_app <- function(...) {
+  st_notes(..., append = TRUE)
+}
+
+#' Convert existing note vector into a single string
+#'
+#' @inheritParams st_notes
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_str <- function(x, collapse = "; ") {
+  check_st(x)
+  if(length(x$notes) == 0) return(x)
+  x$notes <- paste0(x$notes, collapse = collapse)
+  x
+}
+
+#' Remove notes from the table
+#'
+#' The can be useful when manipulating an object from one of the pmtable
+#' functions (e.g. [pt_cont_long()] or [pt_demographics()], when notes are
+#' automatically added to the table.
+#'
+#' @inheritParams st_notes
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_rm <- function(x) {
+  rm("notes", envir = x)
+  x
+}
+
+#' Edit lines in table notes
+#'
+#' This function allows the replacement of _an entire line_ in table notes.
+#' The line which is replaced is matched by a regular expression or identified
+#' directly with the integer position  in the notes vector to replace.
+#'
+#' @details
+#' A warning is generated if there are no notes already existing in `x`. A
+#' warning is also generated if a regular expression fails to match any lines.
+#' In case multiple lines are matched, only the first matching line is
+#' substituted.
+#'
+#' @inheritParams st_notes
+#' @param where a regular expression for finding a line in table notes to
+#' replace; alternatively, this can be an integer specifiying the line to
+#' replace.
+#' @param replacement the replacement text for line matching by `where`.
+#' @param fixed passed to [grep()] when `where` is character.
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_sub <- function(x, where, replacement, fixed = FALSE) {
+  check_st(x)
+  if(length(x$notes)==0) {
+    warning("did not find any notes in the object; returning.")
+    return(x)
+  }
+  assert_that(
+    inherits(where, c("character", "numeric")),
+    msg = "`where` must be either character or numeric."
+  )
+  assert_that(length(where)==1)
+  if(is.character(where)) {
+    m <- grep(where, x$notes, fixed = fixed)
+    if(length(m)==0) {
+      warning("did not find any matching notes; returning.")
+      return(x)
+    }
+    where <- m[1]
+  } else {
+    where <- floor(where)
+  }
+  note_number <- where
+  assert_that(note_number >= 0 && note_number <= length(x$notes))
+  x$notes[note_number] <- replacement
+  x
+}
+
+#' Detach table notes from the table
+#'
+#' Detached notes are rendered underneath the table, in a separate minipage
+#' format. By default, there is an `hline` renered between the table and the
+#' notes. It is common to adjust the width of the minipage holding the notes
+#' depending on the width of the table and the extent of the notes.
+#'
+#' @inheritParams st_notes
+#' @param width passed to [noteconf()] via [st_noteconf()].
+#' @param type passed to [noteconf()] via [st_noteconf()]; this argument should
+#' not be changed if detached notes are desired.
+#' @param ... other arguments passed to [noteconf()] via [st_noteconf()].
+#'
+#' @return
+#' An updated object with class `stobject`, which can be piped to other
+#' functions.
+#'
+#' @export
+st_notes_detach <- function(x, width = 0.8, type = "minipage", ...) {
+  check_st(x)
+  st_noteconf(x, width = width, type = type, ...)
 }
 
 #' Add note config information to st object
@@ -174,8 +363,8 @@ st_notes <- function(x, ..., esc = NULL, config = NULL, collapse = NULL) {
 #' See the `note_config` argument passed to [stable()] and then to
 #' [tab_notes()].
 #'
-#' @param x an stobject
-#' @param ... named arguments passed to [noteconf()]
+#' @param x an stobject.
+#' @param ... named arguments passed to [noteconf()].
 #'
 #' @examples
 #' library(dplyr)
@@ -193,6 +382,10 @@ st_noteconf <- function(x,...) {
   x$note_config <- noteconf(...)
   x
 }
+
+#' @rdname st_noteconf
+#' @export
+st_notes_conf <- st_noteconf
 
 #' Add column alignment information to st object
 #'
@@ -324,7 +517,7 @@ st_span <- function(x, ..., split = FALSE) {
     return(x)
   }
   if(is.list(x$span)) {
-    x$span <- c(x$span,list(span))
+    x$span <- c(x$span, list(span))
     return(x)
   }
   x
@@ -358,9 +551,10 @@ st_span <- function(x, ..., split = FALSE) {
 st_span_split <- function(x, ..., split = TRUE) {
   assert_that(
     isTRUE(split),
-    msg = "the `split` argument is FALSE; use `st_span()` instead"
+    msg = "the `split` argument is FALSE; use `st_span()` instead."
   )
   check_st(x)
+  stop_if_ptobject(x)
   span <- colsplit(..., split = split)
   if(!is.null(x$span_split)) {
     warning(
@@ -418,7 +612,6 @@ st_rename <- function(x, ..., .list = NULL) {
   x$cols_rename <- x$cols_rename[!duplicated(x$cols_rename)]
   x
 }
-
 
 #' Add column blank information to st object
 #'
@@ -586,7 +779,11 @@ st_args <- function(x,...) {
 
 #' Add unit information to st object
 #'
-#' See the `units` argument to [stable()]. Units can be passed either as
+#' See the `units` argument to [stable()]. This function cannot be used to
+#' work on pmtable objects.
+#'
+#' @details
+#' Units can be passed either as
 #' `name=value` pairs or as a named list with [st_args()]. Units can
 #' alternatively be passed as an argument to [stable()] as a pre-formed, named
 #' list using [st_args()].  Passing as an argument this way will overwrite units
@@ -602,12 +799,13 @@ st_args <- function(x,...) {
 #' @export
 st_units <- function(x, ..., parens = TRUE) {
   check_st(x)
+  stop_if_ptobject(x)
   units <- flatten(list(...))
   units <- map(units, trimws)
   if(isTRUE(parens)) {
-    u <- unlist(units, use.names=FALSE)
-    w <- substr(u,1,1) != "(" & nchar(u) > 0
-    units[w] <- paste0("(",units[w],")")
+    u <- unlist(units, use.names = FALSE)
+    w <- substr(u, 1, 1) != "(" & nchar(u) > 0
+    units[w] <- paste0("(", units[w], ")")
   }
   if(is.list(x$units)) {
     x$units <- combine_list(x$units, units)
@@ -628,6 +826,7 @@ st_units <- function(x, ..., parens = TRUE) {
 #'
 #' @export
 st_bold <- function(x, cols, pattern = "*") {
+  check_st(x)
   cols <- new_names(cols)
   assert_that(all(cols %in% names(x$data)))
   for(col in cols) {
@@ -639,6 +838,7 @@ st_bold <- function(x, cols, pattern = "*") {
 #' @rdname st_bold
 #' @export
 st_it <- function(x, cols, pattern = "*") {
+  check_st(x)
   cols <- new_names(cols)
   assert_that(all(cols %in% names(x$data)))
   for(col in cols) {
@@ -656,6 +856,7 @@ st_it <- function(x, cols, pattern = "*") {
 #'
 #' @export
 st_drop <- function(x, ...) {
+  check_st(x)
   dots <- new_names(enquos(...))
   x$drop <- c(x$drop, dots)
   x
@@ -671,14 +872,16 @@ st_drop <- function(x, ...) {
 #'
 #' @export
 st_select <- function(x, ...) {
-  x$data <- dplyr::select(x$data, ...)
+  check_st(x)
+  x$data <- select(x$data, ...)
   x
 }
 
 #' @rdname st_select
 #' @export
 st_mutate <- function(x, ...) {
-  x$data <- dplyr::mutate(x$data, ...)
+  check_st(x)
+  x$data <- mutate(x$data, ...)
   x
 }
 
@@ -713,7 +916,6 @@ tab_edit <- function(data, pattern, replacement, cols = names(data)) {
   }
   data
 }
-
 
 #' Methods for stobject
 #'
