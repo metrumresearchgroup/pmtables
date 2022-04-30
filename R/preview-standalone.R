@@ -49,7 +49,6 @@ fonts <- list(
 #' @param text character vector of table text.
 #' @param command pass `pdflatex` when building a `pdf` file or `latex` when
 #' building `png`.
-#' @param textwidth used to set the width of the page.
 #' @keywords internal
 st_to_standalone <- function(text, stem, dir,
                              font = c("helvetica","roboto", "utopia"),
@@ -133,21 +132,31 @@ st_to_standalone <- function(text, stem, dir,
 #' @details
 #' The `pdf` file is built using `pdflatex` so this utility must be installed.
 #'
+#' The `textwidth` argument is set to 6.5 inches by default to mimic a 8.5 x 11
+#' page with 1 inch margins on the left and right. Setting `textwidth` sets the
+#' length of the `\textwidth` latex macro to that value and also inserts an
+#' invisible rule across the page with that width as well. This means for
+#' skinny tables, there will be whitespace on the left and right, but the font
+#' in the resultant images will be similar regardless of the width of the
+#' table. To skip setting the latex `\textwidth` macro, pass `NULL`.
+#'
+#' The `border` argument can be one, two or four space-separated elements, each
+#' formatted as `"<number><unit>"` (e.g. "0.2cm"); pass one element to set the
+#' same border on all sides; two elements to set the border on left/right
+#' (first) and top/bottom (second); pass four elements to have separate borders
+#' for the left, bottom, right and top (see the documentation for the
+#' `standalone` latex package).
+#'
 #' @param x an stable object; this can be the result of calling [stable()] or
 #' [stable_long()].
 #' @param stem used to build intermediate and output file names.
 #' @param dir directory for building the pdf file.
 #' @param font the font to use; alternative values include `roboto` and
 #' `utopia`; passed to [st_to_standalone()].
-#' @param textwidth the page width when building with `pdflatex`; passed to
-#' [st_to_standalone()].
-#' @param border passed as an option to `standalone` latex output type; this
-#' can be one, two or four space-separated elements, each formatted as
-#' `"<number><unit>"` (e.g. "0.2cm"); pass one element to set the same border on
-#' all sides; two elements to set the border on left/right (first) and
-#' top/bottom (second); pass four elements to have separate borders for
-#' the left, bottom, right and top (see the documentation for the `standalone`
-#' latex package).
+#' @param textwidth the page width (in inches) when building with `pdflatex`;
+#' passed to [st_to_standalone()]; see details.
+#' @param border passed as an option to `standalone` latex output type; see
+#' details.
 #'
 #' @examples
 #'

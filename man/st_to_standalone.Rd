@@ -27,15 +27,11 @@ st_to_standalone(
 \item{command}{pass \code{pdflatex} when building a \code{pdf} file or \code{latex} when
 building \code{png}.}
 
-\item{textwidth}{used to set the width of the page.}
+\item{textwidth}{the page width (in inches) when building with \code{pdflatex};
+passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 
-\item{border}{passed as an option to \code{standalone} latex output type; this
-can be one, two or four space-separated elements, each formatted as
-\code{"<number><unit>"} (e.g. "0.2cm"); pass one element to set the same border on
-all sides; two elements to set the border on left/right (first) and
-top/bottom (second); pass four elements to have separate borders for
-the left, bottom, right and top (see the documentation for the \code{standalone}
-latex package).}
+\item{border}{passed as an option to \code{standalone} latex output type; see
+details.}
 }
 \description{
 Convert stable text to a standalone snippet

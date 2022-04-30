@@ -25,16 +25,11 @@ st_aspng(
 \item{font}{the font to use; alternative values include \code{roboto} and
 \code{utopia}; passed to \code{\link[=st_to_standalone]{st_to_standalone()}}.}
 
-\item{textwidth}{the page width when building with \code{pdflatex}; passed to
-\code{\link[=st_to_standalone]{st_to_standalone()}}.}
+\item{textwidth}{the page width (in inches) when building with \code{pdflatex};
+passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 
-\item{border}{passed as an option to \code{standalone} latex output type; this
-can be one, two or four space-separated elements, each formatted as
-\code{"<number><unit>"} (e.g. "0.2cm"); pass one element to set the same border on
-all sides; two elements to set the border on left/right (first) and
-top/bottom (second); pass four elements to have separate borders for
-the left, bottom, right and top (see the documentation for the \code{standalone}
-latex package).}
+\item{border}{passed as an option to \code{standalone} latex output type; see
+details.}
 
 \item{dpi}{dots per inch for the resulting \code{png} file; used by \code{dvipng} when
 converting \code{dvi} file to the final \code{png} result.}
