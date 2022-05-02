@@ -10,7 +10,7 @@ st_aspdf(
   dir = tempdir(),
   font = "helvetica",
   textwidth = getOption("pmtables.textwidth", 6.5),
-  border = "0.2cm 0.7cm"
+  border = getOption("pmtables.image.border", "0.2cm 0.7cm")
 )
 }
 \arguments{

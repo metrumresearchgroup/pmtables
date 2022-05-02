@@ -189,7 +189,7 @@ st_aspdf <- function(x,
                      dir = tempdir(),
                      font = "helvetica",
                      textwidth = getOption("pmtables.textwidth", 6.5),
-                     border = "0.2cm 0.7cm") {
+                     border = getOption("pmtables.image.border", "0.2cm 0.7cm")) {
   assert_that(inherits(x, "stable"))
   ans <- st_to_standalone(
     x,
@@ -239,7 +239,7 @@ st_aspng <- function(x,
                      dir = tempdir(),
                      font = "helvetica",
                      textwidth = getOption("pmtables.text.width", 6.5),
-                     border = "0.2cm 0.7cm",
+                     border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
                      dpi = 200) {
   assert_that(inherits(x, "stable"))
   outfile <- st_to_standalone(
@@ -308,12 +308,31 @@ dvi_to_png <- function(dvifile, pngfile, dpi = 200) {
 #' A possibly resized `magick` image object (see [magick::image_read_pdf()]).
 #'
 #' @export
-st_as_image <- function(x,
-                        width = getOption("pmtables.image.width", 0.95),
-                        border = "0.2cm 0.7cm", ...) {
+st_as_image <- function(x, ...) UseMethod("st_as_image")
+
+#' @rdname st_as_image
+#' @export
+st_as_image.stable <- function(x,
+                               width = getOption("pmtables.image.width", 0.95),
+                               border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
+                               ...) {
   assert_that(inherits(x, "stable"))
   pdf_file <- st_aspdf(x, border = border, ...)
   st_image_show(pdf_file, width = width)
+}
+
+#' @rdname st_as_image
+#' @export
+st_as_image.pmtable <- function(x, ...) {
+  tab <- stable(x)
+  st_as_image(tab, ...)
+}
+
+#' @rdname st_as_image
+#' @export
+st_as_image.stobject <- function(x, ...) {
+  tab <- stable(x)
+  st_as_image(tab, ...)
 }
 
 #' Show table output that has been saved to pdf or png format
@@ -353,7 +372,7 @@ st_as_image <- function(x,
 #' @export
 st_image_show <- function(path,
                           width = getOption("pmtables.image.width", 0.95),
-                          knitting = getOption('knitr.in.progress')) {
+                          knitting = getOption("knitr.in.progress")) {
   require_magick()
   require_pdftools()
 
@@ -364,7 +383,7 @@ st_image_show <- function(path,
 
   format_pdf <- FALSE
   if(requireNamespace("knitr")) {
-    format <- knitr::opts_knit$get('rmarkdown.pandoc.to')
+    format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
     format_pdf <- identical(format, "latex")
   } else {
     knitting <- FALSE

@@ -10,7 +10,7 @@ st_aspng(
   dir = tempdir(),
   font = "helvetica",
   textwidth = getOption("pmtables.text.width", 6.5),
-  border = "0.2cm 0.7cm",
+  border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
   dpi = 200
 )
 }

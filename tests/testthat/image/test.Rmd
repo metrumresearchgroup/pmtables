@@ -1,0 +1,24 @@
+---
+title: "Tests for stable to image"
+output: 
+  html_document: 
+    toc: true
+date: '2022-05-02'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Setup
+
+```{r setup}
+library(dplyr)
+library(knitr)
+library(pmtables)
+```
+
+
+# Convert 
+
+

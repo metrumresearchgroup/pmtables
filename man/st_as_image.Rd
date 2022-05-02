@@ -2,27 +2,36 @@
 % Please edit documentation in R/preview-standalone.R
 \name{st_as_image}
 \alias{st_as_image}
+\alias{st_as_image.stable}
+\alias{st_as_image.pmtable}
+\alias{st_as_image.stobject}
 \title{Display table from pdf image}
 \usage{
-st_as_image(
+st_as_image(x, ...)
+
+\method{st_as_image}{stable}(
   x,
   width = getOption("pmtables.image.width", 0.95),
-  border = "0.2cm 0.7cm",
+  border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
   ...
 )
+
+\method{st_as_image}{pmtable}(x, ...)
+
+\method{st_as_image}{stobject}(x, ...)
 }
 \arguments{
 \item{x}{an stable object; this can be the result of calling \code{\link[=stable]{stable()}} or
 \code{\link[=stable_long]{stable_long()}}.}
+
+\item{...}{arguments passed to \code{\link[=st_aspdf]{st_aspdf()}}; please take the time to review
+the details in that help topic.}
 
 \item{width}{the relative width of the image; passed to \code{\link[=st_image_show]{st_image_show()}};
 this must be greater than 0 and less than or equal to 1.}
 
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
-
-\item{...}{arguments passed to \code{\link[=st_aspdf]{st_aspdf()}}; please take the time to review
-the details in that help topic.}
 }
 \value{
 A possibly resized \code{magick} image object (see \code{\link[magick:editing]{magick::image_read_pdf()}}).
