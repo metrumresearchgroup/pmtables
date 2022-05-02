@@ -1,0 +1,73 @@
+---
+title: "Tests for stable to image"
+output: 
+  html_document: 
+    toc: true
+    number_sections: true
+---
+
+# Setup
+
+```{r setup, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(knitr)
+library(pmtables)
+
+dir <- "build"
+```
+
+
+## A basic table
+
+- stable
+
+```{r}
+tab <- stable(stdata())
+```
+
+- stobject
+
+```{r}
+sttab <- st_new(stdata())
+```
+
+- pmtable
+
+```{r}
+pttab <- pt_cat_long(pmt_first, span="STUDYf", cols = "SEXf")
+```
+
+
+# Convert from stable
+
+```{r}
+st_as_image(tab, dir = dir, stem = "convert-stable")
+```
+
+# Convert from pmtable
+
+```{r}
+st_as_image(pttab, dir = dir, stem = "convert-pttab")
+```
+
+# Convert from stobject
+
+```{r}
+st_as_image(sttab, dir = dir, stem = "convert-sttab")
+```
+
+# Include from png
+
+```{r}
+file <- st_aspng(tab, dir = dir, stem = "include-from-png")
+include_graphics(file)
+```
+
+
+# Session
+
+```{r}
+date()
+sessionInfo()
+```
