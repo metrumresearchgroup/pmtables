@@ -32,7 +32,7 @@ fail_png <- function(to_file) {
 
 fail_pdf <- function(to_file) {
   from_file <- system.file("image", "fail.pdf", package = "pmtables")
-  file.copy(from_file, to_file)
+  file.copy(from_file, to_file, overwrite = TRUE)
 }
 
 #' Some settings for fonts; default is a san serif font

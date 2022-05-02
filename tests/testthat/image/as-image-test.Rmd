@@ -45,6 +45,13 @@ sttab <- st_new(stdata())
 pttab <- pt_cat_long(pmt_first, span="STUDYf", cols = "SEXf")
 ```
 
+- broken 
+
+```{r}
+brokentab <- tab
+brokentab[4] <- ""
+```
+
 
 # Tests
 
@@ -110,6 +117,17 @@ st_as_image(tab, dir = dir, stem = "test-utopia", font = "utopia")
 st_as_image(tab, dir = dir, stem = "test-roboto", font = "roboto")
 ```
 
+## Broken pdf
+
+```{r}
+st_as_image(brokentab)
+```
+
+## Broken png
+
+```{r}
+include_graphics(st_aspng(brokentab))
+```
 
 
 # Session
