@@ -11,6 +11,7 @@ st_aspng(
   font = "helvetica",
   textwidth = getOption("pmtables.text.width", 6.5),
   border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
+  ntex = 1,
   dpi = 200
 )
 }
@@ -30,6 +31,8 @@ passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
+
+\item{ntex}{number of times to build the pdf file}
 
 \item{dpi}{dots per inch for the resulting \code{png} file; used by \code{dvipng} when
 converting \code{dvi} file to the final \code{png} result.}

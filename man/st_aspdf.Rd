@@ -10,7 +10,8 @@ st_aspdf(
   dir = tempdir(),
   font = "helvetica",
   textwidth = getOption("pmtables.textwidth", 6.5),
-  border = getOption("pmtables.image.border", "0.2cm 0.7cm")
+  border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
+  ntex = 1
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
+
+\item{ntex}{number of times to build the pdf file}
 }
 \value{
 A string containing the path to the rendered \code{pdf} file.

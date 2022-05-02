@@ -54,11 +54,13 @@ st_to_standalone <- function(text, stem, dir,
                              font = c("helvetica","roboto", "utopia"),
                              command = "latex",
                              textwidth = 6.5,
-                             border = "0.2cm 1cm") {
+                             border = "0.2cm 1cm",
+                             ntex = 1) {
 
   out_ext <- ifelse(command=="latex", ".dvi", ".pdf")
   font <- match.arg(font)
   assert_that(is.character(border) && length(border)==1)
+  assert_that(is.numeric(ntex) && length(ntex)==1)
 
   if(!dir.exists(dir)) dir.create(dir)
   cwd <- getwd()
@@ -104,21 +106,25 @@ st_to_standalone <- function(text, stem, dir,
   build_file <- basename(temp_file)
   writeLines(temp_text, con = build_file)
   writeLines(text, con = texfile)
+
   args <- c(
     "-halt-on-error",
     paste0("-jobname=", stem),
     build_file
   )
 
-  x <- system2(
-    command = command,
-    args = args,
-    stdout = TRUE,
-    stderr = TRUE
-  )
+  for(i in seq(ntex)) {
+    x <- system2(
+      command = command,
+      args = args,
+      stdout = TRUE,
+      stderr = TRUE
+    )
+  }
+
   ans <- file.path(dir, outfile)
   if(!file.exists(outfile)) {
-    warning("the standalone preview build didn't work")
+    warning("the standalone preview build didn't work.")
     class(ans) <- "latex-failed"
   }
 
@@ -150,6 +156,7 @@ st_to_standalone <- function(text, stem, dir,
 #' for the left, bottom, right and top (see the documentation for the
 #' `standalone` latex package).
 #'
+#' @inheritParams st2article
 #' @param x an stable object; this can be the result of calling [stable()] or
 #' [stable_long()].
 #' @param stem used to build intermediate and output file names.
@@ -189,7 +196,8 @@ st_aspdf <- function(x,
                      dir = tempdir(),
                      font = "helvetica",
                      textwidth = getOption("pmtables.textwidth", 6.5),
-                     border = getOption("pmtables.image.border", "0.2cm 0.7cm")) {
+                     border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
+                     ntex = 1) {
   assert_that(inherits(x, "stable"))
   ans <- st_to_standalone(
     x,
@@ -198,7 +206,8 @@ st_aspdf <- function(x,
     command = "pdflatex",
     font = font,
     textwidth = textwidth,
-    border = border
+    border = border,
+    ntex = ntex
   )
   if(inherits(ans, "latex-failed")) {
     fail_pdf(unclass(ans))
@@ -214,6 +223,7 @@ st_aspdf <- function(x,
 #' is returned.
 #'
 #' @inheritParams st_aspdf
+#' @inheritParams st2article
 #' @param dpi dots per inch for the resulting `png` file; used by `dvipng` when
 #' converting `dvi` file to the final `png` result.
 #'
@@ -240,7 +250,7 @@ st_aspng <- function(x,
                      font = "helvetica",
                      textwidth = getOption("pmtables.text.width", 6.5),
                      border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
-                     dpi = 200) {
+                     ntex = 1, dpi = 200) {
   assert_that(inherits(x, "stable"))
   outfile <- st_to_standalone(
     x,
@@ -249,7 +259,8 @@ st_aspng <- function(x,
     command = "latex",
     font = font,
     textwidth = textwidth,
-    border = border
+    border = border,
+    ntex = ntex
   )
   png_file <- sub("dvi$", "png", outfile, perl = TRUE)
   if(inherits(outfile, "latex-failed")) {

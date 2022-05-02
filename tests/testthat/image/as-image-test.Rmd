@@ -18,13 +18,20 @@ dir <- "build"
 ```
 
 
-## A basic table
+# Tables
 
 - stable
 
 ```{r}
 tab <- stable(stdata())
 ```
+
+- stable_long
+
+```{r}
+longtab <- stable_long(stdata())
+```
+
 
 - stobject
 
@@ -39,30 +46,70 @@ pttab <- pt_cat_long(pmt_first, span="STUDYf", cols = "SEXf")
 ```
 
 
-# Convert from stable
+# Tests
+
+## Convert from stable
 
 ```{r}
 st_as_image(tab, dir = dir, stem = "convert-stable")
 ```
 
-# Convert from pmtable
+## Convert from long stable
+
+```{r}
+st_as_image(longtab, dir = dir, stem = "convert-longtable", ntex = 2)
+```
+
+## Convert from pmtable
 
 ```{r}
 st_as_image(pttab, dir = dir, stem = "convert-pttab")
 ```
 
-# Convert from stobject
+## Convert from stobject
 
 ```{r}
 st_as_image(sttab, dir = dir, stem = "convert-sttab")
 ```
 
-# Include from png
+
+## Include from png
 
 ```{r}
 file <- st_aspng(tab, dir = dir, stem = "include-from-png")
 include_graphics(file)
 ```
+
+## Make the page smaller
+
+```{r}
+st_as_image(tab, dir = dir, stem = "smaller-page", textwidth = 4)
+```
+
+## Make display width smaller
+
+```{r}
+st_as_image(tab, dir = dir, stem = "smaller-width", width = 0.5)
+```
+
+## Bigger border on the top
+
+```{r}
+st_as_image(tab, dir = dir, stem = "bigger-border", border = "0.2cm 3cm")
+```
+
+## Change the font - utopia
+
+```{r}
+st_as_image(tab, dir = dir, stem = "test-utopia", font = "utopia")
+```
+
+## Change the font - roboto
+
+```{r}
+st_as_image(tab, dir = dir, stem = "test-roboto", font = "roboto")
+```
+
 
 
 # Session

@@ -11,7 +11,8 @@ st_to_standalone(
   font = c("helvetica", "roboto", "utopia"),
   command = "latex",
   textwidth = 6.5,
-  border = "0.2cm 1cm"
+  border = "0.2cm 1cm",
+  ntex = 1
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
+
+\item{ntex}{number of times to build the pdf file}
 }
 \description{
 Convert stable text to a standalone snippet
