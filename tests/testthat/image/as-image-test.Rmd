@@ -126,7 +126,7 @@ st_as_image(brokentab)
 ## Broken png
 
 ```{r}
-include_graphics(st_aspng(brokentab))
+st_image_show(st_aspng(brokentab))
 ```
 
 
