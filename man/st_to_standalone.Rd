@@ -12,7 +12,8 @@ st_to_standalone(
   command = "latex",
   textwidth = 6.5,
   border = "0.2cm 1cm",
-  ntex = 1
+  ntex = 1,
+  ltversion = getOption("pmtables.image.ltversion", 4.13)
 )
 }
 \arguments{
@@ -35,6 +36,10 @@ passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 details.}
 
 \item{ntex}{number of times to build the pdf file}
+
+\item{ltversion}{numeric version number for the longtable package; newer
+versions have an issue that will break this code for lontables; so we are
+requiring an older version at this point.}
 }
 \description{
 Convert stable text to a standalone snippet

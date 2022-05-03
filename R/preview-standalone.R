@@ -49,7 +49,9 @@ fonts <- list(
 #' @param text character vector of table text.
 #' @param command pass `pdflatex` when building a `pdf` file or `latex` when
 #' building `png`.
-#' @param ltversion
+#' @param ltversion numeric version number for the longtable package; newer
+#' versions have an issue that will break this code for lontables; so we are
+#' requiring an older version at this point.
 #' @keywords internal
 st_to_standalone <- function(text, stem, dir,
                              font = c("helvetica","roboto", "utopia"),
