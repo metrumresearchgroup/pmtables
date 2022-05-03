@@ -49,18 +49,21 @@ fonts <- list(
 #' @param text character vector of table text.
 #' @param command pass `pdflatex` when building a `pdf` file or `latex` when
 #' building `png`.
+#' @param ltversion
 #' @keywords internal
 st_to_standalone <- function(text, stem, dir,
                              font = c("helvetica","roboto", "utopia"),
                              command = "latex",
                              textwidth = 6.5,
                              border = "0.2cm 1cm",
-                             ntex = 1) {
+                             ntex = 1,
+                             ltversion = getOption("pmtables.image.ltversion" , 4.13)) {
 
   out_ext <- ifelse(command=="latex", ".dvi", ".pdf")
   font <- match.arg(font)
   assert_that(is.character(border) && length(border)==1)
   assert_that(is.numeric(ntex) && length(ntex)==1)
+  assert_that(is.numeric(ltversion))
 
   if(!dir.exists(dir)) dir.create(dir)
   cwd <- getwd()
@@ -99,7 +102,8 @@ st_to_standalone <- function(text, stem, dir,
     font = fonts[[font]],
     textw_tex = as.character(textw_tex),
     rule = rule,
-    vwidth = vwidth
+    vwidth = vwidth,
+    ltversion = paste0("[=", ltversion, "]%")
   )
 
   temp_text <- mgluet(temp_text, .envir = env)
