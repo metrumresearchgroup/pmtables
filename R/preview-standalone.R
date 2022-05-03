@@ -105,7 +105,7 @@ st_to_standalone <- function(text, stem, dir,
     textw_tex = as.character(textw_tex),
     rule = rule,
     vwidth = vwidth,
-    ltversion = paste0("[=", ltversion, "]%")
+    ltversion = paste0("[=v", ltversion, "]%")
   )
 
   temp_text <- mgluet(temp_text, .envir = env)
