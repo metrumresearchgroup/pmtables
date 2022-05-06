@@ -13,28 +13,34 @@ digit1(x, ...)
 rnd(x, digits = 0, ...)
 }
 \arguments{
-\item{x}{numeric, value to manipulate}
+\item{x}{\code{numeric}; value to manipulate.}
 
-\item{digits}{numeric, number of significant digits Default: 3}
+\item{digits}{\code{numeric}; number of significant digits.}
 
-\item{maxex}{numeric, maximum number of significant
-digits before moving to scientific notation, Default: NULL}
+\item{maxex}{\code{numeric}; maximum number of significant
+digits before moving to scientific notation.}
 
-\item{...}{other arguments that may be passed but not used}
+\item{...}{other arguments that are not used.}
 }
 \value{
-character vector of formatted values
+A character vector of formatted values.
 }
 \description{
 Use \code{\link[=sig]{sig()}} to set the number of significant digits; use \code{\link[=digit1]{digit1()}} to limit
-to one digit.  See examples.
+to one digit. See examples.
+}
+\details{
+When \code{x} is an integer, \code{x} is returned after coercing to character, without
+further processing.
 }
 \examples{
 sig(1.123455)
 sig(0.123455)
-sig(1.123455,digits = 5)
-sig(1123,maxex = 3)
-sig(1123,maxex = 4)
+sig(1.123455, digits = 5)
+sig(1123, maxex = 3)
+sig(1123, maxex = 4)
+
+sig(1L)
 
 digit1(1.234)
 digit1(1321.123)

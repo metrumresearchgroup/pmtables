@@ -1,3 +1,14 @@
+# Please add user stories at the top of this file
+PMT-S079:
+  name: sig returns character when passed integer
+  description: >
+    As a user, I want sig() to return a character result when passed an integer.
+  ProductRisk: low-risk
+  tests:
+  - PMT-UTIL-0001
+
+# -----------------------------------------------------------------------------
+# The following tests were in the original import; the last story was S078
 PMT-S001:
   name: Sanitize non-math columns
   description: As a user, I would like non-escaped, non-math table contents sanitized
@@ -596,3 +607,4 @@ PMT-S078:
   - PMT-TEST-0004
   - PMT-TEST-0005
   - PMT-TEST-0006
+
