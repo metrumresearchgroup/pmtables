@@ -2,9 +2,21 @@
 % Please edit documentation in R/preview-standalone.R
 \name{st_aspng}
 \alias{st_aspng}
+\alias{st2png}
 \title{Render stable object in png format}
 \usage{
 st_aspng(
+  x,
+  stem = "pmt-standalone-preview",
+  dir = tempdir(),
+  font = "helvetica",
+  textwidth = getOption("pmtables.text.width", 6.5),
+  border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
+  ntex = 1,
+  dpi = 200
+)
+
+st2png(
   x,
   stem = "pmt-standalone-preview",
   dir = tempdir(),
@@ -44,7 +56,7 @@ A string containing the path to the rendered \code{png} file.
 Create a standalone png snippet using \code{latex} and \code{dvipng} from an stable
 object; both functions are required to be installed for this to work.
 The resultant \code{png} file is saved on disk and the relative path to the file
-is returned.
+is returned. \code{st2png()} is an alias to \code{st_as_png()}.
 }
 \examples{
 \dontrun{

@@ -142,7 +142,8 @@ st_to_standalone <- function(text, stem, dir,
 #'
 #' Create a "standalone" `pdf` snippet from an stable object using the
 #' `pdflatex` utility. The resultant `pdf` file is saved on disk and the
-#' relative path to the file is returned.
+#' relative path to the file is returned. `st2pdf()` is an alias to
+#' `st_as_pdf()`.
 #'
 #' @details
 #' The `pdf` file is built using `pdflatex` so this utility must be installed.
@@ -221,12 +222,16 @@ st_aspdf <- function(x,
   ans
 }
 
+#' @rdname st_aspdf
+#' @export
+st2pdf <- st_aspdf
+
 #' Render stable object in png format
 #'
 #' Create a standalone png snippet using `latex` and `dvipng` from an stable
 #' object; both functions are required to be installed for this to work.
 #' The resultant `png` file is saved on disk and the relative path to the file
-#' is returned.
+#' is returned. `st2png()` is an alias to `st_as_png()`.
 #'
 #' @inheritParams st_aspdf
 #' @inheritParams st2article
@@ -279,6 +284,11 @@ st_aspng <- function(x,
   }
   png_file
 }
+
+#' @rdname st_aspng
+#' @export
+st2png <- st_aspng
+
 
 #' @keywords internal
 dvi_to_png <- function(dvifile, pngfile, dpi = 200) {

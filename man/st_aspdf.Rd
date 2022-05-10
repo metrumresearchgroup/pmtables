@@ -2,9 +2,20 @@
 % Please edit documentation in R/preview-standalone.R
 \name{st_aspdf}
 \alias{st_aspdf}
+\alias{st2pdf}
 \title{Render stable object to pdf file}
 \usage{
 st_aspdf(
+  x,
+  stem = "pmt-standalone-preview",
+  dir = tempdir(),
+  font = "helvetica",
+  textwidth = getOption("pmtables.textwidth", 6.5),
+  border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
+  ntex = 1
+)
+
+st2pdf(
   x,
   stem = "pmt-standalone-preview",
   dir = tempdir(),
@@ -39,7 +50,8 @@ A string containing the path to the rendered \code{pdf} file.
 \description{
 Create a "standalone" \code{pdf} snippet from an stable object using the
 \code{pdflatex} utility. The resultant \code{pdf} file is saved on disk and the
-relative path to the file is returned.
+relative path to the file is returned. \code{st2pdf()} is an alias to
+\code{st_as_pdf()}.
 }
 \details{
 The \code{pdf} file is built using \code{pdflatex} so this utility must be installed.
