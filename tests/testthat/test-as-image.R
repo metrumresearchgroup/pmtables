@@ -16,7 +16,7 @@ test_that("standalone tex file looks as expected: stable", {
   tab <- stable(stdata())
   x <- do(st_as_image, tab, stem = "convert-stable")
   expect_match(x, "convert-stable.tex", all = FALSE, fixed = TRUE)
-  expect_match(x, "helvet", all = FALSE, fixed = TRUE)
+  expect_match(x, "\\usepackage{helvet}", all = FALSE, fixed = TRUE)
   expect_match(x, "\\textwidth}{6.5in}", all = FALSE, fixed = TRUE)
   expect_match(x, "varwidth=6.5in", all = FALSE, fixed = TRUE)
   expect_match(x, "\\usepackage{longtable}[=v4.13]", all = FALSE, fixed = TRUE)
@@ -77,8 +77,8 @@ test_that("standalone tex file looks as expected: change font", {
   tab <- stable(stdata())
 
   x <- do(st_as_image, tab, stem = "test-utopia", font = "utopia")
-  expect_match(x, "utopia", all = FALSE, fixed = TRUE)
+  expect_match(x, "\\usepackage[adobe-utopia]{mathdesign}", all = FALSE, fixed = TRUE)
 
   x <- do(st_as_image, tab, stem = "test-roboto", font = "roboto")
-  expect_match(x, "roboto", all = FALSE, fixed = TRUE)
+  expect_match(x, "\\usepackage[sfdefault]{roboto}", all = FALSE, fixed = TRUE)
 })
