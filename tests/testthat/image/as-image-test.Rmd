@@ -13,13 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(knitr)
 library(pmtables)
-library(testthat)
 
 dir <- "build"
-
-standalone <- function() {
-  readLines(file.path(dir, "standalone-preview.tex"))  
-}
 ```
 
 
@@ -64,46 +59,24 @@ brokentab[4] <- ""
 
 ```{r}
 st_as_image(tab, dir = dir, stem = "convert-stable")
-
-x <- standalone()
-
-expect_match(x, "convert-stable.tex", all = FALSE, fixed = TRUE)
-expect_match(x, "helvet", all = FALSE, fixed = TRUE)
-expect_match(x, "\\textwidth}{6.5in}", all = FALSE, fixed = TRUE)
-expect_match(x, "varwidth=6.5in", all = FALSE, fixed = TRUE)
-expect_match(x, "\\usepackage{longtable}[=v4.13]", all = FALSE, fixed = TRUE)
-expect_match(x, "\\rule{6.5in}{0pt}", all = FALSE, fixed = TRUE)
-expect_match(x, "border={0.2cm 0.7cm}", all = FALSE, fixed = TRUE)
 ```
 
 ## Convert from long stable
 
 ```{r}
 st_as_image(longtab, dir = dir, stem = "convert-longtable", ntex = 2)
-
-x <- standalone()
-
-expect_match(x, "\\input{convert-longtable.tex}", all = FALSE, fixed = TRUE)
 ```
 
 ## Convert from pmtable
 
 ```{r}
 st_as_image(pttab, dir = dir, stem = "convert-pttab")
-
-x <- standalone()
-
-expect_match(x, "\\input{convert-pttab.tex}", all = FALSE, fixed = TRUE)
 ```
 
 ## Convert from stobject
 
 ```{r}
 st_as_image(sttab, dir = dir, stem = "convert-sttab")
-
-x <- standalone()
-
-expect_match(x, "\\input{convert-sttab.tex}", all = FALSE, fixed = TRUE)
 ```
 
 
@@ -112,66 +85,36 @@ expect_match(x, "\\input{convert-sttab.tex}", all = FALSE, fixed = TRUE)
 ```{r}
 file <- st_aspng(tab, dir = dir, stem = "include-from-png")
 include_graphics(file)
-
-x <- standalone()
-
-expect_match(x, "\\input{include-from-png.tex}", all = FALSE, fixed = TRUE)
 ```
 
 ## Make the page smaller
 
 ```{r}
 st_as_image(tab, dir = dir, stem = "smaller-page", textwidth = 4)
-
-x <- standalone()
-
-expect_match(x, "\\textwidth}{4in}", all = FALSE, fixed = TRUE)
-expect_match(x, "varwidth=4in", all = FALSE, fixed = TRUE)
-expect_match(x, "\\rule{4in}{0pt}", all = FALSE, fixed = TRUE)
-expect_match(x, "\\input{smaller-page.tex}", all = FALSE, fixed = TRUE)
 ```
 
 ## Make display width smaller
 
 ```{r}
 st_as_image(tab, dir = dir, stem = "smaller-width", width = 0.5)
-
-x <- standalone()
-
-expect_match(x, "\\textwidth}{6.5in}", all = FALSE, fixed = TRUE)
-expect_match(x, "varwidth=6.5in", all = FALSE, fixed = TRUE)
-expect_match(x, "\\rule{6.5in}{0pt}", all = FALSE, fixed = TRUE)
-expect_match(x, "\\input{smaller-width.tex}", all = FALSE, fixed = TRUE)
 ```
 
 ## Bigger border on the top
 
 ```{r}
 st_as_image(tab, dir = dir, stem = "bigger-border", border = "0.2cm 3cm")
-
-x <- standalone()
-expect_match(x, "border={0.2cm 3cm}", all = FALSE, fixed = TRUE)
-expect_match(x, "\\input{bigger-border.tex}", all = FALSE, fixed = TRUE)
 ```
 
 ## Change the font - utopia
 
 ```{r}
 st_as_image(tab, dir = dir, stem = "test-utopia", font = "utopia")
-
-x <- standalone()
-
-expect_match(x, "utopia", all = FALSE, fixed = TRUE)
 ```
 
 ## Change the font - roboto
 
 ```{r}
 st_as_image(tab, dir = dir, stem = "test-roboto", font = "roboto")
-
-x <- standalone()
-
-expect_match(x, "roboto", all = FALSE, fixed = TRUE)
 ```
 
 ## Broken pdf
