@@ -1,6 +1,6 @@
 # pmtables 0.5.0
 
-- New functions `st_as_image()`, `st2pdf()`, `st2png()` to render tables with 
+- New functions `st_as_image()`, `st2pdf()`, and `st2png()` to render tables with 
   TeX to either `pdf` or `png` format; image files may be kept on disk
   or read back for display while kitting; `pdflatex` system dependency for 
   `pdf` images and `latex` + `dvipng` for `png` images; additional Suggested
