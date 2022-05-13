@@ -19,9 +19,9 @@ fraction of the current graphics device width; when knitting and the image
 is in png format, the width is taken to be a fraction of the available space;
 this parameter is ignored when knitting pdf output.}
 
-\item{knitting}{if \code{TRUE}, the context is assummed to be document knit (see
+\item{knitting}{if \code{TRUE}, the context is assumed to be document knit (see
 default) and the magick object is returned after resizing; if \code{FALSE}, then
-interactive context is assummed and the magick object is returned after
+interactive context is assumed and the magick object is returned after
 resizing according to the current device width.}
 }
 \value{

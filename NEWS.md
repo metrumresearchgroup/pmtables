@@ -1,5 +1,34 @@
 # pmtables (development version)
 
+- New functions `st_as_image()`, `st2pdf()`, `st2png()` to render tables with 
+  TeX to to either `pdf` or `png` format; image files may be kept on disk
+  or read back for display while kitting; `pdflatex` system dependency for 
+  `pdf` images and `latex` + `dvipng` for `png` images (#277, #278). 
+  
+- `sig()` now returns character when integer type is passed (#272). 
+
+- `st_new()` is now generic with dispatch for `data.frame` and objects with 
+  class `pmtable` (#274).
+  
+- New functions `st_notes_detach()`, `st_notes_rm()`, `st_notes_app()`, 
+  `st_notes_str()`, `st_notes_sub()` and `st_notes_conf()` to help working 
+  with table notes in a pipe context (#274).
+  
+- `st_span()` and `st_span_split()` accept `align` argument to push column 
+  spanner titles to the left, right or center (default); the argument eventually
+  gets passed to `colgroup()` (#261).
+
+- `pt_cat_wide()`, `pt_cat_long()` and `pt_demographics()` gain argument 
+  `denom` to alter the denominator when calculating percents for categorical
+  data summaries (#268).
+
+- `pt_cat_wide()` gains argument `complete` to display missing levels of 
+  `by` and `panel` (
+
+- Put stories in yaml format; add script to build validation docs from the
+  yaml file (#269, #270).
+
+
 # pmtables 0.4.1
 
 - `colgroup()` (and `st_span()`) gains an `align` argument to position

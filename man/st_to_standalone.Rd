@@ -38,7 +38,7 @@ details.}
 \item{ntex}{number of times to build the pdf file}
 
 \item{ltversion}{numeric version number for the longtable package; newer
-versions have an issue that will break this code for lontables; so we are
+versions have an issue that will break this code for longtables; so we are
 requiring an older version at this point.}
 }
 \description{

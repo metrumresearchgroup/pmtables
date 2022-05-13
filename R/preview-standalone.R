@@ -50,7 +50,7 @@ fonts <- list(
 #' @param command pass `pdflatex` when building a `pdf` file or `latex` when
 #' building `png`.
 #' @param ltversion numeric version number for the longtable package; newer
-#' versions have an issue that will break this code for lontables; so we are
+#' versions have an issue that will break this code for longtables; so we are
 #' requiring an older version at this point.
 #' @keywords internal
 st_to_standalone <- function(text, stem, dir,
@@ -385,9 +385,9 @@ st_as_image.stobject <- function(x, ...) {
 #' fraction of the current graphics device width; when knitting and the image
 #' is in png format, the width is taken to be a fraction of the available space;
 #' this parameter is ignored when knitting pdf output.
-#' @param knitting if `TRUE`, the context is assummed to be document knit (see
+#' @param knitting if `TRUE`, the context is assumed to be document knit (see
 #' default) and the magick object is returned after resizing; if `FALSE`, then
-#' interactive context is assummed and the magick object is returned after
+#' interactive context is assumed and the magick object is returned after
 #' resizing according to the current device width.
 #'
 #' @return

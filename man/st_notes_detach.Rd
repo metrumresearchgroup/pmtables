@@ -22,7 +22,7 @@ functions.
 }
 \description{
 Detached notes are rendered underneath the table, in a separate minipage
-format. By default, there is an \code{hline} renered between the table and the
+format. By default, there is an \code{hline} rendered between the table and the
 notes. It is common to adjust the width of the minipage holding the notes
 depending on the width of the table and the extent of the notes.
 }

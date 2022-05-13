@@ -298,7 +298,7 @@ st_notes_rm <- function(x) {
 #'
 #' @inheritParams st_notes
 #' @param where a regular expression for finding a line in table notes to
-#' replace; alternatively, this can be an integer specifiying the line to
+#' replace; alternatively, this can be an integer specifying the line to
 #' replace.
 #' @param replacement the replacement text for line matching by `where`.
 #' @param fixed passed to [grep()] when `where` is character.
@@ -338,7 +338,7 @@ st_notes_sub <- function(x, where, replacement, fixed = FALSE) {
 #' Detach table notes from the table
 #'
 #' Detached notes are rendered underneath the table, in a separate minipage
-#' format. By default, there is an `hline` renered between the table and the
+#' format. By default, there is an `hline` rendered between the table and the
 #' notes. It is common to adjust the width of the minipage holding the notes
 #' depending on the width of the table and the extent of the notes.
 #'

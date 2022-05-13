@@ -10,7 +10,7 @@ st_notes_sub(x, where, replacement, fixed = FALSE)
 \item{x}{an stobject.}
 
 \item{where}{a regular expression for finding a line in table notes to
-replace; alternatively, this can be an integer specifiying the line to
+replace; alternatively, this can be an integer specifying the line to
 replace.}
 
 \item{replacement}{the replacement text for line matching by \code{where}.}
