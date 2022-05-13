@@ -1,14 +1,17 @@
-# pmtables (development version)
+# pmtables 0.5.0
 
 - New functions `st_as_image()`, `st2pdf()`, `st2png()` to render tables with 
-  TeX to to either `pdf` or `png` format; image files may be kept on disk
+  TeX to either `pdf` or `png` format; image files may be kept on disk
   or read back for display while kitting; `pdflatex` system dependency for 
-  `pdf` images and `latex` + `dvipng` for `png` images (#277, #278). 
+  `pdf` images and `latex` + `dvipng` for `png` images; additional Suggested
+  packages include `magick` and `pdftools` (#277, #278). 
   
 - `sig()` now returns character when integer type is passed (#272). 
 
 - `st_new()` is now generic with dispatch for `data.frame` and objects with 
-  class `pmtable` (#274).
+  class `pmtable`; most pippline functions can now be used to customize
+  tables coming from `pt_cat_*`, `pt_cont_*`, `pt_demographics()` and 
+  `pt_data_inventory()` (#274).
   
 - New functions `st_notes_detach()`, `st_notes_rm()`, `st_notes_app()`, 
   `st_notes_str()`, `st_notes_sub()` and `st_notes_conf()` to help working 
@@ -23,7 +26,7 @@
   data summaries (#268).
 
 - `pt_cat_wide()` gains argument `complete` to display missing levels of 
-  `by` and `panel` (
+  `by` and `panel` (#268).
 
 - Put stories in yaml format; add script to build validation docs from the
   yaml file (#269, #270).
