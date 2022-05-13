@@ -2,7 +2,7 @@
 
 - New functions `st_as_image()`, `st2pdf()`, and `st2png()` to render tables with 
   TeX to either `pdf` or `png` format; image files may be kept on disk
-  or read back for display while kitting; `pdflatex` system dependency for 
+  or read back for display while knitting; `pdflatex` system dependency for 
   `pdf` images and `latex` + `dvipng` for `png` images; additional Suggested
   packages include `magick` and `pdftools` (#277, #278). 
   
