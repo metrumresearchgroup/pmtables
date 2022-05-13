@@ -9,19 +9,19 @@ read_tex <- function(file) {
   readLines(file.path("validate", file))
 }
 
-test_that("basic-table", {
+test_that("basic-table [PMT-TEST-0085]", {
   expect <- read_tex("basic-table.tex")
   ans <- stable(pmt_summarized)
   expect_identical(expect, as.character(ans))
 })
 
-test_that("basic-table-bold", {
+test_that("basic-table-bold [PMT-TEST-0086]", {
   expect <- read_tex("basic-table-bold.tex")
   ans <- stable(pmt_summarized, cols_bold = TRUE)
   expect_identical(expect, as.character(ans))
 })
 
-test_that("file-names", {
+test_that("file-names [PMT-TEST-0087]", {
   expect <- read_tex("file-names.tex")
   ans <- stable(
     pmt_summarized,
@@ -31,7 +31,7 @@ test_that("file-names", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("notes-tpt", {
+test_that("notes-tpt [PMT-TEST-0088]", {
   expect <- read_tex("notes-tpt.tex")
   ans <- stable(
     pmt_summarized,
@@ -40,7 +40,7 @@ test_that("notes-tpt", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("notes-mini", {
+test_that("notes-mini [PMT-TEST-0089]", {
   expect <- read_tex("notes-mini.tex")
   conf <- noteconf(type = "minipage")
   ans <- stable(
@@ -51,7 +51,7 @@ test_that("notes-mini", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("panel-basic", {
+test_that("panel-basic [PMT-TEST-0090]", {
   expect <- read_tex("panel-basic.tex")
   ans <- stable(
     pmt_summarized,
@@ -60,7 +60,7 @@ test_that("panel-basic", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("panel-prefix", {
+test_that("panel-prefix [PMT-TEST-0091]", {
   expect <- read_tex("panel-prefix.tex")
   ans <- stable(
     pmt_summarized,
@@ -69,7 +69,7 @@ test_that("panel-prefix", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("clear-reps", {
+test_that("clear-reps [PMT-TEST-0092]", {
   expect <- read_tex("clear-reps.tex")
   ans <- stable(
     pmt_summarized,
@@ -78,7 +78,7 @@ test_that("clear-reps", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("clear-grouped-reps", {
+test_that("clear-grouped-reps [PMT-TEST-0093]", {
   expect <- read_tex("clear-grouped-reps.tex")
   ans <- stable(
     pmt_summarized,
@@ -87,7 +87,7 @@ test_that("clear-grouped-reps", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("hline-at", {
+test_that("hline-at [PMT-TEST-0094]", {
   expect <- read_tex("hline-at.tex")
   ans <- stable(
     pmt_summarized,
@@ -96,7 +96,7 @@ test_that("hline-at", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("hline-from", {
+test_that("hline-from [PMT-TEST-0095]", {
   expect <- read_tex("hline-from.tex")
   ans <- stable(
     pmt_summarized,
@@ -105,7 +105,7 @@ test_that("hline-from", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("hline-from-clear", {
+test_that("hline-from-clear [PMT-TEST-0096]", {
   expect <- read_tex("hline-from-clear.tex")
   ans <- stable(
     pmt_summarized,
@@ -115,7 +115,7 @@ test_that("hline-from-clear", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("align", {
+test_that("align [PMT-TEST-0097]", {
   expect <- read_tex("align.tex")
   ans <- stable(
     pmt_summarized,
@@ -124,7 +124,7 @@ test_that("align", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("cols-rename", {
+test_that("cols-rename [PMT-TEST-0098]", {
   expect <- read_tex("col-rename.tex")
   ans <- stable(
     pmt_summarized,
@@ -133,7 +133,7 @@ test_that("cols-rename", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("cols-blank", {
+test_that("cols-blank [PMT-TEST-0099]", {
   expect <- read_tex("col-blank.tex")
   ans <- stable(
     pmt_summarized,
@@ -142,7 +142,7 @@ test_that("cols-blank", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("col-multi-line", {
+test_that("col-multi-line [PMT-TEST-0100]", {
   expect <- read_tex("col-multi-line.tex")
   ans <- stable(
     pmt_summarized,
@@ -151,7 +151,7 @@ test_that("col-multi-line", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("col-multi-line-units", {
+test_that("col-multi-line-units [PMT-TEST-0101]", {
   expect <- read_tex("col-multi-line-units.tex")
   ans <- stable(
     pmt_summarized,
@@ -162,7 +162,7 @@ test_that("col-multi-line-units", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("span", {
+test_that("span [PMT-TEST-0102]", {
   expect <- read_tex("span.tex")
   ans <- stable(
     pmt_summarized,
@@ -171,7 +171,7 @@ test_that("span", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("span-levels", {
+test_that("span-levels [PMT-TEST-0103]", {
   expect <- read_tex("span-levels.tex")
   ans <- stable(
     pmt_summarized,
@@ -183,7 +183,7 @@ test_that("span-levels", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("row-space", {
+test_that("row-space [PMT-TEST-0104]", {
   expect <- read_tex("row-space.tex")
   ans <- stable(
     pmt_summarized,
@@ -192,7 +192,7 @@ test_that("row-space", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("col-space", {
+test_that("col-space [PMT-TEST-0105]", {
   expect <- read_tex("col-space.tex")
   ans <- stable(
     pmt_summarized,
@@ -201,7 +201,7 @@ test_that("col-space", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("header-space", {
+test_that("header-space [PMT-TEST-0106]", {
   expect <- read_tex("header-space.tex")
   ans <- stable(
     pmt_summarized,
@@ -211,7 +211,7 @@ test_that("header-space", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("continuous-long-panel", {
+test_that("continuous-long-panel [PMT-TEST-0107]", {
   expect <- read_tex("continuous-long-panel.tex")
   ans <- pt_cont_long(
     pmt_first, cols = "WT,CRCL,ALB", panel = "STUDYf",
@@ -220,7 +220,7 @@ test_that("continuous-long-panel", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("continuous-wide-by", {
+test_that("continuous-wide-by [PMT-TEST-0108]", {
   expect <- read_tex("continuous-wide-by.tex")
   ans <- pt_cont_wide(
     pmt_first,
@@ -231,7 +231,7 @@ test_that("continuous-wide-by", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("cat-long-span", {
+test_that("cat-long-span [PMT-TEST-0109]", {
   expect <- read_tex("cat-long-span.tex")
   ans <- pt_cat_long(
     pmt_first,
@@ -241,7 +241,7 @@ test_that("cat-long-span", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("cat-wide-by-panel", {
+test_that("cat-wide-by-panel [PMT-TEST-0110]", {
   expect <- read_tex("cat-wide-by-panel.tex")
   ans <- pt_cat_wide(
     pmt_first,
@@ -251,7 +251,7 @@ test_that("cat-wide-by-panel", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("inventory-by", {
+test_that("inventory-by [PMT-TEST-0111]", {
   expect <- read_tex("inventory-by.tex")
   ans <- pt_data_inventory(
     pmt_pk,
@@ -261,7 +261,7 @@ test_that("inventory-by", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("inventory-panel-by", {
+test_that("inventory-panel-by [PMT-TEST-0112]", {
   expect <- read_tex("inventory-panel-by.tex")
   ans <- pt_data_inventory(
     pmt_pk,
@@ -271,7 +271,7 @@ test_that("inventory-panel-by", {
   expect_identical(expect, as.character(ans))
 })
 
-test_that("inventory-stacked", {
+test_that("inventory-stacked [PMT-TEST-0113]", {
   expect <- read_tex("inventory-stacked.tex")
   ans <- pt_data_inventory(
     pmt_obs,

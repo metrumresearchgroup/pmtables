@@ -3,10 +3,11 @@
 #' @importFrom dplyr mutate bind_rows select ungroup summarise left_join
 #' @importFrom dplyr group_modify rename count vars group_by n first last
 #' @importFrom dplyr case_when filter arrange group_vars distinct bind_cols
-#' @importFrom dplyr groups slice everything mutate_at
+#' @importFrom dplyr groups slice everything mutate_at across
 #' @importFrom purrr map_dfr walk partial map map_chr modify flatten_chr imap
 #' @importFrom purrr flatten_int map_lgl modify_if map_int map2 keep flatten
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill separate unite
+#' @importFrom tidyr complete
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
 #' @importFrom rlang enquo enquos is_named is_atomic flatten_if have_name
@@ -15,6 +16,7 @@
 #' @importFrom stats median rnorm sd na.omit setNames
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
+#' @importFrom tools file_ext
 #'
 #' @include summary-functions.R
 #' @include utils.R

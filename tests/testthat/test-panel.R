@@ -9,7 +9,7 @@ inspect <- function(...) {
 
 context("test-panel")
 
-test_that("panel duplicates", {
+test_that("panel duplicates [PMT-TEST-0158]", {
   data <- data.frame(A = c(1,1,2,2,1,1), B = 3)
   expect_error(
     stable(data, panel = as.panel("A")),
@@ -19,14 +19,14 @@ test_that("panel duplicates", {
   expect_equal(ncol(out$data),1L)
 })
 
-test_that("can't panel with one column", {
+test_that("can't panel with one column [PMT-TEST-0159]", {
   expect_error(
     stable(data.frame(A = 1), panel = as.panel("A")),
     "must have more than one column"
   )
 })
 
-test_that("span split with title", {
+test_that("span split with title [PMT-TEST-0160]", {
   data <- data.frame(a.A = 1, a.B = 2, C = 3, z.Y = 4, z.Z = 5)
   title <- list(a = "First Split", z = "Last Split")
   out <- inspect(data, span_split = colsplit(sep = '.', title = title))
@@ -35,7 +35,7 @@ test_that("span split with title", {
   expect_equal(utitle, c("First Split", "", "Last Split"))
 })
 
-test_that("panel with sumrow", {
+test_that("panel with sumrow [PMT-TEST-0161]", {
   data <- ptdata()
   data$STUDY[6] <- "Summary"
   data$STUDY[13] <- "Summary"
@@ -51,7 +51,7 @@ test_that("panel with sumrow", {
   expect_equal(sum(all),2)
 })
 
-test_that("panel with drop", {
+test_that("panel with drop [PMT-TEST-0162]", {
   data <- ptdata()
   out <- inspect(data, panel = "STUDY", drop  = "N,WT,DOSE")
   n <- ncol(data) - 3 - 1
@@ -62,7 +62,7 @@ test_that("panel with drop", {
   expect_equal(ans,length(unique(data[["STUDY"]])))
 })
 
-test_that("panel invalid regex in panel_skip", {
+test_that("panel invalid regex in panel_skip [PMT-TEST-0163]", {
   x <- "\\textbf{c}"
   data <- data.frame(A = c("a", "b", x), B = "B", C = "C")
   out <- inspect(data, panel  = as.panel("A",skip  = x))
@@ -74,7 +74,7 @@ test_that("panel invalid regex in panel_skip", {
   expect_match(out$tab, "\\textbf{c}", all = FALSE, fixed = TRUE)
 })
 
-test_that("omit hline from panel", {
+test_that("omit hline from panel [PMT-TEST-0164]", {
   data <- stdata()
   tab1 <- stable(data, panel = as.panel("STUDY"))
   tab2 <- stable(data, panel = as.panel("STUDY", hline = FALSE))
@@ -83,7 +83,7 @@ test_that("omit hline from panel", {
   expect_false(grepl("\\hline", tab2[where], fixed = TRUE))
 })
 
-test_that("nopagebreak for panels in longtable", {
+test_that("nopagebreak for panels in longtable [PMT-TEST-0165]", {
   ans <- stable_long(stdata(), panel = "STUDY")
   inserted <- grep(pmtables:::.internal$marker.panel, ans, fixed = TRUE)
   check <- grep("DEMO", ans, fixed = TRUE)
@@ -102,7 +102,7 @@ test_that("nopagebreak for panels in longtable", {
   )
 })
 
-test_that("jut de-indents panel rows", {
+test_that("jut de-indents panel rows [PMT-TEST-0166]", {
   u <- list(WT = "kg")
   ans <- inspect(stdata(), panel = rowpanel("STUDY", jut = 1), units = u)
   code <- ans$output

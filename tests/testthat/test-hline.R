@@ -15,26 +15,26 @@ data <- tibble(
   d = c("a", "a", "b", "a", "b")
 )
 
-test_that("test-hline-hline-at", {
+test_that("test-hline-hline-at [PMT-TEST-0114]", {
   x <- inspect(data = data, hline_at = c(2,4))
   ans <- grep("hline", x$tab)
   expect_equal(c(2,4)-1, ans)
 })
 
-test_that("test-hline-hline-from", {
+test_that("test-hline-hline-from [PMT-TEST-0115]", {
   x <- inspect(data = data, hline_from = "d")
   ans <- grep("hline", x$tab)
   expect_equal(c(3,4,5)-1, ans)
   expect_error(inspect(data = data, hline_from = "kyle"))
 })
 
-test_that("test-hline st_hline pattern", {
+test_that("test-hline st_hline pattern [PMT-TEST-0116]", {
   x <- st_new(stdata()) %>% st_hline(pattern = "cap", col = "FORM") %>% st_make()
   y <- st_new(stdata()) %>% st_hline(pattern = "cap") %>% st_make()
   expect_identical(x,y)
 })
 
-test_that("test-hline st_hline nudge", {
+test_that("test-hline st_hline nudge [PMT-TEST-0117]", {
   data <- tibble(a = letters[1:10])
   x <- st_new(data) %>%
     st_hline(pattern = 'd') %>%
@@ -54,7 +54,7 @@ test_that("test-hline st_hline nudge", {
   expect_false(grepl("hline", z$tab[3]))
 })
 
-test_that("test-hline st_hline accumulate", {
+test_that("test-hline st_hline accumulate [PMT-TEST-0118]", {
   x <-
     st_new(tibble(a = letters)) %>%
     st_hline(at = c(1,2,3)) %>%

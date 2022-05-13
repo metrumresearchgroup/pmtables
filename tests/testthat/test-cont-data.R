@@ -1,7 +1,7 @@
 
 context("test-cont-data")
 
-test_that("continuous data summary long - simple", {
+test_that("continuous data summary long - simple [PMT-TEST-0013]", {
   data <- pmt_first
   cols <- pmtables:::new_names("WT,ALB,SCR")
   ans <- cont_table_data(data, cols = cols)
@@ -11,7 +11,7 @@ test_that("continuous data summary long - simple", {
   expect_equal(nrow(ans),3)
 })
 
-test_that("continuous data summary long - by", {
+test_that("continuous data summary long - by [PMT-TEST-0014]", {
   data <- pmt_first
   cols <- pmtables:::new_names("WT,ALB,SCR")
   by <- pmtables:::new_names("STUDYf")
@@ -24,7 +24,7 @@ test_that("continuous data summary long - by", {
   expect_true(all(ans[[2]] %in% cols))
 })
 
-test_that("continuous data summary wide - simple", {
+test_that("continuous data summary wide - simple [PMT-TEST-0015]", {
   data <- pmt_first
   cols <- pmtables:::new_names("WT,ALB,SCR")
   ans <- cont_table_data(
@@ -36,7 +36,7 @@ test_that("continuous data summary wide - simple", {
   expect_equal(nrow(ans),1)
 })
 
-test_that("continuous data summary wide - by", {
+test_that("continuous data summary wide - by [PMT-TEST-0016]", {
   data <- pmt_first
   cols <- pmtables:::new_names("WT,ALB,SCR")
   ans <- cont_table_data(

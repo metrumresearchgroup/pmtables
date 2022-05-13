@@ -2,7 +2,7 @@ library(testthat)
 
 context("test-inventory-table")
 
-test_that("inventory table", {
+test_that("inventory table [PMT-TEST-0122]", {
   data <- pmt_first
   ans <- pt_data_inventory(data,  by = "STUDYf")
   expect_is(ans,"pmtable")
@@ -18,7 +18,7 @@ test_that("inventory table", {
   expect_equal(names(tab)[7], "Percent.BQL")
 })
 
-test_that("inventory table grouped paneled", {
+test_that("inventory table grouped paneled [PMT-TEST-0123]", {
   data <- pmt_first
   ans <- pt_data_inventory(data,  by = "STUDYf", panel = "FORMf")
   expect_is(ans,"pmtable")
@@ -39,7 +39,7 @@ test_that("inventory table grouped paneled", {
 })
 
 
-test_that("inventory table - stacked", {
+test_that("inventory table - stacked [PMT-TEST-0124]", {
   data <- pmt_obs
   ans <- pt_data_inventory(data,  panel = "SEQf", by = "STUDYf",stacked = TRUE)
   expect_is(ans,"pmtable")
@@ -57,7 +57,7 @@ test_that("inventory table - stacked", {
   expect_equal(names(tab)[8], "Percent.BQL")
 })
 
-test_that("inventory table - different BQL cols", {
+test_that("inventory table - different BQL cols [PMT-TEST-0125]", {
   data1 <- pmt_pk
   data2 <- rename(data1, BLQ = BQL)
   ans1 <- pt_data_inventory(data1)
@@ -65,13 +65,13 @@ test_that("inventory table - different BQL cols", {
   expect_false(identical(ans1,ans2))
 })
 
-test_that("inventory table - no bq col", {
+test_that("inventory table - no bq col [PMT-TEST-0126]", {
   data <- select(pmt_pk, -BQL)
   ans <- pt_data_inventory(data)
   expect_false(any(grepl("BQL", names(ans$data), fixed = TRUE)))
 })
 
-test_that("notes - inventory", {
+test_that("notes - inventory [PMT-TEST-0127]", {
   ans <- pt_data_inventory(pmt_pk)$notes
   expect_is(ans, "character")
   expect_length(ans,4)
@@ -81,14 +81,14 @@ test_that("notes - inventory", {
   expect_match(ans[4], "OBS: observations", fixed = TRUE)
 })
 
-test_that("drop MISS column", {
+test_that("drop MISS column [PMT-TEST-0128]", {
   ans1 <- pt_data_inventory(pmt_pk)$data
   expect_equal(names(ans1)[2], "Number.MISS")
   ans2 <- pt_data_inventory(pmt_pk, drop_miss = TRUE)$data
   expect_equal(names(ans2)[2], "Number.OBS")
 })
 
-test_that("inventory table - denominator", {
+test_that("inventory table - denominator [PMT-TEST-0129]", {
   non_miss <- filter(pmt_pk, !(is.na(DV) & BQL==0))
   ans <- pt_data_inventory(pmt_pk)$data
   miss <- ans$Number.MISS
@@ -103,20 +103,20 @@ test_that("inventory table - denominator", {
   expect_equal(pmtables:::digit1(100*bql/den), pbq)
 })
 
-test_that("inventory table - bql", {
+test_that("inventory table - bql [PMT-TEST-0130]", {
   x <- c(rep(0,10), rep(1,2), rep(3,5))
   expect_equal(pmtables:::n_bql(x), 7)
   expect_equal(sum(pmtables:::is_bql(x)), 7)
 })
 
-test_that("inventory table - obs", {
+test_that("inventory table - obs [PMT-TEST-0131]", {
   dv <-  c(1,2,3,4,5,6,7,8)
   bql <- c(0,0,1,0,0,2,0,0)
   ans <- pmtables:::n_obs(dv, bql)
   expect_equal(ans, 6)
 })
 
-test_that("inventory table - missing / non-missing", {
+test_that("inventory table - missing / non-missing [PMT-TEST-0132]", {
   x <- NA_real_
   dv <-  c(0,1,x,3,4,5,x,7,8,x)
   bql <- c(0,0,0,1,0,0,2,0,0,0)
@@ -126,7 +126,7 @@ test_that("inventory table - missing / non-missing", {
   expect_equal(ans, 8)
 })
 
-test_that("handle BQL and BLQ inventory table", {
+test_that("handle BQL and BLQ inventory table [PMT-TEST-0133]", {
 
   data1 <- pmt_first
   data2 <- dplyr::rename(data1, BLQ = BQL)

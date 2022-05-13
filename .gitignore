@@ -1,4 +1,8 @@
 tests/testthat/validate/validate.log
+
+tests/testthat/image/build
+tests/testthat/image/*.html
+
 inst/demo-longtable.log
 inst/demo-longtable.tex
 inst/demo-pmtable.log

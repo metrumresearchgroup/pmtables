@@ -11,7 +11,7 @@ sysfile <- function(x) {
   )
 }
 
-test_that("read simple table", {
+test_that("read simple table [PMT-TEST-0246]", {
   file <- sysfile("table.yml")
   expect_is(yaml_as_df(file), "data.frame")
   file <- sysfile("prototype-error-2.yml")
@@ -19,12 +19,12 @@ test_that("read simple table", {
   expect_message(try(yaml_as_df(file), silent = TRUE), msg = "row data in yaml")
 })
 
-test_that("read study summary table", {
+test_that("read study summary table [PMT-TEST-0247]", {
   file <- sysfile("studySummary.yaml")
   expect_is(yaml_as_df(file), "data.frame")
 })
 
-test_that("read prototyped table", {
+test_that("read prototyped table [PMT-TEST-0248]", {
   file <- sysfile("prototype.yaml")
   expect_is(yaml_as_df(file), "data.frame")
   file <- sysfile("prototype-error.yaml")
