@@ -9,7 +9,7 @@
 - `sig()` now returns character when integer type is passed (#272). 
 
 - `st_new()` is now generic with dispatch for `data.frame` and objects with 
-  class `pmtable`; most pippline functions can now be used to customize
+  class `pmtable`; most pipeline functions can now be used to customize
   tables coming from `pt_cat_*`, `pt_cont_*`, `pt_demographics()` and 
   `pt_data_inventory()` (#274).
   
