@@ -12,7 +12,9 @@ pt_data_inventory(
   drop_miss = FALSE,
   stacked = FALSE,
   table = NULL,
-  all_name = "all",
+  summarize_all = TRUE,
+  all_name = "All data",
+  all_name_stacked = "Group Total",
   dv_col = "DV",
   bq_col = find_bq_col(data),
   id_col = "ID",
@@ -40,7 +42,13 @@ and included in a single table (see examples).}
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
 
+\item{summarize_all}{if \code{TRUE} then a complete data summary will be
+appended to the bottom of the table when \code{stacked} is \code{FALSE}.}
+
 \item{all_name}{a name to use for the complete data summary}
+
+\item{all_name_stacked}{a name to use for the complete data summary when
+\code{stacked} is \code{TRUE}.}
 
 \item{dv_col}{Character name of \code{DV} column.}
 

@@ -9,6 +9,7 @@ data_inventory_data(
   by,
   panel = by,
   all_name = "all",
+  summarize_all = TRUE,
   stacked = FALSE,
   ...
 )
@@ -23,6 +24,9 @@ not add or remove rows prior to summarizing \code{data}}
 \item{panel}{The panel grouping variable; may be character or quosure.}
 
 \item{all_name}{a name to use for the complete data summary}
+
+\item{summarize_all}{if \code{TRUE} then a complete data summary will be
+appended to the bottom of the table when \code{stacked} is \code{FALSE}.}
 
 \item{stacked}{If \code{TRUE}, then independent summaries are created by \code{outer}
 and included in a single table (see examples).}
