@@ -1,4 +1,11 @@
 # Please add user stories at the top of this file
+PMT-S080:
+  name: customize inventory summary row
+  description: >
+    As a user, I want to configure the summary row on data inventory table.
+  ProductRisk: low-risk
+  tests:
+  - PMT-TEST-0249
 PMT-S079:
   name: sig returns character when passed integer
   description: >
