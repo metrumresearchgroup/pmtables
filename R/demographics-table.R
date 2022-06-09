@@ -189,6 +189,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
                             paneled = TRUE,
                             denom = c("group", "total")) {
 
+  data <- ungroup(data)
   summarize_all <- isTRUE(summarize_all)
   summarize_span <- !is.null(span)
   summarize_all <- isTRUE(summarize_all) || !summarize_span

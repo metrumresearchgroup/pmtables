@@ -148,6 +148,7 @@ pt_cont_wide <- function(data, cols,
                          na_fill = "--",
                          id_col = "ID") {
 
+  data <- ungroup(data)
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
   panel <- panel_data$col
@@ -314,6 +315,8 @@ pt_cont_long <- function(data,
                          na_fill = "--",
                          id_col = "ID") {
 
+
+  data <- ungroup(data)
   switch_panel_by <- FALSE
 
   if(!missing(by)) {

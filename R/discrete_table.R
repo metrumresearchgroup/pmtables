@@ -154,6 +154,7 @@ pt_cat_long <- function(data, cols, span  = ".total",
                         table = NULL, by = NULL,
                         denom = c("group", "total")) {
 
+  data <- ungroup(data)
   summarize <- match.arg(summarize)
   denom <- match.arg(denom)
   summarize_all <- summarize != "none"
@@ -298,6 +299,7 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
                         summarize = c("bottom", "none"), complete = FALSE,
                         denom = c("group", "total")) {
 
+  data <- ungroup(data)
   summarize <- match.arg(summarize)
   summarize_all <- summarize != "none"
   denom <- match.arg(denom)

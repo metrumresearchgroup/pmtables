@@ -25,6 +25,7 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
                                  id_col = "ID",
                                  ...) {
 
+  data <- ungroup(data)
   if(by==".total" | panel == ".total") {
     data <- data_total_col(data, all_name = all_name)
   }
@@ -66,7 +67,6 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
 
   .groups <- unique(c(panel,by))
 
-  data <- ungroup(data)
 
   # .N is the overall n
   # ..n is the panel n
