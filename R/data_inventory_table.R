@@ -336,10 +336,11 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     inner_summary <- FALSE
   }
 
-  total_name <- case_when(
-    stacked  ~ paste0("\\hline {\\it ", all_name, "}"),
-    TRUE ~ paste0("\\hline \\hline {\\bf ", all_name, "}")
-  )
+  if(stacked) {
+    total_name <- paste0("\\hline {\\it ", all_name, "}")
+  } else {
+    total_name <- paste0("\\hline \\hline {\\bf ", all_name, "}")
+  }
 
   ans <- data_inventory_data(
     data,

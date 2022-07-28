@@ -1,4 +1,21 @@
 # Please add user stories at the top of this file
+PMT-S081:
+  name: Customize All Data summary in pt inventory table
+  description: >
+    As a user, I want to customize the label on All Data summary in
+    pt_data_inventory.
+  ProductRisk: low-risk
+  tests:
+  - PMT-INVEN-0002
+  - PMT-INVEN-0003
+PMT-S080:
+  name: Optional All Data summary on pt inventory table
+  description: >
+    As a user, I want to opt in to the All Data summary
+    in pt_data_inventory.
+  ProductRisk: medium-risk
+  tests:
+  - PMT-INVEN-0001
 PMT-S079:
   name: sig returns character when passed integer
   description: >
