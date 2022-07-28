@@ -312,10 +312,12 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               id_col = "ID",
                               ...) {
 
-  data <- ungroup(data)
-
   stacked <- isTRUE(stacked)
   if(stacked) all_name <- all_name_stacked
+  summarize_all <- isTRUE(summarize_all)
+
+  assert_that(is.data.frame(data))
+  data <- ungroup(as.data.frame(data))
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
