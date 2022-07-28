@@ -312,6 +312,8 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               id_col = "ID",
                               ...) {
 
+  data <- ungroup(data)
+
   stacked <- isTRUE(stacked)
   if(stacked) all_name <- all_name_stacked
 
