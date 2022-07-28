@@ -317,7 +317,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   summarize_all <- isTRUE(summarize_all)
 
   assert_that(is.data.frame(data))
-  data <- ungroup(as.data.frame(data))
+  data <- as.data.frame(data)
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
