@@ -26,7 +26,7 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
                                  ...) {
 
   if(by==".total" | panel == ".total") {
-    data <- data_total_col(data,all_name = all_name)
+    data <- data_total_col(data, all_name = all_name)
   }
 
   miss <- FALSE
@@ -134,7 +134,7 @@ data_inventory_data_split <- function(data,by,panel=by,stacked=FALSE,...) {
 #'
 #' @export
 data_inventory_data <- function(data, by, panel = by, all_name = "all",
-                                stacked = FALSE, ...) {
+                                summarize_all = TRUE, stacked = FALSE, ...) {
   by <- unname(by)
   panel <- unname(panel)
 
@@ -156,7 +156,7 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
     ...
   )
 
-  if(by != ".total") {
+  if(by != ".total" && isTRUE(summarize_all)) {
     tot <- data_inventory_chunk(
       data,
       by = ".total",
@@ -229,6 +229,10 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 #' `MISS` values are equal to zero.
 #' @param stacked If `TRUE`, then independent summaries are created by `outer`
 #' and included in a single table (see examples).
+#' @param summarize_all if `TRUE` then a complete data summary will be
+#' appended to the bottom of the table when `stacked` is `FALSE`.
+#' @param all_name_stacked a name to use for the complete data summary when
+#' `stacked` is `TRUE`.
 #' @param dv_col Character name of `DV` column.
 #' @param bq_col Character name of `BQL` column; see [find_bq_col()].
 #' @param id_col Character name of `ID` column.
@@ -300,11 +304,20 @@ pt_data_study <- function(data, study_col = "STUDY", panel = study_col, ...) {
 pt_data_inventory <- function(data, by = ".total", panel = by,
                               inner_summary = TRUE, drop_miss = FALSE,
                               stacked = FALSE, table = NULL,
-                              all_name = "all",
+                              summarize_all = TRUE,
+                              all_name = "All data",
+                              all_name_stacked  = "Group Total",
                               dv_col = "DV",
                               bq_col = find_bq_col(data),
                               id_col = "ID",
                               ...) {
+
+  stacked <- isTRUE(stacked)
+  if(stacked) all_name <- all_name_stacked
+  summarize_all <- isTRUE(summarize_all)
+
+  assert_that(is.data.frame(data))
+  data <- as.data.frame(data)
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
@@ -327,10 +340,11 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     inner_summary <- FALSE
   }
 
-  total_name <- case_when(
-    isTRUE(stacked)  ~ "\\hline {\\it Group Total}",
-    TRUE ~ "\\hline \\hline {\\bf All data}"
-  )
+  if(stacked) {
+    total_name <- paste0("\\hline {\\it ", all_name, "}")
+  } else {
+    total_name <- paste0("\\hline \\hline {\\bf ", all_name, "}")
+  }
 
   ans <- data_inventory_data(
     data,
@@ -338,13 +352,14 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     panel = panel,
     stacked = stacked,
     all_name = all_name,
+    summarize_all = summarize_all,
     dv_col = dv_col,
     bq_col = bq_col,
     id_col = id_col,
     ...
   )
 
-  if(exists(by,ans)) {
+  if(exists(by, ans)) {
     ans <- mutate(
       ans,
       !!sym(by) := ifelse(!!sym(by)==".total", total_name, !!sym(by))
@@ -365,7 +380,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
       `Percent.OBS` = .data[["OOBS"]],
       `Percent.BQL` = .data[["OBQL"]]
     )
-    ans <- mutate(ans,POBS=NULL,PBQL=NULL)
+    ans <- mutate(ans, POBS = NULL, PBQL = NULL)
   }
 
   ans <- rename(
@@ -384,7 +399,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     ans <- mutate(ans, Number.MISS = NULL)
   }
 
-  ans <- mutate(ans,.total = NULL)
+  ans <- mutate(ans, .total = NULL)
   out <- ans
 
   notes <- pt_data_inventory_notes(bq = bq_col, drop_bql = drop_bql)
@@ -396,8 +411,6 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
     out <- select(out, !contains("BQL"))
   }
 
-  .sumrows <- NULL
-
   .panel <- rowpanel(NULL)
   if(has_panel) {
     .panel <- panel_data
@@ -405,10 +418,6 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   }
 
   if(panel==by) panel <- NULL
-
-  if(!stacked & isTRUE(has_by)) {
-    .sumrows <- sumrow(out[,1]==total_name, bold = TRUE)
-  }
 
   out <- list(
     data = out,
