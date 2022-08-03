@@ -867,8 +867,22 @@ st_drop <- function(x, ...) {
 #' These functions modify the input data frame prior to passing it to
 #' [stable()] or [stable_long()].
 #'
-#' @param x an stobject
-#' @param ... passed to [dplyr::select()], or [dplyr::mutate()]
+#' @param x an stobject.
+#' @param ... passed to [dplyr::select()], [dplyr::mutate()], or
+#' [dplyr::filter()].
+#'
+#' @details
+#'
+#' - `st_select` calls `dplyr::select` on the data
+#' - `st_mutate` calls `dplyr::mutate` on the data
+#' - `st_filter` calls `dplyr::filter` on the data
+#'
+#' @examples
+#' tab <- pt_data_inventory(pmt_obs, by = "FORM")
+#' obj <- st_new(tab)
+#' st_filter(obj, FORM != "troche")
+#' st_select(obj, -contains("BQL"))
+#' st_mutate(obj, FORM = ifelse(FORM=="tablet", "ODT", FORM))
 #'
 #' @export
 st_select <- function(x, ...) {
@@ -882,6 +896,16 @@ st_select <- function(x, ...) {
 st_mutate <- function(x, ...) {
   check_st(x)
   x$data <- mutate(x$data, ...)
+  x
+}
+
+dplyr_filter <- dplyr::filter
+
+#' @rdname st_select
+#' @export
+st_filter <- function(x, ...) {
+  check_st(x)
+  x$data <- dplyr_filter(x$data, ...)
   x
 }
 
