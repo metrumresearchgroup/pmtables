@@ -872,7 +872,6 @@ st_drop <- function(x, ...) {
 #' [dplyr::filter()].
 #'
 #' @details
-#'
 #' - `st_select` calls `dplyr::select` on the data
 #' - `st_mutate` calls `dplyr::mutate` on the data
 #' - `st_filter` calls `dplyr::filter` on the data
@@ -899,13 +898,11 @@ st_mutate <- function(x, ...) {
   x
 }
 
-dplyr_filter <- dplyr::filter
-
 #' @rdname st_select
 #' @export
 st_filter <- function(x, ...) {
   check_st(x)
-  x$data <- dplyr_filter(x$data, ...)
+  x$data <- filter(x$data, ...)
   x
 }
 
