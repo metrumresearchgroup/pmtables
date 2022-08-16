@@ -3,18 +3,37 @@
 \name{st_select}
 \alias{st_select}
 \alias{st_mutate}
+\alias{st_filter}
 \title{Filter, select, or mutate data}
 \usage{
 st_select(x, ...)
 
 st_mutate(x, ...)
+
+st_filter(x, ...)
 }
 \arguments{
-\item{x}{an stobject}
+\item{x}{an stobject.}
 
-\item{...}{passed to \code{\link[dplyr:select]{dplyr::select()}}, or \code{\link[dplyr:mutate]{dplyr::mutate()}}}
+\item{...}{passed to \code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, or
+\code{\link[dplyr:filter]{dplyr::filter()}}.}
 }
 \description{
 These functions modify the input data frame prior to passing it to
 \code{\link[=stable]{stable()}} or \code{\link[=stable_long]{stable_long()}}.
+}
+\details{
+\itemize{
+\item \code{st_select} calls \code{dplyr::select} on the data
+\item \code{st_mutate} calls \code{dplyr::mutate} on the data
+\item \code{st_filter} calls \code{dplyr::filter} on the data
+}
+}
+\examples{
+tab <- pt_data_inventory(pmt_obs, by = "FORM")
+obj <- st_new(tab)
+st_filter(obj, FORM != "troche")
+st_select(obj, -contains("BQL"))
+st_mutate(obj, FORM = ifelse(FORM=="tablet", "ODT", FORM))
+
 }

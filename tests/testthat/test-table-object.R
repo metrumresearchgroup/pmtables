@@ -412,3 +412,11 @@ test_that("substitute lines in table notes", {
     regexp = "did not find any notes"
   )
 })
+
+test_that("st_filter filters data in pmtable object [PMT-STFUN-0001]", {
+  data <- stdata()
+  x <- st_new(data)
+  y <- st_filter(x, FORM != "troche")
+  expect_true(all(y$data$FORM %in% c("tablet", "capsule")))
+  expect_true("troche" %in% data$FORM)
+})

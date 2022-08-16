@@ -1,4 +1,11 @@
 # Please add user stories at the top of this file
+PMT-S082:
+  name: Filter data from an st object
+  description: >
+    As a user, I want to filter data in an st object.
+  ProductRisk: low-risk
+  tests:
+  - PMT-STFUN-0001
 PMT-S081:
   name: Customize All Data summary in pt inventory table
   description: >
