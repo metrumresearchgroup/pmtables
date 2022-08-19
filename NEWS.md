@@ -1,3 +1,19 @@
+# pmtables 0.5.1
+
+- New function `st_filter()` to filter data item in a pipeline (#298).
+
+- Add `summarize_all` and `all_name_stacked` arguments to 
+  `pt_data_inventory()` (#297).
+
+## Bugs Fixed
+
+- Fixed bug where `all_name` was not getting used in `pt_data_inventory()` 
+  (#297).
+
+- Fixed bug where detached table notes were getting rendered too close to the 
+  main table when building standalone pdf under certain TeX distributions
+  (#286).
+
 # pmtables 0.5.0
 
 - New functions `st_as_image()`, `st2pdf()`, and `st2png()` to render tables with 

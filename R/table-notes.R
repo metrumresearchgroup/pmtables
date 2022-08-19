@@ -108,9 +108,11 @@ noteconf <- function(width = 0.8,
 is.noteconfig <- function(x) inherits(x, "noteconfig")
 
 mini_notes <- function(notes, x) {
-  hline1 <- hline2 <- paste0("\\rule{", 1, "\\linewidth}{",x$hline_pt, "pt}")
-  tskip <- paste0("\\vskip ", x$table_skip, "cm")
-  nskip <- paste0("\\vskip ", x$note_skip,  "cm")
+  hline1 <- hline2 <- c(
+    paste0("\\rule{", 1, "\\linewidth}{",x$hline_pt, "pt}")
+  )
+  tskip <- paste0("\\vspace{", x$table_skip, "cm}")
+  nskip <- paste0("\\vspace{", x$note_skip,  "cm}")
   if(!x$hline1) {
     hline1 <- NULL
   }
@@ -119,7 +121,9 @@ mini_notes <- function(notes, x) {
   }
   notes <- paste(notes, "\\newline")
   out <- c(
+    " ",
     tskip,
+    " ",
     paste0("\\begin{minipage}{",x$width,"\\linewidth}"),
     paste0("\\linespread{1.1}\\selectfont"),
     hline1,

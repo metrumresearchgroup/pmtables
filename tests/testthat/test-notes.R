@@ -34,8 +34,8 @@ test_that("mini notes [PMT-TEST-0154]", {
   expect_match(x$mini_notes,"abcd \\newline", fixed = TRUE, all = FALSE)
   expect_match(x$mini_notes,"xyz \\newline", fixed = TRUE, all = FALSE)
   expect_match(x$mini_notes,"end{minipage}", fixed = TRUE, all = FALSE)
-  expect_equal(x$mini_notes[1], "\\vskip 0.6cm", fixed = TRUE, all = FALSE)
-  expect_match(x$mini_notes, "\\vskip 0.1cm", fixed = TRUE, all = FALSE)
+  expect_equal(x$mini_notes[2], "\\vspace{0.6cm}", fixed = TRUE, all = FALSE)
+  expect_match(x$mini_notes, "\\vspace{0.1cm}", fixed = TRUE, all = FALSE)
 })
 
 test_that("notes escape [PMT-TEST-0155]", {

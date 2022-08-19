@@ -1,4 +1,5 @@
 library(testthat)
+library(pmtables)
 
 context("test-inventory-table")
 
@@ -149,4 +150,44 @@ test_that("handle BQL and BLQ inventory table [PMT-TEST-0133]", {
   expect_equal(tab1$notes[3], "MISS: missing observations (non-BQL)" )
   expect_equal(tab2$notes[3], "MISS: missing observations (non-BLQ)")
   expect_equal(tab3$notes[2], "MISS: missing observations")
+})
+
+test_that("Optional All Data summary - inventory table [PMT-INVEN-0001]", {
+  a <- pt_data_inventory(
+    pmt_obs,
+    by = "STUDYf"
+  )$data
+  b <- pt_data_inventory(
+      pmt_obs,
+      by = "STUDYf",
+      summarize_all = FALSE
+    )$data
+  expect_identical(a[1:4,], b[1:4,])
+  expect_true(nrow(a) == 1 + nrow(b))
+})
+
+test_that("Change All Data name - inventory table [PMT-INVEN-0002]", {
+  a <- pt_data_inventory(
+    pmt_obs,
+    by = "STUDYf"
+  )$data
+  b <- pt_data_inventory(
+    pmt_obs,
+    by = "STUDYf",
+    all_name="ALL"
+  )$data
+  expect_match(a$STUDYf[5], "All")
+  expect_match(b$STUDYf[5], "ALL")
+})
+
+test_that("Change stacked group name - inventory table [PMT-INVEN-0003]", {
+  a <- pt_data_inventory(
+    pmt_obs,
+    by = "STUDYf",
+    stacked = TRUE,
+    panel = "SEQf",
+    all_name_stacked = "STACKED"
+  )$data
+  expect_match(a$STUDYf[5], "STACKED")
+  expect_match(a$STUDYf[11], "STACKED")
 })
