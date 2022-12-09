@@ -278,9 +278,9 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   }
   # Combined Table ###
   table_data <- bind_rows(cont_df, cat_df)
-  table_data <- rename(table_data, !!sym(stat_name) := .data[["level"]])
+  table_data <- rename(table_data, !!sym(stat_name) := "level")
   if(summarize_all) {
-    table_data <- rename(table_data, !!sym(all_name) := .data[["value"]])
+    table_data <- rename(table_data, !!sym(all_name) := "value")
   }
   # add units
   units <- validate_units(units, data)
@@ -315,7 +315,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
     ans[["hline_from"]] <- "Covariate"
     table_data <- select(
       table_data,
-      Covariate = .data[["name"]],
+      Covariate = "name",
       everything()
     )
   }

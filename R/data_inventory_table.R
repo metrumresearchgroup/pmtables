@@ -100,14 +100,14 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
     summ,
     !!sym(by),
     !!sym(panel),
-    .data[["SUBJ"]],
-    .data[["NMISS"]],
-    .data[["NOBS"]],
-    .data[["NBQL"]],
-    .data[["POBS"]],
-    .data[["PBQL"]],
-    .data[["OOBS"]],
-    .data[["OBQL"]]
+    "SUBJ",
+    "NMISS",
+    "NOBS",
+    "NBQL",
+    "POBS",
+    "PBQL",
+    "OOBS",
+    "OBQL"
   )
   summ <- ungroup(summ)
   summ <- mutate(summ, !!sym(by) := as.character(!!sym(by)))
@@ -369,26 +369,26 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
   if(inner_summary) {
     ans <- rename(
       ans,
-      `Group percent.OBS` = .data[["POBS"]],
-      `Group percent.BQL` = .data[["PBQL"]],
-      `Overall percent.OBS` = .data[["OOBS"]],
-      `Overall percent.BQL` = .data[["OBQL"]]
+      `Group percent.OBS` = "POBS",
+      `Group percent.BQL` = "PBQL",
+      `Overall percent.OBS` = "OOBS",
+      `Overall percent.BQL` = "OBQL"
     )
   } else {
     ans <- rename(
       ans,
-      `Percent.OBS` = .data[["OOBS"]],
-      `Percent.BQL` = .data[["OBQL"]]
+      `Percent.OBS` = "OOBS",
+      `Percent.BQL` = "OBQL"
     )
     ans <- mutate(ans, POBS = NULL, PBQL = NULL)
   }
 
   ans <- rename(
     ans,
-    Number.SUBJ = .data[["SUBJ"]],
-    Number.MISS = .data[["NMISS"]],
-    Number.OBS = .data[["NOBS"]],
-    Number.BQL = .data[["NBQL"]]
+    Number.SUBJ = "SUBJ",
+    Number.MISS = "NMISS",
+    Number.OBS = "NOBS",
+    Number.BQL = "NBQL"
   )
 
   if(bq_col == "BLQ") {
