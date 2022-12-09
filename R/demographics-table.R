@@ -335,7 +335,7 @@ demo_summarize_cont <- function(data, span, cols, fun) {
   cont_table <- pivot_wider(
     cont_table,
     names_from  = "name",
-    values_from = summary_names,
+    values_from = all_of(summary_names),
     names_glue  = "{name}_{.value}"
   )
   cont_table <- pivot_longer(cont_table, -!!sym(span))
