@@ -120,7 +120,10 @@ is_regex <- function(x) {
 
 is_str_regex <- function(x) {
   if(!is.character(x)) return(FALSE)
-  is_regex(x) || (inherits(x, "fixed") && inherits(x, "pattern"))
+  is_regex(x) ||
+    (inherits(x, "stringr_fixed") && inherits(x, "stringr_pattern")) ||
+    # stringr < v1.5.0
+    (inherits(x, "fixed") && inherits(x, "pattern"))
 }
 
 as_str_regex <- function(x) {
