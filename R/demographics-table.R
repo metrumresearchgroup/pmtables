@@ -241,7 +241,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   if(summarize_span) {
     cat_table <- pt_cat_long(
       data,
-      cols = all_of(cols_cat),
+      cols = cols_cat,
       span = span,
       summarize = "top",
       denom = denom
@@ -250,7 +250,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   if(summarize_all) {
     cat_table_all0 <- pt_cat_long(
       data,
-      cols = all_of(cols_cat),
+      cols = cols_cat,
       summarize = "top",
       denom = denom
     )
