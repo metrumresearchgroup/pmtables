@@ -1,4 +1,4 @@
-# pmtables (development version)
+# pmtables 0.5.1
 
 - New function `st_filter()` to filter data item in a pipeline (#298).
 
