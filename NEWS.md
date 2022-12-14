@@ -1,3 +1,8 @@
+# pmtables 0.5.2
+
+- pmtables has been updated to be compatible with stringr 1.5.0, which
+  changed the classes of pattern modifiers (#302).
+
 # pmtables 0.5.1
 
 - New function `st_filter()` to filter data item in a pipeline (#298).
