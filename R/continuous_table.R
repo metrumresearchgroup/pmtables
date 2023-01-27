@@ -23,7 +23,6 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
   data <- data_total_col(data, all_name = all_name)
   check_continuous(data,cols)
   check_discrete(data,by)
-  # check_exists(data,id_col)
 
   assert_that(inherits(digits, "digits"))
 
@@ -58,7 +57,6 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = NULL, #.[[id_col]],
         na_fill = na_fill
       ),
       keep = TRUE
@@ -71,7 +69,6 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
         digit_fun = digit_fun,
         digits = .$digitn[1],
         name = .$name[1],
-        id = NULL, #.[[id_col]],
         na_fill = na_fill
       ),
       .keep = TRUE
@@ -148,6 +145,10 @@ pt_cont_wide <- function(data, cols,
                          na_fill = "--",
                          id_col = "ID") {
 
+  if(!missing(id_col)) {
+    deprecate_warn("0.5.3", "pt_cont_wide(id_col)")
+  }
+
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
   panel <- panel_data$col
@@ -167,7 +168,6 @@ pt_cont_wide <- function(data, cols,
     data = data,
     cols = cols,
     by = by,
-    #id_col = id_col,
     panel = panel,
     fun = fun,
     na_fill = na_fill,
@@ -314,6 +314,10 @@ pt_cont_long <- function(data,
                          na_fill = "--",
                          id_col = "ID") {
 
+  if(!missing(id_col)) {
+    deprecate_warn("0.5.3", "pt_cont_long(id_col)")
+  }
+
   switch_panel_by <- FALSE
 
   if(!missing(by)) {
@@ -338,7 +342,6 @@ pt_cont_long <- function(data,
     data = data,
     cols = unname(cols),
     by = unname(by),
-    # id_col = id_col,
     fun = fun,
     na_fill = na_fill,
     digits = digits,
