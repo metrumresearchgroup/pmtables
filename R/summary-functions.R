@@ -17,11 +17,11 @@
 #' @keywords internal
 cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
                           na_fill = "--",...) {
-  if(is.null(id)) {
-    n <- sum(!is.na(value))
-  } else {
-    n <- length(unique(id))
-  }
+  # if(is.null(id)) {
+  n <- sum(!is.na(value))
+  # } else {
+  #   n <- length(unique(id))
+  # }
   value <- na.omit(value)
   if(length(value)==0) {
     if(is.null(na_fill)) {
@@ -57,11 +57,11 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
 #' @keywords internal
 cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
                           na_fill = "--",...) {
-  if(is.null(id)) {
-    n <- sum(!is.na(value))
-  } else {
-    n <- length(unique(id))
-  }
+  # if(is.null(id)) {
+  n <- sum(!is.na(value))
+  # } else {
+  #   n <- length(unique(id))
+  # }
   value <- na.omit(value)
   if(length(value)==0) {
     if(is.null(na_fill)) {
