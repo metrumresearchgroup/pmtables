@@ -30,9 +30,14 @@ test_that("check if regular expression is valid [PMT-TEST-0243]", {
   expect_false(pmtables:::is_regex("\\textbf{foo}"))
   expect_true(pmtables:::is_str_regex(fixed("\\textbf{foo}")))
   x <- pmtables:::as_str_regex("\\textbf{foo}")
-  expect_is(x, "fixed")
+  expected <- if (utils::packageVersion("stringr") >= "1.5.0") {
+    "stringr_fixed"
+  } else {
+    "fixed"
+  }
+  expect_is(x, expected)
   x <- pmtables:::as_str_regex(NULL)
-  expect_is(x, "fixed")
+  expect_is(x, expected)
   expect_match(x, "invalid-regex-")
 })
 
