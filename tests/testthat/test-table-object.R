@@ -420,3 +420,14 @@ test_that("st_filter filters data in pmtable object [PMT-STFUN-0001]", {
   expect_true(all(y$data$FORM %in% c("tablet", "capsule")))
   expect_true("troche" %in% data$FORM)
 })
+
+test_that("sumrows is valid field for st_new()", {
+  ans <- st_new(
+    pt_cont_long(
+      pmt_first,
+      cols = c("WT", "CRCL"),
+      by  = "STUDYf"
+    )
+  )
+  expect_is(ans, "stobject")
+})
