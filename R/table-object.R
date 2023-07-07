@@ -22,6 +22,7 @@ st_arg_names <- c(
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
   "hline_at", "hline_from", "sizes", "units", "drop",
   "lt_cap_text", "lt_cap_macro", "lt_cap_label", "lt_cap_short", "lt_continue",
+  "caption",
   "args"
 )
 
@@ -918,6 +919,19 @@ st_filter <- function(x, ...) {
 st_edit <- function(x, ...) {
   check_st(x)
   x$data <- tab_edit(x$data, ...)
+  x
+}
+
+#' Set table caption
+#'
+#' @param x an stobject.
+#' @param ... character lines to form a table caption.
+#'
+#' @export
+st_caption <- function(x, ...) {
+  check_st(x)
+  text <- unlist(list(...))
+  x$caption <- text
   x
 }
 

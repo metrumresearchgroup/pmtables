@@ -209,6 +209,14 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
   tables <- c(list(...),.list)
+  if(length(caption==1) && length(tables) > 1) {
+    caption <- rep(caption, length(tables))
+  }
+  if(is_named(tables)) {
+    short <- names(tables)
+  } else {
+    short <- paste0("pmtables output preview - ", seq_along(tables))
+  }
   tables <- flatten_if(tables, is.list)
   names(tables) <- tab_escape(names(tables))
   inputs <- tables
@@ -248,15 +256,21 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   temp <- mgluet(temp, .envir = env)
 
   if(is.character(caption)) {
-    wrap_with_caption <- function(text, i) {
-      if(is.null(i)) i <- "<no name given>"
-      short <- paste0("pmtables output preview - ", i)
+    wrap_with_caption <- function(text, i, short, cap) {
+      if(is.character(attributes(text)$caption)) {
+        caption <- short <- attributes(text)$caption
+      }
       pt_wrap(
-        text, context = "tex", caption = caption, short = short,
-        con = NULL
+        text, context = "tex", caption = caption, short = short, con = NULL
       )
     }
-    tables <- imap(tables, wrap_with_caption)
+    tables <- Map(
+      tables,
+      i = seq_along(tables),
+      short = short,
+      cap = caption,
+      f = wrap_with_caption
+    )
   } else {
     tables <- map(tables, pt_wrap, context = "tex", con = NULL)
   }
