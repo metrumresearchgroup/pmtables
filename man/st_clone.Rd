@@ -15,3 +15,11 @@ A (deep) copy of \code{x}.
 \description{
 Clone an stobject
 }
+\examples{
+x <- st_new(stdata)
+y <- st_clone(x)
+
+x
+y
+
+}

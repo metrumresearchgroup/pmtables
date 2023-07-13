@@ -959,10 +959,16 @@ names.stobject <- function(x) names(x$data)
 #' @return
 #' A (deep) copy of `x`.
 #'
+#' @examples
+#' x <- st_new(stdata)
+#' y <- st_clone(x)
+#'
+#' x
+#' y
+#'
 #' @export
 st_clone <- function(x) {
-  att <- attributes(x)
-  y <- as.environment(as.list(x))
-  attr(y) <- att
+  y <- list2env(as.list(x))
+  attributes(y) <- attributes(x)
   y
 }
