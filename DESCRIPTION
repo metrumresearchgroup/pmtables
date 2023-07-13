@@ -45,6 +45,7 @@ Collate:
     'utils.R'
     'summary-functions.R'
     'AAAA.R'
+    'caption.R'
     'check.R'
     'class-pmtable.R'
     'continuous_table.R'

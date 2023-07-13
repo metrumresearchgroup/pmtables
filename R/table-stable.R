@@ -90,7 +90,7 @@ triage_data <- function(data) {
 #' columns in the data frame
 #' @param drop columns to remove prior to rendering the table
 #' @param sizes an object returned from [tab_size()]
-#' @param caption a captoin for the table
+#' @param caption a caption for the table
 #' @param control not used at the moment
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data

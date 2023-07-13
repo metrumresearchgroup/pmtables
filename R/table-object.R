@@ -925,13 +925,38 @@ st_edit <- function(x, ...) {
 #' Set table caption
 #'
 #' @param x an stobject.
-#' @param ... character lines to form a table caption.
+#' @param ... character lines to form a table caption; see details.
+#' @param short an abbreviated form of the caption to be used in a list of
+#' tables.
+#' @param short_repeat logical; if a short caption is provided, it will be
+#' repeated at the start of the main caption.
+#' @param short_sep a character sequence used to separate the short title
+#' with the main caption when a short title is specified.
+#'
+#' @details
+#' A short title can also be specified by including it in brackets (`[]`) as
+#' the first text in `...`. See examples.
+#'
+#' @examples
+#' tab <- st_new(stdata())
+#' tab <- st_caption(tab, "[Full covariate model estimates]. Run number 101.")
+#' tab$caption
 #'
 #' @export
-st_caption <- function(x, ...) {
+st_caption <- function(x, ..., short = NULL, short_repeat = TRUE,
+                       short_sep = NULL) {
   check_st(x)
   text <- unlist(list(...))
-  x$caption <- text
+  text <- paste0(text, collapse = " ")
+  cap <- parse_caption(text)
+  text <- cap$text
+  if(is.null(short) && is.character(cap$short)) {
+    short <- cap$short
+  }
+  if(is.character(short) && isTRUE(short_repeat)) {
+    text <- paste0(short, short_sep, text)
+  }
+  x$caption <- structure(text, short = short)
   x
 }
 
