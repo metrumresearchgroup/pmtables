@@ -138,8 +138,8 @@ form_align <- function(x,cols,pipes = FALSE) {
 #' @export
 update.aligncol <- function(object, ...) {
   args <- list(...)
+  if(length(args) ==0) return(object)
   ac <- do.call(cols_align, args)
-
   # Error out if the object changed at all.
   stopifnot(
     identical(
@@ -159,6 +159,8 @@ update.aligncol <- function(object, ...) {
   if(".outer" %in% names(args)) {
     object$outer <- ac$outer
   }
-  object$update <- combine_list(object$update, ac$update)
+  if(length(ac$update) > 0) {
+    object$update <- combine_list(object$update, ac$update)
+  }
   object
 }
