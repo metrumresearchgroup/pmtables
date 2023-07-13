@@ -8,7 +8,7 @@
 #' @noRd
 parse_caption <- function(text, short = NULL, short_repeat = TRUE, short_sep = "") {
   text <- trimws(text)
-  parsed_short <- str_extract(text, "^ *\\[.*\\]")
+  parsed_short <- str_extract(text, "^\\[.+?\\]")
   has_parsed_short <- !is.na(parsed_short)
   if(is.null(short) && !is.na(parsed_short)) {
     short <- parsed_short

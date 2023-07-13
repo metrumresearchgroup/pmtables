@@ -67,6 +67,12 @@ test_that("caption parse", {
   expect_length(ans, 2)
   expect_identical(ans$short, "Short title")
   expect_identical(ans$text, "Short title; Main caption text")
+
+  # Handle multiple brackets
+  cap <- "[Short Title]. Main caption text with [this] in brackets."
+  ans <- pmtables:::parse_caption(cap)
+  expect_identical(ans$short, "Short Title")
+  expect_identical(ans$text, "Short Title. Main caption text with [this] in brackets.")
 })
 
 test_that("short parsed from caption text", {
@@ -79,7 +85,6 @@ test_that("short parsed from caption text", {
   expect_is(result, "character")
   expect_equivalent(result, "Short title. Long title")
   expect_identical(attributes(result)$short, "Short title")
-
 })
 
 test_that("short parsed from caption text in long table", {
