@@ -950,3 +950,19 @@ print.stobject <- function(x, ...) {
 #' @rdname print.stobject
 #' @export
 names.stobject <- function(x) names(x$data)
+
+
+#' Clone an stobject
+#'
+#' @param x an stobject object
+#'
+#' @return
+#' A (deep) copy of `x`.
+#'
+#' @export
+st_clone <- function(x) {
+  att <- attributes(x)
+  y <- as.environment(as.list(x))
+  attr(y) <- att
+  y
+}
