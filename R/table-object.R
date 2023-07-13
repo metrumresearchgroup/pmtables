@@ -954,14 +954,22 @@ names.stobject <- function(x) names(x$data)
 
 #' Clone an stobject
 #'
-#' @param x an stobject object
+#' @param x an stobject object.
 #'
 #' @return
-#' A (deep) copy of `x`.
+#' A deep copy of `x`.
 #'
 #' @examples
-#' x <- st_new(stdata)
+#' x <- st_new(stdata())
 #' y <- st_clone(x)
+#'
+#' y$data$STUDY <- NULL
+#' x$data
+#' y$data
+#'
+#' # Get back to a regular environment
+#' class(x) <- "environment"
+#' class(y) <- "environment"
 #'
 #' x
 #' y

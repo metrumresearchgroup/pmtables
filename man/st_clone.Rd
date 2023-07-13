@@ -7,17 +7,25 @@
 st_clone(x)
 }
 \arguments{
-\item{x}{an stobject object}
+\item{x}{an stobject object.}
 }
 \value{
-A (deep) copy of \code{x}.
+A deep copy of \code{x}.
 }
 \description{
 Clone an stobject
 }
 \examples{
-x <- st_new(stdata)
+x <- st_new(stdata())
 y <- st_clone(x)
+
+y$data$STUDY <- NULL
+x$data
+y$data
+
+# Get back to a regular environment
+class(x) <- "environment"
+class(y) <- "environment"
 
 x
 y
