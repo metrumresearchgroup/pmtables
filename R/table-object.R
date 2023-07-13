@@ -428,19 +428,19 @@ st_align <- function(x, ...) {
 #' @rdname st_align
 #' @export
 st_center <- function(x,...) {
-  st_align(x,.default = "c",...)
+  st_align(x, .default = "c", ...)
 }
 
 #' @rdname st_align
 #' @export
 st_left <- function(x,...) {
-  st_align(x,.default = "l",...)
+  st_align(x, .default = "l", ...)
 }
 
 #' @rdname st_align
 #' @export
 st_right <- function(x,...) {
-  st_align(x,.default = "r",...)
+  st_align(x, .default = "r", ...)
 }
 
 #' Add file name information to st object
