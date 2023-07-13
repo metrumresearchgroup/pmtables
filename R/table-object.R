@@ -948,15 +948,13 @@ st_caption <- function(x, ..., short = NULL, short_repeat = TRUE,
   check_st(x)
   text <- unlist(list(...))
   text <- paste0(text, collapse = " ")
-  cap <- parse_caption(text)
-  text <- cap$text
-  if(is.null(short) && is.character(cap$short)) {
-    short <- cap$short
-  }
-  if(is.character(short) && isTRUE(short_repeat)) {
-    text <- paste0(short, short_sep, text)
-  }
-  x$caption <- structure(trimws(text), short = short)
+  cap <- parse_caption(
+    text,
+    short,
+    short_repeat = short_repeat,
+    short_sep = short_sep
+  )
+  x$caption <- structure(cap$text, short = cap$short)
   x
 }
 

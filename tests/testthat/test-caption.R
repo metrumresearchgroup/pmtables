@@ -36,6 +36,39 @@ test_that("caption piped into stable_long()", {
   expect_identical(text1, text2)
 })
 
+test_that("caption parse", {
+  cap <- "[Short title]. Main caption text"
+  ans <- pmtables:::parse_caption(cap)
+  expect_is(ans, "list")
+  expect_length(ans, 2)
+  expect_identical(ans$short, "Short title")
+  expect_identical(ans$text, "Short title. Main caption text")
+
+  # Punctuation stays with the short title
+  cap <- "[Short title.] Main caption text"
+  ans <- pmtables:::parse_caption(cap)
+  expect_is(ans, "list")
+  expect_length(ans, 2)
+  expect_identical(ans$short, "Short title.")
+  expect_identical(ans$text, "Short title. Main caption text")
+
+  # Don't repeat short
+  cap <- "[Short title] Main caption text"
+  ans <- pmtables:::parse_caption(cap, short_repeat = FALSE)
+  expect_is(ans, "list")
+  expect_length(ans, 2)
+  expect_identical(ans$short, "Short title")
+  expect_identical(ans$text, "Main caption text")
+
+  # Custom separator
+  cap <- "[Short title] Main caption text"
+  ans <- pmtables:::parse_caption(cap, short_sep = ";")
+  expect_is(ans, "list")
+  expect_length(ans, 2)
+  expect_identical(ans$short, "Short title")
+  expect_identical(ans$text, "Short title; Main caption text")
+})
+
 test_that("short parsed from caption text", {
   cap <- "[Short title]. Long title"
   tab <- st_new(stdata())
@@ -46,17 +79,6 @@ test_that("short parsed from caption text", {
   expect_is(result, "character")
   expect_equivalent(result, "Short title. Long title")
   expect_identical(attributes(result)$short, "Short title")
-
-  # punctuation stays with the short title
-  cap <- "[Short title.] Long title"
-  tab <- st_new(stdata())
-  tab <- st_caption(tab, cap)
-  text <- stable(tab)
-
-  result <- attributes(text)$caption
-  expect_is(result, "character")
-  expect_equivalent(result, "Short title. Long title")
-  expect_identical(attributes(result)$short, "Short title.")
 
 })
 
@@ -80,44 +102,7 @@ test_that("short passed in separately", {
   text <- stable_long(tab)
   expect_match(
     text,
-    "[Foo. ]{Foo. Table caption.}",
-    fixed = TRUE,
-    all = FALSE
-  )
-})
-
-test_that("short passed with custom sep", {
-  cap <- "Table caption."
-  tab <- st_new(stdata())
-  tab <- st_caption(tab, cap, short = "Foo", short_sep = "; ")
-  text <- stable_long(tab)
-  expect_match(
-    text,
-    "[Foo]{Foo; Table caption.}",
-    fixed = TRUE,
-    all = FALSE
-  )
-})
-
-test_that("Don't repeat short in the main caption", {
-  cap <- "Table caption."
-  tab <- st_new(stdata())
-  tab <- st_caption(tab, cap, short = "Foo", short_repeat = FALSE)
-  text <- stable_long(tab)
-  expect_match(
-    text,
-    "[Foo]{Table caption.}",
-    fixed = TRUE,
-    all = FALSE
-  )
-
-  cap <- "[Foo] Table caption."
-  tab <- st_new(stdata())
-  tab <- st_caption(tab, cap, short_repeat = FALSE)
-  text <- stable_long(tab)
-  expect_match(
-    text,
-    "[Foo]{Table caption.}",
+    "[Foo.]{Foo. Table caption.}",
     fixed = TRUE,
     all = FALSE
   )
