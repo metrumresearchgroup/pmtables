@@ -431,6 +431,11 @@ test_that("clone stable object", {
     expect_identical(get(i, envir = x), get(i,envir = y))
   }
   expect_identical(attributes(x), attributes(y))
-  y$a <- 2
+  # with cloning
+  y$a <- 1
   expect_null(x$a)
+  # without cloning
+  z <- x
+  z$b <- 2
+  expect_equal(x$b, 2)
 })
