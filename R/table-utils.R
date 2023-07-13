@@ -1,14 +1,21 @@
 #' Save output from stable
 #'
-#' @param x a table formatted with [stable()]
-#' @param file the file
-#' @param dir the directory where the file is to be saved
+#' @param x a table formatted with [stable()].
+#' @param file the file.
+#' @param dir the directory where the file is to be saved.
+#' @param write_caption logical; if `TRUE` and a caption was specified, it
+#' will be written in the output file. This argument is not utilized for
+#' `stable_long` objects, where captions are _always_ written if they are
+#' specified.
 #'
 #' @return
 #' The `stable` or `stable_long` object is returned invisibly.
 #'
 #' @export
-stable_save <- function(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir")) {
+stable_save <- function(x,
+                        file = attr(x, "stable_file"),
+                        dir = getOption("pmtables.dir"),
+                        write_caption = FALSE) {
   if(inherits(x, "list")) {
     return(map(x, stable_save, dir = dir))
   }
@@ -30,6 +37,11 @@ stable_save <- function(x, file = attr(x, "stable_file"), dir = getOption("pmtab
   }
   if(!is.null(dir)) {
     file <- file.path(dir,file)
+  }
+  if(isTRUE(write_caption) && !inherits(x, "stable_long")) {
+    cap <- attributes(x)$caption
+    short <- attributes(cap)$short
+    x <- c(form_caption(cap, short), x)
   }
   writeLines(text = x, con = file)
   return(invisible(x))
