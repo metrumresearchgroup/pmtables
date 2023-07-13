@@ -16,6 +16,7 @@
 #' @importFrom stats median rnorm sd na.omit setNames
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
+#' @importFrom stringr str_extract
 #' @importFrom tools file_ext
 #'
 #' @include summary-functions.R
