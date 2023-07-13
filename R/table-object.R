@@ -956,7 +956,7 @@ st_caption <- function(x, ..., short = NULL, short_repeat = TRUE,
   if(is.character(short) && isTRUE(short_repeat)) {
     text <- paste0(short, short_sep, text)
   }
-  x$caption <- structure(text, short = short)
+  x$caption <- structure(trimws(text), short = short)
   x
 }
 
