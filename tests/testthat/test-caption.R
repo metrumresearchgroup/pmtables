@@ -56,14 +56,14 @@ test_that("caption parse", {
 test_that("caption passed into stable()", {
   cap <- "Table caption \\label{tab:one}"
   text <- stable(stdata(), caption = cap)
-  text <- attributes(text)$caption
+  text <- pmtables:::cap_main(text)
   expect_identical(cap, text)
 })
 
 test_that("caption passed into stable_long()", {
   cap <- "Table caption \\label{tab:one}"
   text <- stable_long(stdata(), caption = cap)
-  text <- attributes(text)$caption
+  text <- pmtables:::cap_main(text)
   expect_identical(cap, text)
   expect_match(text, cap, fixed = TRUE, all = FALSE)
 })
