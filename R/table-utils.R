@@ -15,7 +15,7 @@
 stable_save <- function(x,
                         file = attr(x, "stable_file"),
                         dir = getOption("pmtables.dir"),
-                        write_caption = FALSE) {
+                        write_caption = NULL) {
   if(inherits(x, "list")) {
     return(map(x, stable_save, dir = dir))
   }
@@ -37,6 +37,11 @@ stable_save <- function(x,
   }
   if(!is.null(dir)) {
     file <- file.path(dir,file)
+  }
+  # Priority goes to function argument so we can use this to
+  # reshape what was specified when the caption was generated
+  if(is.null(write_caption)) {
+    write_caption <- cap_write(x)
   }
   if(isTRUE(write_caption) && !inherits(x, "stable_long")) {
     cap <- form_caption(cap_main(x), cap_short(x))

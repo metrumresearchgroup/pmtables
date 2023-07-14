@@ -43,8 +43,29 @@ test_that("save a list of tables [PMT-TEST-0238]", {
   expect_is(ans, "list")
 })
 
+test_that("set save caption flag at caption create", {
+  cap <- as.caption("Table caption", write = TRUE)
+  a <- stable(stdata(), caption = cap)
+  ans0 <- stable_save(a, dir = tempdir(), file = "cap-save-0")
+  text0 <- readLines(file.path(tempdir(), "cap-save-0"))
+  expect_match(text0, "\\caption", fixed = TRUE, all = FALSE)
+})
+
+test_that("stable_save argument gets last word on caption save", {
+  cap <- as.caption("Table caption", write = TRUE)
+  a <- stable(stdata(), caption = cap)
+  ans0 <- stable_save(
+    a,
+    dir = tempdir(),
+    file = "cap-save-00",
+    write_caption = FALSE
+  )
+  text0 <- readLines(file.path(tempdir(), "cap-save-00"))
+  expect_no_match(text0, "\\caption", fixed = TRUE)
+})
+
 test_that("opt in to saving caption", {
-  cap <- structure("Table caption", short = "caption")
+  cap <- as.caption("Table caption", short = "caption")
 
   a <- stable(stdata(), caption = cap)
   ans1 <- stable_save(a, dir = tempdir(), file = "cap-save-1")

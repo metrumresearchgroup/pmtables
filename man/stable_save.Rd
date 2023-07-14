@@ -8,7 +8,7 @@ stable_save(
   x,
   file = attr(x, "stable_file"),
   dir = getOption("pmtables.dir"),
-  write_caption = FALSE
+  write_caption = NULL
 )
 }
 \arguments{
