@@ -420,3 +420,26 @@ test_that("st_filter filters data in pmtable object [PMT-STFUN-0001]", {
   expect_true(all(y$data$FORM %in% c("tablet", "capsule")))
   expect_true("troche" %in% data$FORM)
 })
+
+test_that("clone stable object", {
+  x <- st_new(stdata())
+  x <- st_panel(x, "FORM")
+  x <- st_files(x, r = "test-table-object.R", output = "output.tex")
+  y <- st_clone(x)
+  expect_identical(ls(x), ls(y))
+  for(i in ls(x)) {
+    expect_identical(get(i, envir = x), get(i,envir = y))
+  }
+  expect_identical(attributes(x), attributes(y))
+  # with cloning
+  y$a <- 1
+  expect_null(x$a)
+  # without cloning
+  z <- x
+  z$b <- 2
+  expect_equal(x$b, 2)
+  # error to try to clone another object
+  a <- new.env(parent = emptyenv())
+  a$foo <- 1
+  expect_error(st_clone(a))
+})
