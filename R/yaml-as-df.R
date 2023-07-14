@@ -1,7 +1,10 @@
 #' Read yaml input into data frame
 #'
-#' @param path to the yaml source file
-#' @param quiet if `TRUE`, suppress messages
+#' @param path to the yaml source file.
+#' @param quiet logical; if `TRUE`, suppress messages.
+#' @param keep.row logical; by default, the first column in the output
+#' data.frame contains the row names from the yaml source (as `.row`);
+#' when `keep.row` is `FALSE`, this column will not be retained in the output.
 #'
 #' @section Prototyped tables:
 #'
@@ -16,6 +19,11 @@
 #' can be entered as arrays; they will be coerced to list and named according
 #' to the prototype.
 #'
+#' @return
+#' A data frame is created from yaml content and returned. The first column
+#' in the data frame is `.row`, containing the outer names of the yaml
+#' source (see examples).
+#'
 #' @examples
 #'
 #' path <- system.file("yaml", "table.yml", package = "pmtables")
@@ -29,7 +37,7 @@
 #' }
 #'
 #' @export
-yaml_as_df <- function(path, quiet = FALSE) { #nocov start
+yaml_as_df <- function(path, quiet = FALSE, keep.row = TRUE) { #nocov start
   assert_that(requireNamespace("yaml"))
   x <- yaml::yaml.load_file(path)
   meta <- list()
@@ -42,6 +50,7 @@ yaml_as_df <- function(path, quiet = FALSE) { #nocov start
       message("using column ", prototype, " as the prototype")
     }
   }
+  spec_names <- names(x)
   rename <- is.character(prototype) | is.numeric(prototype)
   if(rename) {
     x <- yamdf_validate_prototype(x, prototype)
@@ -53,10 +62,23 @@ yaml_as_df <- function(path, quiet = FALSE) { #nocov start
   if(rename) {
     names(ans) <- prototype_names
   }
+
   if(exists("cols", meta)) {
     cols <- meta[["cols"]]
-    ans <- select(ans, cols, tidyselect::everything())
+    ans <- select(ans, all_of(cols), tidyselect::everything())
   }
+
+  if(isTRUE(keep.row)) {
+    name_col <- ".row"
+    i <- 0
+    while(name_col %in% names(ans)) {
+      i <- i + 1
+      name_col <- paste0(name_col, "_", i)
+    }
+    ans[, name_col] <- spec_names
+    ans <- select(ans, all_of(unique(c(name_col, names(ans)))))
+  }
+
   ans
 } #nocov end
 

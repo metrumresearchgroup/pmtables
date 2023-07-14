@@ -4,12 +4,21 @@
 \alias{yaml_as_df}
 \title{Read yaml input into data frame}
 \usage{
-yaml_as_df(path, quiet = FALSE)
+yaml_as_df(path, quiet = FALSE, keep.row = TRUE)
 }
 \arguments{
-\item{path}{to the yaml source file}
+\item{path}{to the yaml source file.}
 
-\item{quiet}{if \code{TRUE}, suppress messages}
+\item{quiet}{logical; if \code{TRUE}, suppress messages.}
+
+\item{keep.row}{logical; by default, the first column in the output
+data.frame contains the row names from the yaml source (as \code{.row});
+when \code{keep.row} is \code{FALSE}, this column will not be retained in the output.}
+}
+\value{
+A data frame is created from yaml content and returned. The first column
+in the data frame is \code{.row}, containing the outer names of the yaml
+source (see examples).
 }
 \description{
 Read yaml input into data frame
