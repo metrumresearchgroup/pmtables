@@ -102,17 +102,19 @@ stable_long.data.frame <- function(data,
   assert_that(note_config$type=="minipage")
 
   x <- stable(data = data, note_config = note_config, inspect = TRUE, ...)
-  x <- get_stable_data(x)
 
-  if(is.character(x$caption)) {
-    short <- attributes(x$caption)$short
+  if(is.character(cap_main(x))) {
+    short <- cap_short(x)
     if(!is.null(short)) {
       short <- paste0("[", short, "]")
     }
-    cap <- paste0("\\caption",short,"{",x$caption,"} \\\\")
+    cap <- paste0("\\caption",short,"{",cap_main(x),"} \\\\")
   } else {
     cap <- ltcaption(lt_cap_macro, lt_cap_text, lt_cap_short, lt_cap_label)
   }
+
+  x <- get_stable_data(x)
+
   start <- paste0("\\begin{longtable}{", x$align_tex, "}")
   end <- "\\end{longtable}"
 

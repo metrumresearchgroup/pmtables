@@ -4,32 +4,29 @@
 \alias{st_caption}
 \title{Set table caption}
 \usage{
-st_caption(x, ..., short = NULL, short_repeat = TRUE, short_sep = NULL)
+st_caption(x, text, ...)
 }
 \arguments{
 \item{x}{an stobject.}
 
-\item{...}{character lines to form a table caption; see details.}
+\item{text}{caption text to be parsed.}
 
-\item{short}{an abbreviated form of the caption to be used in a list of
-tables.}
-
-\item{short_repeat}{logical; if a short caption is provided, it will be
-repeated at the start of the main caption.}
-
-\item{short_sep}{a character sequence used to separate the short title
-with the main caption when a short title is specified.}
+\item{...}{additional arguments passed to \code{\link[=as.caption]{as.caption()}}.}
 }
 \description{
 Set table caption
 }
 \details{
 A short title can also be specified by including it in brackets (\verb{[]}) as
-the first text in \code{...}. See examples.
+the first characters in \code{text}. See examples here as well as in
+\code{\link[=as.caption]{as.caption()}}.
 }
 \examples{
 tab <- st_new(stdata())
 tab <- st_caption(tab, "[Full covariate model estimates]. Run number 101.")
 tab$caption
+
+text <- stable(tab)
+text
 
 }

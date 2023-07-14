@@ -257,9 +257,9 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
 
   if(is.character(caption)) {
     wrap_with_caption <- function(text, i, short, cap) {
-      if(is.character(attributes(text)$caption)) {
-        caption <- attributes(text)$caption
-        short <- attributes(caption)$short
+      if(is.character(cap_main(text))) {
+        caption <- cap_main(text)
+        short <- cap_short(text)
         if(is.null(short)) short <- caption
       }
       pt_wrap(

@@ -39,9 +39,8 @@ stable_save <- function(x,
     file <- file.path(dir,file)
   }
   if(isTRUE(write_caption) && !inherits(x, "stable_long")) {
-    cap <- attributes(x)$caption
-    short <- attributes(cap)$short
-    x <- c(form_caption(cap, short), x)
+    cap <- form_caption(cap_main(x), cap_short(x))
+    x <- c(cap, x)
   }
   writeLines(text = x, con = file)
   return(invisible(x))

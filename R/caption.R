@@ -14,7 +14,7 @@ parse_caption <- function(text, short = NULL, short_repeat = TRUE, short_sep = "
     short <- parsed_short
   }
   if(is.null(short)) {
-    ans <- list(text = text, short = short)
+    ans <- list(main = text, short = short)
     return(ans)
   }
   text <- sub(short, "", text, fixed = TRUE)
@@ -29,6 +29,53 @@ parse_caption <- function(text, short = NULL, short_repeat = TRUE, short_sep = "
     text <- trimws(text, which = "left")
   }
   short <- trimws(short)
-  ans <- list(short = short, text = text)
+  ans <- list(main = text, short = short)
   return(ans)
+}
+
+cap_main <- function(x) {
+  attributes(x)$caption
+}
+
+cap_short <- function(x) {
+  attributes(attributes(x)$caption)$short
+}
+
+cap_write <- function(x) {
+  isTRUE(attributes(attributes(x)$caption)$write)
+}
+
+#' Create caption
+#'
+#' @param text caption text.
+#' @param short an abbreviated form of the caption to be used in a list of
+#' tables.
+#' @param short_repeat logical; if a short caption is provided, it will be
+#' repeated at the start of the main caption.
+#' @param short_sep a character sequence used to separate the short title
+#' with the main caption when a short title is specified.
+#' @param write logical; if `TRUE`, caption will be written to output file
+#' when [stable_save()] is called; this argument does not apply to
+#' `stable_long` objects whose captions are _always_ written to output the
+#' output file.
+#'
+#' @examples
+#'
+#' as.caption("[Short]. Main title text.")
+#' as.caption("Main title text.", short = "Short")
+#'
+#' @return
+#' A character vector of (main) caption text is returned with
+#' attributes `short` and `write`.
+#'
+#' @export
+as.caption <- function(text, short = NULL, short_repeat = TRUE,
+                       short_sep = NULL, write = FALSE) {
+  cap <- parse_caption(
+    text = text,
+    short = short,
+    short_repeat = short_repeat,
+    short_sep = short_sep
+  )
+  structure(cap$main, short = cap$short, write = isTRUE(write))
 }
