@@ -2,9 +2,8 @@
 #'
 #' @param path to the yaml source file.
 #' @param quiet logical; if `TRUE`, suppress messages.
-#' @param keep.row logical; by default, the first column in the output
-#' data.frame contains the row names from the yaml source (as `.row`);
-#' when `keep.row` is `FALSE`, this column will not be retained in the output.
+#' @param keep.row character; column name where row names (from the yaml
+#' source) will be stored; pass `NULL` to discard this column of row names.
 #'
 #' @section Prototyped tables:
 #'
@@ -30,6 +29,8 @@
 #'
 #' yaml_as_df(path)
 #'
+#' yaml_as_df(path, row_var = NULL)
+#'
 #' # Example prototyped table
 #' \dontrun{
 #' file <- system.file("yaml", "prototype.yaml", package = "pmtables")
@@ -37,7 +38,7 @@
 #' }
 #'
 #' @export
-yaml_as_df <- function(path, quiet = FALSE, keep.row = TRUE) { #nocov start
+yaml_as_df <- function(path, quiet = FALSE, row_var = ".row") { #nocov start
   assert_that(requireNamespace("yaml"))
   x <- yaml::yaml.load_file(path)
   meta <- list()
@@ -65,18 +66,18 @@ yaml_as_df <- function(path, quiet = FALSE, keep.row = TRUE) { #nocov start
 
   if(exists("cols", meta)) {
     cols <- meta[["cols"]]
-    ans <- select(ans, all_of(cols), tidyselect::everything())
+    ans <- select(ans, all_of(cols), everything())
   }
 
-  if(isTRUE(keep.row)) {
-    name_col <- ".row"
+  if(is.character(row_var)) {
+    row_var0 <- row_var
     i <- 0
-    while(name_col %in% names(ans)) {
+    while(row_var %in% names(ans)) {
       i <- i + 1
-      name_col <- paste0(name_col, "_", i)
+      row_var <- paste0(row_var0, "_", i)
     }
-    ans[, name_col] <- spec_names
-    ans <- select(ans, all_of(unique(c(name_col, names(ans)))))
+    ans[, row_var] <- spec_names
+    ans <- select(ans, all_of(unique(c(row_var, names(ans)))))
   }
 
   ans

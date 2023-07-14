@@ -31,4 +31,33 @@ test_that("read prototyped table [PMT-TEST-0248]", {
   expect_error(yaml_as_df(file))
 })
 
+test_that("table contains .row names", {
+  file <- sysfile("table.yml")
+  df <- yaml_as_df(file)
+  expect_is(df, "data.frame")
+  expect_true(names(df)[1] == ".row")
+  df <- yaml_as_df(file, row_var = "ROW")
+  expect_true(names(df)[1] == "ROW")
+  df <- yaml_as_df(file, row_var = NULL)
+  expect_true(names(df)[1] == "study")
 
+})
+
+
+test_that(".row is renamed if it exists", {
+  yaml <- '
+  a:
+    b: 2
+    .row: 1
+    .row_1: 11
+  aa:
+    b: 3
+    .row: 2
+    .row_1: 22
+  '
+  file <- file.path(tempdir(), "yaml-as-df-test-.row-rename")
+  writeLines(text = yaml, con = file)
+  df <- yaml_as_df(file)
+  expect_is(df, "data.frame")
+  expect_true(names(df)[1] == ".row_2")
+})

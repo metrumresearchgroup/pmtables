@@ -4,16 +4,15 @@
 \alias{yaml_as_df}
 \title{Read yaml input into data frame}
 \usage{
-yaml_as_df(path, quiet = FALSE, keep.row = TRUE)
+yaml_as_df(path, quiet = FALSE, row_var = ".row")
 }
 \arguments{
 \item{path}{to the yaml source file.}
 
 \item{quiet}{logical; if \code{TRUE}, suppress messages.}
 
-\item{keep.row}{logical; by default, the first column in the output
-data.frame contains the row names from the yaml source (as \code{.row});
-when \code{keep.row} is \code{FALSE}, this column will not be retained in the output.}
+\item{keep.row}{character; column name where row names (from the yaml
+source) will be stored; pass \code{NULL} to discard this column of row names.}
 }
 \value{
 A data frame is created from yaml content and returned. The first column
@@ -43,6 +42,8 @@ to the prototype.
 path <- system.file("yaml", "table.yml", package = "pmtables")
 
 yaml_as_df(path)
+
+yaml_as_df(path, row_var = NULL)
 
 # Example prototyped table
 \dontrun{
