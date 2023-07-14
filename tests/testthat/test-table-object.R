@@ -438,4 +438,8 @@ test_that("clone stable object", {
   z <- x
   z$b <- 2
   expect_equal(x$b, 2)
+  # error to try to clone another object
+  a <- new.env(parent = emptyenv())
+  a$foo <- 1
+  expect_error(st_clone(a))
 })

@@ -10,7 +10,7 @@ st_clone(x)
 \item{x}{an stobject object.}
 }
 \value{
-A deep copy of \code{x}.
+A copy (\code{y}) of \code{x} such that \code{y} can be modified without modifying \code{x}.
 }
 \description{
 Clone an stobject

@@ -957,7 +957,7 @@ names.stobject <- function(x) names(x$data)
 #' @param x an stobject object.
 #'
 #' @return
-#' A deep copy of `x`.
+#' A copy (`y`) of `x` such that `y` can be modified without modifying `x`.
 #'
 #' @examples
 #' x <- st_new(stdata())
@@ -976,7 +976,10 @@ names.stobject <- function(x) names(x$data)
 #'
 #' @export
 st_clone <- function(x) {
-  y <- list2env(as.list(x))
+  if(!inherits(x, "stobject")) {
+    stop("Can only clone stobjects.")
+  }
+  y <- env_clone(x)
   attributes(y) <- attributes(x)
   y
 }
