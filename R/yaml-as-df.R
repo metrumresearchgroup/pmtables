@@ -2,7 +2,7 @@
 #'
 #' @param path to the yaml source file.
 #' @param quiet logical; if `TRUE`, suppress messages.
-#' @param keep.row character; column name where row names (from the yaml
+#' @param row_var character; column name where row names (from the yaml
 #' source) will be stored; pass `NULL` to discard this column of row names.
 #'
 #' @section Prototyped tables:
@@ -19,15 +19,17 @@
 #' to the prototype.
 #'
 #' @return
-#' A data frame is created from yaml content and returned. The first column
-#' in the data frame is `.row`, containing the outer names of the yaml
-#' source (see examples).
+#' A data frame is created from yaml content and returned. By default,
+#' the first column in the data frame contains the outer names of the yaml
+#' source (see `row_var` argument and examples).
 #'
 #' @examples
 #'
 #' path <- system.file("yaml", "table.yml", package = "pmtables")
 #'
 #' yaml_as_df(path)
+#'
+#' yaml_as_df(path, row_var = "name")
 #'
 #' yaml_as_df(path, row_var = NULL)
 #'

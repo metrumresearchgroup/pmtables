@@ -11,13 +11,13 @@ yaml_as_df(path, quiet = FALSE, row_var = ".row")
 
 \item{quiet}{logical; if \code{TRUE}, suppress messages.}
 
-\item{keep.row}{character; column name where row names (from the yaml
+\item{row_var}{character; column name where row names (from the yaml
 source) will be stored; pass \code{NULL} to discard this column of row names.}
 }
 \value{
-A data frame is created from yaml content and returned. The first column
-in the data frame is \code{.row}, containing the outer names of the yaml
-source (see examples).
+A data frame is created from yaml content and returned. By default,
+the first column in the data frame contains the outer names of the yaml
+source (see \code{row_var} argument and examples).
 }
 \description{
 Read yaml input into data frame
@@ -42,6 +42,8 @@ to the prototype.
 path <- system.file("yaml", "table.yml", package = "pmtables")
 
 yaml_as_df(path)
+
+yaml_as_df(path, row_var = "name")
 
 yaml_as_df(path, row_var = NULL)
 
