@@ -73,10 +73,10 @@ yaml_as_df <- function(path, quiet = FALSE, row_var = ".row") { #nocov start
 
   if(is.character(row_var)) {
     row_var0 <- row_var
-    i <- 0
+    i <- 1
     while(row_var %in% names(ans)) {
-      i <- i + 1
       row_var <- paste0(row_var0, "_", i)
+      i <- i + 1
     }
     ans[, row_var] <- spec_names
     ans <- select(ans, all_of(unique(c(row_var, names(ans)))))
