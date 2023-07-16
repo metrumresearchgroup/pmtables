@@ -153,3 +153,17 @@ test_that("caption on stable_long gets passed into preview", {
     all = FALSE
   )
 })
+
+test_that("caption appears in st_asis output", {
+  cap <- "[short] Table caption."
+  tab <- st_new(stdata())
+  tab <- st_caption(tab, cap)
+  text <- stable(tab)
+  out <- st_asis(text)
+  expect_match(
+    out,
+    "caption[short]{short Table caption.}",
+    fixed = TRUE,
+    all = FALSE
+  )
+})
