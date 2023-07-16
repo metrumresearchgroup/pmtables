@@ -114,6 +114,25 @@ test_that("stobject equivalent align [PMT-TEST-0223]", {
   expect_identical(x$output, y$output)
 })
 
+test_that("call st_align functions multiple times in a pipeline", {
+  a <- st_new(stdata())
+  a <- st_align(a, WT = "r", .c = "FORM",
+                .coltype = "m", .outer = "lr")
+  expect_equal(a$align$update$WT, "r")
+  expect_equal(a$align$update$FORM, "c")
+  expect_null(a$align$update$AGE)
+  expect_equal(a$align$coltype, "m")
+
+  a <- st_right(a, AGE = "c", FORM = "l", .coltype = "p")
+
+  expect_is(a, "stobject")
+  expect_is(a$align, "aligncol")
+  expect_equal(a$align$update$WT, "r")
+  expect_equal(a$align$update$FORM, "l")
+  expect_equal(a$align$update$AGE, "c")
+  expect_equal(a$align$coltype, "p")
+})
+
 test_that("stobject equivalent notes [PMT-TEST-0224]", {
   mt <- mtcars[1:3,]
   notes <- letters[1:3]

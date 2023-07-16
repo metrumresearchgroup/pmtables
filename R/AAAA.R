@@ -13,7 +13,7 @@
 #' @importFrom rlang enquo enquos is_named is_atomic flatten_if have_name
 #' @importFrom glue glue
 #' @importFrom tibble tibble as_tibble is_tibble
-#' @importFrom stats median rnorm sd na.omit setNames
+#' @importFrom stats median rnorm sd na.omit setNames update
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
 #' @importFrom tools file_ext
