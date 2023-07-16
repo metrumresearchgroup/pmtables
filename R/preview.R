@@ -446,7 +446,9 @@ pt_wrap <- st_wrap
 #' @rdname st_wrap
 #' @export
 st_asis <- function(x, ..., asis = TRUE, con = NULL) {
-  st_wrap(x, ..., asis = asis, con = con)
+  caption <- cap_main(x)
+  short <- cap_short(x)
+  st_wrap(x, ..., asis = asis, con = con, caption = caption, short = short)
 }
 
 #' @rdname st_wrap
