@@ -45,4 +45,9 @@ test_that("update align objects", {
   expect_identical(b$update$C, "c")
   expect_identical(b$update$D, "r")
   expect_identical(b$update$E, "r")
+
+  a <- cols_align()
+  b <- update(a, WT = "l")
+  expect_identical(a$update, list())
+  expect_identical(b$update, list(WT = "l"))
 })
