@@ -154,6 +154,31 @@ test_that("caption on stable_long gets passed into preview", {
   )
 })
 
+test_that("confirm original preview behavior - no info", {
+  a <- stable(stdata())
+  b <- stable(stdata())
+  foo <- st2report(list(a,b), stem = "st2r-previous-a", dry_run = TRUE)
+  ans <- readLines(file.path(tempdir(), "st2r-previous-a-tables.tex"))
+  ans <- ans[grep("caption", ans)]
+  expect_length(ans, 2)
+  expect_match(ans[1], "[pmtables output preview - 1]", fixed = TRUE)
+  expect_match(ans[2], "[pmtables output preview - 2]", fixed = TRUE)
+  expect_match(ans, "{Lorem ipsum", fixed = TRUE)
+})
+
+test_that("confirm original preview behavior - names on list become short", {
+  # Every caption is Lorum ipsum
+  a <- stable(stdata())
+  b <- stable(stdata())
+  foo <- st2report(list(foo=a,bar=b), stem = "st2r-previous-a", dry_run = TRUE)
+  ans <- readLines(file.path(tempdir(), "st2r-previous-a-tables.tex"))
+  ans <- ans[grep("caption", ans)]
+  expect_length(ans, 2)
+  expect_match(ans[1], "[foo]", fixed = TRUE)
+  expect_match(ans[2], "[bar]", fixed = TRUE)
+  expect_match(ans, "{Lorem ipsum", fixed = TRUE)
+})
+
 test_that("caption appears in st_asis output", {
   cap <- "[short] Table caption."
   tab <- st_new(stdata())

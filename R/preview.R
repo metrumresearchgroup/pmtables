@@ -209,6 +209,9 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
 
   tables <- c(list(...),.list)
+  tables <- flatten_if(tables, is.list)
+  names(tables) <- tab_escape(names(tables))
+
   if(length(caption==1) && length(tables) > 1) {
     caption <- rep(caption, length(tables))
   }
@@ -217,8 +220,8 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   } else {
     short <- paste0("pmtables output preview - ", seq_along(tables))
   }
-  tables <- flatten_if(tables, is.list)
-  names(tables) <- tab_escape(names(tables))
+
+
   inputs <- tables
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(tempdir())
@@ -256,7 +259,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   temp <- mgluet(temp, .envir = env)
 
   if(is.character(caption)) {
-    wrap_with_caption <- function(text, i, short, cap) {
+    wrap_with_caption <- function(text, i, short, caption) {
       if(is.character(cap_main(text))) {
         caption <- cap_main(text)
         short <- cap_short(text)
@@ -270,7 +273,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
       tables,
       i = seq_along(tables),
       short = short,
-      cap = caption,
+      caption = caption,
       f = wrap_with_caption
     )
   } else {
