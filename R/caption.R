@@ -47,7 +47,7 @@ cap_write <- function(x) {
 
 #' Create caption
 #'
-#' @param text caption text.
+#' @param x caption text.
 #' @param short an abbreviated form of the caption to be used in a list of
 #' tables.
 #' @param short_repeat logical; if a short caption is provided, it will be
@@ -69,13 +69,23 @@ cap_write <- function(x) {
 #' attributes `short` and `write`.
 #'
 #' @export
-as.caption <- function(text, short = NULL, short_repeat = TRUE,
+as.caption <- function(x, short = NULL, short_repeat = TRUE,
                        short_sep = NULL, write = FALSE) {
+
+  if(inherits(x, "st_caption")) {
+    return(x)
+  }
+
   cap <- parse_caption(
-    text = text,
+    text = x,
     short = short,
     short_repeat = short_repeat,
     short_sep = short_sep
   )
-  structure(cap$main, short = cap$short, write = isTRUE(write))
+  structure(
+    cap$main,
+    short = cap$short,
+    write = isTRUE(write),
+    class = c("st_caption", "character")
+  )
 }

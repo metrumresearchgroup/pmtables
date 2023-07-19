@@ -90,7 +90,8 @@ triage_data <- function(data) {
 #' columns in the data frame
 #' @param drop columns to remove prior to rendering the table
 #' @param sizes an object returned from [tab_size()]
-#' @param caption a caption for the table
+#' @param caption a caption for the table; this could be raw caption text or
+#' a caption object created with [as.caption()]
 #' @param control not used at the moment
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
@@ -149,8 +150,13 @@ stable.data.frame <- function(data,
     inherits(control, "st_control"),
     msg = "'control' must be created with st_control()"
   )
+
   sumrows <- validate_sumrows(sumrows)
   panel <- as.panel(panel)
+
+  if(!is.null(caption)) {
+    caption <- as.caption(caption)
+  }
 
   # hlines
   add_hlines <- tab_hlines(data, ...)

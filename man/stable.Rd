@@ -65,7 +65,8 @@ columns in the data frame}
 
 \item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
 
-\item{caption}{a caption for the table}
+\item{caption}{a caption for the table; this could be raw caption text or
+a caption object created with \code{\link[=as.caption]{as.caption()}}}
 
 \item{control}{not used at the moment}
 

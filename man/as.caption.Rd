@@ -5,7 +5,7 @@
 \title{Create caption}
 \usage{
 as.caption(
-  text,
+  x,
   short = NULL,
   short_repeat = TRUE,
   short_sep = NULL,
@@ -13,7 +13,7 @@ as.caption(
 )
 }
 \arguments{
-\item{text}{caption text.}
+\item{x}{caption text.}
 
 \item{short}{an abbreviated form of the caption to be used in a list of
 tables.}
