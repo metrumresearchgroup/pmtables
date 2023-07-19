@@ -75,7 +75,6 @@ as.caption <- function(x, short = NULL, short_repeat = TRUE,
   if(inherits(x, "st_caption")) {
     return(x)
   }
-
   cap <- parse_caption(
     text = x,
     short = short,
@@ -88,4 +87,24 @@ as.caption <- function(x, short = NULL, short_repeat = TRUE,
     write = isTRUE(write),
     class = c("st_caption", "character")
   )
+}
+
+# Is candidate caption text an `st_object`?
+is.st_caption <- function(x) inherits(x, "st_caption")
+
+# Does a table have caption info
+has.st_caption <- function(x) {
+  is.st_caption(attributes(x)$caption)
+}
+
+#' @export
+print.st_caption <- function(x, ...) {
+  write <- attributes(x)$write
+  main <- as.character(x)
+  short <- attributes(x)$short
+  w <- NULL
+  s <- NULL
+  if(isTRUE(write)) w <- " %write%"
+  if(is.character(short)) s <- paste0("[", short, "] ")
+  print(paste0(s, main, w))
 }

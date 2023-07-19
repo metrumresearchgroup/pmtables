@@ -6,6 +6,7 @@ context("test-caption")
 test_that("create caption", {
   cap <- as.caption("[Short] Main", write = TRUE)
   expect_is(cap, "st_caption")
+  expect_true(pmtables:::is.st_caption(cap))
   att <- attributes(cap)
   expect_named(att)
   expect_identical(names(att), c("short", "write", "class"))
@@ -56,6 +57,7 @@ test_that("caption parse", {
 test_that("caption passed into stable()", {
   cap <- "Table caption \\label{tab:one}"
   text <- stable(stdata(), caption = cap)
+  expect_true(pmtables:::has.st_caption(text))
   text <- pmtables:::cap_main(text)
   expect_identical(cap, as.character(text))
 })
@@ -63,6 +65,7 @@ test_that("caption passed into stable()", {
 test_that("caption passed into stable_long()", {
   cap <- "Table caption \\label{tab:one}"
   text <- stable_long(stdata(), caption = cap)
+  expect_true(pmtables:::has.st_caption(text))
   text <- pmtables:::cap_main(text)
   expect_identical(cap, as.character(text))
   expect_match(text, cap, fixed = TRUE, all = FALSE)
@@ -91,7 +94,7 @@ test_that("short parsed from caption text", {
   tab <- st_new(stdata())
   tab <- st_caption(tab, cap)
   text <- stable(tab)
-
+  expect_true(pmtables:::has.st_caption(text))
   result <- pmtables:::cap_main(text)
   expect_is(result, "character")
   expect_equivalent(as.character(result), "Short title. Long title")

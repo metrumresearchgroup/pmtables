@@ -207,7 +207,6 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        output_dir = tempdir(), template = NULL,
                        margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
-
   tables <- c(list(...),.list)
   tables <- flatten_if(tables, is.list)
   names(tables) <- tab_escape(names(tables))
@@ -260,7 +259,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
 
   if(is.character(caption)) {
     wrap_with_caption <- function(text, i, short, caption) {
-      if(is.character(cap_main(text))) {
+      if(has.st_caption(text)) {
         caption <- cap_main(text)
         short <- cap_short(text)
         if(is.null(short)) short <- caption
