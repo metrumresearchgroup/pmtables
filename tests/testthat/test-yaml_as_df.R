@@ -55,9 +55,7 @@ test_that(".row is renamed if it exists", {
     .row: 2
     .row_1: 22
   '
-  file <- file.path(tempdir(), "yaml-as-df-test-.row-rename")
-  writeLines(text = yaml, con = file)
-  df <- yaml_as_df(file)
+  df <- yaml_as_df(textConnection(yaml))
   expect_is(df, "data.frame")
   expect_true(names(df)[1] == ".row_2")
 })
