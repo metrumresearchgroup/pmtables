@@ -11,8 +11,9 @@ yaml_as_df(path, quiet = FALSE, row_var = ".row")
 
 \item{quiet}{logical; if \code{TRUE}, suppress messages.}
 
-\item{row_var}{character; column name where row names (from the yaml
-source) will be stored; pass \code{NULL} to discard this column of row names.}
+\item{row_var}{character with length 1; column name where row names (from
+the yaml source) will be stored; pass \code{NULL} to discard this column of row
+names.}
 }
 \value{
 A data frame is created from yaml content and returned. By default,

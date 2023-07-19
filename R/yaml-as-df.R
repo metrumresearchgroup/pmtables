@@ -2,8 +2,9 @@
 #'
 #' @param path to the yaml source file.
 #' @param quiet logical; if `TRUE`, suppress messages.
-#' @param row_var character; column name where row names (from the yaml
-#' source) will be stored; pass `NULL` to discard this column of row names.
+#' @param row_var character with length 1; column name where row names (from
+#' the yaml source) will be stored; pass `NULL` to discard this column of row
+#' names.
 #'
 #' @section Prototyped tables:
 #'
@@ -72,6 +73,9 @@ yaml_as_df <- function(path, quiet = FALSE, row_var = ".row") { #nocov start
   }
 
   if(is.character(row_var)) {
+    if(length(row_var) != 1) {
+      stop("`row_var` must have length 1.")
+    }
     row_var0 <- row_var
     i <- 1
     while(row_var %in% names(ans)) {
