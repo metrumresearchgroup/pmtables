@@ -54,6 +54,26 @@ test_that("caption parse", {
   expect_identical(ans$main, "Short Title. Main caption text with [this] in brackets.")
 })
 
+test_that("print caption", {
+  crop <- function(x) substr(x, 6, nchar(x)-1)
+
+  a <- as.caption("foo")
+  aa <- crop(capture.output(print(a)))
+  expect_identical(aa, "foo")
+
+  a <- as.caption("[a] b")
+  aa <- crop(capture.output(print(a)))
+  expect_identical(aa, "[a] a b")
+
+  a <- as.caption("[a] b", write = TRUE)
+  aa <- crop(capture.output(print(a)))
+  expect_identical(aa, "[a] a b %write%")
+
+  a <- as.caption("b", write = TRUE)
+  aa <- crop(capture.output(print(a)))
+  expect_identical(aa, "b %write%")
+})
+
 test_that("caption passed into stable()", {
   cap <- "Table caption \\label{tab:one}"
   text <- stable(stdata(), caption = cap)
