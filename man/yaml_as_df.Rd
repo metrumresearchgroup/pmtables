@@ -18,7 +18,7 @@ that new column with row names will not overwrite an existing column.
 Pass \code{NULL} to discard this column of row names.}
 }
 \value{
-A data frame is created from yaml content and returned. By default,
+A tibble is created from yaml content and returned. By default,
 the first column in the data frame contains the outer names of the yaml
 source (see \code{row_var} argument and examples).
 }

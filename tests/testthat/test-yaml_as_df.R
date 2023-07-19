@@ -14,6 +14,7 @@ sysfile <- function(x) {
 test_that("read simple table [PMT-TEST-0246]", {
   file <- sysfile("table.yml")
   expect_is(yaml_as_df(file), "data.frame")
+  expect_is(yaml_as_df(file), "tbl_df")
   file <- sysfile("prototype-error-2.yml")
   expect_error(suppressMessages(yaml_as_df(file)), msg = "invalid yaml input")
   expect_message(try(yaml_as_df(file), silent = TRUE), msg = "row data in yaml")

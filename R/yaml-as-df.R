@@ -22,7 +22,7 @@
 #' to the prototype.
 #'
 #' @return
-#' A data frame is created from yaml content and returned. By default,
+#' A tibble is created from yaml content and returned. By default,
 #' the first column in the data frame contains the outer names of the yaml
 #' source (see `row_var` argument and examples).
 #'
@@ -87,7 +87,7 @@ yaml_as_df <- function(path, quiet = FALSE, row_var = ".row") { #nocov start
     if(!identical(row_var, row_var0)) {
       message(glue("`{row_var0}` already exists; saving row names to `{row_var}`."))
     }
-    ans <- as.data.frame(tibble(!!row_var := spec_names, ans))
+    ans <- tibble(!!row_var := spec_names, ans)
   }
 
   ans
