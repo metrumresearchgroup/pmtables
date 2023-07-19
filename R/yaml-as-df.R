@@ -3,8 +3,10 @@
 #' @param path to the yaml source file.
 #' @param quiet logical; if `TRUE`, suppress messages.
 #' @param row_var character with length 1; column name where row names (from
-#' the yaml source) will be stored; pass `NULL` to discard this column of row
-#' names.
+#' the yaml source) will be stored. If `row_var` already exists in the data
+#' frame, row names will be stored in `row_var_N`, where `N` is an integer such
+#' that new column with row names will not overwrite an existing column.
+#' Pass `NULL` to discard this column of row names.
 #'
 #' @section Prototyped tables:
 #'
@@ -82,8 +84,10 @@ yaml_as_df <- function(path, quiet = FALSE, row_var = ".row") { #nocov start
       row_var <- paste0(row_var0, "_", i)
       i <- i + 1
     }
-    ans[, row_var] <- spec_names
-    ans <- select(ans, all_of(unique(c(row_var, names(ans)))))
+    if(!identical(row_var, row_var0)) {
+      message(glue("`{row_var0}` already exists; saving row names to `{row_var}`."))
+    }
+    ans <- as.data.frame(tibble(!!row_var := spec_names, ans))
   }
 
   ans

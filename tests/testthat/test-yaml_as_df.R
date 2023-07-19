@@ -55,7 +55,11 @@ test_that(".row is renamed if it exists", {
     .row: 2
     .row_1: 22
   '
-  df <- yaml_as_df(textConnection(yaml))
+  expect_message(
+    df <- yaml_as_df(textConnection(yaml)),
+    "already exists; saving row names to"
+  )
   expect_is(df, "data.frame")
   expect_true(names(df)[1] == ".row_2")
 })
+

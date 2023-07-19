@@ -12,8 +12,10 @@ yaml_as_df(path, quiet = FALSE, row_var = ".row")
 \item{quiet}{logical; if \code{TRUE}, suppress messages.}
 
 \item{row_var}{character with length 1; column name where row names (from
-the yaml source) will be stored; pass \code{NULL} to discard this column of row
-names.}
+the yaml source) will be stored. If \code{row_var} already exists in the data
+frame, row names will be stored in \code{row_var_N}, where \code{N} is an integer such
+that new column with row names will not overwrite an existing column.
+Pass \code{NULL} to discard this column of row names.}
 }
 \value{
 A data frame is created from yaml content and returned. By default,
