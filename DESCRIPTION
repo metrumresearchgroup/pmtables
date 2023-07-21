@@ -30,7 +30,7 @@ Description: Summarize data sets and create publication-quality tables for
     inclusion in 'tex' documents.
 License: GPL (>=2)
 Imports: purrr, dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble, 
-    assertthat, tidyselect, stringr, knitr, rmarkdown
+    assertthat, tidyselect, stringr, knitr, rmarkdown, lifecycle
 Depends: R (>= 3.5.0)
 Suggests: testthat, yaml, fs, texPreview, magick, pdftools
 Encoding: UTF-8

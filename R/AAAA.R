@@ -18,6 +18,7 @@
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
 #' @importFrom tools file_ext
+#' @importFrom lifecycle deprecate_warn
 #'
 #' @include summary-functions.R
 #' @include utils.R

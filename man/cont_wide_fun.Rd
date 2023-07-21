@@ -4,21 +4,12 @@
 \alias{cont_wide_fun}
 \title{Function for continuous wide summaries}
 \usage{
-cont_wide_fun(
-  value,
-  digit_fun = sig,
-  id = NULL,
-  digits = 3,
-  na_fill = "--",
-  ...
-)
+cont_wide_fun(value, digit_fun = sig, digits = 3, na_fill = "--", ...)
 }
 \arguments{
 \item{value}{the data to summarize}
 
 \item{digit_fun}{a function to format digits in the summaries}
-
-\item{id}{a vector of subject IDs; same length as \code{value}}
 
 \item{digits}{the number of digits in the summary; the current implementation
 passes \code{digits} to \code{digit_fun()}}
@@ -26,6 +17,8 @@ passes \code{digits} to \code{digit_fun()}}
 \item{na_fill}{value to fill with when all values in the summary are missing}
 
 \item{...}{not used}
+
+\item{id}{a vector of subject IDs; same length as \code{value}}
 }
 \value{
 A tibble with one row and one column named \code{summary}; the summary
