@@ -1,3 +1,33 @@
+#' More sophisticated parsing of caption
+#'
+#' @noRd
+extract_short <- function(x) {
+  x <- trimws(x)
+  open <- gregexpr("[", x, fixed = TRUE)[[1]]
+  close <- gregexpr("]", x, fixed = TRUE)[[1]]
+  mismatch <- length(open) != length(close)
+  positions <- c(open, close)
+  if(length(open)==0 || length(close)==0 || open[1] != 1) {
+    return(list(main = x, short = ""))
+  }
+  bits <- c(rep(1, length(open)), rep(-1, length(close)))
+  o <- order(positions)
+  bits <- bits[o]
+  positions <- positions[o]
+  done <- cumsum(bits)
+  done <- positions[done==0]
+  if(length(done)==0) {
+    if(mismatch) {
+      done <- positions[bits==-1][1]
+    } else {
+      return(list(main = x, short = ""))
+    }
+  }
+  short <- substr(x, 2, done[1] - 1)
+  main <- substr(x, done[1] + 1, nchar(x))
+  list(main = main, short = short)
+}
+
 #' Goal is to preserve space in between short and main caption
 #' when short is repeated. If short not repeated, then ok to just trim.
 #' trimws() is called quite a bit, but important to consider context of the
@@ -7,21 +37,17 @@
 #' @param short optional short caption text
 #' @noRd
 parse_caption <- function(text, short = NULL, short_repeat = TRUE, short_sep = "") {
-  text <- trimws(text)
-  parsed_short <- str_extract(text, "^\\[.+?\\]")
-  has_parsed_short <- !is.na(parsed_short)
-  if(is.null(short) && !is.na(parsed_short)) {
-    short <- parsed_short
+  ext <- extract_short(text)
+  has_parsed_short <- nchar(ext$short) > 0
+  if(is.null(short) && has_parsed_short) {
+    short <- ext$short
   }
   if(is.null(short)) {
     ans <- list(main = text, short = short)
     return(ans)
   }
-  text <- sub(short, "", text, fixed = TRUE)
+  text <- ext$main
   short <- trimws(short, which = "left")
-  if(has_parsed_short) {
-    short <- substr(short, 2, nchar(short)-1)
-  }
   if(is.character(short) && isTRUE(short_repeat)) {
     text <- paste0(short, short_sep, text)
   }
@@ -74,6 +100,9 @@ as.caption <- function(x, short = NULL, short_repeat = TRUE,
 
   if(inherits(x, "st_caption")) {
     return(x)
+  }
+  if(!is.character(x) || length(x)!=1) {
+    stop("`x` must be character with length 1.")
   }
   cap <- parse_caption(
     text = x,

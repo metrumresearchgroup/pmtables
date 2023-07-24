@@ -13,6 +13,8 @@ test_that("create caption", {
   expect_true(att$write)
   expect_equal(att$short, "Short")
   expect_equal(as.character(cap), "Short Main")
+
+  expect_error(as.caption(letters[1:3]), "must be character with length 1")
 })
 
 test_that("caption parse", {
@@ -52,6 +54,35 @@ test_that("caption parse", {
   ans <- pmtables:::parse_caption(cap)
   expect_identical(ans$short, "Short Title")
   expect_identical(ans$main, "Short Title. Main caption text with [this] in brackets.")
+})
+
+test_that("caption parse handles embedded brackets", {
+  cap <- "[Short title [abc] ]. Main caption text"
+  ans <- pmtables:::parse_caption(cap)
+  expect_equal(ans$short, "Short title [abc]")
+  expect_equal(ans$main, "Short title [abc] . Main caption text")
+
+  cap <- "[Short title abc] ]. Main caption text"
+  ans <- pmtables:::parse_caption(cap, short_repeat = FALSE)
+  expect_equal(ans$short, "Short title abc")
+  expect_equal(ans$main, "]. Main caption text")
+
+  cap <- "[Short title abc]. Main caption [foo] text"
+  ans <- pmtables:::parse_caption(cap, short_repeat = FALSE)
+  expect_equal(ans$short, "Short title abc")
+  expect_equal(ans$main, ". Main caption [foo] text")
+
+  cap <- "[Short title abc [. Main caption [foo] text"
+  ans <- pmtables:::parse_caption(cap, short_repeat = FALSE)
+  expect_equal(ans$short, "Short title abc [. Main caption [foo")
+  expect_equal(ans$main, "text")
+})
+
+test_that("caption parse handles new lines", {
+  cap <- "[Short \n title]. Main caption \n\n text"
+  ans <- pmtables:::parse_caption(cap)
+  expect_equal(ans$short, "Short \n title")
+  expect_equal(ans$main, "Short \n title. Main caption \n\n text")
 })
 
 test_that("print caption", {
