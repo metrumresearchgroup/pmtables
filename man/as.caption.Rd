@@ -30,15 +30,29 @@ when \code{\link[=stable_save]{stable_save()}} is called; this argument does not
 output file.}
 }
 \value{
-A character vector of (main) caption text is returned with
-attributes \code{short} and \code{write}.
+An object inheriting from \code{st_caption} and \code{character}.
 }
 \description{
 Create caption
 }
+\details{
+Caption text (in \code{x}) can contain a short caption title enclosed in brackets
+(\verb{[]}) as the opening characters (see examples). The short title is
+assumed to start after the opening \code{[} and end prior to \verb{]} when all brackets
+are matched, allowing \verb{[...]} in the short title as long as all brackets
+are matched. For other scenarios where a single \verb{]} may need to appear
+in the short title, the user should use the \code{short} argument instead of
+the bracket notation instead.
+}
 \examples{
 
-as.caption("[Short]. Main title text.")
-as.caption("Main title text.", short = "Short")
+# No separate short title
+as.caption("Main title text")
+
+# Note that the short title is repeated by default
+as.caption("[Short title]. Main title text")
+
+unclass(as.caption("[Short title]. Main title text."))
+unclass(as.caption(". Main title text.", short = "Short"))
 
 }

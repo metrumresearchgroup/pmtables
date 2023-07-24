@@ -926,12 +926,19 @@ st_edit <- function(x, ...) {
 #'
 #' @param x an stobject.
 #' @param text caption text to be parsed.
-#' @param ... additional arguments passed to [as.caption()].
+#' @param ... additional arguments passed to [as.caption()]; see details.
 #'
 #' @details
-#' A short title can also be specified by including it in brackets (`[]`) as
-#' the first characters in `text`. See examples here as well as in
-#' [as.caption()].
+#' A short title for the table can be specified in one of two ways. First, the
+#' short title can be specified by including it in brackets (`[]`) as the
+#' first characters in `text`. Alternatively, short title text can get passed
+#' separately into `st_caption()` under the argument `short`, which is
+#' is eventually handled by [as.caption()].
+#'
+#' By default, [as.caption()] will repeat the short title at the start of the
+#' main caption text. The user can pass `repeat_short = FALSE` into
+#' `st_caption()` (and eventually to [as.caption()]) to suppress this behavior.
+#'
 #'
 #' @examples
 #' tab <- st_new(stdata())

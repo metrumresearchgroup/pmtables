@@ -34,7 +34,7 @@ extract_short <- function(x) {
 #' call.
 #'
 #' @param text a chunk of caption text that may or may not need to be parsed.
-#' @param short optional short caption text
+#' @param short optional short caption text.
 #' @noRd
 parse_caption <- function(text, short = NULL, short_repeat = TRUE, short_sep = "") {
   ext <- extract_short(text)
@@ -85,14 +85,28 @@ cap_write <- function(x) {
 #' `stable_long` objects whose captions are _always_ written to output the
 #' output file.
 #'
+#' @details
+#' Caption text (in `x`) can contain a short caption title enclosed in brackets
+#' (`[]`) as the opening characters (see examples). The short title is
+#' assumed to start after the opening `[` and end prior to `]` when all brackets
+#' are matched, allowing `[...]` in the short title as long as all brackets
+#' are matched. For other scenarios where a single `]` may need to appear
+#' in the short title, the user should use the `short` argument instead of
+#' the bracket notation instead.
+#'
 #' @examples
 #'
-#' as.caption("[Short]. Main title text.")
-#' as.caption("Main title text.", short = "Short")
+#' # No separate short title
+#' as.caption("Main title text")
+#'
+#' # Note that the short title is repeated by default
+#' as.caption("[Short title]. Main title text")
+#'
+#' unclass(as.caption("[Short title]. Main title text."))
+#' unclass(as.caption(". Main title text.", short = "Short"))
 #'
 #' @return
-#' A character vector of (main) caption text is returned with
-#' attributes `short` and `write`.
+#' An object inheriting from `st_caption` and `character`.
 #'
 #' @export
 as.caption <- function(x, short = NULL, short_repeat = TRUE,

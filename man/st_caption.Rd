@@ -11,15 +11,21 @@ st_caption(x, text, ...)
 
 \item{text}{caption text to be parsed.}
 
-\item{...}{additional arguments passed to \code{\link[=as.caption]{as.caption()}}.}
+\item{...}{additional arguments passed to \code{\link[=as.caption]{as.caption()}}; see details.}
 }
 \description{
 Set table caption
 }
 \details{
-A short title can also be specified by including it in brackets (\verb{[]}) as
-the first characters in \code{text}. See examples here as well as in
-\code{\link[=as.caption]{as.caption()}}.
+A short title for the table can be specified in one of two ways. First, the
+short title can be specified by including it in brackets (\verb{[]}) as the
+first characters in \code{text}. Alternatively, short title text can get passed
+separately into \code{st_caption()} under the argument \code{short}, which is
+is eventually handled by \code{\link[=as.caption]{as.caption()}}.
+
+By default, \code{\link[=as.caption]{as.caption()}} will repeat the short title at the start of the
+main caption text. The user can pass \code{repeat_short = FALSE} into
+\code{st_caption()} (and eventually to \code{\link[=as.caption]{as.caption()}}) to suppress this behavior.
 }
 \examples{
 tab <- st_new(stdata())
