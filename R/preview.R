@@ -7,7 +7,10 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
   if(is.character(label)) {
     label <- paste0(" \\", label)
   }
-  paste0("\\caption[",short,"]{",long,label,"}")
+  if(is.character(short)) {
+    short <- paste0("[", short, "]")
+  }
+  paste0("\\caption",short,"{",long,label,"}")
 }
 
 #' Render a table a pdf document
@@ -447,9 +450,8 @@ pt_wrap <- st_wrap
 
 #' @rdname st_wrap
 #' @export
-st_asis <- function(x, ..., asis = TRUE, con = NULL) {
-  caption <- cap_main(x)
-  short <- cap_short(x)
+st_asis <- function(x, ..., caption = cap_main(x), short = cap_short(x),
+                    asis = TRUE, con = NULL) {
   st_wrap(x, ..., asis = asis, con = con, caption = caption, short = short)
 }
 
