@@ -4,14 +4,24 @@
 \alias{stable_save}
 \title{Save output from stable}
 \usage{
-stable_save(x, file = attr(x, "stable_file"), dir = getOption("pmtables.dir"))
+stable_save(
+  x,
+  file = attr(x, "stable_file"),
+  dir = getOption("pmtables.dir"),
+  write_caption = NULL
+)
 }
 \arguments{
-\item{x}{a table formatted with \code{\link[=stable]{stable()}}}
+\item{x}{a table formatted with \code{\link[=stable]{stable()}}.}
 
-\item{file}{the file}
+\item{file}{the file.}
 
-\item{dir}{the directory where the file is to be saved}
+\item{dir}{the directory where the file is to be saved.}
+
+\item{write_caption}{logical; if \code{TRUE} and a caption was specified, it
+will be written in the output file. This argument is not utilized for
+\code{stable_long} objects, where captions are \emph{always} written if they are
+specified.}
 }
 \value{
 The \code{stable} or \code{stable_long} object is returned invisibly.

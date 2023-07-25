@@ -32,7 +32,14 @@ st_wrap(x, ...)
 
 pt_wrap(x, ...)
 
-st_asis(x, ..., asis = TRUE, con = NULL)
+st_asis(
+  x,
+  ...,
+  caption = cap_main(x),
+  short = cap_short(x),
+  asis = TRUE,
+  con = NULL
+)
 
 st_latex(x, con = stdout(), center = TRUE, context = c("rmd", "tex"))
 }

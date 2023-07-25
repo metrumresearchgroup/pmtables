@@ -43,6 +43,47 @@ test_that("save a list of tables [PMT-TEST-0238]", {
   expect_is(ans, "list")
 })
 
+test_that("set save caption flag at caption create", {
+  cap <- as.caption("Table caption", write = TRUE)
+  a <- stable(stdata(), caption = cap)
+  ans0 <- stable_save(a, dir = tempdir(), file = "cap-save-0")
+  text0 <- readLines(file.path(tempdir(), "cap-save-0"))
+  expect_match(text0, "\\caption", fixed = TRUE, all = FALSE)
+})
+
+test_that("stable_save argument gets last word on caption save", {
+  cap <- as.caption("Table caption", write = TRUE)
+  a <- stable(stdata(), caption = cap)
+  ans0 <- stable_save(
+    a,
+    dir = tempdir(),
+    file = "cap-save-00",
+    write_caption = FALSE
+  )
+  text0 <- readLines(file.path(tempdir(), "cap-save-00"))
+  expect_no_match(text0, "\\caption", fixed = TRUE)
+})
+
+test_that("opt in to saving caption", {
+  cap <- as.caption("Table caption", short = "caption")
+
+  a <- stable(stdata(), caption = cap)
+  ans1 <- stable_save(a, dir = tempdir(), file = "cap-save-1")
+  text1 <- readLines(file.path(tempdir(), "cap-save-1"))
+  expect_no_match(text1, "\\caption", fixed = TRUE)
+
+  ans2 <- stable_save(a, dir = tempdir(), file = "cap-save-2",
+                      write_caption = TRUE)
+  text2 <- readLines(file.path(tempdir(), "cap-save-2"))
+  expect_match(text2, "\\caption", fixed = TRUE, all = FALSE)
+
+  b <- stable_long(stdata(), caption = cap)
+  ans3 <- stable_save(b, dir = tempdir(), file = "cap-save-3",
+                      write_caption = FALSE)
+  text3 <- readLines(file.path(tempdir(), "cap-save-3"))
+  expect_match(text3, "\\caption", fixed = TRUE, all = FALSE)
+})
+
 test_that("table-utils paste units [PMT-TEST-0239]", {
   cols <- LETTERS[c(2,5,4,3,1)]
   units <- list(C = "pounds", X = "none", B = "mg", D = "kg", Z = "liters")

@@ -22,6 +22,7 @@ st_arg_names <- c(
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
   "hline_at", "hline_from", "sizes", "units", "drop",
   "lt_cap_text", "lt_cap_macro", "lt_cap_label", "lt_cap_short", "lt_continue",
+  "caption",
   "args"
 )
 
@@ -932,6 +933,40 @@ st_filter <- function(x, ...) {
 st_edit <- function(x, ...) {
   check_st(x)
   x$data <- tab_edit(x$data, ...)
+  x
+}
+
+#' Set table caption
+#'
+#' @param x an stobject.
+#' @param text caption text to be parsed.
+#' @param ... additional arguments passed to [as.caption()]; see details.
+#'
+#' @details
+#' A short title for the table can be specified in one of two ways. First, the
+#' short title can be specified by including it in brackets (`[]`) as the
+#' first characters in `text`. Alternatively, short title text can get passed
+#' separately into `st_caption()` under the argument `short`, which is
+#' is eventually handled by [as.caption()].
+#'
+#' By default, [as.caption()] will repeat the short title at the start of the
+#' main caption text. The user can pass `repeat_short = FALSE` into
+#' `st_caption()` (and eventually to [as.caption()]) to suppress this behavior.
+#'
+#'
+#' @examples
+#' tab <- st_new(stdata())
+#' tab <- st_caption(tab, "[Full covariate model estimates]. Run number 101.")
+#' tab$caption
+#'
+#' text <- stable(tab)
+#' text
+#'
+#' @export
+st_caption <- function(x, text, ...) {
+  check_st(x)
+  text <- paste0(text, collapse = " ")
+  x$caption <- as.caption(text, ...)
   x
 }
 
