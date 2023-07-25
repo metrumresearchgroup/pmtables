@@ -32,6 +32,7 @@ test_that("update align objects", {
   b <- update(a, .outer = "lr")
   expect_is(b, "aligncol")
   expect_identical(a$outer, "none")
+  expect_identical(b$outer, "lr")
   expect_error(update(a, .outer = "kyle"), "'arg' should be")
 
   b <- update(a, C = "c", E = "r")
