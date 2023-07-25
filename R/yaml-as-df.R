@@ -1,7 +1,12 @@
 #' Read yaml input into data frame
 #'
-#' @param path to the yaml source file
-#' @param quiet if `TRUE`, suppress messages
+#' @param path to the yaml source file.
+#' @param quiet logical; if `TRUE`, suppress messages.
+#' @param row_var character with length 1; column name where row names (from
+#' the yaml source) will be stored. If `row_var` already exists in the data
+#' frame, row names will be stored in `row_var_N`, where `N` is an integer such
+#' that new column with row names will not overwrite an existing column.
+#' Pass `NULL` to discard this column of row names.
 #'
 #' @section Prototyped tables:
 #'
@@ -16,11 +21,20 @@
 #' can be entered as arrays; they will be coerced to list and named according
 #' to the prototype.
 #'
+#' @return
+#' A tibble is created from yaml content and returned. By default,
+#' the first column in the data frame contains the outer names of the yaml
+#' source (see `row_var` argument and examples).
+#'
 #' @examples
 #'
 #' path <- system.file("yaml", "table.yml", package = "pmtables")
 #'
 #' yaml_as_df(path)
+#'
+#' yaml_as_df(path, row_var = "name")
+#'
+#' yaml_as_df(path, row_var = NULL)
 #'
 #' # Example prototyped table
 #' \dontrun{
@@ -29,7 +43,7 @@
 #' }
 #'
 #' @export
-yaml_as_df <- function(path, quiet = FALSE) { #nocov start
+yaml_as_df <- function(path, quiet = FALSE, row_var = ".row") { #nocov start
   assert_that(requireNamespace("yaml"))
   x <- yaml::yaml.load_file(path)
   meta <- list()
@@ -42,6 +56,7 @@ yaml_as_df <- function(path, quiet = FALSE) { #nocov start
       message("using column ", prototype, " as the prototype")
     }
   }
+  spec_names <- names(x)
   rename <- is.character(prototype) | is.numeric(prototype)
   if(rename) {
     x <- yamdf_validate_prototype(x, prototype)
@@ -53,10 +68,28 @@ yaml_as_df <- function(path, quiet = FALSE) { #nocov start
   if(rename) {
     names(ans) <- prototype_names
   }
+
   if(exists("cols", meta)) {
     cols <- meta[["cols"]]
-    ans <- select(ans, cols, tidyselect::everything())
+    ans <- select(ans, all_of(cols), everything())
   }
+
+  if(is.character(row_var)) {
+    if(length(row_var) != 1) {
+      stop("`row_var` must have length 1.")
+    }
+    row_var0 <- row_var
+    i <- 1
+    while(row_var %in% names(ans)) {
+      row_var <- paste0(row_var0, "_", i)
+      i <- i + 1
+    }
+    if(!identical(row_var, row_var0)) {
+      message(glue("`{row_var0}` already exists; saving row names to `{row_var}`."))
+    }
+    ans <- tibble(!!row_var := spec_names, ans)
+  }
+
   ans
 } #nocov end
 

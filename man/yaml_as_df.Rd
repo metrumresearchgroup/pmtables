@@ -4,12 +4,23 @@
 \alias{yaml_as_df}
 \title{Read yaml input into data frame}
 \usage{
-yaml_as_df(path, quiet = FALSE)
+yaml_as_df(path, quiet = FALSE, row_var = ".row")
 }
 \arguments{
-\item{path}{to the yaml source file}
+\item{path}{to the yaml source file.}
 
-\item{quiet}{if \code{TRUE}, suppress messages}
+\item{quiet}{logical; if \code{TRUE}, suppress messages.}
+
+\item{row_var}{character with length 1; column name where row names (from
+the yaml source) will be stored. If \code{row_var} already exists in the data
+frame, row names will be stored in \code{row_var_N}, where \code{N} is an integer such
+that new column with row names will not overwrite an existing column.
+Pass \code{NULL} to discard this column of row names.}
+}
+\value{
+A tibble is created from yaml content and returned. By default,
+the first column in the data frame contains the outer names of the yaml
+source (see \code{row_var} argument and examples).
 }
 \description{
 Read yaml input into data frame
@@ -34,6 +45,10 @@ to the prototype.
 path <- system.file("yaml", "table.yml", package = "pmtables")
 
 yaml_as_df(path)
+
+yaml_as_df(path, row_var = "name")
+
+yaml_as_df(path, row_var = NULL)
 
 # Example prototyped table
 \dontrun{

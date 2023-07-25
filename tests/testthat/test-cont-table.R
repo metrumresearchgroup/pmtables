@@ -116,3 +116,20 @@ test_that("cont table all missing [PMT-TEST-0025]", {
   expect_equal(f$data$SD[2], "NA")
   expect_equal(f$data$`Min / Max`[2], "NA")
 })
+
+test_that("pt_cont_x run with no ID column", {
+  data <- pmt_first
+  tab_wide_1 <- pt_cont_wide(data, cols = c("WT", "AGE", "CRCL"))
+  tab_long_1 <- pt_cont_long(data, cols = c("WT", "AGE", "CRCL"))
+  expect_is(tab_wide_1, "pmtable")
+  expect_is(tab_long_1, "pmtable")
+
+  data$ID <- NULL
+  tab_wide_2 <- pt_cont_wide(data, cols = c("WT", "AGE", "CRCL"))
+  tab_long_2 <- pt_cont_long(data, cols = c("WT", "AGE", "CRCL"))
+  expect_is(tab_wide_2, "pmtable")
+  expect_is(tab_long_2, "pmtable")
+
+  expect_identical(tab_wide_1$data, tab_wide_2$data)
+  expect_identical(tab_long_1$data, tab_long_2$data)
+})

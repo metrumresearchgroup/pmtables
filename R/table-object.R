@@ -950,3 +950,36 @@ print.stobject <- function(x, ...) {
 #' @rdname print.stobject
 #' @export
 names.stobject <- function(x) names(x$data)
+
+
+#' Clone an stobject
+#'
+#' @param x an stobject object.
+#'
+#' @return
+#' A copy (`y`) of `x` such that `y` can be modified without modifying `x`.
+#'
+#' @examples
+#' x <- st_new(stdata())
+#' y <- st_clone(x)
+#'
+#' y$data$STUDY <- NULL
+#' x$data
+#' y$data
+#'
+#' # Get back to a regular environment
+#' class(x) <- "environment"
+#' class(y) <- "environment"
+#'
+#' x
+#' y
+#'
+#' @export
+st_clone <- function(x) {
+  if(!inherits(x, "stobject")) {
+    stop("Can only clone stobjects.")
+  }
+  y <- env_clone(x)
+  attributes(y) <- attributes(x)
+  y
+}
