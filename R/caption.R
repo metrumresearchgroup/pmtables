@@ -5,7 +5,6 @@ extract_short <- function(x) {
   x <- trimws(x)
   open <- gregexpr("[", x, fixed = TRUE)[[1]]
   close <- gregexpr("]", x, fixed = TRUE)[[1]]
-  mismatch <- length(open) != length(close)
   positions <- c(open, close)
   if(length(open)==0 || length(close)==0 || open[1] != 1) {
     return(list(main = x, short = ""))
@@ -17,11 +16,7 @@ extract_short <- function(x) {
   done <- cumsum(bits)
   done <- positions[done==0]
   if(length(done)==0) {
-    if(mismatch) {
-      done <- positions[bits==-1][1]
-    } else {
-      return(list(main = x, short = ""))
-    }
+    done <- positions[bits==-1][1]
   }
   short <- substr(x, 2, done[1] - 1)
   main <- substr(x, done[1] + 1, nchar(x))

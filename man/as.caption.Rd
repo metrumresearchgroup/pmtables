@@ -42,7 +42,7 @@ assumed to start after the opening \code{[} and end prior to \verb{]} when all b
 are matched, allowing \verb{[...]} in the short title as long as all brackets
 are matched. For other scenarios where a single \verb{]} may need to appear
 in the short title, the user should use the \code{short} argument instead of
-the bracket notation instead.
+the bracket notation.
 }
 \examples{
 
