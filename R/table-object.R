@@ -389,44 +389,58 @@ st_notes_conf <- st_noteconf
 
 #' Add column alignment information to st object
 #'
-#' See the `align` argument to [stable()]. Note: these functions
-#' always replace the current alignment in total.
+#' See the `align` argument to [stable()]. This function may be called several
+#' times to specify column alignment.
 #'
-#' @param x an stobject
-#' @param ... named arguments passed to [cols_align()]
+#' @param x an stobject.
+#' @param ... named arguments passed to [cols_align()].
+#'
+#' @return
+#' An updated version of `x`.
 #'
 #' @examples
 #' library(dplyr)
 #'
 #' ob <- st_new(ptdata())
 #'
-#' ob %>% st_align(.default = 'l') %>% st_make()
+#' ob %>% st_align(.default = 'l') %>% stable()
 #'
-#' ob %>% st_center(N = 'l') %>% st_make()
+#' ob %>% st_center(N = 'l') %>% stable()
+#'
+#' # This is only to illustrate multiple calls
+#' ob %>%
+#'   st_center(N = 'l') %>%
+#'   st_align(STUDY = col_ragged(2), WT = 'r') %>%
+#'   st_right(N = 'c') %>%
+#'   stable()
 #'
 #' @export
 st_align <- function(x, ...) {
   check_st(x)
-  x$align <- cols_align(...)
+  if("align" %in% ls(x)) {
+    x$align <- update(x$align, ...)
+  } else {
+    x$align <- cols_align(...)
+  }
   x
 }
 
 #' @rdname st_align
 #' @export
 st_center <- function(x,...) {
-  st_align(x,.default = "c",...)
+  st_align(x, .default = "c", ...)
 }
 
 #' @rdname st_align
 #' @export
 st_left <- function(x,...) {
-  st_align(x,.default = "l",...)
+  st_align(x, .default = "l", ...)
 }
 
 #' @rdname st_align
 #' @export
 st_right <- function(x,...) {
-  st_align(x,.default = "r",...)
+  st_align(x, .default = "r", ...)
 }
 
 #' Add file name information to st object

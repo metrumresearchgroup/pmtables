@@ -135,3 +135,32 @@ form_align <- function(x,cols,pipes = FALSE) {
   ans
 }
 
+#' @export
+update.aligncol <- function(object, ...) {
+  args <- list(...)
+  if(length(args) ==0) return(object)
+  ac <- do.call(cols_align, args)
+  # Error out if the object changed at all.
+  stopifnot(
+    identical(
+      names(ac),
+      c("complete", "default", "update", "coltype", "outer")
+    )
+  )
+  if(".complete" %in% names(args)) {
+    object$complete <- ac$complete
+  }
+  if(".default" %in% names(args)) {
+    object$default <- ac$default
+  }
+  if(".coltype" %in% names(args)) {
+    object$coltype <- ac$coltype
+  }
+  if(".outer" %in% names(args)) {
+    object$outer <- ac$outer
+  }
+  if(length(ac$update) > 0) {
+    object$update <- combine_list(object$update, ac$update)
+  }
+  object
+}
