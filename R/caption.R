@@ -92,7 +92,7 @@ cap_write <- function(x) {
 #' are matched, allowing `[...]` in the short title as long as all brackets
 #' are matched. For other scenarios where a single `]` may need to appear
 #' in the short title, the user should use the `short` argument instead of
-#' the bracket notation instead.
+#' the bracket notation.
 #'
 #' @examples
 #'
