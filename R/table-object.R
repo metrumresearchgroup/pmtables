@@ -68,7 +68,7 @@ st_new.data.frame <- function(x, ...) {
 st_new.pmtable <- function(x, ...) {
   valid_arg_names <- c(
     "data", "panel", "cols_rename", "align", "notes", "cols_extra",
-    "cols_blank", "span", "span_split", "units", "bold_cols"
+    "cols_blank", "span", "span_split", "units", "bold_cols", "sumrows"
   )
   incoming <- names(x)
   if(!all(incoming %in% valid_arg_names)) {
