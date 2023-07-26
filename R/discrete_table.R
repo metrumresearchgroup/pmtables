@@ -369,7 +369,7 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
   ans[[".total"]] <- NULL
 
   if("N" %in% names(ans)) {
-    ans <- rename(ans, n = .data[["N"]])
+    ans <- rename(ans, n = "N")
   }
 
   .panel <- rowpanel(NULL)

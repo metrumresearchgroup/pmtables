@@ -35,7 +35,7 @@ summarize_cat_chunk <- function(data, cols, N, denom = "group") {
 #' @noRd
 summarize_cat_col <- function(name, data, D, Nchunk) {
   data <- ungroup(data)
-  pick <- select(data, .data[["ID"]], level = all_of(unname(name)))
+  pick <- select(data, "ID", level = all_of(unname(name)))
   pick <- mutate(pick, name = .env[["name"]])
   pick <- group_by(pick, .data[["name"]], .data[["level"]], .drop = FALSE)
   summ <- summarise(pick, n = n())

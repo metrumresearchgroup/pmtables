@@ -241,7 +241,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   if(summarize_span) {
     cat_table <- pt_cat_long(
       data,
-      cols = all_of(cols_cat),
+      cols = cols_cat,
       span = span,
       summarize = "top",
       denom = denom
@@ -250,7 +250,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   if(summarize_all) {
     cat_table_all0 <- pt_cat_long(
       data,
-      cols = all_of(cols_cat),
+      cols = cols_cat,
       summarize = "top",
       denom = denom
     )
@@ -278,9 +278,9 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   }
   # Combined Table ###
   table_data <- bind_rows(cont_df, cat_df)
-  table_data <- rename(table_data, !!sym(stat_name) := .data[["level"]])
+  table_data <- rename(table_data, !!sym(stat_name) := "level")
   if(summarize_all) {
-    table_data <- rename(table_data, !!sym(all_name) := .data[["value"]])
+    table_data <- rename(table_data, !!sym(all_name) := "value")
   }
   # add units
   units <- validate_units(units, data)
@@ -315,7 +315,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
     ans[["hline_from"]] <- "Covariate"
     table_data <- select(
       table_data,
-      Covariate = .data[["name"]],
+      Covariate = "name",
       everything()
     )
   }
@@ -335,7 +335,7 @@ demo_summarize_cont <- function(data, span, cols, fun) {
   cont_table <- pivot_wider(
     cont_table,
     names_from  = "name",
-    values_from = summary_names,
+    values_from = all_of(summary_names),
     names_glue  = "{name}_{.value}"
   )
   cont_table <- pivot_longer(cont_table, -!!sym(span))
