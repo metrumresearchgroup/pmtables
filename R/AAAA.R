@@ -11,7 +11,7 @@
 #' @importFrom tidyr complete
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
-#' @importFrom rlang enquo enquos is_named is_atomic flatten_if have_name
+#' @importFrom rlang enquo enquos is_named is_atomic have_name
 #' @importFrom rlang env_clone
 #' @importFrom glue glue
 #' @importFrom tibble tibble as_tibble is_tibble
