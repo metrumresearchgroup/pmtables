@@ -24,7 +24,7 @@ readme:
 
 test:
 	make install
-	Rscript -e 'testthat::test_dir("tests/testthat")'
+	Rscript -e 'testthat::test_local()'
 
 covr:
 	Rscript inst/covr/covr.R

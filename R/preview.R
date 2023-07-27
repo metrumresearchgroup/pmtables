@@ -211,7 +211,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
   tables <- c(list(...),.list)
-  tables <- flatten_if(tables, is.list)
+  tables <- list_flatten(tables)
   names(tables) <- tab_escape(names(tables))
 
   if(length(caption==1) && length(tables) > 1) {

@@ -6,11 +6,12 @@
 #' @importFrom dplyr groups slice mutate_at across
 #' @importFrom purrr map_dfr walk partial map map_chr modify flatten_chr imap
 #' @importFrom purrr flatten_int map_lgl modify_if map_int map2 keep flatten
+#' @importFrom purrr list_flatten
 #' @importFrom tidyr pivot_wider pivot_longer replace_na fill separate unite
 #' @importFrom tidyr complete
 #' @importFrom forcats fct_inorder
 #' @importFrom rlang sym syms quo_get_expr as_string := .data .env is_empty
-#' @importFrom rlang enquo enquos is_named is_atomic flatten_if have_name
+#' @importFrom rlang enquo enquos is_named is_atomic have_name
 #' @importFrom rlang env_clone
 #' @importFrom glue glue
 #' @importFrom tibble tibble as_tibble is_tibble
