@@ -96,8 +96,8 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       ans <- complete(ans, !!!syms(.groups))
       nstart <- length(.groups)
       nend <- ncol(ans)
-      ans <- mutate(ans, across(nstart+1, ~ replace_na(.x, 0)))
-      ans <- mutate(ans, across(seq(nstart+2, nend), ~ replace_na(.x, "0 (0.0)")))
+      ans <- mutate(ans, across(nstart+1, function(.x) replace_na(.x, 0)))
+      ans <- mutate(ans, across(seq(nstart+2, nend), function(.x) replace_na(.x, "0 (0.0)")))
     }
     ans
   } else {
