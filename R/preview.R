@@ -7,7 +7,10 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
   if(is.character(label)) {
     label <- paste0(" \\", label)
   }
-  paste0("\\caption[",short,"]{",long,label,"}")
+  if(is.character(short)) {
+    short <- paste0("[", short, "]")
+  }
+  paste0("\\caption",short,"{",long,label,"}")
 }
 
 #' Render a table a pdf document
@@ -207,10 +210,20 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        output_dir = tempdir(), template = NULL,
                        margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
-
   tables <- c(list(...),.list)
-  tables <- flatten_if(tables, is.list)
+  tables <- list_flatten(tables)
   names(tables) <- tab_escape(names(tables))
+
+  if(length(caption==1) && length(tables) > 1) {
+    caption <- rep(caption, length(tables))
+  }
+  if(is_named(tables)) {
+    short <- names(tables)
+  } else {
+    short <- paste0("pmtables output preview - ", seq_along(tables))
+  }
+
+
   inputs <- tables
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(tempdir())
@@ -248,15 +261,23 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   temp <- mgluet(temp, .envir = env)
 
   if(is.character(caption)) {
-    wrap_with_caption <- function(text, i) {
-      if(is.null(i)) i <- "<no name given>"
-      short <- paste0("pmtables output preview - ", i)
+    wrap_with_caption <- function(text, i, short, caption) {
+      if(has.st_caption(text)) {
+        caption <- cap_main(text)
+        short <- cap_short(text)
+        if(is.null(short)) short <- caption
+      }
       pt_wrap(
-        text, context = "tex", caption = caption, short = short,
-        con = NULL
+        text, context = "tex", caption = caption, short = short, con = NULL
       )
     }
-    tables <- imap(tables, wrap_with_caption)
+    tables <- Map(
+      tables,
+      i = seq_along(tables),
+      short = short,
+      caption = caption,
+      f = wrap_with_caption
+    )
   } else {
     tables <- map(tables, pt_wrap, context = "tex", con = NULL)
   }
@@ -429,8 +450,9 @@ pt_wrap <- st_wrap
 
 #' @rdname st_wrap
 #' @export
-st_asis <- function(x, ..., asis = TRUE, con = NULL) {
-  st_wrap(x, ..., asis = asis, con = con)
+st_asis <- function(x, ..., caption = cap_main(x), short = cap_short(x),
+                    asis = TRUE, con = NULL) {
+  st_wrap(x, ..., asis = asis, con = con, caption = caption, short = short)
 }
 
 #' @rdname st_wrap

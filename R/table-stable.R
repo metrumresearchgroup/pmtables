@@ -90,6 +90,8 @@ triage_data <- function(data) {
 #' columns in the data frame
 #' @param drop columns to remove prior to rendering the table
 #' @param sizes an object returned from [tab_size()]
+#' @param caption a caption for the table; this could be raw caption text or
+#' a caption object created with [as.caption()]
 #' @param control not used at the moment
 #' @param escape_fun a function passed to `prime_fun` that will sanitize column
 #' data
@@ -121,6 +123,7 @@ stable.data.frame <- function(data,
                               units = NULL,
                               drop = NULL,
                               sizes = tab_size(),
+                              caption = NULL,
                               control = st_control(),
                               escape_fun = tab_escape,
                               inspect = FALSE,
@@ -147,8 +150,13 @@ stable.data.frame <- function(data,
     inherits(control, "st_control"),
     msg = "'control' must be created with st_control()"
   )
+
   sumrows <- validate_sumrows(sumrows)
   panel <- as.panel(panel)
+
+  if(!is.null(caption)) {
+    caption <- as.caption(caption)
+  }
 
   # hlines
   add_hlines <- tab_hlines(data, ...)
@@ -254,7 +262,12 @@ stable.data.frame <- function(data,
     sizes$font_size$end
   )
 
-  out <- structure(out, class = "stable", stable_file = note_data$output_file)
+  out <- structure(
+    out,
+    class = "stable",
+    caption = caption,
+    stable_file = note_data$output_file
+  )
 
   if(isTRUE(inspect)) {
     stable_data <- structure(list(), class = "stable_data")
@@ -275,6 +288,7 @@ stable.data.frame <- function(data,
     stable_data$align_tex <- align_tex
     stable_data$sizes <- sizes
     stable_data$span_data <- span_data
+    stable_data$caption <- caption
     out <- structure(out, stable_data = stable_data)
   }
 

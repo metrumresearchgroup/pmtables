@@ -16,21 +16,31 @@ st_left(x, ...)
 st_right(x, ...)
 }
 \arguments{
-\item{x}{an stobject}
+\item{x}{an stobject.}
 
-\item{...}{named arguments passed to \code{\link[=cols_align]{cols_align()}}}
+\item{...}{named arguments passed to \code{\link[=cols_align]{cols_align()}}.}
+}
+\value{
+An updated version of \code{x}.
 }
 \description{
-See the \code{align} argument to \code{\link[=stable]{stable()}}. Note: these functions
-always replace the current alignment in total.
+See the \code{align} argument to \code{\link[=stable]{stable()}}. This function may be called several
+times to specify column alignment.
 }
 \examples{
 library(dplyr)
 
 ob <- st_new(ptdata())
 
-ob \%>\% st_align(.default = 'l') \%>\% st_make()
+ob \%>\% st_align(.default = 'l') \%>\% stable()
 
-ob \%>\% st_center(N = 'l') \%>\% st_make()
+ob \%>\% st_center(N = 'l') \%>\% stable()
+
+# This is only to illustrate multiple calls
+ob \%>\%
+  st_center(N = 'l') \%>\%
+  st_align(STUDY = col_ragged(2), WT = 'r') \%>\%
+  st_right(N = 'c') \%>\%
+  stable()
 
 }

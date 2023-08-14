@@ -114,6 +114,25 @@ test_that("stobject equivalent align [PMT-TEST-0223]", {
   expect_identical(x$output, y$output)
 })
 
+test_that("call st_align functions multiple times in a pipeline", {
+  a <- st_new(stdata())
+  a <- st_align(a, WT = "r", .c = "FORM",
+                .coltype = "m", .outer = "lr")
+  expect_equal(a$align$update$WT, "r")
+  expect_equal(a$align$update$FORM, "c")
+  expect_null(a$align$update$AGE)
+  expect_equal(a$align$coltype, "m")
+
+  a <- st_right(a, AGE = "c", FORM = "l", .coltype = "p")
+
+  expect_is(a, "stobject")
+  expect_is(a$align, "aligncol")
+  expect_equal(a$align$update$WT, "r")
+  expect_equal(a$align$update$FORM, "l")
+  expect_equal(a$align$update$AGE, "c")
+  expect_equal(a$align$coltype, "p")
+})
+
 test_that("stobject equivalent notes [PMT-TEST-0224]", {
   mt <- mtcars[1:3,]
   notes <- letters[1:3]
@@ -419,4 +438,38 @@ test_that("st_filter filters data in pmtable object [PMT-STFUN-0001]", {
   y <- st_filter(x, FORM != "troche")
   expect_true(all(y$data$FORM %in% c("tablet", "capsule")))
   expect_true("troche" %in% data$FORM)
+})
+
+test_that("sumrows is valid field for st_new()", {
+  ans <- st_new(
+    pt_cont_long(
+      pmt_first,
+      cols = c("WT", "CRCL"),
+      by  = "STUDYf"
+    )
+  )
+  expect_is(ans, "stobject")
+})
+
+test_that("clone stable object", {
+  x <- st_new(stdata())
+  x <- st_panel(x, "FORM")
+  x <- st_files(x, r = "test-table-object.R", output = "output.tex")
+  y <- st_clone(x)
+  expect_identical(ls(x), ls(y))
+  for(i in ls(x)) {
+    expect_identical(get(i, envir = x), get(i,envir = y))
+  }
+  expect_identical(attributes(x), attributes(y))
+  # with cloning
+  y$a <- 1
+  expect_null(x$a)
+  # without cloning
+  z <- x
+  z$b <- 2
+  expect_equal(x$b, 2)
+  # error to try to clone another object
+  a <- new.env(parent = emptyenv())
+  a$foo <- 1
+  expect_error(st_clone(a))
 })

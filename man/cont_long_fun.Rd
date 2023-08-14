@@ -4,21 +4,12 @@
 \alias{cont_long_fun}
 \title{Function for continuous long summaries}
 \usage{
-cont_long_fun(
-  value,
-  digit_fun = sig,
-  id = NULL,
-  digits = 3,
-  na_fill = "--",
-  ...
-)
+cont_long_fun(value, digit_fun = sig, digits = 3, na_fill = "--", ...)
 }
 \arguments{
 \item{value}{the data to summarize}
 
 \item{digit_fun}{a function to format digits in the summaries}
-
-\item{id}{a vector of subject IDs; same length as \code{value}}
 
 \item{digits}{the number of digits in the summary; the current implementation
 passes \code{digits} to \code{digit_fun()}}

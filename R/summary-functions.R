@@ -15,13 +15,9 @@
 #' pmtables:::cont_wide_fun(rnorm(100))
 #'
 #' @keywords internal
-cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
+cont_wide_fun <- function(value, digit_fun = sig, digits = 3,
                           na_fill = "--",...) {
-  if(is.null(id)) {
-    n <- sum(!is.na(value))
-  } else {
-    n <- length(unique(id))
-  }
+  n <- sum(!is.na(value))
   value <- na.omit(value)
   if(length(value)==0) {
     if(is.null(na_fill)) {
@@ -55,13 +51,9 @@ cont_wide_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
 #' All columns are returned as `character`.
 #'
 #' @keywords internal
-cont_long_fun <- function(value,digit_fun=sig,id=NULL,digits=3,
+cont_long_fun <- function(value, digit_fun = sig, digits = 3,
                           na_fill = "--",...) {
-  if(is.null(id)) {
-    n <- sum(!is.na(value))
-  } else {
-    n <- length(unique(id))
-  }
+  n <- sum(!is.na(value))
   value <- na.omit(value)
   if(length(value)==0) {
     if(is.null(na_fill)) {

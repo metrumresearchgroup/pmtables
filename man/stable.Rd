@@ -20,6 +20,7 @@ stable(data, ...)
   units = NULL,
   drop = NULL,
   sizes = tab_size(),
+  caption = NULL,
   control = st_control(),
   escape_fun = tab_escape,
   inspect = FALSE,
@@ -63,6 +64,9 @@ columns in the data frame}
 \item{drop}{columns to remove prior to rendering the table}
 
 \item{sizes}{an object returned from \code{\link[=tab_size]{tab_size()}}}
+
+\item{caption}{a caption for the table; this could be raw caption text or
+a caption object created with \code{\link[=as.caption]{as.caption()}}}
 
 \item{control}{not used at the moment}
 

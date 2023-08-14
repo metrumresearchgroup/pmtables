@@ -22,6 +22,7 @@ st_arg_names <- c(
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
   "hline_at", "hline_from", "sizes", "units", "drop",
   "lt_cap_text", "lt_cap_macro", "lt_cap_label", "lt_cap_short", "lt_continue",
+  "caption",
   "args"
 )
 
@@ -68,7 +69,7 @@ st_new.data.frame <- function(x, ...) {
 st_new.pmtable <- function(x, ...) {
   valid_arg_names <- c(
     "data", "panel", "cols_rename", "align", "notes", "cols_extra",
-    "cols_blank", "span", "span_split", "units", "bold_cols"
+    "cols_blank", "span", "span_split", "units", "bold_cols", "sumrows"
   )
   incoming <- names(x)
   if(!all(incoming %in% valid_arg_names)) {
@@ -389,44 +390,58 @@ st_notes_conf <- st_noteconf
 
 #' Add column alignment information to st object
 #'
-#' See the `align` argument to [stable()]. Note: these functions
-#' always replace the current alignment in total.
+#' See the `align` argument to [stable()]. This function may be called several
+#' times to specify column alignment.
 #'
-#' @param x an stobject
-#' @param ... named arguments passed to [cols_align()]
+#' @param x an stobject.
+#' @param ... named arguments passed to [cols_align()].
+#'
+#' @return
+#' An updated version of `x`.
 #'
 #' @examples
 #' library(dplyr)
 #'
 #' ob <- st_new(ptdata())
 #'
-#' ob %>% st_align(.default = 'l') %>% st_make()
+#' ob %>% st_align(.default = 'l') %>% stable()
 #'
-#' ob %>% st_center(N = 'l') %>% st_make()
+#' ob %>% st_center(N = 'l') %>% stable()
+#'
+#' # This is only to illustrate multiple calls
+#' ob %>%
+#'   st_center(N = 'l') %>%
+#'   st_align(STUDY = col_ragged(2), WT = 'r') %>%
+#'   st_right(N = 'c') %>%
+#'   stable()
 #'
 #' @export
 st_align <- function(x, ...) {
   check_st(x)
-  x$align <- cols_align(...)
+  if("align" %in% ls(x)) {
+    x$align <- update(x$align, ...)
+  } else {
+    x$align <- cols_align(...)
+  }
   x
 }
 
 #' @rdname st_align
 #' @export
 st_center <- function(x,...) {
-  st_align(x,.default = "c",...)
+  st_align(x, .default = "c", ...)
 }
 
 #' @rdname st_align
 #' @export
 st_left <- function(x,...) {
-  st_align(x,.default = "l",...)
+  st_align(x, .default = "l", ...)
 }
 
 #' @rdname st_align
 #' @export
 st_right <- function(x,...) {
-  st_align(x,.default = "r",...)
+  st_align(x, .default = "r", ...)
 }
 
 #' Add file name information to st object
@@ -921,6 +936,40 @@ st_edit <- function(x, ...) {
   x
 }
 
+#' Set table caption
+#'
+#' @param x an stobject.
+#' @param text caption text to be parsed.
+#' @param ... additional arguments passed to [as.caption()]; see details.
+#'
+#' @details
+#' A short title for the table can be specified in one of two ways. First, the
+#' short title can be specified by including it in brackets (`[]`) as the
+#' first characters in `text`. Alternatively, short title text can get passed
+#' separately into `st_caption()` under the argument `short`, which is
+#' is eventually handled by [as.caption()].
+#'
+#' By default, [as.caption()] will repeat the short title at the start of the
+#' main caption text. The user can pass `repeat_short = FALSE` into
+#' `st_caption()` (and eventually to [as.caption()]) to suppress this behavior.
+#'
+#'
+#' @examples
+#' tab <- st_new(stdata())
+#' tab <- st_caption(tab, "[Full covariate model estimates]. Run number 101.")
+#' tab$caption
+#'
+#' text <- stable(tab)
+#' text
+#'
+#' @export
+st_caption <- function(x, text, ...) {
+  check_st(x)
+  text <- paste0(text, collapse = " ")
+  x$caption <- as.caption(text, ...)
+  x
+}
+
 #' @param data a data frame
 #' @param pattern passed to [stringr::str_replace()]
 #' @param replacement passed to [stringr::str_replace()]
@@ -950,3 +999,36 @@ print.stobject <- function(x, ...) {
 #' @rdname print.stobject
 #' @export
 names.stobject <- function(x) names(x$data)
+
+
+#' Clone an stobject
+#'
+#' @param x an stobject object.
+#'
+#' @return
+#' A copy (`y`) of `x` such that `y` can be modified without modifying `x`.
+#'
+#' @examples
+#' x <- st_new(stdata())
+#' y <- st_clone(x)
+#'
+#' y$data$STUDY <- NULL
+#' x$data
+#' y$data
+#'
+#' # Get back to a regular environment
+#' class(x) <- "environment"
+#' class(y) <- "environment"
+#'
+#' x
+#' y
+#'
+#' @export
+st_clone <- function(x) {
+  if(!inherits(x, "stobject")) {
+    stop("Can only clone stobjects.")
+  }
+  y <- env_clone(x)
+  attributes(y) <- attributes(x)
+  y
+}

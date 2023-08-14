@@ -1,3 +1,28 @@
+# pmtables 0.6.0
+
+- `st_caption()` function added to associate a caption (including short 
+  caption and possibly a label) to any table; captions will appear in 
+  `st2report()` outputs; captions will always be written to file for 
+  `stable_long` outputs and can be optionally written to file for `stable` 
+  outputs (#313).
+
+- `yaml_as_df()` will now retain row names in a column named by the new argument
+  `row_var` (#317).
+
+- `st_align()`, `st_left()`, `st_right()` and `st_center()` can now be called
+  multiple times in a pipeline, supported by new update method for `aligncol`
+  objects (#315). 
+
+- `st_clone()` function added to make a copy of `stobject` objects (#314).
+
+- The `id_col` argument to `pt_cont_long()` and `pt_cont_wide()` is 
+  deprecated (#305).
+  
+## Bugs Fixed
+
+- Fixed bug where `sumrows` was not recognized as a valid field in `stobject`
+  objects (#312).
+
 # pmtables 0.5.2
 
 - pmtables has been updated to be compatible with stringr 1.5.0, which

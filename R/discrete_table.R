@@ -96,8 +96,8 @@ cat_data <- function(data, cols, by = ".total", panel = by,
       ans <- complete(ans, !!!syms(.groups))
       nstart <- length(.groups)
       nend <- ncol(ans)
-      ans <- mutate(ans, across(nstart+1, replace_na, 0))
-      ans <- mutate(ans, across(seq(nstart+2, nend), replace_na, "0 (0.0)"))
+      ans <- mutate(ans, across(nstart+1, function(.x) replace_na(.x, 0)))
+      ans <- mutate(ans, across(seq(nstart+2, nend), function(.x) replace_na(.x, "0 (0.0)")))
     }
     ans
   } else {
@@ -369,7 +369,7 @@ pt_cat_wide <- function(data, cols, by = ".total", panel = by,
   ans[[".total"]] <- NULL
 
   if("N" %in% names(ans)) {
-    ans <- rename(ans, n = .data[["N"]])
+    ans <- rename(ans, n = "N")
   }
 
   .panel <- rowpanel(NULL)
