@@ -1,3 +1,5 @@
+# pmtables (development version)
+
 # pmtables 0.6.0
 
 - `st_caption()` function added to associate a caption (including short 
