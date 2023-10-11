@@ -145,13 +145,21 @@ tpt_notes <- function(notes,x) {
 }
 
 form_file_notes <- function(r_file, r_file_label, output_file,
-                            output_file_label, ...) {
+                            output_file_label, full_path = FALSE, ...) {
   r_note <- output_note <- NULL
   if(is.character(r_file)) {
-    r_note <- paste0(r_file_label, basename(r_file))
+    if(full_path) {
+      r_note <- paste0(r_file_label, r_file)
+    } else {
+      r_note <- paste0(r_file_label, basename(r_file))
+    }
   }
   if(is.character(output_file)) {
-    output_note <- paste0(output_file_label, basename(output_file))
+    if(full_path) {
+      output_note <- paste0(output_file_label, output_file)
+    } else {
+      output_note <- paste0(output_file_label, basename(output_file))
+    }
   }
   c(r_note, output_note)
 }
