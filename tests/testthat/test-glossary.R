@@ -35,12 +35,13 @@ test_that("load glossary notes", {
   expect_is(notes, "character")
   expect_true(any(grepl("WT&  ", notes, fixed = TRUE)))
 
-  notes <- glossary_notes(glofile, WT, CLF, collapse = NULL, labels = "VF")
+  notes <- glossary_notes(glofile, WT, CLF, collapse = NULL, labels = "VF,NPDE")
   expect_is(notes, "character")
-  expect_length(notes, 3)
+  expect_length(notes, 4)
   expect_true(any(grepl("WT: ", notes, fixed = TRUE)))
   expect_true(any(grepl("CLF: ", notes, fixed = TRUE)))
   expect_true(any(grepl("VF: ", notes, fixed = TRUE)))
+  expect_true(any(grepl("NPDE: ", notes, fixed = TRUE)))
 })
 
 test_that("parse a glossary entry", {

@@ -454,8 +454,8 @@ test_that("get notes from glossary file with st_notes_glo", {
   expect_match(y, "CLF@  ")
 
   x <- st_new(data)
-  y <- st_notes_glo(x, glossary, WT, CLF, labels = "SCR", collapse = NULL)$notes
-  expect_length(y, 3)
+  y <- st_notes_glo(x, glossary, WT, CLF, labels = "SCR,V2F", collapse = NULL)$notes
+  expect_length(y, 4)
   expect_match(y[[3]], "SCR: ")
 
   x <- st_new(data)
