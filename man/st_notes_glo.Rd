@@ -2,7 +2,7 @@
 % Please edit documentation in R/table-object.R
 \name{st_notes_glo}
 \alias{st_notes_glo}
-\title{Add notes based on tex glossary definitions}
+\title{Add table notes based on acronyms from a tex glossary file}
 \usage{
 st_notes_glo(
   x,
@@ -33,7 +33,7 @@ labels to get appended to the end of names passed in \code{...}.}
 argument.}
 }
 \description{
-Add notes based on tex glossary definitions
+Add table notes based on acronyms from a tex glossary file
 }
 \examples{
 library(dplyr)

@@ -388,7 +388,7 @@ st_noteconf <- function(x,...) {
 #' @export
 st_notes_conf <- st_noteconf
 
-#' Add notes based on tex glossary definitions
+#' Add table notes based on acronyms from a tex glossary file
 #'
 #' @param x an stobject.
 #' @param glossary a named list generated from [read_glossary()].
