@@ -52,6 +52,7 @@ Collate:
     'data_inventory_table.R'
     'demographics-table.R'
     'discrete_table.R'
+    'glossary.R'
     'knit-dependencies.R'
     'preview-standalone.R'
     'preview.R'
