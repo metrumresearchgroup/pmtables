@@ -203,20 +203,25 @@ read_glossary <- function(file) {
   }
   txt <- readLines(file, warn = FALSE)
   if(!length(txt)) abort("glossary file was empty.")
+  ans <- parse_glossary(txt)
+  class(ans) <- c("glossary", "tex", "list")
+  ans
+}
+
+parse_glossary <- function(txt) {
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
   m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}$", txt)
-  x <- regmatches(txt, m)
-  if(!length(x)) {
+  parsed <- regmatches(txt, m)
+  if(!length(parsed)) {
     abort("no acronym entries were found in `file`.")
   }
-  description <- vapply(x, FUN = "[", 4L, FUN.VALUE = "a")
-  col <- vapply(x, FUN = "[", 2L, FUN.VALUE = "a")
+  description <- lapply(parsed, FUN = "[", 4L)
+  col <- vapply(parsed, FUN = "[", 2L, FUN.VALUE = "a")
   if(length(description) != length(col)) {
     abort("there was a problem parsing the glossary file.")
   }
   ans <- as.list(description)
   names(ans) <- col
-  class(ans) <- c("glossary", "tex", "list")
   ans
 }
