@@ -211,7 +211,7 @@ read_glossary <- function(file) {
 parse_glossary <- function(txt) {
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
-  m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}$", txt)
+  m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}.*$", txt)
   parsed <- regmatches(txt, m)
   if(!length(parsed)) {
     abort("no acronym entries were found in `file`.")

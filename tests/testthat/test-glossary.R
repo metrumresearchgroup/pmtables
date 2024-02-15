@@ -17,7 +17,6 @@ test_that("read a glossary file", {
 
   cat("a\n", file = foo)
   expect_error(read_glossary(foo), "no acronym entries were found")
-
 })
 
 test_that("load glossary notes", {
@@ -42,4 +41,30 @@ test_that("load glossary notes", {
   expect_true(any(grepl("WT: ", notes, fixed = TRUE)))
   expect_true(any(grepl("CLF: ", notes, fixed = TRUE)))
   expect_true(any(grepl("VF: ", notes, fixed = TRUE)))
+})
+
+test_that("parse a glossary entry", {
+  txt <- "\\newacronym{a}{b}{c} % comment"
+  x <- pmtables:::parse_glossary(txt)
+  expect_length(x, 1)
+  expect_named(x)
+  expect_identical(names(x), "a")
+  expect_identical(x$a, "c")
+
+  txt <- "\\newacronym[options]{a}{b}{c} % comment"
+  x <- pmtables:::parse_glossary(txt)
+  expect_length(x, 1)
+  expect_named(x)
+  expect_identical(names(x), "a")
+  expect_identical(x$a, "c")
+
+  txt <- "\\newacronym[options]{a}{b_\\mathrm{d}}{\\mathit{c}} % comment"
+  x <- pmtables:::parse_glossary(txt)
+  expect_length(x, 1)
+  expect_named(x)
+  expect_identical(names(x), "a")
+  expect_identical(x$a, "\\mathit{c}")
+
+  txt <- "%\\newacronym{a}{b}{c}"
+  expect_error(pmtables:::parse_glossary(txt), "no acronym entries")
 })
