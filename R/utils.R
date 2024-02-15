@@ -201,7 +201,7 @@ read_glossary <- function(file) {
   if(!file.exists(file)) {
     abort(glue("glossary file {file} does not exist."))
   }
-  txt <- readLines(file)
+  txt <- readLines(file, warn = FALSE)
   if(!length(txt)) abort("glossary file was empty.")
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
@@ -217,6 +217,6 @@ read_glossary <- function(file) {
   }
   ans <- as.list(description)
   names(ans) <- col
-  class(ans) <- c("glossary", "tex")
+  class(ans) <- c("glossary", "tex", "list")
   ans
 }
