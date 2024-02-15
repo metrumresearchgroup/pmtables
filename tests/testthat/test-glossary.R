@@ -44,6 +44,12 @@ test_that("load glossary notes", {
   expect_true(any(grepl("NPDE: ", notes, fixed = TRUE)))
 })
 
+test_that("make glossary notes from glossary list", {
+  x <- read_glossary(glofile)
+  notes <- glossary_notes(x, WT, NPDE, CWRES, collapse = NULL)
+  expect_length(notes, 3)
+})
+
 test_that("parse a glossary entry", {
   txt <- "\\newacronym{a}{b}{c} % comment"
   x <- pmtables:::parse_glossary(txt)

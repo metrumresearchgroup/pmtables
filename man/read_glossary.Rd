@@ -17,6 +17,17 @@ pass to \verb{\\gls\{\}} when writing a tex document).
 \description{
 Read and parse a tex glossary file
 }
+\details{
+The glossary file is expected to contain acronym entries with the form
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{\\newacronym\{label\}\{abbreviation\}\{definition\}
+}\if{html}{\out{</div>}}
+
+or
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{\\newacronym[options]\{label\}\{abbreviation\}\{definition\}
+}\if{html}{\out{</div>}}
+}
 \examples{
 file <- system.file("tex", "glossary.tex", package = "pmtables")
 

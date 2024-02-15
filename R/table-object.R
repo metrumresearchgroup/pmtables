@@ -415,7 +415,7 @@ st_notes_conf <- st_noteconf
 #' @seealso [glossary_notes()], [read_glossary()]
 #' @export
 st_notes_glo <- function(x, glossary, ..., sep = ": ", collapse = "; ",
-                              labels = NULL, width = NULL) {
+                         labels = NULL, width = NULL) {
   if(!is.list(glossary) || !is_named(glossary)) {
     abort("`glossary` must be a named list.")
   }
@@ -458,13 +458,23 @@ build_glossary_notes <- function(glossary, what, sep, collapse) {
 #'
 #' @seealso [st_notes_glo()], [read_glossary()]
 #' @export
-glossary_notes <- function(file, ..., sep = ": ", collapse = "; ",
-                           labels = NULL) {
-  glossary <- read_glossary(file)
+glossary_notes <- function(x, ...) UseMethod("glossary_notes")
+
+#' @rdname glossary_notes
+#' @export
+glossary_notes.character <- function(x, ...) {
+  glossary <- read_glossary(x)
+  glossary_notes(glossary, ...)
+}
+
+#' @rdname glossary_notes
+#' @export
+glossary_notes.list <- function(x, ..., sep = ": ", collapse = "; ",
+                                labels = NULL) {
   labels <- cvec_cs(labels)
   what <- c(new_names(enquos(...)), labels)
-  if(!length(what)) what <- names(glossary)
-  build_glossary_notes(glossary, what, sep, collapse)
+  if(!length(what)) what <- names(x)
+  build_glossary_notes(x, what, sep, collapse)
 }
 
 #' Add column alignment information to st object

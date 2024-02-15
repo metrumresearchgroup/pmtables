@@ -185,6 +185,20 @@ ensure_parens <- function(x) {
 #' `glossary`. The list names are acronym entry labels (i.e., what you would
 #' pass to `\gls{}` when writing a tex document).
 #'
+#'
+#' @details
+#' The glossary file is expected to contain acronym entries with the form
+#'
+#' ```
+#' \newacronym{label}{abbreviation}{definition}
+#' ```
+#'
+#' or
+#'
+#' ```
+#' \newacronym[options]{label}{abbreviation}{definition}
+#' ```
+#'
 #' @examples
 #' file <- system.file("tex", "glossary.tex", package = "pmtables")
 #'

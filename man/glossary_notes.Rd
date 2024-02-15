@@ -2,12 +2,18 @@
 % Please edit documentation in R/table-object.R
 \name{glossary_notes}
 \alias{glossary_notes}
+\alias{glossary_notes.character}
+\alias{glossary_notes.list}
 \title{Return formatted notes from a tex glossary file}
 \usage{
-glossary_notes(file, ..., sep = ": ", collapse = "; ", labels = NULL)
+glossary_notes(x, ...)
+
+\method{glossary_notes}{character}(x, ...)
+
+\method{glossary_notes}{list}(x, ..., sep = ": ", collapse = "; ", labels = NULL)
 }
 \arguments{
-\item{file}{path to the tex glossary file.}
+\item{x}{an stobject.}
 
 \item{...}{unquoted names matching those names in \code{glossary}.}
 
