@@ -175,3 +175,38 @@ ensure_parens <- function(x) {
   x[where] <- paste0("(", x[where], ")")
   x
 }
+
+#' Read and parse a tex glossary file
+#'
+#' @param file path to the glossary file
+#'
+#' @return
+#' A named list.
+#'
+#' @examples
+#' file <- system.file("tex", "glossary.tex", package = "pmtables")
+#'
+#' x <- read_glossary(file)
+#'
+#' names(x)
+#'
+#' x$WT
+#'
+#' x$SC
+#'
+#' @export
+read_glossary <- function(file) {
+  if(!file.exists(file)) {
+    rlang::abort(glue::glue("glossary file {file} does not exist."))
+  }
+  txt <- readLines(file)
+  txt <- trimws(txt)
+  txt <- txt[grepl("^\\\\newacronym", txt)]
+  m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}$", txt)
+  x <- regmatches(txt, m)
+  description <- vapply(x, FUN="[", 4L, FUN.VALUE = "a")
+  col <- vapply(x, FUN="[", 2L, FUN.VALUE = "a")
+  ans <- as.list(description)
+  names(ans) <- col
+  ans
+}

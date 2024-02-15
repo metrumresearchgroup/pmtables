@@ -388,6 +388,78 @@ st_noteconf <- function(x,...) {
 #' @export
 st_notes_conf <- st_noteconf
 
+#' Add notes based on tex glossary definitions
+#'
+#' @param x an stobject.
+#' @param glossary a named list generated from [read_glossary()].
+#' @param ... unquoted names matching those names in `glossary`.
+#' @param sep character to separate name and value.
+#' @param collapse a character used to collapse definitions into a
+#' single string.
+#' @param width if numeric, [st_notes_detach()] will be called with `width`
+#' argument.
+#' @param terms a character vector or comma-separates string of definition
+#' names to get appended to the end of names passed in `...`.
+#'
+#' @examples
+#' file <- system.file("tex", "glossary.tex", package = "pmtables")
+#'
+#' x <- read_glossary(file)
+#'
+#' stdata() %>%
+#'   st_notes_glo(x, WT, CRCL, SCR, width = 1) %>%
+#'   stable()
+#'
+#' @export
+st_notes_glo <- function(x, glossary, ..., sep = ": ", collapse = "; ",
+                              terms = NULL, width = NULL) {
+  terms <- cvec_cs(terms)
+  what <- c(new_names(enquos(...)), terms)
+  if(!length(what)) what <- names(glossary)
+  notes <- build_glossary_notes(glossary, what, sep, collapse)
+  if(is.numeric(width)) {
+    x <- st_notes_detach(x, width = width)
+  }
+  st_notes(x, notes)
+}
+
+build_glossary_notes <- function(glossary, what, sep, collapse) {
+  if(!all(what %in% names(glossary))) {
+    bad <- setdiff(what, names(glossary))
+    names(bad) <- "x"
+    msg <- c("Requested definitions not found in glossary file", bad)
+    abort(msg)
+  }
+  glossary <- glossary[what]
+  cols <- names(glossary)
+  notes <- unlist(glossary, use.names = FALSE)
+  notes <- paste0(cols, sep, notes)
+  if(is.character(collapse)) {
+    notes <- paste0(notes, collapse = collapse)
+  }
+  notes
+}
+
+#' Return formatted notes from a tex glossary file
+#'
+#' @inheritParams read_glossary
+#' @inheritParams st_notes_glo
+#'
+#' @examples
+#' file <- system.file("tex", "glossary.tex", package = "pmtables")
+#'
+#' glossary_notes(file, WT, CLCR)
+#'
+#' @export
+glossary_notes <- function(file, ..., sep = ": ", collapse = "; ", terms = NULL) {
+  glossary <- read_glossary(file)
+  terms <- cvec_cs(terms)
+  what <- c(new_names(enquos(...)), terms)
+  if(!length(what)) what <- names(glossary)
+  build_glossary_notes(glossary, what, sep, collapse)
+}
+
+
 #' Add column alignment information to st object
 #'
 #' See the `align` argument to [stable()]. This function may be called several
