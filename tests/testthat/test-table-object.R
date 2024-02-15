@@ -13,6 +13,8 @@ inspect2 <- function(x) {
   x %>% st_make(inspect=TRUE) %>% get_stable_data()
 }
 
+glofile <- system.file("tex", "glossary.tex", package = "pmtables")
+
 test_that("stobject equivalent hline [PMT-TEST-0215]", {
   mt <- mtcars[1:20,]
   x <- inspect(mt, hline_at = c(1,5,8))
@@ -430,6 +432,36 @@ test_that("substitute lines in table notes", {
     st_notes_sub(xx, "kyle", "abc"),
     regexp = "did not find any notes"
   )
+})
+
+test_that("get notes from glossary file with st_notes_glo", {
+  glossary <- read_glossary(glofile)
+  data <- stdata()
+
+  x <- st_new(data)
+  y <- st_notes_glo(x, glossary, WT, CLF, V2F)$notes
+  expect_length(y, 1)
+  expect_match(y, "subject weight", fixed = TRUE)
+  expect_match(y, "CLF: ", fixed = TRUE)
+
+  x <- st_new(data)
+  y <- st_notes_glo(x, glossary, WT, CLF, collapse = NULL)$notes
+  expect_length(y, 2)
+
+  x <- st_new(data)
+  y <- st_notes_glo(x, glossary, WT, CLF, sep = "@  ")$notes
+  expect_length(y, 1)
+  expect_match(y, "CLF@  ")
+
+  x <- st_new(data)
+  y <- st_notes_glo(x, glossary, WT, CLF, labels = "SCR", collapse = NULL)$notes
+  expect_length(y, 3)
+  expect_match(y[[3]], "SCR: ")
+
+  x <- st_new(data)
+  y <- st_notes_glo(x, glossary, WT, CLF, width = 1)$note_config
+  expect_identical(y$type, "minipage")
+  expect_identical(y$width, 1)
 })
 
 test_that("st_filter filters data in pmtable object [PMT-STFUN-0001]", {
