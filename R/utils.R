@@ -178,10 +178,12 @@ ensure_parens <- function(x) {
 
 #' Read and parse a tex glossary file
 #'
-#' @param file path to the glossary file
+#' @param file path to the tex glossary file.
 #'
 #' @return
-#' A named list.
+#' A named list of glossary definitions with class `tex_glossary` and
+#' `glossary`. The list names are acronym entry labels (i.e., what you would
+#' pass to `\gls{}` when writing a tex document).
 #'
 #' @examples
 #' file <- system.file("tex", "glossary.tex", package = "pmtables")
@@ -197,16 +199,24 @@ ensure_parens <- function(x) {
 #' @export
 read_glossary <- function(file) {
   if(!file.exists(file)) {
-    rlang::abort(glue::glue("glossary file {file} does not exist."))
+    abort(glue("glossary file {file} does not exist."))
   }
   txt <- readLines(file)
+  if(!length(txt)) abort("glossary file was empty.")
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
   m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}$", txt)
   x <- regmatches(txt, m)
-  description <- vapply(x, FUN="[", 4L, FUN.VALUE = "a")
-  col <- vapply(x, FUN="[", 2L, FUN.VALUE = "a")
+  if(!length(x)) {
+    abort("no acronym entries were found in `file`.")
+  }
+  description <- vapply(x, FUN = "[", 4L, FUN.VALUE = "a")
+  col <- vapply(x, FUN = "[", 2L, FUN.VALUE = "a")
+  if(length(description) != length(col)) {
+    abort("there was a problem parsing the glossary file.")
+  }
   ans <- as.list(description)
   names(ans) <- col
+  class(ans) <- c("glossary", "tex")
   ans
 }

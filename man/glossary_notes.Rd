@@ -4,10 +4,10 @@
 \alias{glossary_notes}
 \title{Return formatted notes from a tex glossary file}
 \usage{
-glossary_notes(file, ..., sep = ": ", collapse = "; ", terms = NULL)
+glossary_notes(file, ..., sep = ": ", collapse = "; ", labels = NULL)
 }
 \arguments{
-\item{file}{path to the glossary file}
+\item{file}{path to the tex glossary file.}
 
 \item{...}{unquoted names matching those names in \code{glossary}.}
 
@@ -16,8 +16,8 @@ glossary_notes(file, ..., sep = ": ", collapse = "; ", terms = NULL)
 \item{collapse}{a character used to collapse definitions into a
 single string.}
 
-\item{terms}{a character vector or comma-separates string of definition
-names to get appended to the end of names passed in \code{...}.}
+\item{labels}{a character vector or comma-separates string of definition
+labels to get appended to the end of names passed in \code{...}.}
 }
 \description{
 Return formatted notes from a tex glossary file
@@ -25,6 +25,9 @@ Return formatted notes from a tex glossary file
 \examples{
 file <- system.file("tex", "glossary.tex", package = "pmtables")
 
-glossary_notes(file, WT, CLCR)
+glossary_notes(file, WT, CRCL)
 
+}
+\seealso{
+\code{\link[=st_notes_glo]{st_notes_glo()}}, \code{\link[=read_glossary]{read_glossary()}}
 }

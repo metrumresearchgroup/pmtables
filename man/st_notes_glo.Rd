@@ -10,7 +10,7 @@ st_notes_glo(
   ...,
   sep = ": ",
   collapse = "; ",
-  terms = NULL,
+  labels = NULL,
   width = NULL
 )
 }
@@ -26,8 +26,8 @@ st_notes_glo(
 \item{collapse}{a character used to collapse definitions into a
 single string.}
 
-\item{terms}{a character vector or comma-separates string of definition
-names to get appended to the end of names passed in \code{...}.}
+\item{labels}{a character vector or comma-separates string of definition
+labels to get appended to the end of names passed in \code{...}.}
 
 \item{width}{if numeric, \code{\link[=st_notes_detach]{st_notes_detach()}} will be called with \code{width}
 argument.}
@@ -36,12 +36,17 @@ argument.}
 Add notes based on tex glossary definitions
 }
 \examples{
+library(dplyr)
+
 file <- system.file("tex", "glossary.tex", package = "pmtables")
 
 x <- read_glossary(file)
 
-stdata() \%>\%
+st_new(stdata()) \%>\%
   st_notes_glo(x, WT, CRCL, SCR, width = 1) \%>\%
   stable()
 
+}
+\seealso{
+\code{\link[=glossary_notes]{glossary_notes()}}, \code{\link[=read_glossary]{read_glossary()}}
 }

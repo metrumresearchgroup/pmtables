@@ -398,23 +398,29 @@ st_notes_conf <- st_noteconf
 #' single string.
 #' @param width if numeric, [st_notes_detach()] will be called with `width`
 #' argument.
-#' @param terms a character vector or comma-separates string of definition
-#' names to get appended to the end of names passed in `...`.
+#' @param labels a character vector or comma-separates string of definition
+#' labels to get appended to the end of names passed in `...`.
 #'
 #' @examples
+#' library(dplyr)
+#'
 #' file <- system.file("tex", "glossary.tex", package = "pmtables")
 #'
 #' x <- read_glossary(file)
 #'
-#' stdata() %>%
+#' st_new(stdata()) %>%
 #'   st_notes_glo(x, WT, CRCL, SCR, width = 1) %>%
 #'   stable()
 #'
+#' @seealso [glossary_notes()], [read_glossary()]
 #' @export
 st_notes_glo <- function(x, glossary, ..., sep = ": ", collapse = "; ",
-                              terms = NULL, width = NULL) {
-  terms <- cvec_cs(terms)
-  what <- c(new_names(enquos(...)), terms)
+                              labels = NULL, width = NULL) {
+  if(!is.list(glossary) || !is_named(glossary)) {
+    abort("`glossary` must be a named list.")
+  }
+  labels <- cvec_cs(labels)
+  what <- c(new_names(enquos(...)), labels)
   if(!length(what)) what <- names(glossary)
   notes <- build_glossary_notes(glossary, what, sep, collapse)
   if(is.numeric(width)) {
@@ -448,17 +454,18 @@ build_glossary_notes <- function(glossary, what, sep, collapse) {
 #' @examples
 #' file <- system.file("tex", "glossary.tex", package = "pmtables")
 #'
-#' glossary_notes(file, WT, CLCR)
+#' glossary_notes(file, WT, CRCL)
 #'
+#' @seealso [st_notes_glo()], [read_glossary()]
 #' @export
-glossary_notes <- function(file, ..., sep = ": ", collapse = "; ", terms = NULL) {
+glossary_notes <- function(file, ..., sep = ": ", collapse = "; ",
+                           labels = NULL) {
   glossary <- read_glossary(file)
-  terms <- cvec_cs(terms)
-  what <- c(new_names(enquos(...)), terms)
+  labels <- cvec_cs(labels)
+  what <- c(new_names(enquos(...)), labels)
   if(!length(what)) what <- names(glossary)
   build_glossary_notes(glossary, what, sep, collapse)
 }
-
 
 #' Add column alignment information to st object
 #'

@@ -7,10 +7,12 @@
 read_glossary(file)
 }
 \arguments{
-\item{file}{path to the glossary file}
+\item{file}{path to the tex glossary file.}
 }
 \value{
-A named list.
+A named list of glossary definitions with class \code{tex_glossary} and
+\code{glossary}. The list names are acronym entry labels (i.e., what you would
+pass to \verb{\\gls\{\}} when writing a tex document).
 }
 \description{
 Read and parse a tex glossary file
