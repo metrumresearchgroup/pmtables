@@ -2,12 +2,12 @@
 % Please edit documentation in R/glossary.R
 \name{read_glossary}
 \alias{read_glossary}
-\alias{as_glossary}
+\alias{simplify_abbrev}
 \title{Read and parse a tex glossary file}
 \usage{
 read_glossary(file)
 
-as_glossary(glossary, ...)
+simplify_abbrev(x, ...)
 }
 \arguments{
 \item{file}{path to the tex glossary file.}
@@ -42,4 +42,7 @@ x$WT
 
 x$SC
 
+}
+\seealso{
+\code{\link[=as_glossary]{as_glossary()}}
 }

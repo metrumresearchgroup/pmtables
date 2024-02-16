@@ -420,61 +420,13 @@ st_notes_glo <- function(x, glossary, ..., sep = ": ", collapse = "; ",
     abort("`glossary` must be a named list.")
   }
   labels <- cvec_cs(labels)
-  what <- c(new_names(enquos(...)), labels)
-  if(!length(what)) what <- names(glossary)
-  notes <- build_glossary_notes(glossary, what, sep, collapse)
+  labels <- c(new_names(enquos(...)), labels)
+  if(!length(labels)) labels <- names(glossary)
+  notes <- build_glossary_notes(glossary, labels, sep, collapse)
   if(is.numeric(width)) {
     x <- st_notes_detach(x, width = width)
   }
   st_notes(x, notes)
-}
-
-build_glossary_notes <- function(glossary, what, sep, collapse) {
-  if(!all(what %in% names(glossary))) {
-    bad <- setdiff(what, names(glossary))
-    names(bad) <- "x"
-    msg <- c("Requested definitions not found in glossary file", bad)
-    abort(msg)
-  }
-  glossary <- glossary[what]
-  cols <- names(glossary)
-  notes <- unlist(glossary, use.names = FALSE)
-  notes <- paste0(cols, sep, notes)
-  if(is.character(collapse)) {
-    notes <- paste0(notes, collapse = collapse)
-  }
-  notes
-}
-
-#' Return formatted notes from a tex glossary file
-#'
-#' @inheritParams read_glossary
-#' @inheritParams st_notes_glo
-#'
-#' @examples
-#' file <- system.file("tex", "glossary.tex", package = "pmtables")
-#'
-#' glossary_notes(file, WT, CRCL)
-#'
-#' @seealso [st_notes_glo()], [read_glossary()]
-#' @export
-glossary_notes <- function(x, ...) UseMethod("glossary_notes")
-
-#' @rdname glossary_notes
-#' @export
-glossary_notes.character <- function(x, ...) {
-  glossary <- read_glossary(x)
-  glossary_notes(glossary, ...)
-}
-
-#' @rdname glossary_notes
-#' @export
-glossary_notes.list <- function(x, ..., sep = ": ", collapse = "; ",
-                                labels = NULL) {
-  labels <- cvec_cs(labels)
-  what <- c(new_names(enquos(...)), labels)
-  if(!length(what)) what <- names(x)
-  build_glossary_notes(x, what, sep, collapse)
 }
 
 #' Add column alignment information to st object

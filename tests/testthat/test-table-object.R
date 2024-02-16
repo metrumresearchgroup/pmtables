@@ -362,7 +362,6 @@ test_that("call st_units() on pmtable", {
   )
 })
 
-
 test_that("remove notes from a st object", {
   x <- pt_data_inventory(pmt_obs)
   expect_true(is.character(x$notes))
@@ -442,16 +441,16 @@ test_that("get notes from glossary file with st_notes_glo", {
   y <- st_notes_glo(x, glossary, WT, CLF, V2F)$notes
   expect_length(y, 1)
   expect_match(y, "subject weight", fixed = TRUE)
-  expect_match(y, "CLF: ", fixed = TRUE)
+  expect_match(y, "CL/F", fixed = TRUE)
 
   x <- st_new(data)
   y <- st_notes_glo(x, glossary, WT, CLF, collapse = NULL)$notes
   expect_length(y, 2)
 
   x <- st_new(data)
-  y <- st_notes_glo(x, glossary, WT, CLF, sep = "@  ")$notes
+  y <- st_notes_glo(x, glossary, WT, QD, sep = "@  ")$notes
   expect_length(y, 1)
-  expect_match(y, "CLF@  ")
+  expect_match(y, "QD@  ")
 
   x <- st_new(data)
   y <- st_notes_glo(x, glossary, WT, CLF, labels = "SCR,V2F", collapse = NULL)$notes
