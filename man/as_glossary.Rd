@@ -9,7 +9,7 @@ as_glossary(x, ...)
 \arguments{
 \item{x}{a named list.}
 
-\item{...}{unquoted \verb{new abbreviation = old abbreviation} pairs.}
+\item{...}{unquoted \verb{<label> = <new abbreviation>} pairs.}
 }
 \description{
 Coerce a named list to glossary
@@ -20,9 +20,12 @@ l <- list(VPC = "visual predictive check", tz = "timezone")
 
 as_glossary(l)
 
-as_glossary(l, tzone = tz)
+as_glossary(l, tz = "tzone")
+
 
 }
 \seealso{
 \code{\link[=read_glossary]{read_glossary()}}
+
+\code{\link[=update_abbrev]{update_abbrev()}}
 }

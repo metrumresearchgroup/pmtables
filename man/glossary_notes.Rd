@@ -19,7 +19,7 @@ glossary_notes(x, ...)
 \item{x}{path to a tex glossary file, a glossary object, or a list that can
 be coerced to a glossary object with \code{\link[=as_glossary]{as_glossary()}}.}
 
-\item{...}{unquoted names matching those names in \code{glossary}.}
+\item{...}{\verb{<label> = <new abbreviation>} pairs.}
 
 \item{sep}{character to separate name and value.}
 
@@ -36,6 +36,10 @@ Return formatted notes from a tex glossary file or glossary object
 file <- system.file("tex", "glossary.tex", package = "pmtables")
 
 glossary_notes(file, WT, CRCL)
+
+g <- as_glossary(list(ss = "steady state", ALB = "albumin"), WT = "weight")
+
+glossary_notes(g, ALB, ss)
 
 }
 \seealso{

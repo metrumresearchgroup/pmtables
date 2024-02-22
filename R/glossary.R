@@ -1,6 +1,7 @@
 #' Read and parse a tex glossary file
 #'
 #' @param file path to the tex glossary file.
+#' @param ... `<label> = <new abbreviation>` pairs.
 #'
 #' @return
 #' A named list of glossary definitions with class `tex_glossary` and
@@ -45,10 +46,41 @@ read_glossary <- function(file) {
   ans
 }
 
+#' Update the abbreviation for a glossary entry
+#'
+#' @param x a glossary object.
+#' @param ... `<label> = <new abbreviation>` pairs; if just the
+#' `<label>` is passed, it will be used as the new update
+#' abbreviation value.
+#'
+#' @examples
+#' x <- as_glossary(list(ka = "absorption rate constant"))
+#'
+#' x <- update_abbrev(x, ka = "\\ensuremath{k_a}")
+#'
+#' x$ka
+#'
+#' x <- update_abbrev(x, ka)
+#'
+#' x$ka
+#'
+#' @seealso [as_glossary()]
+#' @export
+update_abbrev <- function(x, ...) {
+  require_glossary(x)
+  items <- new_names(enquos(...))
+  abort_bad_glo_labels(x, names(items))
+  for(m in seq_along(items)) {
+    x[[names(items[m])]]$abbreviation <- items[[m]]
+  }
+  x
+}
+
+
 #' Coerce a named list to glossary
 #'
 #' @param x a named list.
-#' @param ... unquoted `new abbreviation = old abbreviation` pairs.
+#' @param ... unquoted `<label> = <new abbreviation>` pairs.
 #' @seealso [read_glossary()]
 #'
 #' @examples
@@ -57,8 +89,10 @@ read_glossary <- function(file) {
 #'
 #' as_glossary(l)
 #'
-#' as_glossary(l, tzone = tz)
+#' as_glossary(l, tz = "tzone")
 #'
+#'
+#' @seealso [update_abbrev()]
 #' @export
 as_glossary <- function(x, ...) {
   if(!is.list(x) || !is_named(x)) {
@@ -74,23 +108,14 @@ as_glossary <- function(x, ...) {
     as_glossary_entry(data)
   })
   abbrev <- new_names(enquos(...))
-  for(a in seq_along(abbrev)) {
-    glossary[[abbrev[a]]]$abbreviation <- names(abbrev[a])
+  if(length(abbrev)) {
+    abort_bad_glo_labels(glossary, names(abbrev))
+    for(a in seq_along(abbrev)) {
+      glossary[[names(abbrev[a])]]$abbreviation <- abbrev[a]
+    }
   }
   class(glossary) <- c("tex_glossary", "glossary", "list")
   glossary
-}
-
-#' @rdname read_glossary
-#' @export
-simplify_abbrev <- function(x, ...) {
-  require_glossary(x)
-  items <- new_names(enquos(...))
-  abort_bad_glo_labels(x, items)
-  for(m in seq_along(items)) {
-    x[[items[[m]]]]$abbreviation <- names(items[m])
-  }
-  x
 }
 
 parse_glossary <- function(txt) {
@@ -139,6 +164,10 @@ abort_bad_glo_labels <- function(x, what) {
 #' file <- system.file("tex", "glossary.tex", package = "pmtables")
 #'
 #' glossary_notes(file, WT, CRCL)
+#'
+#' g <- as_glossary(list(ss = "steady state", ALB = "albumin"), WT = "weight")
+#'
+#' glossary_notes(g, ALB, ss)
 #'
 #' @seealso [st_notes_glo()], [read_glossary()]
 #' @export

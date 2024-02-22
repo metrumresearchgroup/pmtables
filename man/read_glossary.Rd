@@ -2,15 +2,14 @@
 % Please edit documentation in R/glossary.R
 \name{read_glossary}
 \alias{read_glossary}
-\alias{simplify_abbrev}
 \title{Read and parse a tex glossary file}
 \usage{
 read_glossary(file)
-
-simplify_abbrev(x, ...)
 }
 \arguments{
 \item{file}{path to the tex glossary file.}
+
+\item{...}{\verb{<label> = <new abbreviation>} pairs.}
 }
 \value{
 A named list of glossary definitions with class \code{tex_glossary} and
