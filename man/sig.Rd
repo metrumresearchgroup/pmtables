@@ -6,7 +6,7 @@
 \alias{rnd}
 \title{Format digits}
 \usage{
-sig(x, digits = 3, maxex = NULL, ...)
+sig(x, digits = 3, maxex = getOption("pmtables.maxex", NULL), ...)
 
 digit1(x, ...)
 
