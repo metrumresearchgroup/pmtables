@@ -40,6 +40,19 @@ test_that("invert panel and cols [PMT-TEST-0018]", {
   expect_is(ans2$sumrows, "sumrow")
 })
 
+test_that("pass by to pt_cont_long with no all data summary gh-329", {
+  table <- list(WT = "weight", ALB = "albumin", SCR = "creat")
+  ans <- pt_cont_long(
+    pmt_first,
+    col = "WT,ALB,SCR",
+    by = c(Study = "STUDYf"),
+    summarize_all = FALSE,
+    table = table
+  )
+  expect_is(ans, "pmtable")
+  expect_identical(ans$panel$col, "Variable")
+})
+
 test_that("continuous data table - wide [PMT-TEST-0019]", {
   data <- pmt_first
   ans <- pt_cont_wide(data, cols = "WT,ALB,SCR", panel = "STUDYf")
