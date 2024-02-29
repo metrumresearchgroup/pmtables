@@ -428,13 +428,14 @@ pt_cont_long_notes <- function(note_add = NULL) {
   ans
 }
 
-
 invert_panel_by <- function(out, panel, units, all_name) {
   if(out$panel$null) return(out)
   out$data <- mutate(out$data, Variable = fct_inorder(.data[["Variable"]]))
   out$data <- mutate(out$data, !!sym(panel) := fct_inorder(!!sym(panel)))
   out$data <- arrange(out$data, .data[["Variable"]], !!sym(panel))
-  out$sumrows <- sumrow(out$data[[panel]] == all_name, it = TRUE, hline = FALSE)
+  if(all_name %in% out$data[[panel]]) {
+    out$sumrows <- sumrow(out$data[[panel]] == all_name, it = TRUE, hline = FALSE)
+  }
   out$data[["Variable"]] <- paste_units(out$data[["Variable"]], units)
   if(is_named(panel)) {
     out$data <- rename(out$data, !!sym(names(panel)) := !!sym(panel))
