@@ -2,12 +2,12 @@
 % Please edit documentation in R/glossary.R
 \name{read_glossary}
 \alias{read_glossary}
-\title{Read and parse a tex glossary file}
+\title{Read and parse a glossary file}
 \usage{
-read_glossary(file)
+read_glossary(file, format = guess_glo_fmt(file))
 }
 \arguments{
-\item{file}{path to the tex glossary file.}
+\item{file}{path to the tex or yaml glossary file.}
 
 \item{...}{\verb{<label> = <new abbreviation>} pairs.}
 }
@@ -17,7 +17,9 @@ A named list of glossary definitions with class \code{tex_glossary} and
 pass to \verb{\\gls\{\}} when writing a tex document).
 }
 \description{
-Read and parse a tex glossary file
+Files may be formatted as TeX glossary file or
+in yaml format suitable for reading using
+\code{\link[=yaml_as_df]{yaml_as_df()}} (see details).
 }
 \details{
 The glossary file is expected to contain acronym entries with the form
@@ -31,7 +33,7 @@ or
 }\if{html}{\out{</div>}}
 }
 \examples{
-file <- system.file("tex", "glossary.tex", package = "pmtables")
+file <- system.file("glo", "glossary.tex", package = "pmtables")
 
 x <- read_glossary(file)
 

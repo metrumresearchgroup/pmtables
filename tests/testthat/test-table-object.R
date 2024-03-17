@@ -13,7 +13,7 @@ inspect2 <- function(x) {
   x %>% st_make(inspect=TRUE) %>% get_stable_data()
 }
 
-glofile <- system.file("tex", "glossary.tex", package = "pmtables")
+glofile <- system.file("glo", "glossary.tex", package = "pmtables")
 
 test_that("stobject equivalent hline [PMT-TEST-0215]", {
   mt <- mtcars[1:20,]

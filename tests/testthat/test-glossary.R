@@ -3,7 +3,10 @@ library(dplyr)
 
 context("test-glossary")
 
-glofile <- system.file("tex", "glossary.tex", package = "pmtables")
+glofile <- system.file("glo", "glossary.tex", package = "pmtables")
+gloyaml <- system.file("glo", "glossary.yaml", package = "pmtables")
+gloyml <- system.file("glo", "glossary.yml", package = "pmtables")
+
 
 test_that("read a glossary file", {
   tex <- read_glossary(glofile)
@@ -17,7 +20,7 @@ test_that("read a glossary file", {
   type_list <- vapply(tex, inherits, what = "list", FUN.VALUE = TRUE)
   expect_true(all(type_list))
 
-  foo <- tempfile()
+  foo <- tempfile(fileext = ".tex")
   expect_error(read_glossary(foo), "does not exist.")
 
   cat("a\n", file = foo)
@@ -57,21 +60,21 @@ test_that("make glossary notes from glossary list", {
 
 test_that("parse a glossary entry", {
   txt <- "\\newacronym{a}{b}{c} % comment"
-  x <- pmtables:::parse_glossary(txt)
+  x <- pmtables:::parse_tex_glossary(txt)
   expect_length(x, 1)
   expect_named(x)
   expect_identical(names(x), "a")
   expect_equivalent(x$a, list(abbreviation = "b", definition = "c"))
 
   txt <- "\\newacronym[options]{a}{b}{c} % comment"
-  x <- pmtables:::parse_glossary(txt)
+  x <- pmtables:::parse_tex_glossary(txt)
   expect_length(x, 1)
   expect_named(x)
   expect_identical(names(x), "a")
   expect_equivalent(x$a, list(abbreviation = "b", definition = "c"))
 
   txt <- "\\newacronym[options]{a}{b_\\mathrm{d}}{\\mathit{c}} % comment"
-  x <- pmtables:::parse_glossary(txt)
+  x <- pmtables:::parse_tex_glossary(txt)
   expect_length(x, 1)
   expect_named(x)
   expect_identical(names(x), "a")
@@ -80,7 +83,7 @@ test_that("parse a glossary entry", {
   )
 
   txt <- "%\\newacronym{a}{b}{c}"
-  expect_error(pmtables:::parse_glossary(txt), "No acronym entries")
+  expect_error(pmtables:::parse_tex_glossary(txt), "No acronym entries")
 })
 
 test_that("corece list to glossary object", {

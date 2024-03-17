@@ -9,9 +9,9 @@
 \usage{
 glossary_notes(x, ...)
 
-\method{glossary_notes}{character}(x, ...)
+\method{glossary_notes}{character}(x, ..., format = guess_glo_fmt(x))
 
-\method{glossary_notes}{list}(x, ...)
+\method{glossary_notes}{list}(x, format = guess_glo_fmt(x), ...)
 
 \method{glossary_notes}{glossary}(x, ..., sep = ": ", collapse = "; ", labels = NULL)
 }
@@ -33,7 +33,7 @@ labels to get appended to the end of names passed in \code{...}.}
 Return formatted notes from a tex glossary file or glossary object
 }
 \examples{
-file <- system.file("tex", "glossary.tex", package = "pmtables")
+file <- system.file("glo", "glossary.tex", package = "pmtables")
 
 glossary_notes(file, WT, CRCL)
 

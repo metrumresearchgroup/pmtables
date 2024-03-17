@@ -1,6 +1,10 @@
-#' Read and parse a tex glossary file
+#' Read and parse a glossary file
 #'
-#' @param file path to the tex glossary file.
+#' Files may be formatted as TeX glossary file or
+#' in yaml format suitable for reading using
+#' [yaml_as_df()] (see details).
+#'
+#' @param file path to the tex or yaml glossary file.
 #' @param ... `<label> = <new abbreviation>` pairs.
 #'
 #' @return
@@ -23,7 +27,7 @@
 #' ```
 #'
 #' @examples
-#' file <- system.file("tex", "glossary.tex", package = "pmtables")
+#' file <- system.file("glo", "glossary.tex", package = "pmtables")
 #'
 #' x <- read_glossary(file)
 #'
@@ -35,15 +39,67 @@
 #'
 #' @seealso [as_glossary()]
 #' @export
-read_glossary <- function(file) {
+read_glossary <- function(file, format = guess_glo_fmt(file)) {
   if(!file.exists(file)) {
     abort(glue("Glossary file {file} does not exist."))
   }
-  txt <- readLines(file, warn = FALSE)
-  if(!length(txt)) abort("The glossary file was empty.")
-  ans <- parse_glossary(txt)
+  if(!format %in% c("tex", "yaml", "yml")) {
+    abort("format should be either tex, yaml, or yml")
+  }
+  if(format == "tex") {
+    ans <- read_tex_glossary(file)
+  } else {
+    ans <- read_yaml_glossary(file)
+  }
   class(ans) <- c("tex_glossary", "glossary", "list")
   ans
+}
+
+read_yaml_glossary <- function(file) {
+  parsed <- try(yaml_as_df(file, row_var = "label"), silent = TRUE)
+  if(inherits(parsed, "try-error")) {
+    abort(
+      c("Failed to parse glossary file; see ?yaml_as_df() for help formatting this file.",
+        as.character(parsed)
+      )
+    )
+  }
+  if(!all(c("label", "abb", "def") %in% names(parsed))) {
+    abort("yaml/yml glossary format requires names label, abb, and def.")
+  }
+  labels <- parsed[["label"]]
+  parsed <- select(parsed, abb, def)
+  data <- split(parsed, seq(nrow(parsed)))
+  data <- lapply(data, unlist)
+  data <- lapply(data, as_glossary_entry)
+  data <- lapply(data, setNames, c("abbreviation", "definition"))
+  names(data) <- labels
+  data
+}
+
+read_tex_glossary <- function(file) {
+  txt <- readLines(file, warn = FALSE)
+  if(!length(txt)) abort("The glossary file was empty.")
+  parse_tex_glossary(txt)
+}
+
+parse_tex_glossary <- function(txt) {
+  txt <- trimws(txt)
+  txt <- txt[grepl("^\\\\newacronym", txt)]
+  m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}.*$", txt)
+  parsed <- regmatches(txt, m)
+  if(!length(parsed)) {
+    abort("No acronym entries were found in `file`.")
+  }
+  if(!all(vapply(parsed, length, 1L)==4)) {
+    abort("There was a problem parsing the glossary file.")
+  }
+  label <- vapply(parsed, FUN = "[", 2L, FUN.VALUE = "a")
+  data <- lapply(parsed, FUN = "[", c(3L, 4L))
+  data <- lapply(data, as_glossary_entry)
+  data <- lapply(data, setNames, c("abbreviation", "definition"))
+  names(data) <- label
+  data
 }
 
 #' Update the abbreviation for a glossary entry
@@ -118,25 +174,6 @@ as_glossary <- function(x, ...) {
   glossary
 }
 
-parse_glossary <- function(txt) {
-  txt <- trimws(txt)
-  txt <- txt[grepl("^\\\\newacronym", txt)]
-  m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}.*$", txt)
-  parsed <- regmatches(txt, m)
-  if(!length(parsed)) {
-    abort("No acronym entries were found in `file`.")
-  }
-  if(!all(vapply(parsed, length, 1L)==4)) {
-    abort("There was a problem parsing the glossary file.")
-  }
-  label <- vapply(parsed, FUN = "[", 2L, FUN.VALUE = "a")
-  data <- lapply(parsed, FUN = "[", c(3L, 4L))
-  data <- lapply(data, as_glossary_entry)
-  data <- lapply(data, setNames, c("abbreviation", "definition"))
-  names(data) <- label
-  data
-}
-
 as_glossary_entry <- function(x) {
   x <- as.list(x)
   class(x) <- c("glossary_entry", "list")
@@ -161,7 +198,7 @@ abort_bad_glo_labels <- function(x, what) {
 #' @inheritParams st_notes_glo
 #'
 #' @examples
-#' file <- system.file("tex", "glossary.tex", package = "pmtables")
+#' file <- system.file("glo", "glossary.tex", package = "pmtables")
 #'
 #' glossary_notes(file, WT, CRCL)
 #'
@@ -175,15 +212,15 @@ glossary_notes <- function(x, ...) UseMethod("glossary_notes")
 
 #' @rdname glossary_notes
 #' @export
-glossary_notes.character <- function(x, ...) {
-  x <- read_glossary(x)
+glossary_notes.character <- function(x, ..., format = guess_glo_fmt(x)) {
+  x <- read_glossary(x, format = format)
   glossary_notes(x, ...)
 }
 
 #' @rdname glossary_notes
 #' @export
-glossary_notes.list <- function(x, ...) {
-  x <- as_glossary(x)
+glossary_notes.list <- function(x, format = guess_glo_fmt(x), ...) {
+  x <- as_glossary(x, format = format)
   glossary_notes(x, ...)
 }
 
@@ -192,7 +229,8 @@ glossary_notes.list <- function(x, ...) {
 glossary_notes.glossary <- function(x, ..., sep = ": ", collapse = "; ",
                                     labels = NULL) {
   labels <- cvec_cs(labels)
-  labels <- c(new_names(enquos(...)), labels)
+  dots <- eval_select(expr(c(...)), x)
+  labels <- c(names(dots), labels)
   if(!length(labels)) labels <- names(x)
   build_glossary_notes(x, labels, sep, collapse)
 }
@@ -231,4 +269,11 @@ require_glossary <- function(x) {
   if(!inherits(x, "glossary")) {
     abort("`x` is not a glossary object")
   }
+}
+
+guess_glo_fmt <- function(filename) {
+  ext <- tools::file_ext(filename)
+  if(ext=="tex") return("tex")
+  if(ext %in% c("yml", "yaml")) return("yaml")
+  abort("Could not guess glossary format from file extension.")
 }
