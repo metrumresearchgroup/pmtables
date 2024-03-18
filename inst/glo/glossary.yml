@@ -1,0 +1,22 @@
+egfr:
+  def: estimated glomerular filtration rate
+  abb: eGFR
+bmi:
+  def: body mass index
+  abb: BMI
+wt:
+  def: weight
+  abb: WT
+ht:
+  abb: HT
+  def: height
+cmax:
+  def: maximum concentration in the dosing interval
+  abb: Cmax
+cmin:
+  def: minimum concentration in the dosing interval
+  abb: Cmin
+auc:
+  abb: AUC
+  def: area under the concentration time curve
+
