@@ -132,7 +132,6 @@ update_abbrev <- function(x, ...) {
   x
 }
 
-
 #' Coerce a named list to glossary
 #'
 #' @param x a named list.
@@ -253,6 +252,27 @@ print.glossary_entry <- function(x, ...) {
 }
 
 #' @export
+print.glossary <- function(x, ...) {
+  label <- names(x)
+  def <- map_chr(x, "definition")
+  def <- substr(def, 0, 40)
+  pad <- ifelse(nchar(def) >= 40, "...", "")
+  def <- paste0(def, pad)
+  label <- formatC(label, width = max(nchar(label)), flag = "-")
+  cat(paste0(label, " : ", def), sep = "\n")
+}
+
+#' @export
+as.data.frame.glossary <- function(x, ...) {
+  data.frame(
+    label = names(x),
+    definition = map_chr(x, "definition"),
+    abbreviation = map_chr(x, "abbreviation"),
+    row.names = NULL
+  )
+}
+
+#' @export
 as.list.glossary <- function(x, ...) {
   class(x) <- "list"
   x <- lapply(x, as.list)
@@ -263,6 +283,37 @@ as.list.glossary <- function(x, ...) {
 as.list.glossary_entry <- function(x, ...) {
   class(x) <- "list"
   x
+}
+
+#' @export
+c.glossary <- function(x, y, ...) {
+  cl <- class(x)
+  new_cols <- setdiff(names(y), names(x))
+  if(!identical(new_cols, names(y))) {
+    stop("`x` and `y` cannot share any names.")
+  }
+  ans <- structure(c(unclass(x), unclass(y)), class = cl)
+  more <- list(...)
+  if(length(more)) {
+    return(c(ans, more[[1]]))
+  }
+  ans
+}
+
+##' @export
+`$.glossary` <- function(x, name, ...) {
+  if(!exists(name, x)) {
+    return(NULL)
+  }
+  unclass(x)[[name]]
+}
+
+##' @export
+`[.glossary` <- function(x, i, j, drop = FALSE) {
+  cl <- class(x)
+  x <- unclass(x)
+  x <- x[i]
+  structure(x, class = cl)
 }
 
 require_glossary <- function(x) {
