@@ -29,7 +29,7 @@ Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Summarize data sets and create publication-quality tables for 
     inclusion in 'tex' documents.
 License: GPL (>=2)
-Imports: purrr, dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble, 
+Imports: purrr (>= 1.0.0), dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble,
     assertthat, tidyselect, stringr, knitr, rmarkdown, lifecycle
 Depends: R (>= 3.5.0)
 Suggests: testthat, yaml, fs, texPreview, magick, pdftools
