@@ -68,7 +68,7 @@ read_yaml_glossary <- function(file) {
     abort("yaml/yml glossary format requires names label, abb, and def.")
   }
   labels <- parsed[["label"]]
-  parsed <- select(parsed, abb, def)
+  parsed <- select(parsed, "abb", "def")
   data <- split(parsed, seq(nrow(parsed)))
   data <- lapply(data, unlist)
   data <- lapply(data, as_glossary_entry)
@@ -201,7 +201,7 @@ abort_bad_glo_labels <- function(x, what) {
 #'
 #' glossary_notes(file, WT, CRCL)
 #'
-#' g <- as_glossary(list(ss = "steady state", ALB = "albumin"), WT = "weight")
+#' g <- as_glossary(list(ss = "steady state", ALB = "albumin", WT = "weight"))
 #'
 #' glossary_notes(g, ALB, ss)
 #'
@@ -248,9 +248,11 @@ build_glossary_notes <- function(glossary, labels, sep, collapse) {
 
 #' @export
 print.glossary_entry <- function(x, ...) {
-  print(paste0(x$definition, " (", x$abbreviation, ")"))
+  print(ans <- paste0(x$definition, " (", x$abbreviation, ")"))
 }
 
+#' @param x a glossary object.
+#' @param ... not used.
 #' @export
 print.glossary <- function(x, ...) {
   label <- names(x)
@@ -262,6 +264,9 @@ print.glossary <- function(x, ...) {
   cat(paste0(label, " : ", def), sep = "\n")
 }
 
+#' @param x a glossary object.
+#' @param ... not used.
+#'
 #' @export
 as.data.frame.glossary <- function(x, ...) {
   data.frame(
@@ -272,6 +277,8 @@ as.data.frame.glossary <- function(x, ...) {
   )
 }
 
+#' @param x a glossary object.
+#' @param ... not used.
 #' @export
 as.list.glossary <- function(x, ...) {
   class(x) <- "list"

@@ -38,7 +38,7 @@ Add table notes based on acronyms from a tex glossary file
 \examples{
 library(dplyr)
 
-file <- system.file("tex", "glossary.tex", package = "pmtables")
+file <- system.file("glo", "glossary.tex", package = "pmtables")
 
 x <- read_glossary(file)
 

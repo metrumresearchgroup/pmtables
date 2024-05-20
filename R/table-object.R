@@ -404,7 +404,7 @@ st_notes_conf <- st_noteconf
 #' @examples
 #' library(dplyr)
 #'
-#' file <- system.file("tex", "glossary.tex", package = "pmtables")
+#' file <- system.file("glo", "glossary.tex", package = "pmtables")
 #'
 #' x <- read_glossary(file)
 #'

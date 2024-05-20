@@ -37,7 +37,7 @@ file <- system.file("glo", "glossary.tex", package = "pmtables")
 
 glossary_notes(file, WT, CRCL)
 
-g <- as_glossary(list(ss = "steady state", ALB = "albumin"), WT = "weight")
+g <- as_glossary(list(ss = "steady state", ALB = "albumin", WT = "weight"))
 
 glossary_notes(g, ALB, ss)
 
