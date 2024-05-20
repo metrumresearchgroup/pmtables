@@ -444,6 +444,7 @@ st_image_show <- function(path,
 #' extension will be replaced with the value in `format`.
 #' @param stem used to form the final output file name; this argument will
 #' override what is provided in `file`.
+#' @param format the output file format.
 #' @param dir the final output directory.
 #' @param build_dir the directory where the image will be built.
 #' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of

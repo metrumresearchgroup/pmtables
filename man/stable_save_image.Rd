@@ -23,6 +23,8 @@ extension will be replaced with the value in \code{format}.}
 \item{stem}{used to form the final output file name; this argument will
 override what is provided in \code{file}.}
 
+\item{format}{the output file format.}
+
 \item{dir}{the final output directory.}
 
 \item{build_dir}{the directory where the image will be built.}
