@@ -436,3 +436,72 @@ st_image_show <- function(path,
   )
   return(ans)
 }
+
+#' Render and save a table in png or pdf format
+#'
+#' @param x an stable object.
+#' @param file the final output file name; if `file` has `.tex` extension, the
+#' extension will be replaced with the value in `format`.
+#' @param stem used to form the final output file name; this argument will
+#' override what is provided in `file`.
+#' @param dir the final output directory.
+#' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of
+#' `format`.
+#'
+#' @return
+#' The full path to the final output file is returned invisibly.
+#'
+#' @details
+#' The table will be built / rendered in `tempdir()`.
+#'
+#' @examples
+#' tab <- stable(stdata())
+#'
+#' \dontrun{
+#'   stable_save_image(x)
+#' }
+#'
+#' @seealso [st_as_image()]
+#'
+#' @export
+stable_save_image <- function(x,
+                              file = attr(x, "stable_file"),
+                              stem = NULL,
+                              format = c("png", "pdf"),
+                              dir = getOption("pmtables.dir"), ...) {
+
+  format <- match.arg(format)
+  if(is.character(file)) {
+    ext <- tools::file_ext(file)
+    if(ext=="tex") {
+      stem <- tools::file_path_sans_ext(file)
+      file <- paste0(stem, format)
+    }
+  }
+  if(is.character(stem)) {
+    file <- paste0(stem, ".", format)
+  }
+  if(is.null(file)) {
+    stop("Output file name is missing.", call. = FALSE)
+  }
+  if(format=="pdf") {
+    ans <- st_aspdf(
+      x,
+      stem = tools::file_path_sans_ext(file),
+      dir = tempdir(),
+      ...
+    )
+  } else {
+    ans <- st_aspng(
+      x,
+      stem = tools::file_path_sans_ext(file),
+      dir = tempdir(),
+      ...
+    )
+  }
+  if(!is.null(dir)) {
+    file <- file.path(dir, file)
+  }
+  file.copy(ans, file, overwrite = TRUE)
+  invisible(file)
+}
