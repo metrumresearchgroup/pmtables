@@ -445,6 +445,7 @@ st_image_show <- function(path,
 #' @param stem used to form the final output file name; this argument will
 #' override what is provided in `file`.
 #' @param dir the final output directory.
+#' @param build_dir the directory where the image will be built.
 #' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of
 #' `format`.
 #'
@@ -458,7 +459,7 @@ st_image_show <- function(path,
 #' tab <- stable(stdata())
 #'
 #' \dontrun{
-#'   stable_save_image(x)
+#'   stable_save_image(x, format = "pdf")
 #' }
 #'
 #' @seealso [st_as_image()]
@@ -468,13 +469,21 @@ stable_save_image <- function(x,
                               file = attr(x, "stable_file"),
                               stem = NULL,
                               format = c("png", "pdf"),
-                              dir = getOption("pmtables.dir"), ...) {
+                              dir = getOption("pmtables.dir"),
+                              build_dir = tempdir(), ...) {
 
+  if(!inherits(x, "stable")) {
+    stop(
+      "bad input - x is not an 'stable' object; ",
+      "maybe this object was corrupted or it wasn't generated from 'stable()'",
+      call.=FALSE
+    )
+  }
   format <- match.arg(format)
   if(is.character(file)) {
-    ext <- tools::file_ext(file)
+    ext <- file_ext(file)
     if(ext=="tex") {
-      stem <- tools::file_path_sans_ext(file)
+      stem <- file_path_sans_ext(file)
       file <- paste0(stem, format)
     }
   }
@@ -482,19 +491,19 @@ stable_save_image <- function(x,
     file <- paste0(stem, ".", format)
   }
   if(is.null(file)) {
-    stop("Output file name is missing.", call. = FALSE)
+    stop("The output file name could not be determined.", call. = FALSE)
   }
   if(format=="pdf") {
     ans <- st_aspdf(
       x,
-      stem = tools::file_path_sans_ext(file),
-      dir = tempdir(),
+      stem = file_path_sans_ext(file),
+      dir = build_dir,
       ...
     )
   } else {
     ans <- st_aspng(
       x,
-      stem = tools::file_path_sans_ext(file),
+      stem = file_path_sans_ext(file),
       dir = tempdir(),
       ...
     )
