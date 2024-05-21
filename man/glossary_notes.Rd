@@ -19,7 +19,9 @@ glossary_notes(x, ...)
 \item{x}{path to a tex glossary file, a glossary object, or a list that can
 be coerced to a glossary object with \code{\link[=as_glossary]{as_glossary()}}.}
 
-\item{...}{\verb{<label> = <new abbreviation>} pairs.}
+\item{...}{unquoted glossary labels to be included in the notes text.}
+
+\item{format}{passed to \code{\link[=read_glossary]{read_glossary()}}.}
 
 \item{sep}{character to separate name and value.}
 

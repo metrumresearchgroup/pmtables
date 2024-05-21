@@ -5,7 +5,8 @@
 #' [yaml_as_df()] (see details).
 #'
 #' @param file path to the tex or yaml glossary file.
-#' @param ... `<label> = <new abbreviation>` pairs.
+#' @param format the glossary file format; could be either `"tex"` or `"yaml"`
+#' and will be inferred by default from the extension of `file`.
 #'
 #' @return
 #' A named list of glossary definitions with class `tex_glossary` and
@@ -209,6 +210,8 @@ abort_bad_glo_labels <- function(x, what) {
 #' @export
 glossary_notes <- function(x, ...) UseMethod("glossary_notes")
 
+#' @param ... unquoted glossary labels to be included in the notes text.
+#' @param format passed to [read_glossary()].
 #' @rdname glossary_notes
 #' @export
 glossary_notes.character <- function(x, ..., format = guess_glo_fmt(x)) {
@@ -248,11 +251,9 @@ build_glossary_notes <- function(glossary, labels, sep, collapse) {
 
 #' @export
 print.glossary_entry <- function(x, ...) {
-  print(ans <- paste0(x$definition, " (", x$abbreviation, ")"))
+  cat(ans <- paste0(x$definition, " (", x$abbreviation, ")"))
 }
 
-#' @param x a glossary object.
-#' @param ... not used.
 #' @export
 print.glossary <- function(x, ...) {
   label <- names(x)
@@ -264,9 +265,6 @@ print.glossary <- function(x, ...) {
   cat(paste0(label, " : ", def), sep = "\n")
 }
 
-#' @param x a glossary object.
-#' @param ... not used.
-#'
 #' @export
 as.data.frame.glossary <- function(x, ...) {
   data.frame(
@@ -277,8 +275,6 @@ as.data.frame.glossary <- function(x, ...) {
   )
 }
 
-#' @param x a glossary object.
-#' @param ... not used.
 #' @export
 as.list.glossary <- function(x, ...) {
   class(x) <- "list"
@@ -307,7 +303,7 @@ c.glossary <- function(x, y, ...) {
   ans
 }
 
-##' @export
+#' @export
 `$.glossary` <- function(x, name, ...) {
   if(!exists(name, x)) {
     return(NULL)
@@ -315,12 +311,31 @@ c.glossary <- function(x, y, ...) {
   unclass(x)[[name]]
 }
 
-##' @export
+#' @export
 `[.glossary` <- function(x, i, j, drop = FALSE) {
   cl <- class(x)
   x <- unclass(x)
   x <- x[i]
   structure(x, class = cl)
+}
+
+#' Select entries from a glossary object
+#'
+#' @param x a glossary object.
+#' @param ... tidy-select syntax naming glossary entry labels to select.
+#'
+#' @return
+#' A new glossary object with selected entries.
+#'
+#' @examples
+#' gl <- as_glossary(list(a = "apple", b = "banana", c = "cat", d = "dog"))
+#'
+#' select_glossary(gl, b, d)
+#'
+#' @export
+select_glossary <- function(x, ...) {
+  what <- eval_select(expr(c(...)), x)
+  x[what]
 }
 
 require_glossary <- function(x) {

@@ -7,7 +7,6 @@ glofile <- system.file("glo", "glossary.tex", package = "pmtables")
 gloyaml <- system.file("glo", "glossary.yaml", package = "pmtables")
 gloyml <- system.file("glo", "glossary.yml", package = "pmtables")
 
-
 test_that("read a glossary file", {
   tex <- read_glossary(glofile)
   expect_named(tex)
@@ -169,4 +168,82 @@ test_that("update an abbreviation", {
     update_abbrev(glo2, FOO),
     "Requested definitions not found"
   )
+})
+
+test_that("combine two glossary objects", {
+  g1 <- as_glossary(list(a = "apple", b = "banana"))
+  g2 <- as_glossary(list(c = "cat", d = "dog"))
+  g3 <- as_glossary(list(e = "ear", f = "foot"))
+  g4 <- c(g1, g2, g3)
+  expect_is(g4, "glossary")
+  expect_length(g4, 6)
+  expect_identical(names(g4), letters[1:6])
+
+  g5 <- as_glossary(list(a = "anion", g = "grape"))
+  expect_error(c(g1, g5))
+
+  g5$a <- NULL
+  g6 <- c(g1, g5)
+  expect_is(g6, "glossary")
+  expect_identical(names(g6), c("a", "b", "g"))
+})
+
+test_that("coerce glossary object to list", {
+  g1 <- as_glossary(list(a = "apple", b = "banana"))
+  l <- as.list(g1)
+
+  expect_true(inherits(g1, "glossary"))
+  expect_false(inherits(l, "glossary"))
+  expect_length(l, length(g1))
+  expect_identical(names(l), names(g1))
+  expect_identical(names(l$a), c("definition", "abbreviation"))
+})
+
+test_that("coerce glossary entry to list", {
+  ge1 <- as_glossary(list(a = "apple", b = "banana"))$a
+  l <- as.list(ge1)
+  expect_true(inherits(ge1, "glossary_entry"))
+  expect_false(inherits(l, "glossary_entry"))
+  expect_length(l, 2)
+  expect_identical(names(l), c("definition", "abbreviation"))
+})
+
+test_that("coerce glossary object to data.frame", {
+  g1 <- as_glossary(list(a = "apple", b = "banana"))
+  df <- as.data.frame(g1)
+
+  expect_true(inherits(g1, "glossary"))
+  expect_false(inherits(df, "glossary"))
+  expect_equal(nrow(df), length(g1))
+  expect_identical(names(df), c("label", "definition", "abbreviation"))
+})
+
+test_that("coerce glossary object to data.frame", {
+  g1 <- as_glossary(list(a = "apple", b = "banana"))
+  df <- as.data.frame(g1)
+
+  expect_true(inherits(g1, "glossary"))
+  expect_false(inherits(df, "glossary"))
+  expect_equal(nrow(df), length(g1))
+  expect_identical(names(df), c("label", "definition", "abbreviation"))
+})
+
+test_that("extract glossary entry", {
+  g1 <- as_glossary(list(a = "apple", b = "banana"))
+  x <- g1$b
+  expect_is(x, "glossary_entry")
+  expect_identical(names(x), c("definition", "abbreviation"))
+
+  g2 <- as_glossary(list(a = "apple", b = "banana", c = "cat", d = "dog"))
+  expect_identical(g2[["d"]], g2$d)
+
+  g3 <- g2[2:3]
+  expect_identical(names(g3), c("b", "c"))
+})
+
+test_that("select glossary items", {
+  g1 <- as_glossary(list(a = "apple", b = "banana", c = "cat", d = "dog"))
+  g2 <- select_glossary(g1, b, d)
+  expect_identical(names(g2), c("b", "d"))
+  expect_error(select_glossary(g1, b, e), "Can't subset columns")
 })

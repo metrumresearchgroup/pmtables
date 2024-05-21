@@ -1,4 +1,4 @@
-# coverage: 92.33%
+# coverage: 92.13%
 
 |file                     | coverage|
 |:------------------------|--------:|
@@ -10,11 +10,11 @@
 |R/table-tabular.R        |    85.11|
 |R/table-object.R         |    85.76|
 |R/table-align.R          |    86.96|
+|R/glossary.R             |    87.41|
 |R/table-sumrow.R         |    87.76|
 |R/table-hlines.R         |    87.88|
 |R/yaml-as-df.R           |    89.19|
 |R/table-stable.R         |    90.66|
-|R/glossary.R             |    91.35|
 |R/check.R                |    91.67|
 |R/table-span.R           |    93.16|
 |R/summary-functions.R    |    93.33|

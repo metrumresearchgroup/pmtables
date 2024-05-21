@@ -9,7 +9,8 @@ read_glossary(file, format = guess_glo_fmt(file))
 \arguments{
 \item{file}{path to the tex or yaml glossary file.}
 
-\item{...}{\verb{<label> = <new abbreviation>} pairs.}
+\item{format}{the glossary file format; could be either \code{"tex"} or \code{"yaml"}
+and will be inferred by default from the extension of \code{file}.}
 }
 \value{
 A named list of glossary definitions with class \code{tex_glossary} and
