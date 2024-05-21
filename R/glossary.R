@@ -133,26 +133,47 @@ update_abbrev <- function(x, ...) {
   x
 }
 
-#' Coerce a named list to glossary
+#' Create a new glossary object
 #'
-#' @param x a named list.
-#' @param ... unquoted `<label> = <new abbreviation>` pairs.
-#' @seealso [read_glossary()]
+#' @param ... unquoted `<label> = <definition>` pairs, or a named list
+#' of abbreviations where the names are the labels.
+#'
+#' @details
+#' For all entries in the new object, the abbreviation is set to the label.
+#' See [update_abbrev()] to customize the abbreviation.
+#'
+#' Entries that have duplicate labels will be dropped with a warning.
+#'
+#' @return
+#' A new glossary object.
+#'
+#' @seealso [read_glossary()], [update_abbrev()]
 #'
 #' @examples
+#'
+#' as_glossary(wt = "weight", ht = "height", bmi = "body mass index")
+#'
+#' as_glossary(wt = "weight", ht = "height", wt = "baseline weight")
 #'
 #' l <- list(VPC = "visual predictive check", tz = "timezone")
 #'
 #' as_glossary(l)
 #'
-#' as_glossary(l, tz = "tzone")
-#'
+#' as_glossary(l, wt = "weight")
 #'
 #' @seealso [update_abbrev()]
 #' @export
-as_glossary <- function(x, ...) {
+as_glossary <- function(...) {
+  x <- purrr::list_flatten(list(...))
   if(!is.list(x) || !is_named(x)) {
-    abort("`x` must be a named list")
+    abort("items in `...` must resolve to a named list.")
+  }
+  if(anyDuplicated(names(x))) {
+    duplicates <- duplicated(names(x))
+    drop <- paste0(names(x)[duplicates], ": ", x[duplicates])
+    names(drop) <- rep("*", length(drop))
+    warn("Dropping duplicate glossary labels:", body = drop)
+    x <- x[!duplicates]
   }
   type_chr <- vapply(x, inherits, what = "character", FUN.VALUE = TRUE)
   len <- vapply(x, length, FUN.VALUE = 1)
@@ -163,13 +184,6 @@ as_glossary <- function(x, ...) {
     data <- c(definition = def, abbreviation = label)
     as_glossary_entry(data)
   })
-  abbrev <- new_names(enquos(...))
-  if(length(abbrev)) {
-    abort_bad_glo_labels(glossary, names(abbrev))
-    for(a in seq_along(abbrev)) {
-      glossary[[names(abbrev[a])]]$abbreviation <- abbrev[a]
-    }
-  }
   class(glossary) <- c("tex_glossary", "glossary", "list")
   glossary
 }

@@ -2,30 +2,41 @@
 % Please edit documentation in R/glossary.R
 \name{as_glossary}
 \alias{as_glossary}
-\title{Coerce a named list to glossary}
+\title{Create a new glossary object}
 \usage{
-as_glossary(x, ...)
+as_glossary(...)
 }
 \arguments{
-\item{x}{a named list.}
-
-\item{...}{unquoted \verb{<label> = <new abbreviation>} pairs.}
+\item{...}{unquoted \verb{<label> = <definition>} pairs, or a named list
+of abbreviations where the names are the labels.}
+}
+\value{
+A new glossary object.
 }
 \description{
-Coerce a named list to glossary
+Create a new glossary object
+}
+\details{
+For all entries in the new object, the abbreviation is set to the label.
+See \code{\link[=update_abbrev]{update_abbrev()}} to customize the abbreviation.
+
+Entries that have duplicate labels will be dropped with a warning.
 }
 \examples{
+
+as_glossary(wt = "weight", ht = "height", bmi = "body mass index")
+
+as_glossary(wt = "weight", ht = "height", wt = "baseline weight")
 
 l <- list(VPC = "visual predictive check", tz = "timezone")
 
 as_glossary(l)
 
-as_glossary(l, tz = "tzone")
-
+as_glossary(l, wt = "weight")
 
 }
 \seealso{
-\code{\link[=read_glossary]{read_glossary()}}
+\code{\link[=read_glossary]{read_glossary()}}, \code{\link[=update_abbrev]{update_abbrev()}}
 
 \code{\link[=update_abbrev]{update_abbrev()}}
 }
