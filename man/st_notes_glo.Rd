@@ -17,7 +17,8 @@ st_notes_glo(
 \arguments{
 \item{x}{an stobject.}
 
-\item{glossary}{a named list generated from \code{\link[=read_glossary]{read_glossary()}}.}
+\item{glossary}{a glossary object generated from \code{\link[=read_glossary]{read_glossary()}} or
+\code{\link[=as_glossary]{as_glossary()}}.}
 
 \item{...}{unquoted names matching those names in \code{glossary}.}
 

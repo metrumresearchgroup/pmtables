@@ -391,7 +391,8 @@ st_notes_conf <- st_noteconf
 #' Add table notes based on acronyms from a tex glossary file
 #'
 #' @param x an stobject.
-#' @param glossary a named list generated from [read_glossary()].
+#' @param glossary a glossary object generated from [read_glossary()] or
+#' [as_glossary()].
 #' @param ... unquoted names matching those names in `glossary`.
 #' @param sep character to separate name and value.
 #' @param collapse a character used to collapse definitions into a

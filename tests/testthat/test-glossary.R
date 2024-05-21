@@ -103,7 +103,7 @@ test_that("make glossary notes from glossary list", {
 
   expect_error(
     glossary_notes(x, MetrumRG),
-    "Can't subset columns that"
+    "columns that don't exist"
   )
 })
 
