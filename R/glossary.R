@@ -135,8 +135,10 @@ update_abbrev <- function(x, ...) {
 
 #' Create a new glossary object
 #'
+#' Rather than reading from a file, glossary objects can be created inline.
+#'
 #' @param ... unquoted `<label> = <definition>` pairs, or a named list
-#' of abbreviations where the names are the labels.
+#' of abbreviations where the names are the labels; see **Examples**.
 #'
 #' @details
 #' For all entries in the new object, the abbreviation is set to the label.

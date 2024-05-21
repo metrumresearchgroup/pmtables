@@ -136,15 +136,25 @@ test_that("parse a glossary entry", {
 })
 
 test_that("corece list to glossary object", {
+  g <- as_glossary(a = "b", c = "d")
+  expect_length(g, 2)
+  expect_is(g, "glossary")
+
   g <- as_glossary(list(a = "b", c = "d"))
   expect_length(g, 2)
   expect_is(g, "glossary")
 
-  expect_error(as_glossary(list("a", c = "d")), "must be a named list")
-  expect_error(as_glossary(c(a = "b", c = "d")), "must be a named list")
-
-  g <- as_glossary(list(a = "b", c = "d"), c = "dd")
+  g <- as_glossary(list(a = "b", c = "d"), e = "f", g = "h")
+  expect_length(g, 4)
   expect_is(g, "glossary")
+
+  expect_error(as_glossary(list("a", c = "d")), "must resolve to a named list")
+  expect_error(as_glossary(c(a = "b", c = "d")), "must resolve to a named list")
+
+  expect_warning(
+    as_glossary(list(a = "b", c = "d"), c = "dd"),
+    "Dropping duplicate glossary labels"
+  )
 })
 
 test_that("require glossary", {
@@ -245,5 +255,5 @@ test_that("select glossary items", {
   g1 <- as_glossary(list(a = "apple", b = "banana", c = "cat", d = "dog"))
   g2 <- select_glossary(g1, b, d)
   expect_identical(names(g2), c("b", "d"))
-  expect_error(select_glossary(g1, b, e), "Can't subset columns")
+  expect_error(select_glossary(g1, b, e), "columns that don't exist")
 })
