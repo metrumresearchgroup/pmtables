@@ -1,9 +1,3 @@
-%%%%%%%%%%%% Program Specific Acronyms: %%%%%%%%%%%%%%%
-% Program specific acronyms, such as disease, population, drugs, etc. are to be defined here
-% Keep them separate from the general acronyms enables cleansing of project-specific info, if needed
-
-%%%%%%%%%%%% General Acronyms: %%%%%%%%%%%%%%%
-%General acronyms are to be defined here
 %%%%%%%%% A
 \newacronym{ADA}{ADA}{anti-drug antibodies}
 \newacronym{AE}{AE}{adverse event}

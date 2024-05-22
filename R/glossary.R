@@ -15,7 +15,8 @@
 #'
 #'
 #' @details
-#' The glossary file is expected to contain acronym entries with the form
+#' For the tex format, the glossary file is expected to contain acronym
+#' entries with the form
 #'
 #' ```
 #' \newacronym{label}{abbreviation}{definition}
@@ -27,16 +28,37 @@
 #' \newacronym[options]{label}{abbreviation}{definition}
 #' ```
 #'
+#' For the yaml format, the glossary file is expected to be able to be
+#' read with [yaml_as_df()]; the outer level should be the `label` and
+#' columns should be provided with the names `def` (definition) and
+#' `abb` (abbreviation). See **Examples**.
+#'
+#'
+#'
 #' @examples
-#' file <- system.file("glo", "glossary.tex", package = "pmtables")
+#' texfile <- system.file("glo", "glossary.tex", package = "pmtables")
 #'
-#' x <- read_glossary(file)
+#' x <- read_glossary(texfile)
 #'
-#' names(x)
+#' head(x)
 #'
 #' x$WT
 #'
 #' x$SC
+#'
+#' yamfile <- system.file("glo", "glossary.yaml", package = "pmtables")
+#'
+#' y <- read_glossary(yamfile)
+#' head(y)
+#'
+#' # Format of the tex glossary file
+#' head(readLines(texfile))
+#'
+#' # Format of the yaml glossary file
+#' head(readLines(yamfile))
+#'
+#' yaml_as_df(yamfile)
+#'
 #'
 #' @seealso [as_glossary()]
 #' @export

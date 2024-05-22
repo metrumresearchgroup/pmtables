@@ -23,7 +23,8 @@ in yaml format suitable for reading using
 \code{\link[=yaml_as_df]{yaml_as_df()}} (see details).
 }
 \details{
-The glossary file is expected to contain acronym entries with the form
+For the tex format, the glossary file is expected to contain acronym
+entries with the form
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{\\newacronym\{label\}\{abbreviation\}\{definition\}
 }\if{html}{\out{</div>}}
@@ -32,17 +33,36 @@ or
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{\\newacronym[options]\{label\}\{abbreviation\}\{definition\}
 }\if{html}{\out{</div>}}
+
+For the yaml format, the glossary file is expected to be able to be
+read with \code{\link[=yaml_as_df]{yaml_as_df()}}; the outer level should be the \code{label} and
+columns should be provided with the names \code{def} (definition) and
+\code{abb} (abbreviation). See \strong{Examples}.
 }
 \examples{
-file <- system.file("glo", "glossary.tex", package = "pmtables")
+texfile <- system.file("glo", "glossary.tex", package = "pmtables")
 
-x <- read_glossary(file)
+x <- read_glossary(texfile)
 
-names(x)
+head(x)
 
 x$WT
 
 x$SC
+
+yamfile <- system.file("glo", "glossary.yaml", package = "pmtables")
+
+y <- read_glossary(yamfile)
+head(y)
+
+# Format of the tex glossary file
+head(readLines(texfile))
+
+# Format of the yaml glossary file
+head(readLines(yamfile))
+
+yaml_as_df(yamfile)
+
 
 }
 \seealso{
