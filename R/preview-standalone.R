@@ -473,7 +473,7 @@ stable_save_image <- function(x,
 
   if(!inherits(x, "stable")) {
     stop(
-      "bad input - x is not an 'stable' object; ",
+      "x is not an 'stable' object; ",
       "maybe this object was corrupted or it wasn't generated from 'stable()'",
       call.=FALSE
     )
@@ -503,7 +503,7 @@ stable_save_image <- function(x,
     ans <- st_aspng(
       x,
       stem = file_path_sans_ext(file),
-      dir = tempdir(),
+      dir = build_dir,
       ...
     )
   }
