@@ -32,9 +32,6 @@ override what is provided in \code{file}.}
 \item{...}{passed to \code{\link[=st_aspdf]{st_aspdf()}} or \code{\link[=st_aspng]{st_aspng()}}, depending on the value of
 \code{format}.}
 }
-\value{
-The full path to the final output file is returned invisibly.
-}
 \description{
 Render and save a table in png or pdf format
 }
@@ -42,10 +39,11 @@ Render and save a table in png or pdf format
 The table will be built / rendered in \code{tempdir()}.
 }
 \examples{
-tab <- stable(stdata())
+tab <- stable(stdata(), output_file = "foo.tex")
 
 \dontrun{
-  stable_save_image(x, format = "pdf")
+  ans <- stable_save_image(tab format = "pdf")
+  basename(ans)
 }
 
 }

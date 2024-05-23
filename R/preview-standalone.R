@@ -450,17 +450,15 @@ st_image_show <- function(path,
 #' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of
 #' `format`.
 #'
-#' @return
-#' The full path to the final output file is returned invisibly.
-#'
 #' @details
 #' The table will be built / rendered in `tempdir()`.
 #'
 #' @examples
-#' tab <- stable(stdata())
+#' tab <- stable(stdata(), output_file = "foo.tex")
 #'
 #' \dontrun{
-#'   stable_save_image(x, format = "pdf")
+#'   ans <- stable_save_image(tab format = "pdf")
+#'   basename(ans)
 #' }
 #'
 #' @seealso [st_as_image()]
