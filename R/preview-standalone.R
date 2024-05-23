@@ -459,6 +459,7 @@ st_image_show <- function(path,
 #' \dontrun{
 #'   ans <- stable_save_image(tab format = "pdf")
 #'   basename(ans)
+#'   st_image_show(ans)
 #' }
 #'
 #' @seealso [st_as_image()]
@@ -510,6 +511,8 @@ stable_save_image <- function(x,
   if(!is.null(dir)) {
     file <- file.path(dir, file)
   }
-  file.copy(ans, file, overwrite = TRUE)
+  if(ans != file) {
+    file.copy(ans, file, overwrite = TRUE)
+  }
   invisible(file)
 }

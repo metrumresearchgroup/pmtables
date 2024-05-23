@@ -118,3 +118,13 @@ test_that("stable_save_image changes .tex to .<output-format>", {
   expect_true(file.exists(ans))
   expect_equal(basename(ans), "test-as-image-3.png")
 })
+
+test_that("stable_save_image requires stable object", {
+  tab <- unclass(stable(stdata()))
+  expect_error(stable_save_image(tab), "is not an 'stable' object")
+})
+
+test_that("stable_save_image takes a long table", {
+  tab <- stable_long(stdata())
+  expect_silent(stable_save_image(tab, stem = "foo2", dir = tempdir()))
+})
