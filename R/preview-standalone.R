@@ -480,8 +480,7 @@ stable_save_image <- function(x,
   if(is.character(file)) {
     ext <- file_ext(file)
     if(ext=="tex") {
-      stem <- file_path_sans_ext(file)
-      file <- paste0(stem, format)
+      file <- paste0(file_path_sans_ext(file), ".", format)
     }
   }
   if(is.character(stem)) {
@@ -489,6 +488,10 @@ stable_save_image <- function(x,
   }
   if(is.null(file)) {
     stop("The output file name could not be determined.", call. = FALSE)
+  }
+  if(dirname(file) != ".") {
+    dir <- dirname(file)
+    file <- basename(file)
   }
   if(format=="pdf") {
     ans <- st_aspdf(
