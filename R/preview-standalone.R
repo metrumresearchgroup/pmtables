@@ -450,9 +450,6 @@ st_image_show <- function(path,
 #' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of
 #' `format`.
 #'
-#' @details
-#' The table will be built / rendered in `tempdir()`.
-#'
 #' @examples
 #' tab <- stable(stdata(), output_file = "foo.tex")
 #'
