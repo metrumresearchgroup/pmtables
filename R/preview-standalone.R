@@ -454,7 +454,7 @@ st_image_show <- function(path,
 #' tab <- stable(stdata(), output_file = "foo.tex")
 #'
 #' \dontrun{
-#'   ans <- stable_save_image(tab format = "pdf")
+#'   ans <- stable_save_image(tab, format = "pdf")
 #'   basename(ans)
 #'   st_image_show(ans)
 #' }
