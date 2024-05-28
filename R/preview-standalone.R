@@ -436,3 +436,108 @@ st_image_show <- function(path,
   )
   return(ans)
 }
+
+#' Render and save a table in png or pdf format
+#'
+#' @param x an stable object.
+#' @param file the final output file name; if `file` has `.tex` extension, the
+#' extension will be replaced with the value in `format`; if provided as a
+#' complete path, directory information will be used as `dir` (see below).
+#' @param stem used to form the final output file name; this argument will
+#' override what is provided in `file`.
+#' @param format the output file format.
+#' @param dir the final output directory; will be overridden if `file` is
+#' given as a complete path.
+#' @param build_dir the directory where the image will be built.
+#' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of
+#' `format`.
+#'
+#' @details
+#'
+#' There is considerable flexibility for specifying the output file name. This
+#' flexibility is provided to accommodate several potential different
+#' anticipated workflows.
+#'
+#' - `file` can be obtained from the `stable_file` attribute on `x`; this
+#'   attribute is set when the user specifies the output file name via
+#'   `st_files()`; if a `.tex` extension is found on `file`, it will be
+#'   changed to the value found in `format`; in this case, `file` is not
+#'   expected to contain the full path and the output directory can be
+#'   specified by `dir`
+#' - `file` can be passed by the user; in this case, a complete path can
+#'   be provided to the output file; this path will override
+#'   what is in `dir` and a warning is given in case path location is found in
+#'   both sources; if a `.tex` extension is found on `file`, it will be changed
+#'   to the value found in `format`
+#' - `stem` and `format` can be passed and the output file name will be
+#'   `<dir>/<stem>.<format>`
+#'
+#' @examples
+#' tab <- stable(stdata(), output_file = "foo.tex")
+#'
+#' \dontrun{
+#'   ans <- stable_save_image(tab, format = "pdf")
+#'   basename(ans)
+#'   st_image_show(ans)
+#' }
+#'
+#' @seealso [st_as_image()]
+#'
+#' @export
+stable_save_image <- function(x,
+                              file = attr(x, "stable_file"),
+                              stem = NULL,
+                              format = c("png", "pdf"),
+                              dir = getOption("pmtables.dir"),
+                              build_dir = tempdir(), ...) {
+
+  if(!inherits(x, "stable")) {
+    stop(
+      "x is not an 'stable' object; ",
+      "maybe this object was corrupted or it wasn't generated from 'stable()'",
+      call.=FALSE
+    )
+  }
+  format <- match.arg(format)
+  if(is.character(file)) {
+    ext <- file_ext(file)
+    if(ext=="tex") {
+      file <- paste0(file_path_sans_ext(file), ".", format)
+    }
+  }
+  if(is.character(stem)) {
+    file <- paste0(stem, ".", format)
+  }
+  if(is.null(file)) {
+    stop("The output file name could not be determined.", call. = FALSE)
+  }
+  if(dirname(file) != ".") {
+    if(!missing(dir)) {
+      warning("overriding `dir` argument with path information found in `file`.")
+    }
+    dir <- dirname(file)
+    file <- basename(file)
+  }
+  if(format=="pdf") {
+    ans <- st_aspdf(
+      x,
+      stem = file_path_sans_ext(file),
+      dir = build_dir,
+      ...
+    )
+  } else {
+    ans <- st_aspng(
+      x,
+      stem = file_path_sans_ext(file),
+      dir = build_dir,
+      ...
+    )
+  }
+  if(!is.null(dir)) {
+    file <- file.path(dir, file)
+  }
+  if(ans != file) {
+    file.copy(ans, file, overwrite = TRUE)
+  }
+  invisible(file)
+}

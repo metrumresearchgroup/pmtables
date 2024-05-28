@@ -1,3 +1,5 @@
+library(testthat)
+library(pmtables)
 
 do <- function(fn, ...) {
   output_dir <- tempfile("pmtables-test-")
@@ -81,4 +83,64 @@ test_that("standalone tex file looks as expected: change font", {
 
   x <- do(st_as_image, tab, stem = "test-roboto", font = "roboto")
   expect_match(x, "\\usepackage[sfdefault]{roboto}", all = FALSE, fixed = TRUE)
+})
+
+test_that("stable_save_image renders and saves with stem", {
+  where <- file.path(tempdir(), "test-as-image")
+  unlink(where, recursive = TRUE)
+  dir.create(where)
+  tab <- stable(stdata())
+  ans <- stable_save_image(tab, stem = "test-as-image-1", dir = where)
+  expect_true(file.exists(ans))
+  expect_equal(basename(ans), "test-as-image-1.png")
+
+  ans <- stable_save_image(tab, stem = "test-as-image-2", dir = where, format = "pdf")
+  expect_true(file.exists(ans))
+  expect_equal(basename(ans), "test-as-image-2.pdf")
+})
+
+test_that("stable_save_image renders and saves with file", {
+  where <- file.path(tempdir(), "test-as-image")
+  unlink(where, recursive = TRUE)
+  dir.create(where)
+  tab <- stable(stdata())
+  ans <- stable_save_image(tab, file = "test-as-image-1.foo", dir = where)
+  expect_true(file.exists(ans))
+  expect_equal(basename(ans), "test-as-image-1.foo")
+})
+
+test_that("stable_save_image renders and saves with file as full path", {
+  where <- file.path(tempdir(), "test-as-image")
+  unlink(where, recursive = TRUE)
+  dir.create(where)
+  tab <- stable(stdata())
+  file <- file.path(where, "test-as-image-1.foo")
+  ans <- stable_save_image(tab, file = file)
+  expect_true(file.exists(ans))
+  expect_equal(basename(ans), "test-as-image-1.foo")
+
+  expect_warning(
+    stable_save_image(tab, file = file, dir = tempdir()),
+    "overriding `dir` argument with path information found in `file`"
+  )
+})
+
+test_that("stable_save_image changes .tex to .<output-format>", {
+  where <- file.path(tempdir(), "test-as-image")
+  unlink(where, recursive = TRUE)
+  dir.create(where)
+  tab <- stable(stdata(), output_file = "test-as-image-3.tex")
+  ans <- stable_save_image(tab, dir = where)
+  expect_true(file.exists(ans))
+  expect_equal(basename(ans), "test-as-image-3.png")
+})
+
+test_that("stable_save_image requires stable object", {
+  tab <- unclass(stable(stdata()))
+  expect_error(stable_save_image(tab), "is not an 'stable' object")
+})
+
+test_that("stable_save_image takes a long table", {
+  tab <- stable_long(stdata())
+  expect_silent(stable_save_image(tab, stem = "foo2", dir = tempdir()))
 })
