@@ -18,14 +18,16 @@ stable_save_image(
 \item{x}{an stable object.}
 
 \item{file}{the final output file name; if \code{file} has \code{.tex} extension, the
-extension will be replaced with the value in \code{format}.}
+extension will be replaced with the value in \code{format}; if provided as a
+complete path, directory information will be used as \code{dir} (see below).}
 
 \item{stem}{used to form the final output file name; this argument will
 override what is provided in \code{file}.}
 
 \item{format}{the output file format.}
 
-\item{dir}{the final output directory.}
+\item{dir}{the final output directory; will be overwritten if \code{file} is
+given as a complete path.}
 
 \item{build_dir}{the directory where the image will be built.}
 
@@ -36,13 +38,30 @@ override what is provided in \code{file}.}
 Render and save a table in png or pdf format
 }
 \details{
-The table will be built / rendered in \code{tempdir()}.
+There is considerable flexibility for specifying the output file name. This
+flexibility is provided to accommodate several potential different
+anticipated workflows.
+\itemize{
+\item \code{file} can be obtained from the \code{stable_file} attribute on \code{x}; this
+attribute is set when the user specifies the output file name via
+\code{st_files()}; if a \code{.tex} extension is found on \code{file}, it will be
+changed to the value found in \code{format}; in this case, in this case, \code{file}
+is not expected to contain the full path and the output directory can be
+specified by \code{dir}
+\item \code{file} can be passed by the user; in this case, a complete path can
+be provided to the output file; this path will override
+what is in \code{dir} and a warning is given in case path location is found in
+both sources; if a \code{.tex} extension is found on \code{file}, it will be changed
+to the value found in \code{format}
+\item \code{stem} and \code{format} can be passed and the output file name will be
+\verb{<dir>/<stem>.<format>}
+}
 }
 \examples{
 tab <- stable(stdata(), output_file = "foo.tex")
 
 \dontrun{
-  ans <- stable_save_image(tab format = "pdf")
+  ans <- stable_save_image(tab, format = "pdf")
   basename(ans)
   st_image_show(ans)
 }

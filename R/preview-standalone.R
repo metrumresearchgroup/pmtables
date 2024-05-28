@@ -452,6 +452,26 @@ st_image_show <- function(path,
 #' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of
 #' `format`.
 #'
+#' @details
+#'
+#' There is considerable flexibility for specifying the output file name. This
+#' flexibility is provided to accommodate several potential different
+#' anticipated workflows.
+#'
+#' - `file` can be obtained from the `stable_file` attribute on `x`; this
+#'   attribute is set when the user specifies the output file name via
+#'   `st_files()`; if a `.tex` extension is found on `file`, it will be
+#'   changed to the value found in `format`; in this case, in this case, `file`
+#'   is not expected to contain the full path and the output directory can be
+#'   specified by `dir`
+#' - `file` can be passed by the user; in this case, a complete path can
+#'   be provided to the output file; this path will override
+#'   what is in `dir` and a warning is given in case path location is found in
+#'   both sources; if a `.tex` extension is found on `file`, it will be changed
+#'   to the value found in `format`
+#' - `stem` and `format` can be passed and the output file name will be
+#'   `<dir>/<stem>.<format>`
+#'
 #' @examples
 #' tab <- stable(stdata(), output_file = "foo.tex")
 #'
