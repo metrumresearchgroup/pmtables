@@ -446,7 +446,7 @@ st_image_show <- function(path,
 #' @param stem used to form the final output file name; this argument will
 #' override what is provided in `file`.
 #' @param format the output file format.
-#' @param dir the final output directory; will be overwritten if `file` is
+#' @param dir the final output directory; will be overridden if `file` is
 #' given as a complete path.
 #' @param build_dir the directory where the image will be built.
 #' @param ... passed to [st_aspdf()] or [st_aspng()], depending on the value of
@@ -461,8 +461,8 @@ st_image_show <- function(path,
 #' - `file` can be obtained from the `stable_file` attribute on `x`; this
 #'   attribute is set when the user specifies the output file name via
 #'   `st_files()`; if a `.tex` extension is found on `file`, it will be
-#'   changed to the value found in `format`; in this case, in this case, `file`
-#'   is not expected to contain the full path and the output directory can be
+#'   changed to the value found in `format`; in this case, `file` is not
+#'   expected to contain the full path and the output directory can be
 #'   specified by `dir`
 #' - `file` can be passed by the user; in this case, a complete path can
 #'   be provided to the output file; this path will override
@@ -513,7 +513,7 @@ stable_save_image <- function(x,
   }
   if(dirname(file) != ".") {
     if(!missing(dir)) {
-      warning("overwriting `dir` with path information found in `file`.")
+      warning("overriding `dir` argument with path information found in `file`.")
     }
     dir <- dirname(file)
     file <- basename(file)
