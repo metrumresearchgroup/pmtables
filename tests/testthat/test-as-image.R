@@ -121,7 +121,7 @@ test_that("stable_save_image renders and saves with file as full path", {
 
   expect_warning(
     stable_save_image(tab, file = file, dir = tempdir()),
-    "overwriting `dir` with path information found in `file`"
+    "overriding `dir` argument with path information found in `file`"
   )
 })
 

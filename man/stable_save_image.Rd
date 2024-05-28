@@ -26,7 +26,7 @@ override what is provided in \code{file}.}
 
 \item{format}{the output file format.}
 
-\item{dir}{the final output directory; will be overwritten if \code{file} is
+\item{dir}{the final output directory; will be overridden if \code{file} is
 given as a complete path.}
 
 \item{build_dir}{the directory where the image will be built.}
@@ -45,8 +45,8 @@ anticipated workflows.
 \item \code{file} can be obtained from the \code{stable_file} attribute on \code{x}; this
 attribute is set when the user specifies the output file name via
 \code{st_files()}; if a \code{.tex} extension is found on \code{file}, it will be
-changed to the value found in \code{format}; in this case, in this case, \code{file}
-is not expected to contain the full path and the output directory can be
+changed to the value found in \code{format}; in this case, \code{file} is not
+expected to contain the full path and the output directory can be
 specified by \code{dir}
 \item \code{file} can be passed by the user; in this case, a complete path can
 be provided to the output file; this path will override
