@@ -109,6 +109,22 @@ test_that("stable_save_image renders and saves with file", {
   expect_equal(basename(ans), "test-as-image-1.foo")
 })
 
+test_that("stable_save_image renders and saves with file as full path", {
+  where <- file.path(tempdir(), "test-as-image")
+  unlink(where, recursive = TRUE)
+  dir.create(where)
+  tab <- stable(stdata())
+  file <- file.path(where, "test-as-image-1.foo")
+  ans <- stable_save_image(tab, file = file)
+  expect_true(file.exists(ans))
+  expect_equal(basename(ans), "test-as-image-1.foo")
+
+  expect_warning(
+    stable_save_image(tab, file = file, dir = tempdir()),
+    "overwriting `dir` with path information found in `file`"
+  )
+})
+
 test_that("stable_save_image changes .tex to .<output-format>", {
   where <- file.path(tempdir(), "test-as-image")
   unlink(where, recursive = TRUE)
