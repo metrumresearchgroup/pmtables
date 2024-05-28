@@ -3,7 +3,6 @@
 #' @inheritParams pt_cont_wide
 #' @param value the data to summarize
 #' @param digit_fun a function to format digits in the summaries
-#' @param id a vector of subject IDs; same length as `value`
 #' @param digits the number of digits in the summary; the current implementation
 #' passes `digits` to `digit_fun()`
 #' @param ... not used
