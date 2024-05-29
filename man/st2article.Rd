@@ -10,7 +10,7 @@ st2article(
   .list = NULL,
   ntex = 1,
   stem = "view-st2article",
-  output_dir = tempdir(),
+  output_dir = getOption("pmtables.dir", tempdir()),
   template = NULL,
   margin = c("2.54cm", "3cm"),
   caption = NULL,

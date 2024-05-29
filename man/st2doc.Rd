@@ -7,7 +7,7 @@
 st2doc(
   text,
   preview = TRUE,
-  output_dir = tempdir(),
+  output_dir = getOption("pmtables.dir", tempdir()),
   output_file = "st2doc.pdf",
   landscape = is_lscape(text)
 )

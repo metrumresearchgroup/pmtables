@@ -51,7 +51,8 @@ form_caption <- function(long = NULL, short = NULL, label = NULL) {
 #'
 #' @seealso [st2article()], [st2report()], [st2viewer()]
 #' @export
-st2doc <- function(text, preview = TRUE, output_dir = tempdir(), # nocov start
+st2doc <- function(text, preview = TRUE,
+                   output_dir = getOption("pmtables.dir", tempdir()), # nocov start
                    output_file = "st2doc.pdf", landscape = is_lscape(text)) {
 
   assert_that(requireNamespace("fs"))
@@ -207,7 +208,8 @@ st2viewer <- function(...) st_preview(...)
 #' @export
 st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        stem = "view-st2article",
-                       output_dir = tempdir(), template = NULL,
+                       output_dir = getOption("pmtables.dir", tempdir()),
+                       template = NULL,
                        margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
   tables <- c(list(...),.list)

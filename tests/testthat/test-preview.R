@@ -63,9 +63,20 @@ test_that("error to call st_asis on non-stable object [PMT-TEST-0175]", {
     msg = "x does not inherit from class stable"
   )
 })
-          
+
 test_that("st2report - list names are escaped [PMT-TEST-0176]", {
   l <- list(a = stable(stdata()), `a_b` = stable(stdata()))
   a <- st2report(l, dry_run = TRUE)
   expect_equal(names(a), c("a", "a\\_b"))
+})
+
+test_that("st2report respects pmtables.dir option", {
+  tab <- stable(stdata())
+  dir <- tempfile()
+  unlink(dir, recursive = TRUE)
+  dir.create(dir)
+  options(pmtables.dir = dir)
+  x <- st2report(tab, show_pdf = FALSE, stem = "st2report-test-pmtables-dir")
+  expect_true(file.exists(file.path(dir, "st2report-test-pmtables-dir.pdf")))
+  options(pmtables.dir = NULL)
 })
