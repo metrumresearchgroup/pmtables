@@ -299,6 +299,10 @@ print.glossary_entry <- function(x, ...) {
 
 #' @export
 print.glossary <- function(x, ...) {
+  if(!length(x)) {
+    cat("No glossary entries found.")
+    return(invisible(NULL))
+  }
   label <- names(x)
   def <- map_chr(x, "definition")
   def <- substr(def, 0, 40)
@@ -344,14 +348,6 @@ c.glossary <- function(x, y, ...) {
     return(c(ans, more[[1]]))
   }
   ans
-}
-
-#' @export
-`$.glossary` <- function(x, name, ...) {
-  if(!exists(name, x)) {
-    return(NULL)
-  }
-  unclass(x)[[name]]
 }
 
 #' @export

@@ -150,7 +150,7 @@ test_that("parse a glossary entry", {
   expect_error(pmtables:::parse_tex_glossary(txt), "No acronym entries")
 })
 
-test_that("corece list to glossary object", {
+test_that("coerce list to glossary object", {
   g <- as_glossary(a = "b", c = "d")
   expect_length(g, 2)
   expect_is(g, "glossary")

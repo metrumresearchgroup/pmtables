@@ -13,7 +13,7 @@ glossary_notes(x, ...)
 
 \method{glossary_notes}{list}(x, format = guess_glo_fmt(x), ...)
 
-\method{glossary_notes}{glossary}(x, ..., sep = ": ", collapse = "; ", labels = NULL)
+\method{glossary_notes}{glossary}(x, ..., sep = ": ", collapse = "; ")
 }
 \arguments{
 \item{x}{path to a tex glossary file, a glossary object, or a list that can
@@ -27,9 +27,6 @@ be coerced to a glossary object with \code{\link[=as_glossary]{as_glossary()}}.}
 
 \item{collapse}{a character used to collapse definitions into a
 single string.}
-
-\item{labels}{a character vector or comma-separates string of definition
-labels to get appended to the end of names passed in \code{...}.}
 }
 \description{
 Return formatted notes from a tex glossary file or glossary object
@@ -42,6 +39,12 @@ glossary_notes(file, WT, CRCL)
 g <- as_glossary(list(ss = "steady state", ALB = "albumin", WT = "weight"))
 
 glossary_notes(g, ALB, ss)
+
+what <- c("WT", "NCA", "NPDE")
+
+g <- read_glossary(file)
+
+glossary_notes(g, tidyselect::all_of(what))
 
 }
 \seealso{
