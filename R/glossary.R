@@ -336,26 +336,29 @@ as.list.glossary_entry <- function(x, ...) {
 }
 
 #' @export
-c.glossary <- function(x, y, ...) {
-  cl <- class(x)
-  new_cols <- setdiff(names(y), names(x))
-  if(!identical(new_cols, names(y))) {
-    stop("`x` and `y` cannot share any names.")
+c.glossary <- function(..., recursive = FALSE) {
+  args <- list(...)
+  if (!length(args)) {
+    return(NULL)
   }
-  ans <- structure(c(unclass(x), unclass(y)), class = cl)
-  more <- list(...)
-  if(length(more)) {
-    return(c(ans, more[[1]]))
+  if (!all(map_lgl(args, function(x) inherits(x, "glossary")))) {
+    stop("All arguments must be glossary objects.")
   }
-  ans
+
+  cl <- class(args[[1]])
+  n <- sum(map_int(args, length))
+  nms <- unique(unlist(lapply(args, names)))
+  if (n > length(nms)) {
+    stop("Arguments cannot share any names.")
+  }
+
+  res <- do.call(c, lapply(args, unclass))
+  return(structure(res, class = cl))
 }
 
 #' @export
-`[.glossary` <- function(x, i, j, drop = FALSE) {
-  cl <- class(x)
-  x <- unclass(x)
-  x <- x[i]
-  structure(x, class = cl)
+`[.glossary` <- function(x, ...) {
+  structure(NextMethod(), class = class(x))
 }
 
 #' Select entries from a glossary object
