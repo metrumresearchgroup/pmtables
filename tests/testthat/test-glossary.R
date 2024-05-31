@@ -108,6 +108,20 @@ test_that("make glossary notes from glossary list", {
   )
 })
 
+test_that("make glossary notes from a list", {
+  l <- list(HT = "height", WT = "weight", AGE = "age")
+  notes <- glossary_notes(l, collapse = NULL)
+  expect_length(notes, 3)
+  expect_equal(notes[1], "HT: height")
+  expect_equal(notes[2], "WT: weight")
+  expect_equal(notes[3], "AGE: age")
+
+  notes <- glossary_notes(l, AGE, HT, collapse = NULL)
+  expect_length(notes, 2)
+  expect_equal(notes[1], "AGE: age")
+  expect_equal(notes[2], "HT: height")
+})
+
 test_that("parse a glossary entry", {
   txt <- "  \\newacronym{a}{b}{c} % { comment"
   x <- pmtables:::parse_tex_glossary(txt)

@@ -11,7 +11,7 @@ glossary_notes(x, ...)
 
 \method{glossary_notes}{character}(x, ..., format = guess_glo_fmt(x))
 
-\method{glossary_notes}{list}(x, format = guess_glo_fmt(x), ...)
+\method{glossary_notes}{list}(x, ...)
 
 \method{glossary_notes}{glossary}(x, ..., sep = ": ", collapse = "; ")
 }
@@ -36,7 +36,7 @@ file <- system.file("glo", "glossary.tex", package = "pmtables")
 
 glossary_notes(file, WT, CRCL)
 
-g <- as_glossary(list(ss = "steady state", ALB = "albumin", WT = "weight"))
+g <- as_glossary(ss = "steady state", ALB = "albumin", WT = "weight")
 
 glossary_notes(g, ALB, ss)
 
@@ -45,6 +45,10 @@ what <- c("WT", "NCA", "NPDE")
 g <- read_glossary(file)
 
 glossary_notes(g, tidyselect::all_of(what))
+
+l <- list(ss = "steady state", ALB = "albumin", WT = "weight")
+
+glossary_notes(l, ALB, ss)
 
 }
 \seealso{

@@ -242,7 +242,7 @@ abort_bad_glo_labels <- function(x, what) {
 #'
 #' glossary_notes(file, WT, CRCL)
 #'
-#' g <- as_glossary(list(ss = "steady state", ALB = "albumin", WT = "weight"))
+#' g <- as_glossary(ss = "steady state", ALB = "albumin", WT = "weight")
 #'
 #' glossary_notes(g, ALB, ss)
 #'
@@ -251,6 +251,10 @@ abort_bad_glo_labels <- function(x, what) {
 #' g <- read_glossary(file)
 #'
 #' glossary_notes(g, tidyselect::all_of(what))
+#'
+#' l <- list(ss = "steady state", ALB = "albumin", WT = "weight")
+#'
+#' glossary_notes(l, ALB, ss)
 #'
 #' @seealso [st_notes_glo()], [read_glossary()]
 #' @export
@@ -267,8 +271,8 @@ glossary_notes.character <- function(x, ..., format = guess_glo_fmt(x)) {
 
 #' @rdname glossary_notes
 #' @export
-glossary_notes.list <- function(x, format = guess_glo_fmt(x), ...) {
-  x <- as_glossary(x, format = format)
+glossary_notes.list <- function(x, ...) {
+  x <- as_glossary(x)
   glossary_notes(x, ...)
 }
 
