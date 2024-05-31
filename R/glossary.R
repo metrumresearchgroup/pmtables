@@ -303,8 +303,8 @@ print.glossary_entry <- function(x, ...) {
 
 #' @export
 print.glossary <- function(x, ...) {
-  if(!length(x)) {
-    cat("No glossary entries found.")
+  if(is.null(unlist(x))) {
+    cat("No glossary entries found.\n")
     return(invisible(NULL))
   }
   label <- names(x)
