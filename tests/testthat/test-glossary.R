@@ -72,7 +72,8 @@ test_that("load glossary notes", {
   expect_is(notes, "character")
   expect_true(any(grepl("WT&  ", notes, fixed = TRUE)))
 
-  notes <- glossary_notes(glofile, WT, CLF, collapse = NULL, labels = "QD,NPDE")
+  what <- c("QD", "NPDE", "WT", "CLF")
+  notes <- glossary_notes(glofile, tidyselect::all_of(what), collapse = NULL)
   expect_is(notes, "character")
   expect_length(notes, 4)
   expect_true(any(grepl("WT: ", notes, fixed = TRUE)))
@@ -108,7 +109,7 @@ test_that("make glossary notes from glossary list", {
 })
 
 test_that("parse a glossary entry", {
-  txt <- "\\newacronym{a}{b}{c} % { comment"
+  txt <- "  \\newacronym{a}{b}{c} % { comment"
   x <- pmtables:::parse_tex_glossary(txt)
   expect_length(x, 1)
   expect_named(x)

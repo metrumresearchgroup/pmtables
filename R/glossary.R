@@ -246,6 +246,12 @@ abort_bad_glo_labels <- function(x, what) {
 #'
 #' glossary_notes(g, ALB, ss)
 #'
+#' what <- c("WT", "NCA", "NPDE")
+#'
+#' g <- read_glossary(file)
+#'
+#' glossary_notes(g, tidyselect::all_of(what))
+#'
 #' @seealso [st_notes_glo()], [read_glossary()]
 #' @export
 glossary_notes <- function(x, ...) UseMethod("glossary_notes")
@@ -268,11 +274,8 @@ glossary_notes.list <- function(x, format = guess_glo_fmt(x), ...) {
 
 #' @rdname glossary_notes
 #' @export
-glossary_notes.glossary <- function(x, ..., sep = ": ", collapse = "; ",
-                                    labels = NULL) {
-  labels <- cvec_cs(labels)
-  dots <- eval_select(expr(c(...)), x)
-  labels <- c(names(dots), labels)
+glossary_notes.glossary <- function(x, ..., sep = ": ", collapse = "; ") {
+  labels <- names(eval_select(expr(c(...)), x))
   if(!length(labels)) labels <- names(x)
   build_glossary_notes(x, labels, sep, collapse)
 }
