@@ -163,6 +163,15 @@ NULL
 #' `context = "rmd"` option. See [st2article()] for instructions on
 #' how to view a complete working `latex` example.
 #'
+#' @section Glossaries:
+#' - Use [read_glossary()] to read abbreviations and definitions from a
+#'   file in `.tex` or `.yaml` format.
+#' - Use [as_glossary()] to create a glossary object in R.
+#' - Use [select_glossary()] to select specific labels from a glossary object.
+#' - Use [glossary_notes()] to create table notes from a glossary object.
+#' - Use [st_notes_glo()] to create glossary notes from a glossary object
+#'   and attach to a table in a pipeline.
+#'
 #' @section Data sets:
 #' - [analysis1] - a NMTRAN-style data set; the basis for most other
 #'   example data sets
