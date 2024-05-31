@@ -109,7 +109,7 @@ read_tex_glossary <- function(file) {
 parse_tex_glossary <- function(txt) {
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
-  txt <- sub("\\s*%.*", "", txt, perl = TRUE)
+  txt <- sub("[^\\\\]%.*", "", txt, perl = TRUE)
   m <- regexec("\\{(.+)\\}\\s*\\{(.+)\\}\\s*\\{(.+)\\}.*$", txt, perl = TRUE)
   parsed <- regmatches(txt, m)
   parsed <- lapply(parsed, trimws)

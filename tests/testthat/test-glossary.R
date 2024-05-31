@@ -108,14 +108,28 @@ test_that("make glossary notes from glossary list", {
 })
 
 test_that("parse a glossary entry", {
-  txt <- "\\newacronym{a}{b}{c} % comment"
+  txt <- "\\newacronym{a}{b}{c} % { comment"
   x <- pmtables:::parse_tex_glossary(txt)
   expect_length(x, 1)
   expect_named(x)
   expect_identical(names(x), "a")
   expect_equivalent(x$a, list(abbreviation = "b", definition = "c"))
 
-  txt <- "\\newacronym[options]{a}{b}{c} % comment"
+  txt <- "\\newacronym[options]{a}{b}{c} % } comment"
+  x <- pmtables:::parse_tex_glossary(txt)
+  expect_length(x, 1)
+  expect_named(x)
+  expect_identical(names(x), "a")
+  expect_equivalent(x$a, list(abbreviation = "b", definition = "c"))
+
+  txt <- "\\newacronym[options]{a}{b \\%}{c \\%} % } comment"
+  x <- pmtables:::parse_tex_glossary(txt)
+  expect_length(x, 1)
+  expect_named(x)
+  expect_identical(names(x), "a")
+  expect_equivalent(x$a, list(abbreviation = "b \\%", definition = "c \\%"))
+
+  txt <- "\\newacronym [ option ] { a } { b }   { c }  % {} comment"
   x <- pmtables:::parse_tex_glossary(txt)
   expect_length(x, 1)
   expect_named(x)
