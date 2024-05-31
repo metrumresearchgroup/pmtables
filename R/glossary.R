@@ -294,7 +294,7 @@ build_glossary_notes <- function(glossary, labels, sep, collapse) {
 
 #' @export
 print.glossary_entry <- function(x, ...) {
-  cat(ans <- paste0(x$definition, " (", x$abbreviation, ")"))
+  cat(paste0(x$definition, " (", x$abbreviation, ")\n"))
 }
 
 #' @export
