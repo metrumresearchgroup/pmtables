@@ -109,8 +109,10 @@ read_tex_glossary <- function(file) {
 parse_tex_glossary <- function(txt) {
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
-  m <- regexec("\\{(.+)\\}\\{(.+)\\}\\{(.+)\\}.*$", txt)
+  txt <- sub("\\s*%.*", "", txt, perl = TRUE)
+  m <- regexec("\\{(.+)\\}\\s*\\{(.+)\\}\\s*\\{(.+)\\}.*$", txt, perl = TRUE)
   parsed <- regmatches(txt, m)
+  parsed <- lapply(parsed, trimws)
   if(!length(parsed)) {
     abort("No acronym entries were found in `file`.")
   }
