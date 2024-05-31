@@ -9,7 +9,7 @@
     name of a glossary file
   - `st_notes_glo()` creates and and attaches notes to a table in a pipeline
 - `stable_save_image()` added to create an image from a table and save to a 
-  specific location; this builds on `[`st_aspdf()`]` and `st_aspng()` and 
+  specific location; this builds on `st_aspdf()` and `st_aspng()` and 
   adding convenient syntax and options (#333). 
 - The `maxex` argument to `sig()` can now be set through the `pmtables.maxex` 
   option (#328). 
