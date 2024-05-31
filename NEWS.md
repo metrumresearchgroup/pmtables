@@ -1,4 +1,23 @@
-# pmtables (development version)
+# pmtables 0.7.0
+
+- New functionality to create table notes from glossary files (#326). 
+  - `read_glossary()` reads from `.tex` or `.yaml` formatted files, returning a
+    glossary object
+  - `select_glossary()` selects specific entries from a glossary object
+  - `as_glossary()` creates a glossary object on the fly or from a list
+  - `glossary_notes()` creates notes from a glossary object, a list, or the 
+    name of a glossary file
+  - `st_notes_glo()` creates and and attaches notes to a table in a pipeline
+- `stable_save_image()` added to create an image from a table and save to a 
+  specific location; this builds on `[`st_aspdf()`]` and `st_aspng()` and 
+  adding convenient syntax and options (#333). 
+- The `maxex` argument to `sig()` can now be set through the `pmtables.maxex` 
+  option (#328). 
+
+## Bugs Fixed
+
+- Fixed a bug in `pt_cat_long()` when the `by` argument is used with no all 
+  data summary (#330).
 
 # pmtables 0.6.0
 
