@@ -286,3 +286,17 @@ test_that("select glossary items", {
   expect_identical(names(g2), c("b", "d"))
   expect_error(select_glossary(g1, b, e), "columns that don't exist")
 })
+
+test_that("print glossary object, including edge cases", {
+  l <- as_glossary(a = 'b', c = 'd')
+  x <- capture.output(print(l[0]))
+  expect_identical(x, "No glossary entries found.")
+  x <- capture.output(print(l[10]))
+  expect_identical(x, "No glossary entries found.")
+  x <- capture.output(print(l))
+  expect_length(x, 2)
+  expect_identical(x[1], "a : b")
+  expect_identical(x[2], "c : d")
+  xx <- capture.output(print(l[1]))
+  expect_identical(x[1], xx)
+})
