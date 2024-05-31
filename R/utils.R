@@ -175,3 +175,68 @@ ensure_parens <- function(x) {
   x[where] <- paste0("(", x[where], ")")
   x
 }
+
+#' Format the path to an image file
+#'
+#' @param file the name of the image file.
+#' @param dir the directory where the image file is stored.
+#' @param path.type a character string indicating how the path to the image
+#' file should be formatted; use `"proj"` to have the path expressed relative
+#' to the RStudio project file; use `"none"` to format without any directory
+#' information (just the image file name); use `"raw"` to print the complete
+#' path to the file using `dir` as-is.
+#'
+#' @details
+#' Note that the default value for `path.type` is `"proj"`. This requires
+#' that an RStudio project file is able to be found using
+#' [rprojroot::find_root()] with the [rprojroot::is_rstudio_project] criterion.
+#'
+#' Once mrggsave finds a root for a given working directory, it caches the value
+#' for the remainder of the R session. An error will be generated if an image is
+#' attempted to be saved using `path.type="proj"` but an RStudio project file
+#' was not able to be located.
+#'
+#' @return
+#' A string with the formatted image file path.
+#'
+#' @examples
+#' \dontrun{
+#' format_path("foo.txt", "my/path")
+#' format_path("foo.txt", "my/path", path.type = "none")
+#' format_path("foo.txt", "my/path", path.type = "raw")
+#' }
+#'
+#' @md
+#' @export
+format_path <- function(file, dir = NULL, path.type = c("proj", "none", "raw")) {
+
+  if(dirname(file) != ".") {
+    dir <- dirname(file)
+    file <- basename(file)
+  }
+
+  path.type <- match.arg(path.type)
+
+  if(is.null(dir)) path.type <- "none"
+
+  if (path.type == "proj") {
+    root <- find_cached_root()
+    if (is.null(root)) {
+      stop("No RStudio project root found for ", getwd())
+    }
+
+    if (!fs::path_has_parent(dir, root)) {
+      stop("dir is not under root\n",
+           paste("dir: ", dir, "\n"),
+           paste("root:", root))
+    }
+
+    return(path(path_rel(dir, start = root), file))
+  }
+
+  if(path.type=="raw") {
+    return(path(dir, file))
+  }
+
+  return(file)
+}

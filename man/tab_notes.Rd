@@ -12,6 +12,7 @@ tab_notes(
   r_file_label = "Source code: ",
   output_file = NULL,
   output_file_label = "Source file: ",
+  output_dir = NULL,
   ...
 )
 }

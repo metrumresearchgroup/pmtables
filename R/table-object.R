@@ -17,7 +17,7 @@ stop_if_ptobject <- function(x) {
 
 st_arg_names <- c(
   "data", "panel", "notes",
-  "align", "r_file", "output_file",
+  "align", "r_file", "output_file", "output_dir",
   "span", "span_split", "cols_rename", "cols_blank",
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
   "hline_at", "hline_from", "sizes", "units", "drop",
@@ -449,21 +449,25 @@ st_right <- function(x,...) {
 #' See the `r_file` and `output_file` arguments passed to [stable()] and then
 #' to [tab_notes()].
 #'
-#' @param x an stobject
-#' @param r set `r_file`, passed to [stable()]
-#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping
-#' @param output set `output_file`, passed to [stable()]
+#' @param x an stobject.
+#' @param r set `r_file`, passed to [stable()].
+#' @param output set `output_file`, the `.tex` file containing rendered
+#' table code; this may be the base file name or the full path to the
+#' file; passed to [stable()].
+#' @param output_dir directory for `output_file`; this will be overridden with
+#' a warning if `output_file` contains the full path to the file.
+#' @param esc passed to [tab_escape()]; use `NULL` to bypass escaping.
 #'
 #' @examples
 #' library(dplyr)
 #'
 #' ob <- st_new(ptdata())
 #'
-#' ob %>% st_files(r = "foo.R", output = "foo.tex") %>% st_make()
+#' ob %>% st_files(r = "foo.R", output = "foo.tex") %>% stable()
 #'
 #' @export
 st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
-                     esc = NULL) {
+                     output_dir = getOption("pmtables.dir", NULL), esc = NULL) {
   check_st(x)
   if(!missing(r)) {
     if(!is.null(esc)) r <- tab_escape(r, esc = esc)
@@ -472,6 +476,9 @@ st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
   if(!missing(output)) {
     if(!is.null(esc)) output <- tab_escape(output, esc = esc)
     x$output_file <- output
+  }
+  if(is.character(output_dir)) {
+    x$output_dir <- output_dir
   }
   x
 }

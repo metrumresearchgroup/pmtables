@@ -27,12 +27,13 @@ tab_notes <- function(notes, escape_fun = tab_escape,
                       r_file_label = "Source code: ",
                       output_file = NULL,
                       output_file_label = "Source file: ",
+                      output_dir = NULL,
                       ...) {
 
   assert_that(is.noteconfig(note_config))
 
   file_notes <- form_file_notes(r_file, r_file_label, output_file,
-                                output_file_label)
+                                output_file_label, output_dir)
 
   notes <- c(notes, file_notes)
 
@@ -54,7 +55,8 @@ tab_notes <- function(notes, escape_fun = tab_escape,
   # END notes --------------------------------------------------
   list(
     m_notes = m_notes, t_notes = t_notes, config = note_config,
-    notes = notes, r_file = r_file, output_file = output_file
+    notes = notes, r_file = r_file, output_file = output_file,
+    output_dir = output_dir
   )
 }
 
@@ -145,13 +147,25 @@ tpt_notes <- function(notes,x) {
 }
 
 form_file_notes <- function(r_file, r_file_label, output_file,
-                            output_file_label, ...) {
+                            output_file_label, output_dir, ...) {
   r_note <- output_note <- NULL
   if(is.character(r_file)) {
-    r_note <- paste0(r_file_label, basename(r_file))
+    r_note <- paste0(r_file_label, r_file)
   }
   if(is.character(output_file)) {
-    output_note <- paste0(output_file_label, basename(output_file))
+    if(!missing(output_dir) && dirname(output_file) != ".") {
+      odir <- normalizePath(output_dir, mustWork = FALSE)
+      fdir <- normalizePath(dirname(output_file), mustWork = FALSE)
+      if(!identical(odir, fdir)) {
+        warning("overriding `output_dir` argument with path information found in `output_file`.")
+      }
+      output_dir <- dirname(output_file)
+      output_file <- basename(output_file)
+    }
+    if(dirname(output_file) == ".") {
+      output_file <- format_path(output_file, dir = output_dir)
+    }
+    output_note <- paste0(output_file_label, output_file)
   }
   c(r_note, output_note)
 }
@@ -159,4 +173,3 @@ form_file_notes <- function(r_file, r_file_label, output_file,
 valid_file_notes_fun <- function(x) {
   identical(formals(x), formals(form_file_notes))
 }
-
