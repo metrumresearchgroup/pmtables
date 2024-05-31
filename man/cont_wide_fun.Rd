@@ -17,8 +17,6 @@ passes \code{digits} to \code{digit_fun()}}
 \item{na_fill}{value to fill with when all values in the summary are missing}
 
 \item{...}{not used}
-
-\item{id}{a vector of subject IDs; same length as \code{value}}
 }
 \value{
 A tibble with one row and one column named \code{summary}; the summary

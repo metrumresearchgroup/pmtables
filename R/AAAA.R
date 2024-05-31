@@ -19,7 +19,7 @@
 #' @importFrom utils capture.output packageVersion str
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
 #' @importFrom stringr str_extract
-#' @importFrom tools file_ext
+#' @importFrom tools file_ext file_path_sans_ext
 #' @importFrom lifecycle deprecate_warn
 #'
 #' @include summary-functions.R

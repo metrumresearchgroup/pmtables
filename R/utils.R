@@ -46,7 +46,7 @@ cvec_cs <- function(x) {
 #' @md
 #' @rdname sig
 #' @export
-sig <- function(x, digits = 3, maxex = NULL, ...) {
+sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", NULL), ...) {
 
   if(identical(class(x), "integer")) {
     return(as.character(x))

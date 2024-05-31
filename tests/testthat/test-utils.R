@@ -1,3 +1,4 @@
+library(testthat)
 
 context("test-utils")
 
@@ -28,7 +29,7 @@ test_that("rnd is a very simple wrapper for round [PMT-TEST-0242]", {
 test_that("check if regular expression is valid [PMT-TEST-0243]", {
   expect_true(pmtables:::is_regex("^abc$"))
   expect_false(pmtables:::is_regex("\\textbf{foo}"))
-  expect_true(pmtables:::is_str_regex(fixed("\\textbf{foo}")))
+  expect_true(pmtables:::is_str_regex(stringr::fixed("\\textbf{foo}")))
   x <- pmtables:::as_str_regex("\\textbf{foo}")
   expected <- if (utils::packageVersion("stringr") >= "1.5.0") {
     "stringr_fixed"
@@ -91,4 +92,15 @@ test_that("add parens to vector if not there [PMT-TEST-0245]", {
 
 test_that("sig returns character when passed int [PMT-UTIL-0001]", {
   expect_is(sig(1L), "character")
+})
+
+test_that("set maxex via option", {
+  a <- sig(123455666)
+  expect_equal(a, "1.23e+08")
+  options(pmtables.maxex = Inf)
+  b <- sig(123455666)
+  expect_equal(b, "123000000")
+  options(pmtables.maxex = NULL)
+  c <- sig(123455666)
+  expect_identical(a, c)
 })
