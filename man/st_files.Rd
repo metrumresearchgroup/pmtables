@@ -13,13 +13,18 @@ st_files(
 )
 }
 \arguments{
-\item{x}{an stobject}
+\item{x}{an stobject.}
 
-\item{r}{set \code{r_file}, passed to \code{\link[=stable]{stable()}}}
+\item{r}{set \code{r_file}, passed to \code{\link[=stable]{stable()}}.}
 
-\item{output}{set \code{output_file}, passed to \code{\link[=stable]{stable()}}}
+\item{output}{set \code{output_file}, the \code{.tex} file containing rendered
+table code; this may be the base file name or the full path to the
+file; passed to \code{\link[=stable]{stable()}}.}
 
-\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping}
+\item{output_dir}{directory for \code{output_file}; this will be overridden with
+a warning if \code{output_file} contains the full path to the file.}
+
+\item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping.}
 }
 \description{
 See the \code{r_file} and \code{output_file} arguments passed to \code{\link[=stable]{stable()}} and then
@@ -30,6 +35,6 @@ library(dplyr)
 
 ob <- st_new(ptdata())
 
-ob \%>\% st_files(r = "foo.R", output = "foo.tex") \%>\% st_make()
+ob \%>\% st_files(r = "foo.R", output = "foo.tex") \%>\% stable()
 
 }

@@ -14,7 +14,7 @@ stable_save(
 \arguments{
 \item{x}{a table formatted with \code{\link[=stable]{stable()}}.}
 
-\item{file}{the file.}
+\item{file}{the output file name.}
 
 \item{dir}{the directory where the file is to be saved.}
 
@@ -22,6 +22,8 @@ stable_save(
 will be written in the output file. This argument is not utilized for
 \code{stable_long} objects, where captions are \emph{always} written if they are
 specified.}
+
+\item{path}{the complete path to the output file.}
 }
 \value{
 The \code{stable} or \code{stable_long} object is returned invisibly.

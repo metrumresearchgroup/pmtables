@@ -267,7 +267,7 @@ stable.data.frame <- function(data,
     class = "stable",
     caption = caption,
     stable_file = note_data$output_file,
-    stable_dir = note_data$output_dir
+    stable_file_locked = note_data$stable_file_locked
   )
 
   if(isTRUE(inspect)) {

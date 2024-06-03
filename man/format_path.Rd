@@ -4,7 +4,7 @@
 \alias{format_path}
 \title{Format the path to an image file}
 \usage{
-format_path(file, dir = ".", path.type = c("proj", "none", "raw"))
+format_path(file, dir = NULL, path.type = c("proj", "none", "raw"))
 }
 \arguments{
 \item{file}{the name of the image file.}
