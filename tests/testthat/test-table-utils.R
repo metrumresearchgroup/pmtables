@@ -30,9 +30,9 @@ test_that("test-table-utils-stable_save [PMT-TEST-0237]", {
   read <- readLines(tmp)
   expect_identical(as.character(x), read)
   expect_error(stable_save(as.character(x)), "x is not an 'stable' object")
-  expect_error(stable_save(x, file = NULL), "the value of 'file' is NULL")
+  expect_error(stable_save(x, file = NULL), "Please provide a file name")
   x <- stable(data.frame(a = 1))
-  expect_error(stable_save(x), "and the 'file' argument is missing")
+  expect_error(stable_save(x), "Please provide a file name")
 })
 
 test_that("save a list of tables [PMT-TEST-0238]", {
@@ -93,3 +93,4 @@ test_that("table-utils paste units [PMT-TEST-0239]", {
     c("B mg", "E", "D kg", "C pounds", "A")
   )
 })
+

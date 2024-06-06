@@ -27,15 +27,18 @@ stable_save <- function(x,
       call.=FALSE
     )
   }
-  use_dir <- isFALSE(attr(x, "stable_file_locked"))
+  if(!is.character(file)) {
+    stop("Please provide a file name for saving the table.")
+  }
+  path_locked <- isTRUE(attr(x, "stable_file_locked"))
   file_has_dir <- dirname(file) != "."
   if(!missing(dir)) {
-    if(file_has_dir | !use_dir) {
+    if(file_has_dir | path_locked) {
       warning("ignoring `dir` argument; complete path provided via `file`.")
     }
   }
   con <- file
-  if(!file_has_dir && use_dir && is.character(dir)) {
+  if(!file_has_dir && !path_locked && is.character(dir)) {
     con <- file.path(dir, con)
   }
   # Priority goes to function argument so we can use this to

@@ -238,7 +238,7 @@ format_path <- function(file, dir = NULL, path.type = c("proj", "none", "raw")) 
     return(path(dir, file))
   }
 
-  return(file)
+  return(basename(file))
 }
 
 #' Get the current pmtables directory

@@ -4,8 +4,8 @@
 #' @inheritParams stable
 #' @param note_config a [noteconf()] object used to configure how table notes
 #' are displayed; see also [st_noteconf()].
-#' @param r_file the name of the R file containing code to generate the table; the
-#' file name will be included in the notes in the table footer; ; see also
+#' @param r_file the name of the R file containing code to generate the table;
+#' the file name will be included in the notes in the table footer; see also
 #' [st_files()].
 #' @param r_file_label a prefix for `r_file`.
 #' @param output_file the name of the output file where the table text will be
@@ -34,9 +34,10 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 
   assert_that(is.noteconfig(note_config))
 
-  file_info <- tab_files(output_file, output_dir, r_file)
+  file_info <- tab_files(output_file, output_dir, r_file,
+                         r_file_label, output_file_label)
 
-  notes <- c(file_info$notes, notes)
+  notes <- c(notes, file_info$notes)
 
   if(note_config$sanitize) {
     assert_that(is.character(notes) || is.null(notes))

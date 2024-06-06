@@ -28,8 +28,8 @@ data}
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; see also \code{\link[=st_noteconf]{st_noteconf()}}.}
 
-\item{r_file}{the name of the R file containing code to generate the table; the
-file name will be included in the notes in the table footer; ; see also
+\item{r_file}{the name of the R file containing code to generate the table;
+the file name will be included in the notes in the table footer; see also
 \code{\link[=st_files]{st_files()}}.}
 
 \item{r_file_label}{a prefix for \code{r_file}.}
