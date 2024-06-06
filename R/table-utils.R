@@ -3,7 +3,6 @@
 #' @param x a table formatted with [stable()].
 #' @param file the output file name.
 #' @param dir the directory where the file is to be saved.
-#' @param path the complete path to the output file.
 #' @param write_caption logical; if `TRUE` and a caption was specified, it
 #' will be written in the output file. This argument is not utilized for
 #' `stable_long` objects, where captions are _always_ written if they are

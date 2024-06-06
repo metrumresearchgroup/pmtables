@@ -3,16 +3,18 @@
 #'
 #' @inheritParams stable
 #' @param note_config a [noteconf()] object used to configure how table notes
-#' are displayed; ; see also [st_noteconf()]
+#' are displayed; see also [st_noteconf()].
 #' @param r_file the name of the R file containing code to generate the table; the
 #' file name will be included in the notes in the table footer; ; see also
-#' [st_files()]
-#' @param r_file_label a prefix for `r_file`
+#' [st_files()].
+#' @param r_file_label a prefix for `r_file`.
 #' @param output_file the name of the output file where the table text will be
 #' saved; the file name will be included in the notes in the table footer; see
-#' also [st_files()]
-#' @param output_file_label a prefix for `output_file`
-#' @param ... not used
+#' also [st_files()].
+#' @param output_file_label a prefix for `output_file`.
+#' @param output_dir directory location where output `.tex` file is saved;
+#' defaults to working directory.
+#' @param ... not used.
 #'
 #' @examples
 #' tab <- stable(

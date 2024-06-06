@@ -22,8 +22,6 @@ stable_save(
 will be written in the output file. This argument is not utilized for
 \code{stable_long} objects, where captions are \emph{always} written if they are
 specified.}
-
-\item{path}{the complete path to the output file.}
 }
 \value{
 The \code{stable} or \code{stable_long} object is returned invisibly.

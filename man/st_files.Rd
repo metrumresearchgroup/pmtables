@@ -8,7 +8,7 @@ st_files(
   x,
   r = getOption("mrg.script", NULL),
   output = NULL,
-  output_dir = getOption("pmtables.dir", NULL),
+  output_dir = getOption("pmtables.dir"),
   esc = NULL
 )
 }
