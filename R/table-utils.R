@@ -52,14 +52,6 @@ stable_save <- function(x,
   return(invisible(x))
 }
 
-#' Get the current pmtables directory
-#'
-#'
-#' @export
-pmtables.dir <- function() {
-  getOption("pmtables.dir")
-}
-
 insrt_vec <- function(vec, nw, where) {
   vec <- as.list(vec)
   for(i in seq_along(nw)) {

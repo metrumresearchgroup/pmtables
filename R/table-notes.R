@@ -69,7 +69,8 @@ tab_files <- function(output_file, output_dir, r_file = NULL,
       output_file <- basename(output_file)
       stable_file_locked <- TRUE
     }
-    notes_file <- format_path(output_file, dir = output_dir)
+    notes_file <- format_path(output_file, dir = output_dir,
+                              path.type = getOption("pmtables.path.type", "none"))
   }
   if(is.character(output_dir)) {
     output_path <- normalizePath(output_dir, mustWork = FALSE)

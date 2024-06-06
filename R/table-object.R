@@ -467,7 +467,8 @@ st_right <- function(x,...) {
 #'
 #' @export
 st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
-                     output_dir = getOption("pmtables.dir", NULL), esc = NULL) {
+                     output_dir = getOption("pmtables.dir"),
+                     esc = NULL) {
   check_st(x)
   if(!missing(r)) {
     if(!is.null(esc)) r <- tab_escape(r, esc = esc)

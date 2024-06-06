@@ -240,3 +240,11 @@ format_path <- function(file, dir = NULL, path.type = c("proj", "none", "raw")) 
 
   return(file)
 }
+
+#' Get the current pmtables directory
+#'
+#'
+#' @export
+pmtables.dir <- function() {
+  getOption("pmtables.dir")
+}
