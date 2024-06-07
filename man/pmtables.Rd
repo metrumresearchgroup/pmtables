@@ -2,6 +2,7 @@
 % Please edit documentation in R/AAAA.R
 \docType{package}
 \name{pmtables}
+\alias{pmtables-package}
 \alias{pmtables}
 \title{pmtables: Tables for Pharmacometrics.}
 \description{
@@ -165,6 +166,19 @@ fence looks like by running \code{st_latex("abc")}. Asserting that the code is
 how to view a complete working \code{latex} example.
 }
 
+\section{Glossaries}{
+
+\itemize{
+\item Use \code{\link[=read_glossary]{read_glossary()}} to read abbreviations and definitions from a
+file in \code{.tex} or \code{.yaml} format.
+\item Use \code{\link[=as_glossary]{as_glossary()}} to create a glossary object in R.
+\item Use \code{\link[=select_glossary]{select_glossary()}} to select specific labels from a glossary object.
+\item Use \code{\link[=glossary_notes]{glossary_notes()}} to create table notes from a glossary object.
+\item Use \code{\link[=st_notes_glo]{st_notes_glo()}} to create glossary notes from a glossary object
+and attach to a table in a pipeline.
+}
+}
+
 \section{Data sets}{
 
 \itemize{
@@ -178,3 +192,24 @@ each individual
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://metrumresearchgroup.github.io/pmtables}
+  \item \url{https://github.com/metrumresearchgroup/pmtables}
+  \item Report bugs at \url{https://github.com/metrumresearchgroup/pmtables/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Kyle Baron \email{kyleb@metrumrg.com}
+
+Other contributors:
+\itemize{
+  \item Anna-Christina Nevison \email{annan@metrumrg.com} [contributor]
+  \item Katherine Kay \email{katherinek@metrumrg.com} [contributor]
+  \item Devin Pastoor \email{devin.pastoor@gmail.com} [contributor]
+  \item Kyle Barrett \email{barrettk@metrumrg.com} [contributor]
+}
+
+}

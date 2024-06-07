@@ -28,7 +28,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("metrumresearchgroup/pmplots")
+devtools::install_github("metrumresearchgroup/pmtables")
 ```
 
 # Documentation

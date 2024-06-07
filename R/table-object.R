@@ -388,6 +388,48 @@ st_noteconf <- function(x,...) {
 #' @export
 st_notes_conf <- st_noteconf
 
+#' Add table notes based on acronyms from a tex glossary file
+#'
+#' @param x an stobject.
+#' @param glossary a glossary object generated from [read_glossary()] or
+#' [as_glossary()].
+#' @param ... unquoted names matching those names in `glossary`.
+#' @param sep character to separate name and value.
+#' @param collapse a character used to collapse definitions into a
+#' single string.
+#' @param width if numeric, [st_notes_detach()] will be called with `width`
+#' argument.
+#' @param labels a character vector or comma-separates string of definition
+#' labels to get appended to the end of names passed in `...`.
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' file <- system.file("glo", "glossary.tex", package = "pmtables")
+#'
+#' x <- read_glossary(file)
+#'
+#' st_new(stdata()) %>%
+#'   st_notes_glo(x, WT, CRCL, SCR, width = 1) %>%
+#'   stable()
+#'
+#' @seealso [glossary_notes()], [read_glossary()]
+#' @export
+st_notes_glo <- function(x, glossary, ..., sep = ": ", collapse = "; ",
+                         labels = NULL, width = NULL) {
+  if(!is.list(glossary) || !is_named(glossary)) {
+    abort("`glossary` must be a named list.")
+  }
+  labels <- cvec_cs(labels)
+  labels <- c(new_names(enquos(...)), labels)
+  if(!length(labels)) labels <- names(glossary)
+  notes <- build_glossary_notes(glossary, labels, sep, collapse)
+  if(is.numeric(width)) {
+    x <- st_notes_detach(x, width = width)
+  }
+  st_notes(x, notes)
+}
+
 #' Add column alignment information to st object
 #'
 #' See the `align` argument to [stable()]. This function may be called several
