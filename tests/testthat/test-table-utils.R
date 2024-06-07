@@ -84,6 +84,11 @@ test_that("opt in to saving caption", {
   expect_match(text3, "\\caption", fixed = TRUE, all = FALSE)
 })
 
+test_that("control output file path - non-option", {
+
+
+})
+
 test_that("table-utils paste units [PMT-TEST-0239]", {
   cols <- LETTERS[c(2,5,4,3,1)]
   units <- list(C = "pounds", X = "none", B = "mg", D = "kg", Z = "liters")
