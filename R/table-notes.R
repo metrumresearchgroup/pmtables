@@ -65,7 +65,7 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 tab_files <- function(output_file, output_dir, r_file = NULL,
                       r_file_label = NULL, output_file_label = NULL) {
   output_path <- notes_file <-  NULL
-  stable_file_locked <- FALSE
+  stable_file_locked <- NULL
   if(is.character(output_file)) {
     if(dirname(output_file) != ".") {
       output_dir <- dirname(output_file)
