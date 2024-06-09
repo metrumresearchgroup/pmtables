@@ -84,8 +84,71 @@ test_that("opt in to saving caption", {
   expect_match(text3, "\\caption", fixed = TRUE, all = FALSE)
 })
 
-test_that("control output file path - non-option", {
+test_that("set output directory - non-option", {
+  x <- pmtables::tab_notes(
+    notes = letters,
+    output_file = "table.tex"
+  )
+  expect_equal(x$output_dir, NULL)
+  expect_equal(x$output_file, "table.tex")
+  expect_equal(x$notes_file, "table.tex")
+  expect_null(x$stable_file_locked)
 
+  x <- pmtables:::tab_notes(
+    notes = letters,
+    output_file = "table.tex",
+    output_dir = "bar"
+  )
+  expect_equal(x$output_dir, "bar")
+  expect_equal(x$output_file, "bar/table.tex")
+  expect_equal(x$notes_file, "table.tex")
+  expect_true(x$stable_file_locked)
+
+  options(pmtables.dir = "yak")
+  x <- pmtables::tab_notes(
+    notes = letters,
+    output_file = "table.tex",
+    output_dir = "bar"
+  )
+  expect_equal(x$output_dir, "bar")
+  expect_equal(x$output_file, "bar/table.tex")
+  expect_equal(x$notes_file, "table.tex")
+  expect_true(x$stable_file_locked)
+  options(pmtables.dir = NULL)
+
+  options(pmtables.dir = "yak")
+  x <- pmtables::tab_notes(
+    notes = letters,
+    output_file = "table.tex"
+  )
+  expect_equal(x$output_dir, "yak")
+  expect_equal(x$output_file, "yak/table.tex")
+  expect_equal(x$notes_file, "table.tex")
+  expect_true(x$stable_file_locked)
+
+  x <- pmtables::tab_notes(
+    notes = letters,
+    output_file = "table.tex",
+    output_dir = "bar"
+  )
+  expect_equal(x$output_dir, "bar")
+  expect_equal(x$output_file, "bar/table.tex")
+  expect_equal(x$notes_file, "table.tex")
+  expect_true(x$stable_file_locked)
+  options(pmtables.dir = NULL)
+
+  # Path on file takes priority
+  x <- pmtables:::tab_notes(
+    letters,
+    output_file = "foo/table.tex",
+    output_dir = "bar"
+  )
+  expect_equal(x$output_dir, "foo")
+  expect_equal(x$output_file, "foo/table.tex")
+  expect_equal(x$notes_file, "table.tex")
+  expect_true(x$stable_file_locked)
+
+  options(pmtables.dir = NULL)
 
 })
 

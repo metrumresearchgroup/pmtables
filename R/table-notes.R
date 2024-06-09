@@ -29,7 +29,7 @@ tab_notes <- function(notes, escape_fun = tab_escape,
                       r_file_label = "Source code: ",
                       output_file = NULL,
                       output_file_label = "Source file: ",
-                      output_dir = NULL,
+                      output_dir = getOption("pmtables.dir"),
                       ...) {
 
   assert_that(is.noteconfig(note_config))
