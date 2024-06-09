@@ -64,7 +64,7 @@ tab_notes <- function(notes, escape_fun = tab_escape,
 
 tab_files <- function(output_file, output_dir, r_file = NULL,
                       r_file_label = NULL, output_file_label = NULL) {
-  output_path <- notes_file <-  NULL
+  output_path <- output_note <-  NULL
   stable_file_locked <- NULL
   if(is.character(output_file)) {
     if(dirname(output_file) != ".") {
@@ -72,24 +72,28 @@ tab_files <- function(output_file, output_dir, r_file = NULL,
       output_file <- basename(output_file)
       stable_file_locked <- TRUE
     }
-    notes_file <- format_path(output_file, dir = output_dir,
-                              path.type = getOption("pmtables.path.type", "none"))
+    output_note <- format_path(output_file, dir = output_dir,
+                               path.type = getOption("pmtables.path.type", "none"))
   }
   if(is.character(output_dir)) {
     output_path <- normalizePath(output_dir, mustWork = FALSE)
     output_file <- file.path(output_path, output_file)
     stable_file_locked <- TRUE
   }
-  notes <- form_file_notes(r_file, r_file_label, output_file = notes_file,
-                           output_file_label)
+  notes <- form_file_notes(
+    r_file,
+    r_file_label,
+    output_file = output_note,
+    output_file_label
+  )
+
   list(
-    r_file = r_file,
-    output_file = output_file,
-    output_dir = output_dir,
-    output_path = output_path,
-    stable_file_locked = stable_file_locked,
-    notes_file = notes_file,
-    notes = notes
+    notes = notes, # Notes entries for r and output files
+    r_file = r_file, # Name of the R file
+    output_file = output_file, # Full path to output file
+    output_note = output_note, # Output file, formatted
+    output_dir = output_dir, # Output file path
+    stable_file_locked = stable_file_locked # Has the path been locked?
   )
 }
 

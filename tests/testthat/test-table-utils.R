@@ -91,7 +91,7 @@ test_that("set output directory - non-option", {
   )
   expect_equal(x$output_dir, NULL)
   expect_equal(x$output_file, "table.tex")
-  expect_equal(x$notes_file, "table.tex")
+  expect_equal(x$output_note, "table.tex")
   expect_null(x$stable_file_locked)
 
   x <- pmtables:::tab_notes(
@@ -101,7 +101,7 @@ test_that("set output directory - non-option", {
   )
   expect_equal(x$output_dir, "bar")
   expect_equal(x$output_file, "bar/table.tex")
-  expect_equal(x$notes_file, "table.tex")
+  expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
 
   options(pmtables.dir = "yak")
@@ -112,7 +112,7 @@ test_that("set output directory - non-option", {
   )
   expect_equal(x$output_dir, "bar")
   expect_equal(x$output_file, "bar/table.tex")
-  expect_equal(x$notes_file, "table.tex")
+  expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
   options(pmtables.dir = NULL)
 
@@ -123,7 +123,7 @@ test_that("set output directory - non-option", {
   )
   expect_equal(x$output_dir, "yak")
   expect_equal(x$output_file, "yak/table.tex")
-  expect_equal(x$notes_file, "table.tex")
+  expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
 
   x <- pmtables::tab_notes(
@@ -133,7 +133,7 @@ test_that("set output directory - non-option", {
   )
   expect_equal(x$output_dir, "bar")
   expect_equal(x$output_file, "bar/table.tex")
-  expect_equal(x$notes_file, "table.tex")
+  expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
   options(pmtables.dir = NULL)
 
@@ -145,7 +145,7 @@ test_that("set output directory - non-option", {
   )
   expect_equal(x$output_dir, "foo")
   expect_equal(x$output_file, "foo/table.tex")
-  expect_equal(x$notes_file, "table.tex")
+  expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
 
   options(pmtables.dir = NULL)
