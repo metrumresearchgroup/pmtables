@@ -45,7 +45,7 @@ also \code{\link[=st_files]{st_files()}}.}
 defaults to working directory.}
 
 \item{path.type}{whether to include the path to the output file in the
-table now and how to format it; options include "none", "proj", and
+table notes and how to format it; options include "none", "proj", and
 "raw"; see \code{\link[=format_table_path]{format_table_path()}}.}
 
 \item{...}{not used.}

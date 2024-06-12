@@ -176,14 +176,14 @@ ensure_parens <- function(x) {
   x
 }
 
-#' Format the path to an image file
+#' Format the path to output file
 #'
-#' @param file the name of the image file.
-#' @param dir the directory where the image file is stored.
-#' @param path.type a character string indicating how the path to the image
+#' @param file the name of the output file.
+#' @param dir the directory where the output file is stored.
+#' @param path.type a character string indicating how the path to the output
 #' file should be formatted; use `"proj"` to have the path expressed relative
-#' to the RStudio project file; use `"none"` to format without any directory
-#' information (just the image file name); use `"raw"` to print the complete
+#' to an RStudio project file; use `"none"` to format without any directory
+#' information (just the output file name); use `"raw"` to print the complete
 #' path to the file using `dir` as-is.
 #'
 #' @details
@@ -201,9 +201,9 @@ ensure_parens <- function(x) {
 #'
 #' @examples
 #' \dontrun{
-#' format_table_path("foo.txt", "my/path")
-#' format_table_path("foo.txt", "my/path", path.type = "none")
-#' format_table_path("foo.txt", "my/path", path.type = "raw")
+#' format_table_path("foo.tex", "my/path")
+#' format_table_path("foo.tex", "my/path", path.type = "proj")
+#' format_table_path("foo.tx", "my/path", path.type = "raw")
 #' }
 #'
 #' @md

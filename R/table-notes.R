@@ -15,7 +15,7 @@
 #' @param output_dir directory location where output `.tex` file is saved;
 #' defaults to working directory.
 #' @param path.type whether to include the path to the output file in the
-#' table now and how to format it; options include "none", "proj", and
+#' table notes and how to format it; options include "none", "proj", and
 #' "raw"; see [pmtables::format_table_path()].
 #' @param ... not used.
 #'
