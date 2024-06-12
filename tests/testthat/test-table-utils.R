@@ -84,7 +84,7 @@ test_that("opt in to saving caption", {
   expect_match(text3, "\\caption", fixed = TRUE, all = FALSE)
 })
 
-test_that("set output directory - non-option", {
+test_that("set output directory - default", {
   x <- pmtables::tab_notes(
     notes = letters,
     output_file = "table.tex"
@@ -94,6 +94,14 @@ test_that("set output directory - non-option", {
   expect_equal(x$output_note, "table.tex")
   expect_null(x$stable_file_locked)
 
+  data <- stdata()
+  tab <- stable(data, output_file = "table.tex")
+  expect_match(tab, "Source file: table.tex", fixed = TRUE, all = FALSE)
+  expect_equal(attr(tab, "stable_file"), "table.tex")
+  expect_null(attr(tab, "stable_file_locked"))
+})
+
+test_that("set output directory - pass dir", {
   x <- pmtables:::tab_notes(
     notes = letters,
     output_file = "table.tex",
@@ -104,18 +112,15 @@ test_that("set output directory - non-option", {
   expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
 
-  options(pmtables.dir = "yak")
-  x <- pmtables::tab_notes(
-    notes = letters,
-    output_file = "table.tex",
-    output_dir = "bar"
-  )
-  expect_equal(x$output_dir, "bar")
-  expect_equal(x$output_file, "bar/table.tex")
-  expect_equal(x$output_note, "table.tex")
-  expect_true(x$stable_file_locked)
-  options(pmtables.dir = NULL)
+  data <- stdata()
+  tab <- stable(data, output_file = "table.tex", output_dir = "bar")
+  expect_match(tab, "Source file: table.tex", fixed = TRUE, all = FALSE)
+  expect_equal(attr(tab, "stable_file"), "bar/table.tex")
+  expect_true(attr(tab, "stable_file_locked"))
+})
 
+test_that("set output directory - set by option", {
+  on.exit(options(pmtables.path.type = NULL, pmtables.dir = NULL), add = TRUE)
   options(pmtables.dir = "yak")
   x <- pmtables::tab_notes(
     notes = letters,
@@ -126,6 +131,15 @@ test_that("set output directory - non-option", {
   expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
 
+  data <- stdata()
+  tab <- stable(data, output_file = "table.tex")
+  expect_match(tab, "Source file: table.tex", fixed = TRUE, all = FALSE)
+  expect_equal(attr(tab, "stable_file"), "yak/table.tex")
+  expect_true(attr(tab, "stable_file_locked"))
+  options(pmtables.dir = NULL)
+
+  # Passing directory overrides option
+  options(pmtables.dir = "yak")
   x <- pmtables::tab_notes(
     notes = letters,
     output_file = "table.tex",
@@ -137,7 +151,18 @@ test_that("set output directory - non-option", {
   expect_true(x$stable_file_locked)
   options(pmtables.dir = NULL)
 
-  # Path on file takes priority
+  data <- stdata()
+  tab <- stable(data, output_file = "table.tex", output_dir = "bar")
+  expect_match(tab, "Source file: table.tex", fixed = TRUE, all = FALSE)
+  expect_equal(attr(tab, "stable_file"), "bar/table.tex")
+  expect_true(attr(tab, "stable_file_locked"))
+})
+
+test_that("set output directory - pass as part of a file", {
+  on.exit(options(pmtables.path.type = NULL, pmtables.dir = NULL), add = TRUE)
+
+  # Pass directory as part of file
+  options(pmtables.dir = "yak")
   x <- pmtables:::tab_notes(
     letters,
     output_file = "foo/table.tex",
@@ -148,8 +173,85 @@ test_that("set output directory - non-option", {
   expect_equal(x$output_note, "table.tex")
   expect_true(x$stable_file_locked)
 
-  options(pmtables.dir = NULL)
+  data <- stdata()
+  tab <- stable(data, output_file = "foo/table.tex", output_dir = "bar")
+  expect_match(tab, "Source file: table.tex", fixed = TRUE, all = FALSE)
+  expect_equal(attr(tab, "stable_file"), "foo/table.tex")
+  expect_true(attr(tab, "stable_file_locked"))
+})
 
+test_that("option to format path - non project", {
+  on.exit(options(pmtables.path.type = NULL, pmtables.dir = NULL), add = TRUE)
+
+  options(pmtables.path.type = "none")
+  x <- pmtables:::tab_notes(
+    letters,
+    output_file = "table.tex"
+  )
+
+  options(pmtables.path.type = "raw")
+  tmp <- tempdir()
+  file <- fs::path(tmp, "table.tex")
+  x <- pmtables:::tab_notes(
+    letters,
+    output_file = file
+  )
+  expect_equal(x$output_note, file)
+})
+
+test_that("option to format path, path.type = proj", {
+  on.exit(options(pmtables.path.type = NULL, pmtables.dir = NULL), add = TRUE)
+  tdir <- tempfile("pmtables-test-") #normalizePath(tempdir(), "pmtables-test-")
+  fs::dir_create(tdir)
+  on.exit(unlink(tdir, recursive = TRUE), add = TRUE)
+
+  file <- "bar.tex"
+  dir <- "tables/foo"
+
+  withr::with_dir(tdir, {
+    expect_error(format_table_path(file, dir, path.type = "proj"),
+                 "No RStudio project")
+  })
+
+  dir_proj <- file.path(tdir, "project")
+  fs::dir_create(dir_proj)
+  dir_proj <- normalizePath(dir_proj)
+  cat("Version: 1.0\n", file = file.path(dir_proj, "foo.Rproj"))
+
+  withr::with_dir(dir_proj, {
+    expect_equal(
+      format_table_path(
+        file,
+        dir,
+        path.type = "proj"
+      ), "tables/foo/bar.tex")
+    expect_equal(
+      format_table_path(
+        file,
+        file.path(dir_proj, dir),
+        path.type = "proj"
+      ), "tables/foo/bar.tex")
+
+    expect_error(format_table_path(file, tdir, path.type = "proj"),
+                 "not under root")
+  })
+
+  proj_subdir <- file.path(dir_proj, "subdir")
+  fs::dir_create(proj_subdir)
+  withr::with_dir(proj_subdir, {
+    expect_equal(
+      format_table_path(
+        file,
+        file.path("..", dir),
+        path.type = "proj"
+      ), "tables/foo/bar.tex")
+    expect_equal(
+      format_table_path(
+        file,
+        file.path(dir_proj, dir),
+        path.type = "proj"
+      ), "tables/foo/bar.tex")
+  })
 })
 
 test_that("table-utils paste units [PMT-TEST-0239]", {

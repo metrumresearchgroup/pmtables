@@ -14,6 +14,9 @@
 #' @param output_file_label a prefix for `output_file`.
 #' @param output_dir directory location where output `.tex` file is saved;
 #' defaults to working directory.
+#' @param path.type whether to include the path to the output file in the
+#' table now and how to format it; options include "none", "proj", and
+#' "raw"; see [pmtables::format_table_path()].
 #' @param ... not used.
 #'
 #' @examples
@@ -30,12 +33,14 @@ tab_notes <- function(notes, escape_fun = tab_escape,
                       output_file = NULL,
                       output_file_label = "Source file: ",
                       output_dir = getOption("pmtables.dir"),
+                      path.type = getOption("pmtables.path.type", "none"),
                       ...) {
 
   assert_that(is.noteconfig(note_config))
 
   file_info <- tab_files(output_file, output_dir, r_file,
-                         r_file_label, output_file_label)
+                         r_file_label, output_file_label,
+                         path.type = path.type)
 
   notes <- c(notes, file_info$notes)
 
@@ -62,8 +67,11 @@ tab_notes <- function(notes, escape_fun = tab_escape,
   c(out, file_info)
 }
 
+# Defaults for `output_file` and `output_dir` are provided by
+# `table_notes()`
 tab_files <- function(output_file, output_dir, r_file = NULL,
-                      r_file_label = NULL, output_file_label = NULL) {
+                      r_file_label = NULL, output_file_label = NULL,
+                      path.type = "none") {
   output_path <- output_note <-  NULL
   stable_file_locked <- NULL
   if(is.character(output_file)) {
@@ -72,13 +80,18 @@ tab_files <- function(output_file, output_dir, r_file = NULL,
       output_file <- basename(output_file)
       stable_file_locked <- TRUE
     }
-    output_note <- format_path(output_file, dir = output_dir,
-                               path.type = getOption("pmtables.path.type", "none"))
+    output_note <- format_table_path(
+      file = output_file,
+      dir = output_dir,
+      path.type = path.type
+    )
   }
   if(is.character(output_dir)) {
     output_path <- normalizePath(output_dir, mustWork = FALSE)
-    output_file <- file.path(output_path, output_file)
-    stable_file_locked <- TRUE
+    if(is.character(output_file)) {
+      output_file <- file.path(output_path, output_file)
+      stable_file_locked <- TRUE
+    }
   }
   notes <- form_file_notes(
     r_file,

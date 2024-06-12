@@ -13,6 +13,7 @@ tab_notes(
   output_file = NULL,
   output_file_label = "Source file: ",
   output_dir = getOption("pmtables.dir"),
+  path.type = getOption("pmtables.path.type", "none"),
   ...
 )
 }
@@ -42,6 +43,10 @@ also \code{\link[=st_files]{st_files()}}.}
 
 \item{output_dir}{directory location where output \code{.tex} file is saved;
 defaults to working directory.}
+
+\item{path.type}{whether to include the path to the output file in the
+table now and how to format it; options include "none", "proj", and
+"raw"; see \code{\link[=format_table_path]{format_table_path()}}.}
 
 \item{...}{not used.}
 }

@@ -201,14 +201,14 @@ ensure_parens <- function(x) {
 #'
 #' @examples
 #' \dontrun{
-#' format_path("foo.txt", "my/path")
-#' format_path("foo.txt", "my/path", path.type = "none")
-#' format_path("foo.txt", "my/path", path.type = "raw")
+#' format_table_path("foo.txt", "my/path")
+#' format_table_path("foo.txt", "my/path", path.type = "none")
+#' format_table_path("foo.txt", "my/path", path.type = "raw")
 #' }
 #'
 #' @md
 #' @export
-format_path <- function(file, dir = NULL, path.type = c("proj", "none", "raw")) {
+format_table_path <- function(file, dir = NULL, path.type = c("proj", "none", "raw")) {
 
   if(dirname(file) != ".") {
     dir <- dirname(file)
