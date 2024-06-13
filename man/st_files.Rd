@@ -9,6 +9,7 @@ st_files(
   r = getOption("mrg.script", NULL),
   output = NULL,
   output_dir = getOption("pmtables.dir"),
+  path.type = NULL,
   esc = NULL
 )
 }
@@ -23,6 +24,10 @@ file; passed to \code{\link[=stable]{stable()}}.}
 
 \item{output_dir}{directory for \code{output_file}; this will be overridden with
 a warning if \code{output_file} contains the full path to the file.}
+
+\item{path.type}{whether to include the path to the output file in the
+table notes and how to format it; options include "none", "proj", and
+"raw"; see \code{\link[=format_table_path]{format_table_path()}}.}
 
 \item{esc}{passed to \code{\link[=tab_escape]{tab_escape()}}; use \code{NULL} to bypass escaping.}
 }

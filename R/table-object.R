@@ -22,7 +22,7 @@ st_arg_names <- c(
   "sumrows", "note_config", "clear_reps", "clear_grouped_reps",
   "hline_at", "hline_from", "sizes", "units", "drop",
   "lt_cap_text", "lt_cap_macro", "lt_cap_label", "lt_cap_short", "lt_continue",
-  "caption",
+  "caption", "path.type",
   "args"
 )
 
@@ -491,6 +491,8 @@ st_right <- function(x,...) {
 #' See the `r_file` and `output_file` arguments passed to [stable()] and then
 #' to [tab_notes()].
 #'
+#' @inheritParams tab_notes
+#'
 #' @param x an stobject.
 #' @param r set `r_file`, passed to [stable()].
 #' @param output set `output_file`, the `.tex` file containing rendered
@@ -510,7 +512,7 @@ st_right <- function(x,...) {
 #' @export
 st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
                      output_dir = getOption("pmtables.dir"),
-                     esc = NULL) {
+                     path.type = NULL, esc = NULL) {
   check_st(x)
   if(!missing(r)) {
     if(!is.null(esc)) r <- tab_escape(r, esc = esc)
@@ -522,6 +524,9 @@ st_files <- function(x, r = getOption("mrg.script", NULL), output = NULL,
   }
   if(is.character(output_dir)) {
     x$output_dir <- output_dir
+  }
+  if(is.character(path.type)) {
+    x$path.type <- path.type
   }
   x
 }

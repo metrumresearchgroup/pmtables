@@ -5,7 +5,7 @@
 \title{Form table notes}
 \usage{
 tab_notes(
-  notes,
+  notes = character(0),
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
   r_file = getOption("mrg.script", NULL),

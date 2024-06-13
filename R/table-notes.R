@@ -26,7 +26,7 @@
 #' )
 #'
 #'@export
-tab_notes <- function(notes, escape_fun = tab_escape,
+tab_notes <- function(notes = character(0), escape_fun = tab_escape,
                       note_config = noteconf(type = "tpt"),
                       r_file = getOption("mrg.script", NULL),
                       r_file_label = "Source code: ",
@@ -42,7 +42,7 @@ tab_notes <- function(notes, escape_fun = tab_escape,
                          r_file_label, output_file_label,
                          path.type = path.type)
 
-  notes <- c(notes, file_info$notes)
+  notes <- c(notes, file_info$file_notes)
 
   if(note_config$sanitize) {
     assert_that(is.character(notes) || is.null(notes))
@@ -101,7 +101,7 @@ tab_files <- function(output_file, output_dir, r_file = NULL,
   )
 
   list(
-    notes = notes, # Notes entries for r and output files
+    file_notes = notes, # Notes entries for r and output files
     r_file = r_file, # Name of the R file
     output_file = output_file, # Full path to output file
     output_note = output_note, # Output file, formatted

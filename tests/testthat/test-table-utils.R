@@ -199,7 +199,7 @@ test_that("option to format path - non project", {
   expect_equal(x$output_note, file)
 })
 
-test_that("option to format path, path.type = proj", {
+test_that("option to format path - path.type = proj", {
   on.exit(options(pmtables.path.type = NULL, pmtables.dir = NULL), add = TRUE)
   tdir <- tempfile("pmtables-test-") #normalizePath(tempdir(), "pmtables-test-")
   fs::dir_create(tdir)
@@ -251,6 +251,21 @@ test_that("option to format path, path.type = proj", {
         file.path(dir_proj, dir),
         path.type = "proj"
       ), "tables/foo/bar.tex")
+
+    x <- pmtables:::tab_notes(
+      output_file = "bar.tex",
+      output_dir = "tables/foo",
+      path.type = "proj"
+    )
+    expect_equal(x$file_notes, "Source file: subdir/tables/foo/bar.tex")
+
+    options(pmtables.path.type = "proj")
+    y <- pmtables:::tab_notes(
+      output_file = "bar.tex",
+      output_dir = "tables/foo"
+    )
+    expect_equal(x$notes, y$notes)
+    options(pmtables.path.type = NULL)
   })
 })
 
@@ -263,4 +278,3 @@ test_that("table-utils paste units [PMT-TEST-0239]", {
     c("B mg", "E", "D kg", "C pounds", "A")
   )
 })
-
