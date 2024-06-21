@@ -1,4 +1,8 @@
 # pmtables (development version)
+# pmtables 0.8.0
+
+- New functionality to include output file path information in the table 
+  annotation (#341).
 
 # pmtables 0.7.0
 
