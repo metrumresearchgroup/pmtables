@@ -365,6 +365,14 @@ c.glossary <- function(..., recursive = FALSE) {
   structure(NextMethod(), class = class(x))
 }
 
+#' @export
+`$.glossary` <- function(x, name, ...) {
+  if(!exists(name, x)) {
+    return(NULL)
+  }
+  x[[name]]
+}
+
 #' Select entries from a glossary object
 #'
 #' @param x a glossary object.
