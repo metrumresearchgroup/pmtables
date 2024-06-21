@@ -191,13 +191,13 @@ ensure_parens <- function(x) {
 #' that an RStudio project file is able to be found using
 #' [rprojroot::find_root()] with the [rprojroot::is_rstudio_project] criterion.
 #'
-#' Once mrggsave finds a root for a given working directory, it caches the value
-#' for the remainder of the R session. An error will be generated if an image is
+#' Once pmtables finds a root for a given working directory, it caches the value
+#' for the remainder of the R session. An error will be generated if a table is
 #' attempted to be saved using `path.type="proj"` but an RStudio project file
 #' was not able to be located.
 #'
 #' @return
-#' A string with the formatted image file path.
+#' A string with the formatted table file path.
 #'
 #' @examples
 #' \dontrun{

@@ -18,7 +18,7 @@ information (just the output file name); use \code{"raw"} to print the complete
 path to the file using \code{dir} as-is.}
 }
 \value{
-A string with the formatted image file path.
+A string with the formatted table file path.
 }
 \description{
 Format the path to output file
@@ -28,8 +28,8 @@ Note that the default value for \code{path.type} is \code{"proj"}. This requires
 that an RStudio project file is able to be found using
 \code{\link[rprojroot:find_root]{rprojroot::find_root()}} with the \link[rprojroot:criteria]{rprojroot::is_rstudio_project} criterion.
 
-Once mrggsave finds a root for a given working directory, it caches the value
-for the remainder of the R session. An error will be generated if an image is
+Once pmtables finds a root for a given working directory, it caches the value
+for the remainder of the R session. An error will be generated if a table is
 attempted to be saved using \code{path.type="proj"} but an RStudio project file
 was not able to be located.
 }

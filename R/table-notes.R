@@ -68,7 +68,7 @@ tab_notes <- function(notes = character(0), escape_fun = tab_escape,
 }
 
 # Defaults for `output_file` and `output_dir` are provided by
-# `table_notes()`
+# `tab_notes()`
 tab_files <- function(output_file, output_dir, r_file = NULL,
                       r_file_label = NULL, output_file_label = NULL,
                       path.type = "none") {
