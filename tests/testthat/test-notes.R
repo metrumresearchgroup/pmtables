@@ -89,7 +89,7 @@ test_that("test-notes-basename-only [PMT-TEST-0157]", {
     fixed = TRUE, all = FALSE
   )
   expect_match(
-    x$tpt_notes, "item Source code: foo.R",
+    x$tpt_notes, "item Source code: ./script/foo.R",
     fixed = TRUE, all = FALSE
   )
 })

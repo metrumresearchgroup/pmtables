@@ -3,16 +3,21 @@
 #'
 #' @inheritParams stable
 #' @param note_config a [noteconf()] object used to configure how table notes
-#' are displayed; ; see also [st_noteconf()]
-#' @param r_file the name of the R file containing code to generate the table; the
-#' file name will be included in the notes in the table footer; ; see also
-#' [st_files()]
-#' @param r_file_label a prefix for `r_file`
+#' are displayed; see also [st_noteconf()].
+#' @param r_file the name of the R file containing code to generate the table;
+#' the file name will be included in the notes in the table footer; see also
+#' [st_files()].
+#' @param r_file_label a prefix for `r_file`.
 #' @param output_file the name of the output file where the table text will be
 #' saved; the file name will be included in the notes in the table footer; see
-#' also [st_files()]
-#' @param output_file_label a prefix for `output_file`
-#' @param ... not used
+#' also [st_files()].
+#' @param output_file_label a prefix for `output_file`.
+#' @param output_dir directory location where output `.tex` file is saved;
+#' defaults to working directory.
+#' @param path.type whether to include the path to the output file in the
+#' table notes and how to format it; options include "none", "proj", and
+#' "raw"; see [pmtables::format_table_path()].
+#' @param ... not used.
 #'
 #' @examples
 #' tab <- stable(
@@ -21,20 +26,23 @@
 #' )
 #'
 #'@export
-tab_notes <- function(notes, escape_fun = tab_escape,
+tab_notes <- function(notes = character(0), escape_fun = tab_escape,
                       note_config = noteconf(type = "tpt"),
                       r_file = getOption("mrg.script", NULL),
                       r_file_label = "Source code: ",
                       output_file = NULL,
                       output_file_label = "Source file: ",
+                      output_dir = getOption("pmtables.dir"),
+                      path.type = getOption("pmtables.path.type", "none"),
                       ...) {
 
   assert_that(is.noteconfig(note_config))
 
-  file_notes <- form_file_notes(r_file, r_file_label, output_file,
-                                output_file_label)
+  file_info <- tab_files(output_file, output_dir, r_file,
+                         r_file_label, output_file_label,
+                         path.type = path.type)
 
-  notes <- c(notes, file_notes)
+  notes <- c(notes, file_info$file_notes)
 
   if(note_config$sanitize) {
     assert_that(is.character(notes) || is.null(notes))
@@ -52,12 +60,55 @@ tab_notes <- function(notes, escape_fun = tab_escape,
   }
 
   # END notes --------------------------------------------------
-  list(
+  out <- list(
     m_notes = m_notes, t_notes = t_notes, config = note_config,
-    notes = notes, r_file = r_file, output_file = output_file
+    notes = notes
   )
+  c(out, file_info)
 }
 
+# Defaults for `output_file` and `output_dir` are provided by
+# `tab_notes()`
+tab_files <- function(output_file, output_dir, r_file = NULL,
+                      r_file_label = NULL, output_file_label = NULL,
+                      path.type = "none") {
+  output_path <- output_note <-  NULL
+  stable_file_locked <- NULL
+  if(is.character(output_file)) {
+    if(dirname(output_file) != ".") {
+      output_dir <- dirname(output_file)
+      output_file <- basename(output_file)
+      stable_file_locked <- TRUE
+    }
+    output_note <- format_table_path(
+      file = output_file,
+      dir = output_dir,
+      path.type = path.type
+    )
+  }
+  if(is.character(output_dir)) {
+    output_path <- normalizePath(output_dir, mustWork = FALSE)
+    if(is.character(output_file)) {
+      output_file <- file.path(output_path, output_file)
+      stable_file_locked <- TRUE
+    }
+  }
+  notes <- form_file_notes(
+    r_file,
+    r_file_label,
+    output_file = output_note,
+    output_file_label
+  )
+
+  list(
+    file_notes = notes, # Notes entries for r and output files
+    r_file = r_file, # Name of the R file
+    output_file = output_file, # Full path to output file
+    output_note = output_note, # Output file, formatted
+    output_dir = output_dir, # Output file path
+    stable_file_locked = stable_file_locked # Has the path been locked?
+  )
+}
 
 #' Configure table notes
 #'
@@ -148,10 +199,10 @@ form_file_notes <- function(r_file, r_file_label, output_file,
                             output_file_label, ...) {
   r_note <- output_note <- NULL
   if(is.character(r_file)) {
-    r_note <- paste0(r_file_label, basename(r_file))
+    r_note <- paste0(r_file_label, r_file)
   }
   if(is.character(output_file)) {
-    output_note <- paste0(output_file_label, basename(output_file))
+    output_note <- paste0(output_file_label, output_file)
   }
   c(r_note, output_note)
 }
@@ -159,4 +210,3 @@ form_file_notes <- function(r_file, r_file_label, output_file,
 valid_file_notes_fun <- function(x) {
   identical(formals(x), formals(form_file_notes))
 }
-

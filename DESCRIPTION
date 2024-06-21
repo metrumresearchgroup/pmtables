@@ -1,7 +1,7 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.7.0
+Version: 0.7.0.9002
 Authors@R: 
     c(
     person(given = "Kyle",
@@ -32,9 +32,9 @@ License: GPL (>=2)
 URL: https://metrumresearchgroup.github.io/pmtables, https://github.com/metrumresearchgroup/pmtables
 BugReports: https://github.com/metrumresearchgroup/pmtables/issues
 Imports: purrr (>= 1.0.0), dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble,
-    assertthat, tidyselect, stringr, knitr, rmarkdown, lifecycle
+    assertthat, tidyselect, stringr, knitr, rmarkdown, lifecycle, rprojroot, fs
 Depends: R (>= 3.5.0)
-Suggests: testthat, yaml, fs, texPreview, magick, pdftools
+Suggests: testthat, yaml, texPreview, magick, pdftools, withr
 Encoding: UTF-8
 Language: en-US
 LazyData: true

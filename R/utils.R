@@ -176,3 +176,67 @@ ensure_parens <- function(x) {
   x
 }
 
+#' Format the path to output file
+#'
+#' @param file the name of the output file.
+#' @param dir the directory where the output file is stored.
+#' @param path.type a character string indicating how the path to the output
+#' file should be formatted; use `"proj"` to have the path expressed relative
+#' to an RStudio project file; use `"none"` to format without any directory
+#' information (just the output file name); use `"raw"` to print the complete
+#' path to the file using `dir` as-is.
+#'
+#' @details
+#' Note that the default value for `path.type` is `"proj"`. This requires
+#' that an RStudio project file is able to be found using
+#' [rprojroot::find_root()] with the [rprojroot::is_rstudio_project] criterion.
+#'
+#' Once pmtables finds a root for a given working directory, it caches the value
+#' for the remainder of the R session. An error will be generated if a table is
+#' attempted to be saved using `path.type="proj"` but an RStudio project file
+#' was not able to be located.
+#'
+#' @return
+#' A string with the formatted table file path.
+#'
+#' @examples
+#' \dontrun{
+#' format_table_path("foo.tex", "my/path")
+#' format_table_path("foo.tex", "my/path", path.type = "proj")
+#' format_table_path("foo.tx", "my/path", path.type = "raw")
+#' }
+#'
+#' @md
+#' @export
+format_table_path <- function(file, dir = NULL, path.type = c("proj", "none", "raw")) {
+
+  if(dirname(file) != ".") {
+    dir <- dirname(file)
+    file <- basename(file)
+  }
+
+  path.type <- match.arg(path.type)
+
+  if(is.null(dir)) path.type <- "none"
+
+  if (path.type == "proj") {
+    root <- find_cached_root()
+    if (is.null(root)) {
+      stop("No RStudio project root found for ", getwd())
+    }
+
+    if (!fs::path_has_parent(dir, root)) {
+      stop("dir is not under root\n",
+           paste("dir: ", dir, "\n"),
+           paste("root:", root))
+    }
+
+    return(path(path_rel(dir, start = root), file))
+  }
+
+  if(path.type=="raw") {
+    return(path(dir, file))
+  }
+
+  return(basename(file))
+}

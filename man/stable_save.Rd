@@ -14,7 +14,7 @@ stable_save(
 \arguments{
 \item{x}{a table formatted with \code{\link[=stable]{stable()}}.}
 
-\item{file}{the file.}
+\item{file}{the output file name.}
 
 \item{dir}{the directory where the file is to be saved.}
 

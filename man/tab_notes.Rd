@@ -5,13 +5,15 @@
 \title{Form table notes}
 \usage{
 tab_notes(
-  notes,
+  notes = character(0),
   escape_fun = tab_escape,
   note_config = noteconf(type = "tpt"),
   r_file = getOption("mrg.script", NULL),
   r_file_label = "Source code: ",
   output_file = NULL,
   output_file_label = "Source file: ",
+  output_dir = getOption("pmtables.dir"),
+  path.type = getOption("pmtables.path.type", "none"),
   ...
 )
 }
@@ -25,21 +27,28 @@ appear in the output; see also \code{\link[=st_notes]{st_notes()}}}
 data}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
-are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
+are displayed; see also \code{\link[=st_noteconf]{st_noteconf()}}.}
 
-\item{r_file}{the name of the R file containing code to generate the table; the
-file name will be included in the notes in the table footer; ; see also
-\code{\link[=st_files]{st_files()}}}
+\item{r_file}{the name of the R file containing code to generate the table;
+the file name will be included in the notes in the table footer; see also
+\code{\link[=st_files]{st_files()}}.}
 
-\item{r_file_label}{a prefix for \code{r_file}}
+\item{r_file_label}{a prefix for \code{r_file}.}
 
 \item{output_file}{the name of the output file where the table text will be
 saved; the file name will be included in the notes in the table footer; see
-also \code{\link[=st_files]{st_files()}}}
+also \code{\link[=st_files]{st_files()}}.}
 
-\item{output_file_label}{a prefix for \code{output_file}}
+\item{output_file_label}{a prefix for \code{output_file}.}
 
-\item{...}{not used}
+\item{output_dir}{directory location where output \code{.tex} file is saved;
+defaults to working directory.}
+
+\item{path.type}{whether to include the path to the output file in the
+table notes and how to format it; options include "none", "proj", and
+"raw"; see \code{\link[=format_table_path]{format_table_path()}}.}
+
+\item{...}{not used.}
 }
 \description{
 Form table notes

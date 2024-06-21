@@ -21,6 +21,8 @@
 #' @importFrom stringr str_extract
 #' @importFrom tools file_ext file_path_sans_ext
 #' @importFrom lifecycle deprecate_warn
+#' @importFrom rprojroot find_root is_rstudio_project is_testthat
+#' @importFrom fs path_rel path
 #'
 #' @include summary-functions.R
 #' @include utils.R
@@ -36,6 +38,19 @@ NULL
 
 .onLoad <- function(libname, pkgname) {
   st_reset_knit_deps()
+}
+
+roots <- new.env(parent = emptyenv())
+
+find_cached_root <- function() {
+  wd <- getwd()
+  res <- get0(wd, envir = roots)
+  if (is.null(res)) {
+    res <- tryCatch(find_root(is_rstudio_project),
+                    error = function(e) NULL)
+    assign(wd, res, envir = roots)
+  }
+  return(res)
 }
 
 #' pmtables: Tables for Pharmacometrics.

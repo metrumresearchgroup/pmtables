@@ -1,7 +1,7 @@
 #' Save output from stable
 #'
 #' @param x a table formatted with [stable()].
-#' @param file the file.
+#' @param file the output file name.
 #' @param dir the directory where the file is to be saved.
 #' @param write_caption logical; if `TRUE` and a caption was specified, it
 #' will be written in the output file. This argument is not utilized for
@@ -19,6 +19,7 @@ stable_save <- function(x,
   if(inherits(x, "list")) {
     return(map(x, stable_save, dir = dir))
   }
+  # Should we consider using the `dir` argument?
   if(!inherits(x, "stable")) {
     stop(
       "bad input - x is not an 'stable' object; ",
@@ -26,17 +27,19 @@ stable_save <- function(x,
       call.=FALSE
     )
   }
-  if(is.null(file)) {
-    miss <- ifelse(missing(file), "and the 'file' argument is missing", "")
-    stop(
-      "the value of 'file' is NULL; ",
-      "there is no stable_file attribute ",
-      miss,
-      call.=FALSE
-    )
+  if(!is.character(file)) {
+    stop("Please provide a file name for saving the table.")
   }
-  if(!is.null(dir)) {
-    file <- file.path(dir,file)
+  path_locked <- isTRUE(attr(x, "stable_file_locked"))
+  file_has_dir <- dirname(file) != "."
+  if(!missing(dir)) {
+    if(file_has_dir | path_locked) {
+      warning("ignoring `dir` argument; complete path provided via `file`.")
+    }
+  }
+  con <- file
+  if(!file_has_dir && !path_locked && is.character(dir)) {
+    con <- file.path(dir, con)
   }
   # Priority goes to function argument so we can use this to
   # reshape what was specified when the caption was generated
@@ -47,7 +50,7 @@ stable_save <- function(x,
     cap <- form_caption(cap_main(x), cap_short(x))
     x <- c(cap, x)
   }
-  writeLines(text = x, con = file)
+  writeLines(text = x, con = con)
   return(invisible(x))
 }
 

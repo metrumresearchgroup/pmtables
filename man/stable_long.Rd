@@ -35,7 +35,7 @@ processing \code{data}}
 \item{...}{passed to \code{\link[=stable]{stable()}}}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
-are displayed; ; see also \code{\link[=st_noteconf]{st_noteconf()}}}
+are displayed; see also \code{\link[=st_noteconf]{st_noteconf()}}.}
 
 \item{inspect}{fixed to \code{TRUE} and passed to \code{\link[=stable]{stable()}}}
 
