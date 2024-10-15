@@ -467,3 +467,85 @@ pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note
   )
   ans
 }
+
+
+#' Data inventory by covariate
+#'
+#'
+#' @export
+pt_data_inventory_cat <- function(data,
+                                  cols,
+                                  drop_miss = FALSE,
+                                  table =  NULL,
+                                  summarise_all = TRUE,
+                                  all_name = "All data",
+                                  dv_col = "DV",
+                                  bq_col = find_bq_col(data),
+                                  id_col = "ID") {
+
+  assert_that(is.data.frame(data))
+  assert_that(is.character(all_name))
+  assert_that(length(all_name)==1)
+  if(!missing(table)) {
+    assert_that(is.list(table))
+    assert_that(!is.data.frame(table))
+  }
+
+  data <- as.data.frame(data)
+
+  cols <- unique(cols)
+  x <- vector(mode = "list", length = length(cols) + 1)
+  for(i in seq_along(cols)) {
+    x[[i]] <- calldirow(data, cols[i])
+  }
+  if(isTRUE(summarize_all)) {
+    data[[".all"]] <- 1
+    all <- calldirow(data, ".all")
+    all$var <- ""
+    all$level <- all_name
+    x[[length(x)]] <- all
+  }
+  tab <- bind_rows(x)
+  if(length(table)) {
+    tab <- mutate(
+      tab,
+      var = table[var]
+    )
+  }
+
+  centered <- c("SUBJ", "MISS")
+
+  if(isTRUE(drop_miss)) {
+    if(all(tab$MISS==0)) {
+      tab$MISS <- NULL
+      centered <- "SUBJ"
+    }
+  }
+
+  st_new(tab) %>%
+    st_span_split(sep = ".", title_side = ".r") %>%
+    st_panel("var", skip = "NULL") %>%
+    st_blank(level) %>%
+    st_right(.c = centered,  level = col_ragged(3.5)) %>%
+    st_sumrow(rows = nrow(tab), hline2 = TRUE, bold = TRUE)
+}
+
+dirow <- function(chunk) {
+  nid <- length(unique(chunk$ID))
+  miss <- sum(is.na(chunk$DV) & chunk$BLQ==0)
+  obs <- sum(!is.na(chunk$DV) & chunk$BLQ==0 & chunk$EVID==0)
+  blq <- sum(chunk$BLQ > 0)
+  data.frame(SUBJ = nid, MISS = miss, OBS.Number = obs, BLQ.Number = blq)
+}
+
+calldirow <- function(data, col) {
+  sp <- split(data, data[[col]])
+  ans <- bind_rows(lapply(sp, dirow))
+  total <- sum(c(ans$OBS.Number, ans$BLQ.Number))
+  tot <- sum(ans$OBS.Number)
+  ans$OBS.Percent <- digit1(100*ans$OBS.Number/total)
+  ans$BLQ.Percent <- digit1(100*ans$BLQ.Number/total)
+  ans$var <- col
+  ans$level <- names(sp)
+  select(ans, var, level, SUBJ, everything())
+}
