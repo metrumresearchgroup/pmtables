@@ -278,3 +278,12 @@ test_that("table-utils paste units [PMT-TEST-0239]", {
     c("B mg", "E", "D kg", "C pounds", "A")
   )
 })
+
+test_that("error is generated when calling gluet with non-environment", {
+  x <- list(a = 1, b = 2, c = 3)
+  what <- "<b><a><c>"
+  expect_error(pmtables:::gluet(what, .envir = x), "pmtables error:")
+  env <- as.environment(x)
+  ans <- pmtables:::gluet(what, .envir = env)
+  expect_identical(unclass(ans), "213")
+})
