@@ -40,7 +40,6 @@ Language: en-US
 LazyData: true
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
-VignetteBuilder: knitr
 Collate: 
     'class-new_names.R'
     'class-digits.R'
