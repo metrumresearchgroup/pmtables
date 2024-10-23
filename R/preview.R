@@ -248,7 +248,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
 
   temp <- readLines(template)
 
-  env <- list()
+  env <- new.env()
   env$list_of_tables <- c("\\listoftables", "\\clearpage")
   env$input_file <- st2article_input
   env$hmargin <- margin[1]
