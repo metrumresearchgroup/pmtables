@@ -198,10 +198,8 @@ find_cached_root <- function() {
 #
 #'
 #' @md
-#' @docType package
 #' @name pmtables
-NULL
-
+"_PACKAGE"
 
 #' Load an example data set
 #'

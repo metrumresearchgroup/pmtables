@@ -2,6 +2,7 @@
 % Please edit documentation in R/AAAA.R
 \docType{package}
 \name{pmtables}
+\alias{pmtables-package}
 \alias{pmtables}
 \title{pmtables: Tables for Pharmacometrics.}
 \description{
@@ -191,3 +192,24 @@ each individual
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://metrumresearchgroup.github.io/pmtables}
+  \item \url{https://github.com/metrumresearchgroup/pmtables}
+  \item Report bugs at \url{https://github.com/metrumresearchgroup/pmtables/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Kyle Baron \email{kyleb@metrumrg.com}
+
+Other contributors:
+\itemize{
+  \item Anna-Christina Nevison \email{annan@metrumrg.com} [contributor]
+  \item Katherine Kay \email{katherinek@metrumrg.com} [contributor]
+  \item Devin Pastoor \email{devin.pastoor@gmail.com} [contributor]
+  \item Kyle Barrett \email{barrettk@metrumrg.com} [contributor]
+}
+
+}

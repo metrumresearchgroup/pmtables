@@ -38,9 +38,8 @@ Suggests: testthat, yaml, texPreview, magick, pdftools, withr
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
-VignetteBuilder: knitr
 Collate: 
     'class-new_names.R'
     'class-digits.R'
