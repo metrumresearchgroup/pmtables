@@ -280,6 +280,15 @@ test_that("extract glossary entry", {
   expect_identical(names(g3), c("b", "c"))
 })
 
+test_that("no partial matching when extracting glossary entry", {
+  glo <- as_glossary(abc = "apple", xyz = "pear")
+  expect_null(glo$a)
+  expect_null(glo$xy)
+  expect_null(glo[["ab"]])
+  expect_is(glo$abc, "glossary_entry")
+  expect_identical(capture.output(glo$abc), "apple (abc)")
+})
+
 test_that("select glossary items", {
   g1 <- as_glossary(list(a = "apple", b = "banana", c = "cat", d = "dog"))
   g2 <- select_glossary(g1, b, d)
