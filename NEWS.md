@@ -1,4 +1,11 @@
-# pmtables (development version)
+# pmtables 0.8.1
+
+## Bugs Fixed
+
+- Fixed a bug in preview helpers (`st_as_image()` and `st2report()`) where 
+  a list was getting passed as `.envir` to `glue::glue()` rather than an 
+  environment; this was causing `glue::glue()` to fail after changes rolled out 
+  in glue version 1.8.0 (#346).
 
 # pmtables 0.8.0
 
