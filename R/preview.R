@@ -336,10 +336,17 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
 
 #' @rdname st2article
 #' @export
-st2report <- function(..., .list = NULL, template = "report.tex",
+st2report <- function(..., .list = NULL,
+                      template = c("report.tex", "eur-report.tex"),
                       caption = Lorem, stem = "view-st2report") {
+
   if(missing(template)) {
-    template <- system.file("tex", template, package = "pmtables")
+    template <- system.file("tex", template[1], package = "pmtables")
+  } else {
+    template <- match.arg(template)
+  }
+  if(isTRUE(getOption("pmtables.preview.eur", FALSE))) {
+    template <- system.file("tex", "eur-report.tex", package = "pmtables")
   }
   args <- list(...)
   args[[".list"]] <- .list

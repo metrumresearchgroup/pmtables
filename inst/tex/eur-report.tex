@@ -1,0 +1,114 @@
+\documentclass[titlepage,a4paper]{article}
+\renewcommand{\contentsname}{CONTENTS}
+\renewcommand*\listfigurename{LIST OF FIGURES}
+\renewcommand*\listtablename{LIST OF TABLES}
+\renewcommand*\refname{REFERENCES}
+\pdfminorversion=4
+
+\newcommand{\companyname}{Sponsor}
+
+%%%%%%%%%%%% Document Title %%%%%%%%%%%%
+\newcommand{\shorttitle}{Abbreviated Title}
+\newcommand{\fulltitle}{Full Report Title}
+
+%%%%%%%%%%%% Project Code, Document Type, Versioning, and Report Number %%%%%%%
+% MetrumRG-internal Ref Number
+\newcommand{\projno}{TAB1234F}
+% this should be supplied by the client
+\newcommand{\docNo}{}
+
+\usepackage{datetime}
+\newcommand{\todayabc}{\the\year-\twodigit{\month}-\twodigit{\day}}
+
+
+%%%%%%%%%%%%%%% Fancyhdr says headheight should be at least 23 %%%%%%%%%%%
+\setlength{\headheight}{23pt}
+
+\usepackage{graphicx}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\\\}
+
+\usepackage[onehalfspacing]{setspace}
+
+%%%%%%%%%%%% set margins %%%%%%%%%%%
+\usepackage[top=3cm,bottom=3cm,left=2.54cm,right=2.54cm]{geometry}
+
+%%%%%%%%%%%% multiline header %%%%
+\usepackage{fancyhdr, lastpage}
+\usepackage{fancyvrb}
+\pagestyle{fancy}
+\fancyfoot{}
+\rhead{Page \thepage\ of \pageref*{LastPage} \\
+      Document Number: 123456\\
+      Sponsor: pmtables-sponsor}
+
+%\chead{Middle top}
+\lhead{Metrum Research Group\\
+     Report Number:\ pmtables-preview\\CONFIDENTIAL}
+
+
+\renewcommand{\labelitemiii}{$\circ$}
+
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage[T1]{fontenc}
+\usepackage[utopia]{mathdesign}
+\usepackage{courier}
+\usepackage{tocbibind}
+\usepackage[parfill]{parskip}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage[draft,inline,nomargin,index]{fixme}
+\fxsetup{theme=color,mode=multiuser}
+\FXRegisterAuthor{au}{aut}{\color{BurntOrange}Author}
+\FXRegisterAuthor{re}{rev}{\color{Green}Reviewer}
+
+\usepackage{upgreek}
+\usepackage{textpos}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{appendix}
+\usepackage{upquote}
+\usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage{textcomp}
+\usepackage[hyphens]{url}
+\urlstyle{same}
+\usepackage{float}
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+\usepackage{caption}
+\setlength{\belowcaptionskip}{10pt}
+\usepackage[colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue,breaklinks=true,linktoc=all,bookmarksnumbered=true,bookmarksopen]{hyperref}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\DeclareCaptionTextFormat{figbook}{\currentpdfbookmark{Figure \thefigure: #1}{F \thefigure}#1}
+\captionsetup[figure]{textformat=figbook}
+
+\DeclareCaptionTextFormat{tablesbm}{\currentpdfbookmark{Table \thetable: #1}{T \thetable}#1}
+\captionsetup[table]{textformat=tablesbm}
+
+\usepackage{embedfile}
+\usepackage{hypgotoe}
+\usepackage{listliketab}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{threeparttable}
+
+\usepackage[style=superheader,shortcuts,nonumberlist,toc]{glossaries}
+\renewcommand*{\glspostdescription}{}
+\renewcommand*{\glsgroupskip}{}
+
+\begin{document}
+
+<list_of_tables>
+
+\singlespacing
+
+\input{<input_file>}
+
+\end{document}
