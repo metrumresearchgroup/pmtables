@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pmtables <img align="right" src = "man/figures/metrum_pmtables_git_logo.png" width="135px">
+# pmtables <img align="right" src = "logo.png" width="135px">
 
 <!-- badges: start -->
 <!-- badges: end -->

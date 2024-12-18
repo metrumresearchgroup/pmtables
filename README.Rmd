@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 
-# pmtables <img align="right" src = "man/figures/metrum_pmtables_git_logo.png" width="135px">
+# pmtables <img align="right" src = "man/figures/logo.png" width="135px">
 
 <!-- badges: start -->
 <!-- badges: end -->
