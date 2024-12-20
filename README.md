@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pmtables <img align="right" src = "man/figures/metrum_pmtables_git_logo.png" width="135px">
+# pmtables <img align="right" src = "logo.png" width="135px">
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -53,16 +53,16 @@ We maintain a pmtables book
 # Examples in working docs
 
 -   General table examples:
-    [inst/demo-table.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-table.pdf)
+    [inst/demo-table.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-table.pdf)
 
 -   General tables - pipe interface:
-    [inst/demo-pipe.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pipe.pdf)
+    [inst/demo-pipe.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-pipe.pdf)
 
 -   Standard table examples:
-    [inst/demo-pmtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pmtable.pdf)
+    [inst/demo-pmtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-pmtable.pdf)
 
 -   Long table examples:
-    [inst/demo-longtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-longtable.pdf)
+    [inst/demo-longtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-longtable.pdf)
 
 -   What is sanitized:
-    [inst/demo-sanitize.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-sanitize.pdf)
+    [inst/demo-sanitize.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-sanitize.pdf)

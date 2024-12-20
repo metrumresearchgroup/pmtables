@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 
-# pmtables <img align="right" src = "man/figures/metrum_pmtables_git_logo.png" width="135px">
+# pmtables <img align="right" src = "man/figures/logo.png" width="135px">
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -65,11 +65,11 @@ We maintain a pmtables book [here](https://github.com/metrumresearchgroup/pmt-bo
 
 # Examples in working docs
 
-- General table examples: [inst/demo-table.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-table.pdf) 
+- General table examples: [inst/demo-table.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-table.pdf) 
 
-- General tables - pipe interface: [inst/demo-pipe.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pipe.pdf) 
-- Standard table examples: [inst/demo-pmtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-pmtable.pdf)
+- General tables - pipe interface: [inst/demo-pipe.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-pipe.pdf) 
+- Standard table examples: [inst/demo-pmtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-pmtable.pdf)
 
-- Long table examples: [inst/demo-longtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-longtable.pdf)
+- Long table examples: [inst/demo-longtable.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-longtable.pdf)
 
-- What is sanitized: [inst/demo-sanitize.pdf](https://github.com/metrumresearchgroup/pmtables/blob/develop/inst/demo-sanitize.pdf)
+- What is sanitized: [inst/demo-sanitize.pdf](https://github.com/metrumresearchgroup/pmtables/blob/main/inst/demo-sanitize.pdf)

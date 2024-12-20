@@ -39,12 +39,20 @@ jobs:
           RSPM: ${{ matrix.config.rspm }}
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: |
+            any::pkgdown
+            any::rcmdcheck
           upgrade: ${{ matrix.config.r == '3.6.3' && 'FALSE' || 'TRUE' }}
       - name: Install other system dependencies
         shell: bash
         run: sudo apt-get install dvipng texlive-latex-base texlive-fonts-extra
       - uses: r-lib/actions/check-r-package@v2
+      - name: Check pkgdown
+        # The pkgdown in the repo for 3.6.3 does not check_pkgdown.
+        if: matrix.config.r != '3.6.3'
+        shell: Rscript {0}
+        run: pkgdown::check_pkgdown()
+
   release:
     if: github.ref_type == 'tag'
     name: Upload release
