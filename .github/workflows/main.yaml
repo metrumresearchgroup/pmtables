@@ -17,13 +17,13 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             r: 3.6.3
             # For a texPreview that's still compatible with R < 4.0
-            rspm: 'https://packagemanager.posit.co/cran/__linux__/focal/2022-03-25'
-          - os: ubuntu-20.04
+            rspm: 'https://packagemanager.posit.co/cran/__linux__/jammy/2022-03-25'
+          - os: ubuntu-22.04
             r: 4.0.5
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             r: 4.1.3
           - os: ubuntu-latest
             r: release
