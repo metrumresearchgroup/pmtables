@@ -98,15 +98,14 @@ st_to_standalone <- function(text, stem, dir,
     vwidth <- ""
   }
 
-  env <- list(
-    border = border,
-    texfile = texfile,
-    font = fonts[[font]],
-    textw_tex = as.character(textw_tex),
-    rule = rule,
-    vwidth = vwidth,
-    ltversion = paste0("[=v", ltversion, "]%")
-  )
+  env <- new.env()
+  env$border <- border
+  env$texfile <- texfile
+  env$font <- fonts[[font]]
+  env$textw_tex <- as.character(textw_tex)
+  env$rule <- rule
+  env$vwidth <- vwidth
+  env$ltversion <- paste0("[=v", ltversion, "]%")
 
   temp_text <- mgluet(temp_text, .envir = env)
   build_file <- basename(temp_file)

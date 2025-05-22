@@ -45,3 +45,5 @@ vignettes/units.Rmd
 vignettes/data-summaries.Rmd
 vignettes/rename.Rmd
 
+^_pkgdown\.yml$
+^pkgdown$

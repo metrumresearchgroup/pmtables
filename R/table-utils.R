@@ -112,6 +112,9 @@ require_col <- function(data,col,context=NULL) {
 
 gluet <- function(x, .envir = parent.frame(), ...) {
   x <- force(x)
+  if(!is.environment(.envir)) {
+    abort("pmtables error: cannot `glue()` - .envir is not an environment.")
+  }
   glue(x,.open = "<", .close = ">", .envir = .envir)
 }
 
