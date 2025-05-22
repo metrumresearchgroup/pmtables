@@ -473,6 +473,10 @@ pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note
 #'
 #'
 #' @export
+#' Data inventory by covariate
+#'
+#'
+#' @export
 pt_data_inventory_cat <- function(data,
                                   cols,
                                   drop_miss = FALSE,
@@ -481,11 +485,14 @@ pt_data_inventory_cat <- function(data,
                                   all_name = "All data",
                                   dv_col = "DV",
                                   bq_col = find_bq_col(data),
-                                  id_col = "ID") {
+                                  id_col = "ID",
+                                  level_width = 3.5) {
 
   assert_that(is.data.frame(data))
   assert_that(is.character(all_name))
   assert_that(length(all_name)==1)
+  assert_that(is.numeric(level_width))
+
   if(!missing(table)) {
     assert_that(is.list(table))
     assert_that(!is.data.frame(table))
@@ -493,14 +500,23 @@ pt_data_inventory_cat <- function(data,
 
   data <- as.data.frame(data)
 
+  drop_bql <- FALSE
+
+  if(is.na(bq_col)) {
+    data[["BQL"]] <- 0
+    bq_col <- "BQL"
+    drop_bql <- TRUE
+  }
+
   cols <- unique(cols)
   x <- vector(mode = "list", length = length(cols) + 1)
   for(i in seq_along(cols)) {
-    x[[i]] <- calldirow(data, cols[i])
+    x[[i]] <- calldirow(data, cols[i], dv_col = dv_col, bq_col = bq_col)
   }
-  if(isTRUE(summarize_all)) {
+
+  if(isTRUE(summarise_all)) {
     data[[".all"]] <- 1
-    all <- calldirow(data, ".all")
+    all <- calldirow(data, ".all", dv_col = dv_col, bq_col = bq_col)
     all$var <- ""
     all$level <- all_name
     x[[length(x)]] <- all
@@ -522,25 +538,47 @@ pt_data_inventory_cat <- function(data,
     }
   }
 
-  st_new(tab) %>%
-    st_span_split(sep = ".", title_side = ".r") %>%
-    st_panel("var", skip = "NULL") %>%
-    st_blank(level) %>%
-    st_right(.c = centered,  level = col_ragged(3.5)) %>%
-    st_sumrow(rows = nrow(tab), hline2 = TRUE, bold = TRUE)
+  notes <- pt_data_inventory_notes(bq = bq_col, drop_bql = drop_bql)
+  if(isTRUE(drop_miss)) notes <- notes[!grepl("MISS", notes)]
+  if(isTRUE(drop_bql)) {
+    notes <- notes[!grepl("below", notes)]
+    out <- select(out, !contains(bq_col))
+  }
+
+  # st_new(tab) %>%
+  #   st_span_split(sep = ".", title_side = ".r") %>%
+  #   st_panel("var", skip = "NULL") %>%
+  #   st_blank(level) %>%
+  #   st_right(.c = centered,  level = col_ragged(3.5)) %>%
+  #   st_sumrow(rows = nrow(tab), hline2 = TRUE, bold = TRUE)
+
+  out <- list(
+    data = tab,
+    panel = rowpanel("var", skip = "NULL"),
+    #cols_rename = by,
+    cols_blank = "level",
+    span_split = colsplit(sep = ".", title_side = ".r"),
+    align = cols_right(.c = centered, level = col_ragged(level_width)),
+    sumrows = sumrow(rows = nrow(tab), hline2 = TRUE, bold = TRUE),
+    notes = notes
+  )
+
+  out <- structure(out, class = c("pmtable", class(out)))
+
+  return(out)
 }
 
-dirow <- function(chunk) {
+dirow <- function(chunk, dv_col, bq_col) {
   nid <- length(unique(chunk$ID))
-  miss <- sum(is.na(chunk$DV) & chunk$BLQ==0)
-  obs <- sum(!is.na(chunk$DV) & chunk$BLQ==0 & chunk$EVID==0)
-  blq <- sum(chunk$BLQ > 0)
+  miss <- sum(is.na(chunk[[dv_col]]) & chunk[[bq_col]]==0)
+  obs <- sum(!is.na(chunk[[dv_col]]) & chunk[[bq_col]]==0 & chunk$EVID==0)
+  blq <- sum(chunk[[bq_col]] > 0)
   data.frame(SUBJ = nid, MISS = miss, OBS.Number = obs, BLQ.Number = blq)
 }
 
-calldirow <- function(data, col) {
+calldirow <- function(data, col, dv_col, bq_col) {
   sp <- split(data, data[[col]])
-  ans <- bind_rows(lapply(sp, dirow))
+  ans <- bind_rows(lapply(sp, dirow, dv_col, bq_col))
   total <- sum(c(ans$OBS.Number, ans$BLQ.Number))
   tot <- sum(ans$OBS.Number)
   ans$OBS.Percent <- digit1(100*ans$OBS.Number/total)
