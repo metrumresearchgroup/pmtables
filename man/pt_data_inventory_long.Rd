@@ -46,10 +46,12 @@ Data inventory by covariate
 }
 \examples{
 
-tab <- pt_data_inventory(
-  pmtable::pmt_first,
-  cols = c("FORMf", "SEXf", "RMf")
+tab <- pt_data_inventory_long(
+  pmtables::pmt_first,
+  cols = c("FORMf", "SEXf", "RFf")
 )
+
+tab$data
 
 }
 \seealso{
