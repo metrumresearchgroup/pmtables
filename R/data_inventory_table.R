@@ -486,12 +486,11 @@ pt_data_inventory_cat <- function(data,
                                   dv_col = "DV",
                                   bq_col = find_bq_col(data),
                                   id_col = "ID",
-                                  level_width = 3.5) {
+                                  level_width = NULL) {
 
   assert_that(is.data.frame(data))
   assert_that(is.character(all_name))
   assert_that(length(all_name)==1)
-  assert_that(is.numeric(level_width))
 
   if(!missing(table)) {
     assert_that(is.list(table))
@@ -545,12 +544,11 @@ pt_data_inventory_cat <- function(data,
     out <- select(out, !contains(bq_col))
   }
 
-  # st_new(tab) %>%
-  #   st_span_split(sep = ".", title_side = ".r") %>%
-  #   st_panel("var", skip = "NULL") %>%
-  #   st_blank(level) %>%
-  #   st_right(.c = centered,  level = col_ragged(3.5)) %>%
-  #   st_sumrow(rows = nrow(tab), hline2 = TRUE, bold = TRUE)
+  if(is.numeric(level_width)) {
+    align <- cols_right(.c = centered, level = col_ragged(level_width))
+  } else {
+    align <- cols_right(.c = centered, .l = "level")
+  }
 
   out <- list(
     data = tab,
@@ -558,7 +556,7 @@ pt_data_inventory_cat <- function(data,
     #cols_rename = by,
     cols_blank = "level",
     span_split = colsplit(sep = ".", title_side = ".r"),
-    align = cols_right(.c = centered, level = col_ragged(level_width)),
+    align = align,
     sumrows = sumrow(rows = nrow(tab), hline2 = TRUE, bold = TRUE),
     notes = notes
   )
