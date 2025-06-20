@@ -440,6 +440,7 @@ st_wrap.stable_long <- function(x, table = FALSE, ...) {
 }
 
 #' @rdname st_wrap
+#' @export
 st_wrap.pmtable <- function(x, ...) {
   st_wrap.default(stable(x),...)
 }
