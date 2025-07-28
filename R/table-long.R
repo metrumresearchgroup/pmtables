@@ -3,6 +3,20 @@ longtable_head <- function(multicol) {
   c("\\endhead", "\\hline", multicol, "\\endfoot", "\\hline", "\\endlastfoot")
 }
 
+conditional_macro <- function(macro_name) {
+  macro <- paste0("\\", macro_name)
+  ans <- c(
+    "",
+    paste0("\\ifdefined", macro),
+    macro,
+    "\\else",
+    paste0("Macro {\\tt ", macro_name, "} will be resolved here once it is defined."),
+    "\\fi",
+    ""
+  )
+  paste0(ans, collapse = "\n")
+}
+
 ltcaption <- function(macro = "", text = "", short = "", label = "") {
   if(identical(c(macro, text, short), c("", "", ""))) {
     return(NULL)
@@ -25,7 +39,7 @@ ltcaption <- function(macro = "", text = "", short = "", label = "") {
     if(str_detect(macro, "[^a-zA-Z]")){
       stop(macro, " appears to be invalid for use in latex", call.=FALSE)
     }
-    text <- paste0("\\", macro)
+    text <- conditional_macro(macro)
   }
   ans <- as.character(gluet(temp))
   ans

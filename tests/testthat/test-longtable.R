@@ -31,7 +31,9 @@ test_that("longtable - caption with short [PMT-TEST-0136]", {
 
 test_that("longtable - caption macro [PMT-TEST-0137]", {
   out <- inspect_long(data = mtcars, lt_cap_macro = "mylongtable")
-  test <- "\\caption{\\mylongtable}"
+  test <- "\\mylongtable"
+  expect_match(out$output, test, fixed = TRUE, all = FALSE)
+  test <- "ifdefined"
   expect_match(out$output, test, fixed = TRUE, all = FALSE)
   out <- inspect_long(data = mtcars, lt_cap_macro = "\\mylongtable")
   expect_match(out$output, test, fixed = TRUE, all = FALSE)
