@@ -471,18 +471,20 @@ pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note
 
 #' Data inventory by covariate
 #'
+#' Generates a table showing numbers of subjects and observations, stratifying
+#' by multiple categorical covariates.
+#'
 #' @inheritParams pt_data_inventory
 #'
-#' @param cols data columns containing discrete data items for grouped
-#' data inventory summaries.
+#' @param cols data columns containing discrete data items for grouped data
+#' inventory summaries.
 #' @param level_width width of the `level` column, specified in `cm`.
 #'
 #' @examples
 #'
-#' tab <- pt_inventory_long(
-#'   pmtables::pmt_first,
-#'   cols = c("FORMf", "SEXf", "RFf")
-#' )
+#' data <- pmt_first
+#'
+#' tab <- pt_inventory_long(data, cols = c("FORMf", "SEXf", "RFf"))
 #'
 #' tab$data
 #'
@@ -493,7 +495,7 @@ pt_inventory_long <- function(data,
                               cols,
                               drop_miss = FALSE,
                               table =  NULL,
-                              summarise_all = TRUE,
+                              summarize_all = TRUE,
                               all_name = "All data",
                               dv_col = "DV",
                               bq_col = find_bq_col(data),
@@ -501,6 +503,9 @@ pt_inventory_long <- function(data,
                               level_width = NULL) {
 
   assert_that(is.data.frame(data))
+  assert_that(nrow(data) > 1)
+  assert_that(is.character(cols))
+  assert_that(length(cols) > 0)
   assert_that(is.character(all_name))
   assert_that(length(all_name)==1)
 
@@ -510,16 +515,16 @@ pt_inventory_long <- function(data,
   }
 
   data <- as.data.frame(data)
-
   cols <- unique(cols)
+
   x <- vector(mode = "list", length = length(cols))
 
   for(i in seq_along(cols)) {
-    summall <- isTRUE(summarise_all) && i == length(cols)
+    summall <- isTRUE(summarize_all) && i == length(cols)
     tab_chunk <- dichunk(
       data,
       cols[i],
-      dv_col = dv_col, bq_col = bq_col,
+      dv_col = dv_col, bq_col = bq_col, id_col = id_col,
       summarize_all = summall,
       all_name = all_name
     )
@@ -532,7 +537,7 @@ pt_inventory_long <- function(data,
   }
 
   tab <- bind_rows(x)
-  tab <- select(tab, var, level, everything())
+  tab <- select(tab, "var", "level", everything())
 
   if(length(table)) {
     assert_that(is.list(table))

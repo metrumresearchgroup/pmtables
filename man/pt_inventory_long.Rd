@@ -10,7 +10,7 @@ pt_inventory_long(
   cols,
   drop_miss = FALSE,
   table = NULL,
-  summarise_all = TRUE,
+  summarize_all = TRUE,
   all_name = "All data",
   dv_col = "DV",
   bq_col = find_bq_col(data),
@@ -23,7 +23,7 @@ pt_data_inventory_long(
   cols,
   drop_miss = FALSE,
   table = NULL,
-  summarise_all = TRUE,
+  summarize_all = TRUE,
   all_name = "All data",
   dv_col = "DV",
   bq_col = find_bq_col(data),
@@ -36,14 +36,17 @@ pt_data_inventory_long(
 so that \code{data} contains exactly the records to be summarized; pmtables will
 not add or remove rows prior to summarizing \code{data}}
 
-\item{cols}{data columns containing discrete data items for grouped
-data inventory summaries.}
+\item{cols}{data columns containing discrete data items for grouped data
+inventory summaries.}
 
 \item{drop_miss}{If \code{TRUE}, then \code{MISS} will be dropped, but only when all
 \code{MISS} values are equal to zero.}
 
 \item{table}{a named list to use for renaming columns (see details and
 examples)}
+
+\item{summarize_all}{if \code{TRUE} then a complete data summary will be
+appended to the bottom of the table when \code{stacked} is \code{FALSE}.}
 
 \item{all_name}{a name to use for the complete data summary}
 
@@ -56,14 +59,14 @@ examples)}
 \item{level_width}{width of the \code{level} column, specified in \code{cm}.}
 }
 \description{
-Data inventory by covariate
+Generates a table showing numbers of subjects and observations, stratifying
+by multiple categorical covariates.
 }
 \examples{
 
-tab <- pt_inventory_long(
-  pmtables::pmt_first,
-  cols = c("FORMf", "SEXf", "RFf")
-)
+data <- pmt_first
+
+tab <- pt_inventory_long(data, cols = c("FORMf", "SEXf", "RFf"))
 
 tab$data
 

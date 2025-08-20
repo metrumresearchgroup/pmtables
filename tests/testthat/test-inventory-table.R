@@ -158,10 +158,10 @@ test_that("Optional All Data summary - inventory table [PMT-INVEN-0001]", {
     by = "STUDYf"
   )$data
   b <- pt_data_inventory(
-      pmt_obs,
-      by = "STUDYf",
-      summarize_all = FALSE
-    )$data
+    pmt_obs,
+    by = "STUDYf",
+    summarize_all = FALSE
+  )$data
   expect_identical(a[1:4,], b[1:4,])
   expect_true(nrow(a) == 1 + nrow(b))
 })
@@ -190,4 +190,120 @@ test_that("Change stacked group name - inventory table [PMT-INVEN-0003]", {
   )$data
   expect_match(a$STUDYf[5], "STACKED")
   expect_match(a$STUDYf[11], "STACKED")
+})
+
+test_that("Long inventory table", {
+
+  .table <- list(RFf = "Renal function", SEXf = "Sex", FORMf = "Formulation")
+  .cols <- c("RFf", "FORMf", "SEXf")
+
+  # Basic call plus table argument
+  tab <- pt_inventory_long(
+    data = pmt_first,
+    cols = .cols,
+    table = .table
+  )
+
+  expect_is(tab, "pmtable")
+  expect_is(tab$data, "data.frame")
+
+  out <- tab$data
+
+  var <- sort(c(unlist(.table, use.names = FALSE), "NULL"))
+  expect_equal(sort(unique(out$var)), var)
+
+  expect_equal(
+    names(out),
+    c(
+      "var", "level", "Number.SUBJ", "Number.MISS", "Number.OBS",
+      "Number.BQL", "Percent.OBS", "Percent.BQL"
+    )
+  )
+
+  expect_in(c("normal", "mild", "moderate", "severe"), out$level)
+  expect_in(c("tablet", "capsule", "troche"), out$level)
+  expect_in(c("male", "female"), out$level)
+
+  expect_equal(tab$notes, pmtables:::pt_data_inventory_notes())
+
+  # Set width of level column
+  tab <- pt_inventory_long(
+    data = pmt_first,
+    cols = .cols,
+    level_width = 0.52
+  )
+
+  expect_match(tab$align$update$level, "raggedright", all = FALSE)
+  expect_match(tab$align$update$level, "0.52cm", all = FALSE)
+
+  # Set rename all data
+  tab <- pt_inventory_long(
+    data = pmt_first,
+    cols = .cols,
+    all_name = "Check ALL"
+  )
+  nn <- nrow(tab$data)
+
+  expect_match(tab$data$level[nn], "Check ALL", all = FALSE)
+
+  # Don't summarize all
+  tab2 <- pt_inventory_long(
+    data = pmt_first,
+    cols = .cols,
+    summarize_all = FALSE
+  )
+  expect_equal(nrow(tab2$data), nn-1)
+  expect_no_match(tab$data$level, "All data", all = FALSE)
+})
+
+test_that("Long inventory table - errors", {
+
+  .table <- list(RFf = "Renal function", SEXf = "Sex", FORMf = "Formulation")
+  .cols <- c("RFf", "FORMf", "SEXf")
+
+  expect_error(
+    pt_inventory_long(
+      data = pmt_first,
+      cols = NULL
+    ),
+    "cols is not a character vector"
+  )
+  expect_error(
+    pt_inventory_long(
+      data = data.frame(),
+      cols = .cols
+    ),
+    regexp = "nrow(data) not greater than 1",
+    fixed = TRUE
+  )
+  # Passed through
+  expect_error(
+    pt_inventory_long(
+      data = pmt_first,
+      cols = .cols,
+      id_col = "ID COL"
+    ),
+    regexp = "there was a problem finding required columns"
+  )
+  # Passed through
+  expect_error(
+    pt_inventory_long(
+      data = pmt_first,
+      cols = .cols,
+      dv_col = "DV COL"
+    ),
+    regexp = "there was a problem finding required",
+    fixed = TRUE
+  )
+  # Passed through
+  expect_error(
+    pt_inventory_long(
+      data = pmt_first,
+      cols = .cols,
+      bq_col = "BQL COL"
+    ),
+    regexp = "there was a problem finding required",
+    fixed = TRUE
+  )
+
 })
