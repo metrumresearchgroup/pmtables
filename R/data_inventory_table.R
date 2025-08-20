@@ -479,7 +479,7 @@ pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note
 #'
 #' @examples
 #'
-#' tab <- pt_data_inventory_long(
+#' tab <- pt_inventory_long(
 #'   pmtables::pmt_first,
 #'   cols = c("FORMf", "SEXf", "RFf")
 #' )
@@ -489,16 +489,16 @@ pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note
 #' @seealso [pt_data_inventory()]
 #'
 #' @export
-pt_data_inventory_long <- function(data,
-                                   cols,
-                                   drop_miss = FALSE,
-                                   table =  NULL,
-                                   summarise_all = TRUE,
-                                   all_name = "All data",
-                                   dv_col = "DV",
-                                   bq_col = find_bq_col(data),
-                                   id_col = "ID",
-                                   level_width = NULL) {
+pt_inventory_long <- function(data,
+                              cols,
+                              drop_miss = FALSE,
+                              table =  NULL,
+                              summarise_all = TRUE,
+                              all_name = "All data",
+                              dv_col = "DV",
+                              bq_col = find_bq_col(data),
+                              id_col = "ID",
+                              level_width = NULL) {
 
   assert_that(is.data.frame(data))
   assert_that(is.character(all_name))
@@ -574,11 +574,16 @@ pt_data_inventory_long <- function(data,
 
   out <- structure(out, class = c("pmtable", class(out)))
 
-  return(out)
+  out
 }
+
+#' @rdname pt_inventory_long
+#' @export
+pt_data_inventory_long <- pt_inventory_long
 
 dichunk <- function(...) {
   ans <- pt_data_inventory(...)
   ans <- ans$data
   ans
 }
+
