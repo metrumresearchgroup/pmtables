@@ -56,7 +56,9 @@ appended to the bottom of the table when \code{stacked} is \code{FALSE}.}
 
 \item{id_col}{Character name of \code{ID} column.}
 
-\item{level_width}{width of the \code{level} column, specified in \code{cm}.}
+\item{level_width}{width in \code{cm} of the \code{level} column, the left-most column
+containing the different levels of the discrete data items specified in
+\code{cols}.}
 }
 \description{
 Generates a table showing numbers of subjects and observations, stratifying

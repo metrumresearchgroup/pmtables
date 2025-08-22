@@ -478,7 +478,9 @@ pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note
 #'
 #' @param cols data columns containing discrete data items for grouped data
 #' inventory summaries.
-#' @param level_width width of the `level` column, specified in `cm`.
+#' @param level_width width in `cm` of the `level` column, the left-most column
+#' containing the different levels of the discrete data items specified in
+#' `cols`.
 #'
 #' @examples
 #'
