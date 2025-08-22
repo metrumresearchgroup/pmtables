@@ -529,7 +529,7 @@ pt_inventory_long <- function(data,
       all_name = all_name
     )
     tab_chunk <- mutate(tab_chunk, var = cols[i])
-    tab_chunk <- rename(tab_chunk, level = !!sym(cols[i]))
+    tab_chunk <- rename(tab_chunk, level = cols[i])
     if(summall) {
       tab_chunk$var[nrow(tab_chunk)] <- "NULL"
     }
