@@ -516,79 +516,54 @@ pt_inventory_long <- function(data,
 
   data <- as.data.frame(data)
   cols <- unique(cols)
+  # Prevent problem in case "var" is a member of `cols`
+  var <- make.unique(c(cols, "var"))[length(cols) + 1]
 
   x <- vector(mode = "list", length = length(cols))
 
+  # The output object derived from call with first covariate
+  tab <- NULL
+
   for(i in seq_along(cols)) {
     summall <- isTRUE(summarize_all) && i == length(cols)
-    tab_chunk <- dichunk(
+    ptable <- pt_data_inventory(
       data,
       cols[i],
       dv_col = dv_col, bq_col = bq_col, id_col = id_col,
       summarize_all = summall,
-      all_name = all_name
+      all_name = all_name, table = table, drop_miss = drop_miss
     )
-    tab_chunk <- mutate(tab_chunk, var = cols[i])
+    if(i==1) tab <- ptable
+    tab_chunk <- ptable$data
+    tab_chunk[[var]] <- cols[i]
     tab_chunk <- rename(tab_chunk, level = cols[i])
     if(summall) {
-      tab_chunk$var[nrow(tab_chunk)] <- "NULL"
+      tab_chunk[[var]][nrow(tab_chunk)] <- "NULL"
     }
     x[[i]] <- tab_chunk
   }
 
-  tab <- bind_rows(x)
-  tab <- select(tab, "var", "level", everything())
+  tab_data <- bind_rows(x)
+  tab_data <- tab_data[, unique(c(var, "level", names(tab_data)))]
 
   if(length(table)) {
     assert_that(is.list(table))
     assert_that(is_named(table))
-    common <- which(tab$var %in% names(table))
-    tab$var[common] <- unlist(table)[tab$var[common]]
+    common <- which(tab_data[[var]] %in% names(table))
+    tab_data[[var]][common] <- unlist(table)[tab_data[[var]][common]]
   }
 
-  centered <- c("SUBJ", "MISS")
-
-  if(isTRUE(drop_miss)) {
-    if(all(tab$MISS==0)) {
-      tab$MISS <- NULL
-      centered <- "SUBJ"
-    }
-  }
-
-  drop_bql <- is.na(bq_col)
-  notes <- pt_data_inventory_notes(bq = bq_col, drop_bql = drop_bql)
-  if(isTRUE(drop_miss)) notes <- notes[!grepl("MISS", notes)]
-  if(isTRUE(drop_bql)) {
-    notes <- notes[!grepl("below", notes)]
-  }
+  tab$data <- tab_data
 
   if(is.numeric(level_width)) {
-    align <- cols_right(.c = centered, level = col_ragged(level_width))
-  } else {
-    align <- cols_right(.c = centered, .l = "level")
+    tab$align$update$level <- col_ragged(level_width)
   }
+  tab$panel <- rowpanel(col = var, skip = "NULL")
+  tab$cols_blank <- "level"
 
-  out <- list(
-    data = tab,
-    panel = rowpanel("var", skip = "NULL"),
-    cols_blank = "level",
-    span_split = colsplit(sep = ".", title_side = ".l"),
-    align = align,
-    notes = notes
-  )
-
-  out <- structure(out, class = c("pmtable", class(out)))
-
-  out
+  tab
 }
 
 #' @rdname pt_inventory_long
 #' @export
 pt_data_inventory_long <- pt_inventory_long
-
-dichunk <- function(...) {
-  ans <- pt_data_inventory(...)
-  ans <- ans$data
-  ans
-}
-
