@@ -467,3 +467,104 @@ pt_data_inventory_notes <- function(bq = c("BQL", "BLQ"), drop_bql = FALSE, note
   )
   ans
 }
+
+
+#' Data inventory by covariate
+#'
+#' Generates a table showing numbers of subjects and observations, stratifying
+#' by multiple categorical covariates.
+#'
+#' @inheritParams pt_data_inventory
+#'
+#' @param cols data columns containing discrete data items for grouped data
+#' inventory summaries.
+#' @param level_width width in `cm` of the `level` column, the left-most column
+#' containing the different levels of the discrete data items specified in
+#' `cols`.
+#'
+#' @examples
+#'
+#' data <- pmt_first
+#'
+#' tab <- pt_inventory_long(data, cols = c("FORMf", "SEXf", "RFf"))
+#'
+#' tab$data
+#'
+#' @seealso [pt_data_inventory()]
+#'
+#' @export
+pt_inventory_long <- function(data,
+                              cols,
+                              drop_miss = FALSE,
+                              table =  NULL,
+                              summarize_all = TRUE,
+                              all_name = "All data",
+                              dv_col = "DV",
+                              bq_col = find_bq_col(data),
+                              id_col = "ID",
+                              level_width = NULL) {
+
+  assert_that(is.data.frame(data))
+  assert_that(nrow(data) > 1)
+  assert_that(is.character(cols))
+  assert_that(length(cols) > 0)
+  assert_that(is.character(all_name))
+  assert_that(length(all_name)==1)
+
+  if(length(table)) {
+    assert_that(is.list(table))
+    assert_that(!is.data.frame(table))
+    assert_that(is_named(table))
+  }
+
+  data <- as.data.frame(data)
+  cols <- unique(cols)
+  # Prevent problem in case "var" is a member of `cols`
+  var <- make.unique(c(cols, "var"))[length(cols) + 1]
+
+  x <- vector(mode = "list", length = length(cols))
+
+  # The output object derived from call with first covariate
+  tab <- NULL
+
+  for(i in seq_along(cols)) {
+    summall <- isTRUE(summarize_all) && i == length(cols)
+    ptable <- pt_data_inventory(
+      data,
+      cols[i],
+      dv_col = dv_col, bq_col = bq_col, id_col = id_col,
+      summarize_all = summall,
+      all_name = all_name, table = table, drop_miss = drop_miss
+    )
+    if(i==1) tab <- ptable
+    tab_chunk <- ptable$data
+    tab_chunk[[var]] <- cols[i]
+    tab_chunk <- rename(tab_chunk, level = cols[i])
+    if(summall) {
+      tab_chunk[[var]][nrow(tab_chunk)] <- "NULL"
+    }
+    x[[i]] <- tab_chunk
+  }
+
+  tab_data <- bind_rows(x)
+  tab_data <- tab_data[, unique(c(var, "level", names(tab_data)))]
+
+  if(length(table)) {
+    common <- which(tab_data[[var]] %in% names(table))
+    tab_data[[var]][common] <- unlist(table)[tab_data[[var]][common]]
+  }
+
+  tab$data <- tab_data
+
+  if(is.numeric(level_width)) {
+    tab$align$update$level <- col_ragged(level_width)
+  }
+  tab$panel <- rowpanel(col = var, skip = "NULL")
+  tab$cols_blank <- "level"
+
+  tab
+}
+
+#' @rdname pt_inventory_long
+#' @export
+pt_data_inventory_long <- pt_inventory_long
