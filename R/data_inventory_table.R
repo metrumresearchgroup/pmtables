@@ -511,9 +511,10 @@ pt_inventory_long <- function(data,
   assert_that(is.character(all_name))
   assert_that(length(all_name)==1)
 
-  if(!missing(table)) {
+  if(length(table)) {
     assert_that(is.list(table))
     assert_that(!is.data.frame(table))
+    assert_that(is_named(table))
   }
 
   data <- as.data.frame(data)
@@ -549,8 +550,6 @@ pt_inventory_long <- function(data,
   tab_data <- tab_data[, unique(c(var, "level", names(tab_data)))]
 
   if(length(table)) {
-    assert_that(is.list(table))
-    assert_that(is_named(table))
     common <- which(tab_data[[var]] %in% names(table))
     tab_data[[var]][common] <- unlist(table)[tab_data[[var]][common]]
   }

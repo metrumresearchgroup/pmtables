@@ -305,5 +305,4 @@ test_that("Long inventory table - errors", {
     regexp = "there was a problem finding required",
     fixed = TRUE
   )
-
 })
