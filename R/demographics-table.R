@@ -65,6 +65,7 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
                          digits = 3, maxex = 5) {
   tibble(
     `Mean (SD)` = .mean_sd(value, fmt = fmt, digits = digits, maxex = maxex),
+    `Median` = .median(value, fmt = fmt, digits = digits, maxex = maxex),
     `Min / Max` = .min_max(value, fmt = fmt, digits = digits, maxex = maxex),
     `Missing` = as.character(sum(is.na(value)), digits = digits, maxex = maxex)
   )
@@ -76,6 +77,10 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
   Mean <- fmt(mean(value, na.rm = TRUE), ...)
   Sd <- fmt(sd(value, na.rm = TRUE), ...)
   paste0(Mean, " (", Sd, ")")
+}
+.median <- function(value, fmt = sig, ...) {
+  Median <- fmt(median(value, na.rm = TRUE), ...)
+  Median
 }
 
 #' Summarize continuous and categorical data in long format
