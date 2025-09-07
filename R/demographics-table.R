@@ -115,8 +115,9 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
 #' covariate names; otherwise, the covariate names will appear as the left-most
 #' column with non-repeating names cleared and separated with `hline` (see
 #' examples).
-#' @param drop_miss the `Missing` statistic rows will be dropped _if_ there are
-#' no missing values; set this to `FALSE` to retain these rows.
+#' @param drop_miss rows where the `Statistic` column is `Missing` will be
+#' dropped _if_ there are no missing values; set this to `FALSE` to retain
+#' these rows.
 #'
 #' @details
 #' When a continuous data summary function (`fun`) is passed, the user should
@@ -303,13 +304,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   }
   # add units
   units <- validate_units(units, data)
-  # units <- units[vapply(units, is.character, TRUE)]
-  # units <- units[vapply(units, nchar, 1L) > 0]
   if(!is.null(units)) {
-    # cat_unit_set <- setdiff(cols_cat, names(units))
-    # if(length(cat_unit_set)) {
-    #   units[cat_unit_set] <- rep("(n (%))", length(cat_unit_set))
-    # }
     all_cols <- c(cols_cont, cols_cat)
     has_unit <- match(names(units), all_cols)
     nw <- names(all_cols)
