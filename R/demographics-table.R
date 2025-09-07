@@ -115,6 +115,8 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
 #' covariate names; otherwise, the covariate names will appear as the left-most
 #' column with non-repeating names cleared and separated with `hline` (see
 #' examples).
+#' @param drop_miss the `Missing` statistic rows will be dropped _if_ there are
+#' no missing values; set this to `FALSE` to retain these rows.
 #'
 #' @details
 #' When a continuous data summary function (`fun`) is passed, the user should
@@ -192,7 +194,8 @@ pt_demographics <- function(data, cols_cont, cols_cat,
                             fun = dem_cont_fun,
                             notes = pt_demographics_notes(),
                             paneled = TRUE,
-                            denom = c("group", "total")) {
+                            denom = c("group", "total"),
+                            drop_miss = TRUE) {
 
   summarize_all <- isTRUE(summarize_all)
   summarize_span <- !is.null(span)
@@ -287,15 +290,26 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   if(summarize_all) {
     table_data <- rename(table_data, !!sym(all_name) := "value")
   }
+  # Drop rows where all are missing
+  drop_miss <- isTRUE(drop_miss)
+  stat_col <- which(names(table_data)=="Statistic")
+  cols_to_check <- seq(3, ncol(table_data))
+  check_missing_row <- function(row) {
+    row[stat_col] == "Missing" && all(row[cols_to_check]=="0")
+  }
+  if(isTRUE(drop_miss) && length(stat_col)==1) {
+    drop_these_rows <- apply(table_data, MARGIN = 1, FUN = check_missing_row)
+    table_data <- table_data[!drop_these_rows,]
+  }
   # add units
   units <- validate_units(units, data)
-  units <- units[vapply(units, is.character, TRUE)]
-  units <- units[vapply(units, nchar, 1L) > 0]
+  # units <- units[vapply(units, is.character, TRUE)]
+  # units <- units[vapply(units, nchar, 1L) > 0]
   if(!is.null(units)) {
-    cat_unit_set <- setdiff(cols_cat, names(units))
-    if(length(cat_unit_set)) {
-      units[cat_unit_set] <- rep("n (%)", length(cat_unit_set))
-    }
+    # cat_unit_set <- setdiff(cols_cat, names(units))
+    # if(length(cat_unit_set)) {
+    #   units[cat_unit_set] <- rep("(n (%))", length(cat_unit_set))
+    # }
     all_cols <- c(cols_cont, cols_cat)
     has_unit <- match(names(units), all_cols)
     nw <- names(all_cols)
