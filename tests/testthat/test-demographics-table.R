@@ -191,8 +191,9 @@ test_that("demographics data summary - spot check values [PMT-TEST-0052]", {
     span = c("STUDYf"),
     stat_name = "Statistic"
   )
+  # Indices reflect dropped Missing statistics
   expect_true(out$data$`12-DEMO-001`[4] == ab1)
-  expect_true(out$data$`12-DEMO-002`[2] == ab2)
+  expect_true(out$data$`12-DEMO-002`[3] == ab2)
 })
 
 test_that("statistic column gets renamed [PMT-TEST-0053]", {
@@ -233,10 +234,11 @@ test_that("set width of Statistic column [PMT-TEST-0057]", {
 test_that("table argument is implemented [PMT-TEST-0058]", {
   tab <- list(WT = "Weight (kg)", SCR = "Creat", ASIANf = "Asian")
   out <- pt_demographics(pmt_first, "WT,AGE,SCR", cat, table = tab)
+  # Indices account for removal of Missing stat where appropriate
   expect_equal(out$data$name[1], "Weight (kg)")
-  expect_equal(out$data$name[4], "AGE")
-  expect_equal(out$data$name[7], "Creat")
-  expect_equal(out$data$name[12], "Asian")
+  expect_equal(out$data$name[5], "AGE")
+  expect_equal(out$data$name[8], "Creat")
+  expect_equal(out$data$name[13], "Asian")
 })
 
 test_that("demographics table has group argument [PMT-TEST-0059]", {
@@ -273,4 +275,23 @@ test_that("demographics table has group argument [PMT-TEST-0059]", {
   test2 <- select(filter(tab2a, name != "WT"), -1, -2)
   ref2 <- select(tab2b, -1, -2)
   expect_identical(test2, ref2)
+})
+
+test_that("Median is included in default statistics", {
+  out <- pt_demographics(pmt_first, cont, cat)
+  n <- sum(out$data$Statistic=="Median")
+  expect_equal(n, length(pmtables:::cvec_cs(cont)))
+})
+
+test_that("Control how Missing stat is handled", {
+  cont2 <- c("AGE", "BMI", "HT", "ALT", "AST")
+  out <- pt_demographics(pmt_first, cont2, cat)
+  expect_equal(sum(out$data$Statistic=="Missing"), 0)
+
+  cont3 <- c(cont2, "WT", "CRCL")
+  out <- pt_demographics(pmt_first, cont3, cat)
+  expect_equal(sum(out$data$Statistic=="Missing"), 2)
+
+  out <- pt_demographics(pmt_first, cont3, cat, drop_miss = FALSE)
+  expect_equal(sum(out$data$Statistic=="Missing"), length(cont3))
 })
