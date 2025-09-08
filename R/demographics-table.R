@@ -293,7 +293,7 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   }
   # Drop rows where all are missing
   drop_miss <- isTRUE(drop_miss)
-  stat_col <- which(names(table_data)=="Statistic")
+  stat_col <- which(names(table_data)==stat_name)
   cols_to_check <- seq(3, ncol(table_data))
   check_missing_row <- function(row) {
     row[stat_col] == "Missing" && all(row[cols_to_check]=="0")
