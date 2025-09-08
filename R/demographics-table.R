@@ -292,15 +292,11 @@ pt_demographics <- function(data, cols_cont, cols_cat,
     table_data <- rename(table_data, !!sym(all_name) := "value")
   }
   # Drop rows where all are missing
-  drop_miss <- isTRUE(drop_miss)
-  stat_col <- which(names(table_data)==stat_name)
-  cols_to_check <- seq(3, ncol(table_data))
-  check_missing_row <- function(row) {
-    row[stat_col] == "Missing" && all(row[cols_to_check]=="0")
-  }
-  if(isTRUE(drop_miss) && length(stat_col)==1) {
-    drop_these_rows <- apply(table_data, MARGIN = 1, FUN = check_missing_row)
-    table_data <- table_data[!drop_these_rows,]
+  if (isTRUE(drop_miss)) {
+    val_cols <- setdiff(names(table_data), c("name", stat_name))
+    rows_to_keep <- table_data[, stat_name] != "Missing" |
+      rowSums(table_data[, val_cols] != "0") > 0
+    table_data <- table_data[rows_to_keep, ]
   }
   # add units
   units <- validate_units(units, data)
