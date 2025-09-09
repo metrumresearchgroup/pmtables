@@ -1,9 +1,9 @@
 # pmtables 0.9.0
 
 - `pt_demographics()` was refactored (#363).
-  - Include the median in the default output
+  - Include the median in the default summary function
   - Rows where `Statistic` is "Missing" (provided by the default summary function for 
-    continuous data) and all summary column are "0" are dropped by default
+    continuous data) and all summary values are "0" are dropped by default
   - New argument `drop_miss` can be used to optionally retain the "Missing" stat for 
     all continuous data summaries
 
