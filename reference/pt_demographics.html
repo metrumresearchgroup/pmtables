@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Summarize continuous and categorical data in long format</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/main/R/demographics-table.R" class="external-link"><code>R/demographics-table.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.9.0/R/demographics-table.R" class="external-link"><code>R/demographics-table.R</code></a></small>
     <div class="hidden name"><code>pt_demographics.Rd</code></div>
     </div>
 
@@ -67,7 +67,8 @@
 <span>  fun <span class="op">=</span> <span class="va">dem_cont_fun</span>,</span>
 <span>  notes <span class="op">=</span> <span class="fu">pt_demographics_notes</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  paneled <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  denom <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"group"</span>, <span class="st">"total"</span><span class="op">)</span></span>
+<span>  denom <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"group"</span>, <span class="st">"total"</span><span class="op">)</span>,</span>
+<span>  drop_miss <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -148,6 +149,12 @@ examples).</p></dd>
 the total number in the data set; historically, <code>group</code> has been used as the
 default.</p></dd>
 
+
+<dt id="arg-drop-miss">drop_miss<a class="anchor" aria-label="anchor" href="#arg-drop-miss"></a></dt>
+<dd><p>rows where the <code>Statistic</code> column is <code>Missing</code> will be
+dropped <em>if</em> there are no missing values; set this to <code>FALSE</code> to retain
+these rows.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -215,15 +222,15 @@ same format. Any number of columns is acceptable.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">pmtables</span><span class="fu">:::</span><span class="fu"><a href="dem_cont_fun.html">dem_cont_fun</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `Mean (SD)`    `Min / Max`  Missing</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -0.0615 (1.14) -1.75 / 2.10 0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `Mean (SD)`   Median `Min / Max`  Missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -0.347 (1.07) -0.329 -2.94 / 1.15 0      </span>
 <span class="r-in"><span><span class="fu">new_fun</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   mean   median `min-max`   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -0.347 -0.329 -2.94 - 1.15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -0.228 -0.272 -2.09 - 1.78</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -240,7 +247,7 @@ same format. Any number of columns is acceptable.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.9000.</p>
 </div>
 
       </footer></div>
