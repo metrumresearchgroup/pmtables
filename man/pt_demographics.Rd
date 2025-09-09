@@ -18,7 +18,8 @@ pt_demographics(
   fun = dem_cont_fun,
   notes = pt_demographics_notes(),
   paneled = TRUE,
-  denom = c("group", "total")
+  denom = c("group", "total"),
+  drop_miss = TRUE
 )
 }
 \arguments{
@@ -67,6 +68,10 @@ examples).}
 \code{group} uses the total number in the chunk being summarized; \code{total} uses
 the total number in the data set; historically, \code{group} has been used as the
 default.}
+
+\item{drop_miss}{rows where the \code{Statistic} column is \code{Missing} will be
+dropped \emph{if} there are no missing values; set this to \code{FALSE} to retain
+these rows.}
 }
 \value{
 An object of class \code{pmtable}.

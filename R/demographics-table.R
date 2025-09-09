@@ -65,6 +65,7 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
                          digits = 3, maxex = 5) {
   tibble(
     `Mean (SD)` = .mean_sd(value, fmt = fmt, digits = digits, maxex = maxex),
+    `Median` = .median(value, fmt = fmt, digits = digits, maxex = maxex),
     `Min / Max` = .min_max(value, fmt = fmt, digits = digits, maxex = maxex),
     `Missing` = as.character(sum(is.na(value)), digits = digits, maxex = maxex)
   )
@@ -76,6 +77,10 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
   Mean <- fmt(mean(value, na.rm = TRUE), ...)
   Sd <- fmt(sd(value, na.rm = TRUE), ...)
   paste0(Mean, " (", Sd, ")")
+}
+.median <- function(value, fmt = sig, ...) {
+  Median <- fmt(median(value, na.rm = TRUE), ...)
+  Median
 }
 
 #' Summarize continuous and categorical data in long format
@@ -110,6 +115,9 @@ dem_cont_fun <- function(value = seq(1,5), name = "",  ..., fmt = sig,
 #' covariate names; otherwise, the covariate names will appear as the left-most
 #' column with non-repeating names cleared and separated with `hline` (see
 #' examples).
+#' @param drop_miss rows where the `Statistic` column is `Missing` will be
+#' dropped _if_ there are no missing values; set this to `FALSE` to retain
+#' these rows.
 #'
 #' @details
 #' When a continuous data summary function (`fun`) is passed, the user should
@@ -187,7 +195,8 @@ pt_demographics <- function(data, cols_cont, cols_cat,
                             fun = dem_cont_fun,
                             notes = pt_demographics_notes(),
                             paneled = TRUE,
-                            denom = c("group", "total")) {
+                            denom = c("group", "total"),
+                            drop_miss = TRUE) {
 
   summarize_all <- isTRUE(summarize_all)
   summarize_span <- !is.null(span)
@@ -281,6 +290,13 @@ pt_demographics <- function(data, cols_cont, cols_cat,
   table_data <- rename(table_data, !!sym(stat_name) := "level")
   if(summarize_all) {
     table_data <- rename(table_data, !!sym(all_name) := "value")
+  }
+  # Drop rows where all are missing
+  if (isTRUE(drop_miss)) {
+    val_cols <- setdiff(names(table_data), c("name", stat_name))
+    rows_to_keep <- table_data[, stat_name] != "Missing" |
+      rowSums(table_data[, val_cols] != "0") > 0
+    table_data <- table_data[rows_to_keep, ]
   }
   # add units
   units <- validate_units(units, data)
