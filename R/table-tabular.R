@@ -1,15 +1,15 @@
 #' Prime a data frame for inclusion into a latex table
 #'
-#' @param data a data frame
-#' @param escape_fun a function to sanitize data frame contents
+#' @inheritParams make_tabular
 #'
 #' @export
-tab_prime <- function(data, escape_fun = tab_escape) {
+tab_prime <- function(data, escape_fun = tab_escape, sub_bracket = "both") {
   if(isTRUE(attr(data, "pmtables.primed"))) {
     return(data)
   }
   data <- modify(data, as.character)
   data <- modify(data, replace_na, "")
+  data <- modify(data, substitute_bracket, which = sub_bracket)
   esc <- getOption("pmtables.escape", c("_", "%"))
   if(is.character(esc)) {
     data <- modify(data, escape_fun, esc = esc)
@@ -25,6 +25,23 @@ any_skip_escape <- function(x) {
 do_escape <- function(x) {
   str_count(x, fixed("$")) <= 1 &
     str_count(x, fixed("\\")) == 0
+}
+
+substitute_bracket <- function(x, which) {
+  if(which=="both") {
+    x <- gsub("[", "\\lbrack", x, fixed = TRUE)
+    x <- gsub("]", "\\rbrack", x, fixed = TRUE)
+    return(x)
+  }
+  if(which=="left") {
+    x <- gsub("[", "\\lbrack", x, fixed = TRUE)
+    return(x)
+  }
+  if(which=="right") {
+    x <- gsub("]", "\\rbrack", x, fixed = TRUE)
+    return(x)
+  }
+  return(x)
 }
 
 #' @rdname tab_prime
@@ -52,11 +69,16 @@ esc_underscore <- function(string) {
 #' @param data a data.frame
 #' @param prime_fun a function to prime the data frame for rendering in TeX
 #' @param escape_fun a function to escape characters that have special meaning
+#' @param sub_bracket substitute left and/or right brackets with `\lbrack`
+#' and/or `\rbrack`, respectively
 #' in TeX
 #' @param ... not used
 #' @export
-make_tabular <- function(data, prime_fun = tab_prime,
-                         escape_fun = tab_escape, ...) {
+make_tabular <- function(data,
+                         prime_fun = tab_prime,
+                         escape_fun = tab_escape,
+                         sub_bracket = c("both", "left", "right", "none"),
+                         ...) {
 
   if(is.character(prime_fun)) {
     prime_fun <- get(prime_fun, mode = "function")
@@ -69,7 +91,9 @@ make_tabular <- function(data, prime_fun = tab_prime,
   assert_that(is.function(prime_fun))
   assert_that(is.function(escape_fun))
 
-  data <- prime_fun(data, escape_fun)
+  sub_bracket <- match.arg(sub_bracket)
+
+  data <- prime_fun(data, escape_fun, sub_bracket)
 
   tab <- modify(data, function(x) {
     formatC(x, width = max(nchar(x)))

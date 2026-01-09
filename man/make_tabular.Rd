@@ -4,14 +4,23 @@
 \alias{make_tabular}
 \title{Create tabular environment from data frame}
 \usage{
-make_tabular(data, prime_fun = tab_prime, escape_fun = tab_escape, ...)
+make_tabular(
+  data,
+  prime_fun = tab_prime,
+  escape_fun = tab_escape,
+  sub_bracket = c("both", "left", "right", "none"),
+  ...
+)
 }
 \arguments{
 \item{data}{a data.frame}
 
 \item{prime_fun}{a function to prime the data frame for rendering in TeX}
 
-\item{escape_fun}{a function to escape characters that have special meaning
+\item{escape_fun}{a function to escape characters that have special meaning}
+
+\item{sub_bracket}{substitute left and/or right brackets with \verb{\\lbrack}
+and/or \verb{\\rbrack}, respectively
 in TeX}
 
 \item{...}{not used}
