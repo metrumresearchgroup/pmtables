@@ -93,3 +93,19 @@ test_that("test-notes-basename-only [PMT-TEST-0157]", {
     fixed = TRUE, all = FALSE
   )
 })
+
+test_that("brackets in table notes are sanitized", {
+  notes <- c("[1,2]", "(3,4]", "(9,10)")
+  tab <- stable(stdata(), notes = notes, inspect = TRUE)
+  tabnotes <- get_stable_data(tab)$notes
+  m <- sum(grepl("lbrack", tabnotes))
+  expect_equal(m, 1)
+  m <- sum(grepl("rbrack", tabnotes))
+  expect_equal(m, 2)
+  tab <- stable(stdata(), notes = notes, inspect = TRUE, sub_bracket = "none")
+  tabnotes <- get_stable_data(tab)$notes
+  m <- sum(grepl("lbrack", tabnotes))
+  expect_equal(m, 0)
+  m <- sum(grepl("rbrack", tabnotes))
+  expect_equal(m, 0)
+})

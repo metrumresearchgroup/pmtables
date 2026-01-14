@@ -2,6 +2,7 @@
 #' Form table notes
 #'
 #' @inheritParams stable
+#' @inheritParams make_tabular
 #' @param note_config a [noteconf()] object used to configure how table notes
 #' are displayed; see also [st_noteconf()].
 #' @param r_file the name of the R file containing code to generate the table;
@@ -27,6 +28,7 @@
 #'
 #'@export
 tab_notes <- function(notes = character(0), escape_fun = tab_escape,
+                      sub_bracket = c("both", "left", "right", "none"),
                       note_config = noteconf(type = "tpt"),
                       r_file = getOption("mrg.script", NULL),
                       r_file_label = "Source code: ",
@@ -37,6 +39,7 @@ tab_notes <- function(notes = character(0), escape_fun = tab_escape,
                       ...) {
 
   assert_that(is.noteconfig(note_config))
+  sub_bracket <- match.arg(sub_bracket)
 
   file_info <- tab_files(output_file, output_dir, r_file,
                          r_file_label, output_file_label,
@@ -47,6 +50,7 @@ tab_notes <- function(notes = character(0), escape_fun = tab_escape,
   if(note_config$sanitize) {
     assert_that(is.character(notes) || is.null(notes))
     notes <- escape_fun(notes, escape = note_config$escape)
+    notes <- substitute_bracket(notes, which = sub_bracket)
   }
 
   m_notes <- t_notes <- NULL

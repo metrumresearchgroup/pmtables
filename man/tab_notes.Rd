@@ -7,6 +7,7 @@
 tab_notes(
   notes = character(0),
   escape_fun = tab_escape,
+  sub_bracket = c("both", "left", "right", "none"),
   note_config = noteconf(type = "tpt"),
   r_file = getOption("mrg.script", NULL),
   r_file_label = "Source code: ",
@@ -25,6 +26,10 @@ appear in the output; see also \code{\link[=st_notes]{st_notes()}}}
 
 \item{escape_fun}{a function passed to \code{prime_fun} that will sanitize column
 data}
+
+\item{sub_bracket}{substitute left and/or right brackets with \verb{\\lbrack}
+and/or \verb{\\rbrack}, respectively
+in TeX}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; see also \code{\link[=st_noteconf]{st_noteconf()}}.}

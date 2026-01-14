@@ -29,16 +29,16 @@ do_escape <- function(x) {
 
 substitute_bracket <- function(x, which) {
   if(which=="both") {
-    x <- gsub("[", "\\lbrack", x, fixed = TRUE)
-    x <- gsub("]", "\\rbrack", x, fixed = TRUE)
+    x <- gsub("[", "\\lbrack{}", x, fixed = TRUE)
+    x <- gsub("]", "\\rbrack{}", x, fixed = TRUE)
     return(x)
   }
   if(which=="left") {
-    x <- gsub("[", "\\lbrack", x, fixed = TRUE)
+    x <- gsub("[", "\\lbrack{}", x, fixed = TRUE)
     return(x)
   }
   if(which=="right") {
-    x <- gsub("]", "\\rbrack", x, fixed = TRUE)
+    x <- gsub("]", "\\rbrack{}", x, fixed = TRUE)
     return(x)
   }
   return(x)
