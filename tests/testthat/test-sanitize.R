@@ -61,7 +61,7 @@ test_that("table contents are sanitized [PMT-TEST-0183]", {
   data[4,3] <- "percent (%)"
   data[2,2] <- "$\\mug$"
   data[1,1] <- "foo\\_bar [%]"
-  out <- inspect(data = data)$tab
+  out <- inspect(data = data, sub_bracket = "none")$tab
   expect_match(out[2], "foo\\_bar", fixed = TRUE, all = FALSE)
   expect_match(out[4], "\\%", fixed = TRUE, all = FALSE)
   expect_match(out[2],"$\\mug$", fixed = TRUE, all = FALSE)
