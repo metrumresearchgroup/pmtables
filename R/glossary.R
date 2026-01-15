@@ -110,17 +110,19 @@ parse_tex_glossary <- function(txt) {
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
   txt <- sub("[^\\\\]%.*", "", txt, perl = TRUE)
-  m <- regexec("\\{(.+)\\}\\s*\\{(.+)\\}\\s*\\{(.+)\\}.*$", txt, perl = TRUE)
-  parsed <- regmatches(txt, m)
-  parsed <- lapply(parsed, trimws)
+  pattern <- "\\{(?:[^{}]++|(?R))*\\}"
+  matches <- gregexpr(pattern, txt, perl = TRUE)
+  parsed <- regmatches(txt, matches)
+  parsed <- lapply(parsed, gsub, pattern = "^\\{|\\}$", replacement = "")
+  parsed <- lapply(parsed, function(x) trimws(tail(x, 3)))
   if(!length(parsed)) {
     abort("No acronym entries were found in `file`.")
   }
-  if(!all(vapply(parsed, length, 1L)==4)) {
+  if(!all(vapply(parsed, length, 1L)==3)) {
     abort("There was a problem parsing the glossary file.")
   }
-  label <- vapply(parsed, FUN = "[", 2L, FUN.VALUE = "a")
-  data <- lapply(parsed, FUN = "[", c(3L, 4L))
+  label <- vapply(parsed, FUN = "[", 1L, FUN.VALUE = "a")
+  data <- lapply(parsed, FUN = "[", c(2L, 3L))
   data <- lapply(data, as_glossary_entry)
   data <- lapply(data, setNames, c("abbreviation", "definition"))
   names(data) <- label
