@@ -28,7 +28,7 @@
 #'
 #'@export
 tab_notes <- function(notes = character(0), escape_fun = tab_escape,
-                      sub_bracket = c("both", "left", "right", "none"),
+                      mask_bracket = c("both", "left", "right", "none"),
                       note_config = noteconf(type = "tpt"),
                       r_file = getOption("mrg.script", NULL),
                       r_file_label = "Source code: ",
@@ -39,7 +39,7 @@ tab_notes <- function(notes = character(0), escape_fun = tab_escape,
                       ...) {
 
   assert_that(is.noteconfig(note_config))
-  sub_bracket <- match.arg(sub_bracket)
+  mask_bracket <- match.arg(mask_bracket)
 
   file_info <- tab_files(output_file, output_dir, r_file,
                          r_file_label, output_file_label,
@@ -50,7 +50,7 @@ tab_notes <- function(notes = character(0), escape_fun = tab_escape,
   if(note_config$sanitize) {
     assert_that(is.character(notes) || is.null(notes))
     notes <- escape_fun(notes, escape = note_config$escape)
-    notes <- substitute_bracket(notes, which = sub_bracket)
+    notes <- mask_bracket_impl(notes, which = mask_bracket)
   }
 
   m_notes <- t_notes <- NULL

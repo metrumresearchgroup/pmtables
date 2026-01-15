@@ -61,7 +61,7 @@ test_that("table contents are sanitized [PMT-TEST-0183]", {
   data[4,3] <- "percent (%)"
   data[2,2] <- "$\\mug$"
   data[1,1] <- "foo\\_bar [%]"
-  out <- inspect(data = data, sub_bracket = "none")$tab
+  out <- inspect(data = data, mask_bracket = "none")$tab
   expect_match(out[2], "foo\\_bar", fixed = TRUE, all = FALSE)
   expect_match(out[4], "\\%", fixed = TRUE, all = FALSE)
   expect_match(out[2],"$\\mug$", fixed = TRUE, all = FALSE)
@@ -69,7 +69,7 @@ test_that("table contents are sanitized [PMT-TEST-0183]", {
   expect_match(out[1], "[%]", fixed = TRUE, all = FALSE)
 })
 
-test_that("brackets are sanitized via sub_bracket", {
+test_that("brackets are sanitized via mask_bracket", {
   data <- data.frame(A = "[2,3]", B = "(9,10]", C = "[[22,33)")
 
   ans <- tab_prime(data)
@@ -77,17 +77,17 @@ test_that("brackets are sanitized via sub_bracket", {
   expect_equal(ans[1,2], "(9,10\\rbrack{}")
   expect_equal(ans[1,3], "\\lbrack{}\\lbrack{}22,33)")
 
-  ans <- tab_prime(data, sub_bracket = "left")
+  ans <- tab_prime(data, mask_bracket = "left")
   expect_equal(ans[1,1], "\\lbrack{}2,3]")
   expect_equal(ans[1,2], "(9,10]")
   expect_equal(ans[1,3], "\\lbrack{}\\lbrack{}22,33)")
 
-  ans <- tab_prime(data, sub_bracket = "right")
+  ans <- tab_prime(data, mask_bracket = "right")
   expect_equal(ans[1,1], "[2,3\\rbrack{}")
   expect_equal(ans[1,2], "(9,10\\rbrack{}")
   expect_equal(ans[1,3], "[[22,33)")
 
-  ans <- tab_prime(data, sub_bracket = "none")
+  ans <- tab_prime(data, mask_bracket = "none")
   expect_equal(ans[1,1], "[2,3]")
   expect_equal(ans[1,2], "(9,10]")
   expect_equal(ans[1,3], "[[22,33)")
@@ -115,20 +115,20 @@ test_that("brackets are sanitized via sub_bracket", {
   expect_equal(sum(grepl("lbrack", tab1)), 2)
   expect_equal(sum(grepl("rbrack", tab1)), 3)
 
-  tab2 <- stable(data, sub_bracket = "left")
+  tab2 <- stable(data, mask_bracket = "left")
   expect_equal(sum(grepl("lbrack", tab2)), 2)
   expect_equal(sum(grepl("rbrack", tab2)), 0)
 
-  tab3 <- stable(data, sub_bracket = "right")
+  tab3 <- stable(data, mask_bracket = "right")
   expect_equal(sum(grepl("lbrack", tab3)), 0)
   expect_equal(sum(grepl("rbrack", tab3)), 3)
 
-  tab4 <- stable(data, sub_bracket = "none")
+  tab4 <- stable(data, mask_bracket = "none")
   expect_equal(sum(grepl("lbrack", tab4)), 0)
   expect_equal(sum(grepl("rbrack", tab4)), 0)
 
   expect_error(
-    stable(data, sub_bracket = "frb"),
+    stable(data, mask_bracket = "frb"),
     "should be one of"
   )
 
@@ -136,20 +136,20 @@ test_that("brackets are sanitized via sub_bracket", {
   expect_equal(sum(grepl("lbrack", tab1)), 2)
   expect_equal(sum(grepl("rbrack", tab1)), 3)
 
-  tab2 <- stable_long(data, sub_bracket = "left")
+  tab2 <- stable_long(data, mask_bracket = "left")
   expect_equal(sum(grepl("lbrack", tab2)), 2)
   expect_equal(sum(grepl("rbrack", tab2)), 0)
 
-  tab3 <- stable_long(data, sub_bracket = "right")
+  tab3 <- stable_long(data, mask_bracket = "right")
   expect_equal(sum(grepl("lbrack", tab3)), 0)
   expect_equal(sum(grepl("rbrack", tab3)), 3)
 
-  tab4 <- stable_long(data, sub_bracket = "none")
+  tab4 <- stable_long(data, mask_bracket = "none")
   expect_equal(sum(grepl("lbrack", tab4)), 0)
   expect_equal(sum(grepl("rbrack", tab4)), 0)
 
   expect_error(
-    stable_long(data, sub_bracket = "frb"),
+    stable_long(data, mask_bracket = "frb"),
     "should be one of"
   )
 })

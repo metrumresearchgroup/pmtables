@@ -102,7 +102,7 @@ test_that("brackets in table notes are sanitized", {
   expect_equal(m, 1)
   m <- sum(grepl("rbrack", tabnotes))
   expect_equal(m, 2)
-  tab <- stable(stdata(), notes = notes, inspect = TRUE, sub_bracket = "none")
+  tab <- stable(stdata(), notes = notes, inspect = TRUE, mask_bracket = "none")
   tabnotes <- get_stable_data(tab)$notes
   m <- sum(grepl("lbrack", tabnotes))
   expect_equal(m, 0)
