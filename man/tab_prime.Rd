@@ -5,20 +5,23 @@
 \alias{tab_escape}
 \title{Prime a data frame for inclusion into a latex table}
 \usage{
-tab_prime(data, escape_fun = tab_escape)
+tab_prime(data, escape_fun = tab_escape, mask_bracket = "both")
 
 tab_escape(string, esc = getOption("pmtables.escape", c("_", "\%")), ...)
 }
 \arguments{
-\item{data}{a data frame}
+\item{data}{a data.frame.}
 
-\item{escape_fun}{a function to sanitize data frame contents}
+\item{escape_fun}{a function to escape characters that have special meaning.}
 
-\item{string}{data to sanitize}
+\item{mask_bracket}{mask (or substitute) left and/or right brackets with \verb{\\lbrack}
+and/or \verb{\\rbrack}, respectively.}
 
-\item{esc}{a character vector of strings to escape}
+\item{string}{data to sanitize.}
 
-\item{...}{used only to allow arguments through}
+\item{esc}{a character vector of strings to escape.}
+
+\item{...}{used only to allow arguments through.}
 }
 \description{
 Prime a data frame for inclusion into a latex table

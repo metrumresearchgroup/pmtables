@@ -4,17 +4,26 @@
 \alias{make_tabular}
 \title{Create tabular environment from data frame}
 \usage{
-make_tabular(data, prime_fun = tab_prime, escape_fun = tab_escape, ...)
+make_tabular(
+  data,
+  prime_fun = tab_prime,
+  escape_fun = tab_escape,
+  mask_bracket = c("both", "left", "right", "none"),
+  ...
+)
 }
 \arguments{
-\item{data}{a data.frame}
+\item{data}{a data.frame.}
 
-\item{prime_fun}{a function to prime the data frame for rendering in TeX}
+\item{prime_fun}{a function to prime the data frame for rendering in TeX.}
 
-\item{escape_fun}{a function to escape characters that have special meaning
-in TeX}
+\item{escape_fun}{a function to escape characters that have special meaning.}
 
-\item{...}{not used}
+\item{mask_bracket}{mask (or substitute) left and/or right brackets with \verb{\\lbrack}
+and/or \verb{\\rbrack}, respectively; passed to the \code{prime_fun()} function (by
+default \code{\link[=tab_prime]{tab_prime()}}).}
+
+\item{...}{not used.}
 }
 \description{
 Create tabular environment from data frame

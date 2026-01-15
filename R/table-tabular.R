@@ -1,15 +1,17 @@
 #' Prime a data frame for inclusion into a latex table
 #'
-#' @param data a data frame
-#' @param escape_fun a function to sanitize data frame contents
+#' @inheritParams make_tabular
+#' @param mask_bracket mask (or substitute) left and/or right brackets with `\lbrack`
+#' and/or `\rbrack`, respectively.
 #'
 #' @export
-tab_prime <- function(data, escape_fun = tab_escape) {
+tab_prime <- function(data, escape_fun = tab_escape, mask_bracket = "both") {
   if(isTRUE(attr(data, "pmtables.primed"))) {
     return(data)
   }
   data <- modify(data, as.character)
   data <- modify(data, replace_na, "")
+  data <- modify(data, mask_bracket_impl, which = mask_bracket)
   esc <- getOption("pmtables.escape", c("_", "%"))
   if(is.character(esc)) {
     data <- modify(data, escape_fun, esc = esc)
@@ -27,10 +29,30 @@ do_escape <- function(x) {
     str_count(x, fixed("\\")) == 0
 }
 
+mask_bracket_impl <- function(x, which) {
+  if(which=="both") {
+    x <- gsub("[", "\\lbrack{}", x, fixed = TRUE)
+    x <- gsub("]", "\\rbrack{}", x, fixed = TRUE)
+    return(x)
+  }
+  if(which=="left") {
+    x <- gsub("[", "\\lbrack{}", x, fixed = TRUE)
+    return(x)
+  }
+  if(which=="right") {
+    x <- gsub("]", "\\rbrack{}", x, fixed = TRUE)
+    return(x)
+  }
+  if(which=="none") {
+    return(x)
+  }
+  stop("`mask_bracket` must be either 'both', 'left', 'right', or 'none'")
+}
+
 #' @rdname tab_prime
-#' @param string data to sanitize
-#' @param esc a character vector of strings to escape
-#' @param ... used only to allow arguments through
+#' @param string data to sanitize.
+#' @param esc a character vector of strings to escape.
+#' @param ... used only to allow arguments through.
 tab_escape <- function(string, esc = getOption("pmtables.escape", c("_", "%")), ...) {
   if(is.null(esc)) return(string)
   w <- do_escape(string)
@@ -49,14 +71,19 @@ esc_underscore <- function(string) {
 
 #' Create tabular environment from data frame
 #'
-#' @param data a data.frame
-#' @param prime_fun a function to prime the data frame for rendering in TeX
-#' @param escape_fun a function to escape characters that have special meaning
-#' in TeX
-#' @param ... not used
+#' @param data a data.frame.
+#' @param prime_fun a function to prime the data frame for rendering in TeX.
+#' @param escape_fun a function to escape characters that have special meaning.
+#' @param mask_bracket mask (or substitute) left and/or right brackets with `\lbrack`
+#' and/or `\rbrack`, respectively; passed to the `prime_fun()` function (by
+#' default [tab_prime()]).
+#' @param ... not used.
 #' @export
-make_tabular <- function(data, prime_fun = tab_prime,
-                         escape_fun = tab_escape, ...) {
+make_tabular <- function(data,
+                         prime_fun = tab_prime,
+                         escape_fun = tab_escape,
+                         mask_bracket = c("both", "left", "right", "none"),
+                         ...) {
 
   if(is.character(prime_fun)) {
     prime_fun <- get(prime_fun, mode = "function")
@@ -69,7 +96,9 @@ make_tabular <- function(data, prime_fun = tab_prime,
   assert_that(is.function(prime_fun))
   assert_that(is.function(escape_fun))
 
-  data <- prime_fun(data, escape_fun)
+  mask_bracket <- match.arg(mask_bracket)
+
+  data <- prime_fun(data, escape_fun, mask_bracket)
 
   tab <- modify(data, function(x) {
     formatC(x, width = max(nchar(x)))

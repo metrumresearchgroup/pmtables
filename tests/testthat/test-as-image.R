@@ -144,3 +144,21 @@ test_that("stable_save_image takes a long table", {
   tab <- stable_long(stdata())
   expect_silent(stable_save_image(tab, stem = "foo2", dir = tempdir()))
 })
+
+
+test_that("render a table with unmatched brackets", {
+  data <- data.frame(a = c("[123, 456)", "[9,10)"))
+  tab <- stable(st_new(data))
+
+  expect_equal(sum(grepl("lbrack", tab)), 2)
+  expect_equal(sum(grepl("rbrack", tab)), 0)
+
+  where <- file.path(tempdir(), "test-unmatch-bracket")
+  unlink(where, recursive = TRUE)
+  dir.create(where)
+
+  ans <- stable_save_image(tab, stem = "test-unmatch-bracket", dir = where)
+  expect_true(file.exists(ans))
+  expect_equal(basename(ans), "test-unmatch-bracket.png")
+
+})
