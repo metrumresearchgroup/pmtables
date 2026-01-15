@@ -41,7 +41,10 @@ mask_bracket_impl <- function(x, which) {
     x <- gsub("]", "\\rbrack{}", x, fixed = TRUE)
     return(x)
   }
-  return(x)
+  if(which=="none") {
+    return(x)
+  }
+  stop("`mask_bracket` must be either 'both', 'left', 'right', or 'none'")
 }
 
 #' @rdname tab_prime
