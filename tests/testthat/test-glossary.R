@@ -164,6 +164,29 @@ test_that("parse a glossary entry", {
   expect_error(pmtables:::parse_tex_glossary(txt), "No acronym entries")
 })
 
+test_that("parse glossary entry with options", {
+  txt <- "\\newacronym[longplural = PK, shortplural = pharmacokinetics]{PK}{PK}{pharmacokinetic}"
+  x <- pmtables:::parse_tex_glossary(txt)
+  expect_length(x, 1)
+  expect_named(x)
+  expect_identical(names(x), "PK")
+  expect_equivalent(
+    x$PK, list(abbreviation = "PK", definition = "pharmacokinetic")
+  )
+
+  txt <- "\\newacronym[longplural = { PK}, shortplural = {pharmacokinetics}]{PK}{PK}{pharmacokinetic}"
+  x2 <- pmtables:::parse_tex_glossary(txt)
+  expect_identical(x2, x)
+
+  txt <- "\\newacronym[sort = PK, longplural = { PK}, shortplural = {pharmacokinetics}]{PK}{PK}{pharmacokinetic}"
+  x3 <- pmtables:::parse_tex_glossary(txt)
+  expect_identical(x2, x)
+
+  txt <- "\\newacronym[sort = PK, longplural = { PK, sort of}, shortplural = {$\\mathrm{2}$}]{PK}{PK}{pharmacokinetic}"
+  x4 <- pmtables:::parse_tex_glossary(txt)
+  expect_identical(x4, x)
+})
+
 test_that("coerce list to glossary object", {
   g <- as_glossary(a = "b", c = "d")
   expect_length(g, 2)
