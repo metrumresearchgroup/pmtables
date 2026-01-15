@@ -17,11 +17,11 @@ tab_escape(string, esc = getOption("pmtables.escape", c("_", "\%")), ...)
 \item{mask_bracket}{mask (or substitute) left and/or right brackets with \verb{\\lbrack}
 and/or \verb{\\rbrack}, respectively.}
 
-\item{string}{data to sanitize}
+\item{string}{data to sanitize.}
 
-\item{esc}{a character vector of strings to escape}
+\item{esc}{a character vector of strings to escape.}
 
-\item{...}{used only to allow arguments through}
+\item{...}{used only to allow arguments through.}
 }
 \description{
 Prime a data frame for inclusion into a latex table

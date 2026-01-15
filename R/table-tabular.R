@@ -50,9 +50,9 @@ mask_bracket_impl <- function(x, which) {
 }
 
 #' @rdname tab_prime
-#' @param string data to sanitize
-#' @param esc a character vector of strings to escape
-#' @param ... used only to allow arguments through
+#' @param string data to sanitize.
+#' @param esc a character vector of strings to escape.
+#' @param ... used only to allow arguments through.
 tab_escape <- function(string, esc = getOption("pmtables.escape", c("_", "%")), ...) {
   if(is.null(esc)) return(string)
   w <- do_escape(string)
