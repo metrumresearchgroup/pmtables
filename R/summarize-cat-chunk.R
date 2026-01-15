@@ -24,7 +24,7 @@ summarize_cat_chunk <- function(data, cols, N, denom = "group") {
 #'
 #' @param name the column name to summarize.
 #' @param data the data frame to summarize from.
-#' @param D the denominator to use; this was set in [summarize_cat_chunk()].
+#' @param D the denominator to use; this was set in `summarize_cat_chunk()`.
 #' @param Nchunk the number of records in the chunk being summarized.
 #' @return
 #' - `N` is the number of records in the chunk
