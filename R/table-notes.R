@@ -2,7 +2,8 @@
 #' Form table notes
 #'
 #' @inheritParams stable
-#' @inheritParams make_tabular
+#' @param mask_bracket mask (or substitute) left and/or right brackets with `\lbrack`
+#' and/or `\rbrack`, respectively.
 #' @param note_config a [noteconf()] object used to configure how table notes
 #' are displayed; see also [st_noteconf()].
 #' @param r_file the name of the R file containing code to generate the table;

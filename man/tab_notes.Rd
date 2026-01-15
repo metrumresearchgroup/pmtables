@@ -28,8 +28,7 @@ appear in the output; see also \code{\link[=st_notes]{st_notes()}}}
 data}
 
 \item{mask_bracket}{mask (or substitute) left and/or right brackets with \verb{\\lbrack}
-and/or \verb{\\rbrack}, respectively; this \code{make_tabular} only masks brackets in
-the table body contents in \code{data}, not table column names.}
+and/or \verb{\\rbrack}, respectively.}
 
 \item{note_config}{a \code{\link[=noteconf]{noteconf()}} object used to configure how table notes
 are displayed; see also \code{\link[=st_noteconf]{st_noteconf()}}.}

@@ -20,8 +20,8 @@ make_tabular(
 \item{escape_fun}{a function to escape characters that have special meaning.}
 
 \item{mask_bracket}{mask (or substitute) left and/or right brackets with \verb{\\lbrack}
-and/or \verb{\\rbrack}, respectively; this \code{make_tabular} only masks brackets in
-the table body contents in \code{data}, not table column names.}
+and/or \verb{\\rbrack}, respectively; passed to the \code{prime_fun()} function (by
+default \code{\link[=tab_prime]{tab_prime()}}).}
 
 \item{...}{not used.}
 }

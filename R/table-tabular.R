@@ -1,6 +1,8 @@
 #' Prime a data frame for inclusion into a latex table
 #'
 #' @inheritParams make_tabular
+#' @param mask_bracket mask (or substitute) left and/or right brackets with `\lbrack`
+#' and/or `\rbrack`, respectively.
 #'
 #' @export
 tab_prime <- function(data, escape_fun = tab_escape, mask_bracket = "both") {
@@ -73,8 +75,8 @@ esc_underscore <- function(string) {
 #' @param prime_fun a function to prime the data frame for rendering in TeX.
 #' @param escape_fun a function to escape characters that have special meaning.
 #' @param mask_bracket mask (or substitute) left and/or right brackets with `\lbrack`
-#' and/or `\rbrack`, respectively; this `make_tabular` only masks brackets in
-#' the table body contents in `data`, not table column names.
+#' and/or `\rbrack`, respectively; passed to the `prime_fun()` function (by
+#' default [tab_prime()]).
 #' @param ... not used.
 #' @export
 make_tabular <- function(data,
