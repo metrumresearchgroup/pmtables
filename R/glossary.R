@@ -116,10 +116,14 @@ parse_tex_glossary <- function(txt) {
   parsed <- lapply(parsed, gsub, pattern = "^\\{|\\}$", replacement = "")
   parsed <- lapply(parsed, function(x) trimws(tail(x, 3)))
   if(!length(parsed)) {
-    abort("No acronym entries were found in `file`.")
+    abort("no acronym entries were found in `file`.")
   }
   if(!all(vapply(parsed, length, 1L)==3)) {
-    abort("There was a problem parsing the glossary file.")
+    abort("there was a problem parsing the glossary file.")
+  }
+  uparsed <- unlist(parsed, use.names = FALSE)
+  if(any(vapply(uparsed, nchar, 1L)==0)) {
+    warn("some empty acronym data were found; this may indicate a problem parsing the glossary file.")
   }
   label <- vapply(parsed, FUN = "[", 1L, FUN.VALUE = "a")
   data <- lapply(parsed, FUN = "[", c(2L, 3L))

@@ -23,7 +23,7 @@ test_that("read a glossary file", {
   expect_error(read_glossary(foo), "does not exist.")
 
   cat("a\n", file = foo)
-  expect_error(read_glossary(foo), "No acronym entries were found")
+  expect_error(read_glossary(foo), "no acronym entries were found")
 })
 
 test_that("read a glossary file - yaml", {
@@ -161,7 +161,7 @@ test_that("parse a glossary entry", {
   )
 
   txt <- "%\\newacronym{a}{b}{c}"
-  expect_error(pmtables:::parse_tex_glossary(txt), "No acronym entries")
+  expect_error(pmtables:::parse_tex_glossary(txt), "no acronym entries")
 })
 
 test_that("parse glossary entry with options", {
@@ -185,6 +185,14 @@ test_that("parse glossary entry with options", {
   txt <- "\\newacronym[sort = PK, longplural = { PK, sort of}, shortplural = {$\\mathrm{2}$}]{PK}{PK}{pharmacokinetic}"
   x4 <- pmtables:::parse_tex_glossary(txt)
   expect_identical(x4, x)
+})
+
+test_that("unmatched brace", {
+  txt <- c("\\newacronym{PK}{PK{}{pharmacokinetic}", "\\newacronym{PK}{PK}{pharmacokinetic}")
+  expect_warning(
+    ans <- pmtables:::parse_tex_glossary(txt),
+    "some empty acronym data were found; this may indicate a problem parsing the glossary file."
+  )
 })
 
 test_that("coerce list to glossary object", {
