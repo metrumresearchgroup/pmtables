@@ -50,8 +50,9 @@ tab_notes <- function(notes = character(0), escape_fun = tab_escape,
   if(note_config$sanitize) {
     assert_that(is.character(notes) || is.null(notes))
     notes <- escape_fun(notes, escape = note_config$escape)
-    notes <- mask_bracket_impl(notes, which = mask_bracket)
   }
+
+  notes <- mask_bracket_impl(notes, which = mask_bracket)
 
   m_notes <- t_notes <- NULL
 
