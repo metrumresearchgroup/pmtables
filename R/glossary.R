@@ -110,7 +110,7 @@ parse_tex_glossary_blocks <- function(item) {
   keep <- vapply(item, attr, "latex_tag", FUN.VALUE = "ABCD") == "BLOCK"
   item <- item[keep]
   item <- tail(item, n = 3)
-  item <- vapply(item, deparseLatex, dropBraces = TRUE, FUN.VALUE = "EFGH")
+  item <- vapply(item, tools::deparseLatex, dropBraces = TRUE, FUN.VALUE = "EFGH")
   item <- trimws(item)
   item
 }
