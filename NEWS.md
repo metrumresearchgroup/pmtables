@@ -1,4 +1,17 @@
-# pmtables (development version)
+# pmtables 0.10.0
+
+- Brackets in table body or table notes are now sanitized or masked by default to
+  `\lbrack` or `\rbrack`; this behavior can be modified or turned off through 
+  an argument called `mask_bracket` which is passed to `make_tabular()` (masking 
+  brackets in the table body) or `tab_notes()` (masking brackets in table 
+  notes); both `make_tabular()` and `tab_notes()` can receive the `mask_bracket`
+  argument through `stable()` or `stable_long()` (#367). 
+
+## Bugs Fixed
+
+- Fixed a bug in parsing TeX glossary entries with braces around acronym options
+  such as `shortplural` or `longplural` via `read_glossary()` ; parsing is now 
+  done through `tools::parseLatex` (#370).
 
 # pmtables 0.9.0
 
