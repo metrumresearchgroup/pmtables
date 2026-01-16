@@ -106,7 +106,7 @@ read_tex_glossary <- function(file) {
   parse_tex_glossary(txt)
 }
 
-extract_blocks <- function(item) {
+parse_tex_glossary_blocks <- function(item) {
   keep <- vapply(item, attr, "latex_tag", FUN.VALUE = "ABCD") == "BLOCK"
   item <- item[keep]
   item <- tail(item, n = 3)
@@ -119,7 +119,7 @@ parse_tex_glossary <- function(txt) {
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
   parsed <- lapply(txt, tools::parseLatex)
-  parsed <- lapply(parsed, extract_blocks)
+  parsed <- lapply(parsed, parse_tex_glossary_blocks)
   if(!length(parsed)) {
     abort("no acronym entries were found in `file`.")
   }
