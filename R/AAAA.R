@@ -16,10 +16,10 @@
 #' @importFrom glue glue
 #' @importFrom tibble tibble as_tibble is_tibble
 #' @importFrom stats median rnorm sd na.omit setNames update
-#' @importFrom utils capture.output packageVersion str
+#' @importFrom utils capture.output packageVersion str tail
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
 #' @importFrom stringr str_extract
-#' @importFrom tools file_ext file_path_sans_ext
+#' @importFrom tools file_ext file_path_sans_ext parseLatex deparseLatex
 #' @importFrom lifecycle deprecate_warn
 #' @importFrom rprojroot find_root is_rstudio_project is_testthat
 #' @importFrom fs path_rel path

@@ -23,7 +23,7 @@ test_that("read a glossary file", {
   expect_error(read_glossary(foo), "does not exist.")
 
   cat("a\n", file = foo)
-  expect_error(read_glossary(foo), "No acronym entries were found")
+  expect_error(read_glossary(foo), "no acronym entries were found")
 })
 
 test_that("read a glossary file - yaml", {
@@ -161,7 +161,37 @@ test_that("parse a glossary entry", {
   )
 
   txt <- "%\\newacronym{a}{b}{c}"
-  expect_error(pmtables:::parse_tex_glossary(txt), "No acronym entries")
+  expect_error(pmtables:::parse_tex_glossary(txt), "no acronym entries")
+})
+
+test_that("parse glossary entry with options", {
+  txt <- "\\newacronym[longplural = PK, shortplural = pharmacokinetics]{PK}{PK}{pharmacokinetic}"
+  x <- pmtables:::parse_tex_glossary(txt)
+  expect_length(x, 1)
+  expect_named(x)
+  expect_identical(names(x), "PK")
+  expect_equivalent(
+    x$PK, list(abbreviation = "PK", definition = "pharmacokinetic")
+  )
+
+  txt <- "\\newacronym[longplural = { PK}, shortplural = {pharmacokinetics}]{PK}{PK}{pharmacokinetic}"
+  x2 <- pmtables:::parse_tex_glossary(txt)
+  expect_identical(x2, x)
+
+  txt <- "\\newacronym[sort = PK, longplural = { PK}, shortplural = {pharmacokinetics}]{PK}{PK}{pharmacokinetic}"
+  x3 <- pmtables:::parse_tex_glossary(txt)
+  expect_identical(x2, x)
+
+  txt <- "\\newacronym[sort = PK, longplural = { PK, sort of}, shortplural = {$\\mathrm{2}$}]{PK}{PK}{pharmacokinetic}"
+  x4 <- pmtables:::parse_tex_glossary(txt)
+  expect_identical(x4, x)
+})
+
+test_that("unmatched brace", {
+  txt <- c("\\newacronym{PK}{PK\\{}{pharmacokinetic}", "\\newacronym{PD}{PD}{pharmacodynamic}")
+  ans <- pmtables:::parse_tex_glossary(txt)
+  expect_length(ans, 2)
+  expect_named(ans)
 })
 
 test_that("coerce list to glossary object", {
