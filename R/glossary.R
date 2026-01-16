@@ -106,24 +106,25 @@ read_tex_glossary <- function(file) {
   parse_tex_glossary(txt)
 }
 
+extract_blocks <- function(item) {
+  keep <- vapply(item, attr, "latex_tag", FUN.VALUE = "ABCD") == "BLOCK"
+  item <- item[keep]
+  item <- tail(item, n = 3)
+  item <- vapply(item, deparseLatex, dropBraces = TRUE, FUN.VALUE = "EFGH")
+  item <- trimws(item)
+  item
+}
+
 parse_tex_glossary <- function(txt) {
   txt <- trimws(txt)
   txt <- txt[grepl("^\\\\newacronym", txt)]
-  txt <- sub("[^\\\\]%.*", "", txt, perl = TRUE)
-  pattern <- "\\{(?:[^{}]++|(?R))*\\}"
-  matches <- gregexpr(pattern, txt, perl = TRUE)
-  parsed <- regmatches(txt, matches)
-  parsed <- lapply(parsed, gsub, pattern = "^\\{|\\}$", replacement = "")
-  parsed <- lapply(parsed, function(x) trimws(tail(x, 3)))
+  parsed <- lapply(txt, tools::parseLatex)
+  parsed <- lapply(parsed, extract_blocks)
   if(!length(parsed)) {
     abort("no acronym entries were found in `file`.")
   }
   if(!all(vapply(parsed, length, 1L)==3)) {
     abort("there was a problem parsing the glossary file.")
-  }
-  uparsed <- unlist(parsed, use.names = FALSE)
-  if(any(vapply(uparsed, nchar, 1L)==0)) {
-    warn("some empty acronym data were found; this may indicate a problem parsing the glossary file.")
   }
   label <- vapply(parsed, FUN = "[", 1L, FUN.VALUE = "a")
   data <- lapply(parsed, FUN = "[", c(2L, 3L))

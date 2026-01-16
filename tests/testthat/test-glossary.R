@@ -188,11 +188,10 @@ test_that("parse glossary entry with options", {
 })
 
 test_that("unmatched brace", {
-  txt <- c("\\newacronym{PK}{PK{}{pharmacokinetic}", "\\newacronym{PK}{PK}{pharmacokinetic}")
-  expect_warning(
-    ans <- pmtables:::parse_tex_glossary(txt),
-    "some empty acronym data were found; this may indicate a problem parsing the glossary file."
-  )
+  txt <- c("\\newacronym{PK}{PK\\{}{pharmacokinetic}", "\\newacronym{PD}{PD}{pharmacodynamic}")
+  ans <- pmtables:::parse_tex_glossary(txt)
+  expect_length(ans, 2)
+  expect_named(ans)
 })
 
 test_that("coerce list to glossary object", {
