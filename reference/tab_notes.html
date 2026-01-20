@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.10.0</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Form table notes</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.9.0/R/table-notes.R" class="external-link"><code>R/table-notes.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.10.0/R/table-notes.R" class="external-link"><code>R/table-notes.R</code></a></small>
     <div class="hidden name"><code>tab_notes.Rd</code></div>
     </div>
 
@@ -56,6 +56,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tab_notes</span><span class="op">(</span></span>
 <span>  notes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span>
 <span>  escape_fun <span class="op">=</span> <span class="va">tab_escape</span>,</span>
+<span>  mask_bracket <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"left"</span>, <span class="st">"right"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
 <span>  note_config <span class="op">=</span> <span class="fu"><a href="noteconf.html">noteconf</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"tpt"</span><span class="op">)</span>,</span>
 <span>  r_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mrg.script"</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
 <span>  r_file_label <span class="op">=</span> <span class="st">"Source code: "</span>,</span>
@@ -81,6 +82,11 @@ appear in the output; see also <code><a href="st_notes.html">st_notes()</a></cod
 <dt id="arg-escape-fun">escape_fun<a class="anchor" aria-label="anchor" href="#arg-escape-fun"></a></dt>
 <dd><p>a function passed to <code>prime_fun</code> that will sanitize column
 data</p></dd>
+
+
+<dt id="arg-mask-bracket">mask_bracket<a class="anchor" aria-label="anchor" href="#arg-mask-bracket"></a></dt>
+<dd><p>mask (or substitute) left and/or right brackets with <code>\lbrack</code>
+and/or <code>\rbrack</code>, respectively.</p></dd>
 
 
 <dt id="arg-note-config">note_config<a class="anchor" aria-label="anchor" href="#arg-note-config"></a></dt>
@@ -145,7 +151,7 @@ table notes and how to format it; options include "none", "proj", and
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
       </footer></div>

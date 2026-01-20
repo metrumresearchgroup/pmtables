@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.10.0</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create tabular environment from data frame</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.9.0/R/table-tabular.R" class="external-link"><code>R/table-tabular.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.10.0/R/table-tabular.R" class="external-link"><code>R/table-tabular.R</code></a></small>
     <div class="hidden name"><code>make_tabular.Rd</code></div>
     </div>
 
@@ -53,7 +53,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_tabular</span><span class="op">(</span><span class="va">data</span>, prime_fun <span class="op">=</span> <span class="va">tab_prime</span>, escape_fun <span class="op">=</span> <span class="va">tab_escape</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_tabular</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  prime_fun <span class="op">=</span> <span class="va">tab_prime</span>,</span>
+<span>  escape_fun <span class="op">=</span> <span class="va">tab_escape</span>,</span>
+<span>  mask_bracket <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"left"</span>, <span class="st">"right"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -61,20 +67,25 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>a data.frame</p></dd>
+<dd><p>a data.frame.</p></dd>
 
 
 <dt id="arg-prime-fun">prime_fun<a class="anchor" aria-label="anchor" href="#arg-prime-fun"></a></dt>
-<dd><p>a function to prime the data frame for rendering in TeX</p></dd>
+<dd><p>a function to prime the data frame for rendering in TeX.</p></dd>
 
 
 <dt id="arg-escape-fun">escape_fun<a class="anchor" aria-label="anchor" href="#arg-escape-fun"></a></dt>
-<dd><p>a function to escape characters that have special meaning
-in TeX</p></dd>
+<dd><p>a function to escape characters that have special meaning.</p></dd>
+
+
+<dt id="arg-mask-bracket">mask_bracket<a class="anchor" aria-label="anchor" href="#arg-mask-bracket"></a></dt>
+<dd><p>mask (or substitute) left and/or right brackets with <code>\lbrack</code>
+and/or <code>\rbrack</code>, respectively; passed to the <code>prime_fun()</code> function (by
+default <code><a href="tab_prime.html">tab_prime()</a></code>).</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>not used</p></dd>
+<dd><p>not used.</p></dd>
 
 </dl></div>
 
@@ -90,7 +101,7 @@ in TeX</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
       </footer></div>
