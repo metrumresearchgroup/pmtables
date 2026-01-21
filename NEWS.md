@@ -3,9 +3,10 @@
 ## Bugs Fixed
 
 - Fixed a bug in `pt_data_inventory()` where missing values in the `by` column
-  resulted in the missing value summary getting labeled as a summary row; 
-  this fix replaces missing values with character `"NA"` as the table is 
-  built (#373).
+  resulted in the missing value summary row getting labeled as an "All data" 
+  summary row; this fix replaces missing values with the character string 
+  `"NA"` as the table is built and "All data" summary rows are now properly
+  labeled (#373).
 
 # pmtables 0.10.0
 
