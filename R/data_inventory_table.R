@@ -172,6 +172,7 @@ data_inventory_data <- function(data, by, panel = by, all_name = "all",
         PBQL = "---"
       )
     }
+    ans <- mutate(ans, !!sym(by) := replace_na(!!sym(by), "NA"))
     ans <- bind_rows(ans,tot)
   }
 
