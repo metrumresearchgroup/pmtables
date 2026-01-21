@@ -1,5 +1,12 @@
 # pmtables (development version)
 
+## Bugs Fixed
+
+- Fixed a bug in `pt_data_inventory()` where missing values in the `by` column
+  resulted in the missing value summary getting labeled as a summary row; 
+  this fix replaces missing values with character `"NA"` as the table is 
+  built (#373).
+
 # pmtables 0.10.0
 
 - Brackets in table body or table notes are now sanitized or masked by default to
