@@ -306,3 +306,14 @@ test_that("Long inventory table - errors", {
     fixed = TRUE
   )
 })
+
+test_that("Missing value in by column is handled properly gh-372", {
+  data <- pmt_obs
+  data$ASIAN[c(1,100,500,800,2000)] <- NA_character_
+  a <- pt_data_inventory(data, by = "ASIAN")$data
+  expect_equal(sum(is.na(data$ASIAN)), 5)
+  expect_equal(nrow(a), 4)
+  expect_equal(a$Number.OBS[3], 5)
+  expect_identical(a$ASIAN[1:3], c("Asian", "non-Asian", "NA"))
+  expect_match(a$ASIAN[4], "All data")
+})

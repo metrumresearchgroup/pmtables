@@ -1,3 +1,13 @@
+# pmtables (development version)
+
+## Bugs Fixed
+
+- Fixed a bug in `pt_data_inventory()` where missing values in the `by` column
+  resulted in the missing value summary row getting labeled as an "All data" 
+  summary row; this fix replaces missing values with the character string 
+  `"NA"` as the table is built and "All data" summary rows are now properly
+  labeled (#373).
+
 # pmtables 0.10.0
 
 - Brackets in table body or table notes are now sanitized or masked by default to
