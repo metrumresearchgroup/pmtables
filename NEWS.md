@@ -1,4 +1,4 @@
-# pmtables (development version)
+# pmtables 0.10.1
 
 ## Bugs Fixed
 
