@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.10.1</span>
       </span>
     </div>
 
@@ -44,9 +44,16 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.10.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.10.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.10.1" id="pmtables-0101">pmtables 0.10.1<a class="anchor" aria-label="anchor" href="#pmtables-0101"></a></h2>
+<div class="section level3">
+<h3 id="bugs-fixed-0-10-1">Bugs Fixed<a class="anchor" aria-label="anchor" href="#bugs-fixed-0-10-1"></a></h3>
+<ul><li>Fixed a bug in <code><a href="../reference/pt_data_inventory.html">pt_data_inventory()</a></code> where missing values in the <code>by</code> column resulted in the missing value summary row getting labeled as an “All data” summary row; this fix replaces missing values with the character string <code>"NA"</code> as the table is built and “All data” summary rows are now properly labeled (<a href="https://github.com/metrumresearchgroup/pmtables/issues/373" class="external-link">#373</a>).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.0" id="pmtables-0100">pmtables 0.10.0<a class="anchor" aria-label="anchor" href="#pmtables-0100"></a></h2>
 <ul><li>Brackets in table body or table notes are now sanitized or masked by default to <code>\lbrack</code> or <code>\rbrack</code>; this behavior can be modified or turned off through an argument called <code>mask_bracket</code> which is passed to <code><a href="../reference/make_tabular.html">make_tabular()</a></code> (masking brackets in the table body) or <code><a href="../reference/tab_notes.html">tab_notes()</a></code> (masking brackets in table notes); both <code><a href="../reference/make_tabular.html">make_tabular()</a></code> and <code><a href="../reference/tab_notes.html">tab_notes()</a></code> can receive the <code>mask_bracket</code> argument through <code><a href="../reference/stable.html">stable()</a></code> or <code><a href="../reference/stable_long.html">stable_long()</a></code> (<a href="https://github.com/metrumresearchgroup/pmtables/issues/367" class="external-link">#367</a>).</li>
