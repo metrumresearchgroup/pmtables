@@ -149,6 +149,9 @@ pt_cont_wide <- function(data, cols,
     deprecate_warn("0.5.3", "pt_cont_wide(id_col)")
   }
 
+  assert_that(is.data.frame(data))
+  data <- as.data.frame(data)
+
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
   panel <- panel_data$col
@@ -161,6 +164,7 @@ pt_cont_wide <- function(data, cols,
   cols <- new_names(cols,table)
   by <- new_names(by,table)
   panel <- new_names(panel,table)
+
 
   data <- data_total_col(data, all_name = all_name)
 
@@ -333,6 +337,10 @@ pt_cont_long <- function(data,
 
   by <- panel
   summarize_all <- summarize_all & by != ".total"
+
+  assert_that(is.data.frame(data))
+  data <- as.data.frame(data)
+
   data <- data_total_col(data)
 
   cols <- new_names(cols,table)
