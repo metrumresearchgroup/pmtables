@@ -149,10 +149,10 @@ test_that("pt_cont_x run with no ID column", {
 
 test_that("pt_cont_long ungroups data", {
   data <- dplyr::group_by(pmt_first, SEXf, SEQf)
-  expect_silent(pt_cont_long(data, cols = "WT, CRCL" ,by = "RF"))
+  expect_silent(pt_cont_long(data, cols = "WT,CRCL", by = "RF"))
 })
 
 test_that("pt_cont_wide ungroups data", {
-  data <- dplyr::group_by(pmt_first, SEXf, SEQf)
-  expect_silent(pt_cont_wide(data, cols = "WT, CRCL" ,by = "RF"))
+  data <- dplyr::group_by(pmt_first, CPf, STUDYf)
+  expect_silent(pt_cont_wide(data, cols = "AAG,SCR", by = "ASIAN"))
 })
