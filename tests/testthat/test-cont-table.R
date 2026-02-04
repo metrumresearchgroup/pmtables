@@ -146,3 +146,13 @@ test_that("pt_cont_x run with no ID column", {
   expect_identical(tab_wide_1$data, tab_wide_2$data)
   expect_identical(tab_long_1$data, tab_long_2$data)
 })
+
+test_that("pt_cont_long ungroups data", {
+  data <- dplyr::group_by(pmt_first, SEXf, SEQf)
+  expect_silent(pt_cont_long(data, cols = "WT,CRCL", by = "RF"))
+})
+
+test_that("pt_cont_wide ungroups data", {
+  data <- dplyr::group_by(pmt_first, CPf, STUDYf)
+  expect_silent(pt_cont_wide(data, cols = "AAG,SCR", by = "ASIAN"))
+})

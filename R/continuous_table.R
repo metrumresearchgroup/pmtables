@@ -162,6 +162,9 @@ pt_cont_wide <- function(data, cols,
   by <- new_names(by,table)
   panel <- new_names(panel,table)
 
+  assert_that(is.data.frame(data))
+  data <- as.data.frame(data)
+
   data <- data_total_col(data, all_name = all_name)
 
   ans <- cont_table_data(
@@ -333,6 +336,10 @@ pt_cont_long <- function(data,
 
   by <- panel
   summarize_all <- summarize_all & by != ".total"
+
+  assert_that(is.data.frame(data))
+  data <- as.data.frame(data)
+
   data <- data_total_col(data)
 
   cols <- new_names(cols,table)
