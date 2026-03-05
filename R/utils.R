@@ -46,7 +46,7 @@ cvec_cs <- function(x) {
 #' @md
 #' @rdname sig
 #' @export
-sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", NULL), ...) {
+sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", Inf), ...) {
 
   if(identical(class(x), "integer")) {
     return(as.character(x))
@@ -55,20 +55,39 @@ sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", NULL), ...) {
   namez <- names(x)
 
   x <- as.numeric(x)
-  x <- formatC(signif(x,digits=digits), digits=digits, format='g', flag='#')
+
+  sigx <- signif(x, digits = 3)
+
+  bigm <- ifelse(sigx >= 10000, ",", "")
+
+  ans <- formatC(
+    sigx,
+    digits = digits,
+    format = "g",
+    flag = "#",
+    big.mark = bigm
+  )
 
   if(is.numeric(maxex)) {
-    if(digits!=maxex) {
+    if(digits != maxex) {
       ex <- "([-]*[0-9]\\.[0-9]+)e([+-][0-9]{2})"
-      subit <- grepl(ex,x,perl=TRUE)
-      b <- as.numeric(gsub(ex, "\\2", x))
+      subit <- grepl(ex, ans, perl = TRUE)
+      b <- as.numeric(gsub(ex, "\\2", ans))
       subit <- subit & abs(b) < maxex
-      x <- ifelse(subit,formatC(signif(as.numeric(x),digits=digits),digits=digits, format="fg",flag="#"),x)
+      if(subit) {
+        ans <- formatC(
+          sigx,
+          digits = digits,
+          format = "fg",
+          flag = "#",
+          big.mark = bigm
+        )
+      }
     }
   }
-  x <- gsub("\\.$", "", x, perl=TRUE)
-  names(x) <- namez
-  return(x)
+  ans <- gsub("\\.$", "", ans, perl = TRUE)
+  names(ans) <- namez
+  return(ans)
 }
 
 #' @rdname sig
