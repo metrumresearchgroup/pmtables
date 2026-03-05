@@ -26,6 +26,8 @@ cvec_cs <- function(x) {
 #' @param digits `numeric`; number of significant digits.
 #' @param maxex `numeric`; maximum number of significant
 #' digits before moving to scientific notation.
+#' @param big.mark if `character`, passed to [formatC()], but only for numbers
+#' greater than or equal to 10000 (five digits before decimal).
 #' @param ... other arguments that are not used.
 #'
 #' @return
@@ -46,7 +48,9 @@ cvec_cs <- function(x) {
 #' @md
 #' @rdname sig
 #' @export
-sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", Inf), ...) {
+sig <- function(x, digits = 3,
+                maxex = getOption("pmtables.maxex", Inf),
+                big.mark = getOption("pmtables.big.mark", NULL), ...) {
 
   if(identical(class(x), "integer")) {
     return(as.character(x))
@@ -58,7 +62,7 @@ sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", Inf), ...) {
 
   sigx <- signif(x, digits = 3)
 
-  bigm <- ifelse(sigx >= 10000, ",", "")
+  bigm <- ifelse(sigx >= 10000  && is.character(big.mark) , big.mark[1], "")
 
   ans <- formatC(
     sigx,

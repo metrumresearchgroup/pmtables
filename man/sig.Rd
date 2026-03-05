@@ -6,7 +6,13 @@
 \alias{rnd}
 \title{Format digits}
 \usage{
-sig(x, digits = 3, maxex = getOption("pmtables.maxex", NULL), ...)
+sig(
+  x,
+  digits = 3,
+  maxex = getOption("pmtables.maxex", Inf),
+  big.mark = getOption("pmtables.big.mark", NULL),
+  ...
+)
 
 digit1(x, ...)
 
@@ -19,6 +25,9 @@ rnd(x, digits = 0, ...)
 
 \item{maxex}{\code{numeric}; maximum number of significant
 digits before moving to scientific notation.}
+
+\item{big.mark}{if \code{character}, passed to \code{\link[=formatC]{formatC()}}, but only for numbers
+greater than or equal to 10000 (five digits before decimal).}
 
 \item{...}{other arguments that are not used.}
 }
