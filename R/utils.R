@@ -69,6 +69,7 @@ sig <- function(x, digits = 3,
   sigx <- signif(x, digits = digits)
 
   big <- sigx >= 10000
+  dobig <- is.character(big.mark) && length(big.mark)==1 && any(big)
 
   # This adds scientific notation; but also gets zeros right
   ans <- formatC(
@@ -78,7 +79,7 @@ sig <- function(x, digits = 3,
     flag = "#"
   )
 
-  if(is.character(big.mark)) {
+  if(dobig) {
     ans[big] <- formatC(
       sigx[big],
       digits = digits,
@@ -105,7 +106,7 @@ sig <- function(x, digits = 3,
           format = "fg",
           flag = "#"
         )
-        if(is.character(big.mark)) {
+        if(dobig) {
           ans[subit & big] <- formatC(
             sigx[subit & big],
             digits = digits,
