@@ -26,8 +26,8 @@ cvec_cs <- function(x) {
 #' @param digits `numeric`; number of significant digits.
 #' @param maxex `numeric`; maximum number of significant
 #' digits before moving to scientific notation.
-#' @param big.mark if `character`, passed to [formatC()], but only for numbers
-#' greater than or equal to 10000 (five digits before decimal).
+#' @param big.mark if `character`, passed to [formatC()], but only when
+#' `signif(x, digits = digits)` is greater than or equal to 10000.
 #' @param ... other arguments that are not used.
 #'
 #' @return
