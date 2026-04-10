@@ -62,7 +62,7 @@ sig <- function(x, digits = 3,
 
   sigx <- signif(x, digits = 3)
 
-  bigm <- ifelse(sigx >= 10000  && is.character(big.mark) , big.mark[1], "")
+  bigm <- ifelse(is.character(big.mark) && sigx >= 10000, big.mark, "")
 
   ans <- formatC(
     sigx,
