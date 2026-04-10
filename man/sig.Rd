@@ -48,6 +48,7 @@ sig(0.123455)
 sig(1.123455, digits = 5)
 sig(1123, maxex = 3)
 sig(1123, maxex = 4)
+sig(1123, big.mark = ",")
 
 sig(1L)
 

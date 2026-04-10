@@ -96,11 +96,57 @@ test_that("sig returns character when passed int [PMT-UTIL-0001]", {
 
 test_that("set maxex via option", {
   a <- sig(123455666)
-  expect_equal(a, "1.23e+08")
-  options(pmtables.maxex = Inf)
+  expect_equal(a, "123000000")
+  options(pmtables.maxex = 2)
   b <- sig(123455666)
-  expect_equal(b, "123000000")
+  expect_equal(b, "1.23e+08")
   options(pmtables.maxex = NULL)
   c <- sig(123455666)
   expect_identical(a, c)
+})
+
+test_that("sig behavior - maxex", {
+  a <- sig(123455666)
+  expect_equal(a, "123000000")
+  aa <- sig(123455666, maxex = 7)
+  expect_equal(aa, "1.23e+08")
+  ab <- sig(123455666, maxex = 8)
+  expect_equal(ab, "1.23e+08")
+  ac <- sig(123455666, maxex = 9)
+  expect_equal(ac, "123000000")
+})
+
+test_that("sig behavior - zero", {
+  a <- sig(0, digits = 3)
+  expect_equal(a, "0.00")
+  b <- sig(0, digits = 4)
+  expect_equal(b, "0.000")
+  d <- sig(as.double(0), digits = 3)
+  expect_equal(d, a)
+  e <- sig(0L)
+  expect_equal(e, "0")
+})
+
+test_that("sig behavior - negative numbers", {
+  a <- sig(-101, digits = 3)
+  expect_equal(a, "-101")
+  b <- sig(-1.23, digits = 3)
+  expect_equal(b, "-1.23")
+  c <- sig(-12342, digits = 3)
+  expect_equal(c, "-12300")
+})
+
+test_that("sig behavior - big.mark", {
+  a <- sig(1.2345, digits = 3, big.mark = ",")
+  expect_equal(a, "1.23")
+
+  b1 <- sig(12345, digits = 3)
+  expect_equal(b1, "12300")
+  b2 <- sig(12345, digits = 3, big.mark = ",")
+  expect_equal(b2, "12,300")
+
+  c1 <- sig(0.000012345, digits = 3)
+  expect_equal(c1, "0.0000123")
+  c2 <- sig(0.000012345, digits = 3, big.mark = ",")
+  expect_equal(c1, c2)
 })
