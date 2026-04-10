@@ -149,4 +149,11 @@ test_that("sig behavior - big.mark", {
   expect_equal(c1, "0.0000123")
   c2 <- sig(0.000012345, digits = 3, big.mark = ",")
   expect_equal(c1, c2)
+
+})
+
+test_that("sig big.mark handles vector", {
+  x <- c(0.1, 1, 10, 100, 1000, 10000, 100000)
+  a <- sig(x, big.mark = ",")
+  expect_equal(a, c("0.100", "1.00", "10.0", "100", "1000", "10,000", "100,000"))
 })

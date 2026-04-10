@@ -66,16 +66,25 @@ sig <- function(x, digits = 3,
 
   sigx <- signif(x, digits = digits)
 
-  bigm <- ifelse(is.character(big.mark) && sigx >= 10000, big.mark, "")
+  big <- sigx >= 10000
 
   # This adds scientific notation; but also gets zeros right
   ans <- formatC(
     sigx,
     digits = digits,
     format = "g",
-    flag = "#",
-    big.mark = bigm
+    flag = "#"
   )
+
+  if(is.character(big.mark)) {
+    ans[big] <- formatC(
+      sigx[big],
+      digits = digits,
+      format = "g",
+      flag = "#", 
+      big.mark = big.mark
+    )
+  }
 
   # This looks for numbers in scientific notation
   if(is.numeric(maxex)) {
@@ -92,9 +101,17 @@ sig <- function(x, digits = 3,
           sigx[subit],
           digits = digits,
           format = "fg",
-          flag = "#",
-          big.mark = bigm
+          flag = "#"
         )
+        if(is.character(big.mark)) {
+          ans[subit & big] <- formatC(
+            sigx[subit & big],
+            digits = digits,
+            format = "fg",
+            flag = "#", 
+            big.mark = big.mark
+          )
+        }
       }
     }
   }
