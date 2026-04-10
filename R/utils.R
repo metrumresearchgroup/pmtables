@@ -40,9 +40,12 @@ cvec_cs <- function(x) {
 #' sig(1123, maxex = 3)
 #' sig(1123, maxex = 4)
 #' sig(1123, big.mark = ",")
+#' sig(11234, big.mark = ",")
 #'
+#' sig(0)
+#' sig(0L)
 #' sig(1L)
-#'
+#' 
 #' digit1(1.234)
 #' digit1(1321.123)
 #'

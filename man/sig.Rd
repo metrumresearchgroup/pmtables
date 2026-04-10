@@ -49,7 +49,10 @@ sig(1.123455, digits = 5)
 sig(1123, maxex = 3)
 sig(1123, maxex = 4)
 sig(1123, big.mark = ",")
+sig(11234, big.mark = ",")
 
+sig(0)
+sig(0L)
 sig(1L)
 
 digit1(1.234)
