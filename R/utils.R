@@ -94,7 +94,7 @@ sig <- function(x, digits = 3,
     if(digits != maxex) {
       ex <- ceiling(abs(log10(abs(sigx))))
       # We revert these numbers back to standard notation
-      subit <- x!=0  & digits < maxex & ex <= maxex
+      subit <- x != 0  & digits < maxex & ex <= maxex
       if(any(subit)) {
         ans[subit] <- formatC(
           sigx[subit],
