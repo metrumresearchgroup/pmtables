@@ -42,12 +42,12 @@ cvec_cs <- function(x) {
 #' sig(1123, big.mark = ",")
 #' sig(11234, big.mark = ",")
 #' sig(c(1.1,10.1,100.1,1000.1,10000.1), big.mark = ",")
-#' 
+#'
 #'
 #' sig(0)
 #' sig(0L)
 #' sig(1L)
-#' 
+#'
 #' digit1(1.234)
 #' digit1(1321.123)
 #'
@@ -84,7 +84,7 @@ sig <- function(x, digits = 3,
       sigx[big],
       digits = digits,
       format = "g",
-      flag = "#", 
+      flag = "#",
       big.mark = big.mark
     )
   }
@@ -92,13 +92,9 @@ sig <- function(x, digits = 3,
   # This looks for numbers in scientific notation
   if(is.numeric(maxex)) {
     if(digits != maxex) {
-      ex <- "([-]*[0-9]\\.[0-9]+)e([+-][0-9]{2})"
-      subit <- vector(mode = "logical", length = length(ans)) 
-      e <- grepl("e", ans, fixed = TRUE)
-      subit[e] <- grepl(ex, ans[e], perl = TRUE)
-      b <- rep(Inf, length(ans))
-      b[e] <- as.numeric(gsub(ex, "\\2", ans[e]))
-      subit <- subit & abs(b) < maxex
+      ex <- ceiling(abs(log10(abs(sigx))))
+      # We revert these numbers back to standard notation
+      subit <- x!=0  & digits < maxex & ex <= maxex
       if(any(subit)) {
         ans[subit] <- formatC(
           sigx[subit],
@@ -111,7 +107,7 @@ sig <- function(x, digits = 3,
             sigx[subit & big],
             digits = digits,
             format = "fg",
-            flag = "#", 
+            flag = "#",
             big.mark = big.mark
           )
         }
