@@ -1,4 +1,5 @@
 library(testthat)
+library(pmtables)
 
 context("test-utils")
 
@@ -157,3 +158,35 @@ test_that("sig big.mark handles vector", {
   a <- sig(x, big.mark = ",")
   expect_equal(a, c("0.100", "1.00", "10.0", "100", "1000", "10,000", "100,000"))
 })
+
+sig0 <- function(..., maxex = Inf) pmtables:::sig_legacy(..., maxex = maxex)
+test_that("sig compare to legacy", {
+  x <- 123
+  expect_identical(sig(x), sig0(x))
+
+  x <- 123.2556
+  expect_identical(sig(x), sig0(x))
+
+  x <- 12323423.2556
+  expect_identical(sig(x), sig0(x))
+
+  x <- 0.000012345
+  expect_identical(sig(x), sig0(x))
+
+  x <- c(0.00001, 1, 10, 100, 100000)
+  expect_identical(sig(x), sig0(x))
+
+  x <- c(0.00001, 1, 10, 100, 100000)
+  expect_identical(sig(x, digits = 4), sig0(x, digits = 4))
+  expect_identical(sig(x, digits = 2), sig0(x, digits = 2))
+
+  expect_identical(sig(x, digits = 4, maxex = 3), sig0(x, digits = 4, maxex = 3))
+  expect_identical(sig(x, digits = 2, maxex = 3), sig0(x, digits = 2, maxex = 3))
+
+  set.seed(12345)
+  x <- runif(1000, -1e3, 1e3)
+  a <- sig(x, digits = 3)
+  b <- sig0(x, digits = 3)
+  expect_identical(a, b)
+})
+

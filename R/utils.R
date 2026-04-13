@@ -92,9 +92,10 @@ sig <- function(x, digits = 3,
   # This looks for numbers in scientific notation
   if(is.numeric(maxex)) {
     if(digits != maxex) {
-      ex <- ceiling(abs(log10(abs(sigx))))
+      ex <- log10(abs(sigx))
+      ex <- ifelse(ex < 0, ceiling(abs(ex)), floor(abs(ex)))
       # We revert these numbers back to standard notation
-      subit <- x != 0  & digits < maxex & ex <= maxex
+      subit <- x != 0  & (ex < maxex | (ex >= maxex & ex <= digits))
       if(any(subit)) {
         ans[subit] <- formatC(
           sigx[subit],
@@ -118,6 +119,32 @@ sig <- function(x, digits = 3,
   names(ans) <- namez
   return(ans)
 }
+
+sig_legacy <- function(x, digits = 3, maxex = NULL, ...) {
+
+  if(identical(class(x), "integer")) {
+    return(as.character(x))
+  }
+
+  namez <- names(x)
+
+  x <- as.numeric(x)
+  x <- formatC(signif(x,digits=digits), digits=digits, format='g', flag='#')
+
+  if(is.numeric(maxex)) {
+    if(digits!=maxex) {
+      ex <- "([-]*[0-9]\\.[0-9]+)e([+-][0-9]{2})"
+      subit <- grepl(ex,x,perl=TRUE)
+      b <- as.numeric(gsub(ex, "\\2", x))
+      subit <- subit & abs(b) < maxex
+      x <- ifelse(subit,formatC(signif(as.numeric(x),digits=digits),digits=digits, format="fg",flag="#"),x)
+    }
+  }
+  x <- gsub("\\.$", "", x, perl=TRUE)
+  names(x) <- namez
+  return(x)
+}
+
 
 #' @rdname sig
 #' @export
