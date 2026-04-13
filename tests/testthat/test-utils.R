@@ -180,13 +180,44 @@ test_that("sig compare to legacy", {
   expect_identical(sig(x, digits = 4), sig0(x, digits = 4))
   expect_identical(sig(x, digits = 2), sig0(x, digits = 2))
 
-  expect_identical(sig(x, digits = 4, maxex = 3), sig0(x, digits = 4, maxex = 3))
-  expect_identical(sig(x, digits = 2, maxex = 3), sig0(x, digits = 2, maxex = 3))
-
-  set.seed(12345)
-  x <- runif(1000, -1e3, 1e3)
-  a <- sig(x, digits = 3)
-  b <- sig0(x, digits = 3)
-  expect_identical(a, b)
+  expect_identical(
+    sig(x,  digits = 4, maxex = 3),
+    sig0(x, digits = 4, maxex = 3)
+  )
+  expect_identical(
+    sig(x,  digits = 2, maxex = 3),
+    sig0(x, digits = 2, maxex = 3)
+  )
 })
 
+test_that("sig compare to legacy - large random tests", {
+  set.seed(12323)
+  x <- runif(1000, -3e4, 3e4)
+  y <- runif(1000, -3, 3)
+  z <- runif(1000, -0.001, 0.001)
+  xyz <- c(x, y, z)
+
+  a <- sig(xyz,  digits = 3)
+  b <- sig0(xyz, digits = 3)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 5)
+  b <- sig0(xyz, digits = 5)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 2)
+  b <- sig0(xyz, digits = 2)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 3, maxex = 4)
+  b <- sig0(xyz, digits = 3, maxex = 4)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 5, maxex = 4)
+  b <- sig0(xyz, digits = 5, maxex = 4)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 2, maxex = 4)
+  b <- sig0(xyz, digits = 2, maxex = 4)
+  expect_equal(a, b)
+})

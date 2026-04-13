@@ -93,9 +93,10 @@ sig <- function(x, digits = 3,
   if(is.numeric(maxex)) {
     if(digits != maxex) {
       ex <- log10(abs(sigx))
-      ex <- ifelse(ex < 0, ceiling(abs(ex)), floor(abs(ex)))
+      ex2 <- ifelse(ex < 0, ceiling(abs(ex)), floor(abs(ex)))
       # We revert these numbers back to standard notation
-      subit <- x != 0  & (ex < maxex | (ex >= maxex & ex <= digits))
+      subit <- x != 0  & (ex2 < maxex | (ex2 >= maxex & ex2 < digits))
+
       if(any(subit)) {
         ans[subit] <- formatC(
           sigx[subit],
