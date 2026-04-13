@@ -192,10 +192,11 @@ test_that("sig compare to legacy", {
 
 test_that("sig compare to legacy - large random tests", {
   set.seed(12323)
-  x <- runif(1000, -3e4, 3e4)
-  y <- runif(1000, -3, 3)
-  z <- runif(1000, -0.001, 0.001)
-  xyz <- c(x, y, z)
+  x  <- runif(1000, -3e6, 3e6)
+  xx <- runif(1000, -2e4, 2e4)
+  y  <- runif(1000, -3, 3)
+  z  <- runif(1000, -0.001, 0.001)
+  xyz <- c(x, xx, y, z)
 
   a <- sig(xyz,  digits = 3)
   b <- sig0(xyz, digits = 3)
@@ -219,5 +220,17 @@ test_that("sig compare to legacy - large random tests", {
 
   a <- sig(xyz,  digits = 2, maxex = 4)
   b <- sig0(xyz, digits = 2, maxex = 4)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 3, maxex = 2)
+  b <- sig0(xyz, digits = 3, maxex = 2)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 5, maxex = 2)
+  b <- sig0(xyz, digits = 5, maxex = 2)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 2, maxex = 2)
+  b <- sig0(xyz, digits = 2, maxex = 2)
   expect_equal(a, b)
 })
