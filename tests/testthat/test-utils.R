@@ -159,6 +159,18 @@ test_that("sig big.mark handles vector", {
   expect_equal(a, c("0.100", "1.00", "10.0", "100", "1000", "10,000", "100,000"))
 })
 
+test_that("sig big.mark works with maxex=NULL", {
+  x <- c(1000, 10000, 100000)
+  a <- sig(x, digits = 8, maxex = NULL, big.mark = "_")
+  expect_equal(a, c("1000.0000", "10_000.000", "100_000.00"))
+})
+
+test_that("sig big.mark works with maxex=digits", {
+  x <- c(1000, 10000, 100000)
+  a <- sig(x, digits = 8, maxex = 8, big.mark = " ")
+  expect_equal(a, c("1000.0000", "10 000.000", "100 000.00"))
+})
+
 sig0 <- function(..., maxex = Inf) pmtables:::sig_legacy(..., maxex = maxex)
 test_that("sig compare to legacy", {
   x <- 123
