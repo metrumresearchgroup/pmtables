@@ -92,10 +92,11 @@ sig <- function(x, digits = 3,
   # This looks for numbers in scientific notation
   if(is.numeric(maxex)) {
     if(digits != maxex) {
+      # When x is zero, ex is -Inf and ex2 is Inf
       ex <- log10(abs(sigx))
       ex2 <- ifelse(ex < 0, ceiling(abs(ex)), floor(abs(ex)))
       # We revert these numbers back to standard notation
-      subit <- x != 0  & (ex2 < maxex | (ex2 >= maxex & ex2 < digits))
+      subit <- ex2 < maxex | (ex2 >= maxex & ex2 < digits)
 
       if(any(subit)) {
         ans[subit] <- formatC(
