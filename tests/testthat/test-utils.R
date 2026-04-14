@@ -202,6 +202,14 @@ test_that("sig compare to legacy", {
   )
 })
 
+test_that("exercise 'or' condition of subit evaluation", {
+  # ex will be 3, maxex 3, digits 6
+  expect_identical(
+    sig(1234,  maxex = 3, digits = 6), 
+    sig0(1234, maxex = 3, digits = 6)
+  )
+})
+
 test_that("sig compare to legacy - large random tests", {
   set.seed(12323)
   x  <- runif(1000, -3e6, 3e6)
