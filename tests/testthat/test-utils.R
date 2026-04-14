@@ -200,10 +200,7 @@ test_that("sig compare to legacy", {
     sig(x,  digits = 2, maxex = 3),
     sig0(x, digits = 2, maxex = 3)
   )
-})
 
-test_that("exercise 'or' condition of subit evaluation", {
-  # ex will be 3, maxex 3, digits 6
   expect_identical(
     sig(1234,  maxex = 3, digits = 6), 
     sig0(1234, maxex = 3, digits = 6)

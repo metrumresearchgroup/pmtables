@@ -98,7 +98,7 @@ sig <- function(x, digits = 3,
       ex <- ifelse(ex < 0, ceiling(abs(ex)), floor(abs(ex)))
 
       # We revert these numbers back to standard notation
-      subit <- ex < maxex | (ex >= maxex & ex < digits)
+      subit <- ex < maxex
 
       if(any(subit)) {
         ans[subit] <- formatC(
