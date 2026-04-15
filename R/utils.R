@@ -26,6 +26,8 @@ cvec_cs <- function(x) {
 #' @param digits `numeric`; number of significant digits.
 #' @param maxex `numeric`; maximum number of significant
 #' digits before moving to scientific notation.
+#' @param big.mark if `character`, passed to [formatC()], but only when
+#' `signif(x, digits = digits)` is greater than or equal to 10000.
 #' @param ... other arguments that are not used.
 #'
 #' @return
@@ -37,7 +39,13 @@ cvec_cs <- function(x) {
 #' sig(1.123455, digits = 5)
 #' sig(1123, maxex = 3)
 #' sig(1123, maxex = 4)
+#' sig(1123, big.mark = ",")
+#' sig(11234, big.mark = ",")
+#' sig(c(1.1,10.1,100.1,1000.1,10000.1), big.mark = ",")
 #'
+#'
+#' sig(0)
+#' sig(0L)
 #' sig(1L)
 #'
 #' digit1(1.234)
@@ -46,7 +54,77 @@ cvec_cs <- function(x) {
 #' @md
 #' @rdname sig
 #' @export
-sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", NULL), ...) {
+sig <- function(x, digits = 3,
+                maxex = getOption("pmtables.maxex", Inf),
+                big.mark = getOption("pmtables.big.mark", NULL), ...) {
+
+  if(identical(class(x), "integer")) {
+    return(as.character(x))
+  }
+
+  namez <- names(x)
+
+  x <- as.numeric(x)
+
+  sigx <- signif(x, digits = digits)
+
+  big <- sigx >= 10000
+  dobig <- is.character(big.mark) && length(big.mark)==1 && any(big)
+
+  # This adds scientific notation; but also gets zeros right
+  ans <- formatC(
+    sigx,
+    digits = digits,
+    format = "g",
+    flag = "#"
+  )
+
+  if(dobig) {
+    ans[big] <- formatC(
+      sigx[big],
+      digits = digits,
+      format = "g",
+      flag = "#",
+      big.mark = big.mark
+    )
+  }
+
+  # This looks for numbers in scientific notation
+  if(is.numeric(maxex)) {
+    if(digits != maxex) {
+      
+      # When x is zero, ex is -Inf and then Inf
+      ex <- log10(abs(sigx))
+      ex <- ifelse(ex < 0, ceiling(abs(ex)), floor(abs(ex)))
+
+      # We revert these numbers back to standard notation
+      subit <- ex < maxex
+
+      if(any(subit)) {
+        ans[subit] <- formatC(
+          sigx[subit],
+          digits = digits,
+          format = "fg",
+          flag = "#"
+        )
+        if(dobig) {
+          ans[subit & big] <- formatC(
+            sigx[subit & big],
+            digits = digits,
+            format = "fg",
+            flag = "#",
+            big.mark = big.mark
+          )
+        }
+      }
+    }
+  }
+  ans <- gsub("\\.$", "", ans, perl = TRUE)
+  names(ans) <- namez
+  return(ans)
+}
+
+sig_legacy <- function(x, digits = 3, maxex = NULL, ...) {
 
   if(identical(class(x), "integer")) {
     return(as.character(x))
@@ -70,6 +148,7 @@ sig <- function(x, digits = 3, maxex = getOption("pmtables.maxex", NULL), ...) {
   names(x) <- namez
   return(x)
 }
+
 
 #' @rdname sig
 #' @export

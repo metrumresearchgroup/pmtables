@@ -1,4 +1,5 @@
 library(testthat)
+library(pmtables)
 
 context("test-utils")
 
@@ -96,11 +97,157 @@ test_that("sig returns character when passed int [PMT-UTIL-0001]", {
 
 test_that("set maxex via option", {
   a <- sig(123455666)
-  expect_equal(a, "1.23e+08")
-  options(pmtables.maxex = Inf)
+  expect_equal(a, "123000000")
+  options(pmtables.maxex = 2)
   b <- sig(123455666)
-  expect_equal(b, "123000000")
+  expect_equal(b, "1.23e+08")
   options(pmtables.maxex = NULL)
   c <- sig(123455666)
   expect_identical(a, c)
+})
+
+test_that("sig behavior - maxex", {
+  a <- sig(123455666)
+  expect_equal(a, "123000000")
+  aa <- sig(123455666, maxex = 7)
+  expect_equal(aa, "1.23e+08")
+  ab <- sig(123455666, maxex = 8)
+  expect_equal(ab, "1.23e+08")
+  ac <- sig(123455666, maxex = 9)
+  expect_equal(ac, "123000000")
+})
+
+test_that("sig behavior - zero", {
+  a <- sig(0, digits = 3)
+  expect_equal(a, "0.00")
+  b <- sig(0, digits = 4)
+  expect_equal(b, "0.000")
+  d <- sig(as.double(0), digits = 3)
+  expect_equal(d, a)
+  e <- sig(0L)
+  expect_equal(e, "0")
+})
+
+test_that("sig behavior - negative numbers", {
+  a <- sig(-101, digits = 3)
+  expect_equal(a, "-101")
+  b <- sig(-1.23, digits = 3)
+  expect_equal(b, "-1.23")
+  c <- sig(-12342, digits = 3)
+  expect_equal(c, "-12300")
+})
+
+test_that("sig behavior - big.mark", {
+  a <- sig(1.2345, digits = 3, big.mark = ",")
+  expect_equal(a, "1.23")
+
+  b1 <- sig(12345, digits = 3)
+  expect_equal(b1, "12300")
+  b2 <- sig(12345, digits = 3, big.mark = ",")
+  expect_equal(b2, "12,300")
+
+  c1 <- sig(0.000012345, digits = 3)
+  expect_equal(c1, "0.0000123")
+  c2 <- sig(0.000012345, digits = 3, big.mark = ",")
+  expect_equal(c1, c2)
+
+})
+
+test_that("sig big.mark handles vector", {
+  x <- c(0.1, 1, 10, 100, 1000, 10000, 100000)
+  a <- sig(x, big.mark = ",")
+  expect_equal(a, c("0.100", "1.00", "10.0", "100", "1000", "10,000", "100,000"))
+})
+
+test_that("sig big.mark works with maxex=NULL", {
+  x <- c(1000, 10000, 100000)
+  a <- sig(x, digits = 8, maxex = NULL, big.mark = "_")
+  expect_equal(a, c("1000.0000", "10_000.000", "100_000.00"))
+})
+
+test_that("sig big.mark works with maxex=digits", {
+  x <- c(1000, 10000, 100000)
+  a <- sig(x, digits = 8, maxex = 8, big.mark = " ")
+  expect_equal(a, c("1000.0000", "10 000.000", "100 000.00"))
+})
+
+sig0 <- function(..., maxex = Inf) pmtables:::sig_legacy(..., maxex = maxex)
+test_that("sig compare to legacy", {
+  x <- 123
+  expect_identical(sig(x), sig0(x))
+
+  x <- 123.2556
+  expect_identical(sig(x), sig0(x))
+
+  x <- 12323423.2556
+  expect_identical(sig(x), sig0(x))
+
+  x <- 0.000012345
+  expect_identical(sig(x), sig0(x))
+
+  x <- c(0.00001, 1, 10, 100, 100000)
+  expect_identical(sig(x), sig0(x))
+
+  x <- c(0.00001, 1, 10, 100, 100000)
+  expect_identical(sig(x, digits = 4), sig0(x, digits = 4))
+  expect_identical(sig(x, digits = 2), sig0(x, digits = 2))
+
+  expect_identical(
+    sig(x,  digits = 4, maxex = 3),
+    sig0(x, digits = 4, maxex = 3)
+  )
+  expect_identical(
+    sig(x,  digits = 2, maxex = 3),
+    sig0(x, digits = 2, maxex = 3)
+  )
+
+  expect_identical(
+    sig(1234,  maxex = 3, digits = 6), 
+    sig0(1234, maxex = 3, digits = 6)
+  )
+})
+
+test_that("sig compare to legacy - large random tests", {
+  set.seed(12323)
+  x  <- runif(1000, -3e6, 3e6)
+  xx <- runif(1000, -2e4, 2e4)
+  y  <- runif(1000, -3, 3)
+  z  <- runif(1000, -0.001, 0.001)
+  xyz <- c(x, xx, y, z)
+
+  a <- sig(xyz,  digits = 3)
+  b <- sig0(xyz, digits = 3)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 5)
+  b <- sig0(xyz, digits = 5)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 2)
+  b <- sig0(xyz, digits = 2)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 3, maxex = 4)
+  b <- sig0(xyz, digits = 3, maxex = 4)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 5, maxex = 4)
+  b <- sig0(xyz, digits = 5, maxex = 4)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 2, maxex = 4)
+  b <- sig0(xyz, digits = 2, maxex = 4)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 3, maxex = 2)
+  b <- sig0(xyz, digits = 3, maxex = 2)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 5, maxex = 2)
+  b <- sig0(xyz, digits = 5, maxex = 2)
+  expect_equal(a, b)
+
+  a <- sig(xyz,  digits = 2, maxex = 2)
+  b <- sig0(xyz, digits = 2, maxex = 2)
+  expect_equal(a, b)
 })
