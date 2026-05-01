@@ -17,7 +17,7 @@ pt_data_inventory(
   all_name_stacked = "Group Total",
   dv_col = "DV",
   bq_col = find_bq_col(data),
-  id_col = "ID",
+  id_col = getOption("mrg.id_col", "ID"),
   ...
 )
 }

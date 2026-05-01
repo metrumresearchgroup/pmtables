@@ -22,7 +22,7 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
                                  tot = FALSE, all_name = "all",
                                  dv_col = "DV",
                                  bq_col = "BQL",
-                                 id_col = "ID",
+                                 id_col = getOption("mrg.id_col", "ID"),
                                  ...) {
 
   if(by==".total" | panel == ".total") {
@@ -50,7 +50,7 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
   }
 
   if(!exists(id_col,data)) {
-    emessage(miss_required("ID", "id_col"))
+    emessage(miss_required(id_col, "id_col"))
     miss <- TRUE
   }
 
@@ -310,7 +310,7 @@ pt_data_inventory <- function(data, by = ".total", panel = by,
                               all_name_stacked  = "Group Total",
                               dv_col = "DV",
                               bq_col = find_bq_col(data),
-                              id_col = "ID",
+                              id_col = getOption("mrg.id_col", "ID"),
                               ...) {
 
   stacked <- isTRUE(stacked)
@@ -502,7 +502,7 @@ pt_inventory_long <- function(data,
                               all_name = "All data",
                               dv_col = "DV",
                               bq_col = find_bq_col(data),
-                              id_col = "ID",
+                              id_col = getOption("mrg.id_col", "ID"),
                               level_width = NULL) {
 
   assert_that(is.data.frame(data))

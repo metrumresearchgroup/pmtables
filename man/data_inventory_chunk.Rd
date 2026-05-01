@@ -13,7 +13,7 @@ data_inventory_chunk(
   all_name = "all",
   dv_col = "DV",
   bq_col = "BQL",
-  id_col = "ID",
+  id_col = getOption("mrg.id_col", "ID"),
   ...
 )
 }

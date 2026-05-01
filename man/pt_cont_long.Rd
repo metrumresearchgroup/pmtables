@@ -16,7 +16,7 @@ pt_cont_long(
   all_name = "All data",
   fun = cont_long_fun,
   na_fill = "--",
-  id_col = "ID"
+  id_col = getOption("mrg.id_col", "ID")
 )
 }
 \arguments{

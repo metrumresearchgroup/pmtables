@@ -12,7 +12,8 @@
 #'
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
-                            all_name = "all", digits = new_digits(), id_col = "ID",
+                            all_name = "all", digits = new_digits(),
+                            id_col = getOption("mrg.id_col", "ID"),
                             na_fill = "--",
                             fun = cont_long_fun) {
 
@@ -143,7 +144,7 @@ pt_cont_wide <- function(data, cols,
                          all_name = "All data",
                          fun = cont_wide_fun,
                          na_fill = "--",
-                         id_col = "ID") {
+                         id_col = getOption("mrg.id_col", "ID")) {
 
   if(!missing(id_col)) {
     deprecate_warn("0.5.3", "pt_cont_wide(id_col)")
@@ -315,7 +316,7 @@ pt_cont_long <- function(data,
                          all_name = "All data",
                          fun = cont_long_fun,
                          na_fill = "--",
-                         id_col = "ID") {
+                         id_col = getOption("mrg.id_col", "ID")) {
 
   if(!missing(id_col)) {
     deprecate_warn("0.5.3", "pt_cont_long(id_col)")

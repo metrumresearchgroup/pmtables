@@ -15,7 +15,7 @@ pt_cont_wide(
   all_name = "All data",
   fun = cont_wide_fun,
   na_fill = "--",
-  id_col = "ID"
+  id_col = getOption("mrg.id_col", "ID")
 )
 }
 \arguments{

@@ -45,3 +45,16 @@ test_that("missing columns [PMT-TEST-0121]", {
   )
 })
 
+test_that("data_inventory_data: override ID via mrg.id_col option", {
+  data <- rename(pmt_first, USUBJID = ID)
+  expect_error(
+    data_inventory_data(data, by = ".total"),
+    "required columns"
+  )
+
+  withr::with_options(
+    list("mrg.id_col" = "USUBJID"),
+    ans <- data_inventory_data(data, by = ".total")
+  )
+  expect_equal(nrow(ans), 1)
+})
