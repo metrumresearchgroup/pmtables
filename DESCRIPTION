@@ -32,7 +32,7 @@ License: GPL (>=2)
 URL: https://metrumresearchgroup.github.io/pmtables, https://github.com/metrumresearchgroup/pmtables
 BugReports: https://github.com/metrumresearchgroup/pmtables/issues
 Imports: purrr (>= 1.0.0), dplyr (>= 1.0.0), forcats, tidyr, rlang, glue, tibble,
-    assertthat, tidyselect, stringr, knitr, rmarkdown, lifecycle, rprojroot, fs
+    assertthat, tidyselect, stringr, knitr, rmarkdown, rprojroot, fs
 Depends: R (>= 3.5.0)
 Suggests: testthat, yaml, texPreview, magick, pdftools, withr
 Encoding: UTF-8

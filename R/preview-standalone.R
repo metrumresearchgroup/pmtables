@@ -258,7 +258,7 @@ st_aspng <- function(x,
                      stem = "pmt-standalone-preview",
                      dir = tempdir(),
                      font = "helvetica",
-                     textwidth = getOption("pmtables.text.width", 6.5),
+                     textwidth = getOption("pmtables.textwidth", 6.5),
                      border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
                      ntex = 1, dpi = 200) {
   assert_that(inherits(x, "stable"))

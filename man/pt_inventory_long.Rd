@@ -14,7 +14,7 @@ pt_inventory_long(
   all_name = "All data",
   dv_col = "DV",
   bq_col = find_bq_col(data),
-  id_col = "ID",
+  id_col = getOption("mrg.id_col", "ID"),
   level_width = NULL
 )
 
@@ -27,7 +27,7 @@ pt_data_inventory_long(
   all_name = "All data",
   dv_col = "DV",
   bq_col = find_bq_col(data),
-  id_col = "ID",
+  id_col = getOption("mrg.id_col", "ID"),
   level_width = NULL
 )
 }

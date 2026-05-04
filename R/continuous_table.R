@@ -12,7 +12,8 @@
 #'
 #' @export
 cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
-                            all_name = "all", digits = new_digits(), id_col = "ID",
+                            all_name = "all", digits = new_digits(),
+                            id_col = getOption("mrg.id_col", "ID"),
                             na_fill = "--",
                             fun = cont_long_fun) {
 
@@ -101,7 +102,6 @@ cont_table_data <- function(data, cols, by = ".total", panel = by, wide = FALSE,
 #' @param all_name a name to use for the complete data summary
 #' @param fun the data summary function (see details)
 #' @param na_fill value to fill with when all values in the summary are missing
-#' @param id_col the ID column name
 #'
 #' @return
 #' An object with class `pmtable`; see [class-pmtable].
@@ -142,12 +142,7 @@ pt_cont_wide <- function(data, cols,
                          digits = new_digits(),
                          all_name = "All data",
                          fun = cont_wide_fun,
-                         na_fill = "--",
-                         id_col = "ID") {
-
-  if(!missing(id_col)) {
-    deprecate_warn("0.5.3", "pt_cont_wide(id_col)")
-  }
+                         na_fill = "--") {
 
   has_panel <- !missing(panel)
   panel_data <- as.panel(panel)
@@ -314,12 +309,7 @@ pt_cont_long <- function(data,
                          summarize_all = TRUE,
                          all_name = "All data",
                          fun = cont_long_fun,
-                         na_fill = "--",
-                         id_col = "ID") {
-
-  if(!missing(id_col)) {
-    deprecate_warn("0.5.3", "pt_cont_long(id_col)")
-  }
+                         na_fill = "--") {
 
   switch_panel_by <- FALSE
 

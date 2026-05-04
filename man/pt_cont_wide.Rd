@@ -14,8 +14,7 @@ pt_cont_wide(
   digits = new_digits(),
   all_name = "All data",
   fun = cont_wide_fun,
-  na_fill = "--",
-  id_col = "ID"
+  na_fill = "--"
 )
 }
 \arguments{
@@ -41,8 +40,6 @@ examples)}
 \item{fun}{the data summary function (see details)}
 
 \item{na_fill}{value to fill with when all values in the summary are missing}
-
-\item{id_col}{the ID column name}
 }
 \value{
 An object with class \code{pmtable}; see \link{class-pmtable}.

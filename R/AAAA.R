@@ -20,7 +20,6 @@
 #' @importFrom stringr fixed str_split str_count str_detect str_replace
 #' @importFrom stringr str_extract
 #' @importFrom tools file_ext file_path_sans_ext parseLatex deparseLatex
-#' @importFrom lifecycle deprecate_warn
 #' @importFrom rprojroot find_root is_rstudio_project is_testthat
 #' @importFrom fs path_rel path
 #'
@@ -195,7 +194,29 @@ find_cached_root <- function() {
 #' - [pmt_first] - this is [analysis1] but with only the first record from
 #'   each individual
 #' - [pmt_summarized] - an example data set that has been summarized
-#
+#' 
+#' @section Package options: 
+#' - `mrg.id_col`: column name for unique subject identifier; defaults to 
+#'   `"ID"`; used by various summary table functions.
+#' - `mrg.script`: current script name used for generating table source
+#'   code annotation.
+#' - `pmtables.dir`: default directory used for saving table outputs and 
+#'   generating table source file annotation.
+#' - `pmtables.path.type`: specify formatting for `path` in table source file 
+#'   annotation; see [format_table_path()] for details.
+#' - `pmtables.maxex`: controls when numbers will or won't be rendered with 
+#'   scientific notation by [sig()].
+#' - `pmtables.big.mark`: used by [sig()] when formatting numbers; passed to 
+#'   [formatC()].
+#' - `pmtables.textwidth`: used when formatting a standalone table preview; see
+#'   [st_aspng()] or [st_aspdf()].
+#' - `pmtables.image.border`: used when formatting a standalone
+#'   table preview; see [st_aspng()], [st_aspdf()], and [st_as_image()].
+#' - `pmtables.image.width`: see [st_image_show()] and [st_as_image()].
+#' - `pmtables.image.ltversion`: long-table version; used when formatting a 
+#'   standalone table preview via [st_to_standalone()].
+#' - `pmtables.escape`: characters to escape in prepraration for render with 
+#'   `LaTex`; used by [tab_prime()] and [tab_escape()].
 #'
 #' @md
 #' @name pmtables

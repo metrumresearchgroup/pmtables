@@ -12,7 +12,7 @@ cont_table_data(
   wide = FALSE,
   all_name = "all",
   digits = new_digits(),
-  id_col = "ID",
+  id_col = getOption("mrg.id_col", "ID"),
   na_fill = "--",
   fun = cont_long_fun
 )

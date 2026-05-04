@@ -167,3 +167,19 @@ test_that("discrete data - factor levels preserved in completed data [PMT-TEST-0
   expect_equal(as.character(ans$B), as.character(rep(c(2,1), each = 2)))
   expect_equal(ans$C, rep(c("a", "b"), times = 2))
 })
+
+test_that("cat_data: override ID via mrg.id_col option", {
+  res1 <- cat_data(pmt_first, cols = cols)
+
+  data <- rename(pmt_first, USUBJID = ID)
+  expect_error(
+    cat_data(data, cols = cols),
+    "ID"
+  )
+
+  withr::with_options(
+    list("mrg.id_col" = "USUBJID"),
+    res2 <- cat_data(data, cols = cols)
+  )
+  expect_identical(res1, res2)
+})
