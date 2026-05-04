@@ -205,15 +205,17 @@ generating table source file annotation.
 annotation; see \code{\link[=format_table_path]{format_table_path()}} for details.
 \item \code{pmtables.maxex}: controls when numbers will or won't be rendered with
 scientific notation by \code{\link[=sig]{sig()}}.
-\item \code{pmtables.big.mark}: used by \code{\link[=sig]{sig()}} when formatting numbers; see
+\item \code{pmtables.big.mark}: used by \code{\link[=sig]{sig()}} when formatting numbers; passed to
 \code{\link[=formatC]{formatC()}}.
-\item \code{pmtables.textwidth}: used when formatting a standalone table preview via
+\item \code{pmtables.textwidth}: used when formatting a standalone table preview; see
 \code{\link[=st_aspng]{st_aspng()}} or \code{\link[=st_aspdf]{st_aspdf()}}.
-\item \code{pmtables.image.border}: used for image border when formatting a standalone
+\item \code{pmtables.image.border}: used when formatting a standalone
 table preview; see \code{\link[=st_aspng]{st_aspng()}}, \code{\link[=st_aspdf]{st_aspdf()}}, and \code{\link[=st_as_image]{st_as_image()}}.
 \item \code{pmtables.image.width}: see \code{\link[=st_image_show]{st_image_show()}} and \code{\link[=st_as_image]{st_as_image()}}.
 \item \code{pmtables.image.ltversion}: long-table version; used when formatting a
 standalone table preview via \code{\link[=st_to_standalone]{st_to_standalone()}}.
+\item \code{pmtables.escape}: characters to escape in prepraration for render with
+\code{LaTex}; used by \code{\link[=tab_prime]{tab_prime()}} and \code{\link[=tab_escape]{tab_escape()}}.
 }
 }
 

@@ -207,15 +207,17 @@ find_cached_root <- function() {
 #'   annotation; see [format_table_path()] for details.
 #' - `pmtables.maxex`: controls when numbers will or won't be rendered with 
 #'   scientific notation by [sig()].
-#' - `pmtables.big.mark`: used by [sig()] when formatting numbers; see 
+#' - `pmtables.big.mark`: used by [sig()] when formatting numbers; passed to 
 #'   [formatC()].
-#' - `pmtables.textwidth`: used when formatting a standalone table preview via
+#' - `pmtables.textwidth`: used when formatting a standalone table preview; see
 #'   [st_aspng()] or [st_aspdf()].
-#' - `pmtables.image.border`: used for image border when formatting a standalone
+#' - `pmtables.image.border`: used when formatting a standalone
 #'   table preview; see [st_aspng()], [st_aspdf()], and [st_as_image()].
 #' - `pmtables.image.width`: see [st_image_show()] and [st_as_image()].
 #' - `pmtables.image.ltversion`: long-table version; used when formatting a 
 #'   standalone table preview via [st_to_standalone()].
+#' - `pmtables.escape`: characters to escape in prepraration for render with 
+#'   `LaTex`; used by [tab_prime()] and [tab_escape()].
 #'
 #' @md
 #' @name pmtables
