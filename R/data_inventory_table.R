@@ -30,12 +30,15 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
   }
 
   miss <- FALSE
-  miss_required <- function(needed,pass) {
+  miss_required <- function(needed, pass, opt = NULL) {
     x <- c(
       "couldn't find the {needed} column; ",
       "set the column name to '{needed}' or ",
       "pass the name as '{pass}'"
     )
+    if (!is.null(opt)) {
+      x <- c(x, "or set the {opt} option")
+    }
     glue::glue(paste0(x,collapse=""))
   }
 
@@ -50,7 +53,7 @@ data_inventory_chunk <- function(data, by, panel = by, stacked = FALSE,
   }
 
   if(!exists(id_col,data)) {
-    emessage(miss_required(id_col, "id_col"))
+    emessage(miss_required(id_col, "id_col", "mrg.id_col"))
     miss <- TRUE
   }
 
