@@ -192,6 +192,31 @@ each individual
 }
 }
 
+\section{Package options}{
+
+\itemize{
+\item \code{mrg.id_col}: column name for unique subject identifier; defaults to
+\code{"ID"}; used by various summary table functions.
+\item \code{mrg.script}: current script name used for generating table source
+code annotation.
+\item \code{pmtables.dir}: default directory used for saving table outputs and
+generating table source file annotation.
+\item \code{pmtables.path.type}: specify formatting for \code{path} in table source file
+annotation; see \code{\link[=format_table_path]{format_table_path()}} for details.
+\item \code{pmtables.maxex}: controls when numbers will or won't be rendered with
+scientific notation by \code{\link[=sig]{sig()}}.
+\item \code{pmtables.big.mark}: used by \code{\link[=sig]{sig()}} when formatting numbers; see
+\code{\link[=formatC]{formatC()}}.
+\item \code{pmtables.textwidth}: used when formatting a standalone table preview via
+\code{\link[=st_aspng]{st_aspng()}} or \code{\link[=st_aspdf]{st_aspdf()}}.
+\item \code{pmtables.image.border}: used for image border when formatting a standalone
+table preview; see \code{\link[=st_aspng]{st_aspng()}}, \code{\link[=st_aspdf]{st_aspdf()}}, and \code{\link[=st_as_image]{st_as_image()}}.
+\item \code{pmtables.image.width}: see \code{\link[=st_image_show]{st_image_show()}} and \code{\link[=st_as_image]{st_as_image()}}.
+\item \code{pmtables.image.ltversion}: long-table version; used when formatting a
+standalone table preview via \code{\link[=st_to_standalone]{st_to_standalone()}}.
+}
+}
+
 \seealso{
 Useful links:
 \itemize{
