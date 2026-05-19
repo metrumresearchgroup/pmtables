@@ -1,6 +1,24 @@
 # pmtables 0.11.0
 
+- `sig()` no longer renders numbers in scientific notation by default; pass
+  `maxex` to opt into scientific notation for numbers with exponents at or above
+  that threshold (#378).
 
+- `sig()` gains a `big.mark` argument (following `formatC`) to insert a
+  thousands separator; the mark is applied only when the formatted number has 5
+  or more digits (#378).
+
+- `pt_cont_wide()` and `pt_cont_long()` now ungroup incoming data before
+  summarizing, preventing spurious "Adding missing grouping variables" messages
+  (#375).
+
+- The ID column used by data inventory and related functions can now be
+  overridden globally via the `mrg.id_col` option (#380).
+
+- The deprecated `id_col` argument to `pt_cont_wide()` and `pt_cont_long()`
+  has been removed (#380).
+
+- Global options are now documented and accessible via `?pmtables` (#381).
 
 # pmtables 0.10.1
 
