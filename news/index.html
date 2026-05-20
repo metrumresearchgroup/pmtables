@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.0</span>
       </span>
     </div>
 
@@ -44,9 +44,18 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.10.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.11.0" id="pmtables-0110">pmtables 0.11.0<a class="anchor" aria-label="anchor" href="#pmtables-0110"></a></h2>
+<ul><li><p><code><a href="../reference/sig.html">sig()</a></code> no longer renders numbers in scientific notation by default; pass <code>maxex</code> to opt into scientific notation for numbers with exponents at or above that threshold (<a href="https://github.com/metrumresearchgroup/pmtables/issues/378" class="external-link">#378</a>).</p></li>
+<li><p><code><a href="../reference/sig.html">sig()</a></code> gains a <code>big.mark</code> argument (following <code>formatC</code>) to insert a thousands separator; the mark is applied only when the formatted number has 5 or more digits (<a href="https://github.com/metrumresearchgroup/pmtables/issues/378" class="external-link">#378</a>).</p></li>
+<li><p><code><a href="../reference/pt_cont_wide.html">pt_cont_wide()</a></code> and <code><a href="../reference/pt_cont_long.html">pt_cont_long()</a></code> now ungroup incoming data before summarizing, preventing spurious “Adding missing grouping variables” messages (<a href="https://github.com/metrumresearchgroup/pmtables/issues/375" class="external-link">#375</a>).</p></li>
+<li><p>The ID column used by data inventory and related functions can now be overridden globally via the <code>mrg.id_col</code> option (<a href="https://github.com/metrumresearchgroup/pmtables/issues/380" class="external-link">#380</a>).</p></li>
+<li><p>The deprecated <code>id_col</code> argument to <code><a href="../reference/pt_cont_wide.html">pt_cont_wide()</a></code> and <code><a href="../reference/pt_cont_long.html">pt_cont_long()</a></code> has been removed (<a href="https://github.com/metrumresearchgroup/pmtables/issues/380" class="external-link">#380</a>).</p></li>
+<li><p>Global options are now documented and accessible via <code><a href="../reference/pmtables.html">?pmtables</a></code> (<a href="https://github.com/metrumresearchgroup/pmtables/issues/381" class="external-link">#381</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.1" id="pmtables-0101">pmtables 0.10.1<a class="anchor" aria-label="anchor" href="#pmtables-0101"></a></h2>
 <div class="section level3">

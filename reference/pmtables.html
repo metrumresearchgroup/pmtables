@@ -18,7 +18,7 @@ inclusion in 'tex' documents."><meta property="og:image" content="https://metrum
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.0</span>
       </span>
     </div>
 
@@ -45,7 +45,7 @@ inclusion in 'tex' documents."><meta property="og:image" content="https://metrum
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>pmtables: Tables for Pharmacometrics.</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.10.1/R/AAAA.R" class="external-link"><code>R/AAAA.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.0/R/AAAA.R" class="external-link"><code>R/AAAA.R</code></a></small>
     <div class="hidden name"><code>pmtables.Rd</code></div>
     </div>
 
@@ -216,6 +216,32 @@ example data sets</p></li>
 <li><p><a href="pmt_first.html">pmt_first</a> - this is <a href="analysis1.html">analysis1</a> but with only the first record from
 each individual</p></li>
 <li><p><a href="pmt_summarized.html">pmt_summarized</a> - an example data set that has been summarized</p></li>
+</ul></div>
+    <div id="package-options">
+    <h2>Package options</h2>
+
+
+<ul><li><p><code>mrg.id_col</code>: column name for unique subject identifier; defaults to
+<code>"ID"</code>; used by various summary table functions.</p></li>
+<li><p><code>mrg.script</code>: current script name used for generating table source
+code annotation.</p></li>
+<li><p><code>pmtables.dir</code>: default directory used for saving table outputs and
+generating table source file annotation.</p></li>
+<li><p><code>pmtables.path.type</code>: specify formatting for <code>path</code> in table source file
+annotation; see <code><a href="format_table_path.html">format_table_path()</a></code> for details.</p></li>
+<li><p><code>pmtables.maxex</code>: controls when numbers will or won't be rendered with
+scientific notation by <code><a href="sig.html">sig()</a></code>.</p></li>
+<li><p><code>pmtables.big.mark</code>: used by <code><a href="sig.html">sig()</a></code> when formatting numbers; passed to
+<code><a href="https://rdrr.io/r/base/formatc.html" class="external-link">formatC()</a></code>.</p></li>
+<li><p><code>pmtables.textwidth</code>: used when formatting a standalone table preview; see
+<code><a href="st_aspng.html">st_aspng()</a></code> or <code><a href="st_aspdf.html">st_aspdf()</a></code>.</p></li>
+<li><p><code>pmtables.image.border</code>: used when formatting a standalone
+table preview; see <code><a href="st_aspng.html">st_aspng()</a></code>, <code><a href="st_aspdf.html">st_aspdf()</a></code>, and <code><a href="st_as_image.html">st_as_image()</a></code>.</p></li>
+<li><p><code>pmtables.image.width</code>: see <code><a href="st_image_show.html">st_image_show()</a></code> and <code><a href="st_as_image.html">st_as_image()</a></code>.</p></li>
+<li><p><code>pmtables.image.ltversion</code>: long-table version; used when formatting a
+standalone table preview via <code><a href="st_to_standalone.html">st_to_standalone()</a></code>.</p></li>
+<li><p><code>pmtables.escape</code>: characters to escape in prepraration for render with
+<code>LaTex</code>; used by <code><a href="tab_prime.html">tab_prime()</a></code> and <code><a href="tab_prime.html">tab_escape()</a></code>.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
