@@ -78,6 +78,8 @@ sig <- function(x, digits = 3,
     format = "g",
     flag = "#"
   )
+  # Revert the left-padded "NA" string returned by formatC.
+  ans[is.na(sigx)] <- NA_character_
 
   if(dobig) {
     ans[big] <- formatC(

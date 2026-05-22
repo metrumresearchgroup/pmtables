@@ -257,14 +257,14 @@ test_that("sig handles NAs", {
   a <- sig(x, digits = 2, maxex = 4)
   expect_equal(
     a,
-    c(" NA", "18", "6.3", "0.90", " NA", " NA", "5.3")
+    c(NA_character_, "18", "6.3", "0.90", NA_character_, NA_character_, "5.3")
   )
 
   x <- c(12345, NA)
   a <- sig(x, digits = 3, big.mark = ",")
-  expect_equal(a, c("12,300", "  NA"))
+  expect_equal(a, c("12,300", NA_character_))
 
   x <- c(NA_real_, NA_real_)
   a <- sig(x, digits = 3)
-  expect_equal(a, c("  NA", "  NA"))
+  expect_equal(a, c(NA_character_, NA_character_))
 })
