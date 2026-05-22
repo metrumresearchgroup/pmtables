@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.1</span>
       </span>
     </div>
 
@@ -44,9 +44,16 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.11.1" id="pmtables-0111">pmtables 0.11.1<a class="anchor" aria-label="anchor" href="#pmtables-0111"></a></h2>
+<div class="section level3">
+<h3 id="bugs-fixed-0-11-1">Bugs Fixed<a class="anchor" aria-label="anchor" href="#bugs-fixed-0-11-1"></a></h3>
+<ul><li>Fixed a bug where <code><a href="../reference/sig.html">sig()</a></code> failed on <code>NA</code> input after the 0.11.0 rewrite; <code>NA</code> values are now mapped to <code>NA_character_</code> (<a href="https://github.com/metrumresearchgroup/pmtables/issues/383" class="external-link">#383</a>).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.11.0" id="pmtables-0110">pmtables 0.11.0<a class="anchor" aria-label="anchor" href="#pmtables-0110"></a></h2>
 <ul><li><p><code><a href="../reference/sig.html">sig()</a></code> no longer renders numbers in scientific notation by default; pass <code>maxex</code> to opt into scientific notation for numbers with exponents at or above that threshold (<a href="https://github.com/metrumresearchgroup/pmtables/issues/378" class="external-link">#378</a>).</p></li>
