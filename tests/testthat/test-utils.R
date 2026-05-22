@@ -251,3 +251,20 @@ test_that("sig compare to legacy - large random tests", {
   b <- sig0(xyz, digits = 2, maxex = 2)
   expect_equal(a, b)
 })
+
+test_that("sig handles NAs", {
+  x <- c(NA, 18.155800, 6.317360, 0.898371, NA, NA, 5.275370)
+  a <- sig(x, digits = 2, maxex = 4)
+  expect_equal(
+    a,
+    c(NA_character_, "18", "6.3", "0.90", NA_character_, NA_character_, "5.3")
+  )
+
+  x <- c(12345, NA)
+  a <- sig(x, digits = 3, big.mark = ",")
+  expect_equal(a, c("12,300", NA_character_))
+
+  x <- c(NA_real_, NA_real_)
+  a <- sig(x, digits = 3)
+  expect_equal(a, c(NA_character_, NA_character_))
+})
