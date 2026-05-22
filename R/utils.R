@@ -68,7 +68,7 @@ sig <- function(x, digits = 3,
 
   sigx <- signif(x, digits = digits)
 
-  big <- sigx >= 10000
+  big <- sigx >= 10000 & !is.na(sigx)
   dobig <- is.character(big.mark) && length(big.mark)==1 && any(big)
 
   # This adds scientific notation; but also gets zeros right
@@ -99,6 +99,7 @@ sig <- function(x, digits = 3,
 
       # We revert these numbers back to standard notation
       subit <- ex < maxex
+      subit <- subit & !is.na(subit)
 
       if(any(subit)) {
         ans[subit] <- formatC(
