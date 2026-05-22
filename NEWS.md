@@ -1,3 +1,10 @@
+# pmtables 0.11.1
+
+## Bugs Fixed
+
+- Fixed a bug where `sig()` failed on `NA` input after the 0.11.0 rewrite;
+  `NA` values are now mapped to `NA_character_` (#383).
+
 # pmtables 0.11.0
 
 - `sig()` no longer renders numbers in scientific notation by default; pass
