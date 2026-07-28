@@ -1,6 +1,6 @@
 
 longtable_head <- function(multicol) {
-  c("\\endhead", "\\hline", multicol, "\\endfoot", "\\hline", "\\endlastfoot")
+  c("\\hline", multicol, "\\endfoot", "\\hline", "\\endlastfoot")
 }
 
 conditional_macro <- function(macro_name) {
