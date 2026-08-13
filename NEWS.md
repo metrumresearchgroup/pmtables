@@ -1,3 +1,11 @@
+# pmtables 0.11.2
+
+## Bugs Fixed
+
+- Fixed a bug in `stable_long()` where extraneous `\hline` commands were written
+  at the start and end of the table body and a stray `\endhead` was written
+  immediately after `\begin{longtable}` (#388, #389).
+
 # pmtables 0.11.1
 
 ## Bugs Fixed
