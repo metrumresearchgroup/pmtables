@@ -47,3 +47,5 @@ vignettes/rename.Rmd
 
 ^_pkgdown\.yml$
 ^pkgdown$
+^\.positai$
+^\.claude$
