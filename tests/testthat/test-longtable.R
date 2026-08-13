@@ -122,3 +122,24 @@ test_that("set font size in longtable [PMT-TEST-0145]", {
   b <- stable_long(stdata(), sizes = sz, inspect = TRUE)
   expect_match(b[1], "\\scriptsize", fixed = TRUE)
 })
+
+
+test_that("no misplaced endhead in longtable gh-388", {
+  tab <- stable_long(stdata())
+  w <- grep("begin{longtable}", tab, fixed = TRUE)
+  expect_false(grepl("endhead", tab[w+1]))
+})
+
+test_that("top hlines are in the head of longtable gh-388", {
+  tab <- stable_long(stdata())
+  w <- grep("endhead", tab, fixed = TRUE)
+  expect_true(grepl("hline", tab[w-1]))
+  expect_false(grepl("hline", tab[w+1]))
+})
+
+test_that("no explicit trailing hline in longtable gh-388", {
+  tab <- stable_long(stdata())
+  w <- grep("end{longtable}", tab, fixed = TRUE)
+  expect_false(grepl("hline", tab[w-1]))
+})
+
