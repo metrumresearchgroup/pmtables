@@ -21,7 +21,7 @@ details section for more information.'><meta property="og:image" content="https:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.2</span>
       </span>
     </div>
 
@@ -48,7 +48,7 @@ details section for more information.'><meta property="og:image" content="https:
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create longtable output from an R data frame</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.1/R/table-long.R" class="external-link"><code>R/table-long.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.2/R/table-long.R" class="external-link"><code>R/table-long.R</code></a></small>
     <div class="hidden name"><code>stable_long.Rd</code></div>
     </div>
 
@@ -159,36 +159,33 @@ or <code><a href="rowpanel.html">rowpanel()</a></code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "\\setlength{\\tabcolsep}{5pt} "                                             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "\\setlength{\\extrarowheight}{0em}"                                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "\\begin{longtable}{lllllllll}"                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "\\endhead"                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "\\multicolumn{9}{r}{\\footnotesize{continued on next page}}"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "\\endfoot"                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "\\endlastfoot"                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "\\endfirsthead"                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "\\endhead"                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "12-DEMO-001 &amp; 100 mg &amp; tablet &amp; 80 &amp; 71.4 &amp; 104 &amp; 33.7 &amp; 4.20 &amp; 1.06 \\\\"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "12-DEMO-001 &amp; 150 mg &amp; capsule &amp; 16 &amp; 89.4 &amp; 122 &amp; 24.4 &amp; 4.63 &amp; 1.12 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "12-DEMO-001 &amp; 150 mg &amp; tablet &amp; 48 &amp; 81.7 &amp; 104 &amp; 34.4 &amp; 3.83 &amp; 0.910 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "12-DEMO-001 &amp; 150 mg &amp; troche &amp; 16 &amp; 94.0 &amp; 93.2 &amp; 27.4 &amp; 4.94 &amp; 1.25 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "12-DEMO-001 &amp; 200 mg &amp; tablet &amp; 64 &amp; 67.9 &amp; 100 &amp; 27.5 &amp; 4.25 &amp; 1.10 \\\\"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "12-DEMO-001 &amp; 200 mg &amp; troche &amp; 16 &amp; 76.6 &amp; 99.2 &amp; 22.8 &amp; 4.54 &amp; 1.15 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "12-DEMO-002 &amp; 100 mg &amp; capsule &amp; 36 &amp; 61.3 &amp; 113 &amp; 38.3 &amp; 4.04 &amp; 1.28 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "12-DEMO-002 &amp; 100 mg &amp; tablet &amp; 324 &amp; 77.6 &amp; 106 &amp; 29.9 &amp; 4.31 &amp; 0.981 \\\\"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "12-DEMO-002 &amp; 50 mg &amp; capsule &amp; 36 &amp; 74.1 &amp; 112 &amp; 37.1 &amp; 4.44 &amp; 0.900 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "12-DEMO-002 &amp; 50 mg &amp; tablet &amp; 324 &amp; 71.2 &amp; 106 &amp; 34.1 &amp; 4.63 &amp; 0.868 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "12-DEMO-002 &amp; 75 mg &amp; capsule &amp; 36 &amp; 72.4 &amp; 105 &amp; 38.2 &amp; 3.89 &amp; 0.900 \\\\" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "12-DEMO-002 &amp; 75 mg &amp; tablet &amp; 288 &amp; 71.6 &amp; 98.9 &amp; 34.2 &amp; 4.49 &amp; 0.991 \\\\"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [32] "12-DEMO-002 &amp; 75 mg &amp; troche &amp; 36 &amp; 73.6 &amp; 103 &amp; 49.2 &amp; 4.52 &amp; 0.930 \\\\"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "\\hline"                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "\\end{longtable}"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "\\hline"                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "\\multicolumn{9}{r}{\\footnotesize{continued on next page}}"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "\\endfoot"                                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "\\hline"                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "\\endlastfoot"                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "\\hline"                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "\\hline"                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "\\endfirsthead"                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "\\hline"                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "STUDY &amp; DOSE &amp; FORM &amp; N &amp; WT &amp; CRCL &amp; AGE &amp; ALB &amp; SCR \\\\"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "\\hline"                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "\\endhead"                                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "12-DEMO-001 &amp; 100 mg &amp; tablet &amp; 80 &amp; 71.4 &amp; 104 &amp; 33.7 &amp; 4.20 &amp; 1.06 \\\\"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "12-DEMO-001 &amp; 150 mg &amp; capsule &amp; 16 &amp; 89.4 &amp; 122 &amp; 24.4 &amp; 4.63 &amp; 1.12 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "12-DEMO-001 &amp; 150 mg &amp; tablet &amp; 48 &amp; 81.7 &amp; 104 &amp; 34.4 &amp; 3.83 &amp; 0.910 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "12-DEMO-001 &amp; 150 mg &amp; troche &amp; 16 &amp; 94.0 &amp; 93.2 &amp; 27.4 &amp; 4.94 &amp; 1.25 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "12-DEMO-001 &amp; 200 mg &amp; tablet &amp; 64 &amp; 67.9 &amp; 100 &amp; 27.5 &amp; 4.25 &amp; 1.10 \\\\"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "12-DEMO-001 &amp; 200 mg &amp; troche &amp; 16 &amp; 76.6 &amp; 99.2 &amp; 22.8 &amp; 4.54 &amp; 1.15 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "12-DEMO-002 &amp; 100 mg &amp; capsule &amp; 36 &amp; 61.3 &amp; 113 &amp; 38.3 &amp; 4.04 &amp; 1.28 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "12-DEMO-002 &amp; 100 mg &amp; tablet &amp; 324 &amp; 77.6 &amp; 106 &amp; 29.9 &amp; 4.31 &amp; 0.981 \\\\"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "12-DEMO-002 &amp; 50 mg &amp; capsule &amp; 36 &amp; 74.1 &amp; 112 &amp; 37.1 &amp; 4.44 &amp; 0.900 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "12-DEMO-002 &amp; 50 mg &amp; tablet &amp; 324 &amp; 71.2 &amp; 106 &amp; 34.1 &amp; 4.63 &amp; 0.868 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "12-DEMO-002 &amp; 75 mg &amp; capsule &amp; 36 &amp; 72.4 &amp; 105 &amp; 38.2 &amp; 3.89 &amp; 0.900 \\\\" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "12-DEMO-002 &amp; 75 mg &amp; tablet &amp; 288 &amp; 71.6 &amp; 98.9 &amp; 34.2 &amp; 4.49 &amp; 0.991 \\\\"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "12-DEMO-002 &amp; 75 mg &amp; troche &amp; 36 &amp; 73.6 &amp; 103 &amp; 49.2 &amp; 4.52 &amp; 0.930 \\\\"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "\\end{longtable}"                                                           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "stable_long" "stable"     </span>
 <span class="r-in"><span></span></span>
@@ -206,7 +203,7 @@ or <code><a href="rowpanel.html">rowpanel()</a></code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.9000.</p>
 </div>
 
       </footer></div>
