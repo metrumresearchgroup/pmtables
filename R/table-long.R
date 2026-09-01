@@ -83,9 +83,6 @@ longtable_notes <- function(notes) {
 #' get inserted **inside** the `longtable` environment; this is why you see
 #' several additional arguments for [stable_long()].
 #'
-#' You may have to run `pdflatex` on your `longtable` more than once to get the
-#' table to render properly; this is not unexpected behavior for `longtable`.
-#'
 #' If you have panels in your table, the default is to prevent page breaks
 #' right after the panel title row using the `\\*` command in the `longtable`
 #' package. This shouldn't need to be changed by the user, but if needed this

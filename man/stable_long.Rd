@@ -70,9 +70,6 @@ between \code{tablular} and \code{longtable} environments is that captions need 
 get inserted \strong{inside} the \code{longtable} environment; this is why you see
 several additional arguments for \code{\link[=stable_long]{stable_long()}}.
 
-You may have to run \code{pdflatex} on your \code{longtable} more than once to get the
-table to render properly; this is not unexpected behavior for \code{longtable}.
-
 If you have panels in your table, the default is to prevent page breaks
 right after the panel title row using the \verb{\\\\*} command in the \code{longtable}
 package. This shouldn't need to be changed by the user, but if needed this

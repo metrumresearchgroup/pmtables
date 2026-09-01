@@ -32,7 +32,14 @@ st2report(
 
 \item{.list}{a list of stable objects}
 
-\item{ntex}{number of times to build the pdf file}
+\item{ntex}{number of times to build the file; this is \strong{ignored for \code{pdf}
+output}, which is built exactly once with \code{latexmk}; \code{latexmk} reruns the
+tex engine as many times as required to resolve references and settle
+\code{longtable} column widths, so repeat builds serve no purpose. Passing \code{ntex}
+to \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} signals a warning; the argument is
+retained for backward compatibility and is still honored by \code{\link[=st_aspng]{st_aspng()}},
+which builds with \code{latex} (not \code{latexmk}) so that \code{dvipng} has a \code{dvi} file
+to convert and therefore has to drive the passes itself.}
 
 \item{stem}{name for the article file, without extension}
 
@@ -56,9 +63,9 @@ appearance of the table}
 
 \item{dry_run}{if \code{TRUE}, then the document and table code are returned
 (visibly) and no attempt is made to try to pass the document through
-\code{pdflatex}}
+\code{latexmk}}
 
-\item{stdout}{passed to \code{\link[=system2]{system2()}}; by default, the \code{pdflatex} build output
+\item{stdout}{passed to \code{\link[=system2]{system2()}}; by default, the \code{latexmk} build output
 is suppressed; if you are having difficulty generating a pdf document,
 set \code{stdout = ""} and you'll see the output in the R console}
 
@@ -82,15 +89,15 @@ development cycle and simpler presentation. See \code{details}.
 This is experimental. Pass in either \code{stable} or \code{stable_long} objects,
 and \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} will write the output to temporary file
 and render the collection of tables in a pdf document without using Rmarkdown
-or pandoc. The rendering is accomplished through system call to \code{pdflatex}.
+or pandoc. The rendering is accomplished through system call to \code{latexmk}.
 
 A working tex distribution is required to run this function.It is important
 to review the different latex dependencies in the document template.  It is
 assumed that all of these dependencies are available. See \code{examples} below
 for code to open the template for review.
 
-This function requires \code{pdflatex} to be installed and in your path to build
-the document.  Run \code{system2("pdflatex", "-v")} to see if \code{pdflatex} properly
+This function requires \code{latexmk} to be installed and in your path to build
+the document.  Run \code{system2("latexmk", "-v")} to see if \code{latexmk} properly
 installed.
 
 This function requires specific packages to be available. Review the

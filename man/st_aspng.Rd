@@ -38,13 +38,20 @@ st2png(
 \item{font}{the font to use; alternative values include \code{roboto} and
 \code{utopia}; passed to \code{\link[=st_to_standalone]{st_to_standalone()}}.}
 
-\item{textwidth}{the page width (in inches) when building with \code{pdflatex};
+\item{textwidth}{the page width (in inches) when building with \code{latexmk};
 passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
 
-\item{ntex}{number of times to build the pdf file}
+\item{ntex}{number of times to build the file; this is \strong{ignored for \code{pdf}
+output}, which is built exactly once with \code{latexmk}; \code{latexmk} reruns the
+tex engine as many times as required to resolve references and settle
+\code{longtable} column widths, so repeat builds serve no purpose. Passing \code{ntex}
+to \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} signals a warning; the argument is
+retained for backward compatibility and is still honored by \code{\link[=st_aspng]{st_aspng()}},
+which builds with \code{latex} (not \code{latexmk}) so that \code{dvipng} has a \code{dvi} file
+to convert and therefore has to drive the passes itself.}
 
 \item{dpi}{dots per inch for the resulting \code{png} file; used by \code{dvipng} when
 converting \code{dvi} file to the final \code{png} result.}

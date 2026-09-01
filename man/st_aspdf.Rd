@@ -36,25 +36,32 @@ st2pdf(
 \item{font}{the font to use; alternative values include \code{roboto} and
 \code{utopia}; passed to \code{\link[=st_to_standalone]{st_to_standalone()}}.}
 
-\item{textwidth}{the page width (in inches) when building with \code{pdflatex};
+\item{textwidth}{the page width (in inches) when building with \code{latexmk};
 passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
 
-\item{ntex}{number of times to build the pdf file}
+\item{ntex}{number of times to build the file; this is \strong{ignored for \code{pdf}
+output}, which is built exactly once with \code{latexmk}; \code{latexmk} reruns the
+tex engine as many times as required to resolve references and settle
+\code{longtable} column widths, so repeat builds serve no purpose. Passing \code{ntex}
+to \code{\link[=st2article]{st2article()}} or \code{\link[=st2report]{st2report()}} signals a warning; the argument is
+retained for backward compatibility and is still honored by \code{\link[=st_aspng]{st_aspng()}},
+which builds with \code{latex} (not \code{latexmk}) so that \code{dvipng} has a \code{dvi} file
+to convert and therefore has to drive the passes itself.}
 }
 \value{
 A string containing the path to the rendered \code{pdf} file.
 }
 \description{
 Create a "standalone" \code{pdf} snippet from an stable object using the
-\code{pdflatex} utility. The resultant \code{pdf} file is saved on disk and the
+\code{latexmk} utility. The resultant \code{pdf} file is saved on disk and the
 relative path to the file is returned. \code{st2pdf()} is an alias to
 \code{st_as_pdf()}.
 }
 \details{
-The \code{pdf} file is built using \code{pdflatex} so this utility must be installed.
+The \code{pdf} file is built using \code{latexmk} so this utility must be installed.
 
 The \code{textwidth} argument is set to 6.5 inches by default to mimic a 8.5 x 11
 page with 1 inch margins on the left and right. Setting \code{textwidth} sets the
@@ -73,9 +80,9 @@ for the left, bottom, right and top (see the documentation for the
 }
 \examples{
 
-# check that pdflatex is installed
+# check that latexmk is installed
 \dontrun{
-Sys.which("pdflatex")
+Sys.which("latexmk")
 }
 
 \dontrun{

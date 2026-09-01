@@ -136,7 +136,14 @@ st2viewer <- function(...) st_preview(...)
 #'
 #' @param ... stable objects
 #' @param .list a list of stable objects
-#' @param ntex number of times to build the pdf file
+#' @param ntex number of times to build the file; this is **ignored for `pdf`
+#' output**, which is built exactly once with `latexmk`; `latexmk` reruns the
+#' tex engine as many times as required to resolve references and settle
+#' `longtable` column widths, so repeat builds serve no purpose. Passing `ntex`
+#' to [st2article()] or [st2report()] signals a warning; the argument is
+#' retained for backward compatibility and is still honored by [st_aspng()],
+#' which builds with `latex` (not `latexmk`) so that `dvipng` has a `dvi` file
+#' to convert and therefore has to drive the passes itself.
 #' @param stem name for the article file, without extension
 #' @param output_dir the output directory for the rendered pdf file
 #' @param margin the page margins; this must be a character vector of length
@@ -154,8 +161,8 @@ st2viewer <- function(...) st_preview(...)
 #' appearance of the table
 #' @param dry_run if `TRUE`, then the document and table code are returned
 #' (visibly) and no attempt is made to try to pass the document through
-#' `pdflatex`
-#' @param stdout passed to [system2()]; by default, the `pdflatex` build output
+#' `latexmk`
+#' @param stdout passed to [system2()]; by default, the `latexmk` build output
 #' is suppressed; if you are having difficulty generating a pdf document,
 #' set `stdout = ""` and you'll see the output in the R console
 #' @param show_pdf if `TRUE`, then the rendered pdf file will be opened using
@@ -166,15 +173,15 @@ st2viewer <- function(...) st_preview(...)
 #' This is experimental. Pass in either `stable` or `stable_long` objects,
 #' and [st2article()] or [st2report()] will write the output to temporary file
 #' and render the collection of tables in a pdf document without using Rmarkdown
-#' or pandoc. The rendering is accomplished through system call to `pdflatex`.
+#' or pandoc. The rendering is accomplished through system call to `latexmk`.
 #'
 #' A working tex distribution is required to run this function.It is important
 #' to review the different latex dependencies in the document template.  It is
 #' assumed that all of these dependencies are available. See `examples` below
 #' for code to open the template for review.
 #'
-#' This function requires `pdflatex` to be installed and in your path to build
-#' the document.  Run `system2("pdflatex", "-v")` to see if `pdflatex` properly
+#' This function requires `latexmk` to be installed and in your path to build
+#' the document.  Run `system2("latexmk", "-v")` to see if `latexmk` properly
 #' installed.
 #'
 #' This function requires specific packages to be available. Review the
@@ -210,6 +217,13 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        output_dir = tempdir(), template = NULL,
                        margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
+  if(!missing(ntex)) {
+    warning(
+      "'ntex' is ignored; the pdf is built once with `latexmk`, which reruns ",
+      "the tex engine as needed.",
+      call. = FALSE
+    )
+  }
   tables <- c(list(...),.list)
   tables <- list_flatten(tables)
   names(tables) <- tab_escape(names(tables))
@@ -300,19 +314,19 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   }
 
   if(file.exists(texfile)) {
-    for(i in seq_len(ntex)) {
-      result <- system2(
-        "pdflatex",
-        args=c("-halt-on-error ",texfile), stdout = stdout
-      )
-      if(!identical(result, 0L)) {
-        warning("non-zero exit from pdflatex", call.=FALSE)
-      }
+    # latexmk reruns the tex engine as needed, so one build is always enough;
+    # `ntex` is retained as an argument but no longer drives repeat builds here
+    result <- system2(
+      "latexmk",
+      args=c("-pdf", "-halt-on-error", texfile), stdout = stdout
+    )
+    if(!identical(result, 0L)) {
+      warning("non-zero exit from latexmk", call.=FALSE)
     }
   } else {
     stop(
       'could not locate the template tex file; ',
-      'pass `stdout=""` to see pdflatex build output',
+      'pass `stdout=""` to see latexmk build output',
       call.=FALSE
     )
   }

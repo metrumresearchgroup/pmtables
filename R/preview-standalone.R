@@ -47,7 +47,7 @@ fonts <- list(
 #'
 #' @inheritParams st_aspdf
 #' @param text character vector of table text.
-#' @param command pass `pdflatex` when building a `pdf` file or `latex` when
+#' @param command pass `latexmk` when building a `pdf` file or `latex` when
 #' building `png`.
 #' @param ltversion numeric version number for the longtable package; newer
 #' versions have an issue that will break this code for longtables; so we are
@@ -118,7 +118,18 @@ st_to_standalone <- function(text, stem, dir,
     build_file
   )
 
-  for(i in seq(ntex)) {
+  # latexmk defaults to dvi output; -pdf is required to get a pdf back.
+  # latexmk also reruns the engine as needed, so a single build is always
+  # enough; `ntex` is only honored for the `latex` (png/dvi) route, where we
+  # drive the passes ourselves.
+  if(command == "latexmk") {
+    args <- c("-pdf", args)
+    nbuild <- 1L
+  } else {
+    nbuild <- ntex
+  }
+
+  for(i in seq_len(nbuild)) {
     x <- system2(
       command = command,
       args = args,
@@ -140,12 +151,12 @@ st_to_standalone <- function(text, stem, dir,
 #' Render stable object to pdf file
 #'
 #' Create a "standalone" `pdf` snippet from an stable object using the
-#' `pdflatex` utility. The resultant `pdf` file is saved on disk and the
+#' `latexmk` utility. The resultant `pdf` file is saved on disk and the
 #' relative path to the file is returned. `st2pdf()` is an alias to
 #' `st_as_pdf()`.
 #'
 #' @details
-#' The `pdf` file is built using `pdflatex` so this utility must be installed.
+#' The `pdf` file is built using `latexmk` so this utility must be installed.
 #'
 #' The `textwidth` argument is set to 6.5 inches by default to mimic a 8.5 x 11
 #' page with 1 inch margins on the left and right. Setting `textwidth` sets the
@@ -169,16 +180,16 @@ st_to_standalone <- function(text, stem, dir,
 #' @param dir directory for building the pdf file.
 #' @param font the font to use; alternative values include `roboto` and
 #' `utopia`; passed to [st_to_standalone()].
-#' @param textwidth the page width (in inches) when building with `pdflatex`;
+#' @param textwidth the page width (in inches) when building with `latexmk`;
 #' passed to [st_to_standalone()]; see details.
 #' @param border passed as an option to `standalone` latex output type; see
 #' details.
 #'
 #' @examples
 #'
-#' # check that pdflatex is installed
+#' # check that latexmk is installed
 #' \dontrun{
-#' Sys.which("pdflatex")
+#' Sys.which("latexmk")
 #' }
 #'
 #' \dontrun{
@@ -209,7 +220,7 @@ st_aspdf <- function(x,
     x,
     stem,
     dir,
-    command = "pdflatex",
+    command = "latexmk",
     font = font,
     textwidth = textwidth,
     border = border,

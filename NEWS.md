@@ -1,3 +1,17 @@
+# pmtables 0.12.0
+
+- Table previews rendered to `pdf` are now built with `latexmk` rather than
+  `pdflatex`; this affects `st2article()`, `st2report()`, `st_aspdf()` and
+  `st_as_image()`, and makes `latexmk` a system requirement for those functions.
+  `st_aspng()` continues to build with `latex` so that `dvipng` has a `dvi` file
+  to convert (#XXX).
+
+- The `ntex` argument is now ignored when building `pdf` output, which is built
+  exactly once; `latexmk` reruns the tex engine as many times as required to
+  resolve references and settle `longtable` column widths. Passing `ntex` to 
+  `st2article()` or `st2report()` signals a warning. `st_aspng()` still 
+  honors `ntex`, since it drives the tex passes itself (#XXX).
+
 # pmtables 0.11.2
 
 ## Bugs Fixed
