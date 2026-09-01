@@ -1,6 +1,6 @@
 
 longtable_head <- function(multicol) {
-  c("\\hline", multicol, "\\endfoot", "\\hline", "\\endlastfoot")
+  c("\\hline", multicol, "\\endfoot", "", "\\endlastfoot")
 }
 
 conditional_macro <- function(macro_name) {
@@ -137,7 +137,7 @@ stable_long.data.frame <- function(data,
   col_space <- gluet("\\setlength{\\tabcolsep}{<x$sizes$col_space>pt} ")
 
   n_col <- x$nc
-  continued <- gluet("\\multicolumn{<n_col>}{r}{<lt_continue>}")
+  continued <- gluet("\\multicolumn{<n_col>}{r}{<lt_continue>} \\\\")
   head <- longtable_head(continued)
 
   lt_notes <- longtable_notes(x$mini_notes)
@@ -160,6 +160,7 @@ stable_long.data.frame <- function(data,
     x$head_rows,
     "\\endhead",
     x$tab,
+    "\\hline",
     "\\end{longtable}",
     lt_notes,
     x$sizes$font_size$end
