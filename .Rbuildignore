@@ -49,3 +49,4 @@ vignettes/rename.Rmd
 ^pkgdown$
 ^\.positai$
 ^\.claude$
+^CLAUDE\.md$
