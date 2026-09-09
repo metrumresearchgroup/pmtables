@@ -56,7 +56,7 @@ jobs:
           upgrade: ${{ matrix.config.pinned && 'FALSE' || 'TRUE' }}
       - name: Install other system dependencies
         shell: bash
-        run: sudo apt-get install dvipng texlive-latex-base texlive-fonts-extra
+        run: sudo apt-get install dvipng latexmk texlive-latex-base texlive-fonts-extra
       - uses: r-lib/actions/check-r-package@v2
       - name: Check pkgdown
         # The pkgdown in the repo for 3.6.3 does not check_pkgdown.

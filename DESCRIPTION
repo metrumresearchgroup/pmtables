@@ -55,6 +55,7 @@ Collate:
     'discrete_table.R'
     'glossary.R'
     'knit-dependencies.R'
+    'latexmk.R'
     'preview-standalone.R'
     'preview.R'
     'summarize-cat-chunk.R'

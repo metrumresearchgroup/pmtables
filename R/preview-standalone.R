@@ -60,11 +60,13 @@ st_to_standalone <- function(text, stem, dir,
                              border = "0.2cm 1cm",
                              ntex = 1,
                              ltversion = getOption("pmtables.image.ltversion" , 4.13)) {
+  if (!missing(ntex)) {
+    warn_ntex()
+  }
 
   out_ext <- ifelse(command=="latex", ".dvi", ".pdf")
   font <- match.arg(font)
   assert_that(is.character(border) && length(border)==1)
-  assert_that(is.numeric(ntex) && length(ntex)==1)
   assert_that(is.numeric(ltversion))
 
   if(!dir.exists(dir)) dir.create(dir)
@@ -112,20 +114,7 @@ st_to_standalone <- function(text, stem, dir,
   writeLines(temp_text, con = build_file)
   writeLines(text, con = texfile)
 
-  args <- c(
-    "-halt-on-error",
-    paste0("-jobname=", stem),
-    build_file
-  )
-
-  for(i in seq(ntex)) {
-    x <- system2(
-      command = command,
-      args = args,
-      stdout = TRUE,
-      stderr = TRUE
-    )
-  }
+  latexmk(build_file, name = stem, command = command, stdout = FALSE, stderr = FALSE)
 
   ans <- file.path(dir, outfile)
   if(!file.exists(outfile)) {
@@ -176,8 +165,9 @@ st_to_standalone <- function(text, stem, dir,
 #'
 #' @examples
 #'
-#' # check that pdflatex is installed
+#' # check that latexmk and pdflatex are installed
 #' \dontrun{
+#' Sys.which("latexmk")
 #' Sys.which("pdflatex")
 #' }
 #'
@@ -204,6 +194,10 @@ st_aspdf <- function(x,
                      textwidth = getOption("pmtables.textwidth", 6.5),
                      border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
                      ntex = 1) {
+  if (!missing(ntex)) {
+    warn_ntex()
+  }
+
   assert_that(inherits(x, "stable"))
   ans <- st_to_standalone(
     x,
@@ -212,8 +206,7 @@ st_aspdf <- function(x,
     command = "pdflatex",
     font = font,
     textwidth = textwidth,
-    border = border,
-    ntex = ntex
+    border = border
   )
   if(inherits(ans, "latex-failed")) {
     fail_pdf(unclass(ans))
@@ -239,6 +232,7 @@ st2pdf <- st_aspdf
 #'
 #' @examples
 #' \dontrun{
+#' Sys.which("latexmk")
 #' Sys.which("latex")
 #' Sys.which("dvipng")
 #'
@@ -261,6 +255,10 @@ st_aspng <- function(x,
                      textwidth = getOption("pmtables.textwidth", 6.5),
                      border = getOption("pmtables.image.border", "0.2cm 0.7cm"),
                      ntex = 1, dpi = 200) {
+  if (!missing(ntex)) {
+    warn_ntex()
+  }
+
   assert_that(inherits(x, "stable"))
   outfile <- st_to_standalone(
     x,
@@ -269,8 +267,7 @@ st_aspng <- function(x,
     command = "latex",
     font = font,
     textwidth = textwidth,
-    border = border,
-    ntex = ntex
+    border = border
   )
   png_file <- sub("dvi$", "png", outfile, perl = TRUE)
   if(inherits(outfile, "latex-failed")) {
