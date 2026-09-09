@@ -137,9 +137,9 @@ test_that("top hlines are in the head of longtable gh-388", {
   expect_false(grepl("hline", tab[w+1]))
 })
 
-test_that("no explicit trailing hline in longtable gh-388", {
+test_that("no explicit trailing hline in longtable gh-388 and gh-391", {
   tab <- stable_long(stdata())
-  w <- grep("end{longtable}", tab, fixed = TRUE)
+  w <- grep("endlastfoot", tab, fixed = TRUE)
   expect_false(grepl("hline", tab[w-1]))
 })
 
