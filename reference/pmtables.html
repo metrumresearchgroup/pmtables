@@ -18,7 +18,7 @@ inclusion in 'tex' documents."><meta property="og:image" content="https://metrum
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.12.0</span>
       </span>
     </div>
 
@@ -45,7 +45,7 @@ inclusion in 'tex' documents."><meta property="og:image" content="https://metrum
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>pmtables: Tables for Pharmacometrics.</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.2/R/AAAA.R" class="external-link"><code>R/AAAA.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.12.0/R/AAAA.R" class="external-link"><code>R/AAAA.R</code></a></small>
     <div class="hidden name"><code>pmtables.Rd</code></div>
     </div>
 
@@ -141,9 +141,9 @@ horizontal line above</p></li>
 
 <ul><li><p>Use <code><a href="st_preview.html">st2viewer()</a></code> to send s-table output to <code><a href="https://rdrr.io/pkg/texPreview/man/tex_preview.html" class="external-link">texPreview::tex_preview()</a></code></p></li>
 <li><p>Use <code><a href="st2article.html">st2article()</a></code> or <code><a href="st2article.html">st2report()</a></code> to render several tables in
-a stand-alone tex document rendered directly by <code>pdflatex</code> (no involvement
-of <code>Rmarkdown</code> or <code>pandoc</code>); this requires <code>pdflatex</code> to be installed and
-in your <code>PATH</code>.</p></li>
+a stand-alone tex document rendered by <code>pdflatex</code> driven by <code>latexmk</code> (no
+involvement of <code>Rmarkdown</code> or <code>pandoc</code>); this requires <code>latexmk</code> and
+<code>pdflatex</code> to be installed and in your <code>PATH</code>.</p></li>
 <li><p>Use <code><a href="st2doc.html">st2doc()</a></code> to render a pdf file with one or more tables using pandoc;
 in general, use <code><a href="st2article.html">st2article()</a></code> instead</p></li>
 <li><p>Pipe tables to <code><a href="st_wrap.html">st_asis()</a></code> to render a table in line while knitting an
@@ -240,7 +240,7 @@ table preview; see <code><a href="st_aspng.html">st_aspng()</a></code>, <code><a
 <li><p><code>pmtables.image.width</code>: see <code><a href="st_image_show.html">st_image_show()</a></code> and <code><a href="st_as_image.html">st_as_image()</a></code>.</p></li>
 <li><p><code>pmtables.image.ltversion</code>: long-table version; used when formatting a
 standalone table preview via <code><a href="st_to_standalone.html">st_to_standalone()</a></code>.</p></li>
-<li><p><code>pmtables.escape</code>: characters to escape in prepraration for render with
+<li><p><code>pmtables.escape</code>: characters to escape in preparation for render with
 <code>LaTex</code>; used by <code><a href="tab_prime.html">tab_prime()</a></code> and <code><a href="tab_prime.html">tab_escape()</a></code>.</p></li>
 </ul></div>
     <div id="see-also">

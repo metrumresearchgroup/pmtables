@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.12.0</span>
       </span>
     </div>
 
@@ -44,9 +44,17 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.12.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.12.0" id="pmtables-0120">pmtables 0.12.0<a class="anchor" aria-label="anchor" href="#pmtables-0120"></a></h2>
+<ul><li>Output rendered by <code><a href="../reference/st2article.html">st2article()</a></code>, <code><a href="../reference/st2article.html">st2report()</a></code>, <code><a href="../reference/st_aspdf.html">st_aspdf()</a></code>, and <code><a href="../reference/st_aspng.html">st_aspng()</a></code> is now built with <code>latexmk</code>, which reruns the tex engine as many times as needed; these functions now require <code>latexmk</code> to be installed and in your <code>PATH</code>. The <code>ntex</code> argument is deprecated and ignored; passing it results in a warning (<a href="https://github.com/metrumresearchgroup/pmtables/issues/393" class="external-link">#393</a>).</li>
+</ul><div class="section level3">
+<h3 id="bugs-fixed-0-12-0">Bugs Fixed<a class="anchor" aria-label="anchor" href="#bugs-fixed-0-12-0"></a></h3>
+<ul><li>Fixed a bug in <code><a href="../reference/stable_long.html">stable_long()</a></code> where the <code>\hline</code> at the bottom of the table was misplaced; tables now get a closing <code>\hline</code> on the final page for both single- and multi-page outputs (<a href="https://github.com/metrumresearchgroup/pmtables/issues/391" class="external-link">#391</a>).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.11.2" id="pmtables-0112">pmtables 0.11.2<a class="anchor" aria-label="anchor" href="#pmtables-0112"></a></h2>
 <div class="section level3">

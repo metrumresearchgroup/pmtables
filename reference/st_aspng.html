@@ -20,7 +20,7 @@ is returned. st2png() is an alias to st_as_png()."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pmtables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.11.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.12.0</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@ is returned. st2png() is an alias to st_as_png()."><meta property="og:image" con
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Render stable object in png format</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.11.2/R/preview-standalone.R" class="external-link"><code>R/preview-standalone.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/pmtables/blob/0.12.0/R/preview-standalone.R" class="external-link"><code>R/preview-standalone.R</code></a></small>
     <div class="hidden name"><code>st_aspng.Rd</code></div>
     </div>
 
@@ -115,7 +115,9 @@ details.</p></dd>
 
 
 <dt id="arg-ntex">ntex<a class="anchor" aria-label="anchor" href="#arg-ntex"></a></dt>
-<dd><p>number of times to build the pdf file</p></dd>
+<dd><p><strong>Deprecated</strong>. This argument no longer has an effect. Underneath,
+<code>latexmk</code> is used to run the underlying command (e.g., <code>pdflatex</code>) as many
+times as required.</p></dd>
 
 
 <dt id="arg-dpi">dpi<a class="anchor" aria-label="anchor" href="#arg-dpi"></a></dt>
@@ -135,6 +137,7 @@ converting <code>dvi</code> file to the final <code>png</code> result.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which</a></span><span class="op">(</span><span class="st">"latexmk"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which</a></span><span class="op">(</span><span class="st">"latex"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which</a></span><span class="op">(</span><span class="st">"dvipng"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
