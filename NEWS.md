@@ -1,3 +1,17 @@
+# pmtables 0.12.0
+
+- Output rendered by `st2article()`, `st2report()`, `st_aspdf()`, and
+  `st_aspng()` is now built with `latexmk`, which reruns the tex engine as many
+  times as needed; these functions now require `latexmk` to be installed and in
+  your `PATH`. The `ntex` argument is deprecated and ignored; passing it results
+  in a warning (#393).
+
+## Bugs Fixed
+
+- Fixed a bug in `stable_long()` where the `\hline` at the bottom of the table
+  was misplaced; tables now get a closing `\hline` on the final page for both
+  single- and multi-page outputs (#391).
+
 # pmtables 0.11.2
 
 ## Bugs Fixed
