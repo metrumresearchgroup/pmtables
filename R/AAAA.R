@@ -215,7 +215,7 @@ find_cached_root <- function() {
 #' - `pmtables.image.width`: see [st_image_show()] and [st_as_image()].
 #' - `pmtables.image.ltversion`: long-table version; used when formatting a 
 #'   standalone table preview via [st_to_standalone()].
-#' - `pmtables.escape`: characters to escape in prepraration for render with 
+#' - `pmtables.escape`: characters to escape in preparation for render with 
 #'   `LaTex`; used by [tab_prime()] and [tab_escape()].
 #'
 #' @md

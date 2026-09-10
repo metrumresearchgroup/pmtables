@@ -1,7 +1,7 @@
 Package: pmtables
 Type: Package
 Title: Tables for Pharmacometrics
-Version: 0.11.2
+Version: 0.12.0
 Authors@R: 
     c(
     person(given = "Kyle",

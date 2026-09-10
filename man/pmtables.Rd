@@ -214,7 +214,7 @@ table preview; see \code{\link[=st_aspng]{st_aspng()}}, \code{\link[=st_aspdf]{s
 \item \code{pmtables.image.width}: see \code{\link[=st_image_show]{st_image_show()}} and \code{\link[=st_as_image]{st_as_image()}}.
 \item \code{pmtables.image.ltversion}: long-table version; used when formatting a
 standalone table preview via \code{\link[=st_to_standalone]{st_to_standalone()}}.
-\item \code{pmtables.escape}: characters to escape in prepraration for render with
+\item \code{pmtables.escape}: characters to escape in preparation for render with
 \code{LaTex}; used by \code{\link[=tab_prime]{tab_prime()}} and \code{\link[=tab_escape]{tab_escape()}}.
 }
 }
