@@ -136,7 +136,9 @@ st2viewer <- function(...) st_preview(...)
 #'
 #' @param ... stable objects
 #' @param .list a list of stable objects
-#' @param ntex number of times to build the pdf file
+#' @param ntex **Deprecated**. This argument no longer has an effect. Underneath,
+#'   `latexmk` is used to run the underlying command (e.g., `pdflatex`) as many
+#'   times as required.
 #' @param stem name for the article file, without extension
 #' @param output_dir the output directory for the rendered pdf file
 #' @param margin the page margins; this must be a character vector of length
@@ -210,6 +212,10 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        output_dir = tempdir(), template = NULL,
                        margin = c("2.54cm", "3cm"), caption = NULL,
                        dry_run = FALSE, stdout = FALSE, show_pdf = TRUE) {
+  if (!missing(ntex)) {
+    warn_ntex()
+  }
+
   tables <- c(list(...),.list)
   tables <- list_flatten(tables)
   names(tables) <- tab_escape(names(tables))
@@ -300,14 +306,9 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   }
 
   if(file.exists(texfile)) {
-    for(i in seq_len(ntex)) {
-      result <- system2(
-        "pdflatex",
-        args=c("-halt-on-error ",texfile), stdout = stdout
-      )
-      if(!identical(result, 0L)) {
-        warning("non-zero exit from pdflatex", call.=FALSE)
-      }
+    result <- latexmk(texfile, command = "pdflatex", stdout = stdout)
+    if (!identical(result, 0L)) {
+      warning("non-zero exit from latexmk", call. = FALSE)
     }
   } else {
     stop(

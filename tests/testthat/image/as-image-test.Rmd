@@ -64,7 +64,7 @@ st_as_image(tab, dir = dir, stem = "convert-stable")
 ## Convert from long stable
 
 ```{r}
-st_as_image(longtab, dir = dir, stem = "convert-longtable", ntex = 2)
+st_as_image(longtab, dir = dir, stem = "convert-longtable")
 ```
 
 ## Convert from pmtable

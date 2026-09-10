@@ -32,7 +32,9 @@ st2report(
 
 \item{.list}{a list of stable objects}
 
-\item{ntex}{number of times to build the pdf file}
+\item{ntex}{\strong{Deprecated}. This argument no longer has an effect. Underneath,
+\code{latexmk} is used to run the underlying command (e.g., \code{pdflatex}) as many
+times as required.}
 
 \item{stem}{name for the article file, without extension}
 

@@ -35,7 +35,9 @@ passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
 
-\item{ntex}{number of times to build the pdf file}
+\item{ntex}{\strong{Deprecated}. This argument no longer has an effect. Underneath,
+\code{latexmk} is used to run the underlying command (e.g., \code{pdflatex}) as many
+times as required.}
 
 \item{ltversion}{numeric version number for the longtable package; newer
 versions have an issue that will break this code for longtables; so we are

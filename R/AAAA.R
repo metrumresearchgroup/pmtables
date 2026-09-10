@@ -122,9 +122,9 @@ find_cached_root <- function() {
 #' @section Preview tables:
 #' - Use [st2viewer()] to send s-table output to [texPreview::tex_preview()]
 #' - Use [st2article()] or [st2report()] to render several tables in
-#'   a stand-alone tex document rendered directly by `pdflatex` (no involvement
-#'   of `Rmarkdown` or `pandoc`); this requires `pdflatex` to be installed and
-#'   in your `PATH`.
+#'   a stand-alone tex document rendered by `pdflatex` driven by `latexmk` (no
+#'   involvement of `Rmarkdown` or `pandoc`); this requires `latexmk` and
+#'   `pdflatex` to be installed and in your `PATH`.
 #' - Use [st2doc()] to render a pdf file with one or more tables using pandoc;
 #'   in general, use [st2article()] instead
 #' - Pipe tables to [st_asis()] to render a table in line while knitting an

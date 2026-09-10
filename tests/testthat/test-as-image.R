@@ -28,7 +28,7 @@ test_that("standalone tex file looks as expected: stable", {
 
 test_that("standalone tex file looks as expected: long stable", {
   longtab <- stable_long(stdata())
-  x <- do(st_as_image, longtab, stem = "convert-longtable", ntex = 2)
+  x <- do(st_as_image, longtab, stem = "convert-longtable")
   expect_match(x, "\\input{convert-longtable.tex}", all = FALSE, fixed = TRUE)
 })
 

@@ -44,7 +44,9 @@ passed to \code{\link[=st_to_standalone]{st_to_standalone()}}; see details.}
 \item{border}{passed as an option to \code{standalone} latex output type; see
 details.}
 
-\item{ntex}{number of times to build the pdf file}
+\item{ntex}{\strong{Deprecated}. This argument no longer has an effect. Underneath,
+\code{latexmk} is used to run the underlying command (e.g., \code{pdflatex}) as many
+times as required.}
 
 \item{dpi}{dots per inch for the resulting \code{png} file; used by \code{dvipng} when
 converting \code{dvi} file to the final \code{png} result.}
@@ -60,6 +62,7 @@ is returned. \code{st2png()} is an alias to \code{st_as_png()}.
 }
 \examples{
 \dontrun{
+Sys.which("latexmk")
 Sys.which("latex")
 Sys.which("dvipng")
 
