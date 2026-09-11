@@ -32,7 +32,8 @@ latexmk <- function(
   if (!is.null(name)) {
     args <- c(args, paste0("-jobname=", shQuote(name)))
   }
-  system2(prog, c(args, shQuote(inputfile)), ...)
+  env <- c("SOURCE_DATE_EPOCH=1000000000", "FORCE_SOURCE_DATE=1")
+  system2(prog, c(args, shQuote(inputfile)), ..., env = env)
 }
 
 warn_ntex <- function(call = rlang::caller_env()) {
