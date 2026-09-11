@@ -5,12 +5,15 @@
 #' @param name Use this as the base name for output files rather than taking it
 #'   from `inputfile`.
 #' @param command Which command `latexmk` should call underneath.
-#' @param ... Arguments passed to `system2()`.
+#' @param env Passed to `system2()`. If missing, `SOURCE_DATE_EPOCH`, and
+#' `FORCE_SOURCE_DATE` are set to make a static document timestamp.
+#' @param ... Other arguments passed to `system2()`.
 #' @noRd
 latexmk <- function(
   inputfile,
   name = NULL,
   command = c("pdflatex", "latex"),
+  env = character(),
   ...
 ) {
   command <- match.arg(command)
@@ -33,8 +36,11 @@ latexmk <- function(
     args <- c(args, paste0("-jobname=", shQuote(name)))
   }
 
-  env <- c("SOURCE_DATE_EPOCH=1000000000", "FORCE_SOURCE_DATE=1")
-  system2(prog, c(args, shQuote(inputfile)), ..., env = env)
+  if (missing(env)) {
+    env <- c("SOURCE_DATE_EPOCH=1000000000", "FORCE_SOURCE_DATE=1")
+  }
+
+  system2(prog, c(args, shQuote(inputfile)), env = env, ...)
 }
 
 warn_ntex <- function(call = rlang::caller_env()) {
