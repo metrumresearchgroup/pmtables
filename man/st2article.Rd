@@ -16,7 +16,7 @@ st2article(
   caption = NULL,
   dry_run = FALSE,
   stdout = FALSE,
-  show_pdf = TRUE
+  show_pdf = interactive()
 )
 
 st2report(

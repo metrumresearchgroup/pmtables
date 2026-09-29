@@ -6,7 +6,7 @@
 \usage{
 st2doc(
   text,
-  preview = TRUE,
+  preview = interactive(),
   output_dir = tempdir(),
   output_file = "st2doc.pdf",
   landscape = is_lscape(text)
