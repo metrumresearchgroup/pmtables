@@ -157,7 +157,7 @@ st2viewer <- function(...) st_preview(...)
 #' @param dry_run if `TRUE`, then the document and table code are returned
 #' (visibly) and no attempt is made to try to pass the document through
 #' `pdflatex`
-#' @param stdout passed to [system2()]; by default, the `pdflatex` build output
+#' @param stdout passed to [system2()]; by default, the `latexmk` build output
 #' is suppressed; if you are having difficulty generating a pdf document,
 #' set `stdout = ""` and you'll see the output in the R console
 #' @param show_pdf if `TRUE`, then the rendered pdf file will be opened using
@@ -313,7 +313,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   } else {
     stop(
       'could not locate the template tex file; ',
-      'pass `stdout=""` to see pdflatex build output',
+      'pass `stdout=""` to see latexmk build output',
       call.=FALSE
     )
   }

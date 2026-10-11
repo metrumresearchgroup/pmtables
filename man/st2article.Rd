@@ -60,7 +60,7 @@ appearance of the table}
 (visibly) and no attempt is made to try to pass the document through
 \code{pdflatex}}
 
-\item{stdout}{passed to \code{\link[=system2]{system2()}}; by default, the \code{pdflatex} build output
+\item{stdout}{passed to \code{\link[=system2]{system2()}}; by default, the \code{latexmk} build output
 is suppressed; if you are having difficulty generating a pdf document,
 set \code{stdout = ""} and you'll see the output in the R console}
 
