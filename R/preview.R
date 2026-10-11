@@ -157,9 +157,10 @@ st2viewer <- function(...) st_preview(...)
 #' @param dry_run if `TRUE`, then the document and table code are returned
 #' (visibly) and no attempt is made to try to pass the document through
 #' `pdflatex`
-#' @param stdout passed to [system2()]; by default, the `latexmk` build output
-#' is suppressed; if you are having difficulty generating a pdf document,
-#' set `stdout = ""` and you'll see the output in the R console
+#' @param stdout,stderr passed to [system2()]; by default, the `latexmk` build
+#' output is suppressed; if you are having difficulty generating a pdf
+#' document, set `stdout = ""` and `stderr = ""` to see the output in the R
+#' console.
 #' @param show_pdf if `TRUE`, then the rendered pdf file will be opened using
 #' [fs::file_show()]
 #'
@@ -211,7 +212,8 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        stem = "view-st2article",
                        output_dir = tempdir(), template = NULL,
                        margin = c("2.54cm", "3cm"), caption = NULL,
-                       dry_run = FALSE, stdout = FALSE, show_pdf = interactive()) {
+                       dry_run = FALSE, stdout = FALSE, stderr = FALSE,
+                       show_pdf = interactive()) {
   if (!missing(ntex)) {
     warn_ntex()
   }
@@ -305,7 +307,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     unlink(pdffile)
   }
 
-  result <- latexmk(texfile, command = "pdflatex", stdout = stdout)
+  result <- latexmk(texfile, command = "pdflatex", stdout = stdout, stderr = stderr)
   if (!identical(result, 0L)) {
     warning("non-zero exit from latexmk", call. = FALSE)
   }
@@ -314,7 +316,7 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
   if (!file.exists(pdf_output)) {
     stop(
       paste("Expected output PDF file was not generated:", pdf_output),
-      '\nPass `stdout=""`to see latexmk build output',
+      '\nPass `stdout=""` and `stderr=""` to see latexmk build output',
       call.=FALSE
     )
   }
