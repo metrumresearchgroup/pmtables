@@ -305,31 +305,26 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     unlink(pdffile)
   }
 
-  if(file.exists(texfile)) {
-    result <- latexmk(texfile, command = "pdflatex", stdout = stdout)
-    if (!identical(result, 0L)) {
-      warning("non-zero exit from latexmk", call. = FALSE)
-    }
-  } else {
+  result <- latexmk(texfile, command = "pdflatex", stdout = stdout)
+  if (!identical(result, 0L)) {
+    warning("non-zero exit from latexmk", call. = FALSE)
+  }
+
+  pdf_output <- file.path(output_dir, pdffile)
+  if (!file.exists(pdf_output)) {
     stop(
-      'could not locate the template tex file; ',
-      'pass `stdout=""` to see latexmk build output',
+      paste("Expected output PDF file was not generated:", pdf_output),
+      '\nPass `stdout=""`to see latexmk build output',
       call.=FALSE
     )
   }
-
-  pdf_output <- file.path(output_dir,pdffile)
 
   if(output_dir != build_dir) {
     file.copy(pdffile, pdf_output, overwrite = TRUE)
   }
 
   if(isTRUE(show_pdf)) {
-    if(file.exists(pdf_output)) {
-      fs::file_show(pdf_output)
-    } else {
-      stop("could not locate the output pdf file", call. = FALSE)
-    }
+    fs::file_show(pdf_output)
   }
 
   return(invisible(inputs))
