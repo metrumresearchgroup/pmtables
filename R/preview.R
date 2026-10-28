@@ -157,9 +157,10 @@ st2viewer <- function(...) st_preview(...)
 #' @param dry_run if `TRUE`, then the document and table code are returned
 #' (visibly) and no attempt is made to try to pass the document through
 #' `pdflatex`
-#' @param stdout passed to [system2()]; by default, the `pdflatex` build output
-#' is suppressed; if you are having difficulty generating a pdf document,
-#' set `stdout = ""` and you'll see the output in the R console
+#' @param stdout,stderr passed to [system2()]; by default, the `latexmk` build
+#' output is suppressed; if you are having difficulty generating a pdf
+#' document, set `stdout = ""` and `stderr = ""` to see the output in the R
+#' console.
 #' @param show_pdf if `TRUE`, then the rendered pdf file will be opened using
 #' [fs::file_show()]
 #'
@@ -211,7 +212,8 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
                        stem = "view-st2article",
                        output_dir = tempdir(), template = NULL,
                        margin = c("2.54cm", "3cm"), caption = NULL,
-                       dry_run = FALSE, stdout = FALSE, show_pdf = interactive()) {
+                       dry_run = FALSE, stdout = FALSE, stderr = FALSE,
+                       show_pdf = interactive()) {
   if (!missing(ntex)) {
     warn_ntex()
   }
@@ -305,31 +307,26 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     unlink(pdffile)
   }
 
-  if(file.exists(texfile)) {
-    result <- latexmk(texfile, command = "pdflatex", stdout = stdout)
-    if (!identical(result, 0L)) {
-      warning("non-zero exit from latexmk", call. = FALSE)
-    }
-  } else {
+  result <- latexmk(texfile, command = "pdflatex", stdout = stdout, stderr = stderr)
+  if (!identical(result, 0L)) {
+    warning("non-zero exit from latexmk", call. = FALSE)
+  }
+
+  pdf_output <- file.path(output_dir, pdffile)
+  if (!file.exists(pdf_output)) {
     stop(
-      'could not locate the template tex file; ',
-      'pass `stdout=""` to see pdflatex build output',
+      paste("Expected output PDF file was not generated:", pdf_output),
+      '\nPass `stdout=""` and `stderr=""` to see latexmk build output',
       call.=FALSE
     )
   }
-
-  pdf_output <- file.path(output_dir,pdffile)
 
   if(output_dir != build_dir) {
     file.copy(pdffile, pdf_output, overwrite = TRUE)
   }
 
   if(isTRUE(show_pdf)) {
-    if(file.exists(pdf_output)) {
-      fs::file_show(pdf_output)
-    } else {
-      stop("could not locate the output pdf file", call. = FALSE)
-    }
+    fs::file_show(pdf_output)
   }
 
   return(invisible(inputs))
