@@ -63,7 +63,17 @@
 \floatplacement{table}{H}
 \usepackage{caption}
 \setlength{\belowcaptionskip}{10pt}
+
 \usepackage[colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue,breaklinks=true,linktoc=all,bookmarksnumbered=true,bookmarksopen]{hyperref}
+\hypersetup{
+    pdftitle={},
+    pdfauthor={},
+    pdfcreator={},
+    pdfproducer={},
+    pdfsubject={},
+    pdfkeywords={},
+}
+
 \usepackage{listings}
 \usepackage{fancyvrb}
 \DeclareCaptionTextFormat{figbook}{\currentpdfbookmark{Figure \thefigure: #1}{F \thefigure}#1}
