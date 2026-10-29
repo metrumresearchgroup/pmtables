@@ -76,3 +76,25 @@ test_that("st2report: non-default output directory", {
   st2report(tab, stem = "t", output_dir = outdir, show_pdf = FALSE)
   expect_true(file.exists(file.path(outdir, "t.pdf")))
 })
+
+test_that("preview PDFs are same on rerun", {
+  outdir1 <- withr::local_tempdir()
+  outdir2 <- withr::local_tempdir()
+
+  tab <- stable(stdata())
+
+  st2article(tab, stem = "a1", output_dir = outdir1, show_pdf = FALSE)
+  st2report(tab, stem = "r1", output_dir = outdir1, show_pdf = FALSE)
+  st2pdf(tab, stem = "p1", dir = outdir1)
+
+  Sys.sleep(1)
+
+  st2article(tab, stem = "a2", output_dir = outdir2, show_pdf = FALSE)
+  st2report(tab, stem = "r2", output_dir = outdir2, show_pdf = FALSE)
+  st2pdf(tab, stem = "p2", dir = outdir2)
+
+  expect_identical(
+    unname(tools::md5sum(file.path(outdir1, c("a1.pdf", "r1.pdf", "p1.pdf")))),
+    unname(tools::md5sum(file.path(outdir2, c("a2.pdf", "r2.pdf", "p2.pdf"))))
+  )
+})
