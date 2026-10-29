@@ -1,4 +1,8 @@
 \documentclass{article}
+
+\pdfinfoomitdate=1
+\pdftrailerid{}
+
 \setlength{\headheight}{23pt}
 \usepackage[vmargin=<vmargin>,hmargin=<hmargin>]{geometry}
 \usepackage{longtable}
@@ -18,6 +22,17 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{threeparttable}
+
+\usepackage{hyperref}
+\hypersetup{
+    pdftitle={},
+    pdfauthor={},
+    pdfcreator={},
+    pdfproducer={},
+    pdfsubject={},
+    pdfkeywords={},
+}
+
 \begin{document}
 \pagenumbering{gobble}
 <list_of_tables>
