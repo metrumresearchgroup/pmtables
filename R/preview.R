@@ -312,15 +312,15 @@ st2article <- function(..., .list = NULL, ntex = 1,  #nocov start
     warning("non-zero exit from latexmk", call. = FALSE)
   }
 
-  pdf_output <- file.path(output_dir, pdffile)
-  if (!file.exists(pdf_output)) {
+  if (!file.exists(pdffile)) {
     stop(
-      paste("Expected output PDF file was not generated:", pdf_output),
+      paste("Expected output PDF file was not generated:", pdffile),
       '\nPass `stdout=""` and `stderr=""` to see latexmk build output',
       call.=FALSE
     )
   }
 
+  pdf_output <- file.path(output_dir, pdffile)
   if(output_dir != build_dir) {
     file.copy(pdffile, pdf_output, overwrite = TRUE)
   }
