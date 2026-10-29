@@ -69,3 +69,10 @@ test_that("st2report - list names are escaped [PMT-TEST-0176]", {
   a <- st2report(l, dry_run = TRUE)
   expect_equal(names(a), c("a", "a\\_b"))
 })
+
+test_that("st2report: non-default output directory", {
+  outdir <- withr::local_tempdir()
+  tab <- stable(stdata())
+  st2report(tab, stem = "t", output_dir = outdir, show_pdf = FALSE)
+  expect_true(file.exists(file.path(outdir, "t.pdf")))
+})
