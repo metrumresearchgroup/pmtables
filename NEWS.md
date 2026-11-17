@@ -1,3 +1,19 @@
+# pmtables 0.13.0
+
+- To support creating identical PDF output on rerun, `st2report()`,
+  `st2article()`, and `st2pdf()` now omit some PDF metadata, and `st2report()`
+  no longer includes the date in its footer (#402).
+
+- By default, `st2article()` and `st2doc()` no longer try to display the
+  generated PDF in a non-interactive context (#397).
+
+## Bugs Fixed
+
+- `st2article()` and `st2report()` should hide the underlying build output by
+  default, but, with the switch to `latexmk` in the last release, output made it
+  through in some cases.  Standard error from the underlying `latexmk` process
+  is now discarded by default to restore the intended default behavior (#399).
+
 # pmtables 0.12.0
 
 - Output rendered by `st2article()`, `st2report()`, `st_aspdf()`, and
